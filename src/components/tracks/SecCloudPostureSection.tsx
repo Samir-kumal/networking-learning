@@ -119,7 +119,7 @@ export default function SecCloudPostureSection() {
   );
 
   const recalculate = () => {
-    setLastScan(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+    setLastScan("Recalculated");
   };
 
   const toggleFixed = (findingId: string) => {
