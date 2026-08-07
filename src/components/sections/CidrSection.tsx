@@ -28,32 +28,33 @@ export default function CidrSection() {
   return (
     <section
       id="cidr"
-      className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
+        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
           #cidr
         </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
+          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>
           3. CIDR & Subnet Masks — Interactive
         </h2>
       </div>
 
-      <p className="text-slate-500 text-base leading-relaxed mb-8 max-w-4xl">
-        <strong className="text-slate-900">CIDR (Classless Inter-Domain Routing)</strong> specifies how many leading bits in an IP address represent the network prefix. Adjust the slider or click any bit box below to interactively observe how changing prefix length affects subnet mask, bit allocation, total addresses, and usable host count.
+      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
+        <strong className="text-slate-900 dark:text-slate-100">CIDR (Classless Inter-Domain Routing)</strong> specifies how many leading bits in an IP address represent the network prefix. Adjust the slider or click any bit box below to interactively observe how changing prefix length affects subnet mask, bit allocation, total addresses, and usable host count.
       </p>
 
       {/* Interactive Controls & 32-Bit Visual Bar */}
-      <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow mb-10">
+      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
         {/* Preset Selector */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
-            <h3 className="text-lg font-bold text-slate-900">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
               Subnet Mask Bit Allocator
             </h3>
-            <p className="text-xs text-slate-500">
-              Selected Prefix: <span className="font-mono text-indigo-600 font-bold text-sm">/{cidr}</span> ({cidr} Network Bits, {hostBits} Host Bits)
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Selected Prefix: <span className="font-mono text-indigo-600 dark:text-indigo-400 font-bold text-sm">/{cidr}</span> ({cidr} Network Bits, {hostBits} Host Bits)
             </p>
           </div>
 
@@ -64,8 +65,8 @@ export default function CidrSection() {
                 onClick={() => setCidr(p.value)}
                 className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-all flex items-center gap-1.5 ${
                   cidr === p.value
-                    ? "bg-indigo-600 border-indigo-400 text-slate-900 font-bold shadow-md shadow-[#58a6ff]/20"
-                    : "bg-white border-slate-200 text-slate-500 hover:border-indigo-300 hover:text-slate-900"
+                    ? "bg-indigo-600 border-indigo-400 text-slate-900 dark:text-slate-100 font-bold shadow-md shadow-[#58a6ff]/20"
+                    : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-indigo-300 hover:text-slate-900 dark:hover:text-slate-100"
                 }`}
               >
                 <span>{p.label}</span>
@@ -77,9 +78,9 @@ export default function CidrSection() {
 
         {/* Range Slider */}
         <div className="space-y-2 mb-8">
-          <div className="flex justify-between text-xs font-mono text-slate-500">
+          <div className="flex justify-between text-xs font-mono text-slate-500 dark:text-slate-400">
             <span>/1 (Half the Internet)</span>
-            <span className="text-indigo-600 font-bold text-sm">/{cidr} Prefix</span>
+            <span className="text-indigo-600 dark:text-indigo-400 font-bold text-sm">/{cidr} Prefix</span>
             <span>/30 (2 Usable Hosts)</span>
           </div>
           <input
@@ -88,24 +89,24 @@ export default function CidrSection() {
             max={30}
             value={cidr}
             onChange={(e) => setCidr(parseInt(e.target.value, 10))}
-            className="w-full h-2.5 bg-white rounded-lg appearance-none cursor-pointer accent-[#58a6ff] border border-slate-200"
+            className="w-full h-2.5 bg-white dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-[#58a6ff] border border-slate-200 dark:border-slate-700"
           />
         </div>
 
         {/* 32 Interactive Bit Boxes */}
         <div className="space-y-3">
-          <div className="flex justify-between items-center text-xs font-mono text-slate-500 px-1">
-            <span className="text-indigo-600">← {cidr} Blue Network Bits (1)</span>
-            <span className="text-emerald-600">{hostBits} Green Host Bits (0) →</span>
+          <div className="flex justify-between items-center text-xs font-mono text-slate-500 dark:text-slate-400 px-1">
+            <span className="text-indigo-600 dark:text-indigo-400">← {cidr} Blue Network Bits (1)</span>
+            <span className="text-emerald-600 dark:text-emerald-400">{hostBits} Green Host Bits (0) →</span>
           </div>
 
           {/* Octet Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
             {[0, 1, 2, 3].map((oIdx) => (
-              <div key={oIdx} className="bg-white border border-slate-200 p-2.5 rounded-lg space-y-2">
-                <div className="text-[11px] font-mono text-slate-500 flex justify-between">
+              <div key={oIdx} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 rounded-lg space-y-2">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 flex justify-between">
                   <span>Octet {oIdx + 1}</span>
-                  <span className="font-bold text-slate-900">{maskArray[oIdx]}</span>
+                  <span className="font-bold text-slate-900 dark:text-slate-100">{maskArray[oIdx]}</span>
                 </div>
                 
                 <div className="grid grid-cols-8 gap-1">
@@ -119,8 +120,8 @@ export default function CidrSection() {
                         title={`Click to set CIDR to /${globalBitIndex}`}
                         className={`py-2 rounded font-mono text-xs font-bold transition-all ${
                           isNetwork
-                            ? "bg-indigo-600 text-slate-900 hover:bg-indigo-600/80 shadow-sm"
-                            : "bg-emerald-500/20 border border-emerald-400/40 text-emerald-600 hover:bg-emerald-500/30"
+                            ? "bg-indigo-600 text-slate-900 dark:text-slate-100 hover:bg-indigo-600/80 shadow-sm"
+                            : "bg-emerald-500/20 border border-emerald-400/40 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/30"
                         }`}
                       >
                         {isNetwork ? "1" : "0"}
@@ -137,95 +138,95 @@ export default function CidrSection() {
       {/* Stat Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         {/* Subnet Mask */}
-        <div className="rounded-xl bg-white border border-slate-200 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 uppercase mb-1">
+        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
+          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
             Subnet Mask
           </div>
-          <div className="text-xl font-bold font-mono text-indigo-600">
+          <div className="text-xl font-bold font-mono text-indigo-600 dark:text-indigo-400">
             {subnetMaskStr}
           </div>
-          <div className="text-[11px] text-slate-500 mt-2">
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
             Equivalent to /{cidr} CIDR prefix
           </div>
         </div>
 
         {/* Total Addresses */}
-        <div className="rounded-xl bg-white border border-slate-200 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 uppercase mb-1">
+        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
+          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
             Total IP Addresses
           </div>
-          <div className="text-xl font-bold font-mono text-slate-900">
+          <div className="text-xl font-bold font-mono text-slate-900 dark:text-slate-100">
             {totalAddresses.toLocaleString()}
           </div>
-          <div className="text-[11px] text-slate-500 mt-2 font-mono">
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2 font-mono">
             $2^{"{32 - " + cidr + "}"} = 2^{"{ " + hostBits + " }"}$
           </div>
         </div>
 
         {/* Usable Hosts */}
-        <div className="rounded-xl bg-white border border-slate-200 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 uppercase mb-1">
+        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
+          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
             Usable Host IPs
           </div>
-          <div className="text-xl font-bold font-mono text-emerald-600">
+          <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400">
             {usableHosts.toLocaleString()}
           </div>
-          <div className="text-[11px] text-slate-500 mt-2">
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
             Excludes Network & Broadcast
           </div>
         </div>
 
         {/* Wildcard Mask */}
-        <div className="rounded-xl bg-white border border-slate-200 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 uppercase mb-1">
+        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
+          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
             Wildcard Mask (ACL)
           </div>
-          <div className="text-xl font-bold font-mono text-violet-600">
+          <div className="text-xl font-bold font-mono text-violet-600 dark:text-violet-400">
             {wildcardMaskStr}
           </div>
-          <div className="text-[11px] text-slate-500 mt-2">
+          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
             Inverted subnet mask ($255 - \text{"{Mask}"}$)
           </div>
         </div>
       </div>
 
       {/* Usable Hosts Formula Card */}
-      <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow">
-        <h3 className="text-lg font-bold text-slate-900 mb-3">
+      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3">
           Usable Hosts Calculation Formula: $2^h - 2$
         </h3>
-        <p className="text-sm text-slate-500 leading-relaxed mb-6">
-          To calculate the number of hosts that can be assigned to devices on a IPv4 subnet, use the formula <code className="text-emerald-600">Usable Hosts = 2^h - 2</code>, where <code className="text-indigo-600">h = 32 - CIDR</code> is the number of remaining host bits.
+        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+          To calculate the number of hosts that can be assigned to devices on a IPv4 subnet, use the formula <code className="text-emerald-600 dark:text-emerald-400">Usable Hosts = 2^h - 2</code>, where <code className="text-indigo-600 dark:text-indigo-400">h = 32 - CIDR</code> is the number of remaining host bits.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Reason for Subtracting 2 */}
-          <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
-            <div className="text-xs font-mono text-amber-600 font-bold uppercase">
+          <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3">
+            <div className="text-xs font-mono text-amber-600 dark:text-amber-400 font-bold uppercase">
               Why subtract 2 addresses?
             </div>
-            <div className="space-y-2 text-xs text-slate-500">
-              <div className="p-2.5 rounded bg-slate-50 border border-slate-200">
-                <strong className="text-indigo-600 block mb-0.5">1. Network Address (All Host Bits = 0)</strong>
+            <div className="space-y-2 text-xs text-slate-500 dark:text-slate-400">
+              <div className="p-2.5 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+                <strong className="text-indigo-600 dark:text-indigo-400 block mb-0.5">1. Network Address (All Host Bits = 0)</strong>
                 The first IP address in the range identifies the subnet block itself in routing tables and cannot be assigned to an interface.
               </div>
-              <div className="p-2.5 rounded bg-slate-50 border border-slate-200">
-                <strong className="text-rose-600 block mb-0.5">2. Broadcast Address (All Host Bits = 1)</strong>
+              <div className="p-2.5 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+                <strong className="text-rose-600 dark:text-rose-400 block mb-0.5">2. Broadcast Address (All Host Bits = 1)</strong>
                 The last IP address in the range is used to broadcast frames to all active devices on the subnet simultaneously.
               </div>
             </div>
           </div>
 
           {/* Current Calculation Step-by-Step */}
-          <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3 font-mono text-xs">
-            <div className="text-emerald-600 font-bold uppercase">
+          <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3 font-mono text-xs">
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold uppercase">
               Step-by-Step for /{cidr}:
             </div>
-            <div className="space-y-1.5 text-slate-500">
+            <div className="space-y-1.5 text-slate-500 dark:text-slate-400">
               <div>1. Host bits $h = 32 - {cidr} = \mathbf{"{ " + hostBits + " }"}$</div>
               <div>2. Total addresses $2^{"{ " + hostBits + " }"} = \mathbf{"{ " + totalAddresses.toLocaleString() + " }"}$</div>
               <div>3. Subtract Network & Broadcast:</div>
-              <div className="p-2 rounded bg-slate-50 border border-emerald-400/40 text-emerald-600 font-bold text-sm text-center mt-2">
+              <div className="p-2 rounded bg-slate-50 dark:bg-slate-700 border border-emerald-400/40 text-emerald-600 dark:text-emerald-400 font-bold text-sm text-center mt-2">
                 {totalAddresses} - 2 = {usableHosts.toLocaleString()} Usable Hosts
               </div>
             </div>

@@ -34,7 +34,7 @@ export default function BackToTop() {
       onClick={scrollToTop}
       type="button"
       aria-label="Back to top"
-      className="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-white/90 text-indigo-600 border border-slate-200 shadow-xl backdrop-blur-md hover:bg-indigo-600 hover:text-slate-900 hover:border-indigo-400 transition-all transform hover:scale-110 active:scale-95 cursor-pointer"
+      className="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-white/90 dark:bg-slate-800/90 text-indigo-600 dark:text-indigo-400 border border-slate-200 dark:border-slate-600 shadow-xl backdrop-blur-md hover:bg-indigo-600 hover:text-white hover:border-indigo-400 transition-all transform hover:scale-110 active:scale-95 cursor-pointer"
     >
       <svg
         className="w-5 h-5"

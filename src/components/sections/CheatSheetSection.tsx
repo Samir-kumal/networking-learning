@@ -400,25 +400,26 @@ export default function CheatSheetSection() {
   return (
     <section
       id="cheatsheet"
-      className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
+        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
           #cheatsheet
         </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
+          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊞</span>
           15. Subnetting Cheat Sheet
         </h2>
       </div>
 
-      <p className="text-slate-500 text-base leading-relaxed mb-8 max-w-4xl">
+      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
         Quick-reference hub containing essential subnet formulas, comprehensive CIDR prefix lookup tables (/8 through /32), and mental math shortcuts for rapid network calculations in exams and production deployments.
       </p>
 
       {/* SECTION 1: CORE FORMULAS GRID */}
       <div className="mb-12">
-        <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <span>📐</span>
           <span>Core Subnetting Formulas</span>
         </h3>
@@ -427,30 +428,30 @@ export default function CheatSheetSection() {
           {coreFormulas.map((item) => (
             <div
               key={item.id}
-              className="rounded-xl bg-white border border-slate-200 card-shadow p-5 hover:border-indigo-300 transition-all flex flex-col justify-between"
+              className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5 hover:border-indigo-300 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <h4 className="text-sm font-bold text-slate-900">{item.title}</h4>
+                  <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">{item.title}</h4>
                   <button
                     onClick={() => copyToClipboard(item.formula, item.id)}
-                    className="px-2 py-0.5 rounded text-[11px] font-mono bg-[#21262d] text-slate-500 hover:text-slate-900 hover:bg-[#30363d] border border-slate-200 transition-all"
+                    className="px-2 py-0.5 rounded text-[11px] font-mono bg-[#21262d] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 hover:bg-[#30363d] border border-slate-200 dark:border-slate-700 transition-all"
                   >
                     {copiedIndex === item.id ? "Copied!" : "Copy"}
                   </button>
                 </div>
 
-                <div className="px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 font-mono text-xs font-bold text-indigo-600 mb-3">
+                <div className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400 mb-3">
                   {item.formula}
                 </div>
 
-                <p className="text-xs text-slate-500 leading-relaxed mb-3">
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
                   {item.description}
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-slate-200/60 text-[11px] font-mono text-emerald-600">
-                <span className="text-slate-500">Ex: </span>
+              <div className="pt-2 border-t border-slate-200 dark:border-slate-700/60 text-[11px] font-mono text-emerald-600 dark:text-emerald-400">
+                <span className="text-slate-500 dark:text-slate-400">Ex: </span>
                 <span>{item.example}</span>
               </div>
             </div>
@@ -462,11 +463,11 @@ export default function CheatSheetSection() {
       <div className="mb-12">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
           <div>
-            <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
               <span>📊</span>
               <span>Prefix Quick Reference Table (/8 to /32)</span>
             </h3>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               Complete CIDR lookup listing netmasks, host counts, magic numbers, and practical RFC use-cases.
             </p>
           </div>
@@ -478,16 +479,16 @@ export default function CheatSheetSection() {
               placeholder="Search /24 or 255..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-[#8b949e] focus:outline-none focus:border-indigo-400 font-mono"
+              className="px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-xs text-slate-900 dark:text-slate-100 placeholder-[#8b949e] focus:outline-none focus:border-indigo-400 font-mono"
             />
 
-            <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-lg border border-slate-200">
+            <div className="flex items-center gap-1 bg-slate-50 dark:bg-slate-700 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
               <button
                 onClick={() => setFilterCategory("all")}
                 className={`px-2.5 py-1 rounded text-xs font-medium transition-all ${
                   filterCategory === "all"
-                    ? "bg-indigo-600 text-slate-900 font-bold"
-                    : "text-slate-500 hover:text-slate-900"
+                    ? "bg-indigo-600 text-slate-900 dark:text-slate-100 font-bold"
+                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100"
                 }`}
               >
                 All
@@ -496,8 +497,8 @@ export default function CheatSheetSection() {
                 onClick={() => setFilterCategory("common")}
                 className={`px-2.5 py-1 rounded text-xs font-medium transition-all ${
                   filterCategory === "common"
-                    ? "bg-indigo-600 text-slate-900 font-bold"
-                    : "text-slate-500 hover:text-slate-900"
+                    ? "bg-indigo-600 text-slate-900 dark:text-slate-100 font-bold"
+                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100"
                 }`}
               >
                 Popular
@@ -506,8 +507,8 @@ export default function CheatSheetSection() {
                 onClick={() => setFilterCategory("p2p")}
                 className={`px-2.5 py-1 rounded text-xs font-medium transition-all ${
                   filterCategory === "p2p"
-                    ? "bg-indigo-600 text-slate-900 font-bold"
-                    : "text-slate-500 hover:text-slate-900"
+                    ? "bg-indigo-600 text-slate-900 dark:text-slate-100 font-bold"
+                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100"
                 }`}
               >
                 P2P / Host
@@ -518,22 +519,22 @@ export default function CheatSheetSection() {
 
         {/* Special RFC Note Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div className="p-4 rounded-xl bg-slate-50 border border-indigo-200 flex items-start gap-3">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-700 border border-indigo-200 dark:border-indigo-700 flex items-start gap-3">
             <span className="text-xl">⚡</span>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-bold text-indigo-600">/31 Prefix Note</span>
-                <span className="px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-600 text-[10px] font-mono">
+                <span className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400">/31 Prefix Note</span>
+                <span className="px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-600 dark:text-indigo-400 text-[10px] font-mono">
                   RFC 3021
                 </span>
               </div>
-              <p className="text-xs text-slate-500 leading-relaxed mt-1">
-                RFC 3021 enables <strong className="text-slate-900">2 usable IP addresses</strong> on point-to-point links with zero overhead (no reserved network or broadcast addresses), doubling IPv4 address efficiency on WAN links compared to traditional /30.
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">
+                RFC 3021 enables <strong className="text-slate-900 dark:text-slate-100">2 usable IP addresses</strong> on point-to-point links with zero overhead (no reserved network or broadcast addresses), doubling IPv4 address efficiency on WAN links compared to traditional /30.
               </p>
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-50 border border-[#d2a8ff]/30 flex items-start gap-3">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-700 border border-[#d2a8ff]/30 flex items-start gap-3">
             <span className="text-xl">📌</span>
             <div>
               <div className="flex items-center gap-2">
@@ -542,17 +543,17 @@ export default function CheatSheetSection() {
                   Single Host Route
                 </span>
               </div>
-              <p className="text-xs text-slate-500 leading-relaxed mt-1">
-                A /32 prefix represents a <strong className="text-slate-900">single host route (255.255.255.255)</strong>. Used for router loopback interfaces (Router IDs in OSPF/BGP) and explicit single-IP host firewall rules.
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">
+                A /32 prefix represents a <strong className="text-slate-900 dark:text-slate-100">single host route (255.255.255.255)</strong>. Used for router loopback interfaces (Router IDs in OSPF/BGP) and explicit single-IP host firewall rules.
               </p>
             </div>
           </div>
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto rounded-xl border border-slate-200">
+        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
           <table className="w-full text-left text-xs font-mono">
-            <thead className="bg-white text-slate-500 border-b border-slate-200">
+            <thead className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
               <tr>
                 <th className="p-3">CIDR</th>
                 <th className="p-3">Subnet Mask</th>
@@ -562,29 +563,29 @@ export default function CheatSheetSection() {
                 <th className="p-3">Primary RFC / Production Use Case</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#30363d] bg-slate-50">
+            <tbody className="divide-y divide-[#30363d] bg-slate-50 dark:bg-slate-700">
               {filteredPrefixes.map((row) => (
                 <tr
                   key={row.cidr}
-                  className={`hover:bg-slate-50/80 transition-colors ${
-                    row.highlight ? "bg-white/70 font-semibold" : ""
+                  className={`hover:bg-slate-50/80 dark:bg-slate-700/80 transition-colors ${
+                    row.highlight ? "bg-white/70 dark:bg-slate-800/70 font-semibold" : ""
                   }`}
                 >
                   <td className="p-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-indigo-600 font-bold text-sm">{row.cidr}</span>
+                      <span className="text-indigo-600 dark:text-indigo-400 font-bold text-sm">{row.cidr}</span>
                       {row.badge && (
-                        <span className="px-1.5 py-0.5 rounded bg-indigo-600/15 text-indigo-600 text-[10px]">
+                        <span className="px-1.5 py-0.5 rounded bg-indigo-600/15 text-indigo-600 dark:text-indigo-400 text-[10px]">
                           {row.badge}
                         </span>
                       )}
                     </div>
                   </td>
-                  <td className="p-3 text-slate-900">{row.mask}</td>
-                  <td className="p-3 text-slate-500">{row.totalHosts}</td>
-                  <td className="p-3 text-emerald-600 font-bold">{row.usableHosts}</td>
+                  <td className="p-3 text-slate-900 dark:text-slate-100">{row.mask}</td>
+                  <td className="p-3 text-slate-500 dark:text-slate-400">{row.totalHosts}</td>
+                  <td className="p-3 text-emerald-600 dark:text-emerald-400 font-bold">{row.usableHosts}</td>
                   <td className="p-3 text-[#f0883e]">{row.blockSize}</td>
-                  <td className="p-3 text-slate-500 max-w-xs truncate">{row.useCase}</td>
+                  <td className="p-3 text-slate-500 dark:text-slate-400 max-w-xs truncate">{row.useCase}</td>
                 </tr>
               ))}
             </tbody>
@@ -594,7 +595,7 @@ export default function CheatSheetSection() {
 
       {/* SECTION 3: MENTAL MATH TRICKS GRID */}
       <div>
-        <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <span>🧠</span>
           <span>Mental Math Tricks Grid (4 Cards)</span>
         </h3>
@@ -603,36 +604,36 @@ export default function CheatSheetSection() {
           {mentalMathTricks.map((trick, idx) => (
             <div
               key={idx}
-              className="rounded-xl bg-white border border-slate-200 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between"
+              className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between gap-3 mb-3">
                   <div className="flex items-center gap-2.5">
                     <span className="text-2xl">{trick.icon}</span>
-                    <h4 className="text-base font-bold text-slate-900">
+                    <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">
                       {trick.title}
                     </h4>
                   </div>
-                  <span className="px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-200 text-[11px] font-mono font-semibold">
+                  <span className="px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700 text-[11px] font-mono font-semibold">
                     {trick.badge}
                   </span>
                 </div>
 
-                <p className="text-xs font-semibold text-emerald-600 mb-2 font-mono">
+                <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-2 font-mono">
                   {trick.tagline}
                 </p>
 
-                <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
                   {trick.description}
                 </p>
 
-                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 font-mono text-xs text-indigo-600 mb-4">
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-mono text-xs text-indigo-600 dark:text-indigo-400 mb-4">
                   {trick.formulaSnippet}
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-200 text-xs text-slate-500 leading-relaxed font-mono">
-                <strong className="text-slate-900">Example: </strong>
+              <div className="pt-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-mono">
+                <strong className="text-slate-900 dark:text-slate-100">Example: </strong>
                 <span>{trick.example}</span>
               </div>
             </div>

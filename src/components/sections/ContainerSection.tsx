@@ -266,43 +266,44 @@ spec:
   return (
     <section
       id="containers"
-      className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
+        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
           #containers
         </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
+          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊞</span>
           21. Cloud-Native & Container Networking
         </h2>
       </div>
 
-      <p className="text-slate-500 text-base leading-relaxed mb-8 max-w-4xl">
-        Modern cloud-native systems rely on virtualized network namespaces (<code className="text-emerald-600 font-mono">netns</code>), virtual ethernet pairs (<code className="text-emerald-600 font-mono">veth</code>), overlay tunnels, and kernel-level packet manipulation. Discover how Kubernetes CNI plugins, Docker isolation modes, and Layer 4/7 load balancers route microservice traffic at scale.
+      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
+        Modern cloud-native systems rely on virtualized network namespaces (<code className="text-emerald-600 dark:text-emerald-400 font-mono">netns</code>), virtual ethernet pairs (<code className="text-emerald-600 dark:text-emerald-400 font-mono">veth</code>), overlay tunnels, and kernel-level packet manipulation. Discover how Kubernetes CNI plugins, Docker isolation modes, and Layer 4/7 load balancers route microservice traffic at scale.
       </p>
 
       {/* SUBSECTION 1: Kubernetes Networking Architecture */}
-      <div className="mb-12 rounded-xl bg-white border border-slate-200 p-6 card-shadow">
+      <div className="mb-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <div className="flex items-center gap-2 mb-4">
           <span className="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
-          <h3 className="text-xl font-bold text-slate-900">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
             1. Kubernetes Networking Architecture & CIDR Ranges
           </h3>
         </div>
 
-        <p className="text-slate-500 text-sm mb-6 leading-relaxed">
+        <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
           Kubernetes enforces a mandatory IP-per-Pod flat network model: every Pod gets its own routable IP address and can communicate with all other Pods across nodes without NAT.
         </p>
 
         {/* CIDR Tabs */}
-        <div className="flex flex-wrap gap-2 mb-6 border-b border-slate-200 pb-3">
+        <div className="flex flex-wrap gap-2 mb-6 border-b border-slate-200 dark:border-slate-700 pb-3">
           <button
             onClick={() => setActiveCidrTab("pod")}
             className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
               activeCidrTab === "pod"
-                ? "bg-indigo-100 text-indigo-600 border border-indigo-300 shadow-sm"
-                : "bg-white text-slate-500 hover:text-slate-900 border border-slate-200"
+                ? "bg-indigo-100 text-indigo-600 dark:text-indigo-400 border border-indigo-300 shadow-sm"
+                : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700"
             }`}
           >
             Pod CIDR (Virtual Containers)
@@ -311,8 +312,8 @@ spec:
             onClick={() => setActiveCidrTab("service")}
             className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
               activeCidrTab === "service"
-                ? "bg-emerald-500/20 text-emerald-600 border border-emerald-400/40 shadow-sm"
-                : "bg-white text-slate-500 hover:text-slate-900 border border-slate-200"
+                ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-400/40 shadow-sm"
+                : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700"
             }`}
           >
             Service CIDR (Virtual VIPs)
@@ -321,8 +322,8 @@ spec:
             onClick={() => setActiveCidrTab("node")}
             className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
               activeCidrTab === "node"
-                ? "bg-[#ffa657]/20 text-amber-600 border border-amber-400/40 shadow-sm"
-                : "bg-white text-slate-500 hover:text-slate-900 border border-slate-200"
+                ? "bg-[#ffa657]/20 text-amber-600 dark:text-amber-400 border border-amber-400/40 shadow-sm"
+                : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700"
             }`}
           >
             Node CIDR (Physical / Cloud Subnet)
@@ -331,75 +332,75 @@ spec:
 
         {/* Tab Content Display */}
         {activeCidrTab === "pod" && (
-          <div className="rounded-lg bg-white border border-indigo-200 p-5">
+          <div className="rounded-lg bg-white dark:bg-slate-800 border border-indigo-200 dark:border-indigo-700 p-5">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-mono font-bold text-indigo-600">Pod CIDR Range: 10.244.0.0/16</span>
-              <span className="text-xs px-2.5 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-200 font-mono">
+              <span className="text-sm font-mono font-bold text-indigo-600 dark:text-indigo-400">Pod CIDR Range: 10.244.0.0/16</span>
+              <span className="text-xs px-2.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700 font-mono">
                 Allocated per Node (/24 per Worker)
               </span>
             </div>
-            <p className="text-sm text-slate-500 mb-4">
-              Real IP addresses assigned directly to container network interfaces (<code className="text-emerald-600 font-mono">eth0</code> inside Pod). Allocated dynamically by the CNI plugin when Pods start up. Pod IPs change every time a Pod is recreated or rescheduled.
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+              Real IP addresses assigned directly to container network interfaces (<code className="text-emerald-600 dark:text-emerald-400 font-mono">eth0</code> inside Pod). Allocated dynamically by the CNI plugin when Pods start up. Pod IPs change every time a Pod is recreated or rescheduled.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 font-mono text-xs">
-              <div className="p-3 rounded bg-slate-50 border border-slate-200">
-                <div className="text-emerald-600 font-bold mb-1">Worker Node 1 Subnet</div>
-                <div className="text-slate-900">10.244.1.0/24</div>
-                <div className="text-slate-500 mt-1 text-[11px]">Pods: 10.244.1.2 - 10.244.1.254</div>
+              <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+                <div className="text-emerald-600 dark:text-emerald-400 font-bold mb-1">Worker Node 1 Subnet</div>
+                <div className="text-slate-900 dark:text-slate-100">10.244.1.0/24</div>
+                <div className="text-slate-500 dark:text-slate-400 mt-1 text-[11px]">Pods: 10.244.1.2 - 10.244.1.254</div>
               </div>
-              <div className="p-3 rounded bg-slate-50 border border-slate-200">
-                <div className="text-emerald-600 font-bold mb-1">Worker Node 2 Subnet</div>
-                <div className="text-slate-900">10.244.2.0/24</div>
-                <div className="text-slate-500 mt-1 text-[11px]">Pods: 10.244.2.2 - 10.244.2.254</div>
+              <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+                <div className="text-emerald-600 dark:text-emerald-400 font-bold mb-1">Worker Node 2 Subnet</div>
+                <div className="text-slate-900 dark:text-slate-100">10.244.2.0/24</div>
+                <div className="text-slate-500 dark:text-slate-400 mt-1 text-[11px]">Pods: 10.244.2.2 - 10.244.2.254</div>
               </div>
-              <div className="p-3 rounded bg-slate-50 border border-slate-200">
-                <div className="text-emerald-600 font-bold mb-1">Worker Node 3 Subnet</div>
-                <div className="text-slate-900">10.244.3.0/24</div>
-                <div className="text-slate-500 mt-1 text-[11px]">Pods: 10.244.3.2 - 10.244.3.254</div>
+              <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+                <div className="text-emerald-600 dark:text-emerald-400 font-bold mb-1">Worker Node 3 Subnet</div>
+                <div className="text-slate-900 dark:text-slate-100">10.244.3.0/24</div>
+                <div className="text-slate-500 dark:text-slate-400 mt-1 text-[11px]">Pods: 10.244.3.2 - 10.244.3.254</div>
               </div>
             </div>
           </div>
         )}
 
         {activeCidrTab === "service" && (
-          <div className="rounded-lg bg-white border border-emerald-200 p-5">
+          <div className="rounded-lg bg-white dark:bg-slate-800 border border-emerald-200 dark:border-emerald-700 p-5">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-mono font-bold text-emerald-600">Service ClusterIP CIDR: 10.96.0.0/12</span>
-              <span className="text-xs px-2.5 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-400/20 font-mono">
+              <span className="text-sm font-mono font-bold text-emerald-600 dark:text-emerald-400">Service ClusterIP CIDR: 10.96.0.0/12</span>
+              <span className="text-xs px-2.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-400/20 font-mono">
                 Virtual VIP (Kernel Intercept Only)
               </span>
             </div>
-            <p className="text-sm text-slate-500 mb-4">
-              Virtual IP (VIP) range assigned to Kubernetes <code className="text-emerald-600 font-mono">ClusterIP</code> service objects. Service IPs <strong className="text-slate-900">never exist on any physical host network interface</strong>! Packets addressed to a Service VIP are intercepted inside the host Linux kernel by iptables rules or eBPF programs and rewritten (DNAT) to point to healthy Pod IPs.
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+              Virtual IP (VIP) range assigned to Kubernetes <code className="text-emerald-600 dark:text-emerald-400 font-mono">ClusterIP</code> service objects. Service IPs <strong className="text-slate-900 dark:text-slate-100">never exist on any physical host network interface</strong>! Packets addressed to a Service VIP are intercepted inside the host Linux kernel by iptables rules or eBPF programs and rewritten (DNAT) to point to healthy Pod IPs.
             </p>
-            <div className="p-3 rounded bg-slate-50 border border-slate-200 font-mono text-xs">
-              <span className="text-amber-600">Translation Flow:</span> Client Pod (10.244.1.10) ➔ Sends to Service VIP (10.96.45.100:80) ➔ Kernel DNAT ➔ Target Pod IP (10.244.2.88:8080)
+            <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-mono text-xs">
+              <span className="text-amber-600 dark:text-amber-400">Translation Flow:</span> Client Pod (10.244.1.10) ➔ Sends to Service VIP (10.96.45.100:80) ➔ Kernel DNAT ➔ Target Pod IP (10.244.2.88:8080)
             </div>
           </div>
         )}
 
         {activeCidrTab === "node" && (
-          <div className="rounded-lg bg-white border border-amber-200 p-5">
+          <div className="rounded-lg bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-700 p-5">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-mono font-bold text-amber-600">Node CIDR Range: 192.168.10.0/24</span>
-              <span className="text-xs px-2.5 py-0.5 rounded bg-amber-50 text-amber-600 border border-amber-400/20 font-mono">
+              <span className="text-sm font-mono font-bold text-amber-600 dark:text-amber-400">Node CIDR Range: 192.168.10.0/24</span>
+              <span className="text-xs px-2.5 py-0.5 rounded bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-400/20 font-mono">
                 Physical / VPC Interface (eth0)
               </span>
             </div>
-            <p className="text-sm text-slate-500 mb-4">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
               IP addresses assigned to physical server NICs or Cloud EC2/VM instances. Used for node-to-node cluster communication, etcd quorum state sync, kubelet control plane communication, and external NodePort ingress traffic.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
-              <div className="p-2.5 rounded bg-slate-50 border border-slate-200 text-slate-900">
-                <div className="text-indigo-600">Control-Plane Node</div>
+              <div className="p-2.5 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-slate-100">
+                <div className="text-indigo-600 dark:text-indigo-400">Control-Plane Node</div>
                 <div>192.168.10.100</div>
               </div>
-              <div className="p-2.5 rounded bg-slate-50 border border-slate-200 text-slate-900">
-                <div className="text-emerald-600">Worker-1 Node</div>
+              <div className="p-2.5 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-slate-100">
+                <div className="text-emerald-600 dark:text-emerald-400">Worker-1 Node</div>
                 <div>192.168.10.101</div>
               </div>
-              <div className="p-2.5 rounded bg-slate-50 border border-slate-200 text-slate-900">
-                <div className="text-amber-600">Worker-2 Node</div>
+              <div className="p-2.5 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-slate-100">
+                <div className="text-amber-600 dark:text-amber-400">Worker-2 Node</div>
                 <div>192.168.10.102</div>
               </div>
             </div>
@@ -408,7 +409,7 @@ spec:
 
         {/* CNI Plugin Selector */}
         <div className="mt-8">
-          <h4 className="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <h4 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">
             <span>🔌 CNI (Container Network Interface) Plugins Comparison</span>
           </h4>
 
@@ -419,12 +420,12 @@ spec:
                 onClick={() => setSelectedCni(cni)}
                 className={`py-3 px-3 rounded-xl border text-center transition-all ${
                   selectedCni === cni
-                    ? "bg-indigo-600/15 border-indigo-400 text-slate-900 shadow-md font-bold"
-                    : "bg-white border-slate-200 text-slate-500 hover:border-[#8b949e]/40"
+                    ? "bg-indigo-600/15 border-indigo-400 text-slate-900 dark:text-slate-100 shadow-md font-bold"
+                    : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-[#8b949e]/40"
                 }`}
               >
                 <div className="capitalize text-sm sm:text-base font-bold">{cni}</div>
-                <div className="text-[11px] font-mono text-slate-500 hidden sm:block mt-0.5">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hidden sm:block mt-0.5">
                   {cni === "flannel" ? "VXLAN Overlay" : cni === "calico" ? "BGP + Policy" : "eBPF Next-Gen"}
                 </div>
               </button>
@@ -432,36 +433,36 @@ spec:
           </div>
 
           {/* Active CNI Box */}
-          <div className="rounded-xl bg-white border border-slate-200 p-5">
-            <div className="flex flex-wrap items-center justify-between gap-2 mb-4 border-b border-slate-200 pb-3">
+          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-4 border-b border-slate-200 dark:border-slate-700 pb-3">
               <div>
-                <h4 className="text-lg font-bold text-indigo-600">{cniDetails[selectedCni].name}</h4>
-                <span className="text-xs text-slate-500">Project Maintainer: {cniDetails[selectedCni].creator}</span>
+                <h4 className="text-lg font-bold text-indigo-600 dark:text-indigo-400">{cniDetails[selectedCni].name}</h4>
+                <span className="text-xs text-slate-500 dark:text-slate-400">Project Maintainer: {cniDetails[selectedCni].creator}</span>
               </div>
               <div className="flex gap-2">
-                <span className="px-2.5 py-1 rounded text-xs font-mono bg-emerald-50 text-emerald-600 border border-emerald-400/20">
+                <span className="px-2.5 py-1 rounded text-xs font-mono bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-400/20">
                   {cniDetails[selectedCni].dataplane}
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs">
-              <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-                <span className="text-amber-600 font-semibold block mb-1">NetworkPolicy Enforcement:</span>
-                <span className="text-slate-900">{cniDetails[selectedCni].policySupport}</span>
+              <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+                <span className="text-amber-600 dark:text-amber-400 font-semibold block mb-1">NetworkPolicy Enforcement:</span>
+                <span className="text-slate-900 dark:text-slate-100">{cniDetails[selectedCni].policySupport}</span>
               </div>
-              <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-                <span className="text-indigo-600 font-semibold block mb-1">Performance Profile:</span>
-                <span className="text-slate-900">{cniDetails[selectedCni].performance}</span>
+              <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+                <span className="text-indigo-600 dark:text-indigo-400 font-semibold block mb-1">Performance Profile:</span>
+                <span className="text-slate-900 dark:text-slate-100">{cniDetails[selectedCni].performance}</span>
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-slate-500 mb-4 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">
               {cniDetails[selectedCni].architecture}
             </p>
 
             {/* YAML Code Snippet */}
-            <div className="relative rounded-lg bg-slate-50 border border-slate-200 p-4 font-mono text-xs overflow-x-auto text-emerald-600">
+            <div className="relative rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-4 font-mono text-xs overflow-x-auto text-emerald-600 dark:text-emerald-400">
               <pre>{cniDetails[selectedCni].yamlSnippet}</pre>
             </div>
           </div>
@@ -469,15 +470,15 @@ spec:
       </div>
 
       {/* SUBSECTION 2: Docker Networking Modes */}
-      <div className="mb-12 rounded-xl bg-white border border-slate-200 p-6 card-shadow">
+      <div className="mb-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <div className="flex items-center gap-2 mb-4">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-          <h3 className="text-xl font-bold text-slate-900">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
             2. Docker Networking Drivers & Modes
           </h3>
         </div>
 
-        <p className="text-slate-500 text-sm mb-6 leading-relaxed">
+        <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
           Docker uses container network drivers to manipulate Linux network namespaces, iptables NAT tables, and virtual interfaces. Select a mode below to analyze host binding, performance, and packet paths.
         </p>
 
@@ -489,12 +490,12 @@ spec:
               onClick={() => setDockerMode(mode)}
               className={`p-3 rounded-xl border text-left transition-all ${
                 dockerMode === mode
-                  ? "bg-emerald-500/15 border-emerald-400 text-slate-900 shadow-md font-bold"
-                  : "bg-white border-slate-200 text-slate-500 hover:border-[#8b949e]/40"
+                  ? "bg-emerald-500/15 border-emerald-400 text-slate-900 dark:text-slate-100 shadow-md font-bold"
+                  : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-[#8b949e]/40"
               }`}
             >
               <div className="capitalize text-sm font-bold">{mode}</div>
-              <div className="text-[11px] font-mono text-slate-500 truncate mt-1">
+              <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 truncate mt-1">
                 {mode === "bridge" ? "docker0 Virtual Bridge" : mode === "host" ? "Shares Host eth0" : mode === "overlay" ? "VXLAN Multi-Host" : "Direct Physical MAC"}
               </div>
             </button>
@@ -502,45 +503,45 @@ spec:
         </div>
 
         {/* Selected Docker Mode Card */}
-        <div className="rounded-xl bg-white border border-slate-200 p-6">
-          <div className="flex flex-wrap items-center justify-between gap-2 mb-4 border-b border-slate-200 pb-3">
+        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4 border-b border-slate-200 dark:border-slate-700 pb-3">
             <div>
-              <h4 className="text-lg font-bold text-emerald-600">{dockerDetails[dockerMode].name}</h4>
-              <span className="text-xs font-mono text-indigo-600">{dockerDetails[dockerMode].flag}</span>
+              <h4 className="text-lg font-bold text-emerald-600 dark:text-emerald-400">{dockerDetails[dockerMode].name}</h4>
+              <span className="text-xs font-mono text-indigo-600 dark:text-indigo-400">{dockerDetails[dockerMode].flag}</span>
             </div>
-            <span className="px-3 py-1 rounded-full text-xs font-mono bg-amber-50 text-amber-600 border border-amber-400/20">
+            <span className="px-3 py-1 rounded-full text-xs font-mono bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-400/20">
               Subnet Scope: {dockerDetails[dockerMode].subnet}
             </span>
           </div>
 
-          <p className="text-sm text-slate-500 mb-6 leading-relaxed">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
             {dockerDetails[dockerMode].description}
           </p>
 
           {/* Pros and Cons */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div className="p-4 rounded-lg bg-slate-50 border border-emerald-200">
-              <h5 className="text-xs font-bold text-emerald-600 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-emerald-200 dark:border-emerald-700">
+              <h5 className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                 <span>✓ Architectural Advantages</span>
               </h5>
-              <ul className="space-y-1.5 text-xs text-slate-900">
+              <ul className="space-y-1.5 text-xs text-slate-900 dark:text-slate-100">
                 {dockerDetails[dockerMode].pros.map((pro, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-emerald-600 font-bold">•</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
                     <span>{pro}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="p-4 rounded-lg bg-slate-50 border border-rose-200">
-              <h5 className="text-xs font-bold text-rose-600 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-rose-200 dark:border-rose-700">
+              <h5 className="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                 <span>⚠ Technical Limitations</span>
               </h5>
-              <ul className="space-y-1.5 text-xs text-slate-900">
+              <ul className="space-y-1.5 text-xs text-slate-900 dark:text-slate-100">
                 {dockerDetails[dockerMode].cons.map((con, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-rose-600 font-bold">•</span>
+                    <span className="text-rose-600 dark:text-rose-400 font-bold">•</span>
                     <span>{con}</span>
                   </li>
                 ))}
@@ -550,8 +551,8 @@ spec:
 
           {/* Docker CLI Command */}
           <div>
-            <div className="text-xs font-mono text-slate-500 mb-1.5">Docker CLI Execution Example:</div>
-            <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 font-mono text-xs text-indigo-600 overflow-x-auto">
+            <div className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-1.5">Docker CLI Execution Example:</div>
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-mono text-xs text-indigo-600 dark:text-indigo-400 overflow-x-auto">
               {dockerDetails[dockerMode].command}
             </div>
           </div>
@@ -559,15 +560,15 @@ spec:
       </div>
 
       {/* SUBSECTION 3: L4 vs L7 Load Balancing & Ingress Architecture */}
-      <div className="mb-12 rounded-xl bg-white border border-slate-200 p-6 card-shadow">
+      <div className="mb-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <div className="flex items-center gap-2 mb-4">
           <span className="w-2.5 h-2.5 rounded-full bg-[#ffa657]"></span>
-          <h3 className="text-xl font-bold text-slate-900">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
             3. Layer 4 (L4) vs Layer 7 (L7) Load Balancing & Ingress
           </h3>
         </div>
 
-        <p className="text-slate-500 text-sm mb-6 leading-relaxed">
+        <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
           Load balancers operate at different OSI layers to distribute traffic across container replicas. Compare transport-level packet routing (L4) with application-level HTTP routing (L7).
         </p>
 
@@ -577,106 +578,106 @@ spec:
             onClick={() => setLbLayer("l4")}
             className={`flex-1 p-4 rounded-xl border transition-all text-left ${
               lbLayer === "l4"
-                ? "bg-[#ffa657]/15 border-amber-400 text-slate-900 shadow-md"
-                : "bg-white border-slate-200 text-slate-500 hover:border-[#8b949e]/40"
+                ? "bg-[#ffa657]/15 border-amber-400 text-slate-900 dark:text-slate-100 shadow-md"
+                : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-[#8b949e]/40"
             }`}
           >
-            <div className="text-base font-bold text-amber-600 mb-1">Layer 4 (L4) Transport Load Balancer</div>
-            <div className="text-xs text-slate-500">TCP/UDP Stream Switching (AWS NLB, IPVS, K8s Service)</div>
+            <div className="text-base font-bold text-amber-600 dark:text-amber-400 mb-1">Layer 4 (L4) Transport Load Balancer</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400">TCP/UDP Stream Switching (AWS NLB, IPVS, K8s Service)</div>
           </button>
 
           <button
             onClick={() => setLbLayer("l7")}
             className={`flex-1 p-4 rounded-xl border transition-all text-left ${
               lbLayer === "l7"
-                ? "bg-[#bc8cff]/15 border-violet-400 text-slate-900 shadow-md"
-                : "bg-white border-slate-200 text-slate-500 hover:border-[#8b949e]/40"
+                ? "bg-[#bc8cff]/15 border-violet-400 text-slate-900 dark:text-slate-100 shadow-md"
+                : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-[#8b949e]/40"
             }`}
           >
-            <div className="text-base font-bold text-violet-600 mb-1">Layer 7 (L7) Application Ingress</div>
-            <div className="text-xs text-slate-500">HTTP/HTTPS Path & Header Routing (NGINX, Envoy, Traefik)</div>
+            <div className="text-base font-bold text-violet-600 dark:text-violet-400 mb-1">Layer 7 (L7) Application Ingress</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400">HTTP/HTTPS Path & Header Routing (NGINX, Envoy, Traefik)</div>
           </button>
         </div>
 
         {/* Layer Comparison Details */}
         {lbLayer === "l4" ? (
-          <div className="rounded-xl bg-white border border-amber-200 p-5 mb-6">
-            <h4 className="text-base font-bold text-amber-600 mb-3">⚡ L4 Load Balancing Mechanics</h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-slate-500 mb-4">
+          <div className="rounded-xl bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-700 p-5 mb-6">
+            <h4 className="text-base font-bold text-amber-600 dark:text-amber-400 mb-3">⚡ L4 Load Balancing Mechanics</h4>
+            <ul className="space-y-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4">
               <li className="flex items-start gap-2">
-                <span className="text-amber-600 font-bold">✓</span>
-                <span><strong className="text-slate-900">Inspection Depth:</strong> Reads IP addresses and TCP/UDP port headers only. Does <strong className="text-rose-600">not</strong> decrypt TLS or inspect HTTP payload content.</span>
+                <span className="text-amber-600 dark:text-amber-400 font-bold">✓</span>
+                <span><strong className="text-slate-900 dark:text-slate-100">Inspection Depth:</strong> Reads IP addresses and TCP/UDP port headers only. Does <strong className="text-rose-600 dark:text-rose-400">not</strong> decrypt TLS or inspect HTTP payload content.</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-amber-600 font-bold">✓</span>
-                <span><strong className="text-slate-900">Performance:</strong> Extremely high packet throughput (millions QPS) with ultra-low latency sub-millisecond overhead.</span>
+                <span className="text-amber-600 dark:text-amber-400 font-bold">✓</span>
+                <span><strong className="text-slate-900 dark:text-slate-100">Performance:</strong> Extremely high packet throughput (millions QPS) with ultra-low latency sub-millisecond overhead.</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-amber-600 font-bold">✓</span>
-                <span><strong className="text-slate-900">Use Cases:</strong> Database connection pools (PostgreSQL/MySQL), gRPC persistent streams, DNS resolvers, and non-HTTP protocols.</span>
+                <span className="text-amber-600 dark:text-amber-400 font-bold">✓</span>
+                <span><strong className="text-slate-900 dark:text-slate-100">Use Cases:</strong> Database connection pools (PostgreSQL/MySQL), gRPC persistent streams, DNS resolvers, and non-HTTP protocols.</span>
               </li>
             </ul>
           </div>
         ) : (
-          <div className="rounded-xl bg-white border border-violet-200 p-5 mb-6">
-            <h4 className="text-base font-bold text-violet-600 mb-3">🌐 L7 Ingress Controller Mechanics</h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-slate-500 mb-4">
+          <div className="rounded-xl bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 p-5 mb-6">
+            <h4 className="text-base font-bold text-violet-600 dark:text-violet-400 mb-3">🌐 L7 Ingress Controller Mechanics</h4>
+            <ul className="space-y-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4">
               <li className="flex items-start gap-2">
-                <span className="text-violet-600 font-bold">✓</span>
-                <span><strong className="text-slate-900">Inspection Depth:</strong> Decrypts TLS certificates (HTTPS Termination), parses HTTP methods, URI paths (<code className="text-emerald-600 font-mono">/v1/users</code>), Host headers (<code className="text-emerald-600 font-mono">api.domain.com</code>), and cookies.</span>
+                <span className="text-violet-600 dark:text-violet-400 font-bold">✓</span>
+                <span><strong className="text-slate-900 dark:text-slate-100">Inspection Depth:</strong> Decrypts TLS certificates (HTTPS Termination), parses HTTP methods, URI paths (<code className="text-emerald-600 dark:text-emerald-400 font-mono">/v1/users</code>), Host headers (<code className="text-emerald-600 dark:text-emerald-400 font-mono">api.domain.com</code>), and cookies.</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-violet-600 font-bold">✓</span>
-                <span><strong className="text-slate-900">Advanced Traffic Controls:</strong> Supports Canary deployment traffic splits (90/10 weighted routing), rate-limiting, CORS injection, and Web Application Firewall (WAF) rule sets.</span>
+                <span className="text-violet-600 dark:text-violet-400 font-bold">✓</span>
+                <span><strong className="text-slate-900 dark:text-slate-100">Advanced Traffic Controls:</strong> Supports Canary deployment traffic splits (90/10 weighted routing), rate-limiting, CORS injection, and Web Application Firewall (WAF) rule sets.</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-violet-600 font-bold">✓</span>
-                <span><strong className="text-slate-900">Direct Pod Bypass:</strong> Modern K8s Ingress Controllers (NGINX/Envoy) watch K8s Endpoints API directly and forward packets straight to target Pod IPs without ClusterIP NAT overhead.</span>
+                <span className="text-violet-600 dark:text-violet-400 font-bold">✓</span>
+                <span><strong className="text-slate-900 dark:text-slate-100">Direct Pod Bypass:</strong> Modern K8s Ingress Controllers (NGINX/Envoy) watch K8s Endpoints API directly and forward packets straight to target Pod IPs without ClusterIP NAT overhead.</span>
               </li>
             </ul>
           </div>
         )}
 
         {/* Kubernetes Ingress Manifest Example */}
-        <div className="rounded-xl bg-white border border-slate-200 p-5">
+        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-mono font-semibold text-violet-600">Kubernetes Ingress Manifest (networking.k8s.io/v1)</span>
+            <span className="text-xs font-mono font-semibold text-violet-600 dark:text-violet-400">Kubernetes Ingress Manifest (networking.k8s.io/v1)</span>
             <button
               onClick={() => handleCopy(ingressYaml)}
-              className="px-3 py-1 rounded bg-[#30363d] hover:bg-[#30363d]/80 text-slate-900 text-xs font-mono transition-all"
+              className="px-3 py-1 rounded bg-[#30363d] hover:bg-[#30363d]/80 text-slate-900 dark:text-slate-100 text-xs font-mono transition-all"
             >
               {copiedCode ? "Copied!" : "Copy YAML"}
             </button>
           </div>
-          <div className="rounded-lg bg-slate-50 border border-slate-200 p-4 font-mono text-xs overflow-x-auto text-emerald-600">
+          <div className="rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-4 font-mono text-xs overflow-x-auto text-emerald-600 dark:text-emerald-400">
             <pre>{ingressYaml}</pre>
           </div>
         </div>
       </div>
 
       {/* SUBSECTION 4: Interactive K8s Service IP Routing Simulator */}
-      <div className="rounded-xl bg-slate-50 border border-indigo-300 p-6">
+      <div className="rounded-xl bg-slate-50 dark:bg-slate-700 border border-indigo-300 p-6">
         <div className="flex items-center justify-between flex-wrap gap-2 mb-4">
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-indigo-600 animate-pulse"></span>
-            <h3 className="text-xl font-bold text-slate-900">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
               4. Interactive K8s Service IP Routing Simulator
             </h3>
           </div>
-          <span className="px-3 py-1 rounded-full text-xs font-mono bg-indigo-50 text-indigo-600 border border-indigo-200">
+          <span className="px-3 py-1 rounded-full text-xs font-mono bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700">
             Live Kernel Packet Processing
           </span>
         </div>
 
-        <p className="text-slate-500 text-sm mb-6 leading-relaxed">
-          Test how incoming client packets travel through Kubernetes abstractions (<code className="text-emerald-600 font-mono">ClusterIP</code>, <code className="text-emerald-600 font-mono">NodePort</code>, <code className="text-emerald-600 font-mono">LoadBalancer</code>, <code className="text-emerald-600 font-mono">Headless</code>, and <code className="text-emerald-600 font-mono">Ingress</code>) using either legacy <strong className="text-amber-600">iptables</strong> or high-performance <strong className="text-emerald-600">eBPF</strong> data paths!
+        <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
+          Test how incoming client packets travel through Kubernetes abstractions (<code className="text-emerald-600 dark:text-emerald-400 font-mono">ClusterIP</code>, <code className="text-emerald-600 dark:text-emerald-400 font-mono">NodePort</code>, <code className="text-emerald-600 dark:text-emerald-400 font-mono">LoadBalancer</code>, <code className="text-emerald-600 dark:text-emerald-400 font-mono">Headless</code>, and <code className="text-emerald-600 dark:text-emerald-400 font-mono">Ingress</code>) using either legacy <strong className="text-amber-600 dark:text-amber-400">iptables</strong> or high-performance <strong className="text-emerald-600 dark:text-emerald-400">eBPF</strong> data paths!
         </p>
 
         {/* Controls Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           {/* Controls: Service Type */}
-          <div className="p-4 rounded-xl bg-white border border-slate-200">
-            <label className="block text-xs font-mono font-bold text-indigo-600 uppercase tracking-wider mb-2">
+          <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+            <label className="block text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">
               Select K8s Service Type:
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -686,8 +687,8 @@ spec:
                   onClick={() => setSimServiceType(type)}
                   className={`p-2 rounded-lg text-xs font-mono font-bold capitalize transition-all border ${
                     simServiceType === type
-                      ? "bg-indigo-100 text-indigo-600 border-indigo-400"
-                      : "bg-slate-50 text-slate-500 border-slate-200 hover:text-slate-900"
+                      ? "bg-indigo-100 text-indigo-600 dark:text-indigo-400 border-indigo-400"
+                      : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:text-slate-100"
                   }`}
                 >
                   {type}
@@ -697,8 +698,8 @@ spec:
           </div>
 
           {/* Controls: Engine Mode */}
-          <div className="p-4 rounded-xl bg-white border border-slate-200">
-            <label className="block text-xs font-mono font-bold text-emerald-600 uppercase tracking-wider mb-2">
+          <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+            <label className="block text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-2">
               Select Data Path Engine:
             </label>
             <div className="grid grid-cols-2 gap-3">
@@ -706,23 +707,23 @@ spec:
                 onClick={() => setSimEngine("iptables")}
                 className={`p-3 rounded-lg text-xs font-mono font-bold transition-all border ${
                   simEngine === "iptables"
-                    ? "bg-[#ffa657]/20 text-amber-600 border-amber-400"
-                    : "bg-slate-50 text-slate-500 border-slate-200 hover:text-slate-900"
+                    ? "bg-[#ffa657]/20 text-amber-600 dark:text-amber-400 border-amber-400"
+                    : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:text-slate-100"
                 }`}
               >
                 <div>kube-proxy (iptables)</div>
-                <div className="text-[10px] font-normal text-slate-500 mt-1">$O(N)$ Sequential Rule Check</div>
+                <div className="text-[10px] font-normal text-slate-500 dark:text-slate-400 mt-1">$O(N)$ Sequential Rule Check</div>
               </button>
               <button
                 onClick={() => setSimEngine("ebpf")}
                 className={`p-3 rounded-lg text-xs font-mono font-bold transition-all border ${
                   simEngine === "ebpf"
-                    ? "bg-emerald-500/20 text-emerald-600 border-emerald-400"
-                    : "bg-slate-50 text-slate-500 border-slate-200 hover:text-slate-900"
+                    ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-400"
+                    : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:text-slate-100"
                 }`}
               >
                 <div>Cilium eBPF (Fast Path)</div>
-                <div className="text-[10px] font-normal text-slate-500 mt-1">$O(1)$ Direct Socket Map Bypass</div>
+                <div className="text-[10px] font-normal text-slate-500 dark:text-slate-400 mt-1">$O(1)$ Direct Socket Map Bypass</div>
               </button>
             </div>
           </div>
@@ -732,13 +733,13 @@ spec:
         <div className="flex gap-3 mb-8">
           <button
             onClick={handleSendPacket}
-            className="flex-1 py-3 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-600/90 text-slate-900 font-bold text-sm transition-all shadow-lg hover:shadow-[#58a6ff]/20 active:scale-[0.99] flex items-center justify-center gap-2"
+            className="flex-1 py-3 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-600/90 text-slate-900 dark:text-slate-100 font-bold text-sm transition-all shadow-lg hover:shadow-[#58a6ff]/20 active:scale-[0.99] flex items-center justify-center gap-2"
           >
             <span>🚀 Send Packet / Trigger Request</span>
           </button>
           <button
             onClick={handleResetSim}
-            className="py-3 px-4 rounded-xl bg-[#30363d] hover:bg-[#30363d]/80 text-slate-900 font-bold text-xs transition-all"
+            className="py-3 px-4 rounded-xl bg-[#30363d] hover:bg-[#30363d]/80 text-slate-900 dark:text-slate-100 font-bold text-xs transition-all"
           >
             Reset Stats
           </button>
@@ -747,7 +748,7 @@ spec:
         {/* Backend Pod Distribution Grid */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-mono font-bold text-slate-900 uppercase tracking-wider">
+            <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
               Backend Pod Target Replicas (Total Requests: {totalRequests})
             </span>
           </div>
@@ -768,24 +769,24 @@ spec:
                   className={`p-4 rounded-xl border transition-all ${
                     isSelected
                       ? "bg-indigo-600/15 border-indigo-400 scale-[1.02] shadow-md"
-                      : "bg-white border-slate-200"
+                      : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-bold font-mono text-slate-900 uppercase">{pod.id}</span>
+                    <span className="text-sm font-bold font-mono text-slate-900 dark:text-slate-100 uppercase">{pod.id}</span>
                     <span
                       className={`px-2 py-0.5 rounded text-[11px] font-mono font-bold ${
-                        isSelected ? "bg-indigo-600 text-slate-900" : "bg-[#30363d] text-slate-500"
+                        isSelected ? "bg-indigo-600 text-slate-900 dark:text-slate-100" : "bg-[#30363d] text-slate-500 dark:text-slate-400"
                       }`}
                     >
                       {count} Hits ({pct}%)
                     </span>
                   </div>
-                  <div className="text-xs font-mono text-emerald-600 mb-1">Pod IP: {pod.ip}</div>
-                  <div className="text-[11px] font-mono text-slate-500 mb-3">{pod.node}</div>
+                  <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 mb-1">Pod IP: {pod.ip}</div>
+                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-3">{pod.node}</div>
 
                   {/* Meter Bar */}
-                  <div className="w-full h-2 rounded-full bg-slate-50 overflow-hidden border border-slate-200">
+                  <div className="w-full h-2 rounded-full bg-slate-50 dark:bg-slate-700 overflow-hidden border border-slate-200 dark:border-slate-700">
                     <div
                       className="h-full bg-gradient-to-r from-[#58a6ff] to-[#7ee787] transition-all duration-300"
                       style={{ width: `${pct}%` }}
@@ -798,26 +799,26 @@ spec:
         </div>
 
         {/* Live Packet Translation Log */}
-        <div className="rounded-xl bg-white border border-slate-200 card-shadow p-5 font-mono text-xs">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-2 mb-3">
-            <span className="text-indigo-600 font-bold flex items-center gap-2">
+        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5 font-mono text-xs">
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">
+            <span className="text-indigo-600 dark:text-indigo-400 font-bold flex items-center gap-2">
               <span>📡 Live Packet Translation Trace</span>
             </span>
-            <span className="text-[11px] text-slate-500">
+            <span className="text-[11px] text-slate-500 dark:text-slate-400">
               Engine: {simEngine === "iptables" ? "iptables DNAT" : "eBPF bpf_sockmap"}
             </span>
           </div>
 
           {lastPacketTrace.length === 0 ? (
-            <div className="text-slate-500 italic text-center py-6">
+            <div className="text-slate-500 dark:text-slate-400 italic text-center py-6">
               Click &quot;Send Packet / Trigger Request&quot; above to trace kernel packet routing...
             </div>
           ) : (
             <div className="space-y-2">
               {lastPacketTrace.map((step, idx) => (
                 <div key={idx} className="flex items-start gap-2 leading-relaxed">
-                  <span className="text-indigo-600 font-bold">{idx + 1}.</span>
-                  <span className={idx === lastPacketTrace.length - 1 ? "text-emerald-600 font-bold" : "text-slate-900"}>
+                  <span className="text-indigo-600 dark:text-indigo-400 font-bold">{idx + 1}.</span>
+                  <span className={idx === lastPacketTrace.length - 1 ? "text-emerald-600 dark:text-emerald-400 font-bold" : "text-slate-900 dark:text-slate-100"}>
                     {step}
                   </span>
                 </div>

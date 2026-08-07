@@ -28,6 +28,24 @@
     --accent-sky:     #0284c7;
   }
 
+  .dark {
+    /* Backgrounds */
+    --bg-base:    #0f172a;
+    --bg-subtle:  #1e293b;
+    --bg-muted:   #334155;
+    --bg-overlay: #475569;
+
+    /* Borders */
+    --border-default: #334155;
+    --border-strong:  #475569;
+
+    /* Text */
+    --text-primary:   #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted:     #64748b;
+    --text-inverse:   #0f172a;
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html {
@@ -48,6 +66,11 @@
     color: #3730a3;
   }
 
+  .dark ::selection {
+    background: #4338ca;
+    color: #e0e7ff;
+  }
+
   /* Scrollbar */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg-subtle); }
@@ -60,6 +83,9 @@
   .bg-dot-grid {
     background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
     background-size: 24px 24px;
+  }
+  .dark .bg-dot-grid {
+    background-image: radial-gradient(circle, #334155 1px, transparent 1px);
   }
 
   /* Card elevation levels */

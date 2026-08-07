@@ -34,17 +34,17 @@ export default function NetworkingPage() {
   return (
     <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
       {/* Page Header */}
-      <header className="border-b border-slate-200 pb-6">
+      <header className="border-b border-slate-200 dark:border-slate-700 pb-6">
         <div className="flex items-center gap-3 mb-3">
-          <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
+          <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
             Track 1 of 5
           </span>
-          <span className="text-[12px] text-slate-400 font-medium">23 Interactive Modules</span>
+          <span className="text-[12px] text-slate-400 dark:text-slate-500 font-medium">23 Interactive Modules</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
           SubnetLab & Networking Infrastructure
         </h1>
-        <p className="text-slate-500 text-sm sm:text-base mt-2 max-w-3xl leading-relaxed">
+        <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base mt-2 max-w-3xl leading-relaxed">
           Comprehensive interactive guide covering fundamental IP addressing, binary operations,
           CIDR, VLSM, VLANs, routing protocols, packet inspection, wireless networks, and network security.
         </p>

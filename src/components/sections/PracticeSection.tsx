@@ -318,52 +318,53 @@ export default function PracticeSection() {
   const getDifficultyBadgeClass = (diff: Problem["difficulty"]) => {
     switch (diff) {
       case "Easy":
-        return "bg-emerald-50 text-emerald-600 border-emerald-200";
+        return "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700";
       case "Medium":
-        return "bg-indigo-50 text-indigo-600 border-indigo-200";
+        return "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-700";
       case "Hard":
         return "bg-[#f0883e]/10 text-[#f0883e] border-[#f0883e]/30";
       case "Real-World":
         return "bg-[#d2a8ff]/10 text-[#d2a8ff] border-[#d2a8ff]/30";
       default:
-        return "bg-indigo-50 text-indigo-600 border-indigo-200";
+        return "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-700";
     }
   };
 
   return (
     <section
       id="practice"
-      className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-3">
-          <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
+          <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
             #practice
           </span>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-            14. Practice Problems
-          </h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
+          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>
+          14. Practice Problems
+        </h2>
         </div>
 
         {/* Global Expand/Collapse Buttons */}
         <div className="flex items-center gap-2">
           <button
             onClick={expandAll}
-            className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 text-xs font-medium text-slate-900 hover:border-indigo-300 hover:bg-[#30363d] transition-all"
+            className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all"
           >
             Expand All
           </button>
           <button
             onClick={collapseAll}
-            className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 text-xs font-medium text-slate-500 hover:text-slate-900 hover:bg-[#30363d] transition-all"
+            className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 hover:bg-[#30363d] transition-all"
           >
             Collapse All
           </button>
         </div>
       </div>
 
-      <p className="text-slate-500 text-base leading-relaxed mb-8 max-w-4xl">
+      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
         Master subnetting with real-world scenarios and certification-style drill questions. Test your calculations for network boundaries, host ranges, broadcast addresses, and VLSM allocations, then toggle answers to verify your steps.
       </p>
 
@@ -377,8 +378,8 @@ export default function PracticeSection() {
               key={prob.id}
               className={`rounded-xl border transition-all ${
                 isOpen
-                  ? "bg-slate-50 border-indigo-300 shadow-lg shadow-[#58a6ff]/5"
-                  : "bg-white border-slate-200 hover:border-slate-200/80"
+                  ? "bg-slate-50 dark:bg-slate-700 border-indigo-300 shadow-lg shadow-[#58a6ff]/5"
+                  : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-200/80"
               }`}
             >
               {/* Question Header */}
@@ -392,16 +393,16 @@ export default function PracticeSection() {
                     >
                       {prob.difficulty}
                     </span>
-                    <span className="px-2.5 py-0.5 rounded-md bg-slate-50 border border-slate-200 font-mono text-xs text-indigo-600">
+                    <span className="px-2.5 py-0.5 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-mono text-xs text-indigo-600 dark:text-indigo-400">
                       {prob.badge}
                     </span>
                   </div>
                 </div>
 
-                <h3 className="text-xl font-bold text-slate-900 mb-2">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
                   {prob.title}
                 </h3>
-                <p className="text-slate-500 text-sm sm:text-base leading-relaxed mb-4">
+                <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base leading-relaxed mb-4">
                   {prob.question}
                 </p>
 
@@ -410,8 +411,8 @@ export default function PracticeSection() {
                   onClick={() => toggleProblem(prob.id)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                     isOpen
-                      ? "bg-indigo-100 text-indigo-600 border border-indigo-300"
-                      : "bg-[#21262d] text-slate-900 border border-slate-200 hover:border-indigo-300 hover:bg-[#30363d]"
+                      ? "bg-indigo-100 text-indigo-600 dark:text-indigo-400 border border-indigo-300"
+                      : "bg-[#21262d] text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 hover:bg-[#30363d]"
                   }`}
                 >
                   <span>{isOpen ? "Hide Answer" : "Reveal Answer"}</span>
@@ -435,21 +436,21 @@ export default function PracticeSection() {
 
               {/* Accordion Solution Content */}
               {isOpen && (
-                <div className="border-t border-slate-200 p-6 bg-slate-50/80 rounded-b-xl space-y-6">
+                <div className="border-t border-slate-200 dark:border-slate-700 p-6 bg-slate-50/80 dark:bg-slate-700/80 rounded-b-xl space-y-6">
                   {/* Scenario Banner if applicable */}
                   {prob.scenarioAnalysis && (
                     <div
                       className={`p-4 rounded-xl border ${
                         prob.scenarioAnalysis.pingStatus === "FAIL"
-                          ? "bg-rose-50 border-rose-200 text-rose-600"
-                          : "bg-emerald-50 border-emerald-200 text-emerald-600"
+                          ? "bg-rose-50 dark:bg-rose-900/30 border-rose-200 dark:border-rose-700 text-rose-600 dark:text-rose-400"
+                          : "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700 text-emerald-600 dark:text-emerald-400"
                       }`}
                     >
                       <div className="flex items-center gap-2 font-bold text-sm mb-1">
                         <span>{prob.scenarioAnalysis.pingStatus === "FAIL" ? "❌" : "✅"}</span>
                         <span>{prob.scenarioAnalysis.resultTitle}</span>
                       </div>
-                      <p className="text-xs sm:text-sm text-slate-900/90 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-slate-900/90 dark:text-slate-100/90 leading-relaxed">
                         {prob.scenarioAnalysis.reasoning}
                       </p>
                     </div>
@@ -457,57 +458,57 @@ export default function PracticeSection() {
 
                   {/* Summary Key-Value Cards */}
                   <div>
-                    <h4 className="text-xs uppercase tracking-wider font-bold text-slate-500 mb-3">
+                    <h4 className="text-xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400 mb-3">
                       Key Network Parameters
                     </h4>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-                      <div className="bg-white border border-slate-200 p-3 rounded-lg">
-                        <div className="text-[11px] text-slate-500 uppercase font-semibold">
+                      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-lg">
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
                           Network ID
                         </div>
-                        <div className="text-xs font-mono font-bold text-indigo-600 truncate mt-1">
+                        <div className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 truncate mt-1">
                           {prob.summary.networkAddress}
                         </div>
                       </div>
 
-                      <div className="bg-white border border-slate-200 p-3 rounded-lg">
-                        <div className="text-[11px] text-slate-500 uppercase font-semibold">
+                      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-lg">
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
                           Subnet Mask
                         </div>
-                        <div className="text-xs font-mono font-bold text-slate-900 truncate mt-1">
+                        <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 truncate mt-1">
                           {prob.summary.subnetMask}
                         </div>
                       </div>
 
-                      <div className="bg-white border border-slate-200 p-3 rounded-lg">
-                        <div className="text-[11px] text-slate-500 uppercase font-semibold">
+                      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-lg">
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
                           First Usable
                         </div>
-                        <div className="text-xs font-mono font-bold text-emerald-600 truncate mt-1">
+                        <div className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 truncate mt-1">
                           {prob.summary.firstUsable}
                         </div>
                       </div>
 
-                      <div className="bg-white border border-slate-200 p-3 rounded-lg">
-                        <div className="text-[11px] text-slate-500 uppercase font-semibold">
+                      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-lg">
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
                           Last Usable
                         </div>
-                        <div className="text-xs font-mono font-bold text-emerald-600 truncate mt-1">
+                        <div className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 truncate mt-1">
                           {prob.summary.lastUsable}
                         </div>
                       </div>
 
-                      <div className="bg-white border border-slate-200 p-3 rounded-lg">
-                        <div className="text-[11px] text-slate-500 uppercase font-semibold">
+                      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-lg">
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
                           Broadcast IP
                         </div>
-                        <div className="text-xs font-mono font-bold text-rose-600 truncate mt-1">
+                        <div className="text-xs font-mono font-bold text-rose-600 dark:text-rose-400 truncate mt-1">
                           {prob.summary.broadcastAddress}
                         </div>
                       </div>
 
-                      <div className="bg-white border border-slate-200 p-3 rounded-lg">
-                        <div className="text-[11px] text-slate-500 uppercase font-semibold">
+                      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-lg">
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
                           Usable Hosts
                         </div>
                         <div className="text-xs font-mono font-bold text-[#d2a8ff] truncate mt-1">
@@ -517,7 +518,7 @@ export default function PracticeSection() {
                     </div>
 
                     {prob.summary.extraNote && (
-                      <p className="text-xs text-indigo-600 mt-2 font-mono italic">
+                      <p className="text-xs text-indigo-600 dark:text-indigo-400 mt-2 font-mono italic">
                         * {prob.summary.extraNote}
                       </p>
                     )}
@@ -526,12 +527,12 @@ export default function PracticeSection() {
                   {/* Subnets Breakdown Table if present */}
                   {prob.subnetsTable && (
                     <div>
-                      <h4 className="text-xs uppercase tracking-wider font-bold text-slate-500 mb-3">
+                      <h4 className="text-xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400 mb-3">
                         Subnet Allocation Breakdown
                       </h4>
-                      <div className="overflow-x-auto rounded-lg border border-slate-200">
+                      <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
                         <table className="w-full text-left text-xs font-mono">
-                          <thead className="bg-white text-slate-500 border-b border-slate-200">
+                          <thead className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                             <tr>
                               <th className="p-3">Subnet / Name</th>
                               <th className="p-3">Network Address</th>
@@ -541,16 +542,16 @@ export default function PracticeSection() {
                               <th className="p-3">Hosts</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-[#30363d] bg-slate-50">
+                          <tbody className="divide-y divide-[#30363d] bg-slate-50 dark:bg-slate-700">
                             {prob.subnetsTable.map((sub, idx) => (
-                              <tr key={idx} className="hover:bg-white/50">
-                                <td className="p-3 font-bold text-slate-900">
+                              <tr key={idx} className="hover:bg-white/50 dark:hover:bg-slate-800/50">
+                                <td className="p-3 font-bold text-slate-900 dark:text-slate-100">
                                   {sub.name}
                                 </td>
-                                <td className="p-3 text-indigo-600">{sub.network}</td>
-                                <td className="p-3 text-slate-500">{sub.mask}</td>
-                                <td className="p-3 text-emerald-600">{sub.range}</td>
-                                <td className="p-3 text-rose-600">{sub.broadcast}</td>
+                                <td className="p-3 text-indigo-600 dark:text-indigo-400">{sub.network}</td>
+                                <td className="p-3 text-slate-500 dark:text-slate-400">{sub.mask}</td>
+                                <td className="p-3 text-emerald-600 dark:text-emerald-400">{sub.range}</td>
+                                <td className="p-3 text-rose-600 dark:text-rose-400">{sub.broadcast}</td>
                                 <td className="p-3 text-[#d2a8ff]">{sub.hosts}</td>
                               </tr>
                             ))}
@@ -562,19 +563,19 @@ export default function PracticeSection() {
 
                   {/* Step-by-Step Solution Breakdown */}
                   <div>
-                    <h4 className="text-xs uppercase tracking-wider font-bold text-slate-500 mb-3">
+                    <h4 className="text-xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400 mb-3">
                       Step-by-Step Calculation Rationale
                     </h4>
                     <div className="space-y-3">
                       {prob.steps.map((st, idx) => (
                         <div
                           key={idx}
-                          className="p-3.5 rounded-lg bg-white border border-slate-200"
+                          className="p-3.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700"
                         >
-                          <div className="text-xs font-bold text-indigo-600 mb-1">
+                          <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mb-1">
                             {st.step}
                           </div>
-                          <div className="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                          <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
                             {st.explanation}
                           </div>
                         </div>

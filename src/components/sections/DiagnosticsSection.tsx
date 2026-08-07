@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import CopyButton from "@/components/CopyButton";
 
 interface TerminalLine {
   id: string;
@@ -594,43 +595,44 @@ export default function DiagnosticsSection() {
   return (
     <section
       id="diagnostics"
-      className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
+        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
           #diagnostics
         </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
+          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◐</span>
           22. Network Diagnostics & CLI Sandbox
         </h2>
       </div>
 
-      <p className="text-slate-500 text-base leading-relaxed mb-8 max-w-4xl">
-        Master essential network troubleshooting CLI utilities (<code className="text-emerald-600 bg-slate-50 px-1.5 py-0.5 rounded font-mono text-sm">ping</code>, <code className="text-emerald-600 bg-slate-50 px-1.5 py-0.5 rounded font-mono text-sm">traceroute</code>, <code className="text-emerald-600 bg-slate-50 px-1.5 py-0.5 rounded font-mono text-sm">mtr</code>, <code className="text-emerald-600 bg-slate-50 px-1.5 py-0.5 rounded font-mono text-sm">iperf3</code>, <code className="text-emerald-600 bg-slate-50 px-1.5 py-0.5 rounded font-mono text-sm">dig</code>, <code className="text-emerald-600 bg-slate-50 px-1.5 py-0.5 rounded font-mono text-sm">nmap</code>). Test commands interactively in the simulated bash terminal sandbox, execute instant command presets, and reference the diagnostic cheat sheet.
+      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
+        Master essential network troubleshooting CLI utilities (<code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">ping</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">traceroute</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">mtr</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">iperf3</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">dig</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">nmap</code>). Test commands interactively in the simulated bash terminal sandbox, execute instant command presets, and reference the diagnostic cheat sheet.
       </p>
 
       {/* Interactive CLI Terminal Sandbox Container */}
-      <div className="mb-10 rounded-xl bg-white border border-slate-200 card-shadow overflow-hidden shadow-2xl">
+      <div className="mb-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow overflow-hidden shadow-2xl">
         {/* Terminal Header Bar */}
-        <div className="flex items-center justify-between bg-white px-4 py-3 border-b border-slate-200">
+        <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-3 border-b border-slate-200 dark:border-slate-700">
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-[#ff7b72] inline-block"></span>
             <span className="w-3 h-3 rounded-full bg-[#ffa657] inline-block"></span>
             <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
-            <span className="ml-2 text-xs font-mono text-slate-500">guest@net-sandbox: ~ (bash)</span>
+            <span className="ml-2 text-xs font-mono text-slate-500 dark:text-slate-400">guest@net-sandbox: ~ (bash)</span>
           </div>
 
           <div className="flex items-center gap-3">
             <button
               onClick={() => executeCommand("clear")}
-              className="text-xs text-slate-500 hover:text-slate-900 font-mono px-2 py-1 rounded bg-slate-50 border border-slate-200 transition-colors"
+              className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 font-mono px-2 py-1 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 transition-colors"
             >
               Clear Output
             </button>
             <button
               onClick={() => executeCommand("help")}
-              className="text-xs text-indigo-600 hover:underline font-mono px-2 py-1 rounded bg-indigo-50 border border-indigo-200 transition-colors"
+              className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline font-mono px-2 py-1 rounded bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-700 transition-colors"
             >
               Help Menu
             </button>
@@ -638,39 +640,39 @@ export default function DiagnosticsSection() {
         </div>
 
         {/* Terminal Buffer Output Window */}
-        <div className="p-4 sm:p-6 font-mono text-xs sm:text-sm h-80 sm:h-96 overflow-y-auto space-y-1.5 bg-[#0a0d12] text-slate-900">
+        <div className="p-4 sm:p-6 font-mono text-xs sm:text-sm h-80 sm:h-96 overflow-y-auto space-y-1.5 bg-[#0a0d12] text-slate-900 dark:text-slate-100">
           {terminalBuffer.map((line) => {
             if (line.type === "input") {
               return (
-                <div key={line.id} className="text-slate-900 font-semibold flex items-start gap-1">
-                  <span className="text-emerald-600">{line.text}</span>
+                <div key={line.id} className="text-slate-900 dark:text-slate-100 font-semibold flex items-start gap-1">
+                  <span className="text-emerald-600 dark:text-emerald-400">{line.text}</span>
                 </div>
               );
             }
             if (line.type === "system") {
               return (
-                <div key={line.id} className="text-indigo-600 font-semibold">
+                <div key={line.id} className="text-indigo-600 dark:text-indigo-400 font-semibold">
                   {line.text}
                 </div>
               );
             }
             if (line.type === "success") {
               return (
-                <div key={line.id} className="text-emerald-600">
+                <div key={line.id} className="text-emerald-600 dark:text-emerald-400">
                   {line.text}
                 </div>
               );
             }
             if (line.type === "error") {
               return (
-                <div key={line.id} className="text-rose-600">
+                <div key={line.id} className="text-rose-600 dark:text-rose-400">
                   {line.text}
                 </div>
               );
             }
             if (line.type === "info") {
               return (
-                <div key={line.id} className="text-amber-600">
+                <div key={line.id} className="text-amber-600 dark:text-amber-400">
                   {line.text}
                 </div>
               );
@@ -685,8 +687,8 @@ export default function DiagnosticsSection() {
         </div>
 
         {/* Terminal Prompt Input Bar */}
-        <div className="flex items-center bg-white px-4 py-3 border-t border-slate-200">
-          <span className="text-emerald-600 font-mono text-xs sm:text-sm font-bold mr-2 whitespace-nowrap">
+        <div className="flex items-center bg-white dark:bg-slate-800 px-4 py-3 border-t border-slate-200 dark:border-slate-700">
+          <span className="text-emerald-600 dark:text-emerald-400 font-mono text-xs sm:text-sm font-bold mr-2 whitespace-nowrap">
             guest@net-sandbox:~$
           </span>
           <input
@@ -696,11 +698,11 @@ export default function DiagnosticsSection() {
             onChange={(e) => setInputVal(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Type CLI command (e.g. ping -c 4 8.8.8.8, dig google.com, nmap 192.168.1.1)..."
-            className="flex-1 bg-transparent text-slate-900 font-mono text-xs sm:text-sm focus:outline-none placeholder-[#484f58]"
+            className="flex-1 bg-transparent text-slate-900 dark:text-slate-100 font-mono text-xs sm:text-sm focus:outline-none placeholder-[#484f58]"
           />
           <button
             onClick={() => executeCommand(inputVal)}
-            className="ml-2 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-600/80 text-slate-900 font-semibold text-xs font-mono transition-colors"
+            className="ml-2 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-600/80 text-slate-900 dark:text-slate-100 font-semibold text-xs font-mono transition-colors"
           >
             Run
           </button>
@@ -709,58 +711,67 @@ export default function DiagnosticsSection() {
 
       {/* Preset Command Buttons Bar */}
       <div className="mb-10">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-3">
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
           Instant Execution Presets (Click to Run):
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
           {presetCommands.map((preset, idx) => (
-            <button
+            <div
               key={idx}
-              onClick={() => handlePresetClick(preset.cmd)}
-              className="group flex flex-col p-2.5 rounded-lg bg-slate-50 border border-slate-200 hover:border-indigo-400 text-left transition-all hover:bg-slate-50/80"
+              className="group relative flex flex-col p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 hover:border-indigo-400 transition-all"
             >
-              <div className="flex items-center justify-between w-full mb-1">
-                <span className="text-xs font-bold text-slate-900 group-hover:text-indigo-600">
-                  {preset.label}
-                </span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#30363d] text-slate-500 font-mono">
-                  {preset.tag}
-                </span>
-              </div>
-              <code className="text-[11px] font-mono text-emerald-600 truncate">
-                {preset.cmd}
-              </code>
-            </button>
+              <button
+                onClick={() => handlePresetClick(preset.cmd)}
+                className="text-left w-full"
+              >
+                <div className="flex items-center justify-between w-full mb-1 pr-6">
+                  <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                    {preset.label}
+                  </span>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#30363d] text-slate-500 dark:text-slate-400 font-mono">
+                    {preset.tag}
+                  </span>
+                </div>
+                <code className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 truncate block pr-6">
+                  {preset.cmd}
+                </code>
+              </button>
+              <CopyButton
+                text={preset.cmd}
+                label=""
+                className="absolute top-1.5 right-1.5 !px-1 !py-0.5 opacity-0 group-hover:opacity-100 focus:opacity-100"
+              />
+            </div>
           ))}
         </div>
       </div>
 
       {/* Interactive 5-Step Diagnostic Workflow Matrix */}
       <div className="mb-12">
-        <h3 className="text-lg font-bold text-slate-900 mb-4">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4">
           Structured Troubleshooting Workflow Matrix
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
           {diagnosticWorkflow.map((wf) => (
             <div
               key={wf.step}
-              className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow flex flex-col justify-between"
+              className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-mono font-bold text-indigo-600">
+                  <span className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400">
                     Step {wf.step}
                   </span>
-                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-200">
+                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700">
                     {wf.badge}
                   </span>
                 </div>
-                <h4 className="text-xs font-bold text-slate-900 mb-1">{wf.title}</h4>
-                <p className="text-[11px] text-slate-500 leading-snug mb-3">{wf.desc}</p>
+                <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 mb-1">{wf.title}</h4>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug mb-3">{wf.desc}</p>
               </div>
               <button
                 onClick={() => handlePresetClick(wf.tool.replace("<target>", "8.8.8.8").replace("<domain>", "google.com").replace("<ports>", "80,443").replace("<server_ip>", "10.0.0.5"))}
-                className="w-full text-left font-mono text-[10px] bg-slate-50 p-1.5 rounded border border-slate-200 text-emerald-600 hover:border-emerald-400 truncate"
+                className="w-full text-left font-mono text-[10px] bg-slate-50 dark:bg-slate-700 p-1.5 rounded border border-slate-200 dark:border-slate-700 text-emerald-600 dark:text-emerald-400 hover:border-emerald-400 truncate"
               >
                 $ {wf.tool}
               </button>
@@ -773,24 +784,24 @@ export default function DiagnosticsSection() {
       <div>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
           <div>
-            <h3 className="text-xl font-bold text-slate-900">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
               Diagnostic Tools Command Cheat Sheet
             </h3>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               Comprehensive reference of syntax, flags, OSI layers, and practical use-cases.
             </p>
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex flex-wrap gap-1.5 bg-slate-50 p-1 rounded-lg border border-slate-200">
+          <div className="flex flex-wrap gap-1.5 bg-slate-50 dark:bg-slate-700 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
             {["all", "ping", "traceroute", "mtr", "iperf3", "dig", "nmap"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`px-2.5 py-1 rounded-md text-xs font-mono capitalize transition-colors ${
                   activeTab === tab
-                    ? "bg-indigo-600 text-slate-900 font-semibold"
-                    : "text-slate-500 hover:text-slate-900"
+                    ? "bg-indigo-600 text-slate-900 dark:text-slate-100 font-semibold"
+                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100"
                 }`}
               >
                 {tab}
@@ -804,32 +815,32 @@ export default function DiagnosticsSection() {
           {filteredCheatSheet.map((item) => (
             <div
               key={item.tool}
-              className="p-5 rounded-xl bg-white border border-slate-200 card-shadow flex flex-col justify-between"
+              className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow flex flex-col justify-between"
             >
               <div>
                 {/* Header */}
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-base font-bold text-slate-900">{item.name}</span>
-                  <span className="px-2 py-0.5 rounded text-xs font-mono font-semibold bg-violet-50 text-violet-600 border border-violet-200">
+                  <span className="text-base font-bold text-slate-900 dark:text-slate-100">{item.name}</span>
+                  <span className="px-2 py-0.5 rounded text-xs font-mono font-semibold bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-700">
                     {item.badge}
                   </span>
                 </div>
 
-                <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
                   {item.description}
                 </p>
 
                 {/* Syntax */}
-                <div className="mb-4 bg-slate-50 p-2.5 rounded-lg border border-slate-200">
-                  <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">
+                <div className="mb-4 bg-slate-50 dark:bg-slate-700 p-2.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase block mb-1">
                     Syntax:
                   </span>
-                  <code className="text-xs font-mono text-slate-900">{item.syntax}</code>
+                  <code className="text-xs font-mono text-slate-900 dark:text-slate-100">{item.syntax}</code>
                 </div>
 
                 {/* Common Flags */}
                 <div className="mb-4">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 block mb-2">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-2">
                     Key Command Options & Flags:
                   </span>
                   <div className="space-y-1.5">
@@ -838,10 +849,10 @@ export default function DiagnosticsSection() {
                         key={fIdx}
                         className="flex items-start gap-2 text-xs font-mono text-[#c9d1d9]"
                       >
-                        <span className="text-amber-600 font-bold min-w-[80px]">
+                        <span className="text-amber-600 dark:text-amber-400 font-bold min-w-[80px]">
                           {flg.flag}
                         </span>
-                        <span className="text-slate-500 font-sans text-xs">
+                        <span className="text-slate-500 dark:text-slate-400 font-sans text-xs">
                           {flg.desc}
                         </span>
                       </div>
@@ -850,24 +861,24 @@ export default function DiagnosticsSection() {
                 </div>
 
                 {/* Use Case */}
-                <div className="mb-4 text-xs text-slate-500 bg-white p-2.5 rounded border border-slate-200">
-                  <span className="text-emerald-600 font-semibold">Practical Use-Case: </span>
+                <div className="mb-4 text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800 p-2.5 rounded border border-slate-200 dark:border-slate-700">
+                  <span className="text-emerald-600 dark:text-emerald-400 font-semibold">Practical Use-Case: </span>
                   {item.useCase}
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-2 pt-3 border-t border-slate-200/60">
+              <div className="flex items-center gap-2 pt-3 border-t border-slate-200/60 dark:border-slate-700/60">
                 <button
                   onClick={() => handlePresetClick(item.example)}
-                  className="flex-1 py-1.5 px-3 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border border-indigo-200 text-xs font-mono font-semibold transition-colors flex items-center justify-center gap-1.5"
+                  className="flex-1 py-1.5 px-3 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700 text-xs font-mono font-semibold transition-colors flex items-center justify-center gap-1.5"
                 >
                   ⚡ Try in Terminal: <code className="text-xs">{item.example}</code>
                 </button>
 
                 <button
                   onClick={() => handleCopyCmd(item.example)}
-                  className="py-1.5 px-3 rounded-lg bg-slate-50 hover:bg-[#30363d] text-slate-500 hover:text-slate-900 border border-slate-200 text-xs font-mono transition-colors"
+                  className="py-1.5 px-3 rounded-lg bg-slate-50 dark:bg-slate-700 hover:bg-[#30363d] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700 text-xs font-mono transition-colors"
                 >
                   {copiedCmd === item.example ? "Copied!" : "Copy"}
                 </button>

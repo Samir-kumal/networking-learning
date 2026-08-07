@@ -110,19 +110,20 @@ export default function QuizSection() {
   return (
     <section
       id="quiz"
-      className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
+        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
           #quiz
         </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
+          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◉</span>
           16. Test Your Knowledge
         </h2>
       </div>
 
-      <p className="text-slate-500 text-base leading-relaxed mb-8 max-w-4xl">
+      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
         Click an answer to check it. Your score is tracked at the bottom.
       </p>
 
@@ -136,30 +137,30 @@ export default function QuizSection() {
           return (
             <div
               key={q.id}
-              className="rounded-xl bg-white border border-slate-200 card-shadow p-5 sm:p-6 transition-all space-y-4"
+              className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5 sm:p-6 transition-all space-y-4"
             >
-              <h3 className="text-base sm:text-lg font-semibold text-slate-900">
+              <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100">
                 Q{q.id} — {q.question}
               </h3>
 
               <div className="grid grid-cols-1 gap-2.5">
                 {q.options.map((opt, optIdx) => {
                   let buttonStyle =
-                    "bg-slate-50 border-slate-200 text-slate-900 hover:border-indigo-400 hover:bg-white";
+                    "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 hover:border-indigo-400 hover:bg-white dark:hover:bg-slate-800";
                   let icon = null;
 
                   if (isAnswered) {
                     if (optIdx === q.correctIndex) {
                       buttonStyle =
-                        "bg-emerald-500/15 border-emerald-400 text-emerald-600 font-semibold";
-                      icon = <span className="ml-auto text-emerald-600 font-bold">✓</span>;
+                        "bg-emerald-500/15 border-emerald-400 text-emerald-600 dark:text-emerald-400 font-semibold";
+                      icon = <span className="ml-auto text-emerald-600 dark:text-emerald-400 font-bold">✓</span>;
                     } else if (optIdx === selectedOpt) {
                       buttonStyle =
-                        "bg-[#ff7b72]/15 border-rose-400 text-rose-600 font-semibold";
-                      icon = <span className="ml-auto text-rose-600 font-bold">✕</span>;
+                        "bg-[#ff7b72]/15 border-rose-400 text-rose-600 dark:text-rose-400 font-semibold";
+                      icon = <span className="ml-auto text-rose-600 dark:text-rose-400 font-bold">✕</span>;
                     } else {
                       buttonStyle =
-                        "bg-slate-50/50 border-slate-200/50 text-slate-500 opacity-60";
+                        "bg-slate-50/50 dark:bg-slate-700/50 border-slate-200/50 text-slate-500 dark:text-slate-400 opacity-60";
                     }
                   }
 
@@ -178,23 +179,23 @@ export default function QuizSection() {
 
               {/* Explanation Block */}
               {isAnswered && (
-                <div className="mt-4 p-4 rounded-xl bg-white border border-slate-200 card-shadow text-sm space-y-1.5 animate-fadeIn">
+                <div className="mt-4 p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow text-sm space-y-1.5 animate-fadeIn">
                   <div className="font-semibold text-sm flex items-center gap-2">
                     {isCorrectChoice ? (
-                      <span className="text-emerald-600">✓ Correct!</span>
+                      <span className="text-emerald-600 dark:text-emerald-400">✓ Correct!</span>
                     ) : (
-                      <span className="text-rose-600">
+                      <span className="text-rose-600 dark:text-rose-400">
                         ✕ Incorrect.{" "}
-                        <span className="text-slate-500 font-normal">
+                        <span className="text-slate-500 dark:text-slate-400 font-normal">
                           Correct answer:{" "}
-                          <strong className="text-emerald-600">
+                          <strong className="text-emerald-600 dark:text-emerald-400">
                             {q.options[q.correctIndex]}
                           </strong>
                         </span>
                       </span>
                     )}
                   </div>
-                  <p className="text-slate-500 leading-relaxed">{q.explanation}</p>
+                  <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{q.explanation}</p>
                 </div>
               )}
             </div>
@@ -203,12 +204,12 @@ export default function QuizSection() {
       </div>
 
       {/* Score Counter Card */}
-      <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 text-center max-w-md mx-auto space-y-4 shadow-lg">
-        <h3 className="text-xl font-bold text-slate-900">Your Score</h3>
-        <div id="quizScore" className="text-4xl sm:text-5xl font-extrabold text-emerald-600 font-mono tracking-tight">
+      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 text-center max-w-md mx-auto space-y-4 shadow-lg">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Your Score</h3>
+        <div id="quizScore" className="text-4xl sm:text-5xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono tracking-tight">
           {score} / {QUESTIONS.length}
         </div>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-500 dark:text-slate-400">
           {score === QUESTIONS.length
             ? "🎉 Outstanding! You answered all questions correctly!"
             : score >= 5
