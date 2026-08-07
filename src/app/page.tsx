@@ -30,12 +30,27 @@ const TRACKS = [
     id: "security",
     name: "Cybersecurity & AppSec",
     description:
-      "Run SAST/DAST scanners with Trivy and Snyk, work through OWASP Top 10 mitigations, manage secrets with HashiCorp Vault, and configure WAF rules.",
+      "Explore SAST/DAST, OWASP Top 10, secrets management, WAF and TLS hardening, threat modeling, IAM, API security, Zero Trust, incident response, SIEM, SBOM supply chains, container security, cloud posture, and privacy compliance.",
     icon: "◉",
     href: "/security",
     difficulty: "Intermediate → Advanced",
-    moduleCount: 4,
-    techStack: ["Trivy", "Snyk", "OWASP", "Vault", "WAF", "TLS 1.3"],
+    moduleCount: 14,
+    techStack: [
+      "Trivy",
+      "Snyk",
+      "OWASP",
+      "Vault",
+      "WAF",
+      "TLS 1.3",
+      "STRIDE",
+      "IAM",
+      "API Security",
+      "Zero Trust",
+      "SIEM",
+      "SBOM",
+      "CSPM",
+      "Privacy",
+    ],
     accentClass: "bg-rose-500",
   },
   {
@@ -124,7 +139,7 @@ export default function Home() {
               <h2 className="text-2xl font-bold text-slate-900">Learning Tracks</h2>
             </div>
             <p className="text-[13px] text-slate-400">
-              5 tracks · 41 modules · browser-native
+              5 tracks · 51 modules · browser-native
             </p>
           </div>
 
