@@ -75,7 +75,17 @@ function mitigationMatches(mitigations: Set<string>, mitigation: string, threat:
 }
 
 export function evaluateThreatModel(asset: Asset, mitigations: Set<string>): ThreatFinding[] {
-  return THREATS_BY_ASSET[asset]
+  const templates = THREATS_BY_ASSET[asset];
+  if (!templates) {
+    return [{
+      threat: 'Unsupported asset',
+      severity: 'medium',
+      rationale: 'Unsupported asset input cannot be evaluated safely.',
+      mitigation: 'asset-validation',
+      mitigated: false,
+    }];
+  }
+  return templates
     .map((template) => ({ ...template, mitigated: mitigationMatches(mitigations, template.mitigation, template.threat) }))
     .sort((left, right) => SEVERITY_RANK[right.severity] - SEVERITY_RANK[left.severity]);
 }
@@ -107,15 +117,16 @@ export function evaluateIamRequest(request: IamRequest, rules: IamPolicyRule[]):
   matchedRule: IamPolicyRule | null;
   reason: string;
 } {
-  const matches = rules.filter((rule) => iamRuleMatches(request, rule));
-  const deny = matches.find((rule) => rule.effect === 'Deny' && (!rule.requireMfa || request.mfa));
+  const baseMatches = rules.filter((rule) => iamRuleMatches(request, rule));
+  const matches = baseMatches.filter((rule) => !rule.requireMfa || request.mfa);
+  const deny = matches.find((rule) => rule.effect === 'Deny');
   if (deny) return { decision: 'DENY', matchedRule: deny, reason: 'Explicit Deny rule overrides all Allow rules.' };
-
-  const mfaRequired = matches.find((rule) => rule.effect === 'Allow' && rule.requireMfa && !request.mfa);
-  if (mfaRequired) return { decision: 'DENY', matchedRule: mfaRequired, reason: 'MFA is required by the matched Allow rule.' };
 
   const allow = matches.find((rule) => rule.effect === 'Allow');
   if (allow) return { decision: 'ALLOW', matchedRule: allow, reason: 'Request matches an Allow rule and all conditions are satisfied.' };
+
+  const mfaRequired = baseMatches.find((rule) => rule.effect === 'Allow' && rule.requireMfa && !request.mfa);
+  if (mfaRequired) return { decision: 'DENY', matchedRule: mfaRequired, reason: 'MFA is required by the matched Allow rule.' };
 
   return { decision: 'DENY', matchedRule: null, reason: 'No matching policy rule grants this request.' };
 }
@@ -232,9 +243,10 @@ export function evaluateContainerAdmission(input: { nonRoot: boolean; readOnlyRo
 
 export function scoreCloudPosture(findings: Array<{ id: string; severity: Severity; resource: string; publicExposure: boolean; fixed: boolean }>): { score: number; grade: 'A' | 'B' | 'C' | 'D' | 'F'; openFindings: number } {
   const penalty: Record<Severity, number> = { critical: 30, high: 20, medium: 10, low: 5 };
-  const openFindings = findings.filter((finding) => !finding.fixed);
-  const risk = openFindings.reduce((total, finding) => total + penalty[finding.severity] + (finding.publicExposure ? 10 : 0), 0);
-  const score = Math.max(0, Math.min(100, 100 - risk));
+  const openFindings = Array.isArray(findings) ? findings.filter((finding) => !finding.fixed) : [];
+  const risk = openFindings.reduce((total, finding) => total + (penalty[finding.severity] ?? 0) + (finding.publicExposure ? 10 : 0), 0);
+  const rawScore = 100 - risk;
+  const score = Number.isFinite(rawScore) ? Math.max(0, Math.min(100, rawScore)) : 0;
   const grade = score >= 90 ? 'A' : score >= 80 ? 'B' : score >= 70 ? 'C' : score >= 50 ? 'D' : 'F';
   return { score, grade, openFindings: openFindings.length };
 }
@@ -270,5 +282,11 @@ export function controlsForDataClass(classification: 'public' | 'internal' | 'co
       masking: 'Always tokenize or redact restricted values.',
     },
   };
-  return controls[classification];
+  return controls[classification] ?? {
+    encryption: 'Unsupported classification; deny processing until classification is corrected.',
+    access: 'Unsupported classification; deny access until classification is corrected.',
+    retention: 'Unsupported classification; retain only until classification is corrected.',
+    audit: 'Unsupported classification; record access and classification changes.',
+    masking: 'Unsupported classification; mask values by default.',
+  };
 }

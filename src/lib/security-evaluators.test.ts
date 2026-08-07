@@ -128,4 +128,39 @@ describe('security evaluators', () => {
     expect(restrictedControls.access).toContain('MFA');
     expect(restrictedControls.masking).toContain('tokenize');
   });
+
+  test('returns an explanatory finding for a runtime-invalid threat asset', () => {
+    const result = evaluateThreatModel('unknown-asset' as never, new Set());
+    expect(result).toHaveLength(1);
+    expect(result[0].mitigated).toBe(false);
+    expect(result[0].rationale).toContain('Unsupported');
+  });
+
+  test('ignores an inapplicable MFA conditional when an unconditional IAM Allow matches', () => {
+    const result = evaluateIamRequest(
+      { principal: 'analyst', action: 'read', resource: 'reports', mfa: false, source: 'corporate' },
+      [
+        { effect: 'Allow', principal: '*', action: 'read', resource: 'reports', requireMfa: true },
+        { effect: 'Allow', principal: '*', action: 'read', resource: 'reports' },
+      ],
+    );
+    expect(result.decision).toBe('ALLOW');
+    expect(result.matchedRule?.requireMfa).toBeUndefined();
+  });
+
+  test('bounds cloud posture results for runtime-invalid severities', () => {
+    const result = scoreCloudPosture([
+      { id: 'unknown', severity: 'urgent' as never, resource: 'bucket', publicExposure: true, fixed: false },
+    ]);
+    expect(result.score).toBeGreaterThanOrEqual(0);
+    expect(result.score).toBeLessThanOrEqual(100);
+    expect(['A', 'B', 'C', 'D', 'F']).toContain(result.grade);
+    expect(result.openFindings).toBe(1);
+  });
+
+  test('returns safe privacy controls for a runtime-invalid classification', () => {
+    const result = controlsForDataClass('unknown' as never);
+    expect(Object.values(result).every((value) => typeof value === 'string')).toBe(true);
+    expect(result.access).toContain('Unsupported');
+  });
 });
