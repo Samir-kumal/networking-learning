@@ -75,6 +75,21 @@ export default function SecSiemSection() {
     return sourceMatches && severityMatches;
   });
 
+  const handleRuleChange = (value: SiemRule) => {
+    setResult(null);
+    setRule(value);
+  };
+
+  const handleSourceChange = (value: FilterValue | EventSource) => {
+    setResult(null);
+    setSourceFilter(value);
+  };
+
+  const handleSeverityChange = (value: FilterValue) => {
+    setResult(null);
+    setSeverityFilter(value);
+  };
+
   const handleDetect = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setResult({ matchingIds: detectSiemEvents(filteredEvents, rule), filteredCount: filteredEvents.length });
@@ -98,20 +113,20 @@ export default function SecSiemSection() {
         <div className="grid grid-cols-1 gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto] md:items-end">
           <div>
             <label htmlFor="sec-siem-rule" className="mb-1 block text-xs font-semibold text-slate-700">Detection rule</label>
-            <select id="sec-siem-rule" value={rule} onChange={(event) => setRule(event.target.value as SiemRule)} className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900">
+            <select id="sec-siem-rule" value={rule} onChange={(event) => handleRuleChange(event.target.value as SiemRule)} className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900">
               {RULE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
             <p className="mt-1 text-[11px] text-slate-500">{selectedRule.description}</p>
           </div>
           <div>
             <label htmlFor="sec-siem-source" className="mb-1 block text-xs font-semibold text-slate-700">Source filter</label>
-            <select id="sec-siem-source" value={sourceFilter} onChange={(event) => setSourceFilter(event.target.value as FilterValue | EventSource)} className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900">
+            <select id="sec-siem-source" value={sourceFilter} onChange={(event) => handleSourceChange(event.target.value as FilterValue | EventSource)} className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900">
               {SOURCE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
           </div>
           <div>
             <label htmlFor="sec-siem-severity" className="mb-1 block text-xs font-semibold text-slate-700">Severity filter</label>
-            <select id="sec-siem-severity" value={severityFilter} onChange={(event) => setSeverityFilter(event.target.value as FilterValue)} className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900">
+            <select id="sec-siem-severity" value={severityFilter} onChange={(event) => handleSeverityChange(event.target.value as FilterValue)} className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900">
               {SEVERITY_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
           </div>
