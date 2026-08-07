@@ -72,6 +72,19 @@ describe('security evaluators', () => {
     expect(complete.score).toBeLessThanOrEqual(100);
     expect(incomplete.score).toBeGreaterThanOrEqual(0);
   });
+  test('bounds incident response results for runtime-invalid severity values', () => {
+    const result = scoreIncidentResponse({
+      severity: 'urgent' as never,
+      contained: true,
+      evidencePreserved: true,
+      affectedAssets: 0,
+      lifecycleStepsCompleted: ['identify', 'contain', 'eradicate', 'recover', 'lessons-learned'],
+    });
+    expect(result).toEqual({ score: 0, priority: 'P4', nextAction: 'Conduct post-incident review.' });
+    expect(Number.isFinite(result.score)).toBe(true);
+    expect(result.score).toBeGreaterThanOrEqual(0);
+    expect(result.score).toBeLessThanOrEqual(100);
+  });
 
   test('matches each SIEM detection rule deterministically', () => {
     const events = [

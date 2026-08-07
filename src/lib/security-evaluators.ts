@@ -18,6 +18,12 @@ const SEVERITY_RANK: Record<Severity, number> = {
   medium: 2,
   low: 1,
 };
+const INCIDENT_SEVERITY_SCORE: Record<Severity, number> = {
+  critical: 100,
+  high: 80,
+  medium: 60,
+  low: 40,
+};
 
 const THREATS_BY_ASSET: Record<Asset, ThreatTemplate[]> = {
   'web-api': [
@@ -170,7 +176,10 @@ export function scoreIncidentResponse(input: {
   affectedAssets: number;
   lifecycleStepsCompleted: string[];
 }): { score: number; priority: string; nextAction: string } {
-  let score = ({ critical: 100, high: 80, medium: 60, low: 40 } as Record<Severity, number>)[input.severity];
+  const rawScore = Object.prototype.hasOwnProperty.call(INCIDENT_SEVERITY_SCORE, input.severity)
+    ? INCIDENT_SEVERITY_SCORE[input.severity]
+    : 0;
+  let score = Number.isFinite(rawScore) ? rawScore : 0;
   if (!input.contained) score -= 25;
   if (!input.evidencePreserved) score -= 20;
   score -= Math.min(25, Math.max(0, input.affectedAssets) * 5);
@@ -178,7 +187,7 @@ export function scoreIncidentResponse(input: {
   const completed = new Set(input.lifecycleStepsCompleted.map((step) => step.trim().toLowerCase().replace(/[_ ]/g, '-')));
   const requiredSteps = ['identify', 'contain', 'eradicate', 'recover', 'lessons-learned'];
   score -= requiredSteps.filter((step) => !completed.has(step)).length * 6;
-  score = Math.max(0, Math.min(100, score));
+  score = Number.isFinite(score) ? Math.max(0, Math.min(100, score)) : 0;
 
   const priority = score >= 85 ? 'P1' : score >= 65 ? 'P2' : score >= 40 ? 'P3' : 'P4';
   let nextAction = 'Conduct post-incident review.';
