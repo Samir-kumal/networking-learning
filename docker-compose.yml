@@ -1,0 +1,14 @@
+name: networking-learning
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: networking-learning-app
+    restart: unless-stopped
+    ports:
+      - "3008:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
