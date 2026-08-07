@@ -1,6 +1,16 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import DkSecurityScanSection from "./DkSecurityScanSection";
+import DkResourceQuotasSection from "./DkResourceQuotasSection";
+import DkNetworkPolicySection from "./DkNetworkPolicySection";
+import DkIngressServiceMeshSection from "./DkIngressServiceMeshSection";
+import DkPersistentVolumesSection from "./DkPersistentVolumesSection";
+import DkImageRegistrySection from "./DkImageRegistrySection";
+import DkRbacSecuritySection from "./DkRbacSecuritySection";
+import DkHpaVpaSection from "./DkHpaVpaSection";
+import DkTroubleshootingSection from "./DkTroubleshootingSection";
+import DkObservabilitySection from "./DkObservabilitySection";
 
 // --- Types & Data Interfaces ---
 type BaseImageKey = "node-full" | "node-slim" | "node-alpine" | "distroless";
@@ -1517,6 +1527,56 @@ spec:
           </div>
         </div>
       </section>
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 6: CONTAINER SECURITY SCANNING (#dk-security-scan) */}
+      {/* ========================================================================= */}
+      <DkSecurityScanSection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 7: RESOURCE QUOTAS & LIMITS (#dk-resource-quotas) */}
+      {/* ========================================================================= */}
+      <DkResourceQuotasSection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 8: NETWORK POLICY BUILDER (#dk-network-policy) */}
+      {/* ========================================================================= */}
+      <DkNetworkPolicySection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 9: INGRESS & SERVICE MESH (#dk-ingress-mesh) */}
+      {/* ========================================================================= */}
+      <DkIngressServiceMeshSection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 10: PERSISTENT VOLUMES (#dk-persistent-volumes) */}
+      {/* ========================================================================= */}
+      <DkPersistentVolumesSection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 11: IMAGE REGISTRY & TAGS (#dk-image-registry) */}
+      {/* ========================================================================= */}
+      <DkImageRegistrySection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 12: RBAC & SECURITY (#dk-rbac-security) */}
+      {/* ========================================================================= */}
+      <DkRbacSecuritySection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 13: HPA & VPA AUTOSCALING (#dk-hpa-vpa) */}
+      {/* ========================================================================= */}
+      <DkHpaVpaSection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 14: TROUBLESHOOTING (#dk-troubleshooting) */}
+      {/* ========================================================================= */}
+      <DkTroubleshootingSection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 15: OBSERVABILITY STACK (#dk-observability) */}
+      {/* ========================================================================= */}
+      <DkObservabilitySection />
     </div>
   );
 }

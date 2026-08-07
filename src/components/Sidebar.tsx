@@ -27,14 +27,14 @@ export const TRACKS: TrackItem[] = [
   { id: "aws",        name: "AWS Cloud",      path: "/aws",       icon: "◈",  badge: "15 Modules" },
   { id: "security",   name: "Cybersecurity",  path: "/security",  icon: "◉",  badge: "4 Modules" },
   { id: "git-ops",    name: "Git & CI/CD",    path: "/git-ops",   icon: "⑂",  badge: "4 Modules" },
-  { id: "docker-k8s", name: "Docker & K8s",   path: "/docker-k8s",icon: "⬡",  badge: "5 Modules" },
+  { id: "docker-k8s", name: "Docker & K8s",   path: "/docker-k8s",icon: "⬡",  badge: "15 Modules" },
 ];
 
 export const MODULE_ITEMS_BY_TRACK: Record<string, NavItem[]> = {
   hub: [
-    { id: "tracks",       num: "H1", label: "Track Directory", category: "Hub", icon: "⊞", path: "/" },
-    { id: "architecture", num: "H2", label: "System Map",      category: "Hub", icon: "◈", path: "/" },
-    { id: "launchers",    num: "H3", label: "Tool Matrix",     category: "Hub", icon: "⚡", path: "/" },
+    { id: "hub-tracks", num: "H1", label: "Track Directory", category: "Hub", icon: "⊞" },
+    { id: "hub-map",    num: "H2", label: "System Map",      category: "Hub", icon: "◈" },
+    { id: "hub-tools",  num: "H3", label: "Tool Matrix",     category: "Hub", icon: "◉" },
   ],
   networking: [
     { id: "basics",          num: "01", label: "Subnet Basics",       category: "Foundations",  icon: "⬡" },
@@ -62,21 +62,11 @@ export const MODULE_ITEMS_BY_TRACK: Record<string, NavItem[]> = {
     { id: "quiz",            num: "23", label: "Knowledge Quiz",      category: "Evaluation",   icon: "◉" },
   ],
   aws: [
-    { id: "aws-vpc",            num: "A1",  label: "AWS VPC Subnetting",       category: "AWS Cloud",  icon: "◈" },
-    { id: "aws-iam",            num: "A2",  label: "IAM Policy Simulator",     category: "AWS Cloud",  icon: "◉" },
-    { id: "aws-s3",             num: "A3",  label: "S3 Security Rules",        category: "AWS Cloud",  icon: "⬡" },
-    { id: "aws-compute",        num: "A4",  label: "EC2 vs ECS vs EKS",       category: "AWS Cloud",  icon: "⊞" },
-    { id: "aws-serverless",     num: "A5",  label: "Lambda & CloudFront",      category: "AWS Cloud",  icon: "⑂" },
-    { id: "aws-cost",           num: "A6",  label: "Cost Optimization",        category: "Advanced",   icon: "◈" },
-    { id: "aws-dr",             num: "A7",  label: "Disaster Recovery",        category: "Advanced",   icon: "◉" },
-    { id: "aws-compliance",     num: "A8",  label: "Compliance Framework",     category: "Security",   icon: "⬡" },
-    { id: "step-functions",     num: "A9",  label: "Step Functions",           category: "Serverless", icon: "⊞" },
-    { id: "rest-vs-http",       num: "A10", label: "API Gateway Patterns",     category: "Networking", icon: "⑂" },
-    { id: "metrics",            num: "A11", label: "CloudWatch Observability", category: "Monitoring", icon: "◐" },
-    { id: "aws-secrets-manager",num: "A12", label: "Secrets Manager",          category: "Security",   icon: "◉" },
-    { id: "overview",           num: "A13", label: "Transit Gateway",          category: "Networking", icon: "⬡" },
-    { id: "alb-routing",        num: "A14", label: "Auto Scaling & ELB",       category: "Compute",    icon: "⊞" },
-    { id: "wa-overview",        num: "A15", label: "Well-Architected Review",  category: "Governance", icon: "⑂" },
+    { id: "aws-vpc",       num: "A1", label: "AWS VPC Subnetting",   category: "AWS Cloud", icon: "◈" },
+    { id: "aws-iam",       num: "A2", label: "IAM Policy Simulator", category: "AWS Cloud", icon: "◉" },
+    { id: "aws-s3",        num: "A3", label: "S3 Security Rules",    category: "AWS Cloud", icon: "⬡" },
+    { id: "aws-compute",   num: "A4", label: "EC2 vs ECS vs EKS",   category: "AWS Cloud", icon: "⊞" },
+    { id: "aws-serverless",num: "A5", label: "Lambda & CloudFront",  category: "AWS Cloud", icon: "⑂" },
   ],
   security: [
     { id: "sec-scanners", num: "S1", label: "Trivy & Snyk Scanners", category: "Security", icon: "◉" },
@@ -91,11 +81,21 @@ export const MODULE_ITEMS_BY_TRACK: Record<string, NavItem[]> = {
     { id: "git-deploy",    num: "G4", label: "Blue/Green & Canary",   category: "GitOps", icon: "◉" },
   ],
   "docker-k8s": [
-    { id: "k8s-dockerfile", num: "D1", label: "Multi-Stage Docker",   category: "Containers", icon: "⬡" },
-    { id: "k8s-compose",    num: "D2", label: "Compose Generator",    category: "Containers", icon: "◈" },
-    { id: "k8s-cluster",    num: "D3", label: "K8s Architecture",     category: "Containers", icon: "⊞" },
-    { id: "k8s-helm",       num: "D4", label: "Helm Charts & Syntax", category: "Containers", icon: "◐" },
-    { id: "k8s-argocd",     num: "D5", label: "ArgoCD GitOps Sync",   category: "Containers", icon: "⑂" },
+    { id: "k8s-dockerfile",     num: "D1",  label: "Multi-Stage Docker",       category: "Containers", icon: "⬡" },
+    { id: "k8s-compose",        num: "D2",  label: "Compose Generator",        category: "Containers", icon: "◈" },
+    { id: "k8s-cluster",        num: "D3",  label: "K8s Architecture",         category: "Containers", icon: "⊞" },
+    { id: "k8s-helm",           num: "D4",  label: "Helm Charts & Syntax",     category: "Containers", icon: "◐" },
+    { id: "k8s-argocd",         num: "D5",  label: "ArgoCD GitOps Sync",       category: "Containers", icon: "⑂" },
+    { id: "dk-security-scan",   num: "D6",  label: "Container Security Scan",  category: "Security",   icon: "◉" },
+    { id: "dk-resource-quotas", num: "D7",  label: "Resource Quotas & Limits", category: "Advanced",   icon: "⊞" },
+    { id: "netpol",             num: "D8",  label: "Network Policy Builder",   category: "Networking", icon: "⑂" },
+    { id: "dk-ingress-mesh",    num: "D9",  label: "Ingress & Service Mesh",   category: "Networking", icon: "⬡" },
+    { id: "dk-persistent-volumes", num: "D10", label: "Persistent Volumes",    category: "Storage",    icon: "◈" },
+    { id: "dk-image-registry",  num: "D11", label: "Image Registry & Tags",    category: "Advanced",   icon: "◐" },
+    { id: "dk-rbac-roles",      num: "D12", label: "RBAC & Security",          category: "Security",   icon: "◉" },
+    { id: "hpa-vpa",            num: "D13", label: "HPA & VPA Autoscaling",    category: "Advanced",   icon: "⊞" },
+    { id: "dk-troubleshooting", num: "D14", label: "Troubleshooting",          category: "Evaluation", icon: "⊘" },
+    { id: "metrics",            num: "D15", label: "Observability Stack",      category: "Monitoring", icon: "◐" },
   ],
 };
 
@@ -159,21 +159,21 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
     <div className="flex flex-col h-full">
 
       {/* ── Brand / Header ── */}
-      <div className={`flex items-center justify-between px-4 py-4 border-b border-slate-200 ${isCollapsed ? "px-3" : ""}`}>
+      <div className={`flex items-center justify-between px-4 py-4 border-b border-slate-200 dark:border-slate-700 ${isCollapsed ? "px-3" : ""}`}>
         {!isCollapsed && (
           <div className="flex items-center gap-2.5">
             <div className="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center text-white text-xs font-bold">
               D
             </div>
             <div>
-              <div className="text-[13px] font-semibold text-slate-900 leading-none">DevOps Hub</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Learning Portal</div>
+              <div className="text-[13px] font-semibold text-slate-900 dark:text-slate-100 leading-none">DevOps Hub</div>
+              <div className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Learning Portal</div>
             </div>
           </div>
         )}
         <button
           onClick={onToggleCollapse}
-          className="p-1.5 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+          className="p-1.5 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:text-slate-300 dark:hover:bg-slate-700 transition-colors"
           aria-label="Toggle sidebar"
         >
           <svg className={`w-4 h-4 transition-transform ${isCollapsed ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -183,9 +183,9 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
       </div>
 
       {/* ── Track Switcher ── */}
-      <div className={`border-b border-slate-200 ${isCollapsed ? "py-2" : "p-3"}`}>
+      <div className={`border-b border-slate-200 dark:border-slate-700 ${isCollapsed ? "py-2" : "p-3"}`}>
         {!isCollapsed && (
-          <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2 px-1">
+          <p className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 px-1">
             Learning Tracks
           </p>
         )}
@@ -199,11 +199,11 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
                 title={isCollapsed ? track.name : undefined}
                 className={`flex items-center gap-2.5 rounded-md px-2 py-2 text-sm transition-all ${
                   isActive
-                    ? "bg-indigo-50 text-indigo-700 font-semibold"
-                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                    ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 font-semibold"
+                    : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-200"
                 }`}
               >
-                <span className={`text-base flex-shrink-0 ${isActive ? "text-indigo-600" : "text-slate-400"}`}>
+                <span className={`text-base flex-shrink-0 ${isActive ? "text-indigo-600 dark:text-indigo-400" : "text-slate-400 dark:text-slate-500"}`}>
                   {track.icon}
                 </span>
                 {!isCollapsed && (
@@ -212,8 +212,8 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
                 {!isCollapsed && track.badge && (
                   <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${
                     isActive
-                      ? "bg-indigo-100 text-indigo-600"
-                      : "bg-slate-100 text-slate-500"
+                      ? "bg-indigo-100 dark:bg-indigo-800/40 text-indigo-600 dark:text-indigo-300"
+                      : "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
                   }`}>
                     {track.badge}
                   </span>
@@ -228,7 +228,7 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
       {!isCollapsed && (
         <div className="px-3 pt-3 pb-2">
           <div className="relative">
-            <svg className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input
@@ -236,7 +236,7 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
               placeholder="Search modules…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 text-[12px] bg-slate-50 border border-slate-200 rounded-md text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-400 focus:border-indigo-400 transition"
+              className="w-full pl-8 pr-3 py-1.5 text-[12px] bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-400 focus:border-indigo-400 transition"
             />
           </div>
         </div>
@@ -245,14 +245,14 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
       {/* ── Module Navigation ── */}
       <nav className="flex-1 overflow-y-auto px-3 pb-4 space-y-4">
         {!isCollapsed && (
-          <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-2 px-1">
+          <p className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mt-2 px-1">
             {currentTrack.name}
           </p>
         )}
         {Object.entries(grouped).map(([category, items]) => (
           <div key={category}>
             {!isCollapsed && (
-              <p className="text-[10px] font-medium text-slate-400 px-1 mb-1 mt-3">
+              <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500 px-1 mb-1 mt-3">
                 {category}
               </p>
             )}
@@ -267,20 +267,20 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
                     onClick={() => setActiveId(item.id)}
                     className={`group flex items-center gap-2.5 rounded-md px-2 py-1.5 text-[13px] transition-all ${
                       isActive
-                        ? "bg-indigo-50 text-indigo-700 font-medium"
-                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                        ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 font-medium"
+                        : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-200"
                     }`}
                   >
                     {/* Active indicator pill */}
                     <span className={`flex-shrink-0 w-1 h-4 rounded-full transition-all ${
-                      isActive ? "bg-indigo-500" : "bg-transparent group-hover:bg-slate-300"
+                      isActive ? "bg-indigo-500" : "bg-transparent group-hover:bg-slate-300 dark:group-hover:bg-slate-600"
                     }`} />
 
                     {isCollapsed ? (
-                      <span className="text-[11px] font-mono font-semibold text-slate-500">{item.num}</span>
+                      <span className="text-[11px] font-mono font-semibold text-slate-500 dark:text-slate-400">{item.num}</span>
                     ) : (
                       <>
-                        <span className={`font-mono text-[10px] flex-shrink-0 w-5 ${isActive ? "text-indigo-500" : "text-slate-400"}`}>
+                        <span className={`font-mono text-[10px] flex-shrink-0 w-5 ${isActive ? "text-indigo-500 dark:text-indigo-400" : "text-slate-400 dark:text-slate-500"}`}>
                           {item.num}
                         </span>
                         <span className="truncate">{item.label}</span>
@@ -294,18 +294,18 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
         ))}
 
         {searchQuery && Object.keys(grouped).length === 0 && (
-          <div className="py-8 text-center text-[12px] text-slate-400">
+          <div className="py-8 text-center text-[12px] text-slate-400 dark:text-slate-500">
             No modules match &ldquo;{searchQuery}&rdquo;
           </div>
         )}
       </nav>
 
       {/* ── Footer: Live Status ── */}
-      <div className={`border-t border-slate-200 p-3 ${isCollapsed ? "px-2" : ""}`}>
+      <div className={`border-t border-slate-200 dark:border-slate-700 p-3 ${isCollapsed ? "px-2" : ""}`}>
         {!isCollapsed ? (
-          <div className="flex items-center gap-2 text-[11px] text-slate-500">
+          <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-soft-pulse flex-shrink-0" />
-            <span>Docker · Port <strong className="text-slate-700">3008</strong></span>
+            <span>Docker · Port <strong className="text-slate-700 dark:text-slate-300">3008</strong></span>
           </div>
         ) : (
           <div className="flex justify-center">
@@ -328,7 +328,7 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
 
       {/* Mobile hamburger */}
       <button
-        className="fixed top-3 left-3 z-50 lg:hidden p-2 rounded-lg bg-white border border-slate-200 shadow-sm text-slate-600 hover:bg-slate-50 transition"
+        className="fixed top-3 left-3 z-50 lg:hidden p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition"
         onClick={() => setIsMobileOpen(true)}
         aria-label="Open sidebar"
       >
@@ -338,12 +338,12 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
       </button>
 
       {/* Mobile drawer */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 shadow-xl transform transition-transform duration-200 lg:hidden ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 shadow-xl transform transition-transform duration-200 lg:hidden ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
         <SidebarContent />
       </aside>
 
       {/* Desktop sidebar */}
-      <aside className={`hidden lg:flex flex-col fixed inset-y-0 left-0 z-30 bg-white border-r border-slate-200 transition-all duration-200 ${isCollapsed ? "w-16" : "w-64"}`}>
+      <aside className={`hidden lg:flex flex-col fixed inset-y-0 left-0 z-30 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 transition-all duration-200 ${isCollapsed ? "w-16" : "w-64"}`}>
         <SidebarContent />
       </aside>
     </>

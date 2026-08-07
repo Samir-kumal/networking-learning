@@ -26,7 +26,7 @@ const QUICK_TOOLS: QuickTool[] = [
 ];
 
 const STATS = [
-  { value: "51",  label: "Interactive Modules", accent: "text-indigo-600" },
+  { value: "61",  label: "Interactive Modules", accent: "text-indigo-600" },
   { value: "5",   label: "Learning Tracks",     accent: "text-emerald-600"},
   { value: "23",  label: "Networking Labs",      accent: "text-amber-600"  },
   { value: "100%",label: "Browser-Native",       accent: "text-sky-600"    },
@@ -55,7 +55,7 @@ export default function HubHero() {
         {/* ── Badge ── */}
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-soft-pulse" />
-          Live · All 41 modules running on Docker
+          Live · All 61 modules running on Docker
         </div>
 
         {/* ── Headline ── */}

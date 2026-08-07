@@ -3,7 +3,7 @@ import DockerK8sSection from "@/components/tracks/DockerK8sSection";
 export const metadata = {
   title: "Docker & Kubernetes Engineering Track | DevOps & Cloud Hub",
   description:
-    "Interactive Docker multi-stage build builder, optimization inspector, Docker Compose service stack generator, Kubernetes control plane architecture inspector, and Helm & ArgoCD GitOps visualizer.",
+    "15 interactive modules: multi-stage Docker builds, Compose stack generation, K8s control plane architecture, Helm & ArgoCD GitOps, Trivy security scanning, resource quotas, network policies, ingress & service mesh, persistent volumes, image registries, RBAC, HPA/VPA autoscaling, troubleshooting, and full observability.",
 };
 
 export default function DockerK8sPage() {

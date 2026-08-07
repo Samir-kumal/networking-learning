@@ -58,8 +58,8 @@ const TRACKS = [
     icon: "⬡",
     href: "/docker-k8s",
     difficulty: "Intermediate → Advanced",
-    moduleCount: 5,
-    techStack: ["Docker", "Compose", "Kubernetes", "Helm", "ArgoCD"],
+    moduleCount: 15,
+    techStack: ["Docker", "Compose", "Kubernetes", "Helm", "ArgoCD", "Trivy", "NetworkPolicy", "Ingress", "RBAC", "HPA/VPA", "Prometheus"],
     accentClass: "bg-sky-600",
   },
 ];
@@ -124,7 +124,7 @@ export default function Home() {
               <h2 className="text-2xl font-bold text-slate-900">Learning Tracks</h2>
             </div>
             <p className="text-[13px] text-slate-400">
-              5 tracks · 51 modules · browser-native
+              5 tracks · 61 modules · browser-native
             </p>
           </div>
 
