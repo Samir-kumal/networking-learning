@@ -26,7 +26,7 @@ const QUICK_TOOLS: QuickTool[] = [
 ];
 
 const STATS = [
-  { value: "41",  label: "Interactive Modules", accent: "text-indigo-600" },
+  { value: "51",  label: "Interactive Modules", accent: "text-indigo-600" },
   { value: "5",   label: "Learning Tracks",     accent: "text-emerald-600"},
   { value: "23",  label: "Networking Labs",      accent: "text-amber-600"  },
   { value: "100%",label: "Browser-Native",       accent: "text-sky-600"    },

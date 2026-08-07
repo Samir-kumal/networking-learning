@@ -1,6 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
+import AwsCostSection from "./AwsCostSection";
+import AwsDrSection from "./AwsDrSection";
+import AwsComplianceSection from "./AwsComplianceSection";
+import AwsStepFunctionsSection from "./AwsStepFunctionsSection";
+import AwsApiGatewaySection from "./AwsApiGatewaySection";
+import AwsCloudWatchSection from "./AwsCloudWatchSection";
+import AwsSecretsManagerSection from "./AwsSecretsManagerSection";
+import AwsTransitGatewaySection from "./AwsTransitGatewaySection";
+import AwsAutoScalingSection from "./AwsAutoScalingSection";
+import AwsWellArchitectedSection from "./AwsWellArchitectedSection";
 
 // --- Types & Data Interfaces ---
 type CloudRegion = "us-east-1" | "us-west-2" | "eu-west-1";
@@ -1280,6 +1290,56 @@ Resources:
           </div>
         </div>
       </section>
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 6: AWS COST OPTIMIZATION CALCULATOR (#cost) */}
+      {/* ========================================================================= */}
+      <AwsCostSection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 7: DISASTER RECOVERY & MULTI-REGION (#dr) */}
+      {/* ========================================================================= */}
+      <AwsDrSection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 8: SECURITY HUB & COMPLIANCE FRAMEWORK (#compliance) */}
+      {/* ========================================================================= */}
+      <AwsComplianceSection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 9: STEP FUNCTIONS & EVENT-DRIVEN ORCHESTRATION (#step-functions) */}
+      {/* ========================================================================= */}
+      <AwsStepFunctionsSection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 10: API GATEWAY & MICROSERVICES PATTERNS (#api-gateway) */}
+      {/* ========================================================================= */}
+      <AwsApiGatewaySection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 11: CLOUDWATCH & FULL OBSERVABILITY (#cloudwatch) */}
+      {/* ========================================================================= */}
+      <AwsCloudWatchSection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 12: SECRETS MANAGER & PARAMETER STORE (#secrets) */}
+      {/* ========================================================================= */}
+      <AwsSecretsManagerSection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 13: TRANSIT GATEWAY & HYBRID NETWORKING (#tgw) */}
+      {/* ========================================================================= */}
+      <AwsTransitGatewaySection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 14: AUTO SCALING & LOAD BALANCERS (#autoscaling) */}
+      {/* ========================================================================= */}
+      <AwsAutoScalingSection />
+
+      {/* ========================================================================= */}
+      {/* SUB-MODULE 15: WELL-ARCHITECTED FRAMEWORK REVIEW (#well-architected) */}
+      {/* ========================================================================= */}
+      <AwsWellArchitectedSection />
     </div>
   );
 }

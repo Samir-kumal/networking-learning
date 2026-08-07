@@ -21,9 +21,9 @@ const TRACKS = [
       "Design production VPC subnets, IAM least-privilege policies, S3 bucket security, ECS/EKS container clusters, and Lambda serverless flows.",
     icon: "◈",
     href: "/aws",
-    difficulty: "Intermediate",
-    moduleCount: 5,
-    techStack: ["VPC", "IAM", "S3", "EKS", "Lambda", "CloudFront"],
+    difficulty: "Intermediate → Advanced",
+    moduleCount: 15,
+    techStack: ["VPC", "IAM", "S3", "EKS", "Lambda", "CloudFront", "Step Functions", "API Gateway", "CloudWatch", "Secrets Manager", "Transit Gateway", "Auto Scaling", "Well-Architected"],
     accentClass: "bg-amber-500",
   },
   {
@@ -124,7 +124,7 @@ export default function Home() {
               <h2 className="text-2xl font-bold text-slate-900">Learning Tracks</h2>
             </div>
             <p className="text-[13px] text-slate-400">
-              5 tracks · 41 modules · browser-native
+              5 tracks · 51 modules · browser-native
             </p>
           </div>
 
