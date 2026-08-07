@@ -3,7 +3,7 @@ import AppSecSection from "@/components/tracks/AppSecSection";
 export const metadata = {
   title: "Cybersecurity & AppSec Track | SubnetLab",
   description:
-    "Interactive SAST/DAST container vulnerability scanner, OWASP Top 10 matrix & remediation, HashiCorp Vault vs AWS Secrets Manager workflow, WAF rules engine, and SSL/TLS hardening.",
+    "Explore 14 interactive cybersecurity modules covering SAST/DAST, OWASP Top 10, secrets management, WAF and TLS hardening, threat modeling, IAM, API security, Zero Trust, incident response, SIEM, SBOM supply chains, container security, cloud posture, and privacy compliance.",
 };
 
 export default function SecurityPage() {
