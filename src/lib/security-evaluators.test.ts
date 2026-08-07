@@ -163,4 +163,20 @@ describe('security evaluators', () => {
     expect(Object.values(result).every((value) => typeof value === 'string')).toBe(true);
     expect(result.access).toContain('Unsupported');
   });
+
+  test('rejects prototype-key threat assets instead of reading inherited properties', () => {
+    for (const asset of ['constructor', 'toString']) {
+      const result = evaluateThreatModel(asset as never, new Set());
+      expect(result).toHaveLength(1);
+      expect(result[0].rationale).toContain('Unsupported');
+    }
+  });
+
+  test('rejects prototype-key privacy classifications instead of returning inherited values', () => {
+    for (const classification of ['constructor', '__proto__']) {
+      const result = controlsForDataClass(classification as never);
+      expect(result.access).toContain('Unsupported');
+      expect(Object.values(result)).toHaveLength(5);
+    }
+  });
 });

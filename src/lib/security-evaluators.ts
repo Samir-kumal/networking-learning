@@ -75,7 +75,7 @@ function mitigationMatches(mitigations: Set<string>, mitigation: string, threat:
 }
 
 export function evaluateThreatModel(asset: Asset, mitigations: Set<string>): ThreatFinding[] {
-  const templates = THREATS_BY_ASSET[asset];
+  const templates = Object.prototype.hasOwnProperty.call(THREATS_BY_ASSET, asset) ? THREATS_BY_ASSET[asset] : undefined;
   if (!templates) {
     return [{
       threat: 'Unsupported asset',
@@ -282,7 +282,8 @@ export function controlsForDataClass(classification: 'public' | 'internal' | 'co
       masking: 'Always tokenize or redact restricted values.',
     },
   };
-  return controls[classification] ?? {
+  const selected = Object.prototype.hasOwnProperty.call(controls, classification) ? controls[classification] : undefined;
+  return selected ?? {
     encryption: 'Unsupported classification; deny processing until classification is corrected.',
     access: 'Unsupported classification; deny access until classification is corrected.',
     retention: 'Unsupported classification; retain only until classification is corrected.',
