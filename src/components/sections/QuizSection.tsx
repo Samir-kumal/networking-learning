@@ -110,19 +110,19 @@ export default function QuizSection() {
   return (
     <section
       id="quiz"
-      className="scroll-mt-24 rounded-2xl bg-[#161b22] border border-[#30363d] p-6 sm:p-8 transition-colors hover:border-[#58a6ff]/40"
+      className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-md bg-[#58a6ff]/10 text-[#58a6ff] border border-[#58a6ff]/20 text-xs font-mono font-semibold">
+        <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
           #quiz
         </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#e6edf3]">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
           16. Test Your Knowledge
         </h2>
       </div>
 
-      <p className="text-[#8b949e] text-base leading-relaxed mb-8 max-w-4xl">
+      <p className="text-slate-500 text-base leading-relaxed mb-8 max-w-4xl">
         Click an answer to check it. Your score is tracked at the bottom.
       </p>
 
@@ -136,30 +136,30 @@ export default function QuizSection() {
           return (
             <div
               key={q.id}
-              className="rounded-xl bg-[#1c2333] border border-[#30363d] p-5 sm:p-6 transition-all space-y-4"
+              className="rounded-xl bg-white border border-slate-200 card-shadow p-5 sm:p-6 transition-all space-y-4"
             >
-              <h3 className="text-base sm:text-lg font-semibold text-[#e6edf3]">
+              <h3 className="text-base sm:text-lg font-semibold text-slate-900">
                 Q{q.id} — {q.question}
               </h3>
 
               <div className="grid grid-cols-1 gap-2.5">
                 {q.options.map((opt, optIdx) => {
                   let buttonStyle =
-                    "bg-[#0d1117] border-[#30363d] text-[#e6edf3] hover:border-[#58a6ff] hover:bg-[#161b22]";
+                    "bg-slate-50 border-slate-200 text-slate-900 hover:border-indigo-400 hover:bg-white";
                   let icon = null;
 
                   if (isAnswered) {
                     if (optIdx === q.correctIndex) {
                       buttonStyle =
-                        "bg-[#7ee787]/15 border-[#7ee787] text-[#7ee787] font-semibold";
-                      icon = <span className="ml-auto text-[#7ee787] font-bold">✓</span>;
+                        "bg-emerald-500/15 border-emerald-400 text-emerald-600 font-semibold";
+                      icon = <span className="ml-auto text-emerald-600 font-bold">✓</span>;
                     } else if (optIdx === selectedOpt) {
                       buttonStyle =
-                        "bg-[#ff7b72]/15 border-[#ff7b72] text-[#ff7b72] font-semibold";
-                      icon = <span className="ml-auto text-[#ff7b72] font-bold">✕</span>;
+                        "bg-[#ff7b72]/15 border-rose-400 text-rose-600 font-semibold";
+                      icon = <span className="ml-auto text-rose-600 font-bold">✕</span>;
                     } else {
                       buttonStyle =
-                        "bg-[#0d1117]/50 border-[#30363d]/50 text-[#8b949e] opacity-60";
+                        "bg-slate-50/50 border-slate-200/50 text-slate-500 opacity-60";
                     }
                   }
 
@@ -178,23 +178,23 @@ export default function QuizSection() {
 
               {/* Explanation Block */}
               {isAnswered && (
-                <div className="mt-4 p-4 rounded-xl bg-[#0d1117] border border-[#30363d] text-sm space-y-1.5 animate-fadeIn">
+                <div className="mt-4 p-4 rounded-xl bg-white border border-slate-200 card-shadow text-sm space-y-1.5 animate-fadeIn">
                   <div className="font-semibold text-sm flex items-center gap-2">
                     {isCorrectChoice ? (
-                      <span className="text-[#7ee787]">✓ Correct!</span>
+                      <span className="text-emerald-600">✓ Correct!</span>
                     ) : (
-                      <span className="text-[#ff7b72]">
+                      <span className="text-rose-600">
                         ✕ Incorrect.{" "}
-                        <span className="text-[#8b949e] font-normal">
+                        <span className="text-slate-500 font-normal">
                           Correct answer:{" "}
-                          <strong className="text-[#7ee787]">
+                          <strong className="text-emerald-600">
                             {q.options[q.correctIndex]}
                           </strong>
                         </span>
                       </span>
                     )}
                   </div>
-                  <p className="text-[#8b949e] leading-relaxed">{q.explanation}</p>
+                  <p className="text-slate-500 leading-relaxed">{q.explanation}</p>
                 </div>
               )}
             </div>
@@ -203,12 +203,12 @@ export default function QuizSection() {
       </div>
 
       {/* Score Counter Card */}
-      <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-6 sm:p-8 text-center max-w-md mx-auto space-y-4 shadow-lg">
-        <h3 className="text-xl font-bold text-[#e6edf3]">Your Score</h3>
-        <div id="quizScore" className="text-4xl sm:text-5xl font-extrabold text-[#7ee787] font-mono tracking-tight">
+      <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 text-center max-w-md mx-auto space-y-4 shadow-lg">
+        <h3 className="text-xl font-bold text-slate-900">Your Score</h3>
+        <div id="quizScore" className="text-4xl sm:text-5xl font-extrabold text-emerald-600 font-mono tracking-tight">
           {score} / {QUESTIONS.length}
         </div>
-        <p className="text-sm text-[#8b949e]">
+        <p className="text-sm text-slate-500">
           {score === QUESTIONS.length
             ? "🎉 Outstanding! You answered all questions correctly!"
             : score >= 5

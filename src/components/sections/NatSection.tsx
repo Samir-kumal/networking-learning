@@ -49,83 +49,83 @@ export default function NatSection() {
   return (
     <section
       id="ips"
-      className="scroll-mt-24 rounded-2xl bg-[#161b22] border border-[#30363d] p-6 sm:p-8 transition-colors hover:border-[#58a6ff]/40"
+      className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-md bg-[#58a6ff]/10 text-[#58a6ff] border border-[#58a6ff]/20 text-xs font-mono font-semibold">
+        <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
           #ips
         </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#e6edf3]">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
           7. Public vs Private IPs & NAT
         </h2>
       </div>
 
-      <p className="text-[#8b949e] text-base leading-relaxed mb-8 max-w-4xl">
-        IP addresses are split into globally routable <strong className="text-[#58a6ff]">Public IPs</strong> and localized <strong className="text-[#7ee787]">Private IPs</strong>. Because IPv4 addresses are scarce, <strong className="text-[#ffa657]">Network Address Translation (NAT)</strong> allows hundreds of devices on a private LAN to share a single public IP address when communicating over the internet.
+      <p className="text-slate-500 text-base leading-relaxed mb-8 max-w-4xl">
+        IP addresses are split into globally routable <strong className="text-indigo-600">Public IPs</strong> and localized <strong className="text-emerald-600">Private IPs</strong>. Because IPv4 addresses are scarce, <strong className="text-amber-600">Network Address Translation (NAT)</strong> allows hundreds of devices on a private LAN to share a single public IP address when communicating over the internet.
       </p>
 
       {/* Routability Comparison Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         {/* Public IP Card */}
-        <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-6 hover:border-[#58a6ff]/50 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-2.5 py-1 rounded bg-[#58a6ff]/20 text-[#58a6ff] font-mono text-xs font-bold">
+              <span className="px-2.5 py-1 rounded bg-indigo-100 text-indigo-600 font-mono text-xs font-bold">
                 Public IP Addresses
               </span>
-              <span className="text-xs font-mono text-[#8b949e]">Globally Routable</span>
+              <span className="text-xs font-mono text-slate-500">Globally Routable</span>
             </div>
-            <h3 className="text-xl font-bold text-[#e6edf3] mb-3">
+            <h3 className="text-xl font-bold text-slate-900 mb-3">
               Internet-Facing Infrastructure
             </h3>
-            <p className="text-sm text-[#8b949e] leading-relaxed mb-4">
+            <p className="text-sm text-slate-500 leading-relaxed mb-4">
               Globally unique addresses assigned by ICANN/IANA through Regional Internet Registries (ARIN, RIPE, APNIC) and ISPs. Directly accessible over the public internet.
             </p>
-            <div className="space-y-2 text-xs font-mono bg-[#0d1117] p-3 rounded-lg border border-[#30363d] text-[#8b949e]">
+            <div className="space-y-2 text-xs font-mono bg-slate-50 p-3 rounded-lg border border-slate-200 text-slate-500">
               <div className="flex justify-between">
                 <span>Routability:</span>
-                <span className="text-[#7ee787]">Global Public Internet</span>
+                <span className="text-emerald-600">Global Public Internet</span>
               </div>
               <div className="flex justify-between">
                 <span>Uniqueness:</span>
-                <span className="text-[#58a6ff]">Worldwide Unique</span>
+                <span className="text-indigo-600">Worldwide Unique</span>
               </div>
               <div className="flex justify-between">
                 <span>Examples:</span>
-                <span className="text-[#e6edf3]">8.8.8.8 (Google), 1.1.1.1 (Cloudflare)</span>
+                <span className="text-slate-900">8.8.8.8 (Google), 1.1.1.1 (Cloudflare)</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Private IP Card */}
-        <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-6 hover:border-[#7ee787]/50 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow hover:border-emerald-300 transition-all flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-2.5 py-1 rounded bg-[#7ee787]/20 text-[#7ee787] font-mono text-xs font-bold">
+              <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-600 font-mono text-xs font-bold">
                 Private IP Addresses
               </span>
-              <span className="text-xs font-mono text-[#8b949e]">RFC 1918 Local LAN</span>
+              <span className="text-xs font-mono text-slate-500">RFC 1918 Local LAN</span>
             </div>
-            <h3 className="text-xl font-bold text-[#e6edf3] mb-3">
+            <h3 className="text-xl font-bold text-slate-900 mb-3">
               Internal LAN & Cloud VPCs
             </h3>
-            <p className="text-sm text-[#8b949e] leading-relaxed mb-4">
+            <p className="text-sm text-slate-500 leading-relaxed mb-4">
               Reserved for internal use inside homes, offices, and cloud VPC networks. ISP routers automatically drop private IP packets attempting to cross the public internet.
             </p>
-            <div className="space-y-2 text-xs font-mono bg-[#0d1117] p-3 rounded-lg border border-[#30363d] text-[#8b949e]">
+            <div className="space-y-2 text-xs font-mono bg-slate-50 p-3 rounded-lg border border-slate-200 text-slate-500">
               <div className="flex justify-between">
                 <span>Routability:</span>
-                <span className="text-[#ff7b72]">Non-Routable on Internet</span>
+                <span className="text-rose-600">Non-Routable on Internet</span>
               </div>
               <div className="flex justify-between">
                 <span>Uniqueness:</span>
-                <span className="text-[#ffa657]">Local Network Only</span>
+                <span className="text-amber-600">Local Network Only</span>
               </div>
               <div className="flex justify-between">
                 <span>Examples:</span>
-                <span className="text-[#e6edf3]">192.168.1.1, 10.0.0.1, 172.16.0.1</span>
+                <span className="text-slate-900">192.168.1.1, 10.0.0.1, 172.16.0.1</span>
               </div>
             </div>
           </div>
@@ -133,13 +133,13 @@ export default function NatSection() {
       </div>
 
       {/* NAT Packet Translation Visual Diagram */}
-      <div className="rounded-xl bg-[#0d1117] border border-[#30363d] p-6 mb-10">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#30363d]">
+      <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
           <div>
-            <h3 className="text-lg font-bold text-[#e6edf3]">
+            <h3 className="text-lg font-bold text-slate-900">
               Interactive NAT / PAT (Port Address Translation) Flow
             </h3>
-            <p className="text-xs text-[#8b949e]">
+            <p className="text-xs text-slate-500">
               Step-by-step walkthrough showing how a NAT Gateway translates private sockets to public sockets.
             </p>
           </div>
@@ -152,8 +152,8 @@ export default function NatSection() {
                 onClick={() => setNatStep(stepNum)}
                 className={`w-8 h-8 rounded-lg font-mono text-xs font-bold transition-all ${
                   natStep === stepNum
-                    ? "bg-[#58a6ff] text-[#0d1117] shadow-md shadow-[#58a6ff]/20"
-                    : "bg-[#161b22] text-[#8b949e] border border-[#30363d] hover:border-[#58a6ff]/50"
+                    ? "bg-indigo-600 text-slate-900 shadow-md shadow-[#58a6ff]/20"
+                    : "bg-white text-slate-500 border border-slate-200 hover:border-indigo-300"
                 }`}
               >
                 {stepNum}
@@ -163,16 +163,16 @@ export default function NatSection() {
         </div>
 
         {/* Step Explanation Banner */}
-        <div className="bg-[#161b22] border border-[#30363d] rounded-xl p-4 mb-6">
+        <div className="bg-white border border-slate-200 rounded-xl p-4 mb-6">
           <div className="flex items-center gap-2 mb-1">
-            <span className="px-2 py-0.5 rounded bg-[#58a6ff]/20 text-[#58a6ff] font-mono text-xs font-bold">
+            <span className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-600 font-mono text-xs font-bold">
               Step {currentStep.step} of 4
             </span>
-            <h4 className="text-base font-bold text-[#e6edf3]">
+            <h4 className="text-base font-bold text-slate-900">
               {currentStep.title}
             </h4>
           </div>
-          <p className="text-xs text-[#8b949e]">
+          <p className="text-xs text-slate-500">
             {currentStep.description}
           </p>
         </div>
@@ -182,16 +182,16 @@ export default function NatSection() {
           {/* Node 1: Private LAN Client */}
           <div className={`rounded-xl border p-5 transition-all ${
             currentStep.activeLocation === "lan"
-              ? "bg-[#161b22] border-[#58a6ff] shadow-lg shadow-[#58a6ff]/10"
-              : "bg-[#0d1117] border-[#30363d]"
+              ? "bg-white border-indigo-400 shadow-lg shadow-[#58a6ff]/10"
+              : "bg-slate-50 border-slate-200"
           }`}>
-            <div className="text-xs font-mono text-[#58a6ff] uppercase mb-1">
+            <div className="text-xs font-mono text-indigo-600 uppercase mb-1">
               Private LAN Client
             </div>
-            <div className="text-sm font-mono font-bold text-[#e6edf3]">
+            <div className="text-sm font-mono font-bold text-slate-900">
               192.168.1.50
             </div>
-            <div className="text-xs text-[#8b949e] mt-2">
+            <div className="text-xs text-slate-500 mt-2">
               Private Network (RFC 1918)
             </div>
           </div>
@@ -199,19 +199,19 @@ export default function NatSection() {
           {/* Node 2: NAT Gateway Router */}
           <div className={`rounded-xl border p-5 transition-all ${
             currentStep.activeLocation === "router"
-              ? "bg-[#161b22] border-[#ffa657] shadow-lg shadow-[#ffa657]/10"
-              : "bg-[#0d1117] border-[#30363d]"
+              ? "bg-white border-amber-400 shadow-lg shadow-[#ffa657]/10"
+              : "bg-slate-50 border-slate-200"
           }`}>
-            <div className="text-xs font-mono text-[#ffa657] uppercase mb-1">
+            <div className="text-xs font-mono text-amber-600 uppercase mb-1">
               NAT Gateway Router
             </div>
-            <div className="text-xs font-mono font-bold text-[#e6edf3]">
+            <div className="text-xs font-mono font-bold text-slate-900">
               LAN: 192.168.1.1
             </div>
-            <div className="text-xs font-mono font-bold text-[#58a6ff]">
+            <div className="text-xs font-mono font-bold text-indigo-600">
               WAN Public: 203.0.113.5
             </div>
-            <div className="text-[11px] text-[#8b949e] mt-2">
+            <div className="text-[11px] text-slate-500 mt-2">
               Rewrites Packet Headers
             </div>
           </div>
@@ -219,16 +219,16 @@ export default function NatSection() {
           {/* Node 3: Public Web Server */}
           <div className={`rounded-xl border p-5 transition-all ${
             currentStep.activeLocation === "wan"
-              ? "bg-[#161b22] border-[#7ee787] shadow-lg shadow-[#7ee787]/10"
-              : "bg-[#0d1117] border-[#30363d]"
+              ? "bg-white border-emerald-400 shadow-lg shadow-[#7ee787]/10"
+              : "bg-slate-50 border-slate-200"
           }`}>
-            <div className="text-xs font-mono text-[#7ee787] uppercase mb-1">
+            <div className="text-xs font-mono text-emerald-600 uppercase mb-1">
               Public Web Server
             </div>
-            <div className="text-sm font-mono font-bold text-[#e6edf3]">
+            <div className="text-sm font-mono font-bold text-slate-900">
               93.184.216.34:80
             </div>
-            <div className="text-xs text-[#8b949e] mt-2">
+            <div className="text-xs text-slate-500 mt-2">
               Global Public Internet
             </div>
           </div>
@@ -237,33 +237,33 @@ export default function NatSection() {
         {/* Packet Info & NAT Translation Table */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Current Live Packet */}
-          <div className="bg-[#161b22] border border-[#30363d] rounded-xl p-4 font-mono text-xs">
-            <div className="text-[#ffa657] font-bold uppercase mb-2">
+          <div className="bg-white border border-slate-200 rounded-xl p-4 font-mono text-xs">
+            <div className="text-amber-600 font-bold uppercase mb-2">
               Active Packet Header State:
             </div>
-            <div className="space-y-1.5 bg-[#0d1117] p-3 rounded border border-[#30363d]">
+            <div className="space-y-1.5 bg-slate-50 p-3 rounded border border-slate-200">
               <div className="flex justify-between">
-                <span className="text-[#8b949e]">Source Socket:</span>
-                <span className="text-[#58a6ff] font-bold">{currentStep.src}</span>
+                <span className="text-slate-500">Source Socket:</span>
+                <span className="text-indigo-600 font-bold">{currentStep.src}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#8b949e]">Destination Socket:</span>
-                <span className="text-[#7ee787] font-bold">{currentStep.dst}</span>
+                <span className="text-slate-500">Destination Socket:</span>
+                <span className="text-emerald-600 font-bold">{currentStep.dst}</span>
               </div>
             </div>
           </div>
 
           {/* NAT Translation Table */}
-          <div className="bg-[#161b22] border border-[#30363d] rounded-xl p-4 font-mono text-xs">
-            <div className="text-[#bc8cff] font-bold uppercase mb-2">
+          <div className="bg-white border border-slate-200 rounded-xl p-4 font-mono text-xs">
+            <div className="text-violet-600 font-bold uppercase mb-2">
               Router NAT Translation Table:
             </div>
-            <div className="bg-[#0d1117] p-3 rounded border border-[#30363d] text-[#e6edf3]">
-              <div className="text-[#8b949e] text-[10px] flex justify-between border-b border-[#30363d] pb-1 mb-1">
+            <div className="bg-slate-50 p-3 rounded border border-slate-200 text-slate-900">
+              <div className="text-slate-500 text-[10px] flex justify-between border-b border-slate-200 pb-1 mb-1">
                 <span>Private Socket</span>
                 <span>Public NAT Socket</span>
               </div>
-              <div className="text-center py-1 text-[#bc8cff] font-bold">
+              <div className="text-center py-1 text-violet-600 font-bold">
                 {currentStep.tableState}
               </div>
             </div>

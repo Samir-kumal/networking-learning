@@ -123,25 +123,25 @@ nc -zv 192.168.20.10 5432`,
   return (
     <section
       id="troubleshooting"
-      className="scroll-mt-24 rounded-2xl bg-[#161b22] border border-[#30363d] p-6 sm:p-8 transition-colors hover:border-[#58a6ff]/40"
+      className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-md bg-[#58a6ff]/10 text-[#58a6ff] border border-[#58a6ff]/20 text-xs font-mono font-semibold">
+        <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
           #troubleshooting
         </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#e6edf3]">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
           13. Troubleshooting Subnet Issues
         </h2>
       </div>
 
-      <p className="text-[#8b949e] text-base leading-relaxed mb-8 max-w-4xl">
+      <p className="text-slate-500 text-base leading-relaxed mb-8 max-w-4xl">
         Subnetting issues can lead to subtle network failures, including host isolation, asymmetric routing, IP conflicts, and cross-subnet packet drops. Master these 6 diagnostic scenarios and follow the 6-step troubleshooting workflow.
       </p>
 
       {/* 6 Problem / Solution Cards */}
       <div className="mb-10">
-        <h3 className="text-lg font-bold text-[#e6edf3] mb-4">
+        <h3 className="text-lg font-bold text-slate-900 mb-4">
           6 Common Subnet Misconfigurations & Solutions
         </h3>
 
@@ -153,8 +153,8 @@ nc -zv 192.168.20.10 5432`,
               onClick={() => setActiveProblem(idx)}
               className={`p-2.5 rounded-lg text-xs font-mono font-medium transition-all text-center border ${
                 activeProblem === idx
-                  ? "bg-[#58a6ff]/20 text-[#58a6ff] border-[#58a6ff]/50 font-bold"
-                  : "bg-[#1c2333] text-[#8b949e] border-[#30363d] hover:text-[#e6edf3]"
+                  ? "bg-indigo-100 text-indigo-600 border-indigo-300 font-bold"
+                  : "bg-slate-50 text-slate-500 border-slate-200 hover:text-slate-900"
               }`}
             >
               Scenario 0{idx + 1}
@@ -163,34 +163,34 @@ nc -zv 192.168.20.10 5432`,
         </div>
 
         {/* Active Problem Card */}
-        <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-6">
+        <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-            <h4 className="text-lg font-bold text-[#e6edf3]">
+            <h4 className="text-lg font-bold text-slate-900">
               {problems[activeProblem].title}
             </h4>
-            <span className="px-2.5 py-0.5 rounded text-xs font-mono bg-[#ff7b72]/10 text-[#ff7b72] border border-[#ff7b72]/20 w-fit">
+            <span className="px-2.5 py-0.5 rounded text-xs font-mono bg-rose-50 text-rose-600 border border-rose-400/20 w-fit">
               {problems[activeProblem].badge}
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div className="bg-[#0d1117] border border-[#30363d] p-4 rounded-lg">
-              <span className="text-xs font-mono text-[#ff7b72] block mb-1">⚠️ Symptom / Impact</span>
-              <p className="text-sm text-[#8b949e] leading-relaxed">
+            <div className="bg-slate-50 border border-slate-200 p-4 rounded-lg">
+              <span className="text-xs font-mono text-rose-600 block mb-1">⚠️ Symptom / Impact</span>
+              <p className="text-sm text-slate-500 leading-relaxed">
                 {problems[activeProblem].symptom}
               </p>
             </div>
-            <div className="bg-[#0d1117] border border-[#30363d] p-4 rounded-lg">
-              <span className="text-xs font-mono text-[#7ee787] block mb-1">💡 Resolution Strategy</span>
-              <p className="text-sm text-[#8b949e] leading-relaxed">
+            <div className="bg-slate-50 border border-slate-200 p-4 rounded-lg">
+              <span className="text-xs font-mono text-emerald-600 block mb-1">💡 Resolution Strategy</span>
+              <p className="text-sm text-slate-500 leading-relaxed">
                 {problems[activeProblem].solution}
               </p>
             </div>
           </div>
 
           <div className="space-y-2">
-            <span className="text-xs font-mono text-[#58a6ff]">Diagnostic CLI Commands</span>
-            <pre className="bg-[#0d1117] border border-[#30363d] rounded-lg p-4 font-mono text-xs text-[#e6edf3] overflow-x-auto leading-relaxed">
+            <span className="text-xs font-mono text-indigo-600">Diagnostic CLI Commands</span>
+            <pre className="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-xs text-slate-900 overflow-x-auto leading-relaxed">
               {problems[activeProblem].cliSnippet}
             </pre>
           </div>
@@ -198,8 +198,8 @@ nc -zv 192.168.20.10 5432`,
       </div>
 
       {/* 6-Step Subnet Diagnostic Checklist */}
-      <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-6">
-        <h3 className="text-lg font-bold text-[#e6edf3] mb-4 flex items-center gap-2">
+      <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow">
+        <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
           <span>🩺</span> 6-Step Subnet Diagnostic Workflow
         </h3>
 
@@ -210,29 +210,29 @@ nc -zv 192.168.20.10 5432`,
               onClick={() => toggleStep(idx)}
               className={`cursor-pointer p-4 rounded-lg border transition-all flex items-start gap-3 ${
                 completedSteps[idx]
-                  ? "bg-[#0d1117] border-[#7ee787]/40 text-[#e6edf3]"
-                  : "bg-[#0d1117]/50 border-[#30363d] text-[#8b949e] hover:border-[#58a6ff]/40"
+                  ? "bg-slate-50 border-emerald-400/40 text-slate-900"
+                  : "bg-slate-50/50 border-slate-200 text-slate-500 hover:border-indigo-300"
               }`}
             >
               <input
                 type="checkbox"
                 checked={!!completedSteps[idx]}
                 onChange={() => toggleStep(idx)}
-                className="mt-1 rounded border-[#30363d] text-[#7ee787] focus:ring-0 bg-[#161b22] cursor-pointer"
+                className="mt-1 rounded border-slate-200 text-emerald-600 focus:ring-0 bg-white cursor-pointer"
               />
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-1">
-                  <span className={`text-xs font-mono ${completedSteps[idx] ? "text-[#7ee787]" : "text-[#58a6ff]"}`}>
+                  <span className={`text-xs font-mono ${completedSteps[idx] ? "text-emerald-600" : "text-indigo-600"}`}>
                     {item.step}
                   </span>
-                  <code className="text-[11px] font-mono text-[#8b949e] bg-[#161b22] px-2 py-0.5 rounded border border-[#30363d]">
+                  <code className="text-[11px] font-mono text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">
                     {item.cmd}
                   </code>
                 </div>
-                <h4 className={`text-sm font-semibold mb-1 ${completedSteps[idx] ? "text-[#7ee787]" : "text-[#e6edf3]"}`}>
+                <h4 className={`text-sm font-semibold mb-1 ${completedSteps[idx] ? "text-emerald-600" : "text-slate-900"}`}>
                   {item.title}
                 </h4>
-                <p className="text-xs text-[#8b949e] leading-relaxed">{item.desc}</p>
+                <p className="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
               </div>
             </div>
           ))}

@@ -632,8 +632,8 @@ ${stepsYaml.join("\n\n")}`;
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-8 space-y-8">
       {/* HEADER BANNER */}
-      <div className="relative rounded-2xl bg-gradient-to-r from-[#161b22] via-[#1c2333] to-[#0d1117] border border-[#30363d] p-6 sm:p-8 shadow-xl overflow-hidden">
-        <div className="absolute -right-10 -top-10 w-64 h-64 bg-[#58a6ff]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="relative rounded-2xl bg-gradient-to-r from-[#161b22] via-[#1c2333] to-[#0d1117] border border-slate-200 p-6 sm:p-8 shadow-xl overflow-hidden">
+        <div className="absolute -right-10 -top-10 w-64 h-64 bg-indigo-50 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center space-x-3">
@@ -642,34 +642,34 @@ ${stepsYaml.join("\n\n")}`;
                 Git, GitHub Actions & CI/CD Track
               </h1>
             </div>
-            <p className="text-sm sm:text-base text-[#8b949e] max-w-3xl">
+            <p className="text-sm sm:text-base text-slate-500 max-w-3xl">
               Master modern GitOps practices: Trunk-based vs GitFlow branching, GitHub Actions YAML pipeline creation & automated execution, Semantic Versioning calculation, and zero-downtime deployment strategies.
             </p>
           </div>
           <div className="flex flex-wrap gap-2 sm:self-start">
-            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-[#58a6ff]/20 text-[#58a6ff] border border-[#58a6ff]/40">
+            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-indigo-100 text-indigo-600 border border-indigo-300">
               Git 2.44+
             </span>
-            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-[#7ee787]/20 text-[#7ee787] border border-[#7ee787]/40">
+            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/20 text-emerald-600 border border-emerald-400/40">
               GitHub Actions
             </span>
-            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-[#ffa657]/20 text-[#ffa657] border border-[#ffa657]/40">
+            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-[#ffa657]/20 text-amber-600 border border-amber-400/40">
               SemVer 2.0
             </span>
-            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-[#bc8cff]/20 text-[#bc8cff] border border-[#bc8cff]/40">
+            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-[#bc8cff]/20 text-violet-600 border border-violet-400/40">
               Kubernetes Deploy
             </span>
           </div>
         </div>
 
         {/* NAVIGATION TABS */}
-        <div className="mt-8 flex flex-wrap gap-2 border-t border-[#30363d] pt-4">
+        <div className="mt-8 flex flex-wrap gap-2 border-t border-slate-200 pt-4">
           <button
             onClick={() => setActiveTab("git")}
             className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 flex items-center space-x-2 ${
               activeTab === "git"
-                ? "bg-[#58a6ff] text-white shadow-lg shadow-[#58a6ff]/20 font-semibold"
-                : "bg-[#21262d] text-[#8b949e] hover:text-white hover:bg-[#30363d]"
+                ? "bg-indigo-600 text-white shadow-lg shadow-[#58a6ff]/20 font-semibold"
+                : "bg-[#21262d] text-slate-500 hover:text-white hover:bg-[#30363d]"
             }`}
           >
             <span>🔀</span>
@@ -679,8 +679,8 @@ ${stepsYaml.join("\n\n")}`;
             onClick={() => setActiveTab("actions")}
             className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 flex items-center space-x-2 ${
               activeTab === "actions"
-                ? "bg-[#58a6ff] text-white shadow-lg shadow-[#58a6ff]/20 font-semibold"
-                : "bg-[#21262d] text-[#8b949e] hover:text-white hover:bg-[#30363d]"
+                ? "bg-indigo-600 text-white shadow-lg shadow-[#58a6ff]/20 font-semibold"
+                : "bg-[#21262d] text-slate-500 hover:text-white hover:bg-[#30363d]"
             }`}
           >
             <span>⚡</span>
@@ -690,8 +690,8 @@ ${stepsYaml.join("\n\n")}`;
             onClick={() => setActiveTab("semver")}
             className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 flex items-center space-x-2 ${
               activeTab === "semver"
-                ? "bg-[#58a6ff] text-white shadow-lg shadow-[#58a6ff]/20 font-semibold"
-                : "bg-[#21262d] text-[#8b949e] hover:text-white hover:bg-[#30363d]"
+                ? "bg-indigo-600 text-white shadow-lg shadow-[#58a6ff]/20 font-semibold"
+                : "bg-[#21262d] text-slate-500 hover:text-white hover:bg-[#30363d]"
             }`}
           >
             <span>🏷️</span>
@@ -701,8 +701,8 @@ ${stepsYaml.join("\n\n")}`;
             onClick={() => setActiveTab("deploy")}
             className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 flex items-center space-x-2 ${
               activeTab === "deploy"
-                ? "bg-[#58a6ff] text-white shadow-lg shadow-[#58a6ff]/20 font-semibold"
-                : "bg-[#21262d] text-[#8b949e] hover:text-white hover:bg-[#30363d]"
+                ? "bg-indigo-600 text-white shadow-lg shadow-[#58a6ff]/20 font-semibold"
+                : "bg-[#21262d] text-slate-500 hover:text-white hover:bg-[#30363d]"
             }`}
           >
             <span>🚀</span>
@@ -717,19 +717,19 @@ ${stepsYaml.join("\n\n")}`;
       {activeTab === "git" && (
         <div className="space-y-6">
           {/* Strategy Toggle Card */}
-          <div className="rounded-2xl bg-[#161b22] border border-[#30363d] p-6 shadow-lg space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#30363d] pb-4">
+          <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow shadow-lg space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
               <div>
                 <h2 className="text-xl font-bold text-white flex items-center space-x-2">
                   <span>Git Branching Strategy Simulator</span>
                 </h2>
-                <p className="text-xs text-[#8b949e] mt-1">
+                <p className="text-xs text-slate-500 mt-1">
                   Compare Trunk-Based Development vs GitFlow branching workflows in real time.
                 </p>
               </div>
 
               {/* Mode Switcher */}
-              <div className="flex bg-[#0d1117] p-1 rounded-xl border border-[#30363d]">
+              <div className="flex bg-slate-50 p-1 rounded-xl border border-slate-200">
                 <button
                   onClick={() => {
                     setGitStrategy("trunk");
@@ -737,8 +737,8 @@ ${stepsYaml.join("\n\n")}`;
                   }}
                   className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                     gitStrategy === "trunk"
-                      ? "bg-[#58a6ff] text-white shadow"
-                      : "text-[#8b949e] hover:text-white"
+                      ? "bg-indigo-600 text-white shadow"
+                      : "text-slate-500 hover:text-white"
                   }`}
                 >
                   Trunk-Based Dev
@@ -750,8 +750,8 @@ ${stepsYaml.join("\n\n")}`;
                   }}
                   className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                     gitStrategy === "gitflow"
-                      ? "bg-[#7ee787] text-[#0d1117] shadow"
-                      : "text-[#8b949e] hover:text-white"
+                      ? "bg-emerald-500 text-slate-900 shadow"
+                      : "text-slate-500 hover:text-white"
                   }`}
                 >
                   GitFlow Model
@@ -761,9 +761,9 @@ ${stepsYaml.join("\n\n")}`;
 
             {/* Strategy Overview & Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-2">
-                <div className="text-xs text-[#8b949e]">Target Environment</div>
-                <div className="text-base font-bold text-[#58a6ff]">
+              <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow space-y-2">
+                <div className="text-xs text-slate-500">Target Environment</div>
+                <div className="text-base font-bold text-indigo-600">
                   {gitStrategy === "trunk" ? "Continuous Integration (CI/CD)" : "Scheduled Enterprise Releases"}
                 </div>
                 <div className="text-xs text-gray-400">
@@ -772,9 +772,9 @@ ${stepsYaml.join("\n\n")}`;
                     : "Multiple long-lived branches (main, develop, release, feature)."}
                 </div>
               </div>
-              <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-2">
-                <div className="text-xs text-[#8b949e]">Merge Conflict Risk</div>
-                <div className="text-base font-bold text-[#7ee787]">
+              <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow space-y-2">
+                <div className="text-xs text-slate-500">Merge Conflict Risk</div>
+                <div className="text-base font-bold text-emerald-600">
                   {gitStrategy === "trunk" ? "Very Low (Frequent Small Merges)" : "High (Merge Hell on Release)"}
                 </div>
                 <div className="text-xs text-gray-400">
@@ -783,9 +783,9 @@ ${stepsYaml.join("\n\n")}`;
                     : "Feature branches linger for weeks before merging into develop."}
                 </div>
               </div>
-              <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-2">
-                <div className="text-xs text-[#8b949e]">Feature Flags Requirement</div>
-                <div className="text-base font-bold text-[#ffa657]">
+              <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow space-y-2">
+                <div className="text-xs text-slate-500">Feature Flags Requirement</div>
+                <div className="text-base font-bold text-amber-600">
                   {gitStrategy === "trunk" ? "Mandatory (Decouples Deploy from Release)" : "Optional"}
                 </div>
                 <div className="text-xs text-gray-400">
@@ -797,10 +797,10 @@ ${stepsYaml.join("\n\n")}`;
             </div>
 
             {/* CONTROLS & ACTIONS */}
-            <div className="bg-[#0d1117] rounded-xl border border-[#30363d] p-5 space-y-4">
+            <div className="bg-slate-50 rounded-xl border border-slate-200 p-5 space-y-4">
               <h3 className="text-sm font-semibold text-white flex items-center justify-between">
                 <span>Interactive Git Operations ({gitStrategy === "trunk" ? "Trunk-Based" : "GitFlow"})</span>
-                <span className="text-xs text-[#58a6ff]">Active Branch: {activeFeatureBranch || activeReleaseBranch || activeHotfixBranch || (gitStrategy === "trunk" ? "main" : "develop")}</span>
+                <span className="text-xs text-indigo-600">Active Branch: {activeFeatureBranch || activeReleaseBranch || activeHotfixBranch || (gitStrategy === "trunk" ? "main" : "develop")}</span>
               </h3>
 
               {gitStrategy === "trunk" ? (
@@ -808,26 +808,26 @@ ${stepsYaml.join("\n\n")}`;
                   <button
                     onClick={handleTrunkCreateBranch}
                     disabled={!!activeFeatureBranch}
-                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-[#58a6ff] border border-[#58a6ff]/40 hover:bg-[#58a6ff]/10 disabled:opacity-50 transition"
+                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-indigo-600 border border-indigo-300 hover:bg-indigo-50 disabled:opacity-50 transition"
                   >
                     ➕ Create Feature Branch
                   </button>
                   <button
                     onClick={handleTrunkCommit}
-                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-[#7ee787] border border-[#7ee787]/40 hover:bg-[#7ee787]/10 transition"
+                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-emerald-600 border border-emerald-400/40 hover:bg-emerald-50 transition"
                   >
                     📝 Commit Changes
                   </button>
                   <button
                     onClick={handleTrunkMergePR}
                     disabled={!activeFeatureBranch}
-                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-[#ffa657] border border-[#ffa657]/40 hover:bg-[#ffa657]/10 disabled:opacity-50 transition"
+                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-amber-600 border border-amber-400/40 hover:bg-amber-50 disabled:opacity-50 transition"
                   >
                     🔀 Create PR & Squash Merge
                   </button>
                   <button
                     onClick={handleTrunkDeploy}
-                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#58a6ff] text-white hover:bg-[#4794e6] font-semibold transition shadow-md"
+                    className="px-4 py-2 text-xs font-medium rounded-lg bg-indigo-600 text-white hover:bg-[#4794e6] font-semibold transition shadow-md"
                   >
                     🚀 Tag & Deploy to Prod
                   </button>
@@ -837,41 +837,41 @@ ${stepsYaml.join("\n\n")}`;
                   <button
                     onClick={handleGitflowNewFeature}
                     disabled={!!activeFeatureBranch}
-                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-[#58a6ff] border border-[#58a6ff]/40 hover:bg-[#58a6ff]/10 disabled:opacity-50 transition"
+                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-indigo-600 border border-indigo-300 hover:bg-indigo-50 disabled:opacity-50 transition"
                   >
                     ➕ New Feature (from develop)
                   </button>
                   <button
                     onClick={handleGitflowCommitFeature}
-                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-[#7ee787] border border-[#7ee787]/40 hover:bg-[#7ee787]/10 transition"
+                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-emerald-600 border border-emerald-400/40 hover:bg-emerald-50 transition"
                   >
                     📝 Commit to Feature
                   </button>
                   <button
                     onClick={handleGitflowFinishFeature}
                     disabled={!activeFeatureBranch}
-                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-[#ffa657] border border-[#ffa657]/40 hover:bg-[#ffa657]/10 disabled:opacity-50 transition"
+                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-amber-600 border border-amber-400/40 hover:bg-amber-50 disabled:opacity-50 transition"
                   >
                     🔀 Finish Feature (Merge to dev)
                   </button>
                   <button
                     onClick={handleGitflowStartRelease}
                     disabled={!!activeReleaseBranch}
-                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-[#bc8cff] border border-[#bc8cff]/40 hover:bg-[#bc8cff]/10 disabled:opacity-50 transition"
+                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#21262d] text-violet-600 border border-violet-400/40 hover:bg-violet-50 disabled:opacity-50 transition"
                   >
                     📦 Create Release Branch
                   </button>
                   <button
                     onClick={handleGitflowFinishRelease}
                     disabled={!activeReleaseBranch}
-                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#7ee787] text-[#0d1117] font-bold hover:bg-[#68d172] disabled:opacity-50 transition shadow"
+                    className="px-4 py-2 text-xs font-medium rounded-lg bg-emerald-500 text-slate-900 font-bold hover:bg-[#68d172] disabled:opacity-50 transition shadow"
                   >
                     ✅ Finish Release (Merge & Tag)
                   </button>
                   <button
                     onClick={handleGitflowStartHotfix}
                     disabled={!!activeHotfixBranch}
-                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#ff7b72]/20 text-[#ff7b72] border border-[#ff7b72]/40 hover:bg-[#ff7b72]/30 disabled:opacity-50 transition"
+                    className="px-4 py-2 text-xs font-medium rounded-lg bg-[#ff7b72]/20 text-rose-600 border border-rose-400/40 hover:bg-[#ff7b72]/30 disabled:opacity-50 transition"
                   >
                     🚨 Start Hotfix (from main)
                   </button>
@@ -887,8 +887,8 @@ ${stepsYaml.join("\n\n")}`;
 
               {/* Feature Flags Toggle Sub-panel for Trunk */}
               {gitStrategy === "trunk" && (
-                <div className="mt-4 pt-4 border-t border-[#30363d] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="text-xs text-[#8b949e]">
+                <div className="mt-4 pt-4 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="text-xs text-slate-500">
                     <span className="font-semibold text-white">Feature Flags Control:</span> Safely deploy un-ready features to main in disabled state.
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -902,8 +902,8 @@ ${stepsYaml.join("\n\n")}`;
                         }}
                         className={`px-3 py-1 rounded-full text-xs font-mono transition flex items-center space-x-1 border ${
                           featureFlags[flagKey]
-                            ? "bg-[#7ee787]/20 text-[#7ee787] border-[#7ee787]/40"
-                            : "bg-[#21262d] text-[#8b949e] border-[#30363d]"
+                            ? "bg-emerald-500/20 text-emerald-600 border-emerald-400/40"
+                            : "bg-[#21262d] text-slate-500 border-slate-200"
                         }`}
                       >
                         <span>{featureFlags[flagKey] ? "🟢" : "⚪"}</span>
@@ -916,12 +916,12 @@ ${stepsYaml.join("\n\n")}`;
             </div>
 
             {/* VISUAL COMMIT DAG TIMELINE */}
-            <div className="rounded-xl bg-[#0d1117] border border-[#30363d] p-5 space-y-4">
+            <div className="rounded-xl bg-white border border-slate-200 card-shadow p-5 space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-semibold text-white">
                   Commit History DAG Visualizer ({gitStrategy === "trunk" ? "Trunk-Based" : "GitFlow"})
                 </h3>
-                <span className="text-xs text-[#8b949e]">
+                <span className="text-xs text-slate-500">
                   Showing {(gitStrategy === "trunk" ? trunkCommits : gitflowCommits).length} commits
                 </span>
               </div>
@@ -932,10 +932,10 @@ ${stepsYaml.join("\n\n")}`;
                   {(gitStrategy === "trunk" ? trunkCommits : gitflowCommits).map((node, idx) => (
                     <div
                       key={node.id}
-                      className="flex items-center space-x-4 p-2.5 rounded-lg bg-[#161b22] border border-[#30363d] text-xs transition hover:border-[#58a6ff]/50"
+                      className="flex items-center space-x-4 p-2.5 rounded-lg bg-white border border-slate-200 text-xs transition hover:border-indigo-300"
                     >
                       {/* Commit Node Badge */}
-                      <div className="font-mono text-[11px] px-2 py-1 rounded bg-[#0d1117] text-[#58a6ff] border border-[#30363d] font-bold">
+                      <div className="font-mono text-[11px] px-2 py-1 rounded bg-slate-50 text-indigo-600 border border-slate-200 font-bold">
                         {node.hash}
                       </div>
 
@@ -943,14 +943,14 @@ ${stepsYaml.join("\n\n")}`;
                       <div
                         className={`px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold ${
                           node.branch === "main"
-                            ? "bg-[#58a6ff]/20 text-[#58a6ff] border border-[#58a6ff]/30"
+                            ? "bg-indigo-100 text-indigo-600 border border-indigo-200"
                             : node.branch === "develop"
-                            ? "bg-[#7ee787]/20 text-[#7ee787] border border-[#7ee787]/30"
+                            ? "bg-emerald-500/20 text-emerald-600 border border-emerald-200"
                             : node.branch.startsWith("release")
-                            ? "bg-[#bc8cff]/20 text-[#bc8cff] border border-[#bc8cff]/30"
+                            ? "bg-[#bc8cff]/20 text-violet-600 border border-violet-200"
                             : node.branch.startsWith("hotfix")
-                            ? "bg-[#ff7b72]/20 text-[#ff7b72] border border-[#ff7b72]/30"
-                            : "bg-[#ffa657]/20 text-[#ffa657] border border-[#ffa657]/30"
+                            ? "bg-[#ff7b72]/20 text-rose-600 border border-rose-200"
+                            : "bg-[#ffa657]/20 text-amber-600 border border-amber-200"
                         }`}
                       >
                         {node.branch}
@@ -961,14 +961,14 @@ ${stepsYaml.join("\n\n")}`;
 
                       {/* Tag Badge */}
                       {node.tag && (
-                        <div className="px-2 py-0.5 rounded bg-[#ffa657]/20 text-[#ffa657] font-mono text-[10px] font-bold border border-[#ffa657]/40 flex items-center space-x-1">
+                        <div className="px-2 py-0.5 rounded bg-[#ffa657]/20 text-amber-600 font-mono text-[10px] font-bold border border-amber-400/40 flex items-center space-x-1">
                           <span>🏷️</span>
                           <span>{node.tag}</span>
                         </div>
                       )}
 
                       {/* Timestamp */}
-                      <div className="text-[10px] text-[#8b949e] font-mono">{node.timestamp}</div>
+                      <div className="text-[10px] text-slate-500 font-mono">{node.timestamp}</div>
                     </div>
                   ))}
                 </div>
@@ -976,8 +976,8 @@ ${stepsYaml.join("\n\n")}`;
             </div>
 
             {/* LIVE GIT CLI LOG TERMINAL */}
-            <div className="rounded-xl bg-[#0d1117] border border-[#30363d] overflow-hidden">
-              <div className="bg-[#161b22] px-4 py-2 border-b border-[#30363d] flex items-center justify-between text-xs text-[#8b949e]">
+            <div className="rounded-xl bg-white border border-slate-200 card-shadow overflow-hidden">
+              <div className="bg-white px-4 py-2 border-b border-slate-200 flex items-center justify-between text-xs text-slate-500">
                 <div className="flex items-center space-x-2 font-mono">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block" />
                   <span className="w-2.5 h-2.5 rounded-full bg-yellow-500 inline-block" />
@@ -986,10 +986,10 @@ ${stepsYaml.join("\n\n")}`;
                 </div>
                 <span>git-cli v2.44</span>
               </div>
-              <div className="p-4 font-mono text-xs text-[#7ee787] space-y-1 h-36 overflow-y-auto bg-[#0d1117]">
+              <div className="p-4 font-mono text-xs text-emerald-600 space-y-1 h-36 overflow-y-auto bg-slate-50">
                 {gitConsoleLogs.map((log, idx) => (
                   <div key={idx} className="leading-relaxed">
-                    <span className="text-[#8b949e]">$</span> {log}
+                    <span className="text-slate-500">$</span> {log}
                   </div>
                 ))}
               </div>
@@ -1003,13 +1003,13 @@ ${stepsYaml.join("\n\n")}`;
       {/* ========================================================================= */}
       {activeTab === "actions" && (
         <div className="space-y-6">
-          <div className="rounded-2xl bg-[#161b22] border border-[#30363d] p-6 shadow-lg space-y-6">
-            <div className="border-b border-[#30363d] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow shadow-lg space-y-6">
+            <div className="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h2 className="text-xl font-bold text-white flex items-center space-x-2">
                   <span>GitHub Actions CI/CD Pipeline Builder</span>
                 </h2>
-                <p className="text-xs text-[#8b949e] mt-1">
+                <p className="text-xs text-slate-500 mt-1">
                   Configure workflow triggers, matrix environments, and build steps to generate valid `.github/workflows/main.yml`.
                 </p>
               </div>
@@ -1018,14 +1018,14 @@ ${stepsYaml.join("\n\n")}`;
               <div className="flex items-center space-x-3">
                 <button
                   onClick={handleCopyYaml}
-                  className="px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#21262d] text-[#58a6ff] border border-[#58a6ff]/40 hover:bg-[#58a6ff]/10 transition flex items-center space-x-1.5"
+                  className="px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#21262d] text-indigo-600 border border-indigo-300 hover:bg-indigo-50 transition flex items-center space-x-1.5"
                 >
                   <span>{copySuccess ? "✅ Copied!" : "📋 Copy YAML"}</span>
                 </button>
                 <button
                   onClick={handleRunCiSimulation}
                   disabled={isSimulatingCi}
-                  className="px-4 py-2 text-xs font-bold rounded-xl bg-[#7ee787] text-[#0d1117] hover:bg-[#68d172] disabled:opacity-50 transition shadow-lg flex items-center space-x-1.5"
+                  className="px-4 py-2 text-xs font-bold rounded-xl bg-emerald-500 text-slate-900 hover:bg-[#68d172] disabled:opacity-50 transition shadow-lg flex items-center space-x-1.5"
                 >
                   <span>🚀</span>
                   <span>{isSimulatingCi ? "Running Pipeline..." : "Run Pipeline"}</span>
@@ -1038,26 +1038,26 @@ ${stepsYaml.join("\n\n")}`;
               {/* Left Column: Builder Controls */}
               <div className="space-y-5">
                 {/* Workflow Name & OS */}
-                <div className="bg-[#0d1117] rounded-xl border border-[#30363d] p-4 space-y-3">
-                  <h3 className="text-xs font-bold text-[#58a6ff] uppercase tracking-wider">
+                <div className="bg-slate-50 rounded-xl border border-slate-200 p-4 space-y-3">
+                  <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider">
                     1. General Settings & OS Matrix
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="text-xs text-[#8b949e] block mb-1">Pipeline Name</label>
+                      <label className="text-xs text-slate-500 block mb-1">Pipeline Name</label>
                       <input
                         type="text"
                         value={pipelineName}
                         onChange={(e) => setPipelineName(e.target.value)}
-                        className="w-full bg-[#161b22] border border-[#30363d] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#58a6ff]"
+                        className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-400"
                       />
                     </div>
                     <div>
-                      <label className="text-xs text-[#8b949e] block mb-1">Runner OS</label>
+                      <label className="text-xs text-slate-500 block mb-1">Runner OS</label>
                       <select
                         value={runnerOs}
                         onChange={(e) => setRunnerOs(e.target.value)}
-                        className="w-full bg-[#161b22] border border-[#30363d] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#58a6ff]"
+                        className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-400"
                       >
                         <option value="ubuntu-latest">ubuntu-latest</option>
                         <option value="macos-latest">macos-latest</option>
@@ -1068,12 +1068,12 @@ ${stepsYaml.join("\n\n")}`;
                 </div>
 
                 {/* Event Triggers */}
-                <div className="bg-[#0d1117] rounded-xl border border-[#30363d] p-4 space-y-3">
-                  <h3 className="text-xs font-bold text-[#7ee787] uppercase tracking-wider">
+                <div className="bg-slate-50 rounded-xl border border-slate-200 p-4 space-y-3">
+                  <h3 className="text-xs font-bold text-emerald-600 uppercase tracking-wider">
                     2. Workflow Triggers (`on:`)
                   </h3>
                   <div className="grid grid-cols-2 gap-2 text-xs">
-                    <label className="flex items-center space-x-2 bg-[#161b22] p-2 rounded-lg border border-[#30363d] cursor-pointer">
+                    <label className="flex items-center space-x-2 bg-white p-2 rounded-lg border border-slate-200 cursor-pointer">
                       <input
                         type="checkbox"
                         checked={pipelineTriggers.pushMain}
@@ -1082,7 +1082,7 @@ ${stepsYaml.join("\n\n")}`;
                       />
                       <span className="text-white">push (main)</span>
                     </label>
-                    <label className="flex items-center space-x-2 bg-[#161b22] p-2 rounded-lg border border-[#30363d] cursor-pointer">
+                    <label className="flex items-center space-x-2 bg-white p-2 rounded-lg border border-slate-200 cursor-pointer">
                       <input
                         type="checkbox"
                         checked={pipelineTriggers.pullRequest}
@@ -1091,7 +1091,7 @@ ${stepsYaml.join("\n\n")}`;
                       />
                       <span className="text-white">pull_request</span>
                     </label>
-                    <label className="flex items-center space-x-2 bg-[#161b22] p-2 rounded-lg border border-[#30363d] cursor-pointer">
+                    <label className="flex items-center space-x-2 bg-white p-2 rounded-lg border border-slate-200 cursor-pointer">
                       <input
                         type="checkbox"
                         checked={pipelineTriggers.workflowDispatch}
@@ -1100,7 +1100,7 @@ ${stepsYaml.join("\n\n")}`;
                       />
                       <span className="text-white">workflow_dispatch</span>
                     </label>
-                    <label className="flex items-center space-x-2 bg-[#161b22] p-2 rounded-lg border border-[#30363d] cursor-pointer">
+                    <label className="flex items-center space-x-2 bg-white p-2 rounded-lg border border-slate-200 cursor-pointer">
                       <input
                         type="checkbox"
                         checked={pipelineTriggers.cronSchedule}
@@ -1113,8 +1113,8 @@ ${stepsYaml.join("\n\n")}`;
                 </div>
 
                 {/* Pipeline Steps Selection */}
-                <div className="bg-[#0d1117] rounded-xl border border-[#30363d] p-4 space-y-3">
-                  <h3 className="text-xs font-bold text-[#ffa657] uppercase tracking-wider">
+                <div className="bg-slate-50 rounded-xl border border-slate-200 p-4 space-y-3">
+                  <h3 className="text-xs font-bold text-amber-600 uppercase tracking-wider">
                     3. Build Steps & Actions
                   </h3>
                   <div className="space-y-2 text-xs">
@@ -1133,8 +1133,8 @@ ${stepsYaml.join("\n\n")}`;
                         key={step.id}
                         className={`flex items-center justify-between p-2 rounded-lg border cursor-pointer transition ${
                           enabledSteps[step.id]
-                            ? "bg-[#161b22] border-[#58a6ff]/40 text-white"
-                            : "bg-[#0d1117] border-[#30363d] text-[#8b949e]"
+                            ? "bg-white border-indigo-300 text-white"
+                            : "bg-slate-50 border-slate-200 text-slate-500"
                         }`}
                       >
                         <span className="font-mono">{step.label}</span>
@@ -1152,12 +1152,12 @@ ${stepsYaml.join("\n\n")}`;
 
               {/* Right Column: Generated Code Preview */}
               <div className="space-y-5 flex flex-col">
-                <div className="flex-1 bg-[#0d1117] rounded-xl border border-[#30363d] overflow-hidden flex flex-col">
-                  <div className="bg-[#161b22] px-4 py-2 border-b border-[#30363d] flex items-center justify-between text-xs text-[#8b949e]">
+                <div className="flex-1 bg-slate-50 rounded-xl border border-slate-200 overflow-hidden flex flex-col">
+                  <div className="bg-white px-4 py-2 border-b border-slate-200 flex items-center justify-between text-xs text-slate-500">
                     <span className="font-mono text-white font-semibold">.github/workflows/ci-cd.yml</span>
                     <span className="text-[10px]">YAML Syntax</span>
                   </div>
-                  <pre className="p-4 font-mono text-xs text-[#7ee787] overflow-x-auto flex-1 bg-[#0d1117] leading-relaxed">
+                  <pre className="p-4 font-mono text-xs text-emerald-600 overflow-x-auto flex-1 bg-slate-50 leading-relaxed">
                     <code>{generateYamlCode()}</code>
                   </pre>
                 </div>
@@ -1165,10 +1165,10 @@ ${stepsYaml.join("\n\n")}`;
             </div>
 
             {/* LIVE RUNNER TERMINAL & STEP STATUS */}
-            <div className="bg-[#0d1117] rounded-xl border border-[#30363d] p-5 space-y-4">
+            <div className="bg-slate-50 rounded-xl border border-slate-200 p-5 space-y-4">
               <h3 className="text-sm font-semibold text-white flex items-center justify-between">
                 <span>GitHub Actions Runner Simulator Log</span>
-                <span className="text-xs text-[#8b949e]">Runner OS: {runnerOs}</span>
+                <span className="text-xs text-slate-500">Runner OS: {runnerOs}</span>
               </h3>
 
               {/* Step Status Badges */}
@@ -1182,10 +1182,10 @@ ${stepsYaml.join("\n\n")}`;
                         key={stepKey}
                         className={`px-3 py-1 rounded-full text-xs font-mono border flex items-center space-x-1.5 ${
                           status === "success"
-                            ? "bg-[#7ee787]/20 text-[#7ee787] border-[#7ee787]/40"
+                            ? "bg-emerald-500/20 text-emerald-600 border-emerald-400/40"
                             : status === "running"
-                            ? "bg-[#58a6ff]/20 text-[#58a6ff] border-[#58a6ff]/40 animate-pulse"
-                            : "bg-[#21262d] text-[#8b949e] border-[#30363d]"
+                            ? "bg-indigo-100 text-indigo-600 border-indigo-300 animate-pulse"
+                            : "bg-[#21262d] text-slate-500 border-slate-200"
                         }`}
                       >
                         <span>{status === "success" ? "✅" : status === "running" ? "🔄" : "⏳"}</span>
@@ -1196,7 +1196,7 @@ ${stepsYaml.join("\n\n")}`;
               </div>
 
               {/* Terminal Logs */}
-              <div className="p-4 rounded-xl bg-[#161b22] border border-[#30363d] font-mono text-xs text-gray-300 h-40 overflow-y-auto space-y-1">
+              <div className="p-4 rounded-xl bg-white border border-slate-200 font-mono text-xs text-gray-300 h-40 overflow-y-auto space-y-1">
                 {ciTerminalLogs.length === 0 ? (
                   <div className="text-gray-500 italic">Click 'Run Pipeline' to execute simulated GitHub Actions workflow...</div>
                 ) : (
@@ -1217,20 +1217,20 @@ ${stepsYaml.join("\n\n")}`;
       {/* ========================================================================= */}
       {activeTab === "semver" && (
         <div className="space-y-6">
-          <div className="rounded-2xl bg-[#161b22] border border-[#30363d] p-6 shadow-lg space-y-6">
-            <div className="border-b border-[#30363d] pb-4">
+          <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow shadow-lg space-y-6">
+            <div className="border-b border-slate-200 pb-4">
               <h2 className="text-xl font-bold text-white flex items-center space-x-2">
                 <span>Semantic Versioning Calculator & Spec Checker</span>
               </h2>
-              <p className="text-xs text-[#8b949e] mt-1">
+              <p className="text-xs text-slate-500 mt-1">
                 Understand MAJOR.MINOR.PATCH rules, Conventional Commits version bumping, and npm range resolution.
               </p>
             </div>
 
             {/* LIVE VERSION BADGE DISPLAY */}
-            <div className="bg-[#0d1117] rounded-xl border border-[#30363d] p-6 text-center space-y-4">
-              <div className="text-xs font-semibold text-[#8b949e] uppercase tracking-wider">Target SemVer String</div>
-              <div className="text-4xl sm:text-5xl font-mono font-extrabold text-[#58a6ff] tracking-tight">
+            <div className="bg-slate-50 rounded-xl border border-slate-200 p-6 text-center space-y-4">
+              <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Target SemVer String</div>
+              <div className="text-4xl sm:text-5xl font-mono font-extrabold text-indigo-600 tracking-tight">
                 {currentSemverString}
               </div>
 
@@ -1238,19 +1238,19 @@ ${stepsYaml.join("\n\n")}`;
               <div className="flex flex-wrap justify-center gap-3 pt-2">
                 <button
                   onClick={() => handleBumpSemver("major")}
-                  className="px-4 py-2 text-xs font-bold rounded-xl bg-[#ff7b72]/20 text-[#ff7b72] border border-[#ff7b72]/40 hover:bg-[#ff7b72]/30 transition shadow"
+                  className="px-4 py-2 text-xs font-bold rounded-xl bg-[#ff7b72]/20 text-rose-600 border border-rose-400/40 hover:bg-[#ff7b72]/30 transition shadow"
                 >
                   +1 MAJOR ({semverMajor + 1}.0.0)
                 </button>
                 <button
                   onClick={() => handleBumpSemver("minor")}
-                  className="px-4 py-2 text-xs font-bold rounded-xl bg-[#ffa657]/20 text-[#ffa657] border border-[#ffa657]/40 hover:bg-[#ffa657]/30 transition shadow"
+                  className="px-4 py-2 text-xs font-bold rounded-xl bg-[#ffa657]/20 text-amber-600 border border-amber-400/40 hover:bg-[#ffa657]/30 transition shadow"
                 >
                   +1 MINOR ({semverMajor}.${semverMinor + 1}.0)
                 </button>
                 <button
                   onClick={() => handleBumpSemver("patch")}
-                  className="px-4 py-2 text-xs font-bold rounded-xl bg-[#7ee787]/20 text-[#7ee787] border border-[#7ee787]/40 hover:bg-[#7ee787]/30 transition shadow"
+                  className="px-4 py-2 text-xs font-bold rounded-xl bg-emerald-500/20 text-emerald-600 border border-emerald-400/40 hover:bg-emerald-500/30 transition shadow"
                 >
                   +1 PATCH ({semverMajor}.${semverMinor}.${semverPatch + 1})
                 </button>
@@ -1260,11 +1260,11 @@ ${stepsYaml.join("\n\n")}`;
             {/* TWO COLUMNS: CONVENTIONAL COMMITS vs RANGE RESOLUTION */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Left Column: Conventional Commit Analyzer */}
-              <div className="bg-[#0d1117] rounded-xl border border-[#30363d] p-5 space-y-4">
+              <div className="bg-slate-50 rounded-xl border border-slate-200 p-5 space-y-4">
                 <h3 className="text-sm font-semibold text-white flex items-center space-x-2">
                   <span>Conventional Commit Version Analyzer</span>
                 </h3>
-                <p className="text-xs text-[#8b949e]">
+                <p className="text-xs text-slate-500">
                   Type a commit message or select a preset to analyze automated release versioning.
                 </p>
 
@@ -1272,7 +1272,7 @@ ${stepsYaml.join("\n\n")}`;
                   type="text"
                   value={commitMessageInput}
                   onChange={(e) => setCommitMessageInput(e.target.value)}
-                  className="w-full bg-[#161b22] border border-[#30363d] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-[#58a6ff]"
+                  className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-indigo-400"
                 />
 
                 {/* Presets */}
@@ -1286,7 +1286,7 @@ ${stepsYaml.join("\n\n")}`;
                     <button
                       key={preset}
                       onClick={() => setCommitMessageInput(preset)}
-                      className="px-2.5 py-1 text-[11px] font-mono rounded bg-[#161b22] text-[#8b949e] border border-[#30363d] hover:text-white transition"
+                      className="px-2.5 py-1 text-[11px] font-mono rounded bg-white text-slate-500 border border-slate-200 hover:text-white transition"
                     >
                       {preset}
                     </button>
@@ -1294,9 +1294,9 @@ ${stepsYaml.join("\n\n")}`;
                 </div>
 
                 {/* Result Box */}
-                <div className="p-4 rounded-lg bg-[#161b22] border border-[#30363d] space-y-2">
+                <div className="p-4 rounded-lg bg-white border border-slate-200 space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#8b949e]">Detected Version Bump:</span>
+                    <span className="text-slate-500">Detected Version Bump:</span>
                     <span
                       className={`font-bold font-mono px-2 py-0.5 rounded ${
                         commitAnalysis.type === "MAJOR"
@@ -1316,31 +1316,31 @@ ${stepsYaml.join("\n\n")}`;
               </div>
 
               {/* Right Column: NPM SemVer Range Resolution */}
-              <div className="bg-[#0d1117] rounded-xl border border-[#30363d] p-5 space-y-4">
+              <div className="bg-slate-50 rounded-xl border border-slate-200 p-5 space-y-4">
                 <h3 className="text-sm font-semibold text-white flex items-center space-x-2">
                   <span>NPM Range Resolver (&apos;^&apos; vs &apos;~&apos; vs &apos;&gt;=&apos;)</span>
                 </h3>
-                <p className="text-xs text-[#8b949e]">
+                <p className="text-xs text-slate-500">
                   Test if a target dependency version satisfies a semver constraint range.
                 </p>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs text-[#8b949e] block mb-1">Range Specifier</label>
+                    <label className="text-xs text-slate-500 block mb-1">Range Specifier</label>
                     <input
                       type="text"
                       value={semverRangeInput}
                       onChange={(e) => setSemverRangeInput(e.target.value)}
-                      className="w-full bg-[#161b22] border border-[#30363d] rounded-lg px-3 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-[#58a6ff]"
+                      className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-indigo-400"
                     />
                   </div>
                   <div>
-                    <label className="text-xs text-[#8b949e] block mb-1">Target Version</label>
+                    <label className="text-xs text-slate-500 block mb-1">Target Version</label>
                     <input
                       type="text"
                       value={testVersionInput}
                       onChange={(e) => setTestVersionInput(e.target.value)}
-                      className="w-full bg-[#161b22] border border-[#30363d] rounded-lg px-3 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-[#58a6ff]"
+                      className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-indigo-400"
                     />
                   </div>
                 </div>
@@ -1349,8 +1349,8 @@ ${stepsYaml.join("\n\n")}`;
                 <div
                   className={`p-4 rounded-lg border space-y-2 ${
                     rangeEvaluation.isMatch
-                      ? "bg-[#7ee787]/10 border-[#7ee787]/40 text-[#7ee787]"
-                      : "bg-[#ff7b72]/10 border-[#ff7b72]/40 text-[#ff7b72]"
+                      ? "bg-emerald-50 border-emerald-400/40 text-emerald-600"
+                      : "bg-rose-50 border-rose-400/40 text-rose-600"
                   }`}
                 >
                   <div className="flex items-center justify-between text-xs font-bold">
@@ -1372,19 +1372,19 @@ ${stepsYaml.join("\n\n")}`;
       {/* ========================================================================= */}
       {activeTab === "deploy" && (
         <div className="space-y-6">
-          <div className="rounded-2xl bg-[#161b22] border border-[#30363d] p-6 shadow-lg space-y-6">
-            <div className="border-b border-[#30363d] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow shadow-lg space-y-6">
+            <div className="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h2 className="text-xl font-bold text-white flex items-center space-x-2">
                   <span>Deployment Strategy Comparison & Simulator</span>
                 </h2>
-                <p className="text-xs text-[#8b949e] mt-1">
+                <p className="text-xs text-slate-500 mt-1">
                   Visualize Recreate, Rolling Update, Blue/Green, and Canary deployments in action.
                 </p>
               </div>
 
               {/* Strategy Selector Switcher */}
-              <div className="flex bg-[#0d1117] p-1 rounded-xl border border-[#30363d] overflow-x-auto">
+              <div className="flex bg-slate-50 p-1 rounded-xl border border-slate-200 overflow-x-auto">
                 {(["rolling", "canary", "bluegreen", "recreate"] as DeployStrategy[]).map((strat) => (
                   <button
                     key={strat}
@@ -1394,8 +1394,8 @@ ${stepsYaml.join("\n\n")}`;
                     }}
                     className={`px-3 py-1.5 text-xs font-semibold rounded-lg capitalize transition ${
                       deployStrategy === strat
-                        ? "bg-[#58a6ff] text-white shadow"
-                        : "text-[#8b949e] hover:text-white"
+                        ? "bg-indigo-600 text-white shadow"
+                        : "text-slate-500 hover:text-white"
                     }`}
                   >
                     {strat}
@@ -1405,11 +1405,11 @@ ${stepsYaml.join("\n\n")}`;
             </div>
 
             {/* CONTROLS BAR */}
-            <div className="bg-[#0d1117] rounded-xl border border-[#30363d] p-4 flex flex-wrap items-center justify-between gap-4">
+            <div className="bg-slate-50 rounded-xl border border-slate-200 p-4 flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center space-x-3 text-xs">
                 <span className="font-semibold text-white">Simulation Step: {deployStep} / 4</span>
-                <span className="text-[#8b949e]">|</span>
-                <span className="text-[#58a6ff] font-mono">
+                <span className="text-slate-500">|</span>
+                <span className="text-indigo-600 font-mono">
                   Strategy: {deployStrategy.toUpperCase()}
                 </span>
               </div>
@@ -1418,20 +1418,20 @@ ${stepsYaml.join("\n\n")}`;
                 <button
                   onClick={handlePrevDeployStep}
                   disabled={deployStep === 0 || isSimulatingDeploy}
-                  className="px-3 py-1.5 text-xs font-medium rounded-lg bg-[#21262d] text-white border border-[#30363d] hover:bg-[#30363d] disabled:opacity-50 transition"
+                  className="px-3 py-1.5 text-xs font-medium rounded-lg bg-[#21262d] text-white border border-slate-200 hover:bg-[#30363d] disabled:opacity-50 transition"
                 >
                   ⏮ Step Back
                 </button>
                 <button
                   onClick={handleNextDeployStep}
                   disabled={deployStep === 4 || isSimulatingDeploy}
-                  className="px-3 py-1.5 text-xs font-medium rounded-lg bg-[#21262d] text-white border border-[#30363d] hover:bg-[#30363d] disabled:opacity-50 transition"
+                  className="px-3 py-1.5 text-xs font-medium rounded-lg bg-[#21262d] text-white border border-slate-200 hover:bg-[#30363d] disabled:opacity-50 transition"
                 >
                   Step Forward ⏭
                 </button>
                 <button
                   onClick={() => setIsSimulatingDeploy(!isSimulatingDeploy)}
-                  className="px-4 py-1.5 text-xs font-bold rounded-lg bg-[#58a6ff] text-white hover:bg-[#4794e6] transition shadow"
+                  className="px-4 py-1.5 text-xs font-bold rounded-lg bg-indigo-600 text-white hover:bg-[#4794e6] transition shadow"
                 >
                   {isSimulatingDeploy ? "⏸ Pause" : "▶ Play Simulation"}
                 </button>
@@ -1447,7 +1447,7 @@ ${stepsYaml.join("\n\n")}`;
                 </button>
                 <button
                   onClick={handleResetDeploy}
-                  className="px-3 py-1.5 text-xs font-medium rounded-lg bg-[#21262d] text-[#8b949e] border border-[#30363d] hover:text-white transition"
+                  className="px-3 py-1.5 text-xs font-medium rounded-lg bg-[#21262d] text-slate-500 border border-slate-200 hover:text-white transition"
                 >
                   🔄 Reset
                 </button>
@@ -1455,24 +1455,24 @@ ${stepsYaml.join("\n\n")}`;
             </div>
 
             {/* TOPOLOGY VISUALIZER */}
-            <div className="bg-[#0d1117] rounded-xl border border-[#30363d] p-6 space-y-6">
+            <div className="bg-slate-50 rounded-xl border border-slate-200 p-6 space-y-6">
               {/* Traffic Load Balancer Router Bar */}
-              <div className="bg-[#161b22] p-4 rounded-xl border border-[#30363d] space-y-2">
+              <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
                 <div className="flex items-center justify-between text-xs font-semibold">
                   <span className="text-white flex items-center space-x-2">
                     <span>🌐 Load Balancer Router Split</span>
                   </span>
-                  <span className="font-mono text-[#58a6ff]">
+                  <span className="font-mono text-indigo-600">
                     V1 Traffic: {traffic.v1}% | V2 Traffic: {traffic.v2}%
                   </span>
                 </div>
-                <div className="h-3 w-full bg-[#0d1117] rounded-full overflow-hidden flex border border-[#30363d]">
+                <div className="h-3 w-full bg-slate-50 rounded-full overflow-hidden flex border border-slate-200">
                   <div
-                    className="bg-[#58a6ff] h-full transition-all duration-500"
+                    className="bg-indigo-600 h-full transition-all duration-500"
                     style={{ width: `${traffic.v1}%` }}
                   />
                   <div
-                    className="bg-[#7ee787] h-full transition-all duration-500"
+                    className="bg-emerald-500 h-full transition-all duration-500"
                     style={{ width: `${traffic.v2}%` }}
                   />
                 </div>
@@ -1497,15 +1497,15 @@ ${stepsYaml.join("\n\n")}`;
                         pod.status === "error"
                           ? "bg-red-500/10 border-red-500/50 text-red-400 animate-bounce"
                           : pod.status === "terminating"
-                          ? "bg-[#21262d] border-[#ff7b72]/40 opacity-40"
+                          ? "bg-[#21262d] border-rose-400/40 opacity-40"
                           : pod.version === "v2"
-                          ? "bg-[#7ee787]/10 border-[#7ee787]/40 text-[#7ee787]"
-                          : "bg-[#58a6ff]/10 border-[#58a6ff]/40 text-[#58a6ff]"
+                          ? "bg-emerald-50 border-emerald-400/40 text-emerald-600"
+                          : "bg-indigo-50 border-indigo-300 text-indigo-600"
                       }`}
                     >
                       <div className="flex items-center justify-between text-xs font-mono font-bold">
                         <span>Pod #{pod.id}</span>
-                        <span className="text-[10px] uppercase font-sans px-1.5 py-0.5 rounded bg-[#0d1117]/60 border border-current">
+                        <span className="text-[10px] uppercase font-sans px-1.5 py-0.5 rounded bg-slate-50/60 border border-current">
                           {pod.version.toUpperCase()}
                         </span>
                       </div>
@@ -1519,7 +1519,7 @@ ${stepsYaml.join("\n\n")}`;
             </div>
 
             {/* COMPARISON MATRIX TABLE */}
-            <div className="bg-[#0d1117] rounded-xl border border-[#30363d] p-5 space-y-4">
+            <div className="bg-slate-50 rounded-xl border border-slate-200 p-5 space-y-4">
               <h3 className="text-sm font-semibold text-white">
                 Deployment Strategy Technical Comparison
               </h3>
@@ -1527,7 +1527,7 @@ ${stepsYaml.join("\n\n")}`;
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-b border-[#30363d] text-[#8b949e]">
+                    <tr className="border-b border-slate-200 text-slate-500">
                       <th className="p-3">Strategy</th>
                       <th className="p-3">Downtime</th>
                       <th className="p-3">Resource Overhead</th>
@@ -1536,28 +1536,28 @@ ${stepsYaml.join("\n\n")}`;
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#30363d] text-gray-300">
-                    <tr className={deployStrategy === "recreate" ? "bg-[#58a6ff]/10 font-semibold" : ""}>
+                    <tr className={deployStrategy === "recreate" ? "bg-indigo-50 font-semibold" : ""}>
                       <td className="p-3 text-white font-bold">Recreate</td>
                       <td className="p-3 text-red-400">High (Service down during switch)</td>
                       <td className="p-3">1.0x (No extra nodes required)</td>
                       <td className="p-3">Slow (Re-deploy V1)</td>
                       <td className="p-3 text-red-400">High</td>
                     </tr>
-                    <tr className={deployStrategy === "rolling" ? "bg-[#58a6ff]/10 font-semibold" : ""}>
+                    <tr className={deployStrategy === "rolling" ? "bg-indigo-50 font-semibold" : ""}>
                       <td className="p-3 text-white font-bold">Rolling Update</td>
                       <td className="p-3 text-green-400">Zero Downtime</td>
                       <td className="p-3">1.25x (MaxSurge / MaxUnavailable)</td>
                       <td className="p-3">Moderate</td>
                       <td className="p-3 text-amber-400">Medium</td>
                     </tr>
-                    <tr className={deployStrategy === "bluegreen" ? "bg-[#58a6ff]/10 font-semibold" : ""}>
+                    <tr className={deployStrategy === "bluegreen" ? "bg-indigo-50 font-semibold" : ""}>
                       <td className="p-3 text-white font-bold">Blue / Green</td>
                       <td className="p-3 text-green-400">Zero Downtime</td>
                       <td className="p-3 text-amber-400">2.0x (Full duplicated cluster)</td>
                       <td className="p-3 text-green-400">Instant (Router switch)</td>
                       <td className="p-3 text-green-400">Low</td>
                     </tr>
-                    <tr className={deployStrategy === "canary" ? "bg-[#58a6ff]/10 font-semibold" : ""}>
+                    <tr className={deployStrategy === "canary" ? "bg-indigo-50 font-semibold" : ""}>
                       <td className="p-3 text-white font-bold">Canary</td>
                       <td className="p-3 text-green-400">Zero Downtime</td>
                       <td className="p-3">1.1x - 1.5x</td>

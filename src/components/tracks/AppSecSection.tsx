@@ -653,12 +653,12 @@ export default function AppSecSection() {
 
   // SSL Labs Grade Calculation
   const computeSslGrade = () => {
-    if (enableWeakCiphers) return { grade: "F", color: "text-[#ff7b72]", reason: "Weak RC4/3DES ciphers enabled!" };
-    if (!tls13 && !tls12) return { grade: "F", color: "text-[#ff7b72]", reason: "No valid TLS protocols enabled!" };
-    if (!enableHsts) return { grade: "B", color: "text-[#ffa657]", reason: "HSTS header missing (Vulnerable to SSL Strip)." };
-    if (!enableCsp) return { grade: "A-", color: "text-[#58a6ff]", reason: "Content-Security-Policy missing." };
-    if (tls13 && enableHsts && enableCsp && enableXFrame) return { grade: "A+", color: "text-[#7ee787]", reason: "Optimal TLS 1.3 & Security Headers Hardening!" };
-    return { grade: "A", color: "text-[#7ee787]", reason: "Strong TLS configuration." };
+    if (enableWeakCiphers) return { grade: "F", color: "text-rose-600", reason: "Weak RC4/3DES ciphers enabled!" };
+    if (!tls13 && !tls12) return { grade: "F", color: "text-rose-600", reason: "No valid TLS protocols enabled!" };
+    if (!enableHsts) return { grade: "B", color: "text-amber-600", reason: "HSTS header missing (Vulnerable to SSL Strip)." };
+    if (!enableCsp) return { grade: "A-", color: "text-indigo-600", reason: "Content-Security-Policy missing." };
+    if (tls13 && enableHsts && enableCsp && enableXFrame) return { grade: "A+", color: "text-emerald-600", reason: "Optimal TLS 1.3 & Security Headers Hardening!" };
+    return { grade: "A", color: "text-emerald-600", reason: "Strong TLS configuration." };
   };
 
   const sslGrade = computeSslGrade();
@@ -670,21 +670,21 @@ export default function AppSecSection() {
   });
 
   return (
-    <section className="space-y-8 text-[#e6edf3]">
+    <section className="space-y-8 text-slate-900">
       {/* Track Header */}
-      <div className="p-6 rounded-xl bg-[#1c2333] border border-[#30363d]">
+      <div className="p-6 rounded-xl bg-white border border-slate-200 card-shadow">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="px-2.5 py-0.5 rounded-full bg-[#ff7b72]/10 text-[#ff7b72] border border-[#ff7b72]/20 text-xs font-mono font-semibold">
+              <span className="px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-600 border border-rose-400/20 text-xs font-mono font-semibold">
                 Cybersecurity & AppSec Track
               </span>
-              <span className="text-xs text-[#8b949e] font-mono">Module 4 of 5</span>
+              <span className="text-xs text-slate-500 font-mono">Module 4 of 5</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#e6edf3]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
               Application Security & Vulnerability Management
             </h2>
-            <p className="text-sm text-[#8b949e] mt-1 max-w-3xl">
+            <p className="text-sm text-slate-500 mt-1 max-w-3xl">
               Master SAST/DAST container scanning, OWASP Top 10 exploits & remediation, HashiCorp Vault vs AWS Secrets Manager workflows, and Web Application Firewall (WAF) rule engines.
             </p>
           </div>
@@ -696,8 +696,8 @@ export default function AppSecSection() {
             onClick={() => setActiveTab("scanner")}
             className={`px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
               activeTab === "scanner"
-                ? "bg-[#58a6ff] text-[#0d1117] shadow-lg shadow-[#58a6ff]/20 font-bold"
-                : "bg-[#161b22] text-[#8b949e] hover:text-[#e6edf3] border border-[#30363d]"
+                ? "bg-indigo-600 text-slate-900 shadow-lg shadow-[#58a6ff]/20 font-bold"
+                : "bg-white text-slate-500 hover:text-slate-900 border border-slate-200"
             }`}
           >
             <span>🔍</span> SAST/DAST & Container Scans
@@ -707,8 +707,8 @@ export default function AppSecSection() {
             onClick={() => setActiveTab("owasp")}
             className={`px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
               activeTab === "owasp"
-                ? "bg-[#58a6ff] text-[#0d1117] shadow-lg shadow-[#58a6ff]/20 font-bold"
-                : "bg-[#161b22] text-[#8b949e] hover:text-[#e6edf3] border border-[#30363d]"
+                ? "bg-indigo-600 text-slate-900 shadow-lg shadow-[#58a6ff]/20 font-bold"
+                : "bg-white text-slate-500 hover:text-slate-900 border border-slate-200"
             }`}
           >
             <span>🛡️</span> OWASP Top 10 Matrix
@@ -718,8 +718,8 @@ export default function AppSecSection() {
             onClick={() => setActiveTab("secrets")}
             className={`px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
               activeTab === "secrets"
-                ? "bg-[#58a6ff] text-[#0d1117] shadow-lg shadow-[#58a6ff]/20 font-bold"
-                : "bg-[#161b22] text-[#8b949e] hover:text-[#e6edf3] border border-[#30363d]"
+                ? "bg-indigo-600 text-slate-900 shadow-lg shadow-[#58a6ff]/20 font-bold"
+                : "bg-white text-slate-500 hover:text-slate-900 border border-slate-200"
             }`}
           >
             <span>🔑</span> Secret Management Workflow
@@ -729,8 +729,8 @@ export default function AppSecSection() {
             onClick={() => setActiveTab("waf")}
             className={`px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
               activeTab === "waf"
-                ? "bg-[#58a6ff] text-[#0d1117] shadow-lg shadow-[#58a6ff]/20 font-bold"
-                : "bg-[#161b22] text-[#8b949e] hover:text-[#e6edf3] border border-[#30363d]"
+                ? "bg-indigo-600 text-slate-900 shadow-lg shadow-[#58a6ff]/20 font-bold"
+                : "bg-white text-slate-500 hover:text-slate-900 border border-slate-200"
             }`}
           >
             <span>🧱</span> WAF Engine & SSL Hardening
@@ -744,13 +744,13 @@ export default function AppSecSection() {
       {activeTab === "scanner" && (
         <div className="space-y-6">
           {/* Controls Bar */}
-          <div className="p-5 rounded-xl bg-[#1c2333] border border-[#30363d] space-y-4">
+          <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
-                <h3 className="text-lg font-bold text-[#e6edf3]">
+                <h3 className="text-lg font-bold text-slate-900">
                   1. SAST / DAST & Container Vulnerability Scanner
                 </h3>
-                <p className="text-xs text-[#8b949e]">
+                <p className="text-xs text-slate-500">
                   Simulate Trivy container image scans, Snyk SAST code analysis, and OWASP ZAP DAST web inspection.
                 </p>
               </div>
@@ -758,7 +758,7 @@ export default function AppSecSection() {
               <button
                 onClick={handleRunScan}
                 disabled={isScanning}
-                className="px-5 py-2.5 rounded-lg bg-[#58a6ff] text-[#0d1117] font-semibold text-xs hover:bg-[#58a6ff]/90 transition-all disabled:opacity-50 flex items-center gap-2"
+                className="px-5 py-2.5 rounded-lg bg-indigo-600 text-slate-900 font-semibold text-xs hover:bg-indigo-600/90 transition-all disabled:opacity-50 flex items-center gap-2"
               >
                 {isScanning ? (
                   <>
@@ -774,7 +774,7 @@ export default function AppSecSection() {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
               <div>
-                <label className="block text-xs text-[#8b949e] mb-1">
+                <label className="block text-xs text-slate-500 mb-1">
                   Scanner Engine:
                 </label>
                 <select
@@ -782,7 +782,7 @@ export default function AppSecSection() {
                   onChange={(e) =>
                     setScanTool(e.target.value as "Trivy" | "Snyk Code" | "OWASP ZAP")
                   }
-                  className="w-full px-3 py-2 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs text-[#e6edf3] font-mono"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono"
                 >
                   <option value="Trivy">Trivy (Container Image Scanner)</option>
                   <option value="Snyk Code">Snyk Code (SAST Static Analysis)</option>
@@ -791,14 +791,14 @@ export default function AppSecSection() {
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs text-[#8b949e] mb-1">
+                <label className="block text-xs text-slate-500 mb-1">
                   Scan Target Target / Image / Repo:
                 </label>
                 <input
                   type="text"
                   value={scanTarget}
                   onChange={(e) => setScanTarget(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs text-[#e6edf3] font-mono"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono"
                   placeholder="e.g. docker.io/my-app:v1.0"
                 />
               </div>
@@ -806,18 +806,18 @@ export default function AppSecSection() {
 
             {/* Progress Bar & Scan Terminal Stream */}
             {scanLogs.length > 0 && (
-              <div className="mt-4 p-4 rounded-lg bg-[#0d1117] border border-[#30363d] font-mono text-xs space-y-2">
-                <div className="flex items-center justify-between text-[#8b949e]">
+              <div className="mt-4 p-4 rounded-lg bg-slate-50 border border-slate-200 font-mono text-xs space-y-2">
+                <div className="flex items-center justify-between text-slate-500">
                   <span>Scan Stream Logs</span>
                   <span>{scanProgress}% Completed</span>
                 </div>
-                <div className="w-full h-2 rounded-full bg-[#161b22] overflow-hidden">
+                <div className="w-full h-2 rounded-full bg-white overflow-hidden">
                   <div
-                    className="h-full bg-[#58a6ff] transition-all duration-500"
+                    className="h-full bg-indigo-600 transition-all duration-500"
                     style={{ width: `${scanProgress}%` }}
                   />
                 </div>
-                <div className="max-h-32 overflow-y-auto space-y-1 text-xs text-[#7ee787]">
+                <div className="max-h-32 overflow-y-auto space-y-1 text-xs text-emerald-600">
                   {scanLogs.map((log, idx) => (
                     <div key={idx}>{log}</div>
                   ))}
@@ -828,42 +828,42 @@ export default function AppSecSection() {
 
           {/* Scan Results Summary Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div className="p-4 rounded-xl bg-[#1c2333] border border-[#ff7b72]/30 bg-gradient-to-br from-[#ff7b72]/5 to-transparent">
-              <div className="text-xs text-[#8b949e]">Critical CVEs</div>
-              <div className="text-2xl font-extrabold text-[#ff7b72] mt-1">
+            <div className="p-4 rounded-xl bg-slate-50 border border-rose-200 bg-gradient-to-br from-[#ff7b72]/5 to-transparent">
+              <div className="text-xs text-slate-500">Critical CVEs</div>
+              <div className="text-2xl font-extrabold text-rose-600 mt-1">
                 {scanResultsList.filter((r) => r.severity === "CRITICAL").length}
               </div>
-              <div className="text-[11px] text-[#ff7b72]/80 mt-1 font-mono">
+              <div className="text-[11px] text-rose-600/80 mt-1 font-mono">
                 Immediate Patch Required
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#1c2333] border border-[#ffa657]/30 bg-gradient-to-br from-[#ffa657]/5 to-transparent">
-              <div className="text-xs text-[#8b949e]">High Severity</div>
-              <div className="text-2xl font-extrabold text-[#ffa657] mt-1">
+            <div className="p-4 rounded-xl bg-slate-50 border border-amber-200 bg-gradient-to-br from-[#ffa657]/5 to-transparent">
+              <div className="text-xs text-slate-500">High Severity</div>
+              <div className="text-2xl font-extrabold text-amber-600 mt-1">
                 {scanResultsList.filter((r) => r.severity === "HIGH").length}
               </div>
-              <div className="text-[11px] text-[#ffa657]/80 mt-1 font-mono">
+              <div className="text-[11px] text-amber-600/80 mt-1 font-mono">
                 Fix within 7 days
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#1c2333] border border-[#bc8cff]/30 bg-gradient-to-br from-[#bc8cff]/5 to-transparent">
-              <div className="text-xs text-[#8b949e]">Medium Severity</div>
-              <div className="text-2xl font-extrabold text-[#bc8cff] mt-1">
+            <div className="p-4 rounded-xl bg-slate-50 border border-violet-200 bg-gradient-to-br from-[#bc8cff]/5 to-transparent">
+              <div className="text-xs text-slate-500">Medium Severity</div>
+              <div className="text-2xl font-extrabold text-violet-600 mt-1">
                 {scanResultsList.filter((r) => r.severity === "MEDIUM").length}
               </div>
-              <div className="text-[11px] text-[#bc8cff]/80 mt-1 font-mono">
+              <div className="text-[11px] text-violet-600/80 mt-1 font-mono">
                 Scheduled Maintenance
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#1c2333] border border-[#58a6ff]/30 bg-gradient-to-br from-[#58a6ff]/5 to-transparent">
-              <div className="text-xs text-[#8b949e]">Low / Info</div>
-              <div className="text-2xl font-extrabold text-[#58a6ff] mt-1">
+            <div className="p-4 rounded-xl bg-slate-50 border border-indigo-200 bg-gradient-to-br from-[#58a6ff]/5 to-transparent">
+              <div className="text-xs text-slate-500">Low / Info</div>
+              <div className="text-2xl font-extrabold text-indigo-600 mt-1">
                 {scanResultsList.filter((r) => r.severity === "LOW").length}
               </div>
-              <div className="text-[11px] text-[#58a6ff]/80 mt-1 font-mono">
+              <div className="text-[11px] text-indigo-600/80 mt-1 font-mono">
                 Best practice hardening
               </div>
             </div>
@@ -872,22 +872,22 @@ export default function AppSecSection() {
           {/* Results Table & Details Inspector */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Table */}
-            <div className="lg:col-span-2 p-5 rounded-xl bg-[#1c2333] border border-[#30363d] space-y-4">
+            <div className="lg:col-span-2 p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <h4 className="text-sm font-bold text-[#e6edf3]">
+                <h4 className="text-sm font-bold text-slate-900">
                   Detected Vulnerabilities ({filteredScanResults.length})
                 </h4>
 
                 {/* Filter Selector */}
-                <div className="flex items-center gap-1 bg-[#0d1117] p-1 rounded-lg border border-[#30363d]">
+                <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-lg border border-slate-200">
                   {["ALL", "CRITICAL", "HIGH", "MEDIUM", "LOW"].map((sev) => (
                     <button
                       key={sev}
                       onClick={() => setScanFilterSeverity(sev)}
                       className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all ${
                         scanFilterSeverity === sev
-                          ? "bg-[#58a6ff] text-[#0d1117]"
-                          : "text-[#8b949e] hover:text-[#e6edf3]"
+                          ? "bg-indigo-600 text-slate-900"
+                          : "text-slate-500 hover:text-slate-900"
                       }`}
                     >
                       {sev}
@@ -898,7 +898,7 @@ export default function AppSecSection() {
 
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-[#0d1117] text-[#8b949e] font-mono border-b border-[#30363d]">
+                  <thead className="bg-slate-50 text-slate-500 font-mono border-b border-slate-200">
                     <tr>
                       <th className="py-2.5 px-3">CVE / ID</th>
                       <th className="py-2.5 px-3">Severity</th>
@@ -910,13 +910,13 @@ export default function AppSecSection() {
                   <tbody className="divide-y divide-[#30363d]/50 font-mono">
                     {filteredScanResults.map((item) => {
                       const isSelected = selectedScanResult?.id === item.id;
-                      let sevBg = "bg-[#58a6ff]/10 text-[#58a6ff] border-[#58a6ff]/30";
+                      let sevBg = "bg-indigo-50 text-indigo-600 border-indigo-200";
                       if (item.severity === "CRITICAL")
-                        sevBg = "bg-[#ff7b72]/10 text-[#ff7b72] border-[#ff7b72]/30";
+                        sevBg = "bg-rose-50 text-rose-600 border-rose-200";
                       if (item.severity === "HIGH")
-                        sevBg = "bg-[#ffa657]/10 text-[#ffa657] border-[#ffa657]/30";
+                        sevBg = "bg-amber-50 text-amber-600 border-amber-200";
                       if (item.severity === "MEDIUM")
-                        sevBg = "bg-[#bc8cff]/10 text-[#bc8cff] border-[#bc8cff]/30";
+                        sevBg = "bg-violet-50 text-violet-600 border-violet-200";
 
                       return (
                         <tr
@@ -924,11 +924,11 @@ export default function AppSecSection() {
                           onClick={() => setSelectedScanResult(item)}
                           className={`cursor-pointer transition-colors ${
                             isSelected
-                              ? "bg-[#58a6ff]/10 text-[#e6edf3]"
-                              : "hover:bg-[#161b22]"
+                              ? "bg-indigo-50 text-slate-900"
+                              : "hover:bg-white"
                           }`}
                         >
-                          <td className="py-2.5 px-3 font-semibold text-[#58a6ff]">
+                          <td className="py-2.5 px-3 font-semibold text-indigo-600">
                             {item.cve}
                           </td>
                           <td className="py-2.5 px-3">
@@ -938,9 +938,9 @@ export default function AppSecSection() {
                               {item.severity}
                             </span>
                           </td>
-                          <td className="py-2.5 px-3 text-[#8b949e]">{item.tool}</td>
-                          <td className="py-2.5 px-3 text-[#e6edf3]">{item.component}</td>
-                          <td className="py-2.5 px-3 font-bold text-[#e6edf3]">
+                          <td className="py-2.5 px-3 text-slate-500">{item.tool}</td>
+                          <td className="py-2.5 px-3 text-slate-900">{item.component}</td>
+                          <td className="py-2.5 px-3 font-bold text-slate-900">
                             {item.cvssScore.toFixed(1)}
                           </td>
                         </tr>
@@ -952,57 +952,57 @@ export default function AppSecSection() {
             </div>
 
             {/* Vulnerability Inspector Drawer */}
-            <div className="p-5 rounded-xl bg-[#1c2333] border border-[#30363d] space-y-4">
-              <h4 className="text-sm font-bold text-[#e6edf3] flex items-center gap-2">
+            <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-4">
+              <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <span>🔬</span> Vulnerability Details & Fix
               </h4>
 
               {selectedScanResult ? (
                 <div className="space-y-4 text-xs">
                   <div>
-                    <span className="text-[11px] font-mono text-[#8b949e]">
+                    <span className="text-[11px] font-mono text-slate-500">
                       {selectedScanResult.cve} ({selectedScanResult.tool})
                     </span>
-                    <h5 className="text-sm font-bold text-[#e6edf3] mt-0.5">
+                    <h5 className="text-sm font-bold text-slate-900 mt-0.5">
                       {selectedScanResult.title}
                     </h5>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-[11px] font-mono p-3 rounded-lg bg-[#0d1117] border border-[#30363d]">
+                  <div className="grid grid-cols-2 gap-2 text-[11px] font-mono p-3 rounded-lg bg-slate-50 border border-slate-200">
                     <div>
-                      <span className="text-[#8b949e]">Affected:</span>
-                      <div className="text-[#ff7b72] font-semibold">
+                      <span className="text-slate-500">Affected:</span>
+                      <div className="text-rose-600 font-semibold">
                         {selectedScanResult.installedVersion}
                       </div>
                     </div>
                     <div>
-                      <span className="text-[#8b949e]">Remediated:</span>
-                      <div className="text-[#7ee787] font-semibold">
+                      <span className="text-slate-500">Remediated:</span>
+                      <div className="text-emerald-600 font-semibold">
                         {selectedScanResult.fixedVersion}
                       </div>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-[#8b949e] mb-1 font-semibold">
+                    <label className="block text-slate-500 mb-1 font-semibold">
                       Description:
                     </label>
-                    <p className="text-[#e6edf3] leading-relaxed">
+                    <p className="text-slate-900 leading-relaxed">
                       {selectedScanResult.description}
                     </p>
                   </div>
 
                   <div>
-                    <label className="block text-[#7ee787] mb-1 font-semibold flex items-center gap-1">
+                    <label className="block text-emerald-600 mb-1 font-semibold flex items-center gap-1">
                       <span>🛠️</span> Remediation Fix Snippet:
                     </label>
-                    <div className="p-3 rounded-lg bg-[#0d1117] border border-[#7ee787]/30 text-[#7ee787] font-mono text-[11px] break-all">
+                    <div className="p-3 rounded-lg bg-slate-50 border border-emerald-200 text-emerald-600 font-mono text-[11px] break-all">
                       {selectedScanResult.remediation}
                     </div>
                   </div>
                 </div>
               ) : (
-                <p className="text-xs text-[#8b949e]">
+                <p className="text-xs text-slate-500">
                   Select a vulnerability from the table to inspect details and remediation instructions.
                 </p>
               )}
@@ -1017,11 +1017,11 @@ export default function AppSecSection() {
       {activeTab === "owasp" && (
         <div className="space-y-6">
           {/* Header */}
-          <div className="p-5 rounded-xl bg-[#1c2333] border border-[#30363d]">
-            <h3 className="text-lg font-bold text-[#e6edf3]">
+          <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow">
+            <h3 className="text-lg font-bold text-slate-900">
               2. OWASP Top 10 Vulnerability Matrix & Remediation Lab
             </h3>
-            <p className="text-xs text-[#8b949e] mt-1">
+            <p className="text-xs text-slate-500 mt-1">
               Select any OWASP Top 10 category to view real-world exploit scenarios, compare vulnerable vs remediated code, and run interactive exploit tests.
             </p>
           </div>
@@ -1040,11 +1040,11 @@ export default function AppSecSection() {
                   }}
                   className={`p-3 rounded-xl border text-left transition-all ${
                     isSelected
-                      ? "bg-[#58a6ff]/15 border-[#58a6ff] text-[#e6edf3] shadow-md shadow-[#58a6ff]/10"
-                      : "bg-[#1c2333] border-[#30363d] text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#161b22]"
+                      ? "bg-indigo-600/15 border-indigo-400 text-slate-900 shadow-md shadow-[#58a6ff]/10"
+                      : "bg-slate-50 border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-white"
                   }`}
                 >
-                  <div className="text-[10px] font-mono text-[#58a6ff] font-bold">
+                  <div className="text-[10px] font-mono text-indigo-600 font-bold">
                     {item.code}
                   </div>
                   <div className="text-xs font-bold truncate mt-0.5">
@@ -1056,22 +1056,22 @@ export default function AppSecSection() {
           </div>
 
           {/* Selected OWASP Deep Dive */}
-          <div className="p-6 rounded-xl bg-[#1c2333] border border-[#30363d] space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#30363d] pb-4">
+          <div className="p-6 rounded-xl bg-white border border-slate-200 card-shadow space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
               <div>
-                <span className="px-2.5 py-0.5 rounded-full bg-[#58a6ff]/10 text-[#58a6ff] border border-[#58a6ff]/20 text-xs font-mono font-semibold">
+                <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-200 text-xs font-mono font-semibold">
                   {activeOwasp.code}
                 </span>
-                <h4 className="text-xl font-extrabold text-[#e6edf3] mt-1">
+                <h4 className="text-xl font-extrabold text-slate-900 mt-1">
                   {activeOwasp.title}
                 </h4>
               </div>
-              <div className="text-xs text-[#ffa657] font-mono bg-[#ffa657]/10 px-3 py-1.5 rounded-lg border border-[#ffa657]/20 max-w-md">
+              <div className="text-xs text-amber-600 font-mono bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-400/20 max-w-md">
                 <strong>Impact:</strong> {activeOwasp.impact}
               </div>
             </div>
 
-            <p className="text-xs text-[#e6edf3] leading-relaxed">
+            <p className="text-xs text-slate-900 leading-relaxed">
               {activeOwasp.description}
             </p>
 
@@ -1080,14 +1080,14 @@ export default function AppSecSection() {
               {/* Vulnerable Code */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-[#ff7b72] flex items-center gap-1">
+                  <span className="font-bold text-rose-600 flex items-center gap-1">
                     <span>❌</span> Vulnerable Implementation
                   </span>
-                  <span className="text-[10px] text-[#8b949e] font-mono">
+                  <span className="text-[10px] text-slate-500 font-mono">
                     UNSECURE
                   </span>
                 </div>
-                <pre className="p-4 rounded-xl bg-[#0d1117] border border-[#ff7b72]/30 text-[#ff7b72] text-[11px] font-mono overflow-x-auto whitespace-pre-wrap">
+                <pre className="p-4 rounded-xl bg-slate-50 border border-rose-200 text-rose-600 text-[11px] font-mono overflow-x-auto whitespace-pre-wrap">
                   {activeOwasp.vulnerableCode}
                 </pre>
               </div>
@@ -1095,31 +1095,31 @@ export default function AppSecSection() {
               {/* Remediated Code */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-[#7ee787] flex items-center gap-1">
+                  <span className="font-bold text-emerald-600 flex items-center gap-1">
                     <span>✅</span> Remediated Secure Implementation
                   </span>
-                  <span className="text-[10px] text-[#7ee787] font-mono">
+                  <span className="text-[10px] text-emerald-600 font-mono">
                     HARDENED
                   </span>
                 </div>
-                <pre className="p-4 rounded-xl bg-[#0d1117] border border-[#7ee787]/30 text-[#7ee787] text-[11px] font-mono overflow-x-auto whitespace-pre-wrap">
+                <pre className="p-4 rounded-xl bg-slate-50 border border-emerald-200 text-emerald-600 text-[11px] font-mono overflow-x-auto whitespace-pre-wrap">
                   {activeOwasp.remediatedCode}
                 </pre>
               </div>
             </div>
 
             {/* Key Defenses */}
-            <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] space-y-2">
-              <h5 className="text-xs font-bold text-[#e6edf3] flex items-center gap-1.5">
+            <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow space-y-2">
+              <h5 className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
                 <span>🛡️</span> Key Architectural Defenses:
               </h5>
-              <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-[#8b949e]">
+              <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-slate-500">
                 {activeOwasp.keyDefenses.map((def, i) => (
                   <li
                     key={i}
-                    className="p-2 rounded bg-[#161b22] border border-[#30363d] text-[#e6edf3] flex items-start gap-2"
+                    className="p-2 rounded bg-white border border-slate-200 text-slate-900 flex items-start gap-2"
                   >
-                    <span className="text-[#58a6ff] font-bold">•</span>
+                    <span className="text-indigo-600 font-bold">•</span>
                     <span>{def}</span>
                   </li>
                 ))}
@@ -1127,26 +1127,26 @@ export default function AppSecSection() {
             </div>
 
             {/* Exploit Simulator */}
-            <div className="p-5 rounded-xl bg-[#161b22] border border-[#30363d] space-y-4">
-              <h5 className="text-xs font-bold text-[#e6edf3] flex items-center gap-2">
+            <div className="p-5 rounded-xl bg-white border border-slate-200 space-y-4">
+              <h5 className="text-xs font-bold text-slate-900 flex items-center gap-2">
                 <span>🧪</span> Exploit / Defense Interactive Tester
               </h5>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="sm:col-span-2">
-                  <label className="block text-xs text-[#8b949e] mb-1">
+                  <label className="block text-xs text-slate-500 mb-1">
                     Test Request Payload:
                   </label>
                   <input
                     type="text"
                     value={testPayload}
                     onChange={(e) => setTestPayload(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs text-[#e6edf3] font-mono"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs text-[#8b949e] mb-1">
+                  <label className="block text-xs text-slate-500 mb-1">
                     Target Handler Mode:
                   </label>
                   <select
@@ -1154,7 +1154,7 @@ export default function AppSecSection() {
                     onChange={(e) =>
                       setTestMode(e.target.value as "vulnerable" | "remediated")
                     }
-                    className="w-full px-3 py-2 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs text-[#e6edf3] font-mono"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono"
                   >
                     <option value="vulnerable">Vulnerable Handler</option>
                     <option value="remediated">Remediated Handler</option>
@@ -1164,13 +1164,13 @@ export default function AppSecSection() {
 
               <button
                 onClick={handleTestExploit}
-                className="px-4 py-2 rounded-lg bg-[#58a6ff] text-[#0d1117] font-semibold text-xs hover:bg-[#58a6ff]/90 transition-all"
+                className="px-4 py-2 rounded-lg bg-indigo-600 text-slate-900 font-semibold text-xs hover:bg-indigo-600/90 transition-all"
               >
                 Execute Test Request
               </button>
 
               {testOutput && (
-                <div className="p-4 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs font-mono whitespace-pre-wrap text-[#e6edf3]">
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono whitespace-pre-wrap text-slate-900">
                   {testOutput}
                 </div>
               )}
@@ -1185,11 +1185,11 @@ export default function AppSecSection() {
       {activeTab === "secrets" && (
         <div className="space-y-6">
           {/* Header */}
-          <div className="p-5 rounded-xl bg-[#1c2333] border border-[#30363d]">
-            <h3 className="text-lg font-bold text-[#e6edf3]">
+          <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow">
+            <h3 className="text-lg font-bold text-slate-900">
               3. Secret Management Workflow (HashiCorp Vault vs AWS Secrets Manager)
             </h3>
-            <p className="text-xs text-[#8b949e] mt-1">
+            <p className="text-xs text-slate-500 mt-1">
               Compare enterprise secret engine architecture, dynamic credential generation, token TTL leases, and automated rotation.
             </p>
           </div>
@@ -1197,33 +1197,33 @@ export default function AppSecSection() {
           {/* Architecture Comparison Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* HashiCorp Vault */}
-            <div className="p-5 rounded-xl bg-[#1c2333] border border-[#bc8cff]/30 space-y-4">
-              <div className="flex items-center justify-between border-b border-[#30363d] pb-3">
+            <div className="p-5 rounded-xl bg-slate-50 border border-violet-200 space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-3">
                 <div className="flex items-center gap-2">
                   <span className="text-xl">🔐</span>
-                  <h4 className="text-base font-bold text-[#e6edf3]">
+                  <h4 className="text-base font-bold text-slate-900">
                     HashiCorp Vault
                   </h4>
                 </div>
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#bc8cff]/10 text-[#bc8cff] border border-[#bc8cff]/30 font-bold">
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-violet-50 text-violet-600 border border-violet-200 font-bold">
                   MULTI-CLOUD / ON-PREM
                 </span>
               </div>
-              <ul className="text-xs text-[#8b949e] space-y-2">
+              <ul className="text-xs text-slate-500 space-y-2">
                 <li className="flex items-start gap-2">
-                  <span className="text-[#bc8cff]">•</span>
+                  <span className="text-violet-600">•</span>
                   <span>
                     <strong>Encryption:</strong> Shamir Secret Sharing, Transit Secrets Engine (EaaS).
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#bc8cff]">•</span>
+                  <span className="text-violet-600">•</span>
                   <span>
                     <strong>Dynamic Secrets:</strong> Generates short-lived DB credentials (e.g. 1h TTL) on-demand.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#bc8cff]">•</span>
+                  <span className="text-violet-600">•</span>
                   <span>
                     <strong>Auth Methods:</strong> AppRole, Kubernetes ServiceAccount JWT, TLS Certificates.
                   </span>
@@ -1232,33 +1232,33 @@ export default function AppSecSection() {
             </div>
 
             {/* AWS Secrets Manager */}
-            <div className="p-5 rounded-xl bg-[#1c2333] border border-[#ffa657]/30 space-y-4">
-              <div className="flex items-center justify-between border-b border-[#30363d] pb-3">
+            <div className="p-5 rounded-xl bg-slate-50 border border-amber-200 space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-3">
                 <div className="flex items-center gap-2">
                   <span className="text-xl">☁️</span>
-                  <h4 className="text-base font-bold text-[#e6edf3]">
+                  <h4 className="text-base font-bold text-slate-900">
                     AWS Secrets Manager
                   </h4>
                 </div>
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#ffa657]/10 text-[#ffa657] border border-[#ffa657]/30 font-bold">
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-50 text-amber-600 border border-amber-200 font-bold">
                   AWS NATIVE
                 </span>
               </div>
-              <ul className="text-xs text-[#8b949e] space-y-2">
+              <ul className="text-xs text-slate-500 space-y-2">
                 <li className="flex items-start gap-2">
-                  <span className="text-[#ffa657]">•</span>
+                  <span className="text-amber-600">•</span>
                   <span>
                     <strong>Encryption:</strong> Envelope Encryption integrated with AWS KMS keys.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#ffa657]">•</span>
+                  <span className="text-amber-600">•</span>
                   <span>
                     <strong>Automated Rotation:</strong> Native AWS Lambda rotation templates for RDS, Redshift, DocumentDB.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#ffa657]">•</span>
+                  <span className="text-amber-600">•</span>
                   <span>
                     <strong>Auth Methods:</strong> IAM Policies, STS Temporary Credentials, VPC Endpoints.
                   </span>
@@ -1268,8 +1268,8 @@ export default function AppSecSection() {
           </div>
 
           {/* Interactive Lifecycle Steps */}
-          <div className="p-5 rounded-xl bg-[#1c2333] border border-[#30363d] space-y-4">
-            <h4 className="text-sm font-bold text-[#e6edf3]">
+          <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-4">
+            <h4 className="text-sm font-bold text-slate-900">
               Secret Lifecycle Pipeline
             </h4>
 
@@ -1285,8 +1285,8 @@ export default function AppSecSection() {
                   onClick={() => setSecretLifecycleStep(s.step)}
                   className={`p-3 rounded-lg border text-xs font-semibold text-left transition-all ${
                     secretLifecycleStep === s.step
-                      ? "bg-[#58a6ff] text-[#0d1117] font-bold border-[#58a6ff]"
-                      : "bg-[#0d1117] text-[#8b949e] border-[#30363d] hover:text-[#e6edf3]"
+                      ? "bg-indigo-600 text-slate-900 font-bold border-indigo-400"
+                      : "bg-slate-50 text-slate-500 border-slate-200 hover:text-slate-900"
                   }`}
                 >
                   {s.label}
@@ -1294,7 +1294,7 @@ export default function AppSecSection() {
               ))}
             </div>
 
-            <div className="p-4 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs text-[#e6edf3] leading-relaxed">
+            <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 leading-relaxed">
               {secretLifecycleStep === 1 && (
                 <p>
                   <strong>Storage & KMS Encryption:</strong> Secrets are encrypted using AES-256-GCM. In Vault, master keys are unsealed via Shamir threshold key shares. In AWS, KMS Envelope Encryption wraps data keys.
@@ -1319,14 +1319,14 @@ export default function AppSecSection() {
           </div>
 
           {/* Interactive Live Secret Simulator */}
-          <div className="p-5 rounded-xl bg-[#161b22] border border-[#30363d] space-y-4">
-            <h4 className="text-sm font-bold text-[#e6edf3] flex items-center gap-2">
+          <div className="p-5 rounded-xl bg-white border border-slate-200 space-y-4">
+            <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
               <span>💻</span> Secret Fetch & Rotation Simulator
             </h4>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label className="block text-xs text-[#8b949e] mb-1">
+                <label className="block text-xs text-slate-500 mb-1">
                   Select Provider:
                 </label>
                 <select
@@ -1334,7 +1334,7 @@ export default function AppSecSection() {
                   onChange={(e) =>
                     setSecretProvider(e.target.value as "vault" | "aws")
                   }
-                  className="w-full px-3 py-2 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs text-[#e6edf3] font-mono"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono"
                 >
                   <option value="vault">HashiCorp Vault (AppRole / KV v2)</option>
                   <option value="aws">AWS Secrets Manager (KMS)</option>
@@ -1342,14 +1342,14 @@ export default function AppSecSection() {
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs text-[#8b949e] mb-1">
+                <label className="block text-xs text-slate-500 mb-1">
                   Secret Identifier Path:
                 </label>
                 <input
                   type="text"
                   value={secretPath}
                   onChange={(e) => setSecretPath(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs text-[#e6edf3] font-mono"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono"
                 />
               </div>
             </div>
@@ -1357,32 +1357,32 @@ export default function AppSecSection() {
             <div className="flex flex-wrap items-center gap-3 pt-1">
               <button
                 onClick={handleFetchSecret}
-                className="px-4 py-2 rounded-lg bg-[#58a6ff] text-[#0d1117] font-semibold text-xs hover:bg-[#58a6ff]/90 transition-all"
+                className="px-4 py-2 rounded-lg bg-indigo-600 text-slate-900 font-semibold text-xs hover:bg-indigo-600/90 transition-all"
               >
                 Fetch Secret Payload
               </button>
 
               <button
                 onClick={handleRotateSecret}
-                className="px-4 py-2 rounded-lg bg-[#ffa657] text-[#0d1117] font-semibold text-xs hover:bg-[#ffa657]/90 transition-all"
+                className="px-4 py-2 rounded-lg bg-[#ffa657] text-slate-900 font-semibold text-xs hover:bg-[#ffa657]/90 transition-all"
               >
                 Trigger Immediate Rotation
               </button>
 
               <button
                 onClick={() => setIsSecretMasked(!isSecretMasked)}
-                className="px-3 py-2 rounded-lg bg-[#0d1117] border border-[#30363d] text-[#8b949e] text-xs hover:text-[#e6edf3]"
+                className="px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 text-xs hover:text-slate-900"
               >
                 {isSecretMasked ? "👁️ Unmask Tokens" : "🙈 Mask Tokens"}
               </button>
 
-              <div className="ml-auto text-xs font-mono text-[#7ee787]">
+              <div className="ml-auto text-xs font-mono text-emerald-600">
                 Lease TTL: {rotationTimer}s remaining
               </div>
             </div>
 
             {secretLog && (
-              <pre className="p-4 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs text-[#7ee787] font-mono overflow-x-auto whitespace-pre-wrap">
+              <pre className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-xs text-emerald-600 font-mono overflow-x-auto whitespace-pre-wrap">
                 {secretLog}
               </pre>
             )}
@@ -1396,11 +1396,11 @@ export default function AppSecSection() {
       {activeTab === "waf" && (
         <div className="space-y-6">
           {/* Header */}
-          <div className="p-5 rounded-xl bg-[#1c2333] border border-[#30363d]">
-            <h3 className="text-lg font-bold text-[#e6edf3]">
+          <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow">
+            <h3 className="text-lg font-bold text-slate-900">
               4. Web Application Firewall (WAF) & SSL/TLS Hardening Lab
             </h3>
-            <p className="text-xs text-[#8b949e] mt-1">
+            <p className="text-xs text-slate-500 mt-1">
               Configure L7 WAF protection rulesets, test attack payloads, and audit SSL/TLS cipher suites & security response headers.
             </p>
           </div>
@@ -1408,14 +1408,14 @@ export default function AppSecSection() {
           {/* WAF Rule Engine & Traffic Simulator */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Active Rules List */}
-            <div className="lg:col-span-2 p-5 rounded-xl bg-[#1c2333] border border-[#30363d] space-y-4">
-              <h4 className="text-sm font-bold text-[#e6edf3]">
+            <div className="lg:col-span-2 p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-4">
+              <h4 className="text-sm font-bold text-slate-900">
                 WAF Rule Table ({wafRules.length} Active Rules)
               </h4>
 
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-[#0d1117] text-[#8b949e] font-mono border-b border-[#30363d]">
+                  <thead className="bg-slate-50 text-slate-500 font-mono border-b border-slate-200">
                     <tr>
                       <th className="py-2 px-3">State</th>
                       <th className="py-2 px-3">Rule Name</th>
@@ -1426,7 +1426,7 @@ export default function AppSecSection() {
                   </thead>
                   <tbody className="divide-y divide-[#30363d]/50 font-mono">
                     {wafRules.map((rule) => (
-                      <tr key={rule.id} className="hover:bg-[#161b22]">
+                      <tr key={rule.id} className="hover:bg-white">
                         <td className="py-2 px-3">
                           <input
                             type="checkbox"
@@ -1435,22 +1435,22 @@ export default function AppSecSection() {
                             className="rounded accent-[#58a6ff]"
                           />
                         </td>
-                        <td className="py-2 px-3 text-[#e6edf3] font-semibold">
+                        <td className="py-2 px-3 text-slate-900 font-semibold">
                           {rule.name}
                         </td>
-                        <td className="py-2 px-3 text-[#8b949e]">{rule.type}</td>
+                        <td className="py-2 px-3 text-slate-500">{rule.type}</td>
                         <td className="py-2 px-3">
                           <span
                             className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                               rule.action === "BLOCK"
-                                ? "bg-[#ff7b72]/10 text-[#ff7b72] border border-[#ff7b72]/30"
-                                : "bg-[#7ee787]/10 text-[#7ee787] border border-[#7ee787]/30"
+                                ? "bg-rose-50 text-rose-600 border border-rose-200"
+                                : "bg-emerald-50 text-emerald-600 border border-emerald-200"
                             }`}
                           >
                             {rule.action}
                           </span>
                         </td>
-                        <td className="py-2 px-3 text-[#ffa657] font-bold">
+                        <td className="py-2 px-3 text-amber-600 font-bold">
                           {rule.hits}
                         </td>
                       </tr>
@@ -1462,9 +1462,9 @@ export default function AppSecSection() {
               {/* Add Custom WAF Rule Form */}
               <form
                 onSubmit={handleAddWafRule}
-                className="p-4 rounded-lg bg-[#0d1117] border border-[#30363d] space-y-3"
+                className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-3"
               >
-                <div className="text-xs font-bold text-[#e6edf3]">
+                <div className="text-xs font-bold text-slate-900">
                   + Add Custom WAF Rule:
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs">
@@ -1473,7 +1473,7 @@ export default function AppSecSection() {
                     value={newRuleName}
                     onChange={(e) => setNewRuleName(e.target.value)}
                     placeholder="Rule Name"
-                    className="px-2.5 py-1.5 rounded bg-[#161b22] border border-[#30363d] text-[#e6edf3]"
+                    className="px-2.5 py-1.5 rounded bg-white border border-slate-200 text-slate-900"
                   />
                   <select
                     value={newRuleType}
@@ -1487,7 +1487,7 @@ export default function AppSecSection() {
                           | "Custom"
                       )
                     }
-                    className="px-2.5 py-1.5 rounded bg-[#161b22] border border-[#30363d] text-[#e6edf3]"
+                    className="px-2.5 py-1.5 rounded bg-white border border-slate-200 text-slate-900"
                   >
                     <option value="SQLi">SQLi</option>
                     <option value="XSS">XSS</option>
@@ -1499,7 +1499,7 @@ export default function AppSecSection() {
                     value={newRuleCond}
                     onChange={(e) => setNewRuleCond(e.target.value)}
                     placeholder="Match Condition"
-                    className="px-2.5 py-1.5 rounded bg-[#161b22] border border-[#30363d] text-[#e6edf3]"
+                    className="px-2.5 py-1.5 rounded bg-white border border-slate-200 text-slate-900"
                   />
                   <select
                     value={newRuleAction}
@@ -1508,7 +1508,7 @@ export default function AppSecSection() {
                         e.target.value as "BLOCK" | "ALLOW" | "COUNT" | "CAPTCHA"
                       )
                     }
-                    className="px-2.5 py-1.5 rounded bg-[#161b22] border border-[#30363d] text-[#e6edf3]"
+                    className="px-2.5 py-1.5 rounded bg-white border border-slate-200 text-slate-900"
                   >
                     <option value="BLOCK">BLOCK</option>
                     <option value="ALLOW">ALLOW</option>
@@ -1517,7 +1517,7 @@ export default function AppSecSection() {
                 </div>
                 <button
                   type="submit"
-                  className="px-3 py-1 rounded bg-[#58a6ff] text-[#0d1117] text-xs font-semibold"
+                  className="px-3 py-1 rounded bg-indigo-600 text-slate-900 text-xs font-semibold"
                 >
                   Create Rule
                 </button>
@@ -1525,13 +1525,13 @@ export default function AppSecSection() {
             </div>
 
             {/* Live Traffic Inspector */}
-            <div className="p-5 rounded-xl bg-[#1c2333] border border-[#30363d] space-y-4">
-              <h4 className="text-sm font-bold text-[#e6edf3] flex items-center gap-2">
+            <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-4">
+              <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <span>📡</span> WAF Live Traffic Tester
               </h4>
 
               <div>
-                <label className="block text-xs text-[#8b949e] mb-1">
+                <label className="block text-xs text-slate-500 mb-1">
                   Select Traffic Profile:
                 </label>
                 <select
@@ -1541,7 +1541,7 @@ export default function AppSecSection() {
                       e.target.value as "normal" | "sqli" | "xss" | "ddos"
                     )
                   }
-                  className="w-full px-3 py-2 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs text-[#e6edf3] font-mono"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono"
                 >
                   <option value="normal">Normal HTTP GET Traffic</option>
                   <option value="sqli">SQL Injection Attack Payload</option>
@@ -1552,13 +1552,13 @@ export default function AppSecSection() {
 
               <button
                 onClick={handleTestWafTraffic}
-                className="w-full py-2.5 rounded-lg bg-[#58a6ff] text-[#0d1117] font-bold text-xs hover:bg-[#58a6ff]/90 transition-all"
+                className="w-full py-2.5 rounded-lg bg-indigo-600 text-slate-900 font-bold text-xs hover:bg-indigo-600/90 transition-all"
               >
                 Send Test Request to WAF Engine
               </button>
 
               {wafResult && (
-                <div className="p-4 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs font-mono whitespace-pre-wrap text-[#e6edf3]">
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono whitespace-pre-wrap text-slate-900">
                   {wafResult}
                 </div>
               )}
@@ -1566,19 +1566,19 @@ export default function AppSecSection() {
           </div>
 
           {/* SSL/TLS Hardening & Security Headers Configurator */}
-          <div className="p-5 rounded-xl bg-[#1c2333] border border-[#30363d] space-y-6">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#30363d] pb-4">
+          <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
               <div>
-                <h4 className="text-base font-bold text-[#e6edf3]">
+                <h4 className="text-base font-bold text-slate-900">
                   SSL/TLS Protocol Hardening & Response Header Audit
                 </h4>
-                <p className="text-xs text-[#8b949e]">
+                <p className="text-xs text-slate-500">
                   Configure SSL Labs target grading settings and test header compliance.
                 </p>
               </div>
 
               <div className="flex items-center gap-3">
-                <span className="text-xs text-[#8b949e]">SSL Rating:</span>
+                <span className="text-xs text-slate-500">SSL Rating:</span>
                 <span
                   className={`text-2xl font-black font-mono ${sslGrade.color}`}
                 >
@@ -1589,12 +1589,12 @@ export default function AppSecSection() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
               {/* TLS Version & Ciphers */}
-              <div className="space-y-3 p-4 rounded-lg bg-[#0d1117] border border-[#30363d]">
-                <h5 className="font-bold text-[#e6edf3]">
+              <div className="space-y-3 p-4 rounded-lg bg-slate-50 border border-slate-200">
+                <h5 className="font-bold text-slate-900">
                   TLS Protocols & Ciphers:
                 </h5>
 
-                <label className="flex items-center gap-2 cursor-pointer text-[#e6edf3]">
+                <label className="flex items-center gap-2 cursor-pointer text-slate-900">
                   <input
                     type="checkbox"
                     checked={tls13}
@@ -1604,7 +1604,7 @@ export default function AppSecSection() {
                   <span>Enable TLS 1.3 (Modern, Perfect Forward Secrecy)</span>
                 </label>
 
-                <label className="flex items-center gap-2 cursor-pointer text-[#e6edf3]">
+                <label className="flex items-center gap-2 cursor-pointer text-slate-900">
                   <input
                     type="checkbox"
                     checked={tls12}
@@ -1614,7 +1614,7 @@ export default function AppSecSection() {
                   <span>Enable TLS 1.2</span>
                 </label>
 
-                <label className="flex items-center gap-2 cursor-pointer text-[#ff7b72]">
+                <label className="flex items-center gap-2 cursor-pointer text-rose-600">
                   <input
                     type="checkbox"
                     checked={enableWeakCiphers}
@@ -1626,12 +1626,12 @@ export default function AppSecSection() {
               </div>
 
               {/* Security Headers */}
-              <div className="space-y-3 p-4 rounded-lg bg-[#0d1117] border border-[#30363d]">
-                <h5 className="font-bold text-[#e6edf3]">
+              <div className="space-y-3 p-4 rounded-lg bg-slate-50 border border-slate-200">
+                <h5 className="font-bold text-slate-900">
                   HTTP Security Headers:
                 </h5>
 
-                <label className="flex items-center gap-2 cursor-pointer text-[#e6edf3]">
+                <label className="flex items-center gap-2 cursor-pointer text-slate-900">
                   <input
                     type="checkbox"
                     checked={enableHsts}
@@ -1641,7 +1641,7 @@ export default function AppSecSection() {
                   <span>Strict-Transport-Security (HSTS max-age=31536000)</span>
                 </label>
 
-                <label className="flex items-center gap-2 cursor-pointer text-[#e6edf3]">
+                <label className="flex items-center gap-2 cursor-pointer text-slate-900">
                   <input
                     type="checkbox"
                     checked={enableCsp}
@@ -1651,7 +1651,7 @@ export default function AppSecSection() {
                   <span>Content-Security-Policy (CSP default-src &apos;self&apos;)</span>
                 </label>
 
-                <label className="flex items-center gap-2 cursor-pointer text-[#e6edf3]">
+                <label className="flex items-center gap-2 cursor-pointer text-slate-900">
                   <input
                     type="checkbox"
                     checked={enableXFrame}
@@ -1663,7 +1663,7 @@ export default function AppSecSection() {
               </div>
             </div>
 
-            <div className="p-3 rounded-lg bg-[#161b22] border border-[#30363d] text-xs font-mono text-[#8b949e]">
+            <div className="p-3 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-500">
               <strong>Audit Evaluation Result:</strong>{" "}
               <span className={sslGrade.color}>{sslGrade.reason}</span>
             </div>

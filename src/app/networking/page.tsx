@@ -34,25 +34,24 @@ export default function NetworkingPage() {
   return (
     <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
       {/* Page Header */}
-      <header className="border-b border-[#30363d] pb-6 mb-8">
-        <div className="flex items-center gap-3 mb-2">
-          <span className="px-3 py-1 rounded-full bg-[#58a6ff]/10 text-[#58a6ff] border border-[#58a6ff]/20 text-xs font-mono font-semibold">
+      <header className="border-b border-slate-200 pb-6">
+        <div className="flex items-center gap-3 mb-3">
+          <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
             Track 1 of 5
           </span>
-          <span className="text-xs text-[#8b949e] font-mono">23 Interactive Modules</span>
+          <span className="text-[12px] text-slate-400 font-medium">23 Interactive Modules</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#e6edf3] tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           SubnetLab & Networking Infrastructure
         </h1>
-        <p className="text-[#8b949e] text-sm sm:text-base mt-2 max-w-3xl">
-          Comprehensive interactive guide covering fundamental IP addressing, binary operations, CIDR, VLSM, VLANs, routing protocols, packet inspection, wireless networks, and network security.
+        <p className="text-slate-500 text-sm sm:text-base mt-2 max-w-3xl leading-relaxed">
+          Comprehensive interactive guide covering fundamental IP addressing, binary operations,
+          CIDR, VLSM, VLANs, routing protocols, packet inspection, wireless networks, and network security.
         </p>
       </header>
 
-      {/* Hero Section */}
       <Hero />
 
-      {/* 23 Interactive Learning Sections */}
       <div className="space-y-12">
         <BasicsSection />
         <BinarySection />

@@ -377,7 +377,7 @@ const SAMPLE_PACKETS: WiresharkPacket[] = [
     protocol: "TCP",
     length: 74,
     info: "54321 → 80 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM=1",
-    colorClass: "bg-[#1f293d] border-[#58a6ff]/40 text-[#58a6ff]",
+    colorClass: "bg-[#1f293d] border-indigo-300 text-indigo-600",
     rawHex: "703a0e998877001a2b3c4d5e08004500003c1c46400040067c2dc0a801325db8d822d43100503a9f1200000000008002faf0e2a10000020405b40402080a00000000",
     details: [
       {
@@ -444,7 +444,7 @@ const SAMPLE_PACKETS: WiresharkPacket[] = [
     protocol: "TCP",
     length: 74,
     info: "80 → 54321 [SYN, ACK] Seq=0 Ack=1 Win=29200 Len=0 MSS=1460",
-    colorClass: "bg-[#1f293d] border-[#58a6ff]/40 text-[#58a6ff]",
+    colorClass: "bg-[#1f293d] border-indigo-300 text-indigo-600",
     rawHex: "001a2b3c4d5e703a0e99887708004500003c51a24000340647d15db8d822c0a801320050d43141f2a0003a9f1201801272109bc40000020405b401010402",
     details: [
       {
@@ -485,7 +485,7 @@ const SAMPLE_PACKETS: WiresharkPacket[] = [
     protocol: "TCP",
     length: 66,
     info: "54321 → 80 [ACK] Seq=1 Ack=1 Win=64240 Len=0",
-    colorClass: "bg-[#1f293d] border-[#58a6ff]/40 text-[#58a6ff]",
+    colorClass: "bg-[#1f293d] border-indigo-300 text-indigo-600",
     rawHex: "703a0e998877001a2b3c4d5e0800450000341c47400040067c34c0a801325db8d822d43100503a9f120141f2a0018010faf0d1e000000101080a00000000",
     details: [
       {
@@ -507,7 +507,7 @@ const SAMPLE_PACKETS: WiresharkPacket[] = [
     protocol: "HTTP",
     length: 144,
     info: "GET /index.html HTTP/1.1",
-    colorClass: "bg-[#193226] border-[#7ee787]/40 text-[#7ee787]",
+    colorClass: "bg-[#193226] border-emerald-400/40 text-emerald-600",
     rawHex: "703a0e998877001a2b3c4d5e0800450000821c48400040067be5c0a801325db8d822d43100503a9f120141f2a0018018faf0e14a0000474554202f696e6465782e68746d6c20485454502f312e310d0a486f73743a206578616d706c652e636f6d0d0a",
     details: [
       {
@@ -553,7 +553,7 @@ const SAMPLE_PACKETS: WiresharkPacket[] = [
     protocol: "ICMP",
     length: 98,
     info: "Echo (ping) request id=0x1234, seq=1, ttl=64",
-    colorClass: "bg-[#331c2c] border-[#ff7b72]/40 text-[#ff7b72]",
+    colorClass: "bg-[#331c2c] border-rose-400/40 text-rose-600",
     rawHex: "703a0e998877001a2b3c4d5e0800450000541c4a400040017c10c0a801320808080808008892123400016162636465666768696a6b6c6d6e6f707172737475767778797a",
     details: [
       {
@@ -775,20 +775,20 @@ export default function PacketSection() {
   return (
     <section
       id="packets"
-      className="scroll-mt-24 rounded-2xl bg-[#161b22] border border-[#30363d] p-6 sm:p-8 transition-colors hover:border-[#58a6ff]/40"
+      className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* SECTION HEADER */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-md bg-[#58a6ff]/10 text-[#58a6ff] border border-[#58a6ff]/20 text-xs font-mono font-semibold">
+        <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
           #packets
         </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#e6edf3]">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
           20. Packet Encapsulation & Analysis
         </h2>
       </div>
 
-      <p className="text-[#8b949e] text-base leading-relaxed mb-8 max-w-4xl">
-        Every interaction on the internet depends on <strong className="text-[#58a6ff]">Packet Encapsulation</strong>—the process where raw application data is wrapped layer-by-layer with Transport headers, IP headers, and Ethernet frames before physical transmission over the wire. Understanding header bit fields, stateful TCP handshakes, and PCAP analysis tools like <strong className="text-[#7ee787]">Wireshark</strong> is essential for network engineering and security analysis.
+      <p className="text-slate-500 text-base leading-relaxed mb-8 max-w-4xl">
+        Every interaction on the internet depends on <strong className="text-indigo-600">Packet Encapsulation</strong>—the process where raw application data is wrapped layer-by-layer with Transport headers, IP headers, and Ethernet frames before physical transmission over the wire. Understanding header bit fields, stateful TCP handshakes, and PCAP analysis tools like <strong className="text-emerald-600">Wireshark</strong> is essential for network engineering and security analysis.
       </p>
 
       {/* ==================================================================== */}
@@ -797,25 +797,25 @@ export default function PacketSection() {
       <div className="mb-12">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h3 className="text-xl font-bold text-[#e6edf3] flex items-center gap-2">
-              <span className="text-[#58a6ff]">1.</span> Interactive OSI vs TCP/IP Layer Stack Inspector
+            <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+              <span className="text-indigo-600">1.</span> Interactive OSI vs TCP/IP Layer Stack Inspector
             </h3>
-            <p className="text-xs text-[#8b949e] mt-1">
+            <p className="text-xs text-slate-500 mt-1">
               Select any layer to inspect protocol mapping, PDU names, headers attached, and addressing units.
             </p>
           </div>
 
           {/* Encapsulation Simulation Toggle Controls */}
-          <div className="flex items-center gap-2 bg-[#1c2333] border border-[#30363d] p-1.5 rounded-lg">
-            <span className="text-xs font-mono text-[#8b949e] px-2">Encapsulation Step:</span>
+          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 p-1.5 rounded-lg">
+            <span className="text-xs font-mono text-slate-500 px-2">Encapsulation Step:</span>
             <button
               onClick={() => setEncapStep((prev) => Math.max(0, prev - 1))}
               disabled={encapStep === 0}
-              className="px-2.5 py-1 text-xs font-mono rounded bg-[#30363d] text-[#e6edf3] hover:bg-[#58a6ff]/30 disabled:opacity-40 transition"
+              className="px-2.5 py-1 text-xs font-mono rounded bg-[#30363d] text-slate-900 hover:bg-indigo-600/30 disabled:opacity-40 transition"
             >
               ◀ Back
             </button>
-            <span className="text-xs font-mono text-[#58a6ff] font-bold px-1">
+            <span className="text-xs font-mono text-indigo-600 font-bold px-1">
               {encapStep === 0
                 ? "Data"
                 : encapStep === 1
@@ -829,7 +829,7 @@ export default function PacketSection() {
             <button
               onClick={() => setEncapStep((prev) => Math.min(4, prev + 1))}
               disabled={encapStep === 4}
-              className="px-2.5 py-1 text-xs font-mono rounded bg-[#58a6ff]/20 text-[#58a6ff] hover:bg-[#58a6ff]/30 disabled:opacity-40 transition"
+              className="px-2.5 py-1 text-xs font-mono rounded bg-indigo-100 text-indigo-600 hover:bg-indigo-600/30 disabled:opacity-40 transition"
             >
               Next Encapsulate ▶
             </button>
@@ -837,14 +837,14 @@ export default function PacketSection() {
         </div>
 
         {/* Encapsulation Live Banner */}
-        <div className="mb-6 p-4 rounded-xl bg-[#1c2333] border border-[#30363d] flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mb-6 p-4 rounded-xl bg-white border border-slate-200 card-shadow flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#58a6ff]/10 border border-[#58a6ff]/30 flex items-center justify-center text-[#58a6ff] font-mono font-bold text-sm">
+            <div className="w-9 h-9 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 font-mono font-bold text-sm">
               📦
             </div>
             <div>
-              <div className="text-xs font-mono text-[#8b949e]">PDU Encapsulation State</div>
-              <div className="text-sm font-bold text-[#e6edf3]">
+              <div className="text-xs font-mono text-slate-500">PDU Encapsulation State</div>
+              <div className="text-sm font-bold text-slate-900">
                 {encapStep === 0 && "1. Application Data (HTTP GET /index.html)"}
                 {encapStep === 1 && "2. Transport Segment (TCP Port 54321 → 80 + Seq/Ack)"}
                 {encapStep === 2 && "3. Network Packet (IPv4 192.168.1.50 → 93.184.216.34)"}
@@ -862,16 +862,16 @@ export default function PacketSection() {
               </span>
             )}
             {encapStep >= 2 && (
-              <span className="px-2 py-1 rounded bg-[#ff7b72]/20 text-[#ff7b72] border border-[#ff7b72]/30 animate-fade-in">
+              <span className="px-2 py-1 rounded bg-[#ff7b72]/20 text-rose-600 border border-rose-200 animate-fade-in">
                 [IP Header]
               </span>
             )}
             {encapStep >= 1 && (
-              <span className="px-2 py-1 rounded bg-[#bc8cff]/20 text-[#bc8cff] border border-[#bc8cff]/30 animate-fade-in">
+              <span className="px-2 py-1 rounded bg-[#bc8cff]/20 text-violet-600 border border-violet-200 animate-fade-in">
                 [TCP Header]
               </span>
             )}
-            <span className="px-2 py-1 rounded bg-[#58a6ff]/20 text-[#58a6ff] border border-[#58a6ff]/30 font-semibold">
+            <span className="px-2 py-1 rounded bg-indigo-100 text-indigo-600 border border-indigo-200 font-semibold">
               Payload: GET /index.html
             </span>
             {encapStep >= 3 && (
@@ -886,7 +886,7 @@ export default function PacketSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* OSI 7-Layer Stack */}
           <div className="lg:col-span-5 flex flex-col gap-2">
-            <div className="text-xs font-mono font-bold text-[#8b949e] uppercase tracking-wider mb-1 flex justify-between">
+            <div className="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider mb-1 flex justify-between">
               <span>OSI 7-Layer Model</span>
               <span>TCP/IP 4-Layer Equivalent</span>
             </div>
@@ -899,8 +899,8 @@ export default function PacketSection() {
                   onClick={() => setSelectedOsiLayer(layer.number)}
                   className={`w-full text-left p-3 rounded-xl border transition-all flex items-center justify-between ${
                     isSelected
-                      ? "bg-[#1c2333] border-[#58a6ff] shadow-lg shadow-[#58a6ff]/10 scale-[1.01]"
-                      : "bg-[#161b22] border-[#30363d] hover:border-[#8b949e]/50 opacity-90 hover:opacity-100"
+                      ? "bg-slate-50 border-indigo-400 shadow-lg shadow-[#58a6ff]/10 scale-[1.01]"
+                      : "bg-white border-slate-200 hover:border-[#8b949e]/50 opacity-90 hover:opacity-100"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -911,12 +911,12 @@ export default function PacketSection() {
                       L{layer.number}
                     </span>
                     <div>
-                      <div className="text-sm font-bold text-[#e6edf3]">{layer.name}</div>
-                      <div className="text-[11px] font-mono text-[#8b949e]">PDU: {layer.pdu}</div>
+                      <div className="text-sm font-bold text-slate-900">{layer.name}</div>
+                      <div className="text-[11px] font-mono text-slate-500">PDU: {layer.pdu}</div>
                     </div>
                   </div>
 
-                  <span className="text-xs font-mono px-2 py-1 rounded bg-[#30363d]/60 text-[#e6edf3]">
+                  <span className="text-xs font-mono px-2 py-1 rounded bg-[#30363d]/60 text-slate-900">
                     {layer.tcpIpEquivalent}
                   </span>
                 </button>
@@ -925,9 +925,9 @@ export default function PacketSection() {
           </div>
 
           {/* Layer Detail Inspector Card */}
-          <div className="lg:col-span-7 rounded-xl bg-[#1c2333] border border-[#30363d] p-6 flex flex-col justify-between">
+          <div className="lg:col-span-7 rounded-xl bg-white border border-slate-200 p-6 card-shadow flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between border-b border-[#30363d] pb-4 mb-4">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
                 <div className="flex items-center gap-3">
                   <span
                     className="px-3 py-1 rounded-lg text-sm font-bold font-mono text-white"
@@ -935,45 +935,45 @@ export default function PacketSection() {
                   >
                     OSI Layer {activeOsiLayer.number}
                   </span>
-                  <h4 className="text-xl font-bold text-[#e6edf3]">{activeOsiLayer.name} Layer</h4>
+                  <h4 className="text-xl font-bold text-slate-900">{activeOsiLayer.name} Layer</h4>
                 </div>
-                <span className="text-xs font-mono text-[#58a6ff] bg-[#58a6ff]/10 border border-[#58a6ff]/20 px-2.5 py-1 rounded">
+                <span className="text-xs font-mono text-indigo-600 bg-indigo-50 border border-indigo-200 px-2.5 py-1 rounded">
                   {activeOsiLayer.tcpIpEquivalent}
                 </span>
               </div>
 
-              <p className="text-sm text-[#8b949e] leading-relaxed mb-6">
+              <p className="text-sm text-slate-500 leading-relaxed mb-6">
                 {activeOsiLayer.description}
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                <div className="bg-[#161b22] border border-[#30363d] p-3.5 rounded-lg">
-                  <div className="text-xs font-mono text-[#8b949e] mb-1">Protocol Data Unit (PDU)</div>
-                  <div className="text-sm font-bold font-mono text-[#7ee787]">{activeOsiLayer.pdu}</div>
+                <div className="bg-white border border-slate-200 p-3.5 rounded-lg">
+                  <div className="text-xs font-mono text-slate-500 mb-1">Protocol Data Unit (PDU)</div>
+                  <div className="text-sm font-bold font-mono text-emerald-600">{activeOsiLayer.pdu}</div>
                 </div>
 
-                <div className="bg-[#161b22] border border-[#30363d] p-3.5 rounded-lg">
-                  <div className="text-xs font-mono text-[#8b949e] mb-1">Addressing Scheme</div>
-                  <div className="text-sm font-bold font-mono text-[#ffa657]">{activeOsiLayer.addressing}</div>
+                <div className="bg-white border border-slate-200 p-3.5 rounded-lg">
+                  <div className="text-xs font-mono text-slate-500 mb-1">Addressing Scheme</div>
+                  <div className="text-sm font-bold font-mono text-amber-600">{activeOsiLayer.addressing}</div>
                 </div>
               </div>
 
-              <div className="bg-[#161b22] border border-[#30363d] p-4 rounded-lg mb-6">
-                <div className="text-xs font-mono text-[#8b949e] mb-1 font-semibold">
+              <div className="bg-white border border-slate-200 p-4 rounded-lg mb-6">
+                <div className="text-xs font-mono text-slate-500 mb-1 font-semibold">
                   Encapsulation Header / Trailer Action
                 </div>
-                <div className="text-xs font-mono text-[#58a6ff] bg-[#58a6ff]/10 p-2.5 rounded border border-[#58a6ff]/20 font-medium">
+                <div className="text-xs font-mono text-indigo-600 bg-indigo-50 p-2.5 rounded border border-indigo-200 font-medium">
                   {activeOsiLayer.headerAdded}
                 </div>
               </div>
 
               <div>
-                <div className="text-xs font-mono text-[#8b949e] mb-2 font-semibold">Key Protocols & Standards</div>
+                <div className="text-xs font-mono text-slate-500 mb-2 font-semibold">Key Protocols & Standards</div>
                 <div className="flex flex-wrap gap-2">
                   {activeOsiLayer.protocols.map((proto) => (
                     <span
                       key={proto}
-                      className="px-2.5 py-1 rounded-md text-xs font-mono bg-[#30363d] text-[#e6edf3] border border-[#8b949e]/30"
+                      className="px-2.5 py-1 rounded-md text-xs font-mono bg-[#30363d] text-slate-900 border border-[#8b949e]/30"
                     >
                       {proto}
                     </span>
@@ -982,7 +982,7 @@ export default function PacketSection() {
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-[#30363d] text-xs font-mono text-[#8b949e] flex justify-between">
+            <div className="mt-6 pt-4 border-t border-slate-200 text-xs font-mono text-slate-500 flex justify-between">
               <span>Encapsulation Direction: Top-Down (L7 → L1)</span>
               <span>Decapsulation: Bottom-Up (L1 → L7)</span>
             </div>
@@ -995,16 +995,16 @@ export default function PacketSection() {
       {/* ==================================================================== */}
       <div className="mb-12">
         <div className="mb-6">
-          <h3 className="text-xl font-bold text-[#e6edf3] flex items-center gap-2">
-            <span className="text-[#58a6ff]">2.</span> Frame, Packet & Segment Header Anatomy
+          <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <span className="text-indigo-600">2.</span> Frame, Packet & Segment Header Anatomy
           </h3>
-          <p className="text-xs text-[#8b949e] mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             RFC Bit/Byte layout visualizer for Ethernet II Frames (Layer 2), IPv4 Packets (Layer 3), and TCP Segments (Layer 4).
           </p>
         </div>
 
         {/* Tab Selection */}
-        <div className="flex items-center gap-2 mb-6 border-b border-[#30363d] pb-3 overflow-x-auto">
+        <div className="flex items-center gap-2 mb-6 border-b border-slate-200 pb-3 overflow-x-auto">
           <button
             onClick={() => {
               setActiveHeaderTab("tcp");
@@ -1012,8 +1012,8 @@ export default function PacketSection() {
             }}
             className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition ${
               activeHeaderTab === "tcp"
-                ? "bg-[#bc8cff]/20 text-[#bc8cff] border border-[#bc8cff]/40"
-                : "bg-[#1c2333] text-[#8b949e] border border-[#30363d] hover:text-[#e6edf3]"
+                ? "bg-[#bc8cff]/20 text-violet-600 border border-violet-400/40"
+                : "bg-slate-50 text-slate-500 border border-slate-200 hover:text-slate-900"
             }`}
           >
             TCP Segment Header (L4 - Transport)
@@ -1026,8 +1026,8 @@ export default function PacketSection() {
             }}
             className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition ${
               activeHeaderTab === "ipv4"
-                ? "bg-[#ff7b72]/20 text-[#ff7b72] border border-[#ff7b72]/40"
-                : "bg-[#1c2333] text-[#8b949e] border border-[#30363d] hover:text-[#e6edf3]"
+                ? "bg-[#ff7b72]/20 text-rose-600 border border-rose-400/40"
+                : "bg-slate-50 text-slate-500 border border-slate-200 hover:text-slate-900"
             }`}
           >
             IPv4 Packet Header (L3 - Internet)
@@ -1040,8 +1040,8 @@ export default function PacketSection() {
             }}
             className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition ${
               activeHeaderTab === "ethernet"
-                ? "bg-[#58a6ff]/20 text-[#58a6ff] border border-[#58a6ff]/40"
-                : "bg-[#1c2333] text-[#8b949e] border border-[#30363d] hover:text-[#e6edf3]"
+                ? "bg-indigo-100 text-indigo-600 border border-indigo-300"
+                : "bg-slate-50 text-slate-500 border border-slate-200 hover:text-slate-900"
             }`}
           >
             Ethernet II Frame Header (L2 - Data Link)
@@ -1049,8 +1049,8 @@ export default function PacketSection() {
         </div>
 
         {/* RFC Bit Grid Representation */}
-        <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-6 mb-6">
-          <div className="flex items-center justify-between text-xs font-mono text-[#8b949e] mb-3 pb-2 border-b border-[#30363d]">
+        <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow mb-6">
+          <div className="flex items-center justify-between text-xs font-mono text-slate-500 mb-3 pb-2 border-b border-slate-200">
             <span>Bit Offset: 0</span>
             <span>Bit 15</span>
             <span>Bit 31 (32-Bit Width Word)</span>
@@ -1072,15 +1072,15 @@ export default function PacketSection() {
                   onClick={() => setSelectedFieldId(field.id)}
                   className={`${colSpan} p-3 rounded-lg border transition-all text-left flex flex-col justify-between min-h-[70px] ${
                     isSelected
-                      ? "ring-2 ring-[#58a6ff] bg-[#161b22] scale-[1.01]"
-                      : "bg-[#161b22]/70 border-[#30363d] hover:border-[#8b949e]/60"
+                      ? "ring-2 ring-[#58a6ff] bg-white scale-[1.01]"
+                      : "bg-white/70 border-slate-200 hover:border-[#8b949e]/60"
                   }`}
                   style={{ borderLeftColor: field.color, borderLeftWidth: "4px" }}
                 >
-                  <div className="text-xs font-bold text-[#e6edf3] truncate">{field.name}</div>
-                  <div className="flex items-center justify-between mt-2 font-mono text-[10px] text-[#8b949e]">
+                  <div className="text-xs font-bold text-slate-900 truncate">{field.name}</div>
+                  <div className="flex items-center justify-between mt-2 font-mono text-[10px] text-slate-500">
                     <span>{field.offsetBytes}</span>
-                    <span className="text-[#7ee787] font-semibold">{field.sampleHex}</span>
+                    <span className="text-emerald-600 font-semibold">{field.sampleHex}</span>
                   </div>
                 </button>
               );
@@ -1088,31 +1088,31 @@ export default function PacketSection() {
           </div>
 
           {/* Field Details Box */}
-          <div className="rounded-lg bg-[#161b22] border border-[#30363d] p-5">
-            <div className="flex items-center justify-between mb-3 border-b border-[#30363d] pb-3">
+          <div className="rounded-lg bg-white border border-slate-200 p-5">
+            <div className="flex items-center justify-between mb-3 border-b border-slate-200 pb-3">
               <div className="flex items-center gap-3">
                 <span
                   className="w-3 h-3 rounded-full"
                   style={{ backgroundColor: activeField.color }}
                 />
-                <h4 className="text-base font-bold text-[#e6edf3]">{activeField.name}</h4>
+                <h4 className="text-base font-bold text-slate-900">{activeField.name}</h4>
               </div>
-              <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#30363d] text-[#58a6ff]">
+              <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#30363d] text-indigo-600">
                 Offset: {activeField.offsetBytes} ({activeField.sizeBits} bits)
               </span>
             </div>
 
-            <p className="text-sm text-[#8b949e] leading-relaxed mb-4">{activeField.purpose}</p>
+            <p className="text-sm text-slate-500 leading-relaxed mb-4">{activeField.purpose}</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-[#1c2333] border border-[#30363d] p-3 rounded-lg font-mono text-xs">
-                <span className="text-[#8b949e] block mb-1">Sample Hex Raw Bytes:</span>
-                <span className="text-[#7ee787] font-bold text-sm">{activeField.sampleHex}</span>
+              <div className="bg-slate-50 border border-slate-200 p-3 rounded-lg font-mono text-xs">
+                <span className="text-slate-500 block mb-1">Sample Hex Raw Bytes:</span>
+                <span className="text-emerald-600 font-bold text-sm">{activeField.sampleHex}</span>
               </div>
 
-              <div className="bg-[#1c2333] border border-[#30363d] p-3 rounded-lg font-mono text-xs">
-                <span className="text-[#8b949e] block mb-1">Decoded / Value:</span>
-                <span className="text-[#ffa657] font-bold text-sm">{activeField.sampleDec}</span>
+              <div className="bg-slate-50 border border-slate-200 p-3 rounded-lg font-mono text-xs">
+                <span className="text-slate-500 block mb-1">Decoded / Value:</span>
+                <span className="text-amber-600 font-bold text-sm">{activeField.sampleDec}</span>
               </div>
             </div>
           </div>
@@ -1125,15 +1125,15 @@ export default function PacketSection() {
       <div className="mb-12">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h3 className="text-xl font-bold text-[#e6edf3] flex items-center gap-2">
-              <span className="text-[#58a6ff]">3.</span> TCP 3-Way Handshake & Connection Teardown
+            <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+              <span className="text-indigo-600">3.</span> TCP 3-Way Handshake & Connection Teardown
             </h3>
-            <p className="text-xs text-[#8b949e] mt-1">
+            <p className="text-xs text-slate-500 mt-1">
               Step-by-step TCP sequence number arithmetic, flag bitmask inspection, and TCP socket state transitions.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-[#1c2333] border border-[#30363d] p-1.5 rounded-lg">
+          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 p-1.5 rounded-lg">
             <button
               onClick={() => {
                 setHandshakeMode("est");
@@ -1141,8 +1141,8 @@ export default function PacketSection() {
               }}
               className={`px-3 py-1.5 text-xs font-mono rounded font-bold transition ${
                 handshakeMode === "est"
-                  ? "bg-[#58a6ff] text-[#0d1117]"
-                  : "bg-transparent text-[#8b949e] hover:text-[#e6edf3]"
+                  ? "bg-indigo-600 text-slate-900"
+                  : "bg-transparent text-slate-500 hover:text-slate-900"
               }`}
             >
               3-Way Handshake (Establish)
@@ -1154,8 +1154,8 @@ export default function PacketSection() {
               }}
               className={`px-3 py-1.5 text-xs font-mono rounded font-bold transition ${
                 handshakeMode === "fin"
-                  ? "bg-[#ff7b72] text-[#0d1117]"
-                  : "bg-transparent text-[#8b949e] hover:text-[#e6edf3]"
+                  ? "bg-[#ff7b72] text-slate-900"
+                  : "bg-transparent text-slate-500 hover:text-slate-900"
               }`}
             >
               4-Way Teardown (Terminate)
@@ -1164,30 +1164,30 @@ export default function PacketSection() {
         </div>
 
         {/* Interactive Sequence Diagram Canvas */}
-        <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-6 mb-6">
+        <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow mb-6">
           {/* Top Host Nodes */}
-          <div className="grid grid-cols-2 gap-8 mb-8 pb-4 border-b border-[#30363d]">
-            <div className="bg-[#161b22] border border-[#30363d] p-4 rounded-xl flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#58a6ff]/10 border border-[#58a6ff]/30 flex items-center justify-center text-lg">
+          <div className="grid grid-cols-2 gap-8 mb-8 pb-4 border-b border-slate-200">
+            <div className="bg-white border border-slate-200 p-4 rounded-xl flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center justify-center text-lg">
                 💻
               </div>
               <div>
-                <div className="text-sm font-bold text-[#e6edf3]">Client Host</div>
-                <div className="text-xs font-mono text-[#58a6ff]">192.168.1.50 : 54321</div>
-                <div className="text-[11px] font-mono text-[#7ee787] mt-0.5">
+                <div className="text-sm font-bold text-slate-900">Client Host</div>
+                <div className="text-xs font-mono text-indigo-600">192.168.1.50 : 54321</div>
+                <div className="text-[11px] font-mono text-emerald-600 mt-0.5">
                   State: <span className="font-bold">{currentHandshakeStep.clientState}</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-[#161b22] border border-[#30363d] p-4 rounded-xl flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#7ee787]/10 border border-[#7ee787]/30 flex items-center justify-center text-lg">
+            <div className="bg-white border border-slate-200 p-4 rounded-xl flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-lg">
                 🌐
               </div>
               <div>
-                <div className="text-sm font-bold text-[#e6edf3]">Web Server</div>
-                <div className="text-xs font-mono text-[#7ee787]">93.184.216.34 : 443</div>
-                <div className="text-[11px] font-mono text-[#ffa657] mt-0.5">
+                <div className="text-sm font-bold text-slate-900">Web Server</div>
+                <div className="text-xs font-mono text-emerald-600">93.184.216.34 : 443</div>
+                <div className="text-[11px] font-mono text-amber-600 mt-0.5">
                   State: <span className="font-bold">{currentHandshakeStep.serverState}</span>
                 </div>
               </div>
@@ -1202,47 +1202,47 @@ export default function PacketSection() {
                 onClick={() => setHandshakeStep(s.step)}
                 className={`p-3 rounded-lg border text-left font-mono transition-all ${
                   handshakeStep === s.step
-                    ? "bg-[#161b22] border-[#58a6ff] ring-2 ring-[#58a6ff]/40"
-                    : "bg-[#161b22]/50 border-[#30363d] hover:border-[#8b949e]/50 opacity-80"
+                    ? "bg-white border-indigo-400 ring-2 ring-[#58a6ff]/40"
+                    : "bg-white/50 border-slate-200 hover:border-[#8b949e]/50 opacity-80"
                 }`}
               >
-                <div className="text-[11px] text-[#8b949e] font-bold">Step {s.step}</div>
-                <div className="text-xs font-bold text-[#e6edf3] truncate mt-0.5">{s.label}</div>
+                <div className="text-[11px] text-slate-500 font-bold">Step {s.step}</div>
+                <div className="text-xs font-bold text-slate-900 truncate mt-0.5">{s.label}</div>
               </button>
             ))}
           </div>
 
           {/* Sequence Arrow & Packet Inspector */}
-          <div className="bg-[#161b22] border border-[#30363d] p-6 rounded-xl relative overflow-hidden">
+          <div className="bg-white border border-slate-200 p-6 rounded-xl relative overflow-hidden">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               {/* Arrow Visualization */}
               <div className="w-full md:w-1/2 flex flex-col items-center justify-center py-4">
-                <div className="text-xs font-mono text-[#58a6ff] mb-2 font-bold uppercase tracking-wider">
+                <div className="text-xs font-mono text-indigo-600 mb-2 font-bold uppercase tracking-wider">
                   {currentHandshakeStep.packetName}
                 </div>
 
                 <div className="w-full flex items-center gap-2 my-2">
-                  <div className="w-3 h-3 rounded-full bg-[#58a6ff]" />
+                  <div className="w-3 h-3 rounded-full bg-indigo-600" />
                   <div className="flex-1 h-0.5 bg-gradient-to-r from-[#58a6ff] via-[#7ee787] to-[#58a6ff] relative">
                     <div
-                      className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#58a6ff] shadow-lg shadow-[#58a6ff] transition-all duration-500 ${
+                      className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-indigo-600 shadow-lg shadow-[#58a6ff] transition-all duration-500 ${
                         currentHandshakeStep.dir === "client-to-server" ? "right-0" : "left-0"
                       }`}
                     />
                   </div>
-                  <div className="w-3 h-3 rounded-full bg-[#7ee787]" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500" />
                 </div>
 
-                <div className="text-xs font-mono text-[#8b949e] mt-2">
+                <div className="text-xs font-mono text-slate-500 mt-2">
                   Direction: {currentHandshakeStep.dir === "client-to-server" ? "Client ➔ Server" : "Server ➔ Client"}
                 </div>
               </div>
 
               {/* Flags & Seq/Ack Numbers Panel */}
-              <div className="w-full md:w-1/2 bg-[#1c2333] border border-[#30363d] p-4 rounded-lg">
-                <div className="text-xs font-mono text-[#8b949e] font-semibold mb-3 border-b border-[#30363d] pb-2 flex justify-between">
+              <div className="w-full md:w-1/2 bg-slate-50 border border-slate-200 p-4 rounded-lg">
+                <div className="text-xs font-mono text-slate-500 font-semibold mb-3 border-b border-slate-200 pb-2 flex justify-between">
                   <span>TCP Control Flags Bitmask</span>
-                  <span className="text-[#58a6ff]">Header Field</span>
+                  <span className="text-indigo-600">Header Field</span>
                 </div>
 
                 {/* Flags Matrix */}
@@ -1252,8 +1252,8 @@ export default function PacketSection() {
                       key={flag}
                       className={`p-2 rounded border ${
                         value === 1
-                          ? "bg-[#58a6ff]/20 border-[#58a6ff] text-[#58a6ff] font-bold"
-                          : "bg-[#161b22] border-[#30363d] text-[#8b949e]/50"
+                          ? "bg-indigo-100 border-indigo-400 text-indigo-600 font-bold"
+                          : "bg-white border-slate-200 text-slate-500/50"
                       }`}
                     >
                       <div className="text-[10px]">{flag}</div>
@@ -1264,20 +1264,20 @@ export default function PacketSection() {
 
                 {/* Seq and Ack Numbers */}
                 <div className="grid grid-cols-2 gap-3 font-mono text-xs">
-                  <div className="bg-[#161b22] p-2.5 rounded border border-[#30363d]">
-                    <span className="text-[#8b949e] text-[10px] block">Sequence Num (Seq):</span>
-                    <span className="text-[#7ee787] font-bold text-sm">{currentHandshakeStep.seq}</span>
+                  <div className="bg-white p-2.5 rounded border border-slate-200">
+                    <span className="text-slate-500 text-[10px] block">Sequence Num (Seq):</span>
+                    <span className="text-emerald-600 font-bold text-sm">{currentHandshakeStep.seq}</span>
                   </div>
-                  <div className="bg-[#161b22] p-2.5 rounded border border-[#30363d]">
-                    <span className="text-[#8b949e] text-[10px] block">Ack Num (Ack):</span>
-                    <span className="text-[#ffa657] font-bold text-sm">{currentHandshakeStep.ack}</span>
+                  <div className="bg-white p-2.5 rounded border border-slate-200">
+                    <span className="text-slate-500 text-[10px] block">Ack Num (Ack):</span>
+                    <span className="text-amber-600 font-bold text-sm">{currentHandshakeStep.ack}</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <p className="text-xs text-[#8b949e] leading-relaxed mt-6 pt-4 border-t border-[#30363d]">
-              <strong className="text-[#e6edf3]">Step Explanation:</strong> {currentHandshakeStep.desc}
+            <p className="text-xs text-slate-500 leading-relaxed mt-6 pt-4 border-t border-slate-200">
+              <strong className="text-slate-900">Step Explanation:</strong> {currentHandshakeStep.desc}
             </p>
           </div>
         </div>
@@ -1288,26 +1288,26 @@ export default function PacketSection() {
       {/* ==================================================================== */}
       <div>
         <div className="mb-6">
-          <h3 className="text-xl font-bold text-[#e6edf3] flex items-center gap-2">
-            <span className="text-[#58a6ff]">4.</span> Interactive Wireshark PCAP Packet Viewer Simulator
+          <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <span className="text-indigo-600">4.</span> Interactive Wireshark PCAP Packet Viewer Simulator
           </h3>
-          <p className="text-xs text-[#8b949e] mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Inspect real network trace packets, expand nested protocol headers, and analyze byte hex dumps.
           </p>
         </div>
 
         {/* Wireshark Window Container */}
-        <div className="rounded-xl bg-[#0d1117] border border-[#30363d] shadow-2xl overflow-hidden">
+        <div className="rounded-xl bg-white border border-slate-200 card-shadow shadow-2xl overflow-hidden">
           {/* Top Wireshark Titlebar & Filter Controls */}
-          <div className="bg-[#161b22] border-b border-[#30363d] p-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div className="bg-white border-b border-slate-200 p-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             {/* Window Dots & Title */}
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5">
                 <div className="w-3 h-3 rounded-full bg-[#ff7b72]" />
                 <div className="w-3 h-3 rounded-full bg-[#ffa657]" />
-                <div className="w-3 h-3 rounded-full bg-[#7ee787]" />
+                <div className="w-3 h-3 rounded-full bg-emerald-500" />
               </div>
-              <span className="text-xs font-mono font-bold text-[#e6edf3]">
+              <span className="text-xs font-mono font-bold text-slate-900">
                 Wireshark Packet Capture Trace - capture_01.pcap
               </span>
             </div>
@@ -1320,8 +1320,8 @@ export default function PacketSection() {
                   onClick={() => setProtocolFilter(proto)}
                   className={`px-2.5 py-1 rounded text-[11px] font-bold transition ${
                     protocolFilter === proto
-                      ? "bg-[#58a6ff] text-[#0d1117]"
-                      : "bg-[#1c2333] text-[#8b949e] hover:text-[#e6edf3] border border-[#30363d]"
+                      ? "bg-indigo-600 text-slate-900"
+                      : "bg-slate-50 text-slate-500 hover:text-slate-900 border border-slate-200"
                   }`}
                 >
                   {proto}
@@ -1331,19 +1331,19 @@ export default function PacketSection() {
           </div>
 
           {/* Wireshark Display Filter Input Bar */}
-          <div className="bg-[#1c2333] border-b border-[#30363d] px-3 py-2 flex items-center gap-2">
-            <span className="text-xs font-mono text-[#7ee787] font-bold">Apply a display filter:</span>
+          <div className="bg-slate-50 border-b border-slate-200 px-3 py-2 flex items-center gap-2">
+            <span className="text-xs font-mono text-emerald-600 font-bold">Apply a display filter:</span>
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="e.g. 192.168.1.50, SYN, HTTP GET..."
-              className="flex-1 bg-[#0d1117] border border-[#30363d] rounded px-3 py-1 text-xs font-mono text-[#e6edf3] focus:outline-none focus:border-[#58a6ff]"
+              className="flex-1 bg-slate-50 border border-slate-200 rounded px-3 py-1 text-xs font-mono text-slate-900 focus:outline-none focus:border-indigo-400"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="text-xs font-mono text-[#8b949e] hover:text-[#e6edf3] px-2"
+                className="text-xs font-mono text-slate-500 hover:text-slate-900 px-2"
               >
                 Clear
               </button>
@@ -1351,9 +1351,9 @@ export default function PacketSection() {
           </div>
 
           {/* PANE 1: PACKET LIST TABLE */}
-          <div className="max-h-56 overflow-y-auto border-b border-[#30363d]">
+          <div className="max-h-56 overflow-y-auto border-b border-slate-200">
             <table className="w-full text-left font-mono text-xs border-collapse">
-              <thead className="bg-[#161b22] text-[#8b949e] sticky top-0 border-b border-[#30363d]">
+              <thead className="bg-white text-slate-500 sticky top-0 border-b border-slate-200">
                 <tr>
                   <th className="py-2 px-3 w-12 text-center">No.</th>
                   <th className="py-2 px-3 w-24">Time (s)</th>
@@ -1374,9 +1374,9 @@ export default function PacketSection() {
                         setSelectedPacketNo(packet.no);
                         setSelectedHexOffset(null);
                       }}
-                      className={`cursor-pointer border-b border-[#30363d]/40 transition ${
+                      className={`cursor-pointer border-b border-slate-200/40 transition ${
                         isSelected
-                          ? "bg-[#58a6ff]/20 text-[#e6edf3] font-bold"
+                          ? "bg-indigo-100 text-slate-900 font-bold"
                           : `${packet.colorClass} hover:brightness-125`
                       }`}
                     >
@@ -1397,32 +1397,32 @@ export default function PacketSection() {
           {/* PANE 2 & PANE 3: PACKET DETAILS TREE & HEX DUMP (SPLIT VIEW) */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-[#30363d]">
             {/* PANE 2: DECODED PROTOCOL TREE */}
-            <div className="p-4 bg-[#161b22] max-h-72 overflow-y-auto font-mono text-xs">
-              <div className="text-[11px] text-[#8b949e] font-bold uppercase tracking-wider mb-2 border-b border-[#30363d] pb-1">
+            <div className="p-4 bg-white max-h-72 overflow-y-auto font-mono text-xs">
+              <div className="text-[11px] text-slate-500 font-bold uppercase tracking-wider mb-2 border-b border-slate-200 pb-1">
                 Packet Details Tree (Packet #{activePacket.no})
               </div>
 
               <div className="flex flex-col gap-2">
                 {activePacket.details.map((node, i) => (
-                  <div key={i} className="rounded bg-[#1c2333] border border-[#30363d] p-2.5">
+                  <div key={i} className="rounded bg-slate-50 border border-slate-200 p-2.5">
                     <button
                       onClick={() => {
                         if (node.hexOffsetStart !== undefined && node.hexOffsetEnd !== undefined) {
                           setSelectedHexOffset({ start: node.hexOffsetStart, end: node.hexOffsetEnd });
                         }
                       }}
-                      className="text-left w-full font-bold text-[#e6edf3] hover:text-[#58a6ff] transition flex items-center justify-between"
+                      className="text-left w-full font-bold text-slate-900 hover:text-indigo-600 transition flex items-center justify-between"
                     >
                       <span>{node.label}</span>
                       {node.hexOffsetStart !== undefined && (
-                        <span className="text-[10px] text-[#7ee787] bg-[#7ee787]/10 px-1.5 py-0.5 rounded">
+                        <span className="text-[10px] text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
                           {node.hexOffsetStart}-{node.hexOffsetEnd}B
                         </span>
                       )}
                     </button>
 
                     {node.children && (
-                      <div className="mt-2 pl-4 border-l border-[#30363d] flex flex-col gap-1 text-[#8b949e]">
+                      <div className="mt-2 pl-4 border-l border-slate-200 flex flex-col gap-1 text-slate-500">
                         {node.children.map((child, j) => (
                           <div
                             key={j}
@@ -1431,7 +1431,7 @@ export default function PacketSection() {
                                 setSelectedHexOffset({ start: child.hexOffsetStart, end: child.hexOffsetEnd });
                               }
                             }}
-                            className="hover:text-[#e6edf3] cursor-pointer py-0.5 text-[11px]"
+                            className="hover:text-slate-900 cursor-pointer py-0.5 text-[11px]"
                           >
                             • {child.label}
                           </div>
@@ -1444,11 +1444,11 @@ export default function PacketSection() {
             </div>
 
             {/* PANE 3: RAW HEX DUMP & ASCII VIEW */}
-            <div className="p-4 bg-[#0d1117] max-h-72 overflow-y-auto font-mono text-xs">
-              <div className="text-[11px] text-[#8b949e] font-bold uppercase tracking-wider mb-2 border-b border-[#30363d] pb-1 flex justify-between">
+            <div className="p-4 bg-slate-50 max-h-72 overflow-y-auto font-mono text-xs">
+              <div className="text-[11px] text-slate-500 font-bold uppercase tracking-wider mb-2 border-b border-slate-200 pb-1 flex justify-between">
                 <span>Packet Bytes (Hex Dump)</span>
                 {selectedHexOffset ? (
-                  <span className="text-[#ffa657]">
+                  <span className="text-amber-600">
                     Selected Range: {selectedHexOffset.start} - {selectedHexOffset.end} Bytes
                   </span>
                 ) : (
@@ -1458,17 +1458,17 @@ export default function PacketSection() {
 
               <div className="flex flex-col gap-1">
                 {formattedHexBytes.map((line, idx) => (
-                  <div key={idx} className="flex items-center gap-4 text-[#8b949e] hover:text-[#e6edf3]">
+                  <div key={idx} className="flex items-center gap-4 text-slate-500 hover:text-slate-900">
                     {/* Offset */}
-                    <span className="text-[#58a6ff] w-12 font-bold">{line.offset}</span>
+                    <span className="text-indigo-600 w-12 font-bold">{line.offset}</span>
 
                     {/* Hex Bytes */}
-                    <span className="flex-1 font-mono text-[#e6edf3] tracking-wider">
+                    <span className="flex-1 font-mono text-slate-900 tracking-wider">
                       {line.hexStr}
                     </span>
 
                     {/* ASCII preview */}
-                    <span className="w-32 text-[#7ee787] border-l border-[#30363d] pl-3 truncate">
+                    <span className="w-32 text-emerald-600 border-l border-slate-200 pl-3 truncate">
                       {line.asciiStr}
                     </span>
                   </div>
@@ -1478,9 +1478,9 @@ export default function PacketSection() {
           </div>
 
           {/* Wireshark Footer Statusbar */}
-          <div className="bg-[#161b22] border-t border-[#30363d] px-4 py-2 flex items-center justify-between text-xs font-mono text-[#8b949e]">
+          <div className="bg-white border-t border-slate-200 px-4 py-2 flex items-center justify-between text-xs font-mono text-slate-500">
             <span>Packets: {SAMPLE_PACKETS.length} • Displayed: {filteredPackets.length}</span>
-            <span className="text-[#7ee787]">Profile: Default Wireshark Decoders Active</span>
+            <span className="text-emerald-600">Profile: Default Wireshark Decoders Active</span>
           </div>
         </div>
       </div>

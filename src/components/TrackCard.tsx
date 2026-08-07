@@ -31,7 +31,7 @@ export default function TrackCard({
   accentClass = "bg-indigo-600",
 }: TrackCardProps) {
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl bg-white border border-slate-200 p-6 transition-all duration-200 card-shadow hover:card-shadow-hover hover:-translate-y-0.5 hover:border-slate-300 overflow-hidden">
+    <div className="group relative flex flex-col justify-between rounded-2xl bg-white border border-slate-200 p-6 card-shadow transition-all duration-200 card-shadow hover:card-shadow-hover hover:-translate-y-0.5 hover:border-slate-300 overflow-hidden">
 
       {/* Thin top accent line — changes per track via accentClass */}
       <div className={`absolute top-0 left-0 right-0 h-0.5 ${accentClass} opacity-80`} />

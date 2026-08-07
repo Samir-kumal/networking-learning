@@ -471,30 +471,30 @@ export default function RoutingSection() {
   return (
     <section
       id="routing"
-      className="scroll-mt-24 rounded-2xl bg-[#161b22] border border-[#30363d] p-6 sm:p-8 transition-colors hover:border-[#58a6ff]/40"
+      className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-md bg-[#58a6ff]/10 text-[#58a6ff] border border-[#58a6ff]/20 text-xs font-mono font-semibold">
+        <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
           #routing
         </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#e6edf3]">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
           17. Routing & Gateway Protocols
         </h2>
       </div>
 
-      <p className="text-[#8b949e] text-base leading-relaxed mb-8 max-w-4xl">
-        Routers are the backbone of IP communications. They build forwarding decisions by evaluating packet destination addresses against local <strong className="text-[#58a6ff]">Routing Tables</strong>. Explore how routers learn paths dynamically via <strong className="text-[#7ee787]">IGP & EGP Protocols</strong>, maintain seamless default gateway uptime with <strong className="text-[#ffa657]">HSRP/VRRP Redundancy</strong>, condense massive ISP tables using <strong className="text-[#bc8cff]">BGP Aggregation</strong>, and execute <strong className="text-[#ff7b72]">Longest Prefix Matching</strong>.
+      <p className="text-slate-500 text-base leading-relaxed mb-8 max-w-4xl">
+        Routers are the backbone of IP communications. They build forwarding decisions by evaluating packet destination addresses against local <strong className="text-indigo-600">Routing Tables</strong>. Explore how routers learn paths dynamically via <strong className="text-emerald-600">IGP & EGP Protocols</strong>, maintain seamless default gateway uptime with <strong className="text-amber-600">HSRP/VRRP Redundancy</strong>, condense massive ISP tables using <strong className="text-violet-600">BGP Aggregation</strong>, and execute <strong className="text-rose-600">Longest Prefix Matching</strong>.
       </p>
 
       {/* ITEM 1: Static vs Dynamic Routing Comparison */}
       <div className="mb-12">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#30363d]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
           <div>
-            <span className="text-xs font-mono font-semibold text-[#58a6ff] uppercase tracking-wider">
+            <span className="text-xs font-mono font-semibold text-indigo-600 uppercase tracking-wider">
               Part 1
             </span>
-            <h3 className="text-xl font-bold text-[#e6edf3] mt-1">
+            <h3 className="text-xl font-bold text-slate-900 mt-1">
               Static vs. Dynamic Routing Protocols
             </h3>
           </div>
@@ -508,8 +508,8 @@ export default function RoutingSection() {
                   onClick={() => setSelectedProto(pKey)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
                     isSelected
-                      ? "bg-[#58a6ff] text-[#0d1117] shadow-lg shadow-[#58a6ff]/20"
-                      : "bg-[#1c2333] text-[#8b949e] border border-[#30363d] hover:text-[#e6edf3] hover:border-[#58a6ff]/50"
+                      ? "bg-indigo-600 text-slate-900 shadow-lg shadow-[#58a6ff]/20"
+                      : "bg-slate-50 text-slate-500 border border-slate-200 hover:text-slate-900 hover:border-indigo-300"
                   }`}
                 >
                   {p.ciscoCode ? `[${p.ciscoCode}] ` : ""}
@@ -521,71 +521,71 @@ export default function RoutingSection() {
         </div>
 
         {/* Selected Protocol Deep Dive Card */}
-        <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-6 mb-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-4 border-b border-[#30363d]/60">
+        <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow mb-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-4 border-b border-slate-200/60">
             <div>
               <div className="flex items-center gap-3">
-                <span className="px-2 py-0.5 rounded bg-[#58a6ff]/20 text-[#58a6ff] font-mono text-xs font-bold">
+                <span className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-600 font-mono text-xs font-bold">
                   Code: {currentProto.ciscoCode || "N/A"}
                 </span>
-                <span className="text-xs font-mono text-[#8b949e]">{currentProto.type}</span>
+                <span className="text-xs font-mono text-slate-500">{currentProto.type}</span>
               </div>
-              <h4 className="text-2xl font-bold text-[#e6edf3] mt-2">{currentProto.name}</h4>
+              <h4 className="text-2xl font-bold text-slate-900 mt-2">{currentProto.name}</h4>
             </div>
 
-            <div className="flex items-center gap-3 bg-[#161b22] px-4 py-3 rounded-lg border border-[#30363d]">
+            <div className="flex items-center gap-3 bg-white px-4 py-3 rounded-lg border border-slate-200">
               <div className="text-right">
-                <span className="block text-[10px] font-mono text-[#8b949e] uppercase">
+                <span className="block text-[10px] font-mono text-slate-500 uppercase">
                   Admin Distance (AD)
                 </span>
-                <span className="text-xl font-mono font-bold text-[#7ee787]">
+                <span className="text-xl font-mono font-bold text-emerald-600">
                   {currentProto.ad}
                 </span>
               </div>
               <div className="h-8 w-px bg-[#30363d]" />
               <div>
-                <span className="block text-[10px] font-mono text-[#8b949e] uppercase">
+                <span className="block text-[10px] font-mono text-slate-500 uppercase">
                   Multicast IP / Transport
                 </span>
-                <span className="text-xs font-mono font-semibold text-[#ffa657]">
+                <span className="text-xs font-mono font-semibold text-amber-600">
                   {currentProto.multicastIp}
                 </span>
               </div>
             </div>
           </div>
 
-          <p className="text-sm text-[#e6edf3] leading-relaxed mb-6 bg-[#161b22]/60 p-4 rounded-lg border border-[#30363d]/40">
+          <p className="text-sm text-slate-900 leading-relaxed mb-6 bg-white/60 p-4 rounded-lg border border-slate-200/40">
             {currentProto.bestFor}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-sm">
-            <div className="p-4 rounded-lg bg-[#161b22] border border-[#30363d]">
-              <span className="text-xs font-mono text-[#8b949e] block mb-1">Algorithm</span>
-              <span className="font-semibold text-[#58a6ff]">{currentProto.algorithm}</span>
+            <div className="p-4 rounded-lg bg-white border border-slate-200">
+              <span className="text-xs font-mono text-slate-500 block mb-1">Algorithm</span>
+              <span className="font-semibold text-indigo-600">{currentProto.algorithm}</span>
             </div>
-            <div className="p-4 rounded-lg bg-[#161b22] border border-[#30363d]">
-              <span className="text-xs font-mono text-[#8b949e] block mb-1">Metric Calculation</span>
-              <span className="font-semibold text-[#ffa657]">{currentProto.metric}</span>
+            <div className="p-4 rounded-lg bg-white border border-slate-200">
+              <span className="text-xs font-mono text-slate-500 block mb-1">Metric Calculation</span>
+              <span className="font-semibold text-amber-600">{currentProto.metric}</span>
             </div>
-            <div className="p-4 rounded-lg bg-[#161b22] border border-[#30363d]">
-              <span className="text-xs font-mono text-[#8b949e] block mb-1">Convergence Speed</span>
-              <span className="font-semibold text-[#7ee787]">{currentProto.convergence}</span>
+            <div className="p-4 rounded-lg bg-white border border-slate-200">
+              <span className="text-xs font-mono text-slate-500 block mb-1">Convergence Speed</span>
+              <span className="font-semibold text-emerald-600">{currentProto.convergence}</span>
             </div>
-            <div className="p-4 rounded-lg bg-[#161b22] border border-[#30363d]">
-              <span className="text-xs font-mono text-[#8b949e] block mb-1">Deployment Scope</span>
-              <span className="font-semibold text-[#bc8cff]">{currentProto.scope}</span>
+            <div className="p-4 rounded-lg bg-white border border-slate-200">
+              <span className="text-xs font-mono text-slate-500 block mb-1">Deployment Scope</span>
+              <span className="font-semibold text-violet-600">{currentProto.scope}</span>
             </div>
           </div>
 
           <div>
-            <h5 className="text-xs font-mono text-[#8b949e] uppercase mb-3">Key Technical Highlights</h5>
+            <h5 className="text-xs font-mono text-slate-500 uppercase mb-3">Key Technical Highlights</h5>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {currentProto.keyFeatures.map((feat, idx) => (
                 <div
                   key={idx}
-                  className="flex items-start gap-2.5 text-xs text-[#e6edf3] bg-[#161b22] p-3 rounded-lg border border-[#30363d]/60"
+                  className="flex items-start gap-2.5 text-xs text-slate-900 bg-white p-3 rounded-lg border border-slate-200/60"
                 >
-                  <span className="text-[#7ee787] font-bold">✓</span>
+                  <span className="text-emerald-600 font-bold">✓</span>
                   <span>{feat}</span>
                 </div>
               ))}
@@ -594,39 +594,39 @@ export default function RoutingSection() {
         </div>
 
         {/* Administrative Distance Hierarchy Reference Bar */}
-        <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-5">
-          <h4 className="text-xs font-mono text-[#8b949e] uppercase mb-3 flex items-center justify-between">
+        <div className="rounded-xl bg-white border border-slate-200 card-shadow p-5">
+          <h4 className="text-xs font-mono text-slate-500 uppercase mb-3 flex items-center justify-between">
             <span>Administrative Distance (AD) Trust Hierarchy (Lower = Better)</span>
-            <span className="text-[11px] text-[#58a6ff]">Believability Score (0 - 255)</span>
+            <span className="text-[11px] text-indigo-600">Believability Score (0 - 255)</span>
           </h4>
           <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 text-center text-xs font-mono">
-            <div className="bg-[#7ee787]/10 border border-[#7ee787]/30 p-2.5 rounded-lg text-[#7ee787]">
+            <div className="bg-emerald-50 border border-emerald-200 p-2.5 rounded-lg text-emerald-600">
               <div className="font-bold text-sm">0</div>
-              <div className="text-[10px] text-[#8b949e]">Connected</div>
+              <div className="text-[10px] text-slate-500">Connected</div>
             </div>
-            <div className="bg-[#58a6ff]/10 border border-[#58a6ff]/30 p-2.5 rounded-lg text-[#58a6ff]">
+            <div className="bg-indigo-50 border border-indigo-200 p-2.5 rounded-lg text-indigo-600">
               <div className="font-bold text-sm">1</div>
-              <div className="text-[10px] text-[#8b949e]">Static</div>
+              <div className="text-[10px] text-slate-500">Static</div>
             </div>
-            <div className="bg-[#bc8cff]/10 border border-[#bc8cff]/30 p-2.5 rounded-lg text-[#bc8cff]">
+            <div className="bg-violet-50 border border-violet-200 p-2.5 rounded-lg text-violet-600">
               <div className="font-bold text-sm">20</div>
-              <div className="text-[10px] text-[#8b949e]">eBGP</div>
+              <div className="text-[10px] text-slate-500">eBGP</div>
             </div>
-            <div className="bg-[#ffa657]/10 border border-[#ffa657]/30 p-2.5 rounded-lg text-[#ffa657]">
+            <div className="bg-amber-50 border border-amber-200 p-2.5 rounded-lg text-amber-600">
               <div className="font-bold text-sm">90</div>
-              <div className="text-[10px] text-[#8b949e]">EIGRP</div>
+              <div className="text-[10px] text-slate-500">EIGRP</div>
             </div>
-            <div className="bg-[#58a6ff]/10 border border-[#58a6ff]/30 p-2.5 rounded-lg text-[#58a6ff]">
+            <div className="bg-indigo-50 border border-indigo-200 p-2.5 rounded-lg text-indigo-600">
               <div className="font-bold text-sm">110</div>
-              <div className="text-[10px] text-[#8b949e]">OSPF</div>
+              <div className="text-[10px] text-slate-500">OSPF</div>
             </div>
-            <div className="bg-[#ff7b72]/10 border border-[#ff7b72]/30 p-2.5 rounded-lg text-[#ff7b72]">
+            <div className="bg-rose-50 border border-rose-200 p-2.5 rounded-lg text-rose-600">
               <div className="font-bold text-sm">120</div>
-              <div className="text-[10px] text-[#8b949e]">RIP</div>
+              <div className="text-[10px] text-slate-500">RIP</div>
             </div>
-            <div className="bg-[#bc8cff]/10 border border-[#bc8cff]/30 p-2.5 rounded-lg text-[#bc8cff]">
+            <div className="bg-violet-50 border border-violet-200 p-2.5 rounded-lg text-violet-600">
               <div className="font-bold text-sm">200</div>
-              <div className="text-[10px] text-[#8b949e]">iBGP</div>
+              <div className="text-[10px] text-slate-500">iBGP</div>
             </div>
           </div>
         </div>
@@ -634,12 +634,12 @@ export default function RoutingSection() {
 
       {/* ITEM 2: Gateway Redundancy (HSRP & VRRP Failover Diagram) */}
       <div className="mb-12">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#30363d]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
           <div>
-            <span className="text-xs font-mono font-semibold text-[#7ee787] uppercase tracking-wider">
+            <span className="text-xs font-mono font-semibold text-emerald-600 uppercase tracking-wider">
               Part 2
             </span>
-            <h3 className="text-xl font-bold text-[#e6edf3] mt-1">
+            <h3 className="text-xl font-bold text-slate-900 mt-1">
               Gateway Redundancy (HSRP & VRRP Virtual IP Failover)
             </h3>
           </div>
@@ -648,8 +648,8 @@ export default function RoutingSection() {
               onClick={() => setFhrpProtocol("hsrp")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
                 fhrpProtocol === "hsrp"
-                  ? "bg-[#7ee787] text-[#0d1117]"
-                  : "bg-[#1c2333] text-[#8b949e] border border-[#30363d]"
+                  ? "bg-emerald-500 text-slate-900"
+                  : "bg-slate-50 text-slate-500 border border-slate-200"
               }`}
             >
               HSRP (Cisco)
@@ -658,8 +658,8 @@ export default function RoutingSection() {
               onClick={() => setFhrpProtocol("vrrp")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
                 fhrpProtocol === "vrrp"
-                  ? "bg-[#7ee787] text-[#0d1117]"
-                  : "bg-[#1c2333] text-[#8b949e] border border-[#30363d]"
+                  ? "bg-emerald-500 text-slate-900"
+                  : "bg-slate-50 text-slate-500 border border-slate-200"
               }`}
             >
               VRRP (Open IETF)
@@ -668,18 +668,18 @@ export default function RoutingSection() {
         </div>
 
         {/* FHRP Interactive Topology & Failover Visualizer */}
-        <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-6 mb-6">
+        <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow mb-6">
           <div className="flex flex-col lg:flex-row gap-6 items-stretch">
             {/* Left Diagram Box */}
-            <div className="flex-1 bg-[#161b22] border border-[#30363d] rounded-xl p-5 flex flex-col justify-between">
+            <div className="flex-1 bg-white border border-slate-200 rounded-xl p-5 flex flex-col justify-between">
               {/* Virtual Gateway Header */}
-              <div className="bg-[#1c2333] border border-[#58a6ff]/40 rounded-lg p-3 text-center mb-6">
-                <span className="text-[10px] font-mono text-[#8b949e] uppercase block">
+              <div className="bg-slate-50 border border-indigo-300 rounded-lg p-3 text-center mb-6">
+                <span className="text-[10px] font-mono text-slate-500 uppercase block">
                   Shared First-Hop Gateway ({fhrpProtocol.toUpperCase()})
                 </span>
-                <div className="text-lg font-mono font-bold text-[#58a6ff] flex items-center justify-center gap-2">
+                <div className="text-lg font-mono font-bold text-indigo-600 flex items-center justify-center gap-2">
                   <span>VIP: 192.168.1.1</span>
-                  <span className="text-xs text-[#8b949e] font-normal">
+                  <span className="text-xs text-slate-500 font-normal">
                     (VMAC: {fhrpProtocol === "hsrp" ? "0000.0C07.AC01" : "0000.5E00.0101"})
                   </span>
                 </div>
@@ -691,19 +691,19 @@ export default function RoutingSection() {
                 <div
                   className={`rounded-lg border p-4 transition-all relative ${
                     r1Active
-                      ? "border-[#7ee787] bg-[#7ee787]/10"
-                      : "border-[#ff7b72] bg-[#ff7b72]/10 opacity-70"
+                      ? "border-emerald-400 bg-emerald-50"
+                      : "border-rose-400 bg-rose-50 opacity-70"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-mono font-bold text-[#e6edf3]">
+                    <span className="text-xs font-mono font-bold text-slate-900">
                       Router A (R1)
                     </span>
                     <span
                       className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase ${
                         r1Active
-                          ? "bg-[#7ee787]/20 text-[#7ee787]"
-                          : "bg-[#ff7b72]/20 text-[#ff7b72]"
+                          ? "bg-emerald-500/20 text-emerald-600"
+                          : "bg-[#ff7b72]/20 text-rose-600"
                       }`}
                     >
                       {r1Active
@@ -713,14 +713,14 @@ export default function RoutingSection() {
                         : "FAILED"}
                     </span>
                   </div>
-                  <div className="text-xs font-mono text-[#8b949e] space-y-1">
-                    <div>Phys IP: <span className="text-[#e6edf3]">192.168.1.2</span></div>
-                    <div>Priority: <span className="text-[#58a6ff] font-bold">110</span></div>
-                    <div>Hello: <span className="text-[#7ee787]">Every 3s</span></div>
+                  <div className="text-xs font-mono text-slate-500 space-y-1">
+                    <div>Phys IP: <span className="text-slate-900">192.168.1.2</span></div>
+                    <div>Priority: <span className="text-indigo-600 font-bold">110</span></div>
+                    <div>Hello: <span className="text-emerald-600">Every 3s</span></div>
                   </div>
                   {r1Active && (
-                    <div className="mt-3 text-[10px] font-mono text-[#7ee787] flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-[#7ee787] animate-pulse" />
+                    <div className="mt-3 text-[10px] font-mono text-emerald-600 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                       Forwarding LAN Traffic
                     </div>
                   )}
@@ -730,19 +730,19 @@ export default function RoutingSection() {
                 <div
                   className={`rounded-lg border p-4 transition-all ${
                     !r1Active
-                      ? "border-[#7ee787] bg-[#7ee787]/10"
-                      : "border-[#30363d] bg-[#1c2333]"
+                      ? "border-emerald-400 bg-emerald-50"
+                      : "border-slate-200 bg-slate-50"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-mono font-bold text-[#e6edf3]">
+                    <span className="text-xs font-mono font-bold text-slate-900">
                       Router B (R2)
                     </span>
                     <span
                       className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase ${
                         !r1Active
-                          ? "bg-[#7ee787]/20 text-[#7ee787]"
-                          : "bg-[#ffa657]/20 text-[#ffa657]"
+                          ? "bg-emerald-500/20 text-emerald-600"
+                          : "bg-[#ffa657]/20 text-amber-600"
                       }`}
                     >
                       {!r1Active
@@ -754,19 +754,19 @@ export default function RoutingSection() {
                         : "BACKUP"}
                     </span>
                   </div>
-                  <div className="text-xs font-mono text-[#8b949e] space-y-1">
-                    <div>Phys IP: <span className="text-[#e6edf3]">192.168.1.3</span></div>
-                    <div>Priority: <span className="text-[#ffa657]">100</span></div>
-                    <div>Hold Timer: <span className="text-[#ffa657]">10s</span></div>
+                  <div className="text-xs font-mono text-slate-500 space-y-1">
+                    <div>Phys IP: <span className="text-slate-900">192.168.1.3</span></div>
+                    <div>Priority: <span className="text-amber-600">100</span></div>
+                    <div>Hold Timer: <span className="text-amber-600">10s</span></div>
                   </div>
                   {!r1Active && (
-                    <div className="mt-3 text-[10px] font-mono text-[#7ee787] flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-[#7ee787] animate-pulse" />
+                    <div className="mt-3 text-[10px] font-mono text-emerald-600 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                       Serving Virtual IP 192.168.1.1
                     </div>
                   )}
                   {r1Active && (
-                    <div className="mt-3 text-[10px] font-mono text-[#8b949e]">
+                    <div className="mt-3 text-[10px] font-mono text-slate-500">
                       Listening for R1 Heartbeats
                     </div>
                   )}
@@ -774,14 +774,14 @@ export default function RoutingSection() {
               </div>
 
               {/* Host Client Box */}
-              <div className="bg-[#1c2333] border border-[#30363d] rounded-lg p-3 text-center">
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-center">
                 <div className="flex items-center justify-between text-xs font-mono mb-1">
-                  <span className="text-[#8b949e]">LAN Client Host</span>
-                  <span className="text-[#58a6ff]">IP: 192.168.1.50</span>
+                  <span className="text-slate-500">LAN Client Host</span>
+                  <span className="text-indigo-600">IP: 192.168.1.50</span>
                 </div>
-                <div className="text-xs text-[#8b949e]">
+                <div className="text-xs text-slate-500">
                   Configured Default Gateway:{" "}
-                  <span className="text-[#7ee787] font-mono font-bold">192.168.1.1</span> (Unaware of physical router swap!)
+                  <span className="text-emerald-600 font-mono font-bold">192.168.1.1</span> (Unaware of physical router swap!)
                 </div>
               </div>
             </div>
@@ -789,17 +789,17 @@ export default function RoutingSection() {
             {/* Right Controls & Event Console */}
             <div className="flex-1 flex flex-col justify-between">
               <div>
-                <h4 className="text-sm font-bold text-[#e6edf3] mb-3">
+                <h4 className="text-sm font-bold text-slate-900 mb-3">
                   Interactive Failover Controls
                 </h4>
 
-                <div className="bg-[#161b22] p-4 rounded-lg border border-[#30363d] space-y-4 mb-4">
+                <div className="bg-white p-4 rounded-lg border border-slate-200 space-y-4 mb-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-sm font-semibold text-[#e6edf3] block">
+                      <span className="text-sm font-semibold text-slate-900 block">
                         Primary Router A Status
                       </span>
-                      <span className="text-xs text-[#8b949e]">
+                      <span className="text-xs text-slate-500">
                         {r1Active ? "Link UP & Healthy" : "Physical Interface Failure"}
                       </span>
                     </div>
@@ -808,19 +808,19 @@ export default function RoutingSection() {
                       className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all ${
                         r1Active
                           ? "bg-[#ff7b72] hover:bg-[#ff7b72]/80 text-white shadow-lg shadow-[#ff7b72]/20"
-                          : "bg-[#7ee787] hover:bg-[#7ee787]/80 text-[#0d1117] shadow-lg shadow-[#7ee787]/20"
+                          : "bg-emerald-500 hover:bg-emerald-500/80 text-slate-900 shadow-lg shadow-[#7ee787]/20"
                       }`}
                     >
                       {r1Active ? "💥 Simulate R1 Link Failure" : "🔄 Restore R1 Physical Link"}
                     </button>
                   </div>
 
-                  <div className="flex items-center justify-between border-t border-[#30363d]/60 pt-3">
+                  <div className="flex items-center justify-between border-t border-slate-200/60 pt-3">
                     <div>
-                      <span className="text-xs font-semibold text-[#e6edf3] block">
+                      <span className="text-xs font-semibold text-slate-900 block">
                         Preemption Mode
                       </span>
-                      <span className="text-[11px] text-[#8b949e]">
+                      <span className="text-[11px] text-slate-500">
                         Forces highest priority router back to Active upon recovery
                       </span>
                     </div>
@@ -831,17 +831,17 @@ export default function RoutingSection() {
                         onChange={(e) => setPreemptEnabled(e.target.checked)}
                         className="sr-only peer"
                       />
-                      <div className="w-9 h-5 bg-[#30363d] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#58a6ff]"></div>
+                      <div className="w-9 h-5 bg-[#30363d] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
                     </label>
                   </div>
                 </div>
 
-                <h5 className="text-xs font-mono text-[#8b949e] uppercase mb-2">
+                <h5 className="text-xs font-mono text-slate-500 uppercase mb-2">
                   Protocol Event Console Log
                 </h5>
-                <div className="bg-[#0d1117] border border-[#30363d] rounded-lg p-3 font-mono text-xs text-[#7ee787] h-40 overflow-y-auto space-y-1.5">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 font-mono text-xs text-emerald-600 h-40 overflow-y-auto space-y-1.5">
                   {failoverHistory.map((log, i) => (
-                    <div key={i} className="leading-relaxed border-b border-[#30363d]/30 pb-1">
+                    <div key={i} className="leading-relaxed border-b border-slate-200/30 pb-1">
                       {log}
                     </div>
                   ))}
@@ -854,12 +854,12 @@ export default function RoutingSection() {
 
       {/* ITEM 3: BGP Summarization / Aggregation Overview */}
       <div className="mb-12">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#30363d]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
           <div>
-            <span className="text-xs font-mono font-semibold text-[#bc8cff] uppercase tracking-wider">
+            <span className="text-xs font-mono font-semibold text-violet-600 uppercase tracking-wider">
               Part 3
             </span>
-            <h3 className="text-xl font-bold text-[#e6edf3] mt-1">
+            <h3 className="text-xl font-bold text-slate-900 mt-1">
               BGP Route Summarization & Aggregation
             </h3>
           </div>
@@ -870,8 +870,8 @@ export default function RoutingSection() {
                 onClick={() => setBgpPreset(idx)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
                   bgpPreset === idx
-                    ? "bg-[#bc8cff] text-[#0d1117]"
-                    : "bg-[#1c2333] text-[#8b949e] border border-[#30363d]"
+                    ? "bg-[#bc8cff] text-slate-900"
+                    : "bg-slate-50 text-slate-500 border border-slate-200"
                 }`}
               >
                 {p.label}
@@ -883,33 +883,33 @@ export default function RoutingSection() {
         {/* Aggregation Explanation & Visualizer */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           {/* Left Explanation */}
-          <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-6 flex flex-col justify-between">
+          <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <span className="px-2.5 py-1 rounded bg-[#bc8cff]/20 text-[#bc8cff] font-mono text-xs font-bold">
+                <span className="px-2.5 py-1 rounded bg-[#bc8cff]/20 text-violet-600 font-mono text-xs font-bold">
                   BGP aggregate-address
                 </span>
               </div>
-              <h4 className="text-lg font-bold text-[#e6edf3] mb-3">
+              <h4 className="text-lg font-bold text-slate-900 mb-3">
                 Reducing Global Routing Table Bloat
               </h4>
-              <p className="text-xs text-[#8b949e] leading-relaxed mb-4">
+              <p className="text-xs text-slate-500 leading-relaxed mb-4">
                 The Internet routing table contains over 900,000 IPv4 prefixes. To protect router RAM and CPU, Autonomous Systems summarize contiguous subnets into a single prefix before advertising to ISP peers.
               </p>
             </div>
 
-            <div className="space-y-3 border-t border-[#30363d] pt-4 text-xs font-mono">
+            <div className="space-y-3 border-t border-slate-200 pt-4 text-xs font-mono">
               <div className="flex items-center justify-between">
-                <span className="text-[#8b949e]">Original Routes:</span>
-                <span className="text-[#ff7b72] font-bold">{currentBgp.subnets.length} prefixes</span>
+                <span className="text-slate-500">Original Routes:</span>
+                <span className="text-rose-600 font-bold">{currentBgp.subnets.length} prefixes</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-[#8b949e]">Aggregated Block:</span>
-                <span className="text-[#7ee787] font-bold">{currentBgp.aggregate}</span>
+                <span className="text-slate-500">Aggregated Block:</span>
+                <span className="text-emerald-600 font-bold">{currentBgp.aggregate}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-[#8b949e]">Table Reduction:</span>
-                <span className="text-[#58a6ff] font-bold">
+                <span className="text-slate-500">Table Reduction:</span>
+                <span className="text-indigo-600 font-bold">
                   -{Math.round((1 - 1 / currentBgp.subnets.length) * 100)}% route entries
                 </span>
               </div>
@@ -917,13 +917,13 @@ export default function RoutingSection() {
           </div>
 
           {/* Center Binary Bitwise Alignment */}
-          <div className="lg:col-span-2 rounded-xl bg-[#1c2333] border border-[#30363d] p-6">
-            <h4 className="text-xs font-mono text-[#8b949e] uppercase mb-4 flex items-center justify-between">
+          <div className="lg:col-span-2 rounded-xl bg-white border border-slate-200 p-6 card-shadow">
+            <h4 className="text-xs font-mono text-slate-500 uppercase mb-4 flex items-center justify-between">
               <span>Bitwise Matching Breakdown ({currentBgp.commonBits} Common Bits)</span>
-              <span className="text-[#7ee787]">Green = Identical Network Bits</span>
+              <span className="text-emerald-600">Green = Identical Network Bits</span>
             </h4>
 
-            <div className="bg-[#161b22] border border-[#30363d] rounded-lg p-4 font-mono text-xs space-y-2 mb-4 overflow-x-auto">
+            <div className="bg-white border border-slate-200 rounded-lg p-4 font-mono text-xs space-y-2 mb-4 overflow-x-auto">
               {currentBgp.subnets.map((sub, i) => {
                 const bin = ipToBinary(sub.split("/")[0]);
                 const bitsWithoutDots = bin.replace(/\./g, "");
@@ -931,11 +931,11 @@ export default function RoutingSection() {
                 const hostPart = bitsWithoutDots.slice(currentBgp.commonBits);
 
                 return (
-                  <div key={i} className="flex items-center justify-between gap-4 border-b border-[#30363d]/40 pb-1.5">
-                    <span className="text-[#58a6ff] w-32 shrink-0">{sub}</span>
+                  <div key={i} className="flex items-center justify-between gap-4 border-b border-slate-200/40 pb-1.5">
+                    <span className="text-indigo-600 w-32 shrink-0">{sub}</span>
                     <div className="tracking-widest font-mono">
-                      <span className="text-[#7ee787] font-bold">{commonPart}</span>
-                      <span className="text-[#8b949e]">{hostPart}</span>
+                      <span className="text-emerald-600 font-bold">{commonPart}</span>
+                      <span className="text-slate-500">{hostPart}</span>
                     </div>
                   </div>
                 );
@@ -943,15 +943,15 @@ export default function RoutingSection() {
             </div>
 
             {/* Cisco BGP Command Preview */}
-            <div className="bg-[#0d1117] border border-[#30363d] rounded-lg p-4 font-mono text-xs text-[#e6edf3]">
-              <div className="text-[#8b949e] text-[11px] mb-2">! Cisco IOS BGP Aggregation Configuration</div>
-              <div className="text-[#58a6ff]">router bgp 65001</div>
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 font-mono text-xs text-slate-900">
+              <div className="text-slate-500 text-[11px] mb-2">! Cisco IOS BGP Aggregation Configuration</div>
+              <div className="text-indigo-600">router bgp 65001</div>
               {currentBgp.subnets.map((s, idx) => (
-                <div key={idx} className="pl-4 text-[#8b949e]">
+                <div key={idx} className="pl-4 text-slate-500">
                   network {s.split("/")[0]} mask 255.255.255.0
                 </div>
               ))}
-              <div className="pl-4 text-[#7ee787] font-bold mt-1">
+              <div className="pl-4 text-emerald-600 font-bold mt-1">
                 aggregate-address {currentBgp.aggregate.split("/")[0]} 255.255.252.0
                 {summaryOnly ? " summary-only" : ""}
                 {asSet ? " as-set" : ""}
@@ -959,16 +959,16 @@ export default function RoutingSection() {
             </div>
 
             {/* Toggles */}
-            <div className="flex flex-wrap gap-4 mt-4 pt-4 border-t border-[#30363d]/60 text-xs">
+            <div className="flex flex-wrap gap-4 mt-4 pt-4 border-t border-slate-200/60 text-xs">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={summaryOnly}
                   onChange={(e) => setSummaryOnly(e.target.checked)}
-                  className="rounded border-[#30363d] bg-[#161b22] text-[#58a6ff]"
+                  className="rounded border-slate-200 bg-white text-indigo-600"
                 />
-                <span className="text-[#e6edf3]">
-                  <strong className="text-[#58a6ff]">summary-only</strong> (Suppress specific routes)
+                <span className="text-slate-900">
+                  <strong className="text-indigo-600">summary-only</strong> (Suppress specific routes)
                 </span>
               </label>
 
@@ -977,10 +977,10 @@ export default function RoutingSection() {
                   type="checkbox"
                   checked={asSet}
                   onChange={(e) => setAsSet(e.target.checked)}
-                  className="rounded border-[#30363d] bg-[#161b22] text-[#58a6ff]"
+                  className="rounded border-slate-200 bg-white text-indigo-600"
                 />
-                <span className="text-[#e6edf3]">
-                  <strong className="text-[#bc8cff]">as-set</strong> (Preserve AS-Path to prevent loops)
+                <span className="text-slate-900">
+                  <strong className="text-violet-600">as-set</strong> (Preserve AS-Path to prevent loops)
                 </span>
               </label>
             </div>
@@ -990,28 +990,28 @@ export default function RoutingSection() {
 
       {/* ITEM 4: Interactive Routing Table Lookup Simulator */}
       <div>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#30363d]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
           <div>
-            <span className="text-xs font-mono font-semibold text-[#ff7b72] uppercase tracking-wider">
+            <span className="text-xs font-mono font-semibold text-rose-600 uppercase tracking-wider">
               Part 4
             </span>
-            <h3 className="text-xl font-bold text-[#e6edf3] mt-1">
+            <h3 className="text-xl font-bold text-slate-900 mt-1">
               Interactive Routing Table Lookup Simulator (Longest Prefix Match)
             </h3>
           </div>
           <button
             onClick={handleResetRoutes}
-            className="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-[#1c2333] border border-[#30363d] text-[#8b949e] hover:text-[#e6edf3] hover:border-[#ff7b72]/40 transition-all"
+            className="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-50 border border-slate-200 text-slate-500 hover:text-slate-900 hover:border-rose-400/40 transition-all"
           >
             Reset Table to Defaults
           </button>
         </div>
 
         {/* Input Controls */}
-        <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-6 mb-6">
+        <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow mb-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end mb-4">
             <div className="md:col-span-2">
-              <label className="block text-xs font-mono text-[#8b949e] uppercase mb-2">
+              <label className="block text-xs font-mono text-slate-500 uppercase mb-2">
                 Destination IP Address Lookup
               </label>
               <div className="relative">
@@ -1020,13 +1020,13 @@ export default function RoutingSection() {
                   value={targetIp}
                   onChange={(e) => setTargetIp(e.target.value)}
                   placeholder="e.g. 10.0.1.50"
-                  className="w-full bg-[#161b22] border border-[#30363d] rounded-lg px-4 py-2.5 font-mono text-sm text-[#e6edf3] focus:outline-none focus:border-[#58a6ff] transition-all"
+                  className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2.5 font-mono text-sm text-slate-900 focus:outline-none focus:border-indigo-400 transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <span className="block text-xs font-mono text-[#8b949e] uppercase mb-2">
+              <span className="block text-xs font-mono text-slate-500 uppercase mb-2">
                 Quick Test IPs
               </span>
               <div className="flex flex-wrap gap-2">
@@ -1034,7 +1034,7 @@ export default function RoutingSection() {
                   <button
                     key={ip}
                     onClick={() => setTargetIp(ip)}
-                    className="px-2.5 py-1 rounded bg-[#161b22] border border-[#30363d] text-xs font-mono text-[#58a6ff] hover:border-[#58a6ff]/60"
+                    className="px-2.5 py-1 rounded bg-white border border-slate-200 text-xs font-mono text-indigo-600 hover:border-indigo-400/60"
                   >
                     {ip}
                   </button>
@@ -1048,8 +1048,8 @@ export default function RoutingSection() {
             <div
               className={`rounded-lg p-4 border transition-all ${
                 lookupResult.winningMatch
-                  ? "bg-[#7ee787]/10 border-[#7ee787]/40 text-[#7ee787]"
-                  : "bg-[#ff7b72]/10 border-[#ff7b72]/40 text-[#ff7b72]"
+                  ? "bg-emerald-50 border-emerald-400/40 text-emerald-600"
+                  : "bg-rose-50 border-rose-400/40 text-rose-600"
               }`}
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -1062,33 +1062,33 @@ export default function RoutingSection() {
                   </span>
                 </div>
                 {lookupResult.winningMatch && (
-                  <span className="px-3 py-1 rounded bg-[#7ee787] text-[#0d1117] font-mono text-xs font-bold">
+                  <span className="px-3 py-1 rounded bg-emerald-500 text-slate-900 font-mono text-xs font-bold">
                     Longest Prefix: /{lookupResult.winningMatch.prefixLen}
                   </span>
                 )}
               </div>
 
               {lookupResult.winningMatch && (
-                <p className="text-xs text-[#e6edf3] mt-2 leading-relaxed">
+                <p className="text-xs text-slate-900 mt-2 leading-relaxed">
                   Matched <strong>{lookupResult.candidates.length}</strong> route entries. Subnet mask{" "}
-                  <strong className="text-[#7ee787]">/{lookupResult.winningMatch.prefixLen}</strong> won because it has the highest number of contiguous matching network bits (Longest Prefix Match Rule).
+                  <strong className="text-emerald-600">/{lookupResult.winningMatch.prefixLen}</strong> won because it has the highest number of contiguous matching network bits (Longest Prefix Match Rule).
                 </p>
               )}
             </div>
           ) : (
-            <div className="rounded-lg p-4 bg-[#ff7b72]/10 border border-[#ff7b72]/40 text-[#ff7b72] text-xs font-mono">
+            <div className="rounded-lg p-4 bg-rose-50 border border-rose-400/40 text-rose-600 text-xs font-mono">
               ⚠️ Invalid IPv4 Address format. Please enter a valid address (e.g. 10.0.1.50).
             </div>
           )}
         </div>
 
         {/* Live Routing Table Grid */}
-        <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-6 mb-6">
+        <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h4 className="text-sm font-bold text-[#e6edf3]">
+            <h4 className="text-sm font-bold text-slate-900">
               Active Router Forwarding Information Base (FIB)
             </h4>
-            <span className="text-xs font-mono text-[#8b949e]">
+            <span className="text-xs font-mono text-slate-500">
               Total Entries: {routesTable.length}
             </span>
           </div>
@@ -1096,7 +1096,7 @@ export default function RoutingSection() {
           <div className="overflow-x-auto">
             <table className="w-full text-left font-mono text-xs border-collapse">
               <thead>
-                <tr className="border-b border-[#30363d] text-[#8b949e]">
+                <tr className="border-b border-slate-200 text-slate-500">
                   <th className="pb-3 px-3">Status</th>
                   <th className="pb-3 px-3">Protocol</th>
                   <th className="pb-3 px-3">Network CIDR</th>
@@ -1111,44 +1111,44 @@ export default function RoutingSection() {
                   const isWinning = lookupResult.winningRouteId === r.id;
                   const candMatch = lookupResult.candidates.find((c) => c.route.id === r.id);
 
-                  let rowStyle = "hover:bg-[#161b22]/50";
+                  let rowStyle = "hover:bg-white/50";
                   if (isWinning) {
-                    rowStyle = "bg-[#7ee787]/15 border-l-4 border-l-[#7ee787] text-[#e6edf3]";
+                    rowStyle = "bg-emerald-500/15 border-l-4 border-l-[#7ee787] text-slate-900";
                   } else if (candMatch) {
-                    rowStyle = "bg-[#58a6ff]/10 border-l-4 border-l-[#58a6ff]/60 text-[#e6edf3]";
+                    rowStyle = "bg-indigo-50 border-l-4 border-l-[#58a6ff]/60 text-slate-900";
                   } else {
-                    rowStyle = "opacity-50 text-[#8b949e]";
+                    rowStyle = "opacity-50 text-slate-500";
                   }
 
                   return (
                     <tr key={r.id} className={`transition-all ${rowStyle}`}>
                       <td className="py-3 px-3">
                         {isWinning ? (
-                          <span className="px-2 py-0.5 rounded bg-[#7ee787] text-[#0d1117] font-bold text-[10px]">
+                          <span className="px-2 py-0.5 rounded bg-emerald-500 text-slate-900 font-bold text-[10px]">
                             ★ SELECTED
                           </span>
                         ) : candMatch ? (
-                          <span className="px-2 py-0.5 rounded bg-[#58a6ff]/20 text-[#58a6ff] text-[10px]">
+                          <span className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-600 text-[10px]">
                             MATCHED (/{candMatch.prefixLen})
                           </span>
                         ) : (
-                          <span className="text-[10px] text-[#8b949e]">NO MATCH</span>
+                          <span className="text-[10px] text-slate-500">NO MATCH</span>
                         )}
                       </td>
                       <td className="py-3 px-3">
-                        <span className="font-bold text-[#ffa657]">{r.protocol}</span>
+                        <span className="font-bold text-amber-600">{r.protocol}</span>
                       </td>
-                      <td className="py-3 px-3 font-bold text-[#e6edf3]">{r.network}</td>
-                      <td className="py-3 px-3 text-[#58a6ff]">{r.nextHop}</td>
-                      <td className="py-3 px-3 text-[#bc8cff]">{r.interfaceName}</td>
-                      <td className="py-3 px-3 text-[#8b949e]">
+                      <td className="py-3 px-3 font-bold text-slate-900">{r.network}</td>
+                      <td className="py-3 px-3 text-indigo-600">{r.nextHop}</td>
+                      <td className="py-3 px-3 text-violet-600">{r.interfaceName}</td>
+                      <td className="py-3 px-3 text-slate-500">
                         {r.ad} / {r.metric}
                       </td>
                       <td className="py-3 px-3">
                         {r.id.startsWith("custom-") && (
                           <button
                             onClick={() => handleRemoveRoute(r.id)}
-                            className="text-[#ff7b72] hover:underline text-[11px]"
+                            className="text-rose-600 hover:underline text-[11px]"
                           >
                             Remove
                           </button>
@@ -1163,13 +1163,13 @@ export default function RoutingSection() {
         </div>
 
         {/* Add Custom Route Form */}
-        <div className="rounded-xl bg-[#1c2333] border border-[#30363d] p-6">
-          <h4 className="text-sm font-bold text-[#e6edf3] mb-4">
+        <div className="rounded-xl bg-white border border-slate-200 p-6 card-shadow">
+          <h4 className="text-sm font-bold text-slate-900 mb-4">
             Add Custom Route Entry to Table
           </h4>
           <form onSubmit={handleAddRoute} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 items-end">
             <div>
-              <label className="block text-[11px] font-mono text-[#8b949e] mb-1">
+              <label className="block text-[11px] font-mono text-slate-500 mb-1">
                 Network CIDR
               </label>
               <input
@@ -1177,11 +1177,11 @@ export default function RoutingSection() {
                 value={newNetwork}
                 onChange={(e) => setNewNetwork(e.target.value)}
                 placeholder="e.g. 10.0.2.0/24"
-                className="w-full bg-[#161b22] border border-[#30363d] rounded px-3 py-1.5 font-mono text-xs text-[#e6edf3] focus:outline-none focus:border-[#58a6ff]"
+                className="w-full bg-white border border-slate-200 rounded px-3 py-1.5 font-mono text-xs text-slate-900 focus:outline-none focus:border-indigo-400"
               />
             </div>
             <div>
-              <label className="block text-[11px] font-mono text-[#8b949e] mb-1">
+              <label className="block text-[11px] font-mono text-slate-500 mb-1">
                 Next Hop IP
               </label>
               <input
@@ -1189,11 +1189,11 @@ export default function RoutingSection() {
                 value={newNextHop}
                 onChange={(e) => setNewNextHop(e.target.value)}
                 placeholder="e.g. 10.0.2.1"
-                className="w-full bg-[#161b22] border border-[#30363d] rounded px-3 py-1.5 font-mono text-xs text-[#e6edf3] focus:outline-none focus:border-[#58a6ff]"
+                className="w-full bg-white border border-slate-200 rounded px-3 py-1.5 font-mono text-xs text-slate-900 focus:outline-none focus:border-indigo-400"
               />
             </div>
             <div>
-              <label className="block text-[11px] font-mono text-[#8b949e] mb-1">
+              <label className="block text-[11px] font-mono text-slate-500 mb-1">
                 Exit Interface
               </label>
               <input
@@ -1201,17 +1201,17 @@ export default function RoutingSection() {
                 value={newInterface}
                 onChange={(e) => setNewInterface(e.target.value)}
                 placeholder="e.g. Eth1.30"
-                className="w-full bg-[#161b22] border border-[#30363d] rounded px-3 py-1.5 font-mono text-xs text-[#e6edf3] focus:outline-none focus:border-[#58a6ff]"
+                className="w-full bg-white border border-slate-200 rounded px-3 py-1.5 font-mono text-xs text-slate-900 focus:outline-none focus:border-indigo-400"
               />
             </div>
             <div>
-              <label className="block text-[11px] font-mono text-[#8b949e] mb-1">
+              <label className="block text-[11px] font-mono text-slate-500 mb-1">
                 Protocol
               </label>
               <select
                 value={newProtocol}
                 onChange={(e) => setNewProtocol(e.target.value as RouteItem["protocol"])}
-                className="w-full bg-[#161b22] border border-[#30363d] rounded px-3 py-1.5 font-mono text-xs text-[#e6edf3] focus:outline-none focus:border-[#58a6ff]"
+                className="w-full bg-white border border-slate-200 rounded px-3 py-1.5 font-mono text-xs text-slate-900 focus:outline-none focus:border-indigo-400"
               >
                 <option value="Static">Static (AD 1)</option>
                 <option value="Connected">Connected (AD 0)</option>
@@ -1224,14 +1224,14 @@ export default function RoutingSection() {
             <div>
               <button
                 type="submit"
-                className="w-full bg-[#58a6ff] hover:bg-[#58a6ff]/80 text-[#0d1117] font-mono text-xs font-bold py-2 rounded transition-all"
+                className="w-full bg-indigo-600 hover:bg-indigo-600/80 text-slate-900 font-mono text-xs font-bold py-2 rounded transition-all"
               >
                 + Inject Route
               </button>
             </div>
           </form>
           {addError && (
-            <div className="mt-3 text-xs font-mono text-[#ff7b72]">{addError}</div>
+            <div className="mt-3 text-xs font-mono text-rose-600">{addError}</div>
           )}
         </div>
       </div>

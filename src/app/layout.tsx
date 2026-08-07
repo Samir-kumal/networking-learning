@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mastering Subnets — Interactive Guide",
+  title: "DevOps Hub — SubnetLab & Engineering Learning Portal",
   description:
-    "An interactive, deep-dive guide to IP addressing, binary math, CIDR notation, VLSM design, VPC networking, and subnet calculations.",
+    "Interactive learning portal for Networking, AWS Cloud, Cybersecurity, GitOps, and Docker & Kubernetes engineering — 41 hands-on modules.",
 };
 
 export default function RootLayout({
@@ -27,9 +27,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-[#0d1117] text-[#e6edf3] font-sans selection:bg-[#58a6ff]/30 selection:text-[#58a6ff]">
+      <body className="min-h-full bg-slate-50 text-slate-900 font-sans selection:bg-indigo-600/30 selection:text-indigo-600">
         <AppShell>{children}</AppShell>
       </body>
     </html>

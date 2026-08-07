@@ -56,8 +56,8 @@ export default function DhcpSection() {
       dstPort: 67,
       castType: "Broadcast",
       color: "#58a6ff",
-      badgeBg: "bg-[#58a6ff]/10",
-      badgeText: "text-[#58a6ff]",
+      badgeBg: "bg-indigo-50",
+      badgeText: "text-indigo-600",
       summary: "Client broadcasts onto the local LAN seeking any available DHCP server.",
       options: [
         { key: "Option 53", value: "DHCP Message Type = Discover (1)", desc: "Identifies the packet type" },
@@ -82,8 +82,8 @@ export default function DhcpSection() {
       dstPort: 68,
       castType: "Unicast",
       color: "#7ee787",
-      badgeBg: "bg-[#7ee787]/10",
-      badgeText: "text-[#7ee787]",
+      badgeBg: "bg-emerald-50",
+      badgeText: "text-emerald-600",
       summary: "DHCP Server reserves an available IP and offers it to the client with parameters.",
       options: [
         { key: "yiaddr", value: "Your (Client) IP = 192.168.10.50", desc: "The proposed IP allocation" },
@@ -111,8 +111,8 @@ export default function DhcpSection() {
       dstPort: 67,
       castType: "Broadcast",
       color: "#ffa657",
-      badgeBg: "bg-[#ffa657]/10",
-      badgeText: "text-[#ffa657]",
+      badgeBg: "bg-amber-50",
+      badgeText: "text-amber-600",
       summary: "Client accepts the offer by broadcasting a Request specifying chosen Server ID.",
       options: [
         { key: "Option 53", value: "DHCP Message Type = Request (3)", desc: "Formal lease request" },
@@ -136,8 +136,8 @@ export default function DhcpSection() {
       dstPort: 68,
       castType: "Unicast",
       color: "#bc8cff",
-      badgeBg: "bg-[#bc8cff]/10",
-      badgeText: "text-[#bc8cff]",
+      badgeBg: "bg-violet-50",
+      badgeText: "text-violet-600",
       summary: "Server commits the lease to database and sends final confirmation to client.",
       options: [
         { key: "Option 53", value: "DHCP Message Type = ACK (5)", desc: "Final binding acknowledgment" },
@@ -305,8 +305,8 @@ interface GigabitEthernet0/0.10
   let riskStatus: { label: string; color: string; bg: string; text: string; message: string } = {
     label: "HEALTHY",
     color: "#7ee787",
-    bg: "bg-[#7ee787]/10 border-[#7ee787]/30",
-    text: "text-[#7ee787]",
+    bg: "bg-emerald-50 border-emerald-200",
+    text: "text-emerald-600",
     message: "Address pool has sufficient headroom. Current lease duration and subnet size are well balanced.",
   };
 
@@ -314,16 +314,16 @@ interface GigabitEthernet0/0.10
     riskStatus = {
       label: "CRITICAL EXHAUSTION",
       color: "#ff7b72",
-      bg: "bg-[#ff7b72]/15 border-[#ff7b72]/40",
-      text: "text-[#ff7b72]",
+      bg: "bg-[#ff7b72]/15 border-rose-400/40",
+      text: "text-rose-600",
       message: "ALERT: Pool is nearly exhausted! New devices will fail DHCP binding (APIPA 169.254.x.x fallback). Immediate mitigation required.",
     };
   } else if (utilizationPct >= 75) {
     riskStatus = {
       label: "HIGH UTILIZATION WARNING",
       color: "#ffa657",
-      bg: "bg-[#ffa657]/15 border-[#ffa657]/40",
-      text: "text-[#ffa657]",
+      bg: "bg-[#ffa657]/15 border-amber-400/40",
+      text: "text-amber-600",
       message: "WARNING: High pool usage. High churn during peak hours may trigger address depletion.",
     };
   }
@@ -331,19 +331,19 @@ interface GigabitEthernet0/0.10
   return (
     <section
       id="dhcp"
-      className="scroll-mt-24 rounded-2xl bg-[#161b22] border border-[#30363d] p-6 sm:p-8 transition-colors hover:border-[#58a6ff]/40 space-y-10"
+      className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow space-y-10"
     >
       {/* Section Header */}
       <div>
         <div className="flex items-center gap-3 mb-3">
-          <span className="px-2.5 py-1 rounded-md bg-[#58a6ff]/10 text-[#58a6ff] border border-[#58a6ff]/20 text-xs font-mono font-semibold">
+          <span className="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-[11px] font-semibold">
             #dhcp-ipam
           </span>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#e6edf3]">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
             19. DHCP & IP Address Management (IPAM)
           </h2>
         </div>
-        <p className="text-[#8b949e] text-base leading-relaxed max-w-4xl">
+        <p className="text-slate-500 text-base leading-relaxed max-w-4xl">
           Dynamic Host Configuration Protocol (DHCP) automates IPv4/IPv6 allocation across local networks.
           Explore the step-by-step DORA handshake, Layer 3 relay agent forwarding across subnets, core DHCP options, and enterprise IPAM pool sizing.
         </p>
@@ -352,16 +352,16 @@ interface GigabitEthernet0/0.10
       {/* -------------------------------------------------------------------- */}
       {/* 1. DORA HANDSHAKE FLOW */}
       {/* -------------------------------------------------------------------- */}
-      <div className="rounded-xl border border-[#30363d] bg-[#0d1117] p-5 sm:p-6 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#30363d] pb-4">
+      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 sm:p-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
           <div>
-            <span className="text-xs uppercase font-mono tracking-wider text-[#58a6ff]">Interactive Protocol Flow</span>
-            <h3 className="text-xl font-bold text-[#e6edf3] flex items-center gap-2">
+            <span className="text-xs uppercase font-mono tracking-wider text-indigo-600">Interactive Protocol Flow</span>
+            <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
               <span>The 4-Step DORA Handshake</span>
             </h3>
           </div>
-          <div className="text-xs text-[#8b949e] font-mono">
-            UDP Ports: Server <span className="text-[#7ee787]">67</span> | Client <span className="text-[#58a6ff]">68</span>
+          <div className="text-xs text-slate-500 font-mono">
+            UDP Ports: Server <span className="text-emerald-600">67</span> | Client <span className="text-indigo-600">68</span>
           </div>
         </div>
 
@@ -375,13 +375,13 @@ interface GigabitEthernet0/0.10
                 onClick={() => setActiveDoraStep(step.id)}
                 className={`flex flex-col p-3 rounded-lg border text-left transition-all cursor-pointer ${
                   isActive
-                    ? "bg-[#1c2333] border-[#58a6ff] shadow-md shadow-[#58a6ff]/10 scale-[1.02]"
-                    : "bg-[#161b22] border-[#30363d] hover:border-[#8b949e]/50 opacity-80 hover:opacity-100"
+                    ? "bg-slate-50 border-indigo-400 shadow-md shadow-[#58a6ff]/10 scale-[1.02]"
+                    : "bg-white border-slate-200 hover:border-[#8b949e]/50 opacity-80 hover:opacity-100"
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
                   <span
-                    className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-[#0d1117]"
+                    className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-slate-900"
                     style={{ backgroundColor: step.color }}
                   >
                     {step.code}
@@ -390,96 +390,96 @@ interface GigabitEthernet0/0.10
                     Step {step.id}
                   </span>
                 </div>
-                <span className="text-sm font-semibold text-[#e6edf3] mt-1">{step.name}</span>
-                <span className="text-[11px] text-[#8b949e] line-clamp-1">{step.castType}</span>
+                <span className="text-sm font-semibold text-slate-900 mt-1">{step.name}</span>
+                <span className="text-[11px] text-slate-500 line-clamp-1">{step.castType}</span>
               </button>
             );
           })}
         </div>
 
         {/* Handshake Visual Stage Diagram */}
-        <div className="rounded-lg border border-[#30363d] bg-[#161b22] p-4 sm:p-6 space-y-6">
+        <div className="rounded-lg border border-slate-200 bg-white p-4 sm:p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center">
             {/* Host */}
-            <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] flex flex-col items-center">
-              <div className="w-12 h-12 rounded-xl bg-[#58a6ff]/10 border border-[#58a6ff]/30 flex items-center justify-center text-2xl mb-2">
+            <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow flex flex-col items-center">
+              <div className="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-2xl mb-2">
                 💻
               </div>
-              <div className="text-sm font-bold text-[#e6edf3]">Client Workstation</div>
-              <div className="text-xs font-mono text-[#8b949e]">MAC: 00:1A:2B:3C:4D:5E</div>
-              <div className="mt-2 text-[11px] px-2 py-0.5 rounded bg-[#30363d] font-mono text-[#7ee787]">
+              <div className="text-sm font-bold text-slate-900">Client Workstation</div>
+              <div className="text-xs font-mono text-slate-500">MAC: 00:1A:2B:3C:4D:5E</div>
+              <div className="mt-2 text-[11px] px-2 py-0.5 rounded bg-[#30363d] font-mono text-emerald-600">
                 {currentDora.id === 1 || currentDora.id === 3 ? "IP: 0.0.0.0" : "IP: 192.168.10.50 (Allocated)"}
               </div>
             </div>
 
             {/* Transmission Path */}
-            <div className="flex flex-col items-center justify-center p-3 rounded-xl bg-[#0d1117]/50 border border-[#30363d]/50 relative overflow-hidden">
-              <div className="text-xs font-mono text-[#8b949e] mb-1">
-                Direction: <span className="text-[#e6edf3] font-semibold">{currentDora.sender} ➔ {currentDora.receiver}</span>
+            <div className="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50/50 border border-slate-200/50 relative overflow-hidden">
+              <div className="text-xs font-mono text-slate-500 mb-1">
+                Direction: <span className="text-slate-900 font-semibold">{currentDora.sender} ➔ {currentDora.receiver}</span>
               </div>
-              <div className="w-full flex items-center justify-between text-xs font-mono py-2 px-3 rounded bg-[#0d1117] border border-[#30363d]">
-                <span className="text-[#58a6ff]">{currentDora.srcIp}:{currentDora.srcPort}</span>
+              <div className="w-full flex items-center justify-between text-xs font-mono py-2 px-3 rounded bg-slate-50 border border-slate-200">
+                <span className="text-indigo-600">{currentDora.srcIp}:{currentDora.srcPort}</span>
                 <div className="flex-1 mx-2 flex items-center justify-center">
                   <div className="h-0.5 flex-1 bg-gradient-to-r from-[#58a6ff] via-[#7ee787] to-[#58a6ff] animate-pulse"></div>
-                  <span className="px-2 text-[10px] font-bold font-mono rounded bg-[#30363d] text-[#e6edf3]">
+                  <span className="px-2 text-[10px] font-bold font-mono rounded bg-[#30363d] text-slate-900">
                     {currentDora.code}
                   </span>
                   <div className="h-0.5 flex-1 bg-gradient-to-r from-[#58a6ff] via-[#7ee787] to-[#58a6ff] animate-pulse"></div>
                 </div>
-                <span className="text-[#7ee787]">{currentDora.dstIp}:{currentDora.dstPort}</span>
+                <span className="text-emerald-600">{currentDora.dstIp}:{currentDora.dstPort}</span>
               </div>
               <div className="mt-2 flex items-center gap-2">
                 <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${currentDora.badgeBg} ${currentDora.badgeText} border border-current/20`}>
                   Type: {currentDora.castType}
                 </span>
-                <span className="text-[10px] font-mono text-[#8b949e]">
+                <span className="text-[10px] font-mono text-slate-500">
                   Dst MAC: {currentDora.dstMac}
                 </span>
               </div>
             </div>
 
             {/* Server */}
-            <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] flex flex-col items-center">
-              <div className="w-12 h-12 rounded-xl bg-[#7ee787]/10 border border-[#7ee787]/30 flex items-center justify-center text-2xl mb-2">
+            <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow flex flex-col items-center">
+              <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-2xl mb-2">
                 🖥️
               </div>
-              <div className="text-sm font-bold text-[#e6edf3]">DHCP Server</div>
-              <div className="text-xs font-mono text-[#8b949e]">IP: 192.168.10.1</div>
-              <div className="mt-2 text-[11px] px-2 py-0.5 rounded bg-[#30363d] font-mono text-[#58a6ff]">
+              <div className="text-sm font-bold text-slate-900">DHCP Server</div>
+              <div className="text-xs font-mono text-slate-500">IP: 192.168.10.1</div>
+              <div className="mt-2 text-[11px] px-2 py-0.5 rounded bg-[#30363d] font-mono text-indigo-600">
                 Listening UDP 67
               </div>
             </div>
           </div>
 
           {/* Active Step Breakdown */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-4 border-t border-[#30363d]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-4 border-t border-slate-200">
             <div className="space-y-3">
-              <h4 className="text-sm font-bold text-[#e6edf3] flex items-center gap-2">
+              <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full" style={{ backgroundColor: currentDora.color }}></span>
                 {currentDora.name} Summary
               </h4>
-              <p className="text-xs text-[#8b949e] leading-relaxed">
+              <p className="text-xs text-slate-500 leading-relaxed">
                 {currentDora.details}
               </p>
-              <div className="p-3 rounded bg-[#0d1117] border border-[#30363d] text-xs font-mono text-[#e6edf3]">
-                <div className="text-[10px] text-[#8b949e] uppercase mb-1">Packet Header Payload</div>
-                <div>Source MAC: <span className="text-[#58a6ff]">{currentDora.srcMac}</span></div>
-                <div>Dest MAC: <span className="text-[#ffa657]">{currentDora.dstMac}</span></div>
-                <div>Source IP: <span className="text-[#7ee787]">{currentDora.srcIp}</span></div>
-                <div>Dest IP: <span className="text-[#bc8cff]">{currentDora.dstIp}</span></div>
+              <div className="p-3 rounded bg-slate-50 border border-slate-200 text-xs font-mono text-slate-900">
+                <div className="text-[10px] text-slate-500 uppercase mb-1">Packet Header Payload</div>
+                <div>Source MAC: <span className="text-indigo-600">{currentDora.srcMac}</span></div>
+                <div>Dest MAC: <span className="text-amber-600">{currentDora.dstMac}</span></div>
+                <div>Source IP: <span className="text-emerald-600">{currentDora.srcIp}</span></div>
+                <div>Dest IP: <span className="text-violet-600">{currentDora.dstIp}</span></div>
               </div>
             </div>
 
             <div className="space-y-3">
-              <h4 className="text-sm font-bold text-[#e6edf3]">
+              <h4 className="text-sm font-bold text-slate-900">
                 Payload Parameters & Options
               </h4>
               <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
                 {currentDora.options.map((opt, i) => (
-                  <div key={i} className="p-2.5 rounded bg-[#0d1117] border border-[#30363d] flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
-                    <span className="font-mono text-[#58a6ff] font-bold min-w-[90px]">{opt.key}</span>
-                    <span className="font-mono text-[#e6edf3] flex-1">{opt.value}</span>
-                    <span className="text-[11px] text-[#8b949e]">{opt.desc}</span>
+                  <div key={i} className="p-2.5 rounded bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
+                    <span className="font-mono text-indigo-600 font-bold min-w-[90px]">{opt.key}</span>
+                    <span className="font-mono text-slate-900 flex-1">{opt.value}</span>
+                    <span className="text-[11px] text-slate-500">{opt.desc}</span>
                   </div>
                 ))}
               </div>
@@ -492,17 +492,17 @@ interface GigabitEthernet0/0.10
           <button
             onClick={() => setActiveDoraStep((prev) => Math.max(1, prev - 1))}
             disabled={activeDoraStep === 1}
-            className="px-4 py-2 rounded-lg bg-[#161b22] border border-[#30363d] text-xs font-semibold text-[#e6edf3] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#30363d]/50 transition-colors cursor-pointer"
+            className="px-4 py-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-900 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#30363d]/50 transition-colors cursor-pointer"
           >
             ← Previous Step
           </button>
-          <div className="text-xs font-mono text-[#8b949e]">
-            Step <span className="text-[#58a6ff] font-bold">{activeDoraStep}</span> of 4
+          <div className="text-xs font-mono text-slate-500">
+            Step <span className="text-indigo-600 font-bold">{activeDoraStep}</span> of 4
           </div>
           <button
             onClick={() => setActiveDoraStep((prev) => Math.min(4, prev + 1))}
             disabled={activeDoraStep === 4}
-            className="px-4 py-2 rounded-lg bg-[#58a6ff] text-[#0d1117] text-xs font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#58a6ff]/90 transition-colors cursor-pointer"
+            className="px-4 py-2 rounded-lg bg-indigo-600 text-slate-900 text-xs font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:bg-indigo-600/90 transition-colors cursor-pointer"
           >
             Next Step →
           </button>
@@ -512,22 +512,22 @@ interface GigabitEthernet0/0.10
       {/* -------------------------------------------------------------------- */}
       {/* 2. DHCP RELAY AGENT (`ip helper-address`) */}
       {/* -------------------------------------------------------------------- */}
-      <div className="rounded-xl border border-[#30363d] bg-[#0d1117] p-5 sm:p-6 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#30363d] pb-4">
+      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 sm:p-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
           <div>
-            <span className="text-xs uppercase font-mono tracking-wider text-[#7ee787]">Cross-Subnet Forwarding</span>
-            <h3 className="text-xl font-bold text-[#e6edf3]">
-              DHCP Relay Agent (<code className="text-[#7ee787]">ip helper-address</code>)
+            <span className="text-xs uppercase font-mono tracking-wider text-emerald-600">Cross-Subnet Forwarding</span>
+            <h3 className="text-xl font-bold text-slate-900">
+              DHCP Relay Agent (<code className="text-emerald-600">ip helper-address</code>)
             </h3>
           </div>
           {/* Mode Switcher */}
-          <div className="flex items-center p-1 rounded-lg bg-[#161b22] border border-[#30363d]">
+          <div className="flex items-center p-1 rounded-lg bg-white border border-slate-200">
             <button
               onClick={() => setRelayMode("with_relay")}
               className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all cursor-pointer ${
                 relayMode === "with_relay"
-                  ? "bg-[#7ee787] text-[#0d1117]"
-                  : "text-[#8b949e] hover:text-[#e6edf3]"
+                  ? "bg-emerald-500 text-slate-900"
+                  : "text-slate-500 hover:text-slate-900"
               }`}
             >
               With Relay Agent
@@ -536,8 +536,8 @@ interface GigabitEthernet0/0.10
               onClick={() => setRelayMode("without_relay")}
               className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all cursor-pointer ${
                 relayMode === "without_relay"
-                  ? "bg-[#ff7b72] text-[#0d1117]"
-                  : "text-[#8b949e] hover:text-[#e6edf3]"
+                  ? "bg-[#ff7b72] text-slate-900"
+                  : "text-slate-500 hover:text-slate-900"
               }`}
             >
               Without Relay
@@ -546,72 +546,72 @@ interface GigabitEthernet0/0.10
         </div>
 
         {/* Diagram Area */}
-        <div className="rounded-lg border border-[#30363d] bg-[#161b22] p-5 space-y-5">
+        <div className="rounded-lg border border-slate-200 bg-white p-5 space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative">
             {/* Client Subnet */}
-            <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] text-center space-y-2">
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#58a6ff]/10 text-[#58a6ff]">VLAN 10 Subnet (192.168.10.0/24)</span>
+            <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow text-center space-y-2">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-50 text-indigo-600">VLAN 10 Subnet (192.168.10.0/24)</span>
               <div className="text-2xl pt-1">💻</div>
-              <div className="text-sm font-bold text-[#e6edf3]">Client Host</div>
-              <div className="text-xs font-mono text-[#8b949e]">Sends L3 Broadcast:</div>
-              <div className="text-xs font-mono text-[#ffa657] font-semibold bg-[#161b22] p-1.5 rounded border border-[#30363d]">
+              <div className="text-sm font-bold text-slate-900">Client Host</div>
+              <div className="text-xs font-mono text-slate-500">Sends L3 Broadcast:</div>
+              <div className="text-xs font-mono text-amber-600 font-semibold bg-white p-1.5 rounded border border-slate-200">
                 255.255.255.255:67
               </div>
             </div>
 
             {/* Router / Relay Agent */}
-            <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] text-center space-y-2">
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#bc8cff]/10 text-[#bc8cff]">L3 Router (Gateway 192.168.10.1)</span>
+            <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow text-center space-y-2">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-violet-50 text-violet-600">L3 Router (Gateway 192.168.10.1)</span>
               <div className="text-2xl pt-1">🛣️</div>
-              <div className="text-sm font-bold text-[#e6edf3]">Interface G0/0.10</div>
+              <div className="text-sm font-bold text-slate-900">Interface G0/0.10</div>
               {relayMode === "with_relay" ? (
-                <div className="text-xs font-mono text-[#7ee787] bg-[#7ee787]/10 p-2 rounded border border-[#7ee787]/30">
+                <div className="text-xs font-mono text-emerald-600 bg-emerald-50 p-2 rounded border border-emerald-200">
                   ✓ Converts Broadcast to Unicast to 10.0.0.100 (GIADDR: 192.168.10.1)
                 </div>
               ) : (
-                <div className="text-xs font-mono text-[#ff7b72] bg-[#ff7b72]/10 p-2 rounded border border-[#ff7b72]/30">
+                <div className="text-xs font-mono text-rose-600 bg-rose-50 p-2 rounded border border-rose-200">
                   ✗ Router drops 255.255.255.255 broadcast packet! (Client times out)
                 </div>
               )}
             </div>
 
             {/* Central DHCP Server */}
-            <div className="p-4 rounded-xl bg-[#0d1117] border border-[#30363d] text-center space-y-2">
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#7ee787]/10 text-[#7ee787]">Central Management Subnet</span>
+            <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow text-center space-y-2">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-600">Central Management Subnet</span>
               <div className="text-2xl pt-1">🖥️</div>
-              <div className="text-sm font-bold text-[#e6edf3]">Central DHCP Server</div>
-              <div className="text-xs font-mono text-[#8b949e]">IP: 10.0.0.100</div>
+              <div className="text-sm font-bold text-slate-900">Central DHCP Server</div>
+              <div className="text-xs font-mono text-slate-500">IP: 10.0.0.100</div>
               {relayMode === "with_relay" ? (
-                <div className="text-xs font-mono text-[#7ee787] bg-[#161b22] p-1.5 rounded border border-[#30363d]">
+                <div className="text-xs font-mono text-emerald-600 bg-white p-1.5 rounded border border-slate-200">
                   Receives Unicast & Allocates from Pool 192.168.10.0/24
                 </div>
               ) : (
-                <div className="text-xs font-mono text-[#8b949e] bg-[#161b22] p-1.5 rounded border border-[#30363d]">
+                <div className="text-xs font-mono text-slate-500 bg-white p-1.5 rounded border border-slate-200">
                   Never receives DISCOVER packet
                 </div>
               )}
             </div>
           </div>
 
-          <div className="p-4 rounded-lg bg-[#0d1117] border border-[#30363d] text-xs text-[#8b949e] leading-relaxed">
-            <strong className="text-[#e6edf3] font-mono">Why DHCP Relay is Required:</strong> Routers drop Layer 3 broadcast packets (255.255.255.255) by default to prevent broadcast storms. 
-            When clients reside on separate VLANs from the central DHCP server, the router&apos;s interface acts as a <strong className="text-[#7ee787]">DHCP Relay Agent</strong>. 
-            It intercepts the local broadcast, sets the <code className="text-[#58a6ff]">GIADDR</code> (Gateway IP Address) field to <code className="text-[#58a6ff]">192.168.10.1</code>, and forwards a unicast packet across subnets directly to <code className="text-[#58a6ff]">10.0.0.100</code>.
+          <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-500 leading-relaxed">
+            <strong className="text-slate-900 font-mono">Why DHCP Relay is Required:</strong> Routers drop Layer 3 broadcast packets (255.255.255.255) by default to prevent broadcast storms. 
+            When clients reside on separate VLANs from the central DHCP server, the router&apos;s interface acts as a <strong className="text-emerald-600">DHCP Relay Agent</strong>. 
+            It intercepts the local broadcast, sets the <code className="text-indigo-600">GIADDR</code> (Gateway IP Address) field to <code className="text-indigo-600">192.168.10.1</code>, and forwards a unicast packet across subnets directly to <code className="text-indigo-600">10.0.0.100</code>.
           </div>
         </div>
 
         {/* Cisco IOS Config Code Block */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono text-[#e6edf3] font-semibold">Cisco IOS Relay Agent Configuration</span>
+            <span className="text-xs font-mono text-slate-900 font-semibold">Cisco IOS Relay Agent Configuration</span>
             <button
               onClick={copyCode}
-              className="px-3 py-1 rounded bg-[#30363d] hover:bg-[#30363d]/80 text-[#e6edf3] text-xs font-mono transition-colors cursor-pointer"
+              className="px-3 py-1 rounded bg-[#30363d] hover:bg-[#30363d]/80 text-slate-900 text-xs font-mono transition-colors cursor-pointer"
             >
               {copiedConfig ? "✓ Copied!" : "Copy Configuration"}
             </button>
           </div>
-          <pre className="p-4 rounded-lg bg-[#161b22] border border-[#30363d] text-xs font-mono text-[#7ee787] overflow-x-auto leading-relaxed">
+          <pre className="p-4 rounded-lg bg-white border border-slate-200 text-xs font-mono text-emerald-600 overflow-x-auto leading-relaxed">
             {ciscoRelayConfig}
           </pre>
         </div>
@@ -620,11 +620,11 @@ interface GigabitEthernet0/0.10
       {/* -------------------------------------------------------------------- */}
       {/* 3. ESSENTIAL DHCP OPTIONS */}
       {/* -------------------------------------------------------------------- */}
-      <div className="rounded-xl border border-[#30363d] bg-[#0d1117] p-5 sm:p-6 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#30363d] pb-4">
+      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 sm:p-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
           <div>
-            <span className="text-xs uppercase font-mono tracking-wider text-[#ffa657]">Network Configuration Parameters</span>
-            <h3 className="text-xl font-bold text-[#e6edf3]">
+            <span className="text-xs uppercase font-mono tracking-wider text-amber-600">Network Configuration Parameters</span>
+            <h3 className="text-xl font-bold text-slate-900">
               Essential DHCP Options
             </h3>
           </div>
@@ -637,8 +637,8 @@ interface GigabitEthernet0/0.10
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-2.5 py-1 rounded-md text-xs font-mono transition-colors cursor-pointer ${
                   selectedCategory === cat
-                    ? "bg-[#ffa657] text-[#0d1117] font-bold"
-                    : "bg-[#161b22] text-[#8b949e] border border-[#30363d] hover:text-[#e6edf3]"
+                    ? "bg-[#ffa657] text-slate-900 font-bold"
+                    : "bg-white text-slate-500 border border-slate-200 hover:text-slate-900"
                 }`}
               >
                 {cat}
@@ -652,33 +652,33 @@ interface GigabitEthernet0/0.10
           {filteredOptions.map((opt) => (
             <div
               key={opt.id}
-              className="p-4 rounded-xl bg-[#161b22] border border-[#30363d] hover:border-[#ffa657]/40 transition-colors space-y-3"
+              className="p-4 rounded-xl bg-white border border-slate-200 hover:border-amber-400/40 transition-colors space-y-3"
             >
-              <div className="flex items-center justify-between border-b border-[#30363d] pb-2">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-2">
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded bg-[#ffa657]/10 text-[#ffa657] text-xs font-mono font-bold border border-[#ffa657]/20">
+                  <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-600 text-xs font-mono font-bold border border-amber-400/20">
                     Option {opt.id}
                   </span>
-                  <span className="text-sm font-bold text-[#e6edf3]">{opt.name}</span>
+                  <span className="text-sm font-bold text-slate-900">{opt.name}</span>
                 </div>
-                <span className="text-[10px] font-mono text-[#8b949e]">{opt.hexCode}</span>
+                <span className="text-[10px] font-mono text-slate-500">{opt.hexCode}</span>
               </div>
 
-              <p className="text-xs text-[#8b949e] leading-relaxed">
+              <p className="text-xs text-slate-500 leading-relaxed">
                 {opt.description}
               </p>
 
-              <div className="space-y-1 text-[11px] font-mono bg-[#0d1117] p-2.5 rounded border border-[#30363d]">
-                <div className="text-[#7ee787]">
-                  Sample Payload: <span className="text-[#e6edf3]">{opt.sampleValue}</span>
+              <div className="space-y-1 text-[11px] font-mono bg-slate-50 p-2.5 rounded border border-slate-200">
+                <div className="text-emerald-600">
+                  Sample Payload: <span className="text-slate-900">{opt.sampleValue}</span>
                 </div>
-                <div className="text-[#8b949e]">
-                  Data Length: <span className="text-[#58a6ff]">{opt.length}</span> | {opt.rfc}
+                <div className="text-slate-500">
+                  Data Length: <span className="text-indigo-600">{opt.length}</span> | {opt.rfc}
                 </div>
               </div>
 
-              <div className="text-[11px] text-[#e6edf3] font-sans pt-1">
-                <strong className="text-[#ffa657]">Enterprise Use Case:</strong> {opt.enterpriseUseCase}
+              <div className="text-[11px] text-slate-900 font-sans pt-1">
+                <strong className="text-amber-600">Enterprise Use Case:</strong> {opt.enterpriseUseCase}
               </div>
             </div>
           ))}
@@ -688,11 +688,11 @@ interface GigabitEthernet0/0.10
       {/* -------------------------------------------------------------------- */}
       {/* 4. ENTERPRISE IPAM & POOL EXHAUSTION CALCULATOR */}
       {/* -------------------------------------------------------------------- */}
-      <div className="rounded-xl border border-[#30363d] bg-[#0d1117] p-5 sm:p-6 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#30363d] pb-4">
+      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 sm:p-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
           <div>
-            <span className="text-xs uppercase font-mono tracking-wider text-[#bc8cff]">Capacity & Planning</span>
-            <h3 className="text-xl font-bold text-[#e6edf3]">
+            <span className="text-xs uppercase font-mono tracking-wider text-violet-600">Capacity & Planning</span>
+            <h3 className="text-xl font-bold text-slate-900">
               Enterprise IPAM & Pool Exhaustion Calculator
             </h3>
           </div>
@@ -707,11 +707,11 @@ interface GigabitEthernet0/0.10
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Subnet CIDR */}
           <div className="space-y-1.5">
-            <label className="text-xs font-mono text-[#8b949e]">Subnet Size (CIDR Prefix)</label>
+            <label className="text-xs font-mono text-slate-500">Subnet Size (CIDR Prefix)</label>
             <select
               value={cidrPrefix}
               onChange={(e) => setCidrPrefix(Number(e.target.value))}
-              className="w-full p-2.5 rounded-lg bg-[#161b22] border border-[#30363d] text-xs font-mono text-[#e6edf3] focus:border-[#58a6ff] outline-none cursor-pointer"
+              className="w-full p-2.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 focus:border-indigo-400 outline-none cursor-pointer"
             >
               <option value={26}>/26 (64 Total IPs / 62 Usable)</option>
               <option value={25}>/25 (128 Total IPs / 126 Usable)</option>
@@ -723,40 +723,40 @@ interface GigabitEthernet0/0.10
 
           {/* Reserved IPs */}
           <div className="space-y-1.5">
-            <label className="text-xs font-mono text-[#8b949e]">Reserved Static IPs (Gateways/Servers)</label>
+            <label className="text-xs font-mono text-slate-500">Reserved Static IPs (Gateways/Servers)</label>
             <input
               type="number"
               min={0}
               max={usableTotalIps}
               value={reservedCount}
               onChange={(e) => setReservedCount(Math.max(0, Number(e.target.value)))}
-              className="w-full p-2.5 rounded-lg bg-[#161b22] border border-[#30363d] text-xs font-mono text-[#e6edf3] focus:border-[#58a6ff] outline-none"
+              className="w-full p-2.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 focus:border-indigo-400 outline-none"
             />
           </div>
 
           {/* Active Leases */}
           <div className="space-y-1.5">
-            <label className="text-xs font-mono text-[#8b949e]">Active Concurrent Leases</label>
+            <label className="text-xs font-mono text-slate-500">Active Concurrent Leases</label>
             <input
               type="number"
               min={0}
               max={totalSubnetIps}
               value={activeLeases}
               onChange={(e) => setActiveLeases(Math.max(0, Number(e.target.value)))}
-              className="w-full p-2.5 rounded-lg bg-[#161b22] border border-[#30363d] text-xs font-mono text-[#e6edf3] focus:border-[#58a6ff] outline-none"
+              className="w-full p-2.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 focus:border-indigo-400 outline-none"
             />
           </div>
 
           {/* Daily Churn Rate */}
           <div className="space-y-1.5">
-            <label className="text-xs font-mono text-[#8b949e]">Daily Device Turnover (New MACs/Day)</label>
+            <label className="text-xs font-mono text-slate-500">Daily Device Turnover (New MACs/Day)</label>
             <input
               type="number"
               min={0}
               max={500}
               value={dailyChurn}
               onChange={(e) => setDailyChurn(Math.max(0, Number(e.target.value)))}
-              className="w-full p-2.5 rounded-lg bg-[#161b22] border border-[#30363d] text-xs font-mono text-[#e6edf3] focus:border-[#58a6ff] outline-none"
+              className="w-full p-2.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 focus:border-indigo-400 outline-none"
             />
           </div>
         </div>
@@ -764,11 +764,11 @@ interface GigabitEthernet0/0.10
         {/* Visual Progress Bar */}
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs font-mono">
-            <span className="text-[#8b949e]">Pool Allocation Distribution</span>
-            <span className="text-[#e6edf3] font-bold">{utilizationPct.toFixed(1)}% Utilization</span>
+            <span className="text-slate-500">Pool Allocation Distribution</span>
+            <span className="text-slate-900 font-bold">{utilizationPct.toFixed(1)}% Utilization</span>
           </div>
 
-          <div className="w-full h-4 rounded-full bg-[#161b22] border border-[#30363d] overflow-hidden flex">
+          <div className="w-full h-4 rounded-full bg-white border border-slate-200 overflow-hidden flex">
             {/* Reserved Static */}
             <div
               style={{ width: `${(reservedCount / usableTotalIps) * 100}%` }}
@@ -778,13 +778,13 @@ interface GigabitEthernet0/0.10
             {/* Active Leases */}
             <div
               style={{ width: `${(activeLeases / usableTotalIps) * 100}%` }}
-              className="h-full bg-[#58a6ff] transition-all"
+              className="h-full bg-indigo-600 transition-all"
               title={`Active DHCP Leases: ${activeLeases}`}
             ></div>
             {/* Free IPs */}
             <div
               style={{ width: `${(freeIps / usableTotalIps) * 100}%` }}
-              className="h-full bg-[#7ee787]/40 transition-all"
+              className="h-full bg-emerald-500/40 transition-all"
               title={`Free Available Pool: ${freeIps}`}
             ></div>
           </div>
@@ -793,41 +793,41 @@ interface GigabitEthernet0/0.10
           <div className="flex flex-wrap gap-4 text-xs font-mono pt-1">
             <div className="flex items-center gap-1.5">
               <span className="w-3 h-3 rounded bg-[#ffa657]"></span>
-              <span className="text-[#8b949e]">Static Reserved: <strong className="text-[#e6edf3]">{reservedCount}</strong></span>
+              <span className="text-slate-500">Static Reserved: <strong className="text-slate-900">{reservedCount}</strong></span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded bg-[#58a6ff]"></span>
-              <span className="text-[#8b949e]">Active Leases: <strong className="text-[#e6edf3]">{activeLeases}</strong></span>
+              <span className="w-3 h-3 rounded bg-indigo-600"></span>
+              <span className="text-slate-500">Active Leases: <strong className="text-slate-900">{activeLeases}</strong></span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded bg-[#7ee787]/40"></span>
-              <span className="text-[#8b949e]">Free Available: <strong className="text-[#e6edf3]">{freeIps}</strong></span>
+              <span className="w-3 h-3 rounded bg-emerald-500/40"></span>
+              <span className="text-slate-500">Free Available: <strong className="text-slate-900">{freeIps}</strong></span>
             </div>
           </div>
         </div>
 
         {/* Calculated Metrics Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-          <div className="p-4 rounded-xl bg-[#161b22] border border-[#30363d] space-y-1">
-            <div className="text-xs font-mono text-[#8b949e]">Total Usable Pool Size</div>
-            <div className="text-2xl font-bold text-[#e6edf3] font-mono">{usablePoolSize} IPs</div>
-            <div className="text-[11px] text-[#8b949e]">
+          <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-1">
+            <div className="text-xs font-mono text-slate-500">Total Usable Pool Size</div>
+            <div className="text-2xl font-bold text-slate-900 font-mono">{usablePoolSize} IPs</div>
+            <div className="text-[11px] text-slate-500">
               Excluding network & broadcast address
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#161b22] border border-[#30363d] space-y-1">
-            <div className="text-xs font-mono text-[#8b949e]">Available Free Pool</div>
-            <div className="text-2xl font-bold text-[#7ee787] font-mono">{freeIps} IPs</div>
-            <div className="text-[11px] text-[#8b949e]">Unallocated available leases</div>
+          <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-1">
+            <div className="text-xs font-mono text-slate-500">Available Free Pool</div>
+            <div className="text-2xl font-bold text-emerald-600 font-mono">{freeIps} IPs</div>
+            <div className="text-[11px] text-slate-500">Unallocated available leases</div>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#161b22] border border-[#30363d] space-y-1">
-            <div className="text-xs font-mono text-[#8b949e]">Est. Time to Pool Exhaustion</div>
-            <div className="text-2xl font-bold text-[#bc8cff] font-mono">
+          <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-1">
+            <div className="text-xs font-mono text-slate-500">Est. Time to Pool Exhaustion</div>
+            <div className="text-2xl font-bold text-violet-600 font-mono">
               {freeIps > 0 ? `${hoursUntilExhaustion} Hours` : "Exhausted"}
             </div>
-            <div className="text-[11px] text-[#8b949e]">Based on daily device churn rate</div>
+            <div className="text-[11px] text-slate-500">Based on daily device churn rate</div>
           </div>
         </div>
 
@@ -836,9 +836,9 @@ interface GigabitEthernet0/0.10
           <div className="font-bold font-mono text-sm flex items-center gap-2">
             <span>💡 IPAM Health Recommendation</span>
           </div>
-          <p className="text-[#e6edf3]">{riskStatus.message}</p>
-          <div className="pt-2 border-t border-current/20 text-[11px] text-[#8b949e]">
-            <strong>Best Practice Tip:</strong> For guest Wi-Fi networks with high turnover, set lease duration to <strong className="text-[#e6edf3]">2 to 4 hours</strong>. For enterprise office desktops, set lease duration to <strong className="text-[#e6edf3]">8 days</strong>.
+          <p className="text-slate-900">{riskStatus.message}</p>
+          <div className="pt-2 border-t border-current/20 text-[11px] text-slate-500">
+            <strong>Best Practice Tip:</strong> For guest Wi-Fi networks with high turnover, set lease duration to <strong className="text-slate-900">2 to 4 hours</strong>. For enterprise office desktops, set lease duration to <strong className="text-slate-900">8 days</strong>.
           </div>
         </div>
       </div>

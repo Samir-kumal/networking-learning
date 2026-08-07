@@ -60,19 +60,19 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#0d1117]/90 backdrop-blur-md border-b border-[#30363d]">
+    <header className="sticky top-0 z-50 bg-slate-50/90 backdrop-blur-md border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a
             href="#"
-            className="flex items-center gap-2 font-bold text-lg text-[#e6edf3] hover:text-[#58a6ff] transition-colors"
+            className="flex items-center gap-2 font-bold text-lg text-slate-900 hover:text-indigo-600 transition-colors"
           >
-            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-[#58a6ff]/15 text-[#58a6ff] border border-[#58a6ff]/30 text-sm font-mono">
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-600/15 text-indigo-600 border border-indigo-200 text-sm font-mono">
               ⚡
             </span>
             <span className="tracking-tight">
-              Subnet<span className="text-[#58a6ff]">Lab</span>
+              Subnet<span className="text-indigo-600">Lab</span>
             </span>
           </a>
 
@@ -86,8 +86,8 @@ export default function Navbar() {
                   onClick={() => scrollTo(item.id)}
                   className={`px-2.5 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
                     isActive
-                      ? "bg-[#58a6ff]/15 text-[#58a6ff] border border-[#58a6ff]/30 font-semibold"
-                      : "text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#161b22]"
+                      ? "bg-indigo-600/15 text-indigo-600 border border-indigo-200 font-semibold"
+                      : "text-slate-500 hover:text-slate-900 hover:bg-white"
                   }`}
                 >
                   {item.label}
@@ -101,7 +101,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsMobileOpen(!isMobileOpen)}
               type="button"
-              className="p-2 rounded-md text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#161b22] focus:outline-none cursor-pointer"
+              className="p-2 rounded-md text-slate-500 hover:text-slate-900 hover:bg-white focus:outline-none cursor-pointer"
               aria-label="Toggle Navigation Menu"
             >
               {isMobileOpen ? (
@@ -120,7 +120,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {isMobileOpen && (
-        <div className="lg:hidden border-b border-[#30363d] bg-[#161b22]/95 backdrop-blur-lg px-4 pt-2 pb-4 space-y-1 max-h-[80vh] overflow-y-auto">
+        <div className="lg:hidden border-b border-slate-200 bg-white/95 backdrop-blur-lg px-4 pt-2 pb-4 space-y-1 max-h-[80vh] overflow-y-auto">
           {NAV_ITEMS.map((item) => {
             const isActive = activeId === item.id;
             return (
@@ -129,12 +129,12 @@ export default function Navbar() {
                 onClick={() => scrollTo(item.id)}
                 className={`w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-all flex items-center justify-between cursor-pointer ${
                   isActive
-                    ? "bg-[#58a6ff]/15 text-[#58a6ff] border border-[#58a6ff]/30 font-semibold"
-                    : "text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#1c2333]"
+                    ? "bg-indigo-600/15 text-indigo-600 border border-indigo-200 font-semibold"
+                    : "text-slate-500 hover:text-slate-900 hover:bg-slate-50"
                 }`}
               >
                 <span>{item.label}</span>
-                <span className="text-xs text-[#8b949e] font-mono">#{item.id}</span>
+                <span className="text-xs text-slate-500 font-mono">#{item.id}</span>
               </button>
             );
           })}

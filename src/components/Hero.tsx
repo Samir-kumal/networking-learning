@@ -1,46 +1,50 @@
 export default function Hero() {
   return (
-    <section className="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
-      {/* Decorative background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#58a6ff]/10 blur-3xl rounded-full pointer-events-none -z-10" />
+    <section className="relative rounded-2xl bg-gradient-to-br from-indigo-50 via-white to-slate-50 border border-slate-200 card-shadow px-8 py-14 text-center overflow-hidden">
+      {/* Soft radial background */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-64 bg-indigo-100/60 blur-3xl rounded-full pointer-events-none -z-10" />
 
-      {/* Pill Badge */}
-      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#161b22] border border-[#30363d] text-xs font-mono text-[#8b949e] mb-6">
-        <span className="w-2 h-2 rounded-full bg-[#7ee787] animate-pulse" />
+      {/* Badge */}
+      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 text-[11px] font-medium text-slate-500 mb-6 shadow-sm">
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-soft-pulse" />
         Interactive Subnetting & Network Architecture Guide
       </div>
 
-      {/* Hero Title */}
-      <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 text-[#e6edf3]">
-        <span className="bg-gradient-to-r from-[#58a6ff] via-[#7ee787] to-[#bc8cff] bg-clip-text text-transparent">
-          Mastering Subnets
-        </span>
+      {/* Title */}
+      <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-4">
+        Mastering{" "}
+        <span className="text-indigo-600">Subnets</span>
       </h1>
 
-      {/* Hero Subtitle */}
-      <p className="max-w-2xl mx-auto text-base sm:text-lg text-[#8b949e] leading-relaxed mb-8">
-        From binary bitwise operations and CIDR calculations to VLSM, VLAN isolation, cloud VPC design, and firewall rules—master IP networking through interactive visualizations and real-time drills.
+      {/* Subtitle */}
+      <p className="max-w-2xl mx-auto text-base text-slate-500 leading-relaxed mb-8">
+        From binary bitwise operations and CIDR calculations to VLSM, VLAN isolation,
+        cloud VPC design, and firewall rules — master IP networking through interactive
+        visualisations and real-time drills.
       </p>
 
-      {/* Feature Pills */}
-      <div className="flex flex-wrap justify-center gap-2 mb-10 text-xs font-mono text-[#8b949e]">
-        <span className="px-2.5 py-1 rounded-md bg-[#1c2333] border border-[#30363d]">IPv4 & IPv6</span>
-        <span className="px-2.5 py-1 rounded-md bg-[#1c2333] border border-[#30363d]">Bitwise AND</span>
-        <span className="px-2.5 py-1 rounded-md bg-[#1c2333] border border-[#30363d]">VLSM Tree</span>
-        <span className="px-2.5 py-1 rounded-md bg-[#1c2333] border border-[#30363d]">AWS / Azure VPC</span>
-        <span className="px-2.5 py-1 rounded-md bg-[#1c2333] border border-[#30363d]">Drill Generator</span>
+      {/* Feature tags */}
+      <div className="flex flex-wrap justify-center gap-2 mb-10 text-[12px]">
+        {["IPv4 & IPv6", "Bitwise AND", "VLSM Tree", "AWS / Azure VPC", "Drill Generator", "Wireshark PCAP"].map((tag) => (
+          <span
+            key={tag}
+            className="px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-600 font-medium"
+          >
+            {tag}
+          </span>
+        ))}
       </div>
 
-      {/* CTA Button */}
-      <div className="flex justify-center">
-        <a
-          href="#basics"
-          className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#58a6ff] hover:bg-[#58a6ff]/90 text-[#0d1117] font-semibold text-sm transition-all shadow-lg shadow-[#58a6ff]/20 hover:scale-[1.02] active:scale-[0.98]"
-        >
-          <span>Start Learning</span>
-          <span className="text-base font-mono">↓</span>
-        </a>
-      </div>
+      {/* CTA */}
+      <a
+        href="#basics"
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition-all shadow-md hover:-translate-y-px active:scale-95"
+      >
+        Start Learning
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </a>
     </section>
   );
 }
