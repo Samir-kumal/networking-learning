@@ -10,6 +10,14 @@ export interface TrackCardProps {
   moduleCount: number;
   techStack: string[];
   accentColor?: string;
+  accentClass?: string;
+}
+
+// Maps a semantic difficulty to a small badge style
+function difficultyStyle(d: string): string {
+  if (d.includes("Advanced"))    return "bg-rose-50 text-rose-700 border-rose-200";
+  if (d.includes("Intermediate"))return "bg-amber-50 text-amber-700 border-amber-200";
+  return                                  "bg-emerald-50 text-emerald-700 border-emerald-200";
 }
 
 export default function TrackCard({
@@ -20,61 +28,46 @@ export default function TrackCard({
   difficulty,
   moduleCount,
   techStack,
-  accentColor = "#00f0ff",
+  accentClass = "bg-indigo-600",
 }: TrackCardProps) {
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl bg-[#0e1420] border border-[#202c40] p-6 sm:p-7 transition-all duration-300 hover:border-[#00f0ff]/50 shadow-xl hover:shadow-[0_0_25px_rgba(0,240,255,0.15)] hover:-translate-y-1 overflow-hidden">
-      {/* Subtle Glowing Top Accent Border */}
-      <div
-        className="absolute top-0 left-0 right-0 h-1 transition-all group-hover:shadow-[0_0_10px_#00f0ff]"
-        style={{ backgroundColor: accentColor }}
-      />
+    <div className="group relative flex flex-col justify-between rounded-2xl bg-white border border-slate-200 p-6 transition-all duration-200 card-shadow hover:card-shadow-hover hover:-translate-y-0.5 hover:border-slate-300 overflow-hidden">
 
-      {/* Ambient Radial Hover Glow */}
-      <div
-        className="absolute -right-16 -bottom-16 w-48 h-48 rounded-full blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"
-        style={{ backgroundColor: accentColor }}
-      />
+      {/* Thin top accent line — changes per track via accentClass */}
+      <div className={`absolute top-0 left-0 right-0 h-0.5 ${accentClass} opacity-80`} />
 
-      <div>
-        {/* Top Header Row: Icon, Badges */}
-        <div className="flex items-center justify-between gap-3 mb-5">
-          <div
-            className="w-12 h-12 rounded-xl bg-[#141c2c] border border-[#202c40] flex items-center justify-center text-2xl shadow-inner group-hover:scale-110 group-hover:border-[#00f0ff]/40 transition-all"
-            style={{ color: accentColor }}
-          >
+      <div className="space-y-5">
+        {/* Icon + badges row */}
+        <div className="flex items-start justify-between gap-4">
+          <div className="w-11 h-11 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-slate-200 transition-colors">
             {icon}
           </div>
-
-          <div className="flex items-center gap-2 font-mono text-[11px]">
-            <span className="px-2.5 py-1 rounded-md bg-[#141c2c] text-[#f0f6fc] border border-[#202c40] font-semibold">
+          <div className="flex items-center gap-2 flex-wrap justify-end">
+            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${difficultyStyle(difficulty)}`}>
               {difficulty}
             </span>
-            <span
-              className="px-2.5 py-1 rounded-md font-bold text-[#0d1117]"
-              style={{ backgroundColor: accentColor }}
-            >
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full border bg-slate-50 text-slate-600 border-slate-200">
               {moduleCount} Modules
             </span>
           </div>
         </div>
 
-        {/* Track Title */}
-        <h3 className="text-xl font-bold font-mono text-[#f0f6fc] group-hover:text-[#00f0ff] transition-colors mb-3">
-          {name}
-        </h3>
+        {/* Title */}
+        <div>
+          <h3 className="text-[15px] font-semibold text-slate-900 leading-snug group-hover:text-indigo-700 transition-colors">
+            {name}
+          </h3>
+          <p className="mt-1.5 text-[13px] text-slate-500 leading-relaxed">
+            {description}
+          </p>
+        </div>
 
-        {/* Track Description */}
-        <p className="text-xs sm:text-sm text-[#8b949e] leading-relaxed mb-6">
-          {description}
-        </p>
-
-        {/* Tech Stack Pills */}
-        <div className="flex flex-wrap gap-1.5 mb-6">
+        {/* Tech stack chips */}
+        <div className="flex flex-wrap gap-1.5">
           {techStack.map((tech) => (
             <span
               key={tech}
-              className="px-2 py-0.5 rounded bg-[#141c2c] border border-[#202c40] text-[10px] font-mono text-[#8b949e] group-hover:text-[#f0f6fc] transition"
+              className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200"
             >
               {tech}
             </span>
@@ -82,20 +75,25 @@ export default function TrackCard({
         </div>
       </div>
 
-      {/* Footer Launch Action Button */}
-      <div className="pt-4 border-t border-[#202c40] flex items-center justify-between">
-        <div className="flex items-center gap-1.5 text-[10px] font-mono text-[#8b949e]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00ff9d] animate-pulse" />
-          <span>Lab Ready</span>
+      {/* Footer */}
+      <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+        <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          Ready
         </div>
-
         <Link
           href={href}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold text-[#0d1117] transition-all shadow-md group-hover:scale-105"
-          style={{ backgroundColor: accentColor }}
+          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-indigo-600 hover:text-indigo-800 transition-colors group/btn"
         >
-          <span>Launch Track</span>
-          <span className="text-sm font-extrabold">▶</span>
+          Open Track
+          <svg
+            className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
         </Link>
       </div>
     </div>

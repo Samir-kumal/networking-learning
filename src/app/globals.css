@@ -2,92 +2,115 @@
 
 @layer base {
   :root {
-    --bg-void: #080c14;
-    --bg-surface: #0e1420;
-    --bg-card: #141c2c;
-    --border-subtle: #202c40;
-    --border-highlight: #00f0ff;
-    --accent-cyan: #00f0ff;
-    --accent-green: #00ff9d;
-    --accent-amber: #ffb700;
-    --accent-red: #ff3860;
-    --accent-purple: #a855f7;
-    --text-primary: #f0f6fc;
-    --text-muted: #8b949e;
-    --radius-card: 16px;
+    /* Backgrounds */
+    --bg-base:    #ffffff;
+    --bg-subtle:  #f8fafc;
+    --bg-muted:   #f1f5f9;
+    --bg-overlay: #e2e8f0;
+
+    /* Borders */
+    --border-default: #e2e8f0;
+    --border-strong:  #cbd5e1;
+
+    /* Text */
+    --text-primary:   #0f172a;
+    --text-secondary: #475569;
+    --text-muted:     #94a3b8;
+    --text-inverse:   #ffffff;
+
+    /* Brand / Accent */
+    --accent-indigo:  #4f46e5;
+    --accent-indigo-h:#4338ca;
+    --accent-emerald: #059669;
+    --accent-amber:   #d97706;
+    --accent-rose:    #e11d48;
+    --accent-violet:  #7c3aed;
+    --accent-sky:     #0284c7;
   }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--bg-void);
-    color: var(--text-primary);
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    background-color: var(--bg-void);
+    background: var(--bg-base);
     color: var(--text-primary);
-    overflow-x: hidden;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+  }
+
+  ::selection {
+    background: #e0e7ff;
+    color: #3730a3;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-subtle); }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+}
+
+@layer utilities {
+  /* Subtle dot grid for page backgrounds */
+  .bg-dot-grid {
+    background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Card elevation levels */
+  .card-shadow {
+    box-shadow:
+      0 1px 3px 0 rgb(0 0 0 / 0.04),
+      0 1px 2px -1px rgb(0 0 0 / 0.04);
+  }
+  .card-shadow-md {
+    box-shadow:
+      0 4px 6px -1px rgb(0 0 0 / 0.05),
+      0 2px 4px -2px rgb(0 0 0 / 0.05);
+  }
+  .card-shadow-hover {
+    box-shadow:
+      0 10px 15px -3px rgb(0 0 0 / 0.07),
+      0 4px 6px -4px rgb(0 0 0 / 0.07);
+  }
+
+  /* Status dot */
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-emerald);
   }
 }
 
-/* Custom Background Grid Pattern */
-.bg-cyber-grid {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(32, 44, 64, 0.25) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(32, 44, 64, 0.25) 1px, transparent 1px);
+/* Smooth focus ring for accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent-indigo);
+  outline-offset: 2px;
+  border-radius: 6px;
 }
 
-.bg-radial-glow {
-  background: radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.12) 0%, rgba(168, 85, 247, 0.06) 45%, transparent 70%);
+/* Fade-in for page content */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Neon Glow Utilities */
-.text-glow-cyan {
-  text-shadow: 0 0 12px rgba(0, 240, 255, 0.6), 0 0 24px rgba(0, 240, 255, 0.3);
+.animate-fade-up {
+  animation: fade-up 0.4s ease both;
 }
 
-.text-glow-green {
-  text-shadow: 0 0 12px rgba(0, 255, 157, 0.6), 0 0 24px rgba(0, 255, 157, 0.3);
+/* Subtle pulse for live indicators */
+@keyframes soft-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.45; }
 }
 
-.box-glow-cyan {
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.05);
-}
-
-.box-glow-green {
-  box-shadow: 0 0 20px rgba(0, 255, 157, 0.2), inset 0 0 15px rgba(0, 255, 157, 0.05);
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #080c14;
-}
-::-webkit-scrollbar-thumb {
-  background: #202c40;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #00f0ff;
-}
-
-/* Keyframe Animations */
-@keyframes neon-pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.05);
-  }
-}
-
-.animate-neon-pulse {
-  animation: neon-pulse 3s infinite ease-in-out;
+.animate-soft-pulse {
+  animation: soft-pulse 2.5s ease-in-out infinite;
 }
