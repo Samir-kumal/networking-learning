@@ -72,8 +72,34 @@ export default function SecIncidentResponseSection() {
 
   const scenario = ALERT_SCENARIOS.find((item) => item.id === scenarioId) ?? ALERT_SCENARIOS[0];
 
+  const handleScenarioChange = (value: string) => {
+    setScenarioId(value);
+    setResult(null);
+  };
+
+  const handleSeverityChange = (value: Severity) => {
+    setSeverity(value);
+    setResult(null);
+  };
+
+  const handleAffectedAssetsChange = (value: number) => {
+    setAffectedAssets(value);
+    setResult(null);
+  };
+
+  const handleContainedChange = (value: boolean) => {
+    setContained(value);
+    setResult(null);
+  };
+
+  const handleEvidencePreservedChange = (value: boolean) => {
+    setEvidencePreserved(value);
+    setResult(null);
+  };
+
   const toggleLifecycleStep = (step: LifecycleStep) => {
     setCompletedSteps((current) => current.includes(step) ? current.filter((item) => item !== step) : [...current, step]);
+    setResult(null);
   };
 
   const handleScore = (event: React.FormEvent<HTMLFormElement>) => {
@@ -106,7 +132,7 @@ export default function SecIncidentResponseSection() {
             <select
               id="sec-ir-scenario"
               value={scenarioId}
-              onChange={(event) => setScenarioId(event.target.value)}
+              onChange={(event) => handleScenarioChange(event.target.value)}
               className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900"
             >
               {ALERT_SCENARIOS.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}
@@ -134,7 +160,7 @@ export default function SecIncidentResponseSection() {
                     name="sec-ir-severity"
                     value={option.value}
                     checked={severity === option.value}
-                    onChange={() => setSeverity(option.value)}
+                    onChange={() => handleSeverityChange(option.value)}
                     className="mt-0.5 accent-amber-600"
                   />
                   <span><span className="block font-semibold">{option.label}</span><span className="mt-0.5 block text-[11px] opacity-80">{option.description}</span></span>
@@ -147,17 +173,17 @@ export default function SecIncidentResponseSection() {
             <label htmlFor="sec-ir-assets" className="mb-1 flex items-center justify-between text-xs font-semibold text-slate-700">
               <span>Affected asset count</span><span className="font-mono text-amber-700">{affectedAssets}</span>
             </label>
-            <input id="sec-ir-assets" type="range" min="0" max="10" value={affectedAssets} onChange={(event) => setAffectedAssets(Number(event.target.value))} className="w-full accent-amber-600" />
+            <input id="sec-ir-assets" type="range" min="0" max="10" value={affectedAssets} onChange={(event) => handleAffectedAssetsChange(Number(event.target.value))} className="w-full accent-amber-600" />
             <div className="mt-1 flex justify-between text-[10px] text-slate-400"><span>0 assets</span><span>10 assets</span></div>
           </div>
 
           <div className="space-y-2">
             <label htmlFor="sec-ir-contained" className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700">
-              <input id="sec-ir-contained" type="checkbox" checked={contained} onChange={(event) => setContained(event.target.checked)} className="mt-0.5 accent-emerald-600" />
+              <input id="sec-ir-contained" type="checkbox" checked={contained} onChange={(event) => handleContainedChange(event.target.checked)} className="mt-0.5 accent-emerald-600" />
               <span><span className="block font-semibold text-slate-800">Containment complete</span><span className="mt-0.5 block text-slate-500">Affected assets are isolated without destroying evidence.</span></span>
             </label>
             <label htmlFor="sec-ir-evidence" className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700">
-              <input id="sec-ir-evidence" type="checkbox" checked={evidencePreserved} onChange={(event) => setEvidencePreserved(event.target.checked)} className="mt-0.5 accent-emerald-600" />
+              <input id="sec-ir-evidence" type="checkbox" checked={evidencePreserved} onChange={(event) => handleEvidencePreservedChange(event.target.checked)} className="mt-0.5 accent-emerald-600" />
               <span><span className="block font-semibold text-slate-800">Forensic evidence preserved</span><span className="mt-0.5 block text-slate-500">Capture logs, volatile context, and chain-of-custody details before eradication.</span></span>
             </label>
           </div>

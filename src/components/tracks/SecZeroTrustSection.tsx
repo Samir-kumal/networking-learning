@@ -61,6 +61,36 @@ export default function SecZeroTrustSection() {
   const [action, setAction] = useState<Action>("read");
   const [evaluation, setEvaluation] = useState<ZeroTrustEvaluation | null>(null);
 
+  const handleIdentityVerifiedChange = (value: boolean) => {
+    setIdentityVerified(value);
+    setEvaluation(null);
+  };
+
+  const handleDeviceCompliantChange = (value: boolean) => {
+    setDeviceCompliant(value);
+    setEvaluation(null);
+  };
+
+  const handleSourceZoneChange = (value: SourceZone) => {
+    setSourceZone(value);
+    setEvaluation(null);
+  };
+
+  const handleDestinationChange = (value: DestinationZone) => {
+    setDestination(value);
+    setEvaluation(null);
+  };
+
+  const handleMfaChange = (value: boolean) => {
+    setMfa(value);
+    setEvaluation(null);
+  };
+
+  const handleActionChange = (value: Action) => {
+    setAction(value);
+    setEvaluation(null);
+  };
+
   const handleEvaluate = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setEvaluation(evaluateZeroTrustRequest({ identityVerified, deviceCompliant, sourceZone, destination, mfa }));
@@ -91,7 +121,7 @@ export default function SecZeroTrustSection() {
               <select
                 id="sec-zero-trust-source"
                 value={sourceZone}
-                onChange={(event) => setSourceZone(event.target.value as SourceZone)}
+                onChange={(event) => handleSourceZoneChange(event.target.value as SourceZone)}
                 className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900"
               >
                 {SOURCE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
@@ -103,7 +133,7 @@ export default function SecZeroTrustSection() {
               <select
                 id="sec-zero-trust-destination"
                 value={destination}
-                onChange={(event) => setDestination(event.target.value as DestinationZone)}
+                onChange={(event) => handleDestinationChange(event.target.value as DestinationZone)}
                 className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900"
               >
                 {DESTINATION_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
@@ -115,7 +145,7 @@ export default function SecZeroTrustSection() {
               <select
                 id="sec-zero-trust-action"
                 value={action}
-                onChange={(event) => setAction(event.target.value as Action)}
+                onChange={(event) => handleActionChange(event.target.value as Action)}
                 className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900"
               >
                 {ACTION_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
@@ -131,7 +161,7 @@ export default function SecZeroTrustSection() {
                 id="sec-zero-trust-identity"
                 type="checkbox"
                 checked={identityVerified}
-                onChange={(event) => setIdentityVerified(event.target.checked)}
+                onChange={(event) => handleIdentityVerifiedChange(event.target.checked)}
                 className="mt-0.5 accent-violet-600"
               />
               <span>
@@ -144,7 +174,7 @@ export default function SecZeroTrustSection() {
                 id="sec-zero-trust-device"
                 type="checkbox"
                 checked={deviceCompliant}
-                onChange={(event) => setDeviceCompliant(event.target.checked)}
+                onChange={(event) => handleDeviceCompliantChange(event.target.checked)}
                 className="mt-0.5 accent-violet-600"
               />
               <span>
@@ -157,7 +187,7 @@ export default function SecZeroTrustSection() {
                 id="sec-zero-trust-mfa"
                 type="checkbox"
                 checked={mfa}
-                onChange={(event) => setMfa(event.target.checked)}
+                onChange={(event) => handleMfaChange(event.target.checked)}
                 className="mt-0.5 accent-violet-600"
               />
               <span>

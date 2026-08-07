@@ -104,6 +104,31 @@ export default function SecIamSection() {
   const [source, setSource] = useState<Source>("corporate");
   const [evaluation, setEvaluation] = useState<Evaluation | null>(null);
 
+  const handlePrincipalChange = (value: Principal) => {
+    setPrincipal(value);
+    setEvaluation(null);
+  };
+
+  const handleActionChange = (value: Action) => {
+    setAction(value);
+    setEvaluation(null);
+  };
+
+  const handleResourceChange = (value: Resource) => {
+    setResource(value);
+    setEvaluation(null);
+  };
+
+  const handleMfaChange = (value: boolean) => {
+    setMfa(value);
+    setEvaluation(null);
+  };
+
+  const handleSourceChange = (value: Source) => {
+    setSource(value);
+    setEvaluation(null);
+  };
+
   const request: IamRequest = { principal, action, resource, mfa, source };
 
   const handleEvaluate = (event: React.FormEvent<HTMLFormElement>) => {
@@ -132,7 +157,7 @@ export default function SecIamSection() {
               <select
                 id="sec-iam-principal"
                 value={principal}
-                onChange={(event) => setPrincipal(event.target.value as Principal)}
+                onChange={(event) => handlePrincipalChange(event.target.value as Principal)}
                 className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900"
               >
                 {PRINCIPAL_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
@@ -143,7 +168,7 @@ export default function SecIamSection() {
               <select
                 id="sec-iam-action"
                 value={action}
-                onChange={(event) => setAction(event.target.value as Action)}
+                onChange={(event) => handleActionChange(event.target.value as Action)}
                 className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900"
               >
                 {ACTION_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
@@ -154,7 +179,7 @@ export default function SecIamSection() {
               <select
                 id="sec-iam-resource"
                 value={resource}
-                onChange={(event) => setResource(event.target.value as Resource)}
+                onChange={(event) => handleResourceChange(event.target.value as Resource)}
                 className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900"
               >
                 {RESOURCE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
@@ -165,7 +190,7 @@ export default function SecIamSection() {
               <select
                 id="sec-iam-source"
                 value={source}
-                onChange={(event) => setSource(event.target.value as Source)}
+                onChange={(event) => handleSourceChange(event.target.value as Source)}
                 className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900"
               >
                 {SOURCE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
@@ -178,7 +203,7 @@ export default function SecIamSection() {
               id="sec-iam-mfa"
               type="checkbox"
               checked={mfa}
-              onChange={(event) => setMfa(event.target.checked)}
+              onChange={(event) => handleMfaChange(event.target.checked)}
               className="mt-0.5 accent-indigo-600"
             />
             <span>

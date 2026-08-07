@@ -37,6 +37,31 @@ export default function SecApiSecuritySection() {
   const [rateWithinLimit, setRateWithinLimit] = useState(true);
   const [evaluation, setEvaluation] = useState<ApiEvaluation | null>(null);
 
+  const handleEndpointChange = (value: ApiEndpoint) => {
+    setEndpoint(value);
+    setEvaluation(null);
+  };
+
+  const handleAuthenticatedChange = (value: boolean) => {
+    setAuthenticated(value);
+    setEvaluation(null);
+  };
+
+  const handleOwnsObjectChange = (value: boolean) => {
+    setOwnsObject(value);
+    setEvaluation(null);
+  };
+
+  const handleBodyValidChange = (value: boolean) => {
+    setBodyValid(value);
+    setEvaluation(null);
+  };
+
+  const handleRateWithinLimitChange = (value: boolean) => {
+    setRateWithinLimit(value);
+    setEvaluation(null);
+  };
+
   const handleEvaluate = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setEvaluation(evaluateApiRequest({ endpoint, authenticated, ownsObject, bodyValid, rateWithinLimit }));
@@ -66,7 +91,7 @@ export default function SecApiSecuritySection() {
             <select
               id="sec-api-endpoint"
               value={endpoint}
-              onChange={(event) => setEndpoint(event.target.value as ApiEndpoint)}
+              onChange={(event) => handleEndpointChange(event.target.value as ApiEndpoint)}
               className={SELECT_CLASSES}
             >
               {ENDPOINT_OPTIONS.map((option) => (
@@ -83,7 +108,7 @@ export default function SecApiSecuritySection() {
                 id="sec-api-authenticated"
                 type="checkbox"
                 checked={authenticated}
-                onChange={(event) => setAuthenticated(event.target.checked)}
+                onChange={(event) => handleAuthenticatedChange(event.target.checked)}
                 className="mt-0.5 accent-cyan-600"
               />
               <span>
@@ -96,7 +121,7 @@ export default function SecApiSecuritySection() {
                 id="sec-api-ownership"
                 type="checkbox"
                 checked={ownsObject}
-                onChange={(event) => setOwnsObject(event.target.checked)}
+                onChange={(event) => handleOwnsObjectChange(event.target.checked)}
                 className="mt-0.5 accent-cyan-600"
               />
               <span>
@@ -109,7 +134,7 @@ export default function SecApiSecuritySection() {
                 id="sec-api-body"
                 type="checkbox"
                 checked={bodyValid}
-                onChange={(event) => setBodyValid(event.target.checked)}
+                onChange={(event) => handleBodyValidChange(event.target.checked)}
                 className="mt-0.5 accent-cyan-600"
               />
               <span>
@@ -122,7 +147,7 @@ export default function SecApiSecuritySection() {
                 id="sec-api-rate"
                 type="checkbox"
                 checked={rateWithinLimit}
-                onChange={(event) => setRateWithinLimit(event.target.checked)}
+                onChange={(event) => handleRateWithinLimitChange(event.target.checked)}
                 className="mt-0.5 accent-cyan-600"
               />
               <span>
