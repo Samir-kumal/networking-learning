@@ -15,24 +15,6 @@ import SecContainerSecuritySection from "./SecContainerSecuritySection";
 import SecCloudPostureSection from "./SecCloudPostureSection";
 import SecPrivacyComplianceSection from "./SecPrivacyComplianceSection";
 
-const NAV_LINKS = [
-  { href: "#sec-scanners", label: "SAST/DAST & Container Scans" },
-  { href: "#sec-owasp", label: "OWASP Top 10" },
-  { href: "#sec-vault", label: "Secrets Management" },
-  { href: "#sec-waf", label: "WAF Rules" },
-  { href: "#sec-threat-model", label: "Threat Modeling & STRIDE" },
-  { href: "#sec-iam", label: "IAM & Least Privilege" },
-  { href: "#sec-api-security", label: "API Security" },
-  { href: "#sec-zero-trust", label: "Zero Trust Segmentation" },
-  { href: "#sec-incident-response", label: "Incident Response & SOC" },
-  { href: "#sec-siem", label: "SIEM Detection & Logs" },
-  { href: "#sec-supply-chain", label: "Supply Chain & SBOM" },
-  { href: "#sec-container-security", label: "Container Security" },
-  { href: "#sec-cloud-posture", label: "Cloud Security Posture" },
-  { href: "#sec-privacy-compliance", label: "Privacy & Compliance" },
-];
-
-
 export default function AppSecSection() {
   return (
     <section className="space-y-8 text-slate-900">
@@ -56,21 +38,6 @@ export default function AppSecSection() {
               and privacy compliance.
             </p>
           </div>
-        </div>
-      </div>
-
-      {/* Sticky In-Page Nav */}
-      <div className="sticky top-20 z-20 bg-white border-b border-slate-200 shadow-sm -mx-4 px-4 sm:-mx-6 sm:px-6">
-        <div className="flex items-center gap-1 py-2 overflow-x-auto">
-          {NAV_LINKS.map(({ href, label }) => (
-            <a
-              key={href}
-              href={href}
-              className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors whitespace-nowrap"
-            >
-              {label}
-            </a>
-          ))}
         </div>
       </div>
 
