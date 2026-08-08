@@ -344,15 +344,15 @@ export default function SecOwaspSection() {
   return (
     <section id="sec-owasp" className="scroll-mt-20 space-y-6">
       {/* Section Header Card */}
-      <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow flex flex-col sm:flex-row sm:items-center gap-3">
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-600 border border-rose-200 text-xs font-mono font-bold shrink-0">
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow flex flex-col sm:flex-row sm:items-center gap-3">
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700 text-xs font-mono font-bold shrink-0">
           S2 · OWASP Top 10 Matrix
         </span>
         <div>
-          <h3 className="text-lg font-bold text-slate-900">
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
             OWASP Top 10 Vulnerability Matrix &amp; Remediation Lab
           </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Select any OWASP Top 10 category to view real-world exploit
             scenarios, compare vulnerable vs remediated code, and run
             interactive exploit tests.
@@ -374,11 +374,11 @@ export default function SecOwaspSection() {
               }}
               className={`p-3 rounded-xl border text-left transition-all ${
                 isSelected
-                  ? "bg-indigo-600/15 border-indigo-400 text-slate-900 shadow-md shadow-indigo-100"
-                  : "bg-slate-50 border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-white"
+                  ? "bg-indigo-600/15 border-indigo-400 text-slate-900 dark:text-slate-100 shadow-md shadow-indigo-100"
+                  : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 hover:bg-white dark:hover:bg-slate-800"
               }`}
             >
-              <div className="text-[10px] font-mono text-indigo-600 font-bold">
+              <div className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 font-bold">
                 {item.code}
               </div>
               <div className="text-xs font-bold truncate mt-0.5">
@@ -390,22 +390,22 @@ export default function SecOwaspSection() {
       </div>
 
       {/* Selected OWASP Deep Dive */}
-      <div className="p-6 rounded-xl bg-white border border-slate-200 card-shadow space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+      <div className="p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
-            <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-200 text-xs font-mono font-semibold">
+            <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700 text-xs font-mono font-semibold">
               {activeOwasp.code}
             </span>
-            <h4 className="text-xl font-extrabold text-slate-900 mt-1">
+            <h4 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 mt-1">
               {activeOwasp.title}
             </h4>
           </div>
-          <div className="text-xs text-amber-600 font-mono bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-400/20 max-w-md">
+          <div className="text-xs text-amber-600 dark:text-amber-400 font-mono bg-amber-50 dark:bg-amber-900/30 px-3 py-1.5 rounded-lg border border-amber-400/20 max-w-md">
             <strong>Impact:</strong> {activeOwasp.impact}
           </div>
         </div>
 
-        <p className="text-xs text-slate-900 leading-relaxed">
+        <p className="text-xs text-slate-900 dark:text-slate-100 leading-relaxed">
           {activeOwasp.description}
         </p>
 
@@ -414,10 +414,10 @@ export default function SecOwaspSection() {
           {/* Vulnerable Code */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-rose-600 flex items-center gap-1">
+              <span className="font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1">
                 <span>❌</span> Vulnerable Implementation
               </span>
-              <span className="text-[10px] text-slate-500 font-mono">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
                 UNSECURE
               </span>
             </div>
@@ -430,10 +430,10 @@ export default function SecOwaspSection() {
           {/* Remediated Code */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-emerald-600 flex items-center gap-1">
+              <span className="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
                 <span>✅</span> Remediated Secure Implementation
               </span>
-              <span className="text-[10px] text-emerald-600 font-mono">
+              <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono">
                 HARDENED
               </span>
             </div>
@@ -445,17 +445,17 @@ export default function SecOwaspSection() {
         </div>
 
         {/* Key Defenses */}
-        <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow space-y-2">
-          <h5 className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+        <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-2">
+          <h5 className="text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
             <span>🛡️</span> Key Architectural Defenses:
           </h5>
-          <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-slate-500">
+          <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-slate-500 dark:text-slate-400">
             {activeOwasp.keyDefenses.map((def) => (
               <li
                 key={def}
-                className="p-2 rounded bg-white border border-slate-200 text-slate-900 flex items-start gap-2"
+                className="p-2 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 flex items-start gap-2"
               >
-                <span className="text-indigo-600 font-bold">•</span>
+                <span className="text-indigo-600 dark:text-indigo-400 font-bold">•</span>
                 <span>{def}</span>
               </li>
             ))}
@@ -463,26 +463,26 @@ export default function SecOwaspSection() {
         </div>
 
         {/* Exploit Simulator */}
-        <div className="p-5 rounded-xl bg-white border border-slate-200 space-y-4">
-          <h5 className="text-xs font-bold text-slate-900 flex items-center gap-2">
+        <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-4">
+          <h5 className="text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span>🧪</span> Exploit / Defense Interactive Tester
           </h5>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="sm:col-span-2">
-              <label className="block text-xs text-slate-500 mb-1">
+              <label className="block text-xs text-slate-500 dark:text-slate-400 mb-1">
                 Test Request Payload:
               </label>
               <input
                 type="text"
                 value={testPayload}
                 onChange={(e) => setTestPayload(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono"
+                className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 font-mono"
               />
             </div>
 
             <div>
-              <label className="block text-xs text-slate-500 mb-1">
+              <label className="block text-xs text-slate-500 dark:text-slate-400 mb-1">
                 Target Handler Mode:
               </label>
               <select
@@ -490,7 +490,7 @@ export default function SecOwaspSection() {
                 onChange={(e) =>
                   setTestMode(e.target.value as "vulnerable" | "remediated")
                 }
-                className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono"
+                className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 font-mono"
               >
                 <option value="vulnerable">Vulnerable Handler</option>
                 <option value="remediated">Remediated Handler</option>
@@ -501,13 +501,13 @@ export default function SecOwaspSection() {
           {/* Fix Issue 3: text-white instead of text-slate-900 */}
           <button
             onClick={handleTestExploit}
-            className="px-4 py-2 rounded-lg bg-indigo-600 text-white font-semibold text-xs hover:bg-indigo-700 transition-all"
+            className="px-4 py-2 rounded-lg bg-indigo-600 text-white font-semibold text-xs hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all"
           >
             Execute Test Request
           </button>
 
           {testOutput && (
-            <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono whitespace-pre-wrap text-slate-900">
+            <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs font-mono whitespace-pre-wrap text-slate-900 dark:text-slate-100">
               {testOutput}
             </div>
           )}

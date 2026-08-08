@@ -26,7 +26,7 @@ export default function Ipv6Section() {
       </div>
 
       <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        IPv6 replaces IPv4's 32-bit address space with a massive <strong className="text-slate-900 dark:text-slate-100">128-bit address space</strong> ($3.4 \times 10^{38}$ total addresses). Designed to eliminate NAT workarounds, IPv6 provides end-to-end global connectivity, built-in IPsec security, stateless auto-configuration (SLAAC), and simplified router headers.
+        IPv6 replaces IPv4&apos;s 32-bit address space with a massive <strong className="text-slate-900 dark:text-slate-100">128-bit address space</strong> ($3.4 \times 10^{38}$ total addresses). Designed to eliminate NAT workarounds, IPv6 provides end-to-end global connectivity, built-in IPsec security, stateless auto-configuration (SLAAC), and simplified router headers.
       </p>
 
       {/* 128-Bit Hexadecimal Format Breakdown */}

@@ -978,7 +978,7 @@ export default function DkNetworkPolicySection() {
           packet travels. <span className="text-emerald-600 dark:text-emerald-400 font-mono">ALLOW</span> rows come from
           enabled rules; the <span className="font-mono">unmatched traffic</span> row shows the{" "}
           {isDeny ? "default-deny verdict when the namespace is isolated" : "allow-open verdict when no isolation is applied"}.
-          Kubernetes NetworkPolicies are <b>allowlist-only</b> — rules never explicitly "deny", the
+          Kubernetes NetworkPolicies are <b>allowlist-only</b> — rules never explicitly &quot;deny&quot;, the
           isolation default does.
         </div>
       </div>

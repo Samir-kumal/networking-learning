@@ -62,10 +62,10 @@ interface ActivityEntry {
 }
 
 const TARGET_GROUPS: TargetGroup[] = [
-  { id: "api", name: "API-TG", port: 8080, protocol: "HTTP", chip: "bg-emerald-100 text-emerald-700 border-emerald-200", dot: "bg-emerald-500", instances: 4 },
-  { id: "web", name: "WEB-TG", port: 80, protocol: "HTTP", chip: "bg-teal-100 text-teal-700 border-teal-200", dot: "bg-teal-500", instances: 6 },
-  { id: "static", name: "STATIC-TG", port: 443, protocol: "HTTPS", chip: "bg-lime-100 text-lime-700 border-lime-200", dot: "bg-lime-500", instances: 2 },
-  { id: "admin", name: "ADMIN-TG", port: 3000, protocol: "HTTP", chip: "bg-cyan-100 text-cyan-700 border-cyan-200", dot: "bg-cyan-500", instances: 2 },
+  { id: "api", name: "API-TG", port: 8080, protocol: "HTTP", chip: "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700", dot: "bg-emerald-500", instances: 4 },
+  { id: "web", name: "WEB-TG", port: 80, protocol: "HTTP", chip: "bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300 border-teal-200 dark:border-teal-700", dot: "bg-teal-500", instances: 6 },
+  { id: "static", name: "STATIC-TG", port: 443, protocol: "HTTPS", chip: "bg-lime-100 dark:bg-lime-900/40 text-lime-700 dark:text-lime-300 border-lime-200 dark:border-lime-700", dot: "bg-lime-500", instances: 2 },
+  { id: "admin", name: "ADMIN-TG", port: 3000, protocol: "HTTP", chip: "bg-cyan-100 dark:bg-cyan-900/40 text-cyan-700 dark:text-cyan-300 border-cyan-200 dark:border-cyan-700", dot: "bg-cyan-500", instances: 2 },
 ];
 
 const DEFAULT_ROUTES: RouteRule[] = [
@@ -524,7 +524,7 @@ export default function AwsAutoScalingSection() {
           <a
             key={link.href}
             href={link.href}
-            className="text-xs font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition-colors"
+            className="text-xs font-mono text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition-colors"
           >
             {link.label}
           </a>
@@ -536,51 +536,51 @@ export default function AwsAutoScalingSection() {
       {/* ================================================================ */}
       <section
         id="alb-routing"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
-            <div className="text-xs font-mono text-emerald-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
               Module 01 / Listener Rules
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
               <span>🔀</span> ALB Path-Based Routing Configurator
             </h2>
           </div>
-          <span className="text-xs font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
             Listener :443 · Rules evaluated in priority order
           </span>
         </div>
 
-        <p className="text-sm text-slate-500 leading-relaxed">
-          An <strong className="text-slate-900">Application Load Balancer</strong> evaluates incoming requests against{" "}
-          <strong className="text-emerald-600">listener rules</strong> from lowest priority number upward. The first
+        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+          An <strong className="text-slate-900 dark:text-slate-100">Application Load Balancer</strong> evaluates incoming requests against{" "}
+          <strong className="text-emerald-600 dark:text-emerald-400">listener rules</strong> from lowest priority number upward. The first
           rule whose condition matches wins and routes the request to its target group — no fall-through. Path
-          patterns support a single trailing wildcard (<code className="text-emerald-700 bg-emerald-50 px-1 rounded font-mono">/api/*</code>).
+          patterns support a single trailing wildcard (<code className="text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/30 px-1 rounded font-mono">/api/*</code>).
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
           {/* Rule builder */}
           <div className="lg:col-span-3 space-y-4">
-            <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
-              <h3 className="text-sm font-bold text-slate-900 font-mono">➕ Add Listener Rule</h3>
+            <div className="bg-slate-50 dark:bg-slate-700 p-5 rounded-xl border border-slate-200 dark:border-slate-700 space-y-3">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono">➕ Add Listener Rule</h3>
               <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-3">
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Path Pattern</label>
+                  <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Path Pattern</label>
                   <input
                     type="text"
                     value={newPath}
                     onChange={(e) => setNewPath(e.target.value)}
                     placeholder="/api/*"
-                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+                    className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Forward To</label>
+                  <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Forward To</label>
                   <select
                     value={newTargetId}
                     onChange={(e) => setNewTargetId(e.target.value)}
-                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+                    className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
                   >
                     {TARGET_GROUPS.map((tg) => (
                       <option key={tg.id} value={tg.id}>
@@ -592,7 +592,7 @@ export default function AwsAutoScalingSection() {
                 <div className="flex items-end">
                   <button
                     onClick={addRoute}
-                    className="w-full sm:w-auto px-4 py-2 rounded-lg text-xs font-mono font-bold bg-emerald-600 text-white hover:bg-emerald-700 transition-colors"
+                    className="w-full sm:w-auto px-4 py-2 rounded-lg text-xs font-mono font-bold bg-emerald-600 text-white hover:bg-emerald-700 dark:hover:bg-emerald-600 transition-colors"
                   >
                     Add Rule
                   </button>
@@ -600,10 +600,10 @@ export default function AwsAutoScalingSection() {
               </div>
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-slate-200">
+            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-slate-50 text-xs font-mono text-slate-500 border-b border-slate-200">
+                  <tr className="bg-slate-50 dark:bg-slate-700 text-xs font-mono text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                     <th className="p-3">Priority</th>
                     <th className="p-3">Condition (Path Pattern)</th>
                     <th className="p-3">Action → Target Group</th>
@@ -611,18 +611,18 @@ export default function AwsAutoScalingSection() {
                     <th className="p-3"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#30363d] text-xs font-mono text-slate-900">
+                <tbody className="divide-y divide-[#30363d] text-xs font-mono text-slate-900 dark:text-slate-100">
                   {routes.map((rule, idx) => {
                     const tg = getTg(rule.targetGroupId);
                     return (
-                      <tr key={rule.id} className="hover:bg-slate-50/50 transition-colors">
+                      <tr key={rule.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/50 transition-colors">
                         <td className="p-3">
-                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold">
+                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700 font-bold">
                             {idx + 1}
                           </span>
                         </td>
-                        <td className="p-3 font-bold text-slate-900">
-                          {rule.path} {rule.path === "/" && <span className="text-slate-400 font-normal">(default)</span>}
+                        <td className="p-3 font-bold text-slate-900 dark:text-slate-100">
+                          {rule.path} {rule.path === "/" && <span className="text-slate-400 dark:text-slate-500 font-normal">(default)</span>}
                         </td>
                         <td className="p-3">
                           {tg && (
@@ -632,13 +632,13 @@ export default function AwsAutoScalingSection() {
                             </span>
                           )}
                         </td>
-                        <td className="p-3 text-slate-500">
+                        <td className="p-3 text-slate-500 dark:text-slate-400">
                           {tg ? `${tg.protocol} :${tg.port}` : "—"}
                         </td>
                         <td className="p-3 text-right">
                           <button
                             onClick={() => removeRoute(rule.id)}
-                            className="text-[11px] font-mono text-rose-600 hover:text-rose-700 hover:bg-rose-50 px-2 py-1 rounded transition-colors"
+                            className="text-[11px] font-mono text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 px-2 py-1 rounded transition-colors"
                           >
                             Remove
                           </button>
@@ -653,66 +653,66 @@ export default function AwsAutoScalingSection() {
 
           {/* Route test */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
-              <h3 className="text-sm font-bold text-slate-900 font-mono">🧪 Live Route Tester</h3>
+            <div className="bg-slate-50 dark:bg-slate-700 p-5 rounded-xl border border-slate-200 dark:border-slate-700 space-y-3">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono">🧪 Live Route Tester</h3>
               <div className="space-y-1.5">
-                <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Incoming Request Path</label>
+                <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Incoming Request Path</label>
                 <input
                   type="text"
                   value={testPath}
                   onChange={(e) => setTestPath(e.target.value)}
                   placeholder="/api/users/42"
-                  className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
                 />
               </div>
-              <p className="text-[11px] text-slate-500 font-mono">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                 {routes.length} rule{routes.length === 1 ? "" : "s"} evaluated in priority order
               </p>
             </div>
 
             {matchedRule && matchedTg ? (
-              <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-5 space-y-2">
-                <div className="text-xs font-mono text-emerald-700 font-bold uppercase tracking-wider">✓ Rule Matched</div>
-                <p className="text-sm text-slate-700">
-                  Request <code className="font-mono text-emerald-700 bg-white border border-emerald-200 rounded px-1">{testPath}</code>{" "}
-                  matched pattern <code className="font-mono text-slate-900 bg-white border border-emerald-200 rounded px-1">{matchedRule.path}</code>
+              <div className="rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 p-5 space-y-2">
+                <div className="text-xs font-mono text-emerald-700 dark:text-emerald-300 font-bold uppercase tracking-wider">✓ Rule Matched</div>
+                <p className="text-sm text-slate-700 dark:text-slate-300">
+                  Request <code className="font-mono text-emerald-700 dark:text-emerald-300 bg-white dark:bg-slate-800 border border-emerald-200 dark:border-emerald-700 rounded px-1">{testPath}</code>{" "}
+                  matched pattern <code className="font-mono text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-800 border border-emerald-200 dark:border-emerald-700 rounded px-1">{matchedRule.path}</code>
                 </p>
-                <div className="flex items-center gap-2 pt-2 border-t border-emerald-200">
+                <div className="flex items-center gap-2 pt-2 border-t border-emerald-200 dark:border-emerald-700">
                   <span className={`px-2.5 py-1 rounded-lg border text-xs font-mono font-bold ${matchedTg.chip}`}>
                     {matchedTg.name}
                   </span>
-                  <span className="text-xs font-mono text-slate-500">
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                     {matchedTg.protocol} :{matchedTg.port} · {matchedTg.instances} registered
                   </span>
                 </div>
               </div>
             ) : (
-              <div className="rounded-xl bg-rose-50 border border-rose-200 p-5 space-y-2">
-                <div className="text-xs font-mono text-rose-700 font-bold uppercase tracking-wider">✗ No Rule Matched</div>
-                <p className="text-sm text-slate-700">
-                  <code className="font-mono text-rose-700 bg-white border border-rose-200 rounded px-1">{testPath}</code>{" "}
+              <div className="rounded-xl bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-700 p-5 space-y-2">
+                <div className="text-xs font-mono text-rose-700 dark:text-rose-300 font-bold uppercase tracking-wider">✗ No Rule Matched</div>
+                <p className="text-sm text-slate-700 dark:text-slate-300">
+                  <code className="font-mono text-rose-700 dark:text-rose-300 bg-white dark:bg-slate-800 border border-rose-200 dark:border-rose-700 rounded px-1">{testPath}</code>{" "}
                   did not match any configured path pattern.
                 </p>
-                <p className="text-xs font-mono text-slate-500">
-                  Listener returns <span className="text-rose-600 font-bold">503 Service Unavailable</span> — add a{" "}
-                  <code className="bg-white border border-slate-200 rounded px-1">/</code> default rule to catch all.
+                <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                  Listener returns <span className="text-rose-600 dark:text-rose-400 font-bold">503 Service Unavailable</span> — add a{" "}
+                  <code className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-1">/</code> default rule to catch all.
                 </p>
               </div>
             )}
 
             {/* Flow diagram */}
-            <div className="rounded-xl bg-slate-50 border border-slate-200 p-4">
-              <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mb-3">Request Flow</div>
+            <div className="rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-4">
+              <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Request Flow</div>
               <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-                <span className="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700">🌐 Client</span>
-                <span className="text-slate-400">→</span>
-                <span className="bg-emerald-50 border border-emerald-300 rounded-lg px-2.5 py-1.5 text-emerald-700 font-bold">ALB :443</span>
-                <span className="text-slate-400">→</span>
-                <span className="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700">Rule Engine</span>
-                <span className="text-slate-400">→</span>
-                <span className="bg-teal-50 border border-teal-300 rounded-lg px-2.5 py-1.5 text-teal-700 font-bold">Target Group</span>
-                <span className="text-slate-400">→</span>
-                <span className="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700">EC2 / ECS / Lambda</span>
+                <span className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-slate-700 dark:text-slate-300">🌐 Client</span>
+                <span className="text-slate-400 dark:text-slate-500">→</span>
+                <span className="bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-300 dark:border-emerald-600 rounded-lg px-2.5 py-1.5 text-emerald-700 dark:text-emerald-300 font-bold">ALB :443</span>
+                <span className="text-slate-400 dark:text-slate-500">→</span>
+                <span className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-slate-700 dark:text-slate-300">Rule Engine</span>
+                <span className="text-slate-400 dark:text-slate-500">→</span>
+                <span className="bg-teal-50 dark:bg-teal-900/30 border border-teal-300 dark:border-teal-600 rounded-lg px-2.5 py-1.5 text-teal-700 dark:text-teal-300 font-bold">Target Group</span>
+                <span className="text-slate-400 dark:text-slate-500">→</span>
+                <span className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-slate-700 dark:text-slate-300">EC2 / ECS / Lambda</span>
               </div>
               <div className="flex flex-wrap gap-1.5 mt-3">
                 {TARGET_GROUPS.map((tg) => (
@@ -731,30 +731,30 @@ export default function AwsAutoScalingSection() {
       {/* ================================================================ */}
       <section
         id="lb-comparison"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
-            <div className="text-xs font-mono text-emerald-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
               Module 02 / Load Balancer Selection
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
               <span>⚖️</span> NLB vs ALB — Which One Do You Need?
             </h2>
           </div>
-          <span className="text-xs font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
             Layer 4 vs Layer 7
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* ALB card */}
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-5 space-y-3">
+          <div className="rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-900/30 p-5 space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="font-extrabold text-emerald-700 text-lg font-mono">ALB · Layer 7</h3>
+              <h3 className="font-extrabold text-emerald-700 dark:text-emerald-300 text-lg font-mono">ALB · Layer 7</h3>
               <span className="text-[11px] font-mono bg-emerald-600 text-white px-2 py-0.5 rounded-full">Application</span>
             </div>
-            <ul className="space-y-1.5 text-sm text-slate-700">
+            <ul className="space-y-1.5 text-sm text-slate-700 dark:text-slate-300">
               <li>• HTTP / HTTPS / HTTP/2 / gRPC / WebSocket</li>
               <li>• Routes on path, host, header, query string</li>
               <li>• TLS termination with ACM certificates</li>
@@ -764,12 +764,12 @@ export default function AwsAutoScalingSection() {
             </ul>
           </div>
           {/* NLB card */}
-          <div className="rounded-xl border border-teal-200 bg-teal-50/50 p-5 space-y-3">
+          <div className="rounded-xl border border-teal-200 dark:border-teal-700 bg-teal-50/50 dark:bg-teal-900/30 p-5 space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="font-extrabold text-teal-700 text-lg font-mono">NLB · Layer 4</h3>
+              <h3 className="font-extrabold text-teal-700 dark:text-teal-300 text-lg font-mono">NLB · Layer 4</h3>
               <span className="text-[11px] font-mono bg-teal-600 text-white px-2 py-0.5 rounded-full">Transport</span>
             </div>
-            <ul className="space-y-1.5 text-sm text-slate-700">
+            <ul className="space-y-1.5 text-sm text-slate-700 dark:text-slate-300">
               <li>• TCP, UDP, TLS passthrough (no content inspection)</li>
               <li>• Static IP per AZ — ideal for allow-listing</li>
               <li>• Extreme throughput, sub-millisecond latency</li>
@@ -781,21 +781,21 @@ export default function AwsAutoScalingSection() {
         </div>
 
         {/* Comparison table */}
-        <div className="overflow-x-auto rounded-xl border border-slate-200">
+        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50 text-xs font-mono text-slate-500 border-b border-slate-200">
+              <tr className="bg-slate-50 dark:bg-slate-700 text-xs font-mono text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                 <th className="p-3 w-40">Feature</th>
-                <th className="p-3 text-emerald-700">Application Load Balancer (L7)</th>
-                <th className="p-3 text-teal-700">Network Load Balancer (L4)</th>
+                <th className="p-3 text-emerald-700 dark:text-emerald-300">Application Load Balancer (L7)</th>
+                <th className="p-3 text-teal-700 dark:text-teal-300">Network Load Balancer (L4)</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#30363d] text-xs font-mono text-slate-900">
+            <tbody className="divide-y divide-[#30363d] text-xs font-mono text-slate-900 dark:text-slate-100">
               {LB_COMPARISON_ROWS.map((row) => (
-                <tr key={row.feature} className="hover:bg-slate-50/50 transition-colors">
+                <tr key={row.feature} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/50 transition-colors">
                   <td className="p-3 font-bold">{row.feature}</td>
-                  <td className="p-3 text-slate-600">{row.alb}</td>
-                  <td className="p-3 text-slate-600">{row.nlb}</td>
+                  <td className="p-3 text-slate-600 dark:text-slate-300">{row.alb}</td>
+                  <td className="p-3 text-slate-600 dark:text-slate-300">{row.nlb}</td>
                 </tr>
               ))}
             </tbody>
@@ -804,7 +804,7 @@ export default function AwsAutoScalingSection() {
 
         {/* Workload advisor */}
         <div className="space-y-3">
-          <h3 className="text-sm font-bold text-slate-900 font-mono">🧭 Workload Advisor — what would you deploy?</h3>
+          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono">🧭 Workload Advisor — what would you deploy?</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {SCENARIOS.map((s) => (
               <button
@@ -813,7 +813,7 @@ export default function AwsAutoScalingSection() {
                 className={`text-left px-4 py-3 rounded-xl border text-xs font-mono transition-colors ${
                   selectedScenario === s.id
                     ? "bg-emerald-600 text-white border-emerald-600"
-                    : "bg-slate-50 text-slate-700 border-slate-200 hover:border-emerald-300"
+                    : "bg-slate-50 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-300"
                 }`}
               >
                 {s.label}
@@ -826,7 +826,7 @@ export default function AwsAutoScalingSection() {
             return (
               <div
                 className={`rounded-xl border p-5 space-y-2 ${
-                  s.verdict === "alb" ? "bg-emerald-50 border-emerald-200" : "bg-teal-50 border-teal-200"
+                  s.verdict === "alb" ? "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700" : "bg-teal-50 dark:bg-teal-900/30 border-teal-200 dark:border-teal-700"
                 }`}
               >
                 <div className="flex items-center gap-2">
@@ -834,8 +834,8 @@ export default function AwsAutoScalingSection() {
                     Recommendation: {s.verdict.toUpperCase()}
                   </span>
                 </div>
-                <p className="text-sm text-slate-700">{s.workload}</p>
-                <p className="text-xs font-mono text-slate-500">{s.reason}</p>
+                <p className="text-sm text-slate-700 dark:text-slate-300">{s.workload}</p>
+                <p className="text-xs font-mono text-slate-500 dark:text-slate-400">{s.reason}</p>
               </div>
             );
           })()}
@@ -847,49 +847,49 @@ export default function AwsAutoScalingSection() {
       {/* ================================================================ */}
       <section
         id="health-checks"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
-            <div className="text-xs font-mono text-emerald-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
               Module 03 / Target Group Health
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
               <span>💚</span> Target Group Health Check Simulator
             </h2>
           </div>
-          <span className="text-xs font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
             Interval · Thresholds · Timeout
           </span>
         </div>
 
-        <p className="text-sm text-slate-500 leading-relaxed">
+        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
           The load balancer probes each registered target at the configured{" "}
-          <strong className="text-slate-900">interval</strong>. A target is marked{" "}
-          <strong className="text-rose-600">unhealthy</strong> only after{" "}
-          <strong className="text-slate-900">unhealthy threshold</strong> consecutive failures — it then enters{" "}
-          <strong className="text-amber-600">draining</strong>, finishes in-flight requests and is deregistered. A
+          <strong className="text-slate-900 dark:text-slate-100">interval</strong>. A target is marked{" "}
+          <strong className="text-rose-600 dark:text-rose-400">unhealthy</strong> only after{" "}
+          <strong className="text-slate-900 dark:text-slate-100">unhealthy threshold</strong> consecutive failures — it then enters{" "}
+          <strong className="text-amber-600 dark:text-amber-400">draining</strong>, finishes in-flight requests and is deregistered. A
           deregistered target can return to service after{" "}
-          <strong className="text-slate-900">healthy threshold</strong> consecutive successes.
+          <strong className="text-slate-900 dark:text-slate-100">healthy threshold</strong> consecutive successes.
         </p>
 
         {/* Health check config */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 bg-slate-50 p-5 rounded-xl border border-slate-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 bg-slate-50 dark:bg-slate-700 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
           <div className="space-y-1.5">
-            <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Health Path</label>
+            <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Health Path</label>
             <input
               type="text"
               value={healthPath}
               onChange={(e) => setHealthPath(e.target.value)}
-              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
             />
           </div>
           <div className="space-y-1.5">
-            <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Interval (s)</label>
+            <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Interval (s)</label>
             <select
               value={healthInterval}
               onChange={(e) => setHealthInterval(Number(e.target.value))}
-              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
             >
               {[10, 30, 60, 120, 300].map((v) => (
                 <option key={v} value={v}>
@@ -899,11 +899,11 @@ export default function AwsAutoScalingSection() {
             </select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Unhealthy Threshold</label>
+            <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Unhealthy Threshold</label>
             <select
               value={unhealthyThreshold}
               onChange={(e) => setUnhealthyThreshold(Number(e.target.value))}
-              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
             >
               {[2, 3, 5, 8, 10].map((v) => (
                 <option key={v} value={v}>
@@ -913,11 +913,11 @@ export default function AwsAutoScalingSection() {
             </select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Healthy Threshold</label>
+            <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Healthy Threshold</label>
             <select
               value={healthyThreshold}
               onChange={(e) => setHealthyThreshold(Number(e.target.value))}
-              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
             >
               {[2, 3, 5, 8, 10].map((v) => (
                 <option key={v} value={v}>
@@ -927,11 +927,11 @@ export default function AwsAutoScalingSection() {
             </select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Timeout (s)</label>
+            <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Timeout (s)</label>
             <select
               value={healthTimeout}
               onChange={(e) => setHealthTimeout(Number(e.target.value))}
-              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
             >
               {[3, 5, 10, 20, 30].map((v) => (
                 <option key={v} value={v}>
@@ -943,7 +943,7 @@ export default function AwsAutoScalingSection() {
         </div>
 
         {!timeoutValid && (
-          <div className="rounded-xl bg-amber-50 border border-amber-200 px-4 py-3 text-xs font-mono text-amber-700">
+          <div className="rounded-xl bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700 px-4 py-3 text-xs font-mono text-amber-700 dark:text-amber-300">
             ⚠️ Invalid config: timeout ({healthTimeout}s) must be less than the interval ({healthInterval}s) or probes
             overlap. EC2/ELB validates this at creation time.
           </div>
@@ -955,35 +955,35 @@ export default function AwsAutoScalingSection() {
             onClick={toggleHealthSim}
             className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition-colors ${
               isHealthPlaying
-                ? "bg-amber-100 text-amber-700 border border-amber-300 hover:bg-amber-200"
-                : "bg-emerald-600 text-white hover:bg-emerald-700"
+                ? "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-600 hover:bg-amber-200"
+                : "bg-emerald-600 text-white hover:bg-emerald-700 dark:hover:bg-emerald-600"
             }`}
           >
             {isHealthPlaying ? "⏸ Pause" : "▶ Run Checks"}
           </button>
           <button
             onClick={() => healthTickRef.current()}
-            className="px-4 py-2 rounded-lg text-xs font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition-colors"
+            className="px-4 py-2 rounded-lg text-xs font-mono font-bold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
           >
             Single Check
           </button>
           <button
             onClick={resetHealthSim}
-            className="px-4 py-2 rounded-lg text-xs font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition-colors"
+            className="px-4 py-2 rounded-lg text-xs font-mono font-bold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
           >
             ↺ Reset
           </button>
-          <span className="text-xs font-mono text-slate-500">Tick #{healthTick}</span>
-          <span className="text-xs font-mono text-slate-500">
-            Est. deregistration: <span className="text-slate-900 font-bold">{unhealthyThreshold} × {healthInterval}s = {unhealthyThreshold * healthInterval}s</span>
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">Tick #{healthTick}</span>
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+            Est. deregistration: <span className="text-slate-900 dark:text-slate-100 font-bold">{unhealthyThreshold} × {healthInterval}s = {unhealthyThreshold * healthInterval}s</span>
           </span>
         </div>
 
         {/* Instance status table */}
-        <div className="overflow-x-auto rounded-xl border border-slate-200">
+        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50 text-xs font-mono text-slate-500 border-b border-slate-200">
+              <tr className="bg-slate-50 dark:bg-slate-700 text-xs font-mono text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                 <th className="p-3">Instance</th>
                 <th className="p-3">AZ</th>
                 <th className="p-3">Behavior</th>
@@ -992,11 +992,11 @@ export default function AwsAutoScalingSection() {
                 <th className="p-3">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#30363d] text-xs font-mono text-slate-900">
+            <tbody className="divide-y divide-[#30363d] text-xs font-mono text-slate-900 dark:text-slate-100">
               {healthInstances.map((inst) => (
-                <tr key={inst.id} className="hover:bg-slate-50/50 transition-colors">
+                <tr key={inst.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/50 transition-colors">
                   <td className="p-3 font-bold">{inst.id}</td>
-                  <td className="p-3 text-slate-500">{inst.az}</td>
+                  <td className="p-3 text-slate-500 dark:text-slate-400">{inst.az}</td>
                   <td className="p-3">
                     <select
                       value={inst.mode}
@@ -1009,7 +1009,7 @@ export default function AwsAutoScalingSection() {
                           )
                         )
                       }
-                      className="bg-white border border-slate-200 rounded-lg px-2 py-1 text-xs font-mono focus:border-emerald-500 focus:outline-none"
+                      className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-xs font-mono focus:border-emerald-500 focus:outline-none"
                     >
                       <option value="healthy">Healthy (always 200)</option>
                       <option value="flaky">Flaky (fails every 3rd)</option>
@@ -1017,28 +1017,28 @@ export default function AwsAutoScalingSection() {
                     </select>
                   </td>
                   <td className="p-3">
-                    <span className={inst.consecutiveFailures >= unhealthyThreshold ? "text-rose-600 font-bold" : "text-slate-500"}>
+                    <span className={inst.consecutiveFailures >= unhealthyThreshold ? "text-rose-600 dark:text-rose-400 font-bold" : "text-slate-500 dark:text-slate-400"}>
                       {inst.consecutiveFailures}
                     </span>
                   </td>
                   <td className="p-3">
-                    <span className={inst.consecutiveSuccesses >= healthyThreshold ? "text-emerald-600 font-bold" : "text-slate-500"}>
+                    <span className={inst.consecutiveSuccesses >= healthyThreshold ? "text-emerald-600 dark:text-emerald-400 font-bold" : "text-slate-500 dark:text-slate-400"}>
                       {inst.consecutiveSuccesses}
                     </span>
                   </td>
                   <td className="p-3">
                     {inst.status === "InService" && (
-                      <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold">
+                      <span className="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700 font-bold">
                         InService
                       </span>
                     )}
                     {inst.status === "Draining" && (
-                      <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-700 border border-amber-200 font-bold">
+                      <span className="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700 font-bold">
                         Draining…
                       </span>
                     )}
                     {inst.status === "Unhealthy" && (
-                      <span className="px-2 py-0.5 rounded bg-rose-100 text-rose-700 border border-rose-200 font-bold">
+                      <span className="px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-700 font-bold">
                         Unhealthy
                       </span>
                     )}
@@ -1051,13 +1051,13 @@ export default function AwsAutoScalingSection() {
 
         {/* Timeline */}
         {healthHistory.length > 0 && (
-          <div className="overflow-x-auto rounded-xl border border-slate-200">
-            <div className="bg-slate-50 border-b border-slate-200 px-3 py-2 text-xs font-mono text-slate-500 uppercase tracking-wider">
+          <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
+            <div className="bg-slate-50 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700 px-3 py-2 text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Check Timeline (last {healthHistory.length} intervals)
             </div>
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="text-[11px] font-mono text-slate-400 border-b border-slate-200">
+                <tr className="text-[11px] font-mono text-slate-400 dark:text-slate-500 border-b border-slate-200 dark:border-slate-700">
                   <th className="p-2 pl-3">Instance</th>
                   {healthHistory.map((_, t) => (
                     <th key={t} className="p-2 text-center">
@@ -1068,8 +1068,8 @@ export default function AwsAutoScalingSection() {
               </thead>
               <tbody className="divide-y divide-[#30363d]">
                 {healthInstances.map((inst) => (
-                  <tr key={inst.id} className="text-xs font-mono text-slate-500">
-                    <td className="p-2 pl-3 font-bold text-slate-900 whitespace-nowrap">{inst.id}</td>
+                  <tr key={inst.id} className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                    <td className="p-2 pl-3 font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">{inst.id}</td>
                     {healthHistory.map((tick, t) => {
                       const res = tick.find((r) => r.instanceId === inst.id);
                       return (
@@ -1083,7 +1083,7 @@ export default function AwsAutoScalingSection() {
                               {res.ok ? "✓" : "✗"}
                             </span>
                           ) : (
-                            <span className="inline-flex items-center justify-center w-6 h-6 rounded bg-slate-100" />
+                            <span className="inline-flex items-center justify-center w-6 h-6 rounded bg-slate-100 dark:bg-slate-700" />
                           )}
                         </td>
                       );
@@ -1097,25 +1097,25 @@ export default function AwsAutoScalingSection() {
 
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="bg-slate-50 rounded-xl border border-slate-200 p-4">
-            <div className="text-[11px] font-mono text-slate-500 uppercase">Checks Run</div>
-            <div className="text-2xl font-extrabold text-slate-900 font-mono">{totalChecks}</div>
+          <div className="bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-700 p-4">
+            <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase">Checks Run</div>
+            <div className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">{totalChecks}</div>
           </div>
-          <div className="bg-slate-50 rounded-xl border border-slate-200 p-4">
-            <div className="text-[11px] font-mono text-slate-500 uppercase">Pass Rate (last 12)</div>
-            <div className="text-2xl font-extrabold text-emerald-600 font-mono">
+          <div className="bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-700 p-4">
+            <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase">Pass Rate (last 12)</div>
+            <div className="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">
               {passedChecks + failedChecks > 0 ? Math.round((passedChecks / (passedChecks + failedChecks)) * 100) : 0}%
             </div>
           </div>
-          <div className="bg-slate-50 rounded-xl border border-slate-200 p-4">
-            <div className="text-[11px] font-mono text-slate-500 uppercase">In Service</div>
-            <div className="text-2xl font-extrabold text-slate-900 font-mono">
-              {inServiceCount}<span className="text-slate-400 text-sm">/{healthInstances.length}</span>
+          <div className="bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-700 p-4">
+            <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase">In Service</div>
+            <div className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
+              {inServiceCount}<span className="text-slate-400 dark:text-slate-500 text-sm">/{healthInstances.length}</span>
             </div>
           </div>
-          <div className="bg-slate-50 rounded-xl border border-slate-200 p-4">
-            <div className="text-[11px] font-mono text-slate-500 uppercase">Probe</div>
-            <div className="text-sm font-bold text-slate-700 font-mono mt-1.5">
+          <div className="bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-700 p-4">
+            <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase">Probe</div>
+            <div className="text-sm font-bold text-slate-700 dark:text-slate-300 font-mono mt-1.5">
               GET {healthPath} · {healthTimeout}s timeout
             </div>
           </div>
@@ -1127,30 +1127,30 @@ export default function AwsAutoScalingSection() {
       {/* ================================================================ */}
       <section
         id="scaling-policy"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
-            <div className="text-xs font-mono text-emerald-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
               Module 04 / Auto Scaling Policies
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
               <span>📈</span> Scaling Policy Builder
             </h2>
           </div>
-          <span className="text-xs font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
             Target Tracking · Step Scaling · Predictive
           </span>
         </div>
 
         {/* Group capacity controls */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-50 p-5 rounded-xl border border-slate-200">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-50 dark:bg-slate-700 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
           <div className="space-y-1.5">
-            <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Min Instances</label>
+            <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Min Instances</label>
             <select
               value={minInstances}
               onChange={(e) => setMinInstances(Number(e.target.value))}
-              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
             >
               {[1, 2, 3, 4, 5, 6].map((v) => (
                 <option key={v} value={v}>
@@ -1160,11 +1160,11 @@ export default function AwsAutoScalingSection() {
             </select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Max Instances</label>
+            <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Max Instances</label>
             <select
               value={maxInstances}
               onChange={(e) => setMaxInstances(Number(e.target.value))}
-              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
             >
               {[4, 6, 8, 10, 12, 16].map((v) => (
                 <option key={v} value={v}>
@@ -1174,14 +1174,14 @@ export default function AwsAutoScalingSection() {
             </select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Desired Capacity</label>
+            <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Desired Capacity</label>
             <input
               type="number"
               min={minInstances}
               max={maxInstances}
               value={desiredCapacity}
               onChange={(e) => setDesiredCapacity(Math.min(maxInstances, Math.max(minInstances, Number(e.target.value) || minInstances)))}
-              className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
             />
           </div>
         </div>
@@ -1201,7 +1201,7 @@ export default function AwsAutoScalingSection() {
               className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition-colors border ${
                 policyType === t.id
                   ? "bg-emerald-600 text-white border-emerald-600"
-                  : "bg-slate-50 text-slate-600 border-slate-200 hover:border-emerald-300"
+                  : "bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-300"
               }`}
             >
               {t.label}
@@ -1214,11 +1214,11 @@ export default function AwsAutoScalingSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="space-y-5">
               <div className="space-y-1.5">
-                <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Metric</label>
+                <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Metric</label>
                 <select
                   value={ttMetric}
                   onChange={(e) => setTtMetric(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+                  className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
                 >
                   <option value="CPUUtilization">EC2 CPUUtilization</option>
                   <option value="RequestCountPerTarget">ALB RequestCountPerTarget</option>
@@ -1227,8 +1227,8 @@ export default function AwsAutoScalingSection() {
                 </select>
               </div>
               <div className="space-y-1.5">
-                <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">
-                  Target Value: <span className="text-emerald-600 font-bold">{targetValue}%</span>
+                <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">
+                  Target Value: <span className="text-emerald-600 dark:text-emerald-400 font-bold">{targetValue}%</span>
                 </label>
                 <input
                   type="range"
@@ -1240,8 +1240,8 @@ export default function AwsAutoScalingSection() {
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">
-                  Current Fleet Utilization: <span className="text-slate-900 font-bold">{currentLoad}%</span>
+                <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">
+                  Current Fleet Utilization: <span className="text-slate-900 dark:text-slate-100 font-bold">{currentLoad}%</span>
                 </label>
                 <input
                   type="range"
@@ -1252,7 +1252,7 @@ export default function AwsAutoScalingSection() {
                   className="w-full accent-emerald-600"
                 />
               </div>
-              <label className="flex items-center gap-2 text-xs font-mono text-slate-600 cursor-pointer">
+              <label className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-300 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={allowScaleIn}
@@ -1264,18 +1264,18 @@ export default function AwsAutoScalingSection() {
             </div>
 
             <div className="space-y-4">
-              <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-5 space-y-2">
-                <div className="text-xs font-mono text-emerald-700 font-bold uppercase tracking-wider">
+              <div className="rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 p-5 space-y-2">
+                <div className="text-xs font-mono text-emerald-700 dark:text-emerald-300 font-bold uppercase tracking-wider">
                   📐 Capacity Math — keep {ttMetric} at {targetValue}%
                 </div>
-                <p className="text-sm font-mono text-slate-700">
+                <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
                   required = ⌈ {currentLoad}% ÷ {targetValue}% ⌉ ={" "}
-                  <span className="text-emerald-700 font-extrabold">{requiredCapacity} instances</span>
+                  <span className="text-emerald-700 dark:text-emerald-300 font-extrabold">{requiredCapacity} instances</span>
                 </p>
-                <p className="text-xs font-mono text-slate-500">
+                <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
                   desired capacity: {desiredCapacity} · range [{minInstances} – {maxInstances}]
                 </p>
-                <div className="pt-2 border-t border-emerald-200">
+                <div className="pt-2 border-t border-emerald-200 dark:border-emerald-700">
                   {ttDelta > 0 && (
                     <span className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-xs font-mono font-bold">
                       SCALE OUT +{ttDelta} → {Math.min(maxInstances, desiredCapacity + ttDelta)}
@@ -1287,18 +1287,18 @@ export default function AwsAutoScalingSection() {
                     </span>
                   )}
                   {ttDelta < 0 && !allowScaleIn && (
-                    <span className="px-2.5 py-1 rounded-lg bg-slate-200 text-slate-600 text-xs font-mono font-bold">
+                    <span className="px-2.5 py-1 rounded-lg bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300 text-xs font-mono font-bold">
                       Scale-in disabled — capacity held at {desiredCapacity}
                     </span>
                   )}
                   {ttDelta === 0 && (
-                    <span className="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-mono font-bold">
+                    <span className="px-2.5 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700 text-xs font-mono font-bold">
                       Steady state — no action
                     </span>
                   )}
                 </div>
               </div>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 Target tracking works like a thermostat: CloudWatch polls the metric, computes the capacity needed to
                 bring it back to the target, and adjusts the desired count — with a warm-up window after each
                 scale-out so new instances can finish booting before the next evaluation.
@@ -1311,42 +1311,42 @@ export default function AwsAutoScalingSection() {
         {policyType === "step-scaling" && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="space-y-4">
-              <div className="rounded-xl border border-slate-200 overflow-hidden">
-                <div className="bg-slate-50 px-4 py-2.5 text-xs font-mono text-slate-500 uppercase tracking-wider flex justify-between">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div className="bg-slate-50 dark:bg-slate-700 px-4 py-2.5 text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider flex justify-between">
                   <span>Step Adjustments</span>
                   <span>{stepRules.length} rules</span>
                 </div>
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="text-[11px] font-mono text-slate-400 border-b border-slate-200">
+                    <tr className="text-[11px] font-mono text-slate-400 dark:text-slate-500 border-b border-slate-200 dark:border-slate-700">
                       <th className="p-2.5 pl-4">Direction</th>
                       <th className="p-2.5">When metric…</th>
                       <th className="p-2.5">Adjust by</th>
                       <th className="p-2.5"></th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#30363d] text-xs font-mono text-slate-900">
+                  <tbody className="divide-y divide-[#30363d] text-xs font-mono text-slate-900 dark:text-slate-100">
                     {stepRules.map((s) => (
-                      <tr key={s.id} className="hover:bg-slate-50/50 transition-colors">
+                      <tr key={s.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/50 transition-colors">
                         <td className="p-2.5 pl-4">
                           {s.kind === "out" ? (
-                            <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold">Scale out</span>
+                            <span className="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700 font-bold">Scale out</span>
                           ) : (
-                            <span className="px-2 py-0.5 rounded bg-rose-100 text-rose-700 border border-rose-200 font-bold">Scale in</span>
+                            <span className="px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-700 font-bold">Scale in</span>
                           )}
                         </td>
-                        <td className="p-2.5 text-slate-600">
+                        <td className="p-2.5 text-slate-600 dark:text-slate-300">
                           {s.kind === "out" ? "≥ " : "≤ "}
                           {s.threshold}%
                         </td>
-                        <td className="p-2.5 font-bold text-slate-900">
+                        <td className="p-2.5 font-bold text-slate-900 dark:text-slate-100">
                           {s.kind === "out" ? "+" : "−"}
                           {s.adjustment}
                         </td>
                         <td className="p-2.5 text-right">
                           <button
                             onClick={() => removeStep(s.id)}
-                            className="text-[11px] font-mono text-rose-600 hover:text-rose-700 hover:bg-rose-50 px-2 py-1 rounded transition-colors"
+                            className="text-[11px] font-mono text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 px-2 py-1 rounded transition-colors"
                           >
                             Remove
                           </button>
@@ -1357,51 +1357,51 @@ export default function AwsAutoScalingSection() {
                 </table>
               </div>
 
-              <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 grid grid-cols-1 sm:grid-cols-[auto_1fr_1fr_auto] gap-3 items-end">
+              <div className="bg-slate-50 dark:bg-slate-700 p-4 rounded-xl border border-slate-200 dark:border-slate-700 grid grid-cols-1 sm:grid-cols-[auto_1fr_1fr_auto] gap-3 items-end">
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Direction</label>
+                  <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Direction</label>
                   <select
                     value={newStepKind}
                     onChange={(e) => setNewStepKind(e.target.value as "out" | "in")}
-                    className="bg-white border border-slate-200 rounded-lg px-2 py-2 text-xs font-mono focus:border-emerald-500 focus:outline-none"
+                    className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-2 text-xs font-mono focus:border-emerald-500 focus:outline-none"
                   >
                     <option value="out">Scale out</option>
                     <option value="in">Scale in</option>
                   </select>
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Threshold %</label>
+                  <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Threshold %</label>
                   <input
                     type="number"
                     min={1}
                     max={99}
                     value={newStepThreshold}
                     onChange={(e) => setNewStepThreshold(Number(e.target.value) || 0)}
-                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-mono focus:border-emerald-500 focus:outline-none"
+                    className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs font-mono focus:border-emerald-500 focus:outline-none"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Adjustment</label>
+                  <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Adjustment</label>
                   <input
                     type="number"
                     min={1}
                     max={10}
                     value={newStepAdjustment}
                     onChange={(e) => setNewStepAdjustment(Number(e.target.value) || 1)}
-                    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-mono focus:border-emerald-500 focus:outline-none"
+                    className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs font-mono focus:border-emerald-500 focus:outline-none"
                   />
                 </div>
                 <button
                   onClick={addStep}
-                  className="px-4 py-2 rounded-lg text-xs font-mono font-bold bg-emerald-600 text-white hover:bg-emerald-700 transition-colors"
+                  className="px-4 py-2 rounded-lg text-xs font-mono font-bold bg-emerald-600 text-white hover:bg-emerald-700 dark:hover:bg-emerald-600 transition-colors"
                 >
                   Add Step
                 </button>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">
-                  Cooldown: <span className="text-slate-900 font-bold">{cooldown}s</span>
+                <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">
+                  Cooldown: <span className="text-slate-900 dark:text-slate-100 font-bold">{cooldown}s</span>
                 </label>
                 <input
                   type="range"
@@ -1417,8 +1417,8 @@ export default function AwsAutoScalingSection() {
 
             <div className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">
-                  Current Metric Value: <span className="text-slate-900 font-bold">{stepMetric}%</span>
+                <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">
+                  Current Metric Value: <span className="text-slate-900 dark:text-slate-100 font-bold">{stepMetric}%</span>
                 </label>
                 <input
                   type="range"
@@ -1429,32 +1429,32 @@ export default function AwsAutoScalingSection() {
                   className="w-full accent-emerald-600"
                 />
               </div>
-              <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-5 space-y-2">
-                <div className="text-xs font-mono text-emerald-700 font-bold uppercase tracking-wider">⚡ Alarm Evaluation</div>
+              <div className="rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 p-5 space-y-2">
+                <div className="text-xs font-mono text-emerald-700 dark:text-emerald-300 font-bold uppercase tracking-wider">⚡ Alarm Evaluation</div>
                 {triggeredStep ? (
                   <>
-                    <p className="text-sm font-mono text-slate-700">
+                    <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
                       Metric {stepMetric}% {triggeredStep.kind === "out" ? "≥" : "≤"} {triggeredStep.threshold}% →{" "}
-                      <span className="font-extrabold text-emerald-700">
+                      <span className="font-extrabold text-emerald-700 dark:text-emerald-300">
                         {triggeredStep.kind === "out" ? `+${triggeredStep.adjustment}` : `−${triggeredStep.adjustment}`} instance{triggeredStep.adjustment === 1 ? "" : "s"}
                       </span>
                     </p>
-                    <p className="text-xs font-mono text-slate-500">
+                    <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
                       desired {desiredCapacity} → {stepResultCapacity} (after {cooldown}s cooldown)
                     </p>
-                    <div className="pt-2 border-t border-emerald-200">
+                    <div className="pt-2 border-t border-emerald-200 dark:border-emerald-700">
                       <span className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-xs font-mono font-bold">
                         NEW DESIRED CAPACITY: {stepResultCapacity}
                       </span>
                     </div>
                   </>
                 ) : (
-                  <p className="text-sm font-mono text-slate-500">
+                  <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
                     Metric {stepMetric}% breaches no threshold — capacity stays at {desiredCapacity}.
                   </p>
                 )}
               </div>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 Step scaling gives explicit control: each CloudWatch alarm breach maps to a fixed capacity
                 adjustment, optionally followed by a cooldown that suppresses further actions until the fleet
                 settles. Larger breaches can trigger bigger steps (e.g. +2 at 80%, +4 at 90%).
@@ -1468,22 +1468,22 @@ export default function AwsAutoScalingSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="space-y-5">
               <div className="space-y-1.5">
-                <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Mode</label>
+                <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Mode</label>
                 <select
                   value={predMode}
                   onChange={(e) => setPredMode(e.target.value as PredictiveMode)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+                  className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
                 >
                   <option value="forecast-only">Forecast only (dry run)</option>
                   <option value="forecast-and-scale">Forecast and scale (automatic)</option>
                 </select>
               </div>
               <div className="space-y-1.5">
-                <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Look-Ahead Window</label>
+                <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Look-Ahead Window</label>
                 <select
                   value={lookAhead}
                   onChange={(e) => setLookAhead(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+                  className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
                 >
                   <option value="1h">1 hour</option>
                   <option value="6h">6 hours</option>
@@ -1492,18 +1492,18 @@ export default function AwsAutoScalingSection() {
                 </select>
               </div>
               <div className="space-y-1.5">
-                <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Training Data Window</label>
+                <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Training Data Window</label>
                 <select
                   value={historyDays}
                   onChange={(e) => setHistoryDays(Number(e.target.value))}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+                  className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
                 >
                   <option value={7}>7 days</option>
                   <option value={14}>14 days</option>
                   <option value={30}>30 days</option>
                 </select>
               </div>
-              <div className="rounded-xl bg-slate-50 border border-slate-200 p-4 text-xs font-mono text-slate-600 space-y-1.5">
+              <div className="rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-4 text-xs font-mono text-slate-600 dark:text-slate-300 space-y-1.5">
                 <div>Model: DailySeasonality (AM/PM peaks)</div>
                 <div>Training window: last {historyDays} days</div>
                 <div>Look-ahead: {lookAhead} · horizon: 24 hourly points</div>
@@ -1514,20 +1514,20 @@ export default function AwsAutoScalingSection() {
             </div>
 
             <div className="space-y-4">
-              <div className="rounded-xl border border-slate-200 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-5">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">24h Load Forecast (CPU %)</span>
-                  <span className="text-[11px] font-mono text-slate-400">
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">24h Load Forecast (CPU %)</span>
+                  <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500">
                     dashed line = target {targetValue}%
                   </span>
                 </div>
                 <div className="relative h-48 flex items-end gap-[2px]">
                   {/* threshold line */}
                   <div
-                    className="absolute left-0 right-0 border-t-2 border-dashed border-amber-400 z-10"
+                    className="absolute left-0 right-0 border-t-2 border-dashed border-amber-400 dark:border-amber-300 z-10"
                     style={{ bottom: `${targetValue}%` }}
                   >
-                    <span className="absolute -top-5 right-0 text-[10px] font-mono text-amber-600 bg-white px-1">
+                    <span className="absolute -top-5 right-0 text-[10px] font-mono text-amber-600 dark:text-amber-400 bg-white dark:bg-slate-800 px-1">
                       target {targetValue}%
                     </span>
                   </div>
@@ -1549,7 +1549,7 @@ export default function AwsAutoScalingSection() {
                     );
                   })}
                 </div>
-                <div className="flex justify-between text-[10px] font-mono text-slate-400 mt-1.5">
+                <div className="flex justify-between text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-1.5">
                   <span>00:00</span>
                   <span>06:00</span>
                   <span>12:00</span>
@@ -1558,28 +1558,28 @@ export default function AwsAutoScalingSection() {
                 </div>
               </div>
 
-              <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-5 space-y-2">
-                <div className="text-xs font-mono text-emerald-700 font-bold uppercase tracking-wider">
+              <div className="rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 p-5 space-y-2">
+                <div className="text-xs font-mono text-emerald-700 dark:text-emerald-300 font-bold uppercase tracking-wider">
                   🔮 Forecast Summary
                 </div>
-                <p className="text-sm font-mono text-slate-700">
-                  Predicted peak: <span className="font-extrabold text-emerald-700">{peak}%</span> at{" "}
+                <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
+                  Predicted peak: <span className="font-extrabold text-emerald-700 dark:text-emerald-300">{peak}%</span> at{" "}
                   {String(peakHour).padStart(2, "0")}:00 → needs{" "}
-                  <span className="font-extrabold text-emerald-700">{peakRequired} instance{peakRequired === 1 ? "" : "s"}</span>{" "}
+                  <span className="font-extrabold text-emerald-700 dark:text-emerald-300">{peakRequired} instance{peakRequired === 1 ? "" : "s"}</span>{" "}
                   vs desired {desiredCapacity} now
                 </p>
                 {predMode === "forecast-and-scale" ? (
-                  <p className="text-xs font-mono text-slate-600">
+                  <p className="text-xs font-mono text-slate-600 dark:text-slate-300">
                     → Pre-scale scheduled: set desired capacity to {peakRequired} at{" "}
                     {String(Math.max(0, peakHour - 1)).padStart(2, "0")}:00 (1h ahead of peak), then scale back down.
                   </p>
                 ) : (
-                  <p className="text-xs font-mono text-slate-600">
+                  <p className="text-xs font-mono text-slate-600 dark:text-slate-300">
                     → Forecast-only: the model publishes predictions; no scaling actions are taken. Review accuracy
                     before enabling automatic mode.
                   </p>
                 )}
-                <div className="pt-2 border-t border-emerald-200 text-xs font-mono text-slate-500">
+                <div className="pt-2 border-t border-emerald-200 dark:border-emerald-700 text-xs font-mono text-slate-500 dark:text-slate-400">
                   Best practice: pair predictive scaling (proactive) with target tracking (reactive) to absorb
                   forecast error.
                 </div>
@@ -1632,38 +1632,38 @@ export default function AwsAutoScalingSection() {
       {/* ================================================================ */}
       <section
         id="live-capacity"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
-            <div className="text-xs font-mono text-emerald-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
               Module 05 / Auto Scaling Group
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
               <span>🖥️</span> Live Instance Count Visualization
             </h2>
           </div>
-          <span className="text-xs font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
             ASG: demo-app · us-east-1
           </span>
         </div>
 
-        <p className="text-sm text-slate-500 leading-relaxed">
+        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
           Watch an Auto Scaling group react to a synthetic load. The group scales out when load crosses{" "}
-          <strong className="text-slate-900">78%</strong>, scales in below <strong className="text-slate-900">28%</strong>,
-          and respects a <strong className="text-slate-900">2-tick cooldown</strong> between actions. New instances boot
-          (<strong className="text-amber-600">Launching</strong> → <strong className="text-emerald-600">InService</strong>);
+          <strong className="text-slate-900 dark:text-slate-100">78%</strong>, scales in below <strong className="text-slate-900 dark:text-slate-100">28%</strong>,
+          and respects a <strong className="text-slate-900 dark:text-slate-100">2-tick cooldown</strong> between actions. New instances boot
+          (<strong className="text-amber-600 dark:text-amber-400">Launching</strong> → <strong className="text-emerald-600 dark:text-emerald-400">InService</strong>);
           removed instances drain before termination.
         </p>
 
         {/* Controls */}
-        <div className="flex flex-wrap items-end gap-3 bg-slate-50 p-5 rounded-xl border border-slate-200">
+        <div className="flex flex-wrap items-end gap-3 bg-slate-50 dark:bg-slate-700 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
           <div className="space-y-1.5">
-            <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Min</label>
+            <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Min</label>
             <select
               value={capacityMin}
               onChange={(e) => setCapacityMin(Math.min(Number(e.target.value), capacityMax))}
-              className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
             >
               {[1, 2, 3, 4, 5, 6].map((v) => (
                 <option key={v} value={v}>
@@ -1673,11 +1673,11 @@ export default function AwsAutoScalingSection() {
             </select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Max</label>
+            <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Max</label>
             <select
               value={capacityMax}
               onChange={(e) => setCapacityMax(Math.max(Number(e.target.value), capacityMin))}
-              className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
             >
               {[4, 6, 8, 10, 12].map((v) => (
                 <option key={v} value={v}>
@@ -1687,34 +1687,34 @@ export default function AwsAutoScalingSection() {
             </select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[11px] font-semibold text-slate-500 uppercase font-mono">Desired Capacity</label>
+            <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase font-mono">Desired Capacity</label>
             <input
               type="number"
               min={capacityMin}
               max={capacityMax}
               value={capacity}
               onChange={(e) => setManualCapacity(Number(e.target.value) || capacityMin)}
-              className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 font-mono focus:border-emerald-500 focus:outline-none"
+              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 font-mono focus:border-emerald-500 focus:outline-none"
             />
           </div>
           <button
             onClick={toggleCapacitySim}
             className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition-colors ${
               isCapacityPlaying
-                ? "bg-amber-100 text-amber-700 border border-amber-300 hover:bg-amber-200"
-                : "bg-emerald-600 text-white hover:bg-emerald-700"
+                ? "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-600 hover:bg-amber-200"
+                : "bg-emerald-600 text-white hover:bg-emerald-700 dark:hover:bg-emerald-600"
             }`}
           >
             {isCapacityPlaying ? "⏸ Pause Traffic" : "▶ Simulate Traffic"}
           </button>
           <button
             onClick={resetCapacitySim}
-            className="px-4 py-2 rounded-lg text-xs font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 transition-colors"
+            className="px-4 py-2 rounded-lg text-xs font-mono font-bold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
           >
             ↺ Reset
           </button>
           {cooldownTicks > 0 && (
-            <span className="px-2.5 py-1.5 rounded-lg bg-amber-100 text-amber-700 border border-amber-200 text-xs font-mono font-bold">
+            <span className="px-2.5 py-1.5 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700 text-xs font-mono font-bold">
               ⏳ Cooldown ({cooldownTicks} tick{cooldownTicks === 1 ? "" : "s"})
             </span>
           )}
@@ -1724,26 +1724,26 @@ export default function AwsAutoScalingSection() {
           {/* Left: gauges + instances */}
           <div className="space-y-5">
             {/* Desired capacity bar */}
-            <div className="rounded-xl bg-slate-50 border border-slate-200 p-5 space-y-2">
-              <div className="flex items-center justify-between text-xs font-mono text-slate-500">
+            <div className="rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-5 space-y-2">
+              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400">
                 <span className="uppercase tracking-wider">Desired Capacity</span>
                 <span>
-                  <span className="text-emerald-600 font-extrabold text-base">{capacity}</span> / {capacityMax} max · min {capacityMin}
+                  <span className="text-emerald-600 dark:text-emerald-400 font-extrabold text-base">{capacity}</span> / {capacityMax} max · min {capacityMin}
                 </span>
               </div>
-              <div className="relative h-6 rounded-lg bg-slate-200 overflow-visible">
+              <div className="relative h-6 rounded-lg bg-slate-200 dark:bg-slate-600 overflow-visible">
                 <div
                   className="absolute inset-y-0 left-0 rounded-lg bg-gradient-to-r from-emerald-500 to-emerald-600 transition-all duration-700"
                   style={{ width: `${capacityPct}%` }}
                 />
                 {/* min marker */}
                 <div
-                  className="absolute inset-y-0 w-0.5 bg-white border-x border-slate-400 z-10"
+                  className="absolute inset-y-0 w-0.5 bg-white dark:bg-slate-800 border-x border-slate-400 dark:border-slate-300 z-10"
                   style={{ left: `${minMarkerPct}%` }}
                   title={`min ${capacityMin}`}
                 />
                 <span
-                  className="absolute -top-6 text-[10px] font-mono text-slate-400"
+                  className="absolute -top-6 text-[10px] font-mono text-slate-400 dark:text-slate-500"
                   style={{ left: `calc(${minMarkerPct}% - 8px)` }}
                 >
                   min
@@ -1752,20 +1752,20 @@ export default function AwsAutoScalingSection() {
             </div>
 
             {/* Load meter */}
-            <div className="rounded-xl bg-slate-50 border border-slate-200 p-5 space-y-2">
-              <div className="flex items-center justify-between text-xs font-mono text-slate-500">
+            <div className="rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-5 space-y-2">
+              <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400">
                 <span className="uppercase tracking-wider">Synthetic Load</span>
-                <span className={`font-extrabold text-base ${load >= 78 ? "text-rose-600" : load >= 55 ? "text-amber-600" : "text-emerald-600"}`}>
+                <span className={`font-extrabold text-base ${load >= 78 ? "text-rose-600 dark:text-rose-400" : load >= 55 ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400"}`}>
                   {load}%
                 </span>
               </div>
-              <div className="h-3 rounded-full bg-slate-200 overflow-hidden">
+              <div className="h-3 rounded-full bg-slate-200 dark:bg-slate-600 overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-700 ${loadBarColor}`}
                   style={{ width: `${load}%` }}
                 />
               </div>
-              <div className="flex justify-between text-[10px] font-mono text-slate-400">
+              <div className="flex justify-between text-[10px] font-mono text-slate-400 dark:text-slate-500">
                 <span>scale in ≤ 28%</span>
                 <span>scale out ≥ 78%</span>
               </div>
@@ -1773,7 +1773,7 @@ export default function AwsAutoScalingSection() {
 
             {/* Instance chips */}
             <div className="space-y-2">
-              <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">
+              <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Fleet ({instances.length} registered)
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -1782,28 +1782,28 @@ export default function AwsAutoScalingSection() {
                     key={inst.id}
                     className={`flex items-center justify-between rounded-xl border px-3 py-2.5 transition-colors ${
                       inst.status === "InService"
-                        ? "bg-emerald-50 border-emerald-200"
+                        ? "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700"
                         : inst.status === "Launching"
-                        ? "bg-amber-50 border-amber-200"
-                        : "bg-rose-50 border-rose-200"
+                        ? "bg-amber-50 dark:bg-amber-900/30 border-amber-200 dark:border-amber-700"
+                        : "bg-rose-50 dark:bg-rose-900/30 border-rose-200 dark:border-rose-700"
                     }`}
                   >
                     <div>
-                      <div className="text-xs font-mono font-bold text-slate-900">{inst.id}</div>
-                      <div className="text-[11px] font-mono text-slate-500">{inst.az}</div>
+                      <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">{inst.id}</div>
+                      <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{inst.az}</div>
                     </div>
                     {inst.status === "InService" && (
-                      <span className="text-[10px] font-mono font-bold text-emerald-700 bg-white border border-emerald-200 px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] font-mono font-bold text-emerald-700 dark:text-emerald-300 bg-white dark:bg-slate-800 border border-emerald-200 dark:border-emerald-700 px-2 py-0.5 rounded-full">
                         InService
                       </span>
                     )}
                     {inst.status === "Launching" && (
-                      <span className="text-[10px] font-mono font-bold text-amber-700 bg-white border border-amber-200 px-2 py-0.5 rounded-full animate-pulse">
+                      <span className="text-[10px] font-mono font-bold text-amber-700 dark:text-amber-300 bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-700 px-2 py-0.5 rounded-full animate-pulse">
                         Launching…
                       </span>
                     )}
                     {inst.status === "Terminating" && (
-                      <span className="text-[10px] font-mono font-bold text-rose-700 bg-white border border-rose-200 px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] font-mono font-bold text-rose-700 dark:text-rose-300 bg-white dark:bg-slate-800 border border-rose-200 dark:border-rose-700 px-2 py-0.5 rounded-full">
                         Terminating
                       </span>
                     )}
@@ -1814,8 +1814,8 @@ export default function AwsAutoScalingSection() {
           </div>
 
           {/* Right: activity log */}
-          <div className="rounded-xl border border-slate-200 overflow-hidden self-start">
-            <div className="bg-slate-50 px-4 py-2.5 text-xs font-mono text-slate-500 uppercase tracking-wider border-b border-slate-200">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden self-start">
+            <div className="bg-slate-50 dark:bg-slate-700 px-4 py-2.5 text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-700">
               📜 Auto Scaling Activity Log
             </div>
             <div className="divide-y divide-[#30363d] max-h-96 overflow-y-auto">
@@ -1833,16 +1833,16 @@ export default function AwsAutoScalingSection() {
                     }`}
                   />
                   <div>
-                    <div className="text-slate-400 text-[10px]">{entry.time}</div>
+                    <div className="text-slate-400 dark:text-slate-500 text-[10px]">{entry.time}</div>
                     <div
                       className={`${
                         entry.kind === "scale-out"
-                          ? "text-emerald-700 font-bold"
+                          ? "text-emerald-700 dark:text-emerald-300 font-bold"
                           : entry.kind === "scale-in"
-                          ? "text-amber-700 font-bold"
+                          ? "text-amber-700 dark:text-amber-300 font-bold"
                           : entry.kind === "warn"
-                          ? "text-violet-700"
-                          : "text-slate-600"
+                          ? "text-violet-700 dark:text-violet-300"
+                          : "text-slate-600 dark:text-slate-300"
                       }`}
                     >
                       {entry.message}
@@ -1856,7 +1856,7 @@ export default function AwsAutoScalingSection() {
       </section>
 
       {/* Footer note */}
-      <div className="text-center text-xs font-mono text-slate-400 pb-4">
+      <div className="text-center text-xs font-mono text-slate-400 dark:text-slate-500 pb-4">
         AWS Auto Scaling &amp; Elastic Load Balancing · ELB v2 · ASG lifecycle: Pending → InService → Draining →
         Terminating
       </div>

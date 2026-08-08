@@ -10,7 +10,7 @@ export default function KnowledgeGraphSection() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6 items-start">
-      <div className="rounded-2xl border border-slate-200 bg-white card-shadow overflow-hidden aspect-[10/7]">
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 card-shadow overflow-hidden aspect-[10/7]">
         <KnowledgeGraph activeId={activeId} onActivate={setActiveId} />
       </div>
       <BranchDetail branch={branch} />

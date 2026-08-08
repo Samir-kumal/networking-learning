@@ -1321,7 +1321,7 @@ export default function DkHpaVpaSection() {
           <li className="flex gap-2"><span className="text-sky-600 dark:text-sky-400">▸</span> Scale down gently: <b>stabilizationWindowSeconds ≥ 300s</b> prevents flapping on dips.</li>
           <li className="flex gap-2"><span className="text-sky-600 dark:text-sky-400">▸</span> HPA scales on <b>per-pod averages</b>; per-pod skew is handled by VPA instead.</li>
           <li className="flex gap-2"><span className="text-sky-600 dark:text-sky-400">▸</span> VPA on <b>memory</b> + HPA on <b>CPU</b> is battle-tested; avoid both on the same metric in Auto mode.</li>
-          <li className="flex gap-2"><span className="text-sky-600 dark:text-sky-400">▸</span> After VPA changes requests, HPA's utilization denominator changes — re-check targets.</li>
+          <li className="flex gap-2"><span className="text-sky-600 dark:text-sky-400">▸</span> After VPA changes requests, HPA&apos;s utilization denominator changes — re-check targets.</li>
         </ul>
       </div>
     </section>

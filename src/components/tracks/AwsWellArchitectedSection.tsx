@@ -312,12 +312,12 @@ const TOTAL_QUESTIONS = PILLARS.reduce((sum, p) => sum + p.questions.length, 0);
 
 function getMaturity(score: number) {
   if (score >= 85)
-    return { label: "WELL-ARCHITECTED", badge: "bg-emerald-50 text-emerald-600 border-emerald-200" };
+    return { label: "WELL-ARCHITECTED", badge: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700" };
   if (score >= 70)
-    return { label: "SOLID FOUNDATION", badge: "bg-amber-50 text-amber-600 border-amber-200" };
+    return { label: "SOLID FOUNDATION", badge: "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-700" };
   if (score >= 50)
-    return { label: "DEVELOPING", badge: "bg-orange-50 text-orange-600 border-orange-200" };
-  return { label: "INITIAL", badge: "bg-rose-50 text-rose-600 border-rose-200" };
+    return { label: "DEVELOPING", badge: "bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 border-orange-200 dark:border-orange-700" };
+  return { label: "INITIAL", badge: "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-700" };
 }
 
 // ==========================================
@@ -477,7 +477,7 @@ export default function AwsWellArchitectedSection() {
       {/* =====================================================
            TRACK TITLE BANNER
       ===================================================== */}
-      <div className="rounded-2xl bg-gradient-to-r from-[#161b22] via-[#1c2333] to-[#161b22] border border-slate-200 p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+      <div className="rounded-2xl bg-gradient-to-r from-[#161b22] via-[#1c2333] to-[#161b22] border border-slate-200 dark:border-slate-700 p-6 sm:p-10 shadow-2xl relative overflow-hidden">
         <div className="absolute -right-10 -bottom-10 w-72 h-72 bg-[#f0883e]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
           <div>
@@ -485,26 +485,26 @@ export default function AwsWellArchitectedSection() {
               <span className="w-2 h-2 rounded-full bg-[#f0883e] animate-pulse" />
               AWS Well-Architected Framework Review
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
               Well-Architected Review &amp; Maturity Radar
             </h1>
-            <p className="text-slate-500 text-sm sm:text-base mt-2 max-w-3xl">
+            <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base mt-2 max-w-3xl">
               Self-assess your architecture against the six AWS Well-Architected pillars. Answer each
               question honestly — Yes, Partial, or No — and get a weighted maturity score, a radar
               chart of your posture, and prioritized improvement recommendations.
             </p>
           </div>
           <div className="flex flex-wrap gap-2 text-xs font-mono">
-            <span className="bg-slate-50 border border-slate-200 text-amber-600 px-3 py-1.5 rounded-lg">
+            <span className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-amber-600 dark:text-amber-400 px-3 py-1.5 rounded-lg">
               ✓ 6 Pillars
             </span>
-            <span className="bg-slate-50 border border-slate-200 text-indigo-600 px-3 py-1.5 rounded-lg">
+            <span className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-indigo-600 dark:text-indigo-400 px-3 py-1.5 rounded-lg">
               ✓ Weighted Scoring
             </span>
-            <span className="bg-slate-50 border border-slate-200 text-emerald-600 px-3 py-1.5 rounded-lg">
+            <span className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-emerald-600 dark:text-emerald-400 px-3 py-1.5 rounded-lg">
               ✓ Radar Analysis
             </span>
-            <span className="bg-slate-50 border border-slate-200 text-rose-600 px-3 py-1.5 rounded-lg">
+            <span className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-rose-600 dark:text-rose-400 px-3 py-1.5 rounded-lg">
               ✓ Action Plan
             </span>
           </div>
@@ -516,19 +516,19 @@ export default function AwsWellArchitectedSection() {
       ===================================================== */}
       <section
         id="wa-overview"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 space-y-8 shadow-xl hover:border-[#f0883e]/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-8 shadow-xl hover:border-[#f0883e]/40 transition-colors"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
             <div className="text-xs font-mono text-[#f0883e] uppercase tracking-wider mb-1">
               Module 01 / Maturity Scorecard
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
               <span>📊</span> Weighted Pillar Scores &amp; Radar Chart
             </h2>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-slate-500">Overall Maturity:</span>
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">Overall Maturity:</span>
             <span
               className={`px-3 py-1 rounded-full text-xs font-mono font-bold border ${maturity.badge}`}
             >
@@ -538,7 +538,7 @@ export default function AwsWellArchitectedSection() {
         </div>
 
         {/* Overall score hero */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-slate-50 p-5 rounded-xl border border-slate-200">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-slate-50 dark:bg-slate-700 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
           <div className="md:col-span-1 flex flex-col items-center justify-center text-center space-y-2">
             <div className="relative w-32 h-32">
               <svg viewBox="0 0 120 120" className="w-full h-full -rotate-90">
@@ -555,17 +555,17 @@ export default function AwsWellArchitectedSection() {
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-3xl font-extrabold text-slate-900 font-mono">{overall}</span>
-                <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">
+                <span className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">{overall}</span>
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   / 100
                 </span>
               </div>
             </div>
             <div>
-              <div className="text-xs font-mono font-bold text-slate-900">
+              <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">
                 {maturity.label}
               </div>
-              <div className="text-[11px] text-slate-500 mt-1">
+              <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
                 Weighted across pillars (Security &amp; Reliability weighted 1.2×)
               </div>
             </div>
@@ -579,12 +579,12 @@ export default function AwsWellArchitectedSection() {
           {/* Per-pillar score bars */}
           <div className="md:col-span-1 space-y-3">
             <div className="flex items-center justify-between text-xs font-mono">
-              <span className="text-slate-500">
+              <span className="text-slate-500 dark:text-slate-400">
                 Progress: {answered} / {TOTAL_QUESTIONS} questions answered
               </span>
               <span className="text-[#f0883e] font-bold">{completion}%</span>
             </div>
-            <div className="h-1.5 rounded-full bg-slate-200 overflow-hidden">
+            <div className="h-1.5 rounded-full bg-slate-200 dark:bg-slate-600 overflow-hidden">
               <div
                 className="h-full bg-[#f0883e] rounded-full transition-all duration-500"
                 style={{ width: `${completion}%` }}
@@ -594,27 +594,27 @@ export default function AwsWellArchitectedSection() {
               {PILLARS.map((pillar, i) => (
                 <div key={pillar.id} className="space-y-1">
                   <div className="flex items-center justify-between text-[11px] font-mono">
-                    <span className="font-bold text-slate-700 flex items-center gap-1.5">
+                    <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                       <span
                         className="w-2 h-2 rounded-full"
                         style={{ backgroundColor: pillar.color }}
                       />
                       {pillar.shortName}
-                      <span className="text-slate-400 font-medium">w={pillar.weight.toFixed(1)}</span>
+                      <span className="text-slate-400 dark:text-slate-500 font-medium">w={pillar.weight.toFixed(1)}</span>
                     </span>
                     <span
                       className={`font-bold ${
                         scores[i] >= 85
-                          ? "text-emerald-600"
+                          ? "text-emerald-600 dark:text-emerald-400"
                           : scores[i] >= 50
-                            ? "text-amber-600"
-                            : "text-rose-600"
+                            ? "text-amber-600 dark:text-amber-400"
+                            : "text-rose-600 dark:text-rose-400"
                       }`}
                     >
                       {scores[i]}
                     </span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-slate-200 overflow-hidden">
+                  <div className="h-1.5 rounded-full bg-slate-200 dark:bg-slate-600 overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-500"
                       style={{
@@ -631,15 +631,15 @@ export default function AwsWellArchitectedSection() {
 
         {/* Controls */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <p className="text-xs text-slate-500 font-mono">
-            Scoring: <span className="text-emerald-600 font-bold">Yes = 100%</span> ·{" "}
-            <span className="text-amber-600 font-bold">Partial = 50%</span> ·{" "}
-            <span className="text-rose-600 font-bold">No = 0%</span> · unanswered questions count
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+            Scoring: <span className="text-emerald-600 dark:text-emerald-400 font-bold">Yes = 100%</span> ·{" "}
+            <span className="text-amber-600 dark:text-amber-400 font-bold">Partial = 50%</span> ·{" "}
+            <span className="text-rose-600 dark:text-rose-400 font-bold">No = 0%</span> · unanswered questions count
             as 0. Each question carries a weight; each pillar carries a weight.
           </p>
           <button
             onClick={() => setAnswers({})}
-            className="px-4 py-2 rounded-lg text-xs font-mono font-bold border border-rose-200 bg-rose-50 text-rose-600 hover:bg-rose-100 transition-colors"
+            className="px-4 py-2 rounded-lg text-xs font-mono font-bold border border-rose-200 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/40 transition-colors"
           >
             ↺ Reset All Answers
           </button>
@@ -651,18 +651,18 @@ export default function AwsWellArchitectedSection() {
       ===================================================== */}
       <section
         id="wa-assessment"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 space-y-8 shadow-xl hover:border-[#f0883e]/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-8 shadow-xl hover:border-[#f0883e]/40 transition-colors"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
             <div className="text-xs font-mono text-[#f0883e] uppercase tracking-wider mb-1">
               Module 02 / Pillar-by-Pillar Questionnaire
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
               <span>📋</span> Six Pillar Assessment
             </h2>
           </div>
-          <span className="text-xs font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
             {answered}/{TOTAL_QUESTIONS} Answered
           </span>
         </div>
@@ -673,10 +673,10 @@ export default function AwsWellArchitectedSection() {
             return (
               <div
                 key={pillar.id}
-                className="rounded-xl bg-white border border-slate-200 shadow-md hover:shadow-lg transition-shadow p-5 space-y-5"
+                className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-lg transition-shadow p-5 space-y-5"
               >
                 {/* Pillar header */}
-                <div className="flex items-start justify-between gap-3 border-b border-slate-200 pb-4">
+                <div className="flex items-start justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-4">
                   <div className="flex items-start gap-3">
                     <span
                       className="w-10 h-10 rounded-lg flex items-center justify-center text-lg shrink-0"
@@ -685,7 +685,7 @@ export default function AwsWellArchitectedSection() {
                       {pillar.emoji}
                     </span>
                     <div>
-                      <h3 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+                      <h3 className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                         {pillar.name}
                         <span
                           className="text-[10px] font-mono px-1.5 py-0.5 rounded border"
@@ -698,7 +698,7 @@ export default function AwsWellArchitectedSection() {
                           w={pillar.weight.toFixed(1)}
                         </span>
                       </h3>
-                      <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
                         {pillar.description}
                       </p>
                     </div>
@@ -709,9 +709,9 @@ export default function AwsWellArchitectedSection() {
                       style={{ color: pillar.color }}
                     >
                       {pScore}
-                      <span className="text-xs text-slate-400">/100</span>
+                      <span className="text-xs text-slate-400 dark:text-slate-500">/100</span>
                     </div>
-                    <div className="w-24 h-1.5 rounded-full bg-slate-200 overflow-hidden mt-1">
+                    <div className="w-24 h-1.5 rounded-full bg-slate-200 dark:bg-slate-600 overflow-hidden mt-1">
                       <div
                         className="h-full rounded-full transition-all duration-500"
                         style={{ width: `${pScore}%`, backgroundColor: pillar.color }}
@@ -728,19 +728,19 @@ export default function AwsWellArchitectedSection() {
                     return (
                       <div key={q.id} className="space-y-2">
                         <div className="flex items-start justify-between gap-2">
-                          <p className="text-xs text-slate-700 font-medium leading-relaxed">
+                          <p className="text-xs text-slate-700 dark:text-slate-300 font-medium leading-relaxed">
                             {q.text}
                           </p>
-                          <span className="text-[10px] font-mono text-slate-400 shrink-0 pt-0.5">
+                          <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 shrink-0 pt-0.5">
                             w={q.weight}
                           </span>
                         </div>
                         <div className="grid grid-cols-3 gap-2">
                           {(
                             [
-                              ["yes", "✓ Yes", "bg-emerald-500/15 text-emerald-600 border-emerald-400"],
-                              ["partial", "◐ Partial", "bg-amber-500/15 text-amber-600 border-amber-400"],
-                              ["no", "✗ No", "bg-rose-500/15 text-rose-600 border-rose-400"],
+                              ["yes", "✓ Yes", "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-400"],
+                              ["partial", "◐ Partial", "bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-400"],
+                              ["no", "✗ No", "bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-400"],
                             ] as const
                           ).map(([value, label, activeCls]) => (
                             <button
@@ -754,7 +754,7 @@ export default function AwsWellArchitectedSection() {
                               className={`py-1.5 px-2 rounded-lg text-[11px] font-mono font-bold border transition-all ${
                                 current === value
                                   ? activeCls
-                                  : "bg-slate-50 text-slate-400 border-slate-200 hover:border-[#8b949e] hover:text-slate-600"
+                                  : "bg-slate-50 dark:bg-slate-700 text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-700 hover:border-[#8b949e] hover:text-slate-600 dark:hover:text-slate-300"
                               }`}
                             >
                               {label}
@@ -776,29 +776,29 @@ export default function AwsWellArchitectedSection() {
       ===================================================== */}
       <section
         id="wa-recommendations"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 space-y-8 shadow-xl hover:border-[#f0883e]/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-8 shadow-xl hover:border-[#f0883e]/40 transition-colors"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
             <div className="text-xs font-mono text-[#f0883e] uppercase tracking-wider mb-1">
               Module 03 / Improvement Plan
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
               <span>🚀</span> Prioritized Recommendations
             </h2>
           </div>
-          <span className="text-xs font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
             {recommendations.length} Action Item{recommendations.length === 1 ? "" : "s"}
           </span>
         </div>
 
         {recommendations.length === 0 ? (
-          <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-6 text-center space-y-2">
+          <div className="rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 p-6 text-center space-y-2">
             <div className="text-3xl">🏆</div>
-            <p className="text-sm font-bold text-emerald-700 font-mono">
+            <p className="text-sm font-bold text-emerald-700 dark:text-emerald-300 font-mono">
               OUTSTANDING — NO IMPROVEMENT ITEMS DETECTED
             </p>
-            <p className="text-xs text-emerald-600">
+            <p className="text-xs text-emerald-600 dark:text-emerald-400">
               Every question was answered Yes. Re-run the review with honest, real-world answers
               to uncover gaps — no architecture is perfect.
             </p>
@@ -807,21 +807,21 @@ export default function AwsWellArchitectedSection() {
           <>
             {/* Top priority actions */}
             <div className="space-y-3">
-              <h3 className="text-sm font-bold text-slate-900 font-mono flex items-center gap-2">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono flex items-center gap-2">
                 <span>🎯</span> Top Priority Actions ({topActions.length})
               </h3>
               <div className="space-y-3">
                 {topActions.map(({ pillar, question, priority }, idx) => (
                   <div
                     key={`${pillar.id}:${question.id}`}
-                    className="flex gap-4 p-4 rounded-xl border border-slate-200 bg-slate-50 hover:border-[#f0883e]/40 transition-colors"
+                    className="flex gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 hover:border-[#f0883e]/40 transition-colors"
                   >
                     <div className="shrink-0 flex flex-col items-center gap-1">
                       <span
                         className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-extrabold font-mono ${
                           priority === "HIGH"
-                            ? "bg-rose-100 text-rose-600 border border-rose-200"
-                            : "bg-amber-100 text-amber-600 border border-amber-200"
+                            ? "bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700"
+                            : "bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-700"
                         }`}
                       >
                         {idx + 1}
@@ -829,8 +829,8 @@ export default function AwsWellArchitectedSection() {
                       <span
                         className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${
                           priority === "HIGH"
-                            ? "bg-rose-50 text-rose-500"
-                            : "bg-amber-50 text-amber-600"
+                            ? "bg-rose-50 dark:bg-rose-900/30 text-rose-500 dark:text-rose-400"
+                            : "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"
                         }`}
                       >
                         {priority}
@@ -842,13 +842,13 @@ export default function AwsWellArchitectedSection() {
                           className="w-2 h-2 rounded-full"
                           style={{ backgroundColor: pillar.color }}
                         />
-                        <span className="font-bold text-slate-700">
+                        <span className="font-bold text-slate-700 dark:text-slate-300">
                           {pillar.emoji} {pillar.name}
                         </span>
-                        <span className="text-slate-400">· w={question.weight}</span>
+                        <span className="text-slate-400 dark:text-slate-500">· w={question.weight}</span>
                       </div>
-                      <p className="text-xs text-slate-500 font-medium">{question.text}</p>
-                      <p className="text-xs text-slate-700 leading-relaxed">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{question.text}</p>
+                      <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                         <span className="font-bold text-[#f0883e] font-mono text-[11px]">
                           {priority === "HIGH" ? "FIX" : "IMPROVE"}:
                         </span>{" "}
@@ -868,10 +868,10 @@ export default function AwsWellArchitectedSection() {
                 return (
                   <div
                     key={pillar.id}
-                    className="rounded-xl border border-slate-200 p-4 space-y-3 bg-white shadow-sm"
+                    className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-3 bg-white dark:bg-slate-800 shadow-sm"
                   >
-                    <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-                      <h4 className="text-xs font-mono font-bold text-slate-900 flex items-center gap-2">
+                    <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
+                      <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                         <span>{pillar.emoji}</span> {pillar.name}
                       </h4>
                       <span
@@ -890,13 +890,13 @@ export default function AwsWellArchitectedSection() {
                         <li key={question.id} className="flex gap-2 text-[11px] leading-relaxed">
                           <span
                             className={`mt-0.5 shrink-0 font-mono font-bold ${
-                              priority === "HIGH" ? "text-rose-500" : "text-amber-500"
+                              priority === "HIGH" ? "text-rose-500 dark:text-rose-400" : "text-amber-500 dark:text-amber-400"
                             }`}
                           >
                             {priority === "HIGH" ? "✗" : "◐"}
                           </span>
-                          <span className="text-slate-600">
-                            <span className="font-bold text-slate-800">{question.recommendation}</span>
+                          <span className="text-slate-600 dark:text-slate-300">
+                            <span className="font-bold text-slate-800 dark:text-slate-200">{question.recommendation}</span>
                           </span>
                         </li>
                       ))}
@@ -909,7 +909,7 @@ export default function AwsWellArchitectedSection() {
             {/* Lowest pillar callout */}
             <div className="rounded-xl bg-[#f0883e]/5 border border-[#f0883e]/30 p-4 flex items-start gap-3">
               <span className="text-xl">⚠️</span>
-              <p className="text-xs text-slate-700 leading-relaxed">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                 <span className="font-bold text-[#f0883e] font-mono">START HERE:</span> Your
                 weakest pillar is{" "}
                 <span className="font-bold">

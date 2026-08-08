@@ -145,10 +145,10 @@ const NODE_H = 64;
 const CANVAS_H = 540;
 
 const NODE_STYLE: Record<TopoNodeKind, string> = {
-  tgw: "bg-indigo-500 border-indigo-300 shadow-indigo-900/30",
-  vpc: "bg-blue-500 border-blue-300 shadow-blue-900/30",
+  tgw: "bg-indigo-500 border-indigo-300 dark:border-indigo-600 shadow-indigo-900/30",
+  vpc: "bg-blue-500 border-blue-300 dark:border-blue-600 shadow-blue-900/30",
   onprem: "bg-slate-600 border-slate-400 shadow-slate-900/30",
-  dx: "bg-cyan-500 border-cyan-300 shadow-cyan-900/30",
+  dx: "bg-cyan-500 border-cyan-300 dark:border-cyan-600 shadow-cyan-900/30",
 };
 
 const NODE_TEXT: Record<TopoNodeKind, string> = {
@@ -159,10 +159,10 @@ const NODE_TEXT: Record<TopoNodeKind, string> = {
 };
 
 const LINK_META: Record<ConnectionType, { stroke: string; chip: string; label: string }> = {
-  tgw: { stroke: "bg-indigo-500", chip: "bg-indigo-500/10 text-indigo-700 border-indigo-300", label: "TGW attach" },
-  peering: { stroke: "bg-blue-400", chip: "bg-blue-500/10 text-blue-700 border-blue-300", label: "VPC Peering" },
-  vpn: { stroke: "bg-cyan-400", chip: "bg-cyan-500/10 text-cyan-800 border-cyan-300", label: "VPN tunnel" },
-  dx: { stroke: "bg-emerald-400", chip: "bg-emerald-500/10 text-emerald-700 border-emerald-300", label: "Direct Connect" },
+  tgw: { stroke: "bg-indigo-500", chip: "bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-300 dark:border-indigo-600", label: "TGW attach" },
+  peering: { stroke: "bg-blue-400", chip: "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-600", label: "VPC Peering" },
+  vpn: { stroke: "bg-cyan-400", chip: "bg-cyan-500/10 text-cyan-800 dark:text-cyan-200 border-cyan-300 dark:border-cyan-600", label: "VPN tunnel" },
+  dx: { stroke: "bg-emerald-400", chip: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-600", label: "Direct Connect" },
 };
 
 const CONNECTION_TYPE_OPTIONS: { id: ConnectionType; label: string; desc: string }[] = [
@@ -658,30 +658,30 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
       {/* ========================================================================= */}
       <section
         id="overview"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 card-shadow shadow-xl space-y-8 hover:border-indigo-400/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl space-y-8 hover:border-indigo-400/40 transition-colors"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
-            <div className="text-xs font-mono text-indigo-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
               Module 01 / Transit Gateway & Hybrid Networking
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
               <span>🌐</span> AWS Transit Gateway & the Hybrid Network
             </h2>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-slate-500">Gateway Type:</span>
-            <span className="px-3 py-1 rounded-full text-xs font-mono font-bold border bg-indigo-50 text-indigo-700 border-indigo-200">
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">Gateway Type:</span>
+            <span className="px-3 py-1 rounded-full text-xs font-mono font-bold border bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-700">
               TGW · Route 53 · DX · VPN
             </span>
           </div>
         </div>
 
-        <p className="text-sm text-slate-500 leading-relaxed">
-          A <strong className="text-slate-900">Transit Gateway</strong> lets you connect VPCs, VPN tunnels, and
+        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+          A <strong className="text-slate-900 dark:text-slate-100">Transit Gateway</strong> lets you connect VPCs, VPN tunnels, and
           Direct Connect virtual interfaces through one centrally-managed hub — replacing the{" "}
-          <strong className="text-indigo-700">non-transitive</strong> mesh of VPC peering connections. This module
-          builds a live multi-VPC topology, detects <strong className="text-blue-700">CIDR overlaps</strong>,
+          <strong className="text-indigo-700 dark:text-indigo-300">non-transitive</strong> mesh of VPC peering connections. This module
+          builds a live multi-VPC topology, detects <strong className="text-blue-700 dark:text-blue-300">CIDR overlaps</strong>,
           configures redundant IPsec tunnels, inspects route tables, and maps the Direct Connect path into the cloud.
         </p>
 
@@ -691,7 +691,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
             {
               icon: "🔗",
               title: "VPC Peering",
-              color: "text-blue-600",
+              color: "text-blue-600 dark:text-blue-400",
               tag: "1:1 pairing",
               best: "Two VPCs, simple needs",
               cons: "Non-transitive · no transitive routing",
@@ -699,7 +699,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
             {
               icon: "🧭",
               title: "Transit Gateway",
-              color: "text-indigo-600",
+              color: "text-indigo-600 dark:text-indigo-400",
               tag: "hub & spoke",
               best: "Many VPCs, cross-account, hybrid",
               cons: "Costs per attachment + GB processed",
@@ -707,7 +707,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
             {
               icon: "🔐",
               title: "VPN (IPsec)",
-              color: "text-cyan-700",
+              color: "text-cyan-700 dark:text-cyan-300",
               tag: "over the internet",
               best: "Quick hybrid link, encrypted",
               cons: "~100 Mbps per tunnel, internet-dependent",
@@ -715,35 +715,35 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
             {
               icon: "⚡",
               title: "Direct Connect",
-              color: "text-emerald-600",
+              color: "text-emerald-600 dark:text-emerald-400",
               tag: "private line",
               best: "Stable, low-latency, high-bandwidth",
               cons: "Weeks of physical provisioning",
             },
           ].map((c) => (
-            <div key={c.title} className={`bg-slate-50 rounded-xl border border-slate-200 p-4 space-y-2`}>
+            <div key={c.title} className={`bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-2`}>
               <div className="flex items-center justify-between">
                 <span className="text-lg">{c.icon}</span>
-                <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${c.color} border-current/30 bg-white`}>
+                <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${c.color} border-current/30 bg-white dark:bg-slate-800`}>
                   {c.tag}
                 </span>
               </div>
-              <h3 className="text-sm font-bold text-slate-900">{c.title}</h3>
-              <p className="text-xs text-slate-500 leading-relaxed">{c.best}</p>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">{c.title}</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{c.best}</p>
               <p className={`text-[11px] font-mono ${c.color} leading-relaxed`}>{c.cons}</p>
             </div>
           ))}
         </div>
 
         {/* Comparison table */}
-        <div className="rounded-xl border border-slate-200 overflow-hidden card-shadow">
-          <div className="bg-slate-50 px-5 py-3 border-b border-slate-200">
-            <h4 className="text-xs font-mono font-bold text-slate-900">Feature Comparison — TGW vs Peering vs VPN vs Direct Connect</h4>
+        <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden card-shadow">
+          <div className="bg-slate-50 dark:bg-slate-700 px-5 py-3 border-b border-slate-200 dark:border-slate-700">
+            <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">Feature Comparison — TGW vs Peering vs VPN vs Direct Connect</h4>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs font-mono">
               <thead>
-                <tr className="bg-indigo-50 text-indigo-800 border-b border-slate-200">
+                <tr className="bg-indigo-50 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200 border-b border-slate-200 dark:border-slate-700">
                   <th className="px-4 py-2.5 font-bold">Capability</th>
                   <th className="px-4 py-2.5 font-bold">VPC Peering</th>
                   <th className="px-4 py-2.5 font-bold">Transit Gateway</th>
@@ -751,7 +751,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                   <th className="px-4 py-2.5 font-bold">Direct Connect</th>
                 </tr>
               </thead>
-              <tbody className="text-slate-600">
+              <tbody className="text-slate-600 dark:text-slate-300">
                 {[
                   ["Transitive routing", "✗ no", "✓ central hub", "– per tunnel", "– per VIF"],
                   ["Cross-account / cross-region", "✓ accounts (peer role)", "✓ via Resource Access Manager, optional cross-region", "✓ to CGW anywhere", "✓ DX Gateway"],
@@ -761,8 +761,8 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                   ["Cost model", "per GB for implicitly grouped", "$0.02/GW-hr per attachment + per-GB", "per-hour per-tunnel", "port-hour + $0.02/GB egress"],
                   ["Propagates routes", "no (manual route tables)", "✓ BGP-style propagation", "✓ BGP session per tunnel", "✓ BGP over VLAN (transit VIF)"],
                 ].map((row, i) => (
-                  <tr key={i} className="border-b border-slate-100 last:border-0 hover:bg-slate-50/60">
-                    <td className="px-4 py-2.5 text-slate-900 font-semibold">{row[0]}</td>
+                  <tr key={i} className="border-b border-slate-100 dark:border-slate-700 last:border-0 hover:bg-slate-50/60 dark:hover:bg-slate-600/60">
+                    <td className="px-4 py-2.5 text-slate-900 dark:text-slate-100 font-semibold">{row[0]}</td>
                     <td className="px-4 py-2.5">{row[1]}</td>
                     <td className="px-4 py-2.5">{row[2]}</td>
                     <td className="px-4 py-2.5">{row[3]}</td>
@@ -780,17 +780,17 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
       {/* ========================================================================= */}
       <section
         id="topology"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 card-shadow shadow-xl space-y-6 hover:border-indigo-400/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl space-y-6 hover:border-indigo-400/40 transition-colors"
       >
-        <div className="border-b border-slate-200 pb-6">
-          <div className="text-xs font-mono text-indigo-600 uppercase tracking-wider mb-1">
+        <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
+          <div className="text-xs font-mono text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
             Module 02 / VPC Topology Visualizer
           </div>
-          <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+          <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
             <span>🕸️</span> Drag-to-Connect Topology Builder
           </h2>
-          <p className="text-sm text-slate-500 leading-relaxed mt-3">
-            Pick a connection type, then <strong className="text-indigo-700 font-mono">drag</strong> from a colored
+          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mt-3">
+            Pick a connection type, then <strong className="text-indigo-700 dark:text-indigo-300 font-mono">drag</strong> from a colored
             handle on one network to another to build peering, TGW, VPN and Direct Connect links. All nodes are
             draggable; overlapping CIDRs on linked networks are flagged in red.
           </p>
@@ -801,7 +801,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
           <div className="lg:col-span-3">
             <div
               ref={canvasRef}
-              className="relative rounded-xl border border-slate-200 bg-slate-50 overflow-hidden select-none touch-none"
+              className="relative rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 overflow-hidden select-none touch-none"
               style={{ height: CANVAS_H }}
               onPointerMove={dragNodeId ? moveNodeDrag : moveConnecting}
               onPointerUp={() => {
@@ -913,7 +913,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                       <span className={`text-[10px] font-mono font-bold ${NODE_TEXT[n.kind]}`}>{n.label}</span>
                       <span className="text-[9px] font-mono text-white/70 mt-0.5">{n.cidr}</span>
                       {n.account === "cross" && (
-                        <span className="absolute -top-2 right-1 text-[8px] font-mono px-1 rounded bg-amber-200 text-amber-800 border border-amber-300">
+                        <span className="absolute -top-2 right-1 text-[8px] font-mono px-1 rounded bg-amber-200 text-amber-800 dark:text-amber-200 border border-amber-300 dark:border-amber-600">
                           RAM-shared acct
                         </span>
                       )}
@@ -928,7 +928,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                       <div
                         key={i}
                         title={`drag to connect ${h.label}`}
-                        className={`absolute ${h.cls} w-5 h-5 rounded-full border-2 bg-white z-30 cursor-crosshair ${
+                        className={`absolute ${h.cls} w-5 h-5 rounded-full border-2 bg-white dark:bg-slate-800 z-30 cursor-crosshair ${
                           ["border-indigo-400", "border-blue-400", "border-cyan-400", "border-emerald-400"][i]
                         }`}
                         style={{ transform: "translate(-50%, -50%)" }}
@@ -942,7 +942,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
               })}
 
               {/* legend */}
-              <div className="absolute bottom-2 left-2 z-40 flex flex-wrap gap-2 px-2 py-1 rounded-lg bg-white/90 border border-slate-200 text-[10px] font-mono text-slate-600">
+              <div className="absolute bottom-2 left-2 z-40 flex flex-wrap gap-2 px-2 py-1 rounded-lg bg-white/90 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 text-[10px] font-mono text-slate-600 dark:text-slate-300">
                 {(Object.keys(LINK_META) as ConnectionType[]).map((t) => (
                   <span key={t} className="flex items-center gap-1">
                     <span className={`w-2.5 h-2.5 rounded-full ${LINK_META[t].stroke}`} />
@@ -953,14 +953,14 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
             </div>
 
             {linkConflicts.size > 0 && (
-              <div className="mt-3 p-3 rounded-xl bg-rose-50 border border-rose-300 text-xs text-rose-700">
+              <div className="mt-3 p-3 rounded-xl bg-rose-50 dark:bg-rose-900/30 border border-rose-300 dark:border-rose-600 text-xs text-rose-700 dark:text-rose-300">
                 <strong className="font-mono">⚠ CIDR conflict:</strong>{" "}
                 {Array.from(linkConflicts.values())[0]}
-                <span className="text-rose-500/80"> — ambiguous routes will Blackhole until resolved.</span>
+                <span className="text-rose-500/80 dark:text-rose-400/80"> — ambiguous routes will Blackhole until resolved.</span>
               </div>
             )}
             {canvasError && (
-              <div className="mt-3 p-3 rounded-xl bg-amber-50 border border-amber-300 text-xs text-amber-700 font-mono">
+              <div className="mt-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/30 border border-amber-300 dark:border-amber-600 text-xs text-amber-700 dark:text-amber-300 font-mono">
                 {canvasError}
               </div>
             )}
@@ -968,8 +968,8 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
 
           {/* Side panel */}
           <div className="space-y-4">
-            <div className="rounded-xl border border-slate-200 card-shadow p-4 space-y-3">
-              <h4 className="text-xs font-mono font-bold text-slate-900">Connection type</h4>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 card-shadow p-4 space-y-3">
+              <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">Connection type</h4>
               <div className="space-y-2">
                 {CONNECTION_TYPE_OPTIONS.map((o) => (
                   <button
@@ -978,11 +978,11 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                     className={`w-full text-left px-3 py-2 rounded-lg border text-xs font-mono transition-colors ${
                       linkType === o.id
                         ? "bg-indigo-600 text-white border-indigo-600 shadow-lg"
-                        : "bg-white text-slate-600 border-slate-200 hover:border-indigo-300"
+                        : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-indigo-300"
                     }`}
                   >
                     <span className="block font-bold">{o.label}</span>
-                    <span className={`block text-[10px] ${linkType === o.id ? "text-indigo-100" : "text-slate-400"}`}>
+                    <span className={`block text-[10px] ${linkType === o.id ? "text-indigo-100" : "text-slate-400 dark:text-slate-500"}`}>
                       {o.desc}
                     </span>
                   </button>
@@ -990,12 +990,12 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 p-4 space-y-3">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-3">
               <div className="flex items-center justify-between">
-                <h4 className="text-xs font-mono font-bold text-slate-900">Links ({links.length})</h4>
+                <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">Links ({links.length})</h4>
                 <button
                   onClick={() => setLinks(DEFAULT_LINKS)}
-                  className="text-[10px] font-mono text-indigo-600 hover:underline"
+                  className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 hover:underline"
                 >
                   reset
                 </button>
@@ -1005,14 +1005,14 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                   const a = nodeById.get(l.from)?.label;
                   const b = nodeById.get(l.to)?.label;
                   return (
-                    <div key={l.id} className="flex items-center justify-between gap-2 text-[10px] font-mono bg-slate-50 border border-slate-200 rounded px-2 py-1.5">
-                      <span className="truncate text-slate-600">
+                    <div key={l.id} className="flex items-center justify-between gap-2 text-[10px] font-mono bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5">
+                      <span className="truncate text-slate-600 dark:text-slate-300">
                         <span className={LINK_META[l.type].chip.split(" ")[0] + " px-1 rounded"}>{LINK_META[l.type].label}</span>{" "}
                         {a} ↔ {b}
                       </span>
                       <button
                         onClick={() => removeLink(l.id)}
-                        className="text-rose-500 hover:text-rose-700 font-bold"
+                        className="text-rose-500 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-bold"
                         aria-label={`remove ${LINK_META[l.type].label}`}
                       >
                         ✕
@@ -1021,22 +1021,22 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                   );
                 })}
                 {links.length === 0 && (
-                  <p className="text-[10px] text-slate-400 font-mono">No connections yet — drag between handles.</p>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">No connections yet — drag between handles.</p>
                 )}
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 p-4 space-y-3">
-              <h4 className="text-xs font-mono font-bold text-slate-900">VPC CIDR assignments</h4>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-3">
+              <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">VPC CIDR assignments</h4>
               {nodes
                 .filter((n) => n.kind !== "tgw" && n.kind !== "dx")
                 .map((n) => (
                   <div key={n.id} className="flex items-center justify-between gap-2">
-                    <span className="text-[10px] font-mono text-slate-500 truncate">{n.label}</span>
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">{n.label}</span>
                     <select
                       value={n.cidr}
                       onChange={(e) => setNodeCidr(n.id, e.target.value)}
-                      className="text-[10px] font-mono bg-white border border-slate-200 rounded px-1.5 py-1 text-slate-700 focus:border-indigo-400 focus:outline-none"
+                      className="text-[10px] font-mono bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-1.5 py-1 text-slate-700 dark:text-slate-300 focus:border-indigo-400 focus:outline-none"
                     >
                       {CIDR_PRESETS.map((c) => (
                         <option key={c} value={c}>
@@ -1046,7 +1046,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                     </select>
                   </div>
                 ))}
-              <p className="text-[10px] text-slate-400 leading-relaxed pt-1">
+              <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed pt-1">
                 Overlapping CIDRs on networks that share a path (directly or via the hub) light up red on the canvas —
                 the TGW would Blackhole those routes.
               </p>
@@ -1060,17 +1060,17 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
       {/* ========================================================================= */}
       <section
         id="cidr"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 card-shadow shadow-xl space-y-6 hover:border-blue-400/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl space-y-6 hover:border-blue-400/40 transition-colors"
       >
-        <div className="border-b border-slate-200 pb-6">
-          <div className="text-xs font-mono text-blue-600 uppercase tracking-wider mb-1">
+        <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
+          <div className="text-xs font-mono text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">
             Module 03 / IP CIDR Overlap Detector
           </div>
-          <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+          <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
             <span>📐</span> Overlap & Collision Detector
           </h2>
-          <p className="text-sm text-slate-500 leading-relaxed mt-3">
-            Networks that overlap cause <strong className="text-rose-600 font-mono">ambiguous-routing / Blackhole</strong>{" "}
+          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mt-3">
+            Networks that overlap cause <strong className="text-rose-600 dark:text-rose-400 font-mono">ambiguous-routing / Blackhole</strong>{" "}
             behavior in both VPC route tables and on-prem routers. Add your network plan and this tool computes the
             exact collision range for every pair.
           </p>
@@ -1080,10 +1080,10 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
           {/* inputs */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h4 className="text-xs font-mono font-bold text-slate-900">Network inventory</h4>
+              <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">Network inventory</h4>
               <button
                 onClick={syncFromTopology}
-                className="text-[10px] font-mono text-blue-600 hover:underline"
+                className="text-[10px] font-mono text-blue-600 dark:text-blue-400 hover:underline"
               >
                 ← import from topology
               </button>
@@ -1095,24 +1095,24 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                   className={`flex items-center justify-between gap-3 rounded-lg border px-3 py-2 ${
                     n.info
                       ? n.info.first <= n.info.last
-                        ? "border-slate-200 bg-slate-50"
-                        : "border-rose-200 bg-rose-50"
-                      : "border-rose-200 bg-rose-50"
+                        ? "border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700"
+                        : "border-rose-200 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/30"
+                      : "border-rose-200 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/30"
                   }`}
                 >
                   <div className="min-w-0">
-                    <div className="text-xs font-mono font-bold text-slate-900 truncate">{n.name}</div>
+                    <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 truncate">{n.name}</div>
                     {n.info ? (
-                      <div className="text-[10px] font-mono text-slate-500">
+                      <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                         {n.cidr} · {ipToString(n.info.first)} – {ipToString(n.info.last)} · {n.info.usable.toLocaleString()} usable
                       </div>
                     ) : (
-                      <div className="text-[10px] font-mono text-rose-500">INVALID CIDR: {n.cidr}</div>
+                      <div className="text-[10px] font-mono text-rose-500 dark:text-rose-400">INVALID CIDR: {n.cidr}</div>
                     )}
                   </div>
                   <button
                     onClick={() => removeNetwork(n.id)}
-                    className="text-rose-400 hover:text-rose-600 font-bold text-xs"
+                    className="text-rose-400 dark:text-rose-300 hover:text-rose-600 font-bold text-xs"
                     aria-label={`remove ${n.name}`}
                   >
                     ✕
@@ -1121,19 +1121,19 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
               ))}
             </div>
 
-            <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 space-y-2">
+            <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3 space-y-2">
               <div className="grid grid-cols-2 gap-2">
                 <input
                   value={newNetName}
                   onChange={(e) => setNewNetName(e.target.value)}
                   placeholder="Network name"
-                  className="w-full bg-white border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-blue-400 focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-blue-400 focus:outline-none"
                 />
                 <input
                   value={newNetCidr}
                   onChange={(e) => setNewNetCidr(e.target.value)}
                   placeholder="10.3.0.0/24"
-                  className="w-full bg-white border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-blue-400 focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-blue-400 focus:outline-none"
                 />
               </div>
               <button
@@ -1142,20 +1142,20 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
               >
                 + Add network to plan
               </button>
-              {netError && <p className="text-[10px] font-mono text-rose-600">{netError}</p>}
+              {netError && <p className="text-[10px] font-mono text-rose-600 dark:text-rose-400">{netError}</p>}
             </div>
           </div>
 
           {/* results */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h4 className="text-xs font-mono font-bold text-slate-900">
+              <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">
                 Pairwise overlap results
                 <span
                   className={`ml-2 px-2 py-0.5 rounded-full text-[10px] border font-bold ${
                     overlapResults.length === 0
-                      ? "bg-emerald-50 text-emerald-600 border-emerald-200"
-                      : "bg-rose-50 text-rose-600 border-rose-200"
+                      ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700"
+                      : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-700"
                   }`}
                 >
                   {overlapResults.length === 0 ? "✓ CLEAN" : `${overlapResults.length} COLLISION${overlapResults.length > 1 ? "S" : ""}`}
@@ -1169,27 +1169,27 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                   <div
                     key={i}
                     className={`rounded-lg border px-3 py-2.5 ${
-                      o.kind === "containment" ? "border-amber-200 bg-amber-50" : "border-rose-200 bg-rose-50"
+                      o.kind === "containment" ? "border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/30" : "border-rose-200 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/30"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-xs font-mono font-bold text-slate-900">
-                        {o.a} <span className="text-slate-400">with</span> {o.b}
+                      <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">
+                        {o.a} <span className="text-slate-400 dark:text-slate-500">with</span> {o.b}
                       </span>
                       <span
                         className={`text-[10px] font-mono px-2 py-0.5 rounded border font-bold ${
                           o.kind === "containment"
-                            ? "bg-amber-100 text-amber-700 border-amber-300"
-                            : "bg-rose-100 text-rose-700 border-rose-300"
+                            ? "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-600"
+                            : "bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-600"
                         }`}
                       >
                         {o.kind === "containment" ? "CONTAINS" : "PARTIAL OVERLAP"}
                       </span>
                     </div>
-                    <div className="text-[10px] font-mono text-slate-500 mt-1">
-                      {o.aCidr} ∩ {o.bCidr} → shared range <strong className="text-rose-600">{o.sharedRange}</strong>
+                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-1">
+                      {o.aCidr} ∩ {o.bCidr} → shared range <strong className="text-rose-600 dark:text-rose-400">{o.sharedRange}</strong>
                     </div>
-                    <div className="text-[10px] font-mono text-slate-400 mt-0.5">
+                    <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-0.5">
                       {o.kind === "containment"
                         ? "One network is fully inside the other — the larger wins on longest-prefix-match."
                         : "Partially overlapping ranges — ambiguous routing unless one side is renumbered."}
@@ -1198,12 +1198,12 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                 ))}
               </div>
             ) : (
-              <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-xs font-mono text-emerald-700">
+              <div className="rounded-lg border border-emerald-200 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 p-4 text-xs font-mono text-emerald-700 dark:text-emerald-300">
                 No overlapping CIDRs. Every pair of ranges is disjoint — routing will be unambiguous.
               </div>
             )}
 
-            <p className="text-[11px] text-slate-400 leading-relaxed">
+            <p className="text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
               Tools to renumber instead of colliding: supernet the shared range, or split with more specific
               prefixes so the longest-prefix-match decides deterministically.
             </p>
@@ -1216,18 +1216,18 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
       {/* ========================================================================= */}
       <section
         id="vpn"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 card-shadow shadow-xl space-y-6 hover:border-indigo-400/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl space-y-6 hover:border-indigo-400/40 transition-colors"
       >
-        <div className="border-b border-slate-200 pb-6">
-          <div className="text-xs font-mono text-indigo-600 uppercase tracking-wider mb-1">
+        <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
+          <div className="text-xs font-mono text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
             Module 04 / Site-to-Site VPN Tunnel Configurator
           </div>
-          <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+          <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
             <span>🔐</span> AWS Site-to-Site VPN Builder
           </h2>
-          <p className="text-sm text-slate-500 leading-relaxed mt-3">
+          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mt-3">
             Generate a production-shaped dual-tunnel VPN (tunnel A + tunnel B) with IKE/IPSec phase settings and
-            optional BGP failover. Wrong crypto values produce a classic "<strong className="text-rose-600 font-mono">Phase 1 mismatch</strong>" —
+            optional BGP failover. Wrong crypto values produce a classic &quot;<strong className="text-rose-600 dark:text-rose-400 font-mono">Phase 1 mismatch</strong>&quot; —
             so build carefully.
           </p>
         </div>
@@ -1235,72 +1235,72 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="space-y-4">
             {/* CGW */}
-            <div className="rounded-xl border border-slate-200 p-4 space-y-3">
-              <h4 className="text-xs font-mono font-bold text-slate-900 border-b border-slate-200 pb-2">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-3">
+              <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 border-b border-slate-200 dark:border-slate-700 pb-2">
                 Customer Gateway (on-prem side)
               </h4>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[10px] font-mono text-slate-500 block mb-1">CGW public IP</label>
+                  <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mb-1">CGW public IP</label>
                   <input
                     value={cgwIp}
                     onChange={(e) => setCgwIp(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
+                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-mono text-slate-500 block mb-1">BGP ASN (CGW)</label>
+                  <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mb-1">BGP ASN (CGW)</label>
                   <input
                     value={bgpAsn}
                     onChange={(e) => setBgpAsn(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
+                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
                   />
                 </div>
               </div>
               <div>
-                <label className="text-[10px] font-mono text-slate-500 block mb-1">On-premises CIDR (advertised)</label>
+                <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mb-1">On-premises CIDR (advertised)</label>
                 <input
                   value={onPremCidr}
                   onChange={(e) => setOnPremCidr(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
+                  className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
                 />
               </div>
             </div>
 
             {/* Crypto */}
-            <div className="rounded-xl border border-slate-200 p-4 space-y-3">
-              <h4 className="text-xs font-mono font-bold text-slate-900 border-b border-slate-200 pb-2">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-3">
+              <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 border-b border-slate-200 dark:border-slate-700 pb-2">
                 IKE & IPsec policies (both tunnels inherit)
               </h4>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[10px] font-mono text-slate-500 block mb-1">Phase 1 encryption</label>
+                  <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mb-1">Phase 1 encryption</label>
                   <select
                     value={vpnEnc}
                     onChange={(e) => setVpnEnc(e.target.value as "AES128" | "AES256")}
-                    className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
+                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
                   >
                     <option value="AES128">AES-128-CBC</option>
                     <option value="AES256">AES-256-CBC</option>
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] font-mono text-slate-500 block mb-1">Integrity</label>
+                  <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mb-1">Integrity</label>
                   <select
                     value={vpnIntegrity}
                     onChange={(e) => setVpnIntegrity(e.target.value as "SHA1" | "SHA256")}
-                    className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
+                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
                   >
                     <option value="SHA1">SHA-1 (weaker)</option>
                     <option value="SHA256">SHA-256</option>
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] font-mono text-slate-500 block mb-1">DH group</label>
+                  <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mb-1">DH group</label>
                   <select
                     value={vpnDh}
                     onChange={(e) => setVpnDh(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
+                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
                   >
                     <option value="2">DH 2 (1024-bit, legacy)</option>
                     <option value="14">DH 14 (2048-bit, default)</option>
@@ -1309,20 +1309,20 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] font-mono text-slate-500 block mb-1">Phase 1 lifetime (sec)</label>
+                  <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mb-1">Phase 1 lifetime (sec)</label>
                   <input
                     value={vpnLifetime}
                     onChange={(e) => setVpnLifetime(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
+                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
                   />
                 </div>
               </div>
               <div className="flex flex-wrap gap-3">
-                <label className="flex items-center gap-2 text-xs font-mono text-slate-600 cursor-pointer">
+                <label className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-300 cursor-pointer">
                   <input type="checkbox" checked={dpd} onChange={(e) => setDpd(e.target.checked)} className="accent-indigo-600" />
                   Dead Peer Detection (20s)
                 </label>
-                <label className="flex items-center gap-2 text-xs font-mono text-slate-600 cursor-pointer">
+                <label className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-300 cursor-pointer">
                   <input type="checkbox" checked={bgpEnabled} onChange={(e) => setBgpEnabled(e.target.checked)} className="accent-indigo-600" />
                   BGP over VPN
                 </label>
@@ -1330,31 +1330,31 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
             </div>
 
             {/* Tunnels */}
-            <div className="rounded-xl border border-slate-200 p-4 space-y-3">
-              <h4 className="text-xs font-mono font-bold text-slate-900 border-b border-slate-200 pb-2">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-3">
+              <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 border-b border-slate-200 dark:border-slate-700 pb-2">
                 Tunnel endpoints
               </h4>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[10px] font-mono text-slate-500 block mb-1">Tunnel A inside CIDR</label>
+                  <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mb-1">Tunnel A inside CIDR</label>
                   <input
                     value={tunnelInsideA}
                     onChange={(e) => setTunnelInsideA(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
+                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-mono text-slate-500 block mb-1">Tunnel B inside CIDR</label>
+                  <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mb-1">Tunnel B inside CIDR</label>
                   <input
                     value={tunnelInsideB}
                     onChange={(e) => setTunnelInsideB(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
+                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
                   />
                 </div>
               </div>
               {/* active / standby */}
               <div className="flex items-center gap-2 pt-1">
-                <span className="text-[10px] font-mono text-slate-500">Active path:</span>
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Active path:</span>
                 {(["A", "B"] as const).map((t) => (
                   <button
                     key={t}
@@ -1362,13 +1362,13 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                     className={`px-3 py-1 rounded-full text-[10px] font-mono font-bold border transition-colors ${
                       activeTunnel === t
                         ? "bg-indigo-600 text-white border-indigo-600"
-                        : "bg-white text-slate-500 border-slate-200"
+                        : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
                     }`}
                   >
                     Tunnel {t}
                   </button>
                 ))}
-                <span className="text-[10px] font-mono text-slate-400 ml-auto">
+                <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 ml-auto">
                   failover demo — routes flip on failure
                 </span>
               </div>
@@ -1377,7 +1377,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
 
           {/* Output */}
           <div className="space-y-4">
-            <div className="rounded-xl border border-slate-200 card-shadow overflow-hidden">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 card-shadow overflow-hidden">
               <div className="bg-slate-800 px-4 py-2.5 flex items-center justify-between">
                 <span className="text-xs font-mono text-slate-200 font-bold">Generated VPN summary</span>
                 <span className="text-[10px] font-mono text-slate-400">demo-only, no real secrets</span>
@@ -1394,27 +1394,27 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                   key={t}
                   className={`rounded-xl border p-3 space-y-1.5 ${
                     activeTunnel === t
-                      ? "border-emerald-300 bg-emerald-50"
-                      : "border-slate-200 bg-slate-50"
+                      ? "border-emerald-300 dark:border-emerald-600 bg-emerald-50 dark:bg-emerald-900/30"
+                      : "border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700"
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-slate-900">Tunnel {t}</span>
+                    <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">Tunnel {t}</span>
                     <span
                       className={`text-[10px] font-mono px-2 py-0.5 rounded-full border font-bold ${
                         activeTunnel === t
-                          ? "bg-emerald-100 text-emerald-700 border-emerald-300"
-                          : "bg-slate-100 text-slate-500 border-slate-200"
+                          ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-600"
+                          : "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
                       }`}
                     >
                       {activeTunnel === t ? "ACTIVE" : "STANDBY"}
                     </span>
                   </div>
-                  <div className="text-[10px] font-mono text-slate-500">
+                  <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                     {t === "A" ? tunnelInsideA : tunnelInsideB} · {t === "A" ? "169.254.10.2" : "169.254.11.2"} peer
                   </div>
                   {bgpEnabled && (
-                    <div className="text-[10px] font-mono text-slate-400">
+                    <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
                       BGP AS {bgpAsn} ↔ 64512 · {t === "A" ? "primary" : "backup"} peer
                     </div>
                   )}
@@ -1422,7 +1422,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
               ))}
             </div>
 
-            <p className="text-[11px] text-slate-400 leading-relaxed">
+            <p className="text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
               AWS terminates the tunnel on two endpoints for HA. BGP (multi-VPN) detects the down path and rewrites
               routes within seconds — avoid pure static routing for production.
             </p>
@@ -1435,18 +1435,18 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
       {/* ========================================================================= */}
       <section
         id="routes"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 card-shadow shadow-xl space-y-6 hover:border-blue-400/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl space-y-6 hover:border-blue-400/40 transition-colors"
       >
-        <div className="border-b border-slate-200 pb-6">
-          <div className="text-xs font-mono text-blue-600 uppercase tracking-wider mb-1">
+        <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
+          <div className="text-xs font-mono text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">
             Module 05 / Route Table Viewer
           </div>
-          <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+          <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
             <span>🧭</span> Route Table & Propagation Viewer
           </h2>
-          <p className="text-sm text-slate-500 leading-relaxed mt-3">
+          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mt-3">
             Inspect how routes flow through VPC main tables, the TGW hub, and VPN attachments. Toggle propagation
-            and add static routes — conflicting prefixes with mismatched targets turn <span className="text-rose-600 font-mono">BLACKHOLE</span>.
+            and add static routes — conflicting prefixes with mismatched targets turn <span className="text-rose-600 dark:text-rose-400 font-mono">BLACKHOLE</span>.
           </p>
         </div>
 
@@ -1459,7 +1459,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold border transition-colors ${
                 rtKey === k
                   ? "bg-indigo-600 text-white border-indigo-600 shadow"
-                  : "bg-white text-slate-600 border-slate-200 hover:border-indigo-300"
+                  : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-indigo-300"
               }`}
             >
               {RT_TABLES[k].title}
@@ -1472,13 +1472,13 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
           <div className="lg:col-span-2 space-y-3">
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="text-sm font-bold text-slate-900 font-mono">{RT_TABLES[rtKey].title}</h4>
-                <p className="text-[11px] font-mono text-slate-400">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono">{RT_TABLES[rtKey].title}</h4>
+                <p className="text-[11px] font-mono text-slate-400 dark:text-slate-500">
                   {RT_TABLES[rtKey].scope} · region {RT_TABLES[rtKey].region}
                 </p>
               </div>
               {/* propagation toggle */}
-              <label className="flex items-center gap-2 text-[10px] font-mono text-slate-500 cursor-pointer">
+              <label className="flex items-center gap-2 text-[10px] font-mono text-slate-500 dark:text-slate-400 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={propagateOn[rtKey]}
@@ -1488,11 +1488,11 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                 Propagate attachments
               </label>
             </div>
-            <p className="text-[11px] text-slate-400 leading-relaxed">{RT_TABLES[rtKey].desc}</p>
+            <p className="text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">{RT_TABLES[rtKey].desc}</p>
 
-            <div className="rounded-xl border border-slate-200 overflow-hidden">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
               <table className="w-full text-left text-xs font-mono">
-                <thead className="bg-slate-50 text-slate-500 border-b border-slate-200">
+                <thead className="bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                   <tr>
                     <th className="px-3 py-2 font-bold">Destination</th>
                     <th className="px-3 py-2 font-bold">Target</th>
@@ -1500,19 +1500,19 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                     <th className="px-3 py-2 font-bold">Status</th>
                   </tr>
                 </thead>
-                <tbody className="text-slate-600 divide-y divide-slate-100">
+                <tbody className="text-slate-600 dark:text-slate-300 divide-y divide-slate-100 dark:divide-slate-700">
                   {rtRows.map((r) => (
-                    <tr key={r.id} className={r.blackhole ? "bg-rose-50" : "hover:bg-slate-50/60"}>
-                      <td className="px-3 py-2 text-slate-900">{r.cidr}</td>
+                    <tr key={r.id} className={r.blackhole ? "bg-rose-50 dark:bg-rose-900/30" : "hover:bg-slate-50/60 dark:hover:bg-slate-600/60"}>
+                      <td className="px-3 py-2 text-slate-900 dark:text-slate-100">{r.cidr}</td>
                       <td className="px-3 py-2">{r.target}</td>
                       <td className="px-3 py-2">
                         <span
                           className={`px-1.5 py-0.5 rounded text-[9px] border font-bold ${
                             r.kind === "local"
-                              ? "bg-slate-100 text-slate-500 border-slate-200"
+                              ? "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
                               : r.kind === "propagated"
-                              ? "bg-indigo-50 text-indigo-600 border-indigo-200"
-                              : "bg-blue-50 text-blue-600 border-blue-200"
+                              ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-700"
+                              : "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-700"
                           }`}
                         >
                           {r.kind.toUpperCase()}
@@ -1522,8 +1522,8 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                         <span
                           className={`px-1.5 py-0.5 rounded text-[9px] border font-bold ${
                             r.blackhole
-                              ? "bg-rose-100 text-rose-700 border-rose-300"
-                              : "bg-emerald-50 text-emerald-600 border-emerald-200"
+                              ? "bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-600"
+                              : "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700"
                           }`}
                         >
                           {r.blackhole ? "BLACKHOLE" : "ACTIVE"}
@@ -1533,7 +1533,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                   ))}
                   {rtRows.length === 0 && (
                     <tr>
-                      <td colSpan={4} className="px-3 py-4 text-center text-slate-400">
+                      <td colSpan={4} className="px-3 py-4 text-center text-slate-400 dark:text-slate-500">
                         No routes — enable propagation or add a static route.
                       </td>
                     </tr>
@@ -1543,7 +1543,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
             </div>
 
             {rtRows.some((r) => r.blackhole) && (
-              <div className="rounded-lg bg-rose-50 border border-rose-200 px-3 py-2 text-[11px] font-mono text-rose-700">
+              <div className="rounded-lg bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-700 px-3 py-2 text-[11px] font-mono text-rose-700 dark:text-rose-300">
                 ⚑ BLACKHOLE: overlapping prefixes with different targets cause the route to drop packets until the
                 duplicate is removed (longest-prefix-match cannot pick a winner).
               </div>
@@ -1552,18 +1552,18 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
 
           {/* controls */}
           <div className="space-y-4">
-            <div className="rounded-xl border border-slate-200 p-4 space-y-2">
-              <h4 className="text-xs font-mono font-bold text-slate-900">Add static route (this table)</h4>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-2">
+              <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">Add static route (this table)</h4>
               <input
                 value={customCidr}
                 onChange={(e) => setCustomCidr(e.target.value)}
                 placeholder="10.99.0.0/24"
-                className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-blue-400 focus:outline-none"
+                className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-blue-400 focus:outline-none"
               />
               <select
                 value={customTarget}
                 onChange={(e) => setCustomTarget(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-blue-400 focus:outline-none"
+                className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-blue-400 focus:outline-none"
               >
                 <option>Transit Gateway Attach — vpc-prod</option>
                 <option>Transit Gateway Attach — vpc-dev</option>
@@ -1577,19 +1577,19 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
               >
                 + Add static route
               </button>
-              {rtToast && <p className="text-[10px] font-mono text-blue-700">{rtToast}</p>}
+              {rtToast && <p className="text-[10px] font-mono text-blue-700 dark:text-blue-300">{rtToast}</p>}
             </div>
 
             {customRoutes.length > 0 && (
-              <div className="rounded-xl border border-slate-200 p-4 space-y-2">
-                <h4 className="text-xs font-mono font-bold text-slate-900">Your static routes</h4>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-2">
+                <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">Your static routes</h4>
                 {customRoutes.map((c) => (
-                  <div key={c.id} className="flex items-center justify-between gap-2 text-[10px] font-mono bg-slate-50 border border-slate-200 rounded px-2 py-1.5">
-                    <span className="truncate text-slate-600">
+                  <div key={c.id} className="flex items-center justify-between gap-2 text-[10px] font-mono bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5">
+                    <span className="truncate text-slate-600 dark:text-slate-300">
                       {c.cidr} → {c.target}
-                      <span className="text-slate-400"> · {RT_TABLES[c.table].title}</span>
+                      <span className="text-slate-400 dark:text-slate-500"> · {RT_TABLES[c.table].title}</span>
                     </span>
-                    <button onClick={() => removeCustomRoute(c.id)} className="text-rose-500 hover:text-rose-700 font-bold">
+                    <button onClick={() => removeCustomRoute(c.id)} className="text-rose-500 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-bold">
                       ✕
                     </button>
                   </div>
@@ -1597,8 +1597,8 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
               </div>
             )}
 
-            <div className="rounded-xl border border-slate-200 p-4 space-y-2">
-              <h4 className="text-xs font-mono font-bold text-slate-900">Table stats</h4>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-2">
+              <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">Table stats</h4>
               <div className="grid grid-cols-2 gap-2 text-center">
                 {[
                   ["Routes", rtStats.total],
@@ -1606,23 +1606,23 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                   ["Propagated", rtStats.propagated],
                   ["Blackhole", rtStats.blackholes],
                 ].map(([label, val]) => (
-                  <div key={label as string} className="rounded-lg bg-slate-50 border border-slate-200 py-2">
-                    <div className="text-lg font-extrabold text-slate-900">{val}</div>
-                    <div className="text-[9px] font-mono text-slate-400 uppercase tracking-wider">{label}</div>
+                  <div key={label as string} className="rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 py-2">
+                    <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100">{val}</div>
+                    <div className="text-[9px] font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider">{label}</div>
                   </div>
                 ))}
               </div>
-              <p className="text-[10px] text-slate-400 leading-relaxed pt-1">
-                TGW route tables also learn <strong className="text-slate-600">cross-account</strong> prefixes from
+              <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed pt-1">
+                TGW route tables also learn <strong className="text-slate-600 dark:text-slate-300">cross-account</strong> prefixes from
                 RAM-shared attachments — the partner VPC route above is one example.
               </p>
             </div>
 
-            <div className="rounded-xl border border-slate-200 p-4 space-y-1.5 text-[11px] font-mono text-slate-500">
-              <div className="font-bold text-slate-700">Longest-prefix-match rules</div>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+              <div className="font-bold text-slate-700 dark:text-slate-300">Longest-prefix-match rules</div>
               <div>More specific wins: /24 beats /16 for the same destination.</div>
               <div>Equal prefix + different target → BLACKHOLE.</div>
-              <div>Local route always outranks TGW for the VPC's own CIDR.</div>
+              <div>Local route always outranks TGW for the VPC&apos;s own CIDR.</div>
             </div>
           </div>
         </div>
@@ -1633,25 +1633,25 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
       {/* ========================================================================= */}
       <section
         id="directconnect"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 card-shadow shadow-xl space-y-6 hover:border-indigo-400/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl space-y-6 hover:border-indigo-400/40 transition-colors"
       >
-        <div className="border-b border-slate-200 pb-6">
-          <div className="text-xs font-mono text-indigo-600 uppercase tracking-wider mb-1">
+        <div className="border-b border-slate-200 dark:border-slate-700 pb-6">
+          <div className="text-xs font-mono text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
             Module 06 / Direct Connect Integration
           </div>
-          <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+          <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
             <span>⚡</span> Direct Connect Network Diagram
           </h2>
-          <p className="text-sm text-slate-500 leading-relaxed mt-3">
+          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mt-3">
             A dedicated private path bypasses the internet on the way into AWS. Configure the port, the virtual
             interface (VIF), and watch the BGP session light up.
           </p>
         </div>
 
         {/* controls */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 rounded-xl border border-slate-200 p-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 rounded-xl border border-slate-200 dark:border-slate-700 p-4">
           <div>
-            <label className="text-[10px] font-mono text-slate-500 block mb-1">Connection type</label>
+            <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mb-1">Connection type</label>
             <div className="flex gap-1">
               {(["dedicated", "hosted"] as const).map((m) => (
                 <button
@@ -1661,7 +1661,7 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
                     setDxSpeedId(m === "dedicated" ? "10g" : "1g");
                   }}
                   className={`flex-1 px-2 py-1.5 rounded text-[10px] font-mono font-bold border transition-colors ${
-                    dxMode === m ? "bg-indigo-600 text-white border-indigo-600" : "bg-white text-slate-600 border-slate-200"
+                    dxMode === m ? "bg-indigo-600 text-white border-indigo-600" : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700"
                   }`}
                 >
                   {m === "dedicated" ? "Dedicated" : "Hosted"}
@@ -1670,11 +1670,11 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
             </div>
           </div>
           <div>
-            <label className="text-[10px] font-mono text-slate-500 block mb-1">Port speed</label>
+            <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mb-1">Port speed</label>
             <select
               value={dxSpeedId}
               onChange={(e) => setDxSpeedId(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
+              className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
             >
               {DX_SPEEDS[dxMode].map((s) => (
                 <option key={s.id} value={s.id}>
@@ -1684,22 +1684,22 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
             </select>
           </div>
           <div>
-            <label className="text-[10px] font-mono text-slate-500 block mb-1">Virtual interface</label>
+            <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mb-1">Virtual interface</label>
             <select
               value={dxVif}
               onChange={(e) => setDxVif(e.target.value as "transit" | "private")}
-              className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
+              className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
             >
               <option value="transit">Transit VIF → TGW</option>
               <option value="private">Private VIF → VGW</option>
             </select>
           </div>
           <div>
-            <label className="text-[10px] font-mono text-slate-500 block mb-1">AWS region / DX location</label>
+            <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block mb-1">AWS region / DX location</label>
             <select
               value={dxRegion}
               onChange={(e) => setDxRegion(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
+              className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1.5 text-xs font-mono focus:border-indigo-400 focus:outline-none"
             >
               {DX_REGIONS.map((r) => (
                 <option key={r.id} value={r.id}>
@@ -1711,53 +1711,53 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
         </div>
 
         {/* diagram */}
-        <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 overflow-x-auto">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 overflow-x-auto">
           <div className="flex items-stretch gap-2 min-w-max">
             {[
               {
                 title: "On-premises",
                 sub: "Customer router · AS 65000",
                 detail: "BGP peer · VLAN 1523",
-                color: "border-slate-300 bg-white",
-                accent: "text-slate-700",
+                color: "border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800",
+                accent: "text-slate-700 dark:text-slate-300",
               },
               {
                 title: "DX Location",
                 sub: "Colocation cage + cross-connect",
                 detail: `POP: ${dxRegionInfo.pop}`,
-                color: "border-amber-300 bg-amber-50",
-                accent: "text-amber-700",
+                color: "border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/30",
+                accent: "text-amber-700 dark:text-amber-300",
               },
               {
                 title: "AWS DX Network",
                 sub: `Virtual interface · ${dxVif === "transit" ? "Transit" : "Private"} VIF`,
                 detail: dxVif === "transit" ? "VLAN 1144 · transit VIF" : "VLAN 1104 · private VIF",
-                color: "border-indigo-300 bg-indigo-50",
-                accent: "text-indigo-700",
+                color: "border-indigo-300 dark:border-indigo-600 bg-indigo-50 dark:bg-indigo-900/30",
+                accent: "text-indigo-700 dark:text-indigo-300",
               },
               {
                 title: dxVif === "transit" ? "Transit Gateway" : "Virtual Private GW",
                 sub: dxVif === "transit" ? "tgw-0f2a1b9c" : "vgw-0f1e2d3c",
                 detail: dxVif === "transit" ? "Attach: prod/partner" : "Attach: prod VPC",
-                color: "border-blue-300 bg-blue-50",
-                accent: "text-blue-700",
+                color: "border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/30",
+                accent: "text-blue-700 dark:text-blue-300",
               },
               {
                 title: "VPC attachments",
                 sub: dxVif === "transit" ? "prod · dev · shared" : "prod",
                 detail: "BGP: 10.0.0.0/16 + 10.0.1.0/24",
-                color: "border-slate-300 bg-white",
-                accent: "text-slate-700",
+                color: "border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800",
+                accent: "text-slate-700 dark:text-slate-300",
               },
             ].map((step, i, arr) => (
               <div key={step.title} className="flex items-center gap-2">
                 <div className={`rounded-xl border-2 ${step.color} p-4 w-44 h-32 flex flex-col justify-center text-center`}>
                   <div className={`text-xs font-mono font-bold ${step.accent}`}>{step.title}</div>
-                  <div className="text-[10px] font-mono text-slate-500 mt-1">{step.sub}</div>
-                  <div className="text-[10px] font-mono text-slate-400 mt-1">{step.detail}</div>
+                  <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-1">{step.sub}</div>
+                  <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-1">{step.detail}</div>
                 </div>
                 {i < arr.length - 1 && (
-                  <div className="flex flex-col items-center text-indigo-400">
+                  <div className="flex flex-col items-center text-indigo-400 dark:text-indigo-300">
                     <span className="text-lg leading-none">→</span>
                     <span className="text-[9px] font-mono mt-1">BGP</span>
                   </div>
@@ -1769,51 +1769,51 @@ Status           : Tunnel ${activeTunnel} ACTIVE · Tunnel ${activeTunnel === "A
 
         {/* stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div className="rounded-xl border border-slate-200 p-4">
-            <div className="text-lg font-extrabold text-slate-900 font-mono">{dxSpeed.label}</div>
-            <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mt-1">Port</div>
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4">
+            <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100 font-mono">{dxSpeed.label}</div>
+            <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mt-1">Port</div>
           </div>
-          <div className="rounded-xl border border-slate-200 p-4">
-            <div className="text-lg font-extrabold text-slate-900 font-mono">~${monthlyPort.toLocaleString()}/mo</div>
-            <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mt-1">Port charge (approx, {dxSpeed.rateUsdHr}/hr)</div>
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4">
+            <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100 font-mono">~${monthlyPort.toLocaleString()}/mo</div>
+            <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mt-1">Port charge (approx, {dxSpeed.rateUsdHr}/hr)</div>
           </div>
-          <div className="rounded-xl border border-slate-200 p-4">
-            <div className="text-lg font-extrabold text-slate-900 font-mono">{dxRegionInfo.latencyMs} ms</div>
-            <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mt-1">P95 latency to {dxRegionInfo.id}</div>
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4">
+            <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100 font-mono">{dxRegionInfo.latencyMs} ms</div>
+            <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mt-1">P95 latency to {dxRegionInfo.id}</div>
           </div>
-          <div className="rounded-xl border border-slate-200 p-4">
-            <div className="text-lg font-extrabold text-slate-900 font-mono">{dxVif === "transit" ? "TGW" : "VGW"}</div>
-            <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mt-1">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4">
+            <div className="text-lg font-extrabold text-slate-900 dark:text-slate-100 font-mono">{dxVif === "transit" ? "TGW" : "VGW"}</div>
+            <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mt-1">
               {dxVif === "transit" ? "Transit VIF (up to 100 Gbps)" : "Private VIF (up to 10 Gbps)"}
             </div>
           </div>
         </div>
 
         {/* BGP session detail */}
-        <div className="rounded-xl border border-slate-200 overflow-hidden">
-          <div className="bg-slate-50 px-4 py-2.5 border-b border-slate-200 flex items-center justify-between">
-            <span className="text-xs font-mono font-bold text-slate-900">BGP session (Internet-facing side of the VIF)</span>
-            <span className="text-[10px] font-mono text-emerald-600">ESTABLISHED</span>
+        <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="bg-slate-50 dark:bg-slate-700 px-4 py-2.5 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+            <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">BGP session (Internet-facing side of the VIF)</span>
+            <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400">ESTABLISHED</span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-700">
             <div className="p-4 space-y-1.5 text-xs font-mono">
-              <div><span className="text-slate-400">Peer:</span> <span className="text-slate-800">169.254.4.1 (AWS)</span></div>
-              <div><span className="text-slate-400">Local ASN:</span> <span className="text-slate-800">65000</span></div>
-              <div><span className="text-slate-400">Advertised:</span> <span className="text-blue-700">172.16.0.0/16 (on-prem)</span></div>
-              <div><span className="text-slate-400">Learned:</span> <span className="text-indigo-700">10.0.0.0/16, 10.1.0.0/16, 10.2.0.0/16</span></div>
+              <div><span className="text-slate-400 dark:text-slate-500">Peer:</span> <span className="text-slate-800 dark:text-slate-200">169.254.4.1 (AWS)</span></div>
+              <div><span className="text-slate-400 dark:text-slate-500">Local ASN:</span> <span className="text-slate-800 dark:text-slate-200">65000</span></div>
+              <div><span className="text-slate-400 dark:text-slate-500">Advertised:</span> <span className="text-blue-700 dark:text-blue-300">172.16.0.0/16 (on-prem)</span></div>
+              <div><span className="text-slate-400 dark:text-slate-500">Learned:</span> <span className="text-indigo-700 dark:text-indigo-300">10.0.0.0/16, 10.1.0.0/16, 10.2.0.0/16</span></div>
             </div>
             <div className="p-4 space-y-2.5 text-xs">
               <div className="flex items-start gap-2">
                 <span className="text-base leading-none">🔒</span>
-                <p className="text-slate-500 leading-relaxed text-[11px]">
-                  AWS recommends <strong className="text-slate-800">MACsec</strong> on dedicated connections for
+                <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-[11px]">
+                  AWS recommends <strong className="text-slate-800 dark:text-slate-200">MACsec</strong> on dedicated connections for
                   link-layer encryption, and always transport the VIF over a VPN or private network when regulatory
                   requirements demand it — DX itself is not encrypted at L2 by default.
                 </p>
               </div>
               <div className="flex items-start gap-2">
                 <span className="text-base leading-none">🔄</span>
-                <p className="text-slate-500 leading-relaxed text-[11px]">
+                <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-[11px]">
                   For mission-critical, keep a second DX connection at a different location — BGP multipath + failover
                   keeps the route table healthy.
                 </p>

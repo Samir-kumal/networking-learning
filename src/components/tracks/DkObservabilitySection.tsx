@@ -1012,7 +1012,7 @@ ${labels}
                 ))}
               </div>
               <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-2.5 leading-relaxed bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-2">
-                <span className="font-bold text-sky-700 dark:text-sky-300">up</span> = scrape succeeded · <span className="font-bold text-sky-700 dark:text-sky-300">labels</span> define each series' cardivality key.
+                <span className="font-bold text-sky-700 dark:text-sky-300">up</span> = scrape succeeded · <span className="font-bold text-sky-700 dark:text-sky-300">labels</span> define each series&apos; cardivality key.
               </div>
             </div>
           </div>
@@ -1436,7 +1436,7 @@ ${labels}
 
           <div className="rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-3.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
             <span className="font-bold text-cyan-700 dark:text-cyan-300">STRUCTURED LOGGING:</span> names + levels only — search by field (e.g.{" "}
-            <span className="text-slate-700 dark:text-slate-200">order_id="ord-10*"</span>), correlate to traces via trace_id, and keep INFO for operational context while WARN/ERROR feed the alert path.
+            <span className="text-slate-700 dark:text-slate-200">order_id=&quot;ord-10*&quot;</span>), correlate to traces via trace_id, and keep INFO for operational context while WARN/ERROR feed the alert path.
           </div>
         </div>
       </section>
@@ -1733,7 +1733,7 @@ ${labels}
                     />
                   </div>
                   <p className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
-                    SLI = successful requests / total requests — counts "good" events over the window.
+                    SLI = successful requests / total requests — counts &quot;good&quot; events over the window.
                   </p>
                 </>
               ) : (

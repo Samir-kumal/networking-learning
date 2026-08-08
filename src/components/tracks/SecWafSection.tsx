@@ -169,12 +169,12 @@ export default function SecWafSection() {
 
   // SSL Labs Grade Calculation
   const computeSslGrade = () => {
-    if (enableWeakCiphers) return { grade: "F", color: "text-rose-600", reason: "Weak RC4/3DES ciphers enabled!" };
-    if (!tls13 && !tls12) return { grade: "F", color: "text-rose-600", reason: "No valid TLS protocols enabled!" };
-    if (!enableHsts) return { grade: "B", color: "text-amber-600", reason: "HSTS header missing (Vulnerable to SSL Strip)." };
-    if (!enableCsp) return { grade: "A-", color: "text-indigo-600", reason: "Content-Security-Policy missing." };
-    if (tls13 && enableHsts && enableCsp && enableXFrame) return { grade: "A+", color: "text-emerald-600", reason: "Optimal TLS 1.3 & Security Headers Hardening!" };
-    return { grade: "A", color: "text-emerald-600", reason: "Strong TLS configuration." };
+    if (enableWeakCiphers) return { grade: "F", color: "text-rose-600 dark:text-rose-400", reason: "Weak RC4/3DES ciphers enabled!" };
+    if (!tls13 && !tls12) return { grade: "F", color: "text-rose-600 dark:text-rose-400", reason: "No valid TLS protocols enabled!" };
+    if (!enableHsts) return { grade: "B", color: "text-amber-600 dark:text-amber-400", reason: "HSTS header missing (Vulnerable to SSL Strip)." };
+    if (!enableCsp) return { grade: "A-", color: "text-indigo-600 dark:text-indigo-400", reason: "Content-Security-Policy missing." };
+    if (tls13 && enableHsts && enableCsp && enableXFrame) return { grade: "A+", color: "text-emerald-600 dark:text-emerald-400", reason: "Optimal TLS 1.3 & Security Headers Hardening!" };
+    return { grade: "A", color: "text-emerald-600 dark:text-emerald-400", reason: "Strong TLS configuration." };
   };
 
   const sslGrade = computeSslGrade();
@@ -182,16 +182,16 @@ export default function SecWafSection() {
   return (
     <section id="sec-waf" className="scroll-mt-20 space-y-6">
       {/* Section Header Card */}
-      <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow">
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
         <div className="flex items-center gap-2 mb-2">
-          <span className="px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-600 border border-rose-400/20 text-xs font-mono font-semibold">
+          <span className="px-2.5 py-0.5 rounded-full bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-400/20 text-xs font-mono font-semibold">
             S4 · WAF &amp; TLS Hardening
           </span>
         </div>
-        <h3 className="text-lg font-bold text-slate-900">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
           Web Application Firewall (WAF) &amp; SSL/TLS Hardening Lab
         </h3>
-        <p className="text-xs text-slate-500 mt-1">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
           Configure L7 WAF protection rulesets, test attack payloads, and audit SSL/TLS cipher suites &amp; security response headers.
         </p>
       </div>
@@ -199,14 +199,14 @@ export default function SecWafSection() {
       {/* WAF Rule Engine & Traffic Simulator */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Active Rules List */}
-        <div className="lg:col-span-2 p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-4">
-          <h4 className="text-sm font-bold text-slate-900">
+        <div className="lg:col-span-2 p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
             WAF Rule Table ({wafRules.length} Active Rules)
           </h4>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-500 font-mono border-b border-slate-200">
+              <thead className="bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-mono border-b border-slate-200 dark:border-slate-700">
                 <tr>
                   <th className="py-2 px-3">State</th>
                   <th className="py-2 px-3">Rule Name</th>
@@ -215,9 +215,9 @@ export default function SecWafSection() {
                   <th className="py-2 px-3">Blocked Hits</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 font-mono">
+              <tbody className="divide-y divide-slate-200 dark:divide-slate-700 font-mono">
                 {wafRules.map((rule) => (
-                  <tr key={rule.id} className="hover:bg-white">
+                  <tr key={rule.id} className="hover:bg-white dark:hover:bg-slate-800">
                     <td className="py-2 px-3">
                       <input
                         type="checkbox"
@@ -226,22 +226,22 @@ export default function SecWafSection() {
                         className="rounded accent-indigo-500"
                       />
                     </td>
-                    <td className="py-2 px-3 text-slate-900 font-semibold">
+                    <td className="py-2 px-3 text-slate-900 dark:text-slate-100 font-semibold">
                       {rule.name}
                     </td>
-                    <td className="py-2 px-3 text-slate-500">{rule.type}</td>
+                    <td className="py-2 px-3 text-slate-500 dark:text-slate-400">{rule.type}</td>
                     <td className="py-2 px-3">
                       <span
                         className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                           rule.action === "BLOCK"
-                            ? "bg-rose-50 text-rose-600 border border-rose-200"
-                            : "bg-emerald-50 text-emerald-600 border border-emerald-200"
+                            ? "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700"
+                            : "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700"
                         }`}
                       >
                         {rule.action}
                       </span>
                     </td>
-                    <td className="py-2 px-3 text-amber-600 font-bold">
+                    <td className="py-2 px-3 text-amber-600 dark:text-amber-400 font-bold">
                       {rule.hits}
                     </td>
                   </tr>
@@ -253,9 +253,9 @@ export default function SecWafSection() {
           {/* Add Custom WAF Rule Form */}
           <form
             onSubmit={handleAddWafRule}
-            className="p-4 rounded-lg bg-slate-50 border border-slate-200 space-y-3"
+            className="p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 space-y-3"
           >
-            <div className="text-xs font-bold text-slate-900">
+            <div className="text-xs font-bold text-slate-900 dark:text-slate-100">
               + Add Custom WAF Rule:
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs">
@@ -264,7 +264,7 @@ export default function SecWafSection() {
                 value={newRuleName}
                 onChange={(e) => setNewRuleName(e.target.value)}
                 placeholder="Rule Name"
-                className="px-2.5 py-1.5 rounded bg-white border border-slate-200 text-slate-900"
+                className="px-2.5 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100"
               />
               <select
                 value={newRuleType}
@@ -278,7 +278,7 @@ export default function SecWafSection() {
                       | "Custom"
                   )
                 }
-                className="px-2.5 py-1.5 rounded bg-white border border-slate-200 text-slate-900"
+                className="px-2.5 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100"
               >
                 <option value="SQLi">SQLi</option>
                 <option value="XSS">XSS</option>
@@ -290,7 +290,7 @@ export default function SecWafSection() {
                 value={newRuleCond}
                 onChange={(e) => setNewRuleCond(e.target.value)}
                 placeholder="Match Condition"
-                className="px-2.5 py-1.5 rounded bg-white border border-slate-200 text-slate-900"
+                className="px-2.5 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100"
               />
               <select
                 value={newRuleAction}
@@ -299,7 +299,7 @@ export default function SecWafSection() {
                     e.target.value as "BLOCK" | "ALLOW" | "COUNT" | "CAPTCHA"
                   )
                 }
-                className="px-2.5 py-1.5 rounded bg-white border border-slate-200 text-slate-900"
+                className="px-2.5 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100"
               >
                 <option value="BLOCK">BLOCK</option>
                 <option value="ALLOW">ALLOW</option>
@@ -316,13 +316,13 @@ export default function SecWafSection() {
         </div>
 
         {/* Live Traffic Inspector */}
-        <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-4">
-          <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+        <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span>📡</span> WAF Live Traffic Tester
           </h4>
 
           <div>
-            <label className="block text-xs text-slate-500 mb-1">
+            <label className="block text-xs text-slate-500 dark:text-slate-400 mb-1">
               Select Traffic Profile:
             </label>
             <select
@@ -332,7 +332,7 @@ export default function SecWafSection() {
                   e.target.value as "normal" | "sqli" | "xss" | "ddos"
                 )
               }
-              className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono"
+              className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 font-mono"
             >
               <option value="normal">Normal HTTP GET Traffic</option>
               <option value="sqli">SQL Injection Attack Payload</option>
@@ -349,7 +349,7 @@ export default function SecWafSection() {
           </button>
 
           {wafResult && (
-            <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono whitespace-pre-wrap text-slate-900">
+            <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs font-mono whitespace-pre-wrap text-slate-900 dark:text-slate-100">
               {wafResult}
             </div>
           )}
@@ -357,19 +357,19 @@ export default function SecWafSection() {
       </div>
 
       {/* SSL/TLS Hardening & Security Headers Configurator */}
-      <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-6">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
-            <h4 className="text-base font-bold text-slate-900">
+            <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">
               SSL/TLS Protocol Hardening &amp; Response Header Audit
             </h4>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Configure SSL Labs target grading settings and test header compliance.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-xs text-slate-500">SSL Rating:</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">SSL Rating:</span>
             <span
               className={`text-2xl font-black font-mono ${sslGrade.color}`}
             >
@@ -380,12 +380,12 @@ export default function SecWafSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
           {/* TLS Version & Ciphers */}
-          <div className="space-y-3 p-4 rounded-lg bg-slate-50 border border-slate-200">
-            <h5 className="font-bold text-slate-900">
+          <div className="space-y-3 p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+            <h5 className="font-bold text-slate-900 dark:text-slate-100">
               TLS Protocols &amp; Ciphers:
             </h5>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-900">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-900 dark:text-slate-100">
               <input
                 type="checkbox"
                 checked={tls13}
@@ -395,7 +395,7 @@ export default function SecWafSection() {
               <span>Enable TLS 1.3 (Modern, Perfect Forward Secrecy)</span>
             </label>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-900">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-900 dark:text-slate-100">
               <input
                 type="checkbox"
                 checked={tls12}
@@ -405,7 +405,7 @@ export default function SecWafSection() {
               <span>Enable TLS 1.2</span>
             </label>
 
-            <label className="flex items-center gap-2 cursor-pointer text-rose-600">
+            <label className="flex items-center gap-2 cursor-pointer text-rose-600 dark:text-rose-400">
               <input
                 type="checkbox"
                 checked={enableWeakCiphers}
@@ -417,12 +417,12 @@ export default function SecWafSection() {
           </div>
 
           {/* Security Headers */}
-          <div className="space-y-3 p-4 rounded-lg bg-slate-50 border border-slate-200">
-            <h5 className="font-bold text-slate-900">
+          <div className="space-y-3 p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+            <h5 className="font-bold text-slate-900 dark:text-slate-100">
               HTTP Security Headers:
             </h5>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-900">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-900 dark:text-slate-100">
               <input
                 type="checkbox"
                 checked={enableHsts}
@@ -432,7 +432,7 @@ export default function SecWafSection() {
               <span>Strict-Transport-Security (HSTS max-age=31536000)</span>
             </label>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-900">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-900 dark:text-slate-100">
               <input
                 type="checkbox"
                 checked={enableCsp}
@@ -442,7 +442,7 @@ export default function SecWafSection() {
               <span>Content-Security-Policy (CSP default-src &apos;self&apos;)</span>
             </label>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-900">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-900 dark:text-slate-100">
               <input
                 type="checkbox"
                 checked={enableXFrame}
@@ -454,7 +454,7 @@ export default function SecWafSection() {
           </div>
         </div>
 
-        <div className="p-3 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-500">
+        <div className="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-500 dark:text-slate-400">
           <strong>Audit Evaluation Result:</strong>{" "}
           <span className={sslGrade.color}>{sslGrade.reason}</span>
         </div>

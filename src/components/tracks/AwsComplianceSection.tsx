@@ -552,15 +552,15 @@ export default function AwsComplianceSection() {
   return (
     <section id="aws-compliance" className="scroll-mt-20 space-y-6">
       {/* Section Header Card */}
-      <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow flex flex-col sm:flex-row sm:items-center gap-3">
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-600 border border-rose-200 text-xs font-mono font-bold shrink-0">
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow flex flex-col sm:flex-row sm:items-center gap-3">
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700 text-xs font-mono font-bold shrink-0">
           AWS · Security Hub &amp; Compliance
         </span>
         <div>
-          <h3 className="text-lg font-bold text-slate-900">
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
             AWS Security Hub &amp; Compliance Framework
           </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Toggle regulatory frameworks in scope, audit each control, and watch
             the compliance score and domain radar update in real time.
           </p>
@@ -579,18 +579,18 @@ export default function AwsComplianceSection() {
               key={std.id}
               className={`p-4 rounded-xl border transition-all ${
                 enabled
-                  ? "bg-rose-50/60 border-rose-300 shadow-md shadow-rose-100"
-                  : "bg-white border-slate-200 opacity-60"
+                  ? "bg-rose-50/60 dark:bg-rose-900/30 border-rose-300 dark:border-rose-600 shadow-md shadow-rose-100"
+                  : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 opacity-60"
               }`}
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <span className="text-xl">{std.icon}</span>
                   <div>
-                    <div className="text-sm font-extrabold text-slate-900">
+                    <div className="text-sm font-extrabold text-slate-900 dark:text-slate-100">
                       {std.name}
                     </div>
-                    <div className="text-[10px] font-mono text-slate-500">
+                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                       {std.framework}
                     </div>
                   </div>
@@ -602,30 +602,30 @@ export default function AwsComplianceSection() {
                   aria-label={`Toggle ${std.name} in scope`}
                   onClick={() => toggleStandard(std.id)}
                   className={`relative shrink-0 w-10 h-[22px] rounded-full transition-colors ${
-                    enabled ? "bg-rose-600" : "bg-slate-300"
+                    enabled ? "bg-rose-600" : "bg-slate-300 dark:bg-slate-600"
                   }`}
                 >
                   <span
-                    className={`absolute top-[2px] left-[2px] w-[18px] h-[18px] rounded-full bg-white shadow transition-transform ${
+                    className={`absolute top-[2px] left-[2px] w-[18px] h-[18px] rounded-full bg-white dark:bg-slate-800 shadow transition-transform ${
                       enabled ? "translate-x-[18px]" : "translate-x-0"
                     }`}
                   />
                 </button>
               </div>
-              <p className="text-[11px] text-slate-600 mt-2 leading-relaxed">
+              <p className="text-[11px] text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
                 {std.description}
               </p>
-              <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-200">
+              <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-200 dark:border-slate-700">
                 <span
                   className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
                     enabled
                       ? "bg-rose-600 text-white"
-                      : "bg-slate-100 text-slate-500"
+                      : "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
                   }`}
                 >
                   {enabled ? "IN SCOPE" : "OUT OF SCOPE"}
                 </span>
-                <span className="text-[10px] font-mono text-slate-500">
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                   {passed}/{std.requirements.length} passed
                 </span>
               </div>
@@ -637,20 +637,20 @@ export default function AwsComplianceSection() {
       {/* Score + Radar Panel */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Radar Chart */}
-        <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow">
-          <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+        <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span>📡</span> Security Domain Coverage
           </h4>
-          <p className="text-[11px] text-slate-500 mt-0.5">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
             Share of passed controls per domain across in-scope frameworks.
           </p>
 
           <div className="relative mx-auto w-[240px] h-[240px] sm:w-[280px] sm:h-[280px] mt-8 mb-10">
             {/* Grid rings (100% / 75% / 50% / 25%) */}
-            <div className="absolute inset-0 rounded-full border border-slate-200" />
-            <div className="absolute inset-[12.5%] rounded-full border border-slate-200" />
-            <div className="absolute inset-[25%] rounded-full border border-slate-200" />
-            <div className="absolute inset-[37.5%] rounded-full border border-slate-200" />
+            <div className="absolute inset-0 rounded-full border border-slate-200 dark:border-slate-700" />
+            <div className="absolute inset-[12.5%] rounded-full border border-slate-200 dark:border-slate-700" />
+            <div className="absolute inset-[25%] rounded-full border border-slate-200 dark:border-slate-700" />
+            <div className="absolute inset-[37.5%] rounded-full border border-slate-200 dark:border-slate-700" />
 
             {/* Axis spokes every 60° */}
             <div
@@ -698,7 +698,7 @@ export default function AwsComplianceSection() {
               return (
                 <span
                   key={d.key}
-                  className="absolute text-[10px] font-bold text-slate-600 whitespace-nowrap"
+                  className="absolute text-[10px] font-bold text-slate-600 dark:text-slate-300 whitespace-nowrap"
                   style={{
                     left: `${50 + 54 * Math.cos(rad)}%`,
                     top: `${50 - 54 * Math.sin(rad)}%`,
@@ -718,13 +718,13 @@ export default function AwsComplianceSection() {
               return (
                 <div
                   key={d.key}
-                  className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-slate-50 border border-slate-200"
+                  className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700"
                 >
                   <span className="w-2 h-2 rounded-full bg-rose-600 shrink-0" />
-                  <span className="text-[10px] text-slate-600 truncate">
+                  <span className="text-[10px] text-slate-600 dark:text-slate-300 truncate">
                     {d.fullLabel}
                   </span>
-                  <span className="ml-auto text-[10px] font-mono font-bold text-rose-700">
+                  <span className="ml-auto text-[10px] font-mono font-bold text-rose-700 dark:text-rose-300">
                     {Math.round(cov * 100)}%
                   </span>
                 </div>
@@ -734,11 +734,11 @@ export default function AwsComplianceSection() {
         </div>
 
         {/* Score Calculator */}
-        <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow flex flex-col">
-          <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+        <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow flex flex-col">
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span>🧮</span> Compliance Score Calculator
           </h4>
-          <p className="text-[11px] text-slate-500 mt-0.5">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
             Passed controls ÷ total controls across in-scope frameworks.
           </p>
 
@@ -750,11 +750,11 @@ export default function AwsComplianceSection() {
                 background: `conic-gradient(#e11d48 ${score}%, #e2e8f0 0deg)`,
               }}
             >
-              <div className="absolute inset-[10px] rounded-full bg-white flex flex-col items-center justify-center">
-                <span className="text-3xl font-extrabold text-slate-900">
+              <div className="absolute inset-[10px] rounded-full bg-white dark:bg-slate-800 flex flex-col items-center justify-center">
+                <span className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">
                   {score}%
                 </span>
-                <span className="text-[9px] font-mono text-slate-500">
+                <span className="text-[9px] font-mono text-slate-500 dark:text-slate-400">
                   OVERALL
                 </span>
               </div>
@@ -764,36 +764,36 @@ export default function AwsComplianceSection() {
               <span
                 className={`inline-flex px-2.5 py-1 rounded-full text-[11px] font-mono font-bold border ${
                   scoreTier === "COMPLIANT"
-                    ? "bg-rose-50 text-rose-700 border-rose-300"
+                    ? "bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-600"
                     : scoreTier === "REVIEW"
-                    ? "bg-amber-50 text-amber-700 border-amber-300"
-                    : "bg-red-50 text-red-700 border-red-300"
+                    ? "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-600"
+                    : "bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-300 dark:border-red-600"
                 }`}
               >
                 STATUS: {scoreTier}
               </span>
               <div className="grid grid-cols-3 gap-2 text-center">
-                <div className="p-2 rounded-lg bg-emerald-50 border border-emerald-200">
-                  <div className="text-lg font-extrabold text-emerald-700">
+                <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700">
+                  <div className="text-lg font-extrabold text-emerald-700 dark:text-emerald-300">
                     {passedCount}
                   </div>
-                  <div className="text-[9px] font-mono text-emerald-600">
+                  <div className="text-[9px] font-mono text-emerald-600 dark:text-emerald-400">
                     PASSED
                   </div>
                 </div>
-                <div className="p-2 rounded-lg bg-red-50 border border-red-200">
-                  <div className="text-lg font-extrabold text-red-700">
+                <div className="p-2 rounded-lg bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700">
+                  <div className="text-lg font-extrabold text-red-700 dark:text-red-300">
                     {failedCount}
                   </div>
-                  <div className="text-[9px] font-mono text-red-600">
+                  <div className="text-[9px] font-mono text-red-600 dark:text-red-400">
                     FAILED
                   </div>
                 </div>
-                <div className="p-2 rounded-lg bg-slate-50 border border-slate-200">
-                  <div className="text-lg font-extrabold text-slate-700">
+                <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+                  <div className="text-lg font-extrabold text-slate-700 dark:text-slate-300">
                     {totalCount}
                   </div>
-                  <div className="text-[9px] font-mono text-slate-500">
+                  <div className="text-[9px] font-mono text-slate-500 dark:text-slate-400">
                     TOTAL
                   </div>
                 </div>
@@ -812,19 +812,19 @@ export default function AwsComplianceSection() {
               return (
                 <div key={std.id} className={enabled ? "" : "opacity-40"}>
                   <div className="flex items-center justify-between text-[11px] mb-1">
-                    <span className="font-bold text-slate-700">
+                    <span className="font-bold text-slate-700 dark:text-slate-300">
                       {std.icon} {std.name}
                       {!enabled && (
-                        <span className="ml-1.5 text-[9px] font-mono text-slate-400">
+                        <span className="ml-1.5 text-[9px] font-mono text-slate-400 dark:text-slate-500">
                           (out of scope)
                         </span>
                       )}
                     </span>
-                    <span className="font-mono text-slate-500">
+                    <span className="font-mono text-slate-500 dark:text-slate-400">
                       {passed}/{std.requirements.length} · {pct}%
                     </span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                  <div className="h-1.5 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
                     <div
                       className="h-full rounded-full bg-rose-600 transition-all"
                       style={{ width: `${pct}%` }}
@@ -835,7 +835,7 @@ export default function AwsComplianceSection() {
             })}
           </div>
 
-          <p className="text-[10px] text-slate-400 mt-auto pt-4 font-mono">
+          <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-auto pt-4 font-mono">
             Tip: toggle frameworks out of scope or flip controls to PASS/FAIL —
             score, radar, and breakdowns recompute instantly.
           </p>
@@ -845,8 +845,8 @@ export default function AwsComplianceSection() {
       {/* Requirement Checklists */}
       <div className="space-y-6">
         {scopedStandards.length === 0 && (
-          <div className="p-6 rounded-xl bg-white border border-slate-200 card-shadow text-center">
-            <p className="text-sm text-slate-500">
+          <div className="p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow text-center">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
               All frameworks are out of scope — enable at least one standard to
               see its requirement checklist.
             </p>
@@ -861,25 +861,25 @@ export default function AwsComplianceSection() {
           return (
             <div
               key={std.id}
-              className="p-5 rounded-xl bg-white border border-slate-200 card-shadow"
+              className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3 mb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-3 mb-4">
                 <div className="flex items-center gap-2">
                   <span className="text-xl">{std.icon}</span>
                   <div>
-                    <h4 className="text-sm font-extrabold text-slate-900">
+                    <h4 className="text-sm font-extrabold text-slate-900 dark:text-slate-100">
                       {std.name} — Requirement Checklist
                     </h4>
-                    <p className="text-[10px] font-mono text-slate-500">
+                    <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                       {std.framework} · click any control to toggle PASS/FAIL
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-[11px] font-mono text-slate-500">
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                     {passed}/{std.requirements.length} PASSED
                   </span>
-                  <div className="w-32 h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                  <div className="w-32 h-1.5 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
                     <div
                       className="h-full rounded-full bg-rose-600 transition-all"
                       style={{ width: `${pct}%` }}
@@ -901,28 +901,28 @@ export default function AwsComplianceSection() {
                       onClick={() => toggleRequirement(req.id)}
                       className={`w-full text-left p-3 rounded-xl border transition-all flex items-start gap-3 ${
                         isPass
-                          ? "bg-rose-50/50 border-rose-200 hover:bg-rose-50"
-                          : "bg-red-50/40 border-red-200 hover:bg-red-50"
+                          ? "bg-rose-50/50 dark:bg-rose-900/30 border-rose-200 dark:border-rose-700 hover:bg-rose-50 dark:hover:bg-rose-900/40"
+                          : "bg-red-50/40 dark:bg-red-900/30 border-red-200 dark:border-red-700 hover:bg-red-50 dark:hover:bg-red-900/40"
                       }`}
                     >
                       <span
                         className={`mt-0.5 min-w-[18px] h-[18px] rounded-full border-2 flex items-center justify-center text-[10px] font-bold shrink-0 ${
                           isPass
                             ? "bg-rose-600 border-rose-600 text-white"
-                            : "bg-white border-red-400 text-red-500"
+                            : "bg-white dark:bg-slate-800 border-red-400 text-red-500 dark:text-red-400"
                         }`}
                       >
                         {isPass ? "✓" : "✗"}
                       </span>
                       <span className="min-w-0 flex-1">
                         <span className="flex items-center gap-1.5 flex-wrap">
-                          <span className="text-xs font-bold text-slate-900">
+                          <span className="text-xs font-bold text-slate-900 dark:text-slate-100">
                             {req.title}
                           </span>
-                          <span className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-[9px] font-mono text-slate-500">
+                          <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-[9px] font-mono text-slate-500 dark:text-slate-400">
                             {req.ref}
                           </span>
-                          <span className="px-1.5 py-0.5 rounded bg-rose-100 border border-rose-200 text-[9px] font-mono text-rose-700">
+                          <span className="px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/40 border border-rose-200 dark:border-rose-700 text-[9px] font-mono text-rose-700 dark:text-rose-300">
                             {DOMAIN_LABELS[req.domain]}
                           </span>
                           <span
@@ -935,7 +935,7 @@ export default function AwsComplianceSection() {
                             {isPass ? "PASS" : "FAIL"}
                           </span>
                         </span>
-                        <span className="block text-[11px] text-slate-500 mt-1 leading-relaxed">
+                        <span className="block text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
                           {req.description}
                         </span>
                       </span>

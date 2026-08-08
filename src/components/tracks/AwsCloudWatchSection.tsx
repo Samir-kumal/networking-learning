@@ -112,25 +112,25 @@ const SEVERITIES: Record<Severity, { name: string; desc: string; dot: string; ba
     name: "CRITICAL",
     desc: "Production outage — page on-call immediately. 15 min response target.",
     dot: "bg-rose-500 animate-ping",
-    badge: "bg-rose-50 text-rose-600 border-rose-300",
+    badge: "bg-rose-50 text-rose-600 border-rose-300 dark:bg-rose-900/30 dark:text-rose-400 dark:border-rose-600",
   },
   SEV2: {
     name: "HIGH",
     desc: "Severe degradation — respond within 1 hour, customer impact likely.",
     dot: "bg-orange-500",
-    badge: "bg-orange-50 text-orange-600 border-orange-300",
+    badge: "bg-orange-50 text-orange-600 border-orange-300 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-600",
   },
   SEV3: {
     name: "MEDIUM",
     desc: "Moderate degradation / capacity pressure. Triage in next business hours.",
     dot: "bg-amber-400",
-    badge: "bg-amber-50 text-amber-600 border-amber-300",
+    badge: "bg-amber-50 text-amber-600 border-amber-300 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-600",
   },
   SEV4: {
     name: "LOW",
     desc: "Informational — tracking, no immediate action required.",
     dot: "bg-sky-400",
-    badge: "bg-sky-50 text-sky-600 border-sky-300",
+    badge: "bg-sky-50 text-sky-600 border-sky-300 dark:bg-sky-900/30 dark:text-sky-400 dark:border-sky-600",
   },
 };
 
@@ -430,11 +430,11 @@ function DashboardWidgetInner({
                 <div className="font-bold" style={{ color: METRICS[k].color }}>
                   {metricStream[k][metricStream[k].length - 1].toFixed(0)}
                 </div>
-                <div className="text-slate-400 truncate">{METRICS[k].short}</div>
+                <div className="text-slate-400 dark:text-slate-500 truncate">{METRICS[k].short}</div>
               </div>
             ))}
           </div>
-          <div className="flex justify-between text-[9px] font-mono text-slate-400 pt-1 border-t border-slate-100">
+          <div className="flex justify-between text-[9px] font-mono text-slate-400 dark:text-slate-500 pt-1 border-t border-slate-100 dark:border-slate-700">
             <span>Namespace: AWS/EC2</span>
             <span>refresh {refresh}</span>
           </div>
@@ -446,24 +446,24 @@ function DashboardWidgetInner({
         <div className="space-y-1.5">
           <div
             className={`flex items-center justify-between p-2 rounded-lg border text-[10px] font-mono ${
-              alarmState === "ALARM" ? "border-rose-200 bg-rose-50" : "border-slate-200 bg-slate-50"
+              alarmState === "ALARM" ? "border-rose-200 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/30" : "border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700"
             }`}
           >
-            <span className="flex items-center gap-1.5 font-bold text-slate-900">
+            <span className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-slate-100">
               <span className={`w-1.5 h-1.5 rounded-full ${alarmState === "ALARM" ? "bg-rose-500 animate-ping" : "bg-emerald-400"}`} />
               {METRICS[alarmMetric].short} threshold
             </span>
             <span
               className={`px-1.5 py-0.5 rounded font-bold ${
-                alarmState === "ALARM" ? "bg-rose-100 text-rose-600" : "bg-emerald-100 text-emerald-600"
+                alarmState === "ALARM" ? "bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400" : "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400"
               }`}
             >
               {alarmState}
             </span>
           </div>
           {ALARM_ROWS.map((a) => (
-            <div key={a.name} className="flex items-center justify-between p-2 rounded-lg border border-slate-200 bg-slate-50 text-[10px] font-mono">
-              <span className="flex items-center gap-1.5 text-slate-700">
+            <div key={a.name} className="flex items-center justify-between p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 text-[10px] font-mono">
+              <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
                 <span className={`w-1.5 h-1.5 rounded-full ${a.state === "ALARM" ? "bg-rose-500" : "bg-emerald-400"}`} />
                 {a.name}
               </span>
@@ -478,13 +478,13 @@ function DashboardWidgetInner({
         <div className="space-y-1 font-mono text-[9.5px] leading-relaxed">
           {[...logLines].slice(-5).reverse().map((l, i) => (
             <div key={`${l.time}-${i}`} className="flex items-start gap-1.5 break-all">
-              <span className="text-slate-400 shrink-0">{l.time.slice(3)}</span>
+              <span className="text-slate-400 dark:text-slate-500 shrink-0">{l.time.slice(3)}</span>
               <span className={`shrink-0 font-bold ${
-                l.level === "ERROR" ? "text-rose-500" : l.level === "WARN" ? "text-amber-500" : "text-sky-600"
+                l.level === "ERROR" ? "text-rose-500 dark:text-rose-400" : l.level === "WARN" ? "text-amber-500 dark:text-amber-400" : "text-sky-600 dark:text-sky-400"
               }`}>
                 {l.level.slice(0, 4)}
               </span>
-              <span className="text-slate-600">{l.message.slice(0, 52)}</span>
+              <span className="text-slate-600 dark:text-slate-300">{l.message.slice(0, 52)}</span>
             </div>
           ))}
         </div>
@@ -495,12 +495,12 @@ function DashboardWidgetInner({
         <div className="space-y-1.5">
           {SERVICE_NODES.filter((n) => n.id !== "client").map((n) => (
             <div key={n.id} className="flex items-center justify-between text-[10px] font-mono">
-              <span className="flex items-center gap-1.5 text-slate-700">
+              <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
                 <span className="w-1.5 h-1.5 rounded-full" style={{ background: n.color }} />
                 {n.name}
               </span>
-              <span className="text-slate-400">
-                {n.latencyMs}ms <span className={n.errorPct > 2 ? "text-rose-500 font-bold" : "text-emerald-600"}>{n.errorPct}%</span>
+              <span className="text-slate-400 dark:text-slate-500">
+                {n.latencyMs}ms <span className={n.errorPct > 2 ? "text-rose-500 dark:text-rose-400 font-bold" : "text-emerald-600 dark:text-emerald-400"}>{n.errorPct}%</span>
               </span>
             </div>
           ))}
@@ -512,17 +512,17 @@ function DashboardWidgetInner({
         <div className="space-y-1.5">
           {LATENCY_BUCKETS.map((b) => (
             <div key={b.label} className="flex items-center gap-2 text-[10px] font-mono">
-              <span className="w-7 text-slate-500">{b.label}</span>
-              <div className="flex-1 h-4 bg-slate-100 rounded overflow-hidden">
+              <span className="w-7 text-slate-500 dark:text-slate-400">{b.label}</span>
+              <div className="flex-1 h-4 bg-slate-100 dark:bg-slate-700 rounded overflow-hidden">
                 <div
                   className={`h-full rounded transition-all duration-700 ${b.ms > 500 ? "bg-gradient-to-r from-rose-400 to-orange-400" : "bg-gradient-to-r from-sky-400 to-blue-400"}`}
                   style={{ width: `${(b.ms / LATENCY_BUCKETS[LATENCY_BUCKETS.length - 1].ms) * 100}%` }}
                 />
               </div>
-              <span className="w-10 text-right text-slate-600">{b.ms}ms</span>
+              <span className="w-10 text-right text-slate-600 dark:text-slate-300">{b.ms}ms</span>
             </div>
           ))}
-          <div className="text-[9px] font-mono text-slate-400 pt-1 border-t border-slate-100">
+          <div className="text-[9px] font-mono text-slate-400 dark:text-slate-500 pt-1 border-t border-slate-100 dark:border-slate-700">
             order-api latency distribution · 60s window
           </div>
         </div>
@@ -533,17 +533,17 @@ function DashboardWidgetInner({
         <div className="space-y-1.5">
           {SERVICE_NODES.filter((n) => n.id !== "client").map((n) => (
             <div key={n.id} className="flex items-center gap-2 text-[10px] font-mono">
-              <span className="w-16 truncate text-slate-600">{n.name}</span>
-              <div className="flex-1 h-3 bg-slate-100 rounded overflow-hidden">
+              <span className="w-16 truncate text-slate-600 dark:text-slate-300">{n.name}</span>
+              <div className="flex-1 h-3 bg-slate-100 dark:bg-slate-700 rounded overflow-hidden">
                 <div
                   className={`h-full rounded transition-all duration-700 ${n.errorPct > 2 ? "bg-rose-400" : n.errorPct > 0.5 ? "bg-amber-400" : "bg-emerald-400"}`}
                   style={{ width: `${Math.min((n.errorPct / 4) * 100, 100)}%` }}
                 />
               </div>
-              <span className="w-9 text-right text-slate-600">{n.errorPct}%</span>
+              <span className="w-9 text-right text-slate-600 dark:text-slate-300">{n.errorPct}%</span>
             </div>
           ))}
-          <div className="text-[9px] font-mono text-slate-400 pt-1 border-t border-slate-100">
+          <div className="text-[9px] font-mono text-slate-400 dark:text-slate-500 pt-1 border-t border-slate-100 dark:border-slate-700">
             Error rate / request · X-Ray annotations
           </div>
         </div>
@@ -935,13 +935,13 @@ export default function AwsCloudWatchSection() {
       {/* ========================================================================= */}
       {/* MODULE 1: Metrics & Metric Stream Simulator */}
       {/* ========================================================================= */}
-      <section id="metrics" className="scroll-mt-24 space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="metrics" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
               Module 1 • Metrics & Streams
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               Simulated Metric Streams & Animated Line Charts
             </h2>
           </div>
@@ -950,19 +950,19 @@ export default function AwsCloudWatchSection() {
               onClick={() => setStreaming(!streaming)}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono border font-bold transition-all ${
                 streaming
-                  ? "bg-emerald-50 text-emerald-600 border-emerald-300"
-                  : "bg-slate-50 text-slate-500 border-slate-200"
+                  ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600"
+                  : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
               }`}
             >
               {streaming ? "● LIVE STREAM" : "❚❚ PAUSED"}
             </button>
-            <div className="flex items-center gap-1 rounded-lg bg-slate-50 border border-slate-200 px-1 py-1">
+            <div className="flex items-center gap-1 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 px-1 py-1">
               {(["0.5x", "1x", "2x"] as const).map((s) => (
                 <button
                   key={s}
                   onClick={() => setSpeed(s)}
                   className={`px-2 py-1 rounded text-[10px] font-mono font-bold transition-colors ${
-                    speed === s ? "bg-sky-100 text-sky-700" : "text-slate-500"
+                    speed === s ? "bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300" : "text-slate-500 dark:text-slate-400"
                   }`}
                 >
                   {s}
@@ -975,7 +975,7 @@ export default function AwsCloudWatchSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left: metric picker + live value tiles */}
           <div className="lg:col-span-4 space-y-4">
-            <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">
+            <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
               Select Metric Stream
             </label>
             <div className="space-y-2">
@@ -988,24 +988,24 @@ export default function AwsCloudWatchSection() {
                     onClick={() => setSelectedMetric(key)}
                     className={`w-full p-3 rounded-xl border text-left transition-all ${
                       isActive
-                        ? "border-sky-400 bg-sky-50/60 shadow-md"
-                        : "border-slate-200 bg-white hover:border-sky-200"
+                        ? "border-sky-400 bg-sky-50/60 dark:bg-sky-900/30 shadow-md"
+                        : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-sky-200"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2.5">
                         <span className="w-2.5 h-2.5 rounded-full" style={{ background: def.color }} />
-                        <span className="text-xs font-bold text-slate-900">{def.label}</span>
+                        <span className="text-xs font-bold text-slate-900 dark:text-slate-100">{def.label}</span>
                       </div>
-                      <span className="text-[10px] font-mono text-slate-400">{def.unit}</span>
+                      <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">{def.unit}</span>
                     </div>
                     <div className="flex items-end justify-between mt-1.5">
                       <span className="text-xl font-extrabold font-mono" style={{ color: def.color }}>
                         {lastValue(key).toFixed(1)}
-                        <span className="text-[10px] text-slate-400 ml-1">{def.unit}</span>
+                        <span className="text-[10px] text-slate-400 dark:text-slate-500 ml-1">{def.unit}</span>
                       </span>
                       <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
-                        isActive ? "bg-sky-100 text-sky-700" : "text-slate-400"
+                        isActive ? "bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300" : "text-slate-400 dark:text-slate-500"
                       }`}>
                         {isActive ? "◉ viewing" : "tap to view"}
                       </span>
@@ -1015,26 +1015,26 @@ export default function AwsCloudWatchSection() {
               })}
             </div>
 
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
-              <div className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">
+            <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-2">
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Stream characteristics
               </div>
-              <ul className="text-xs text-slate-600 space-y-1.5 font-mono">
-                <li><span className="text-slate-400">sampling:</span> 1 point / {speed === "0.5x" ? "2.4s" : speed === "1x" ? "1.3s" : "0.65s"}</li>
-                <li><span className="text-slate-400">window:</span> last {POINT_COUNT} points</li>
-                <li><span className="text-slate-400">storage:</span> CloudWatch Metrics → unified namespace</li>
+              <ul className="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 font-mono">
+                <li><span className="text-slate-400 dark:text-slate-500">sampling:</span> 1 point / {speed === "0.5x" ? "2.4s" : speed === "1x" ? "1.3s" : "0.65s"}</li>
+                <li><span className="text-slate-400 dark:text-slate-500">window:</span> last {POINT_COUNT} points</li>
+                <li><span className="text-slate-400 dark:text-slate-500">storage:</span> CloudWatch Metrics → unified namespace</li>
               </ul>
             </div>
           </div>
 
           {/* Right: animated chart + mini charts */}
           <div className="lg:col-span-8 space-y-4">
-            <div className="rounded-xl border border-slate-200 card-shadow p-4 bg-white">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 card-shadow p-4 bg-white dark:bg-slate-800">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-mono font-bold text-slate-900">
+                <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">
                   {METRICS[selectedMetric].label}
                 </span>
-                <span className="text-[10px] font-mono text-slate-400">
+                <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
                   avg {(streams[selectedMetric].reduce((a, b) => a + b, 0) / streams[selectedMetric].length).toFixed(1)} · min{" "}
                   {Math.min(...streams[selectedMetric]).toFixed(1)} · max {Math.max(...streams[selectedMetric]).toFixed(1)}
                 </span>
@@ -1046,8 +1046,8 @@ export default function AwsCloudWatchSection() {
               {(Object.keys(METRICS) as MetricKey[])
                 .filter((k) => k !== selectedMetric)
                 .map((key) => (
-                  <div key={key} className="rounded-xl border border-slate-200 card-shadow p-3">
-                    <div className="text-[10px] font-mono text-slate-500 mb-1">{METRICS[key].short}</div>
+                  <div key={key} className="rounded-xl border border-slate-200 dark:border-slate-700 card-shadow p-3">
+                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">{METRICS[key].short}</div>
                     <MetricLineChart
                       data={streams[key]}
                       def={METRICS[key]}
@@ -1060,8 +1060,8 @@ export default function AwsCloudWatchSection() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-3.5 font-mono">
-          <span className="font-bold text-sky-600">KEY CONCEPTS:</span>
+        <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 font-mono">
+          <span className="font-bold text-sky-600 dark:text-sky-400">KEY CONCEPTS:</span>
           <span>Metrics are time-ordered data points with dimensions ·</span>
           <span>CloudWatch collects from agents (EC2 / EKS), SDKs (Lambda), and service integrations (RDS, API GW) ·</span>
           <span>Graphs support period aggregation and statistical functions (avg, p99, sum).</span>
@@ -1071,20 +1071,20 @@ export default function AwsCloudWatchSection() {
       {/* ========================================================================= */}
       {/* MODULE 2: Alarm Threshold Configuration & Severity */}
       {/* ========================================================================= */}
-      <section id="alarms" className="scroll-mt-24 space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-rose-200 transition-colors">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="alarms" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-rose-200 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-rose-500 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-rose-500 dark:text-rose-400 uppercase tracking-wider mb-1">
               Module 2 • Alarm Engine
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               Alarm Threshold Configuration & Severity Levels
             </h2>
           </div>
           <span className={`px-3 py-1.5 rounded-full text-xs font-mono font-bold border ${
-            alarmState === "OK" ? "bg-emerald-50 text-emerald-600 border-emerald-300"
-            : alarmState === "ALARM" ? "bg-rose-50 text-rose-600 border-rose-300"
-            : "bg-amber-50 text-amber-600 border-amber-300"
+            alarmState === "OK" ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600"
+            : alarmState === "ALARM" ? "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border-rose-300 dark:border-rose-600"
+            : "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border-amber-300 dark:border-amber-600"
           }`}>
             STATE: {alarmState}
           </span>
@@ -1094,12 +1094,12 @@ export default function AwsCloudWatchSection() {
           {/* Left: alarm configuration */}
           <div className="lg:col-span-5 space-y-4">
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">1. Metric & Operator</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">1. Metric & Operator</label>
               <div className="flex gap-2">
                 <select
                   value={alarmMetric}
                   onChange={(e) => handleAlarmMetricChange(e.target.value as MetricKey)}
-                  className="flex-1 px-3 py-2 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-sky-400"
+                  className="flex-1 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-sky-400"
                 >
                   {(Object.keys(METRICS) as MetricKey[]).map((k) => (
                     <option key={k} value={k}>{METRICS[k].label}</option>
@@ -1108,7 +1108,7 @@ export default function AwsCloudWatchSection() {
                 <select
                   value={alarmOperator}
                   onChange={(e) => setAlarmOperator(e.target.value as AlarmOperator)}
-                  className="px-3 py-2 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-sky-400"
+                  className="px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-sky-400"
                 >
                   <option value=">">&gt;</option>
                   <option value=">=">&gt;=</option>
@@ -1118,10 +1118,10 @@ export default function AwsCloudWatchSection() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-white border border-slate-200 card-shadow p-4 space-y-3">
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-4 space-y-3">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">Threshold</label>
-                <span className="text-xs font-mono font-bold text-amber-600">
+                <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Threshold</label>
+                <span className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400">
                   {alarmOperator} {alarmThreshold} {alarmDef.unit}
                 </span>
               </div>
@@ -1134,14 +1134,14 @@ export default function AwsCloudWatchSection() {
                 onChange={(e) => setAlarmThreshold(Number(e.target.value))}
                 className="w-full accent-[#38bdf8]"
               />
-              <div className="flex justify-between text-[10px] font-mono text-slate-400">
+              <div className="flex justify-between text-[10px] font-mono text-slate-400 dark:text-slate-500">
                 <span>{alarmDef.min}</span>
                 <span>{alarmDef.max} {alarmDef.unit}</span>
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">Severity Level</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Severity Level</label>
               <div className="grid grid-cols-2 gap-2">
                 {(Object.keys(SEVERITIES) as Severity[]).map((sev) => (
                   <button
@@ -1150,48 +1150,48 @@ export default function AwsCloudWatchSection() {
                     className={`p-2.5 rounded-xl border text-left transition-all ${
                       alarmSeverity === sev
                         ? SEVERITIES[sev].badge.split(" ").slice(0, 3).join(" ") + " shadow-md"
-                        : "border-slate-200 bg-white hover:border-slate-300"
+                        : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600"
                     }`}
                   >
                     <div className="flex items-center gap-2">
                       <span className={`w-2 h-2 rounded-full ${SEVERITIES[sev].dot.replace(" animate-ping", "")}`} />
-                      <span className="text-xs font-bold text-slate-900">{sev}</span>
-                      <span className="text-[10px] font-mono text-slate-500">{SEVERITIES[sev].name}</span>
+                      <span className="text-xs font-bold text-slate-900 dark:text-slate-100">{sev}</span>
+                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{SEVERITIES[sev].name}</span>
                     </div>
-                    <p className="text-[10px] text-slate-500 mt-1 leading-snug">{SEVERITIES[sev].desc}</p>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">{SEVERITIES[sev].desc}</p>
                   </button>
                 ))}
               </div>
             </div>
 
             <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 card-shadow">
+              <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
                 <div>
-                  <div className="text-xs font-bold text-slate-900">Notify SNS Topic</div>
-                  <div className="text-[11px] text-slate-500">arn:aws:sns:us-east-1:123456:ops-oncall</div>
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Notify SNS Topic</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400">arn:aws:sns:us-east-1:123456:ops-oncall</div>
                 </div>
                 <button
                   onClick={() => setAlarmSns(!alarmSns)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold border transition-colors ${
                     alarmSns
-                      ? "bg-emerald-50 text-emerald-600 border-emerald-300"
-                      : "bg-rose-50 text-rose-600 border-rose-200"
+                      ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600"
+                      : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-700"
                   }`}
                 >
                   {alarmSns ? "ENABLED" : "DISABLED"}
                 </button>
               </div>
-              <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 card-shadow">
+              <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
                 <div>
-                  <div className="text-xs font-bold text-slate-900">Auto Scaling Action</div>
-                  <div className="text-[11px] text-slate-500">Scale out fleet /api/* on breach</div>
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Auto Scaling Action</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400">Scale out fleet /api/* on breach</div>
                 </div>
                 <button
                   onClick={() => setAlarmActions(!alarmActions)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold border transition-colors ${
                     alarmActions
-                      ? "bg-emerald-50 text-emerald-600 border-emerald-300"
-                      : "bg-rose-50 text-rose-600 border-rose-200"
+                      ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600"
+                      : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-700"
                   }`}
                 >
                   {alarmActions ? "ENABLED" : "DISABLED"}
@@ -1199,17 +1199,17 @@ export default function AwsCloudWatchSection() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-slate-50 border border-slate-200 overflow-hidden">
-              <div className="px-4 py-2 border-b border-slate-200 bg-white text-[10px] font-mono font-bold text-slate-900 flex items-center justify-between">
+            <div className="rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 overflow-hidden">
+              <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-[10px] font-mono font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between">
                 <span>CloudFormation Alarm Spec</span>
                 <button
                   onClick={() => navigator.clipboard?.writeText(alarmCfnJson)}
-                  className="px-2 py-1 rounded bg-white border border-slate-200 text-[10px] font-mono text-slate-600 hover:border-sky-300 transition-colors"
+                  className="px-2 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-mono text-slate-600 dark:text-slate-300 hover:border-sky-300 transition-colors"
                 >
                   📋 Copy
                 </button>
               </div>
-              <pre className="p-4 text-[10.5px] font-mono text-slate-700 whitespace-pre overflow-x-auto leading-relaxed">{alarmCfnJson}</pre>
+              <pre className="p-4 text-[10.5px] font-mono text-slate-700 dark:text-slate-300 whitespace-pre overflow-x-auto leading-relaxed">{alarmCfnJson}</pre>
             </div>
           </div>
 
@@ -1217,21 +1217,21 @@ export default function AwsCloudWatchSection() {
           <div className="lg:col-span-7 space-y-4">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
-                { k: "Current", v: `${current.toFixed(1)}`, u: alarmDef.unit, c: evalAlarm(current) ? "text-rose-600" : "text-emerald-600" },
-                { k: "Threshold", v: `${alarmThreshold}`, u: alarmDef.unit, c: "text-amber-600" },
-                { k: "Evaluations", v: `${evaluations}`, u: "datapoints", c: "text-sky-600" },
-                { k: "Severity", v: alarmSeverity, u: SEVERITIES[alarmSeverity].name, c: "text-slate-900" },
+                { k: "Current", v: `${current.toFixed(1)}`, u: alarmDef.unit, c: evalAlarm(current) ? "text-rose-600 dark:text-rose-400" : "text-emerald-600 dark:text-emerald-400" },
+                { k: "Threshold", v: `${alarmThreshold}`, u: alarmDef.unit, c: "text-amber-600 dark:text-amber-400" },
+                { k: "Evaluations", v: `${evaluations}`, u: "datapoints", c: "text-sky-600 dark:text-sky-400" },
+                { k: "Severity", v: alarmSeverity, u: SEVERITIES[alarmSeverity].name, c: "text-slate-900 dark:text-slate-100" },
               ].map((m) => (
-                <div key={m.k} className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                  <div className="text-[10px] font-mono text-slate-500">{m.k}</div>
+                <div key={m.k} className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                  <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{m.k}</div>
                   <div className={`text-xl font-extrabold mt-1 font-mono ${m.c}`}>{m.v}</div>
-                  <div className="text-[10px] font-mono text-slate-400 mt-0.5">{m.u}</div>
+                  <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-0.5">{m.u}</div>
                 </div>
               ))}
             </div>
 
-            <div className="rounded-xl border border-slate-200 card-shadow p-4 bg-white">
-              <div className="text-xs font-mono font-bold text-slate-900 mb-2">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 card-shadow p-4 bg-white dark:bg-slate-800">
+              <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 mb-2">
                 Live Comparison — {alarmDef.label} vs Threshold
               </div>
               <MetricLineChart
@@ -1240,7 +1240,7 @@ export default function AwsCloudWatchSection() {
                 threshold={alarmThreshold}
                 animateKey={`alarm-${alarmMetric}-${alarmThreshold}-${streams[alarmMetric].length}`}
               />
-              <div className="flex flex-wrap items-center gap-3 mt-2 text-[10px] font-mono text-slate-500">
+              <div className="flex flex-wrap items-center gap-3 mt-2 text-[10px] font-mono text-slate-500 dark:text-slate-400">
                 <span className="flex items-center gap-1"><span className="w-3 h-0.5 inline-block bg-amber-500" /> threshold</span>
                 <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" /> current OK</span>
                 <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-rose-400 inline-block" /> breaching</span>
@@ -1252,29 +1252,29 @@ export default function AwsCloudWatchSection() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-slate-50 border border-slate-200 p-4">
-              <div className="flex items-center justify-between border-b border-slate-200 pb-2 mb-3">
-                <span className="text-xs font-mono font-bold text-slate-900">Alarm History / State Transitions</span>
-                <span className="text-[10px] font-mono text-slate-400">{alarmEvents.length} events</span>
+            <div className="rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-4">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">
+                <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">Alarm History / State Transitions</span>
+                <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">{alarmEvents.length} events</span>
               </div>
               <div className="space-y-1.5 max-h-44 overflow-y-auto">
                 {alarmEvents.length === 0 && (
-                  <div className="text-xs text-slate-400 font-mono py-2">Waiting for a state change — adjust the threshold to trigger one.</div>
+                  <div className="text-xs text-slate-400 dark:text-slate-500 font-mono py-2">Waiting for a state change — adjust the threshold to trigger one.</div>
                 )}
                 {[...alarmEvents].reverse().map((ev, i) => (
                   <div key={i} className="flex items-start gap-2 text-[11px] font-mono">
-                    <span className="text-slate-400 shrink-0">[{ev.time}]</span>
-                    <span className={ev.to === "ALARM" ? "text-rose-600 font-bold" : ev.to === "OK" ? "text-emerald-600 font-bold" : "text-amber-600 font-bold"}>
+                    <span className="text-slate-400 dark:text-slate-500 shrink-0">[{ev.time}]</span>
+                    <span className={ev.to === "ALARM" ? "text-rose-600 dark:text-rose-400 font-bold" : ev.to === "OK" ? "text-emerald-600 dark:text-emerald-400 font-bold" : "text-amber-600 dark:text-amber-400 font-bold"}>
                       {ev.from} → {ev.to}
                     </span>
-                    <span className="text-slate-600">{ev.msg}</span>
+                    <span className="text-slate-600 dark:text-slate-300">{ev.msg}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-3.5 font-mono">
-              <span className="font-bold text-rose-500">HOW ALARMS WORK:</span>
+            <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 font-mono">
+              <span className="font-bold text-rose-500 dark:text-rose-400">HOW ALARMS WORK:</span>
               <span>CloudWatch evaluates the selected stat over consecutive periods ·</span>
               <span>missed datapoints → INSUFFICIENT_DATA ·</span>
               <span>alarm state triggers SNS / Auto Scaling / Lambda actions ·</span>
@@ -1287,13 +1287,13 @@ export default function AwsCloudWatchSection() {
       {/* ========================================================================= */}
       {/* MODULE 3: Log Group Viewer */}
       {/* ========================================================================= */}
-      <section id="logs" className="scroll-mt-24 space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="logs" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-cyan-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-1">
               Module 3 • Logs
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               CloudWatch Log Groups & Stream Viewer
             </h2>
           </div>
@@ -1301,8 +1301,8 @@ export default function AwsCloudWatchSection() {
             onClick={() => setLiveTail(!liveTail)}
             className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold border transition-all ${
               liveTail
-                ? "bg-emerald-50 text-emerald-600 border-emerald-300"
-                : "bg-slate-50 text-slate-500 border-slate-200"
+                ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600"
+                : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
             }`}
           >
             {liveTail ? "● LIVE TAIL ON" : "❚❚ LIVE TAIL OFF"}
@@ -1312,7 +1312,7 @@ export default function AwsCloudWatchSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Log group list */}
           <div className="lg:col-span-4 space-y-2">
-            <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">Log Groups (region: us-east-1)</label>
+            <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Log Groups (region: us-east-1)</label>
             <div className="space-y-2">
               {LOG_GROUPS.map((g) => (
                 <button
@@ -1320,24 +1320,24 @@ export default function AwsCloudWatchSection() {
                   onClick={() => setLogGroupId(g.id)}
                   className={`w-full p-3 rounded-xl border text-left transition-all ${
                     logGroupId === g.id
-                      ? "border-sky-400 bg-sky-50/60 shadow-md"
-                      : "border-slate-200 bg-white hover:border-sky-200"
+                      ? "border-sky-400 bg-sky-50/60 dark:bg-sky-900/30 shadow-md"
+                      : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-sky-200"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-bold text-slate-900 font-mono truncate">{g.name}</span>
-                    <span className="text-[10px] font-mono text-slate-400 shrink-0">{g.streams} streams</span>
+                    <span className="text-xs font-bold text-slate-900 dark:text-slate-100 font-mono truncate">{g.name}</span>
+                    <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 shrink-0">{g.streams} streams</span>
                   </div>
-                  <div className="flex items-center justify-between mt-1.5 text-[10px] font-mono text-slate-500">
-                    <span>retention: <span className="text-amber-600 font-bold">{g.retention}</span></span>
+                  <div className="flex items-center justify-between mt-1.5 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                    <span>retention: <span className="text-amber-600 dark:text-amber-400 font-bold">{g.retention}</span></span>
                     <span>{g.size}</span>
                     <span>{g.events} events</span>
                   </div>
                 </button>
               ))}
             </div>
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-[11px] font-mono text-slate-500 leading-relaxed">
-              <span className="font-bold text-cyan-700">Log groups</span> collect streams from the same source. Retention policies (1 day – 10 years) control cost; log events expire after retention.
+            <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
+              <span className="font-bold text-cyan-700 dark:text-cyan-300">Log groups</span> collect streams from the same source. Retention policies (1 day – 10 years) control cost; log events expire after retention.
             </div>
           </div>
 
@@ -1349,26 +1349,26 @@ export default function AwsCloudWatchSection() {
                 value={logFilter}
                 onChange={(e) => setLogFilter(e.target.value)}
                 placeholder="Filter log messages…"
-                className="flex-1 min-w-[160px] px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-sky-400"
+                className="flex-1 min-w-[160px] px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-sky-400"
               />
               {(["INFO", "WARN", "ERROR", "DEBUG"] as const).map((lv) => {
                 const on = logLevels.includes(lv);
                 const color =
-                  lv === "ERROR" ? "text-rose-600 border-rose-300 bg-rose-50"
-                  : lv === "WARN" ? "text-amber-600 border-amber-300 bg-amber-50"
-                  : lv === "DEBUG" ? "text-slate-500 border-slate-300 bg-slate-50"
-                  : "text-sky-600 border-sky-300 bg-sky-50";
+                  lv === "ERROR" ? "text-rose-600 dark:text-rose-400 border-rose-300 dark:border-rose-600 bg-rose-50 dark:bg-rose-900/30"
+                  : lv === "WARN" ? "text-amber-600 dark:text-amber-400 border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/30"
+                  : lv === "DEBUG" ? "text-slate-500 dark:text-slate-400 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700"
+                  : "text-sky-600 dark:text-sky-400 border-sky-300 dark:border-sky-600 bg-sky-50 dark:bg-sky-900/30";
                 return (
                   <button
                     key={lv}
                     onClick={() => toggleLogLevel(lv)}
-                    className={`px-2.5 py-1.5 rounded-lg text-[10px] font-mono font-bold border transition-all ${on ? color : "text-slate-400 border-slate-200 bg-white opacity-50"}`}
+                    className={`px-2.5 py-1.5 rounded-lg text-[10px] font-mono font-bold border transition-all ${on ? color : "text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 opacity-50"}`}
                   >
                     {lv} {lv === "ERROR" ? countLevel("ERROR") : lv === "WARN" ? countLevel("WARN") : lv === "INFO" ? countLevel("INFO") : countLevel("DEBUG")}
                   </button>
                 );
               })}
-              <span className="text-[10px] font-mono text-slate-400 ml-auto">{filteredLogLines.length} lines</span>
+              <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 ml-auto">{filteredLogLines.length} lines</span>
             </div>
 
             <div className="rounded-xl bg-[#0b1526] border border-slate-700 overflow-hidden shadow-xl">
@@ -1405,9 +1405,9 @@ export default function AwsCloudWatchSection() {
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-3.5 font-mono">
-              <span className="font-bold text-cyan-600">CLOUDWATCH LOGS INSIGHTS:</span>
-              <span>query language parses JSON fields, filters like <span className="text-sky-700">fields @timestamp</span> ·</span>
+            <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 font-mono">
+              <span className="font-bold text-cyan-600 dark:text-cyan-400">CLOUDWATCH LOGS INSIGHTS:</span>
+              <span>query language parses JSON fields, filters like <span className="text-sky-700 dark:text-sky-300">fields @timestamp</span> ·</span>
               <span>use metric filters to turn log patterns into alarms ·</span>
               <span>streams are appended-only, ~5KB per event limit.</span>
             </div>
@@ -1418,17 +1418,17 @@ export default function AwsCloudWatchSection() {
       {/* ========================================================================= */}
       {/* MODULE 4: X-Ray Distributed Tracing */}
       {/* ========================================================================= */}
-      <section id="xray" className="scroll-mt-24 space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-violet-300 transition-colors">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="xray" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-violet-300 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-violet-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
               Module 4 • Distributed Tracing
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               X-Ray Service Map & Trace Waterfall
             </h2>
           </div>
-          <span className="px-3 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 text-[10px] font-mono">
+          <span className="px-3 py-1 rounded-full bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-700 text-[10px] font-mono">
             Sampling: 1 in 10 traces
           </span>
         </div>
@@ -1436,10 +1436,10 @@ export default function AwsCloudWatchSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Service map */}
           <div className="lg:col-span-8">
-            <div className="rounded-xl border border-slate-200 card-shadow overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 bg-slate-50">
-                <span className="text-xs font-mono font-bold text-slate-900">Service Map — <span className="text-violet-600">/v1/orders</span></span>
-                <span className="text-[10px] font-mono text-slate-400">edges labeled: avg latency · error %</span>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 card-shadow overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700">
+                <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">Service Map — <span className="text-violet-600 dark:text-violet-400">/v1/orders</span></span>
+                <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">edges labeled: avg latency · error %</span>
               </div>
               <svg viewBox="0 0 640 380" className="w-full h-auto bg-gradient-to-b from-violet-50/40 to-white" role="img" aria-label="X-Ray service map">
                 {/* Edges */}
@@ -1502,9 +1502,9 @@ export default function AwsCloudWatchSection() {
 
           {/* Node detail */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="rounded-xl border border-slate-200 card-shadow p-4">
-              <div className="flex items-center justify-between border-b border-slate-200 pb-2 mb-3">
-                <span className="text-xs font-mono font-bold text-slate-900">{selectedNode.name}</span>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 card-shadow p-4">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">
+                <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">{selectedNode.name}</span>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded" style={{ background: `${selectedNode.color}20`, color: selectedNode.color }}>
                   {selectedNode.serviceType}
                 </span>
@@ -1515,47 +1515,47 @@ export default function AwsCloudWatchSection() {
                   { k: "Error rate", v: `${selectedNode.errorPct} %` },
                   { k: "Instances", v: selectedNode.instances },
                 ].map((r) => (
-                  <div key={r.k} className="flex justify-between border-b border-slate-100 pb-1.5">
-                    <dt className="text-slate-500 font-mono">{r.k}</dt>
-                    <dd className="font-bold text-slate-900 font-mono">{r.v}</dd>
+                  <div key={r.k} className="flex justify-between border-b border-slate-100 dark:border-slate-700 pb-1.5">
+                    <dt className="text-slate-500 dark:text-slate-400 font-mono">{r.k}</dt>
+                    <dd className="font-bold text-slate-900 dark:text-slate-100 font-mono">{r.v}</dd>
                   </div>
                 ))}
               </dl>
-              <p className="text-[11px] text-slate-500 mt-3 leading-relaxed">{selectedNode.detail}</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">{selectedNode.detail}</p>
               <div className="mt-3 flex items-center gap-2 text-[10px] font-mono">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-slate-500">instrumented: AWS SDK auto-tracing active</span>
+                <span className="text-slate-500 dark:text-slate-400">instrumented: AWS SDK auto-tracing active</span>
               </div>
             </div>
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-[11px] font-mono text-slate-500 leading-relaxed">
-              <span className="font-bold text-violet-600">HOW IT WORKS:</span> X-Ray propagates a trace ID across services via headers — <span className="text-slate-700">X-Amzn-Trace-Id</span>. Each hop records segments / subsegments with timestamps building the service map and waterfall; sampled traces keep overhead below 5%.
+            <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
+              <span className="font-bold text-violet-600 dark:text-violet-400">HOW IT WORKS:</span> X-Ray propagates a trace ID across services via headers — <span className="text-slate-700 dark:text-slate-300">X-Amzn-Trace-Id</span>. Each hop records segments / subsegments with timestamps building the service map and waterfall; sampled traces keep overhead below 5%.
             </div>
           </div>
         </div>
 
         {/* Trace waterfall */}
-        <div className="rounded-xl border border-slate-200 card-shadow overflow-hidden">
-          <div className="flex flex-wrap items-center gap-2 px-4 py-2.5 border-b border-slate-200 bg-slate-50">
-            <span className="text-xs font-mono font-bold text-slate-900 mr-1">Recent Traces</span>
+        <div className="rounded-xl border border-slate-200 dark:border-slate-700 card-shadow overflow-hidden">
+          <div className="flex flex-wrap items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700">
+            <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 mr-1">Recent Traces</span>
             {TRACES.map((t) => (
               <button
                 key={t.id}
                 onClick={() => setSelectedTraceId(t.id)}
                 className={`px-2.5 py-1 rounded-lg text-[10px] font-mono border transition-colors ${
                   selectedTraceId === t.id
-                    ? "bg-violet-100 text-violet-700 border-violet-300 font-bold"
-                    : "text-slate-500 border-slate-200 bg-white hover:border-violet-300"
+                    ? "bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 border-violet-300 dark:border-violet-600 font-bold"
+                    : "text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-violet-300"
                 }`}
               >
-                {t.method} {t.path} · {t.totalMs}ms · <span className={t.status === "HTTP 200" ? "text-emerald-600" : "text-rose-600"}>{t.status}</span>
+                {t.method} {t.path} · {t.totalMs}ms · <span className={t.status === "HTTP 200" ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}>{t.status}</span>
               </button>
             ))}
           </div>
 
           <div className="p-4 space-y-3">
-            <div className="flex items-center justify-between text-[11px] font-mono text-slate-500">
-              <span className="font-bold text-slate-900">{selectedTrace.method} {selectedTrace.path} — {selectedTrace.totalMs}ms total</span>
-              <span className="text-[10px] text-slate-400">trace id: {selectedTrace.id}</span>
+            <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
+              <span className="font-bold text-slate-900 dark:text-slate-100">{selectedTrace.method} {selectedTrace.path} — {selectedTrace.totalMs}ms total</span>
+              <span className="text-[10px] text-slate-400 dark:text-slate-500">trace id: {selectedTrace.id}</span>
             </div>
             <div className="w-full h-2 rounded bg-gradient-to-r from-violet-200 via-sky-200 to-emerald-200 mb-1" />
             <div className="space-y-2">
@@ -1564,16 +1564,16 @@ export default function AwsCloudWatchSection() {
                 const width = Math.max((seg.durMs / traceScale) * 100, 1.2);
                 return (
                   <div key={seg.id + i} className="flex items-center gap-3 text-[11px] font-mono">
-                    <span className="w-36 shrink-0 truncate text-slate-600">{seg.label}</span>
-                    <div className="flex-1 relative h-5 bg-slate-100 rounded overflow-hidden">
+                    <span className="w-36 shrink-0 truncate text-slate-600 dark:text-slate-300">{seg.label}</span>
+                    <div className="flex-1 relative h-5 bg-slate-100 dark:bg-slate-700 rounded overflow-hidden">
                       <div
                         className={`absolute top-0 bottom-0 rounded ${seg.status === "OK" ? "bg-gradient-to-r from-violet-500 to-sky-400" : "bg-gradient-to-r from-rose-400 to-orange-400"}`}
                         style={{ left: `${left}%`, width: `${width}%` }}
                       />
                     </div>
-                    <span className="w-16 text-right shrink-0 text-slate-900 font-bold">{seg.durMs}ms</span>
-                    <span className={`w-20 shrink-0 text-[10px] ${seg.status === "OK" ? "text-emerald-600" : "text-rose-600"}`}>{seg.status}</span>
-                    <span className="hidden md:block text-[10px] text-slate-400 truncate flex-1">{seg.note}</span>
+                    <span className="w-16 text-right shrink-0 text-slate-900 dark:text-slate-100 font-bold">{seg.durMs}ms</span>
+                    <span className={`w-20 shrink-0 text-[10px] ${seg.status === "OK" ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>{seg.status}</span>
+                    <span className="hidden md:block text-[10px] text-slate-400 dark:text-slate-500 truncate flex-1">{seg.note}</span>
                   </div>
                 );
               })}
@@ -1585,25 +1585,25 @@ export default function AwsCloudWatchSection() {
       {/* ========================================================================= */}
       {/* MODULE 5: Dashboard Widget Layout Builder */}
       {/* ========================================================================= */}
-      <section id="dashboards" className="scroll-mt-24 space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="dashboards" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-blue-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">
               Module 5 • Dashboards
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               CloudWatch Dashboard Widget Layout Builder
             </h2>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-mono text-slate-500">Auto refresh:</span>
-            <div className="flex rounded-lg bg-slate-50 border border-slate-200 px-1 py-1">
+            <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Auto refresh:</span>
+            <div className="flex rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 px-1 py-1">
               {(["5s", "15s", "30s"] as const).map((r) => (
                 <button
                   key={r}
                   onClick={() => setDashRefresh(r)}
                   className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold ${
-                    dashRefresh === r ? "bg-blue-100 text-blue-700" : "text-slate-500"
+                    dashRefresh === r ? "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300" : "text-slate-500 dark:text-slate-400"
                   }`}
                 >
                   {r}
@@ -1615,9 +1615,9 @@ export default function AwsCloudWatchSection() {
 
         <div className="space-y-4">
           {/* Palette */}
-          <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <span className="text-xs font-mono font-bold text-slate-900 uppercase tracking-wider">Widget palette</span>
+              <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider">Widget palette</span>
               <div className="flex flex-wrap gap-1.5">
                 {LAYOUT_PRESETS.map((p) => (
                   <button
@@ -1625,8 +1625,8 @@ export default function AwsCloudWatchSection() {
                     onClick={() => applyPreset(p)}
                     className={`px-2.5 py-1 rounded-lg text-[10px] font-mono border transition-colors ${
                       dashPreset === p.label
-                        ? "bg-blue-100 text-blue-700 border-blue-300 font-bold"
-                        : "text-slate-500 border-slate-200 bg-white hover:border-blue-300"
+                        ? "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-600 font-bold"
+                        : "text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-300"
                     }`}
                   >
                     {p.label}
@@ -1642,13 +1642,13 @@ export default function AwsCloudWatchSection() {
                   disabled={hasWidget(id)}
                   className={`p-3 rounded-lg text-left border text-xs transition-all ${
                     hasWidget(id)
-                      ? "border-blue-200 bg-blue-50 text-blue-500 cursor-default"
-                      : "border-slate-200 bg-white hover:border-blue-300 text-slate-700"
+                      ? "border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/30 text-blue-500 dark:text-blue-400 cursor-default"
+                      : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-300 text-slate-700 dark:text-slate-300"
                   }`}
                 >
                   <span className="block text-sm mb-1">{DASH_WIDGETS[id].icon}</span>
                   <span className="font-bold text-[11px]">{DASH_WIDGETS[id].title}</span>
-                  <span className="block text-[9px] mt-0.5 font-mono text-slate-400">
+                  <span className="block text-[9px] mt-0.5 font-mono text-slate-400 dark:text-slate-500">
                     {hasWidget(id) ? "✓ on canvas" : "click to add"}
                   </span>
                 </button>
@@ -1657,11 +1657,11 @@ export default function AwsCloudWatchSection() {
           </div>
 
           {/* Canvas */}
-          <div className="rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/50 p-4 min-h-[260px]">
+          <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/50 p-4 min-h-[260px]">
             {dashWidgets.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-2 py-16 text-center">
                 <span className="text-3xl">📊</span>
-                <span className="text-sm font-mono text-slate-400">Dashboard empty — add widgets from the palette above</span>
+                <span className="text-sm font-mono text-slate-400 dark:text-slate-500">Dashboard empty — add widgets from the palette above</span>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1671,17 +1671,17 @@ export default function AwsCloudWatchSection() {
                   return (
                     <div
                       key={id}
-                      className={`rounded-xl bg-white border border-slate-200 card-shadow overflow-hidden flex flex-col ${COL_SPANS[size] ?? "md:col-span-1"}`}
+                      className={`rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow overflow-hidden flex flex-col ${COL_SPANS[size] ?? "md:col-span-1"}`}
                     >
-                      <div className="flex items-center justify-between px-3 py-2 border-b border-slate-100 bg-slate-50/60">
-                        <span className="text-[11px] font-mono font-bold text-slate-900 flex items-center gap-1.5">
+                      <div className="flex items-center justify-between px-3 py-2 border-b border-slate-100 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-700/60">
+                        <span className="text-[11px] font-mono font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
                           <span>{W.icon}</span> {W.title}
                         </span>
                         <div className="flex items-center gap-1">
                           <select
                             value={size}
                             onChange={(e) => setWidgetSize(id, Number(e.target.value) as 1 | 2 | 3)}
-                            className="px-1.5 py-0.5 rounded border border-slate-200 text-[9px] font-mono text-slate-600 bg-white"
+                            className="px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-[9px] font-mono text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800"
                           >
                             <option value={1}>1×1</option>
                             <option value={2}>2×1</option>
@@ -1690,7 +1690,7 @@ export default function AwsCloudWatchSection() {
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" title="live" />
                           <button
                             onClick={() => removeWidget(id)}
-                            className="px-1.5 rounded text-[10px] text-slate-400 hover:text-rose-500 hover:bg-rose-50 transition-colors"
+                            className="px-1.5 rounded text-[10px] text-slate-400 dark:text-slate-500 hover:text-rose-500 hover:bg-rose-50 transition-colors"
                             aria-label={`Remove ${W.title}`}
                           >
                             ✕

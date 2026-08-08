@@ -86,40 +86,40 @@ const PHASES = [
     phase: "Code & CI/CD",
     detail: "Git → GitHub Actions",
     sub: "Trunk-based commits & automated test workflows",
-    color: "border-violet-200 bg-violet-50",
-    badge: "text-violet-700",
+    color: "border-violet-200 bg-violet-50 dark:border-violet-700 dark:bg-violet-900/30",
+    badge: "text-violet-700 dark:text-violet-300",
   },
   {
     step: "02",
     phase: "AppSec Scan",
     detail: "Trivy & Snyk SAST",
     sub: "Vulnerability gates & secrets ingestion",
-    color: "border-rose-200 bg-rose-50",
-    badge: "text-rose-700",
+    color: "border-rose-200 bg-rose-50 dark:border-rose-700 dark:bg-rose-900/30",
+    badge: "text-rose-700 dark:text-rose-300",
   },
   {
     step: "03",
     phase: "Package",
     detail: "Docker & Helm",
     sub: "Multi-stage build & OCI container registry",
-    color: "border-emerald-200 bg-emerald-50",
-    badge: "text-emerald-700",
+    color: "border-emerald-200 bg-emerald-50 dark:border-emerald-700 dark:bg-emerald-900/30",
+    badge: "text-emerald-700 dark:text-emerald-300",
   },
   {
     step: "04",
     phase: "Cloud Orchestrate",
     detail: "AWS EKS & ArgoCD",
     sub: "Declarative GitOps sync & pod autoscaling",
-    color: "border-amber-200 bg-amber-50",
-    badge: "text-amber-700",
+    color: "border-amber-200 bg-amber-50 dark:border-amber-700 dark:bg-amber-900/30",
+    badge: "text-amber-700 dark:text-amber-300",
   },
   {
     step: "05",
     phase: "Networking",
     detail: "VPC & Subnets",
     sub: "Layer 3 routing, Ingress WAF & NAT gateway",
-    color: "border-indigo-200 bg-indigo-50",
-    badge: "text-indigo-700",
+    color: "border-indigo-200 bg-indigo-50 dark:border-indigo-700 dark:bg-indigo-900/30",
+    badge: "text-indigo-700 dark:text-indigo-300",
   },
 ];
 
@@ -134,12 +134,12 @@ export default function Home() {
         <section id="tracks">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-indigo-600 mb-1">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-1">
                 Engineering Disciplines
               </p>
-              <h2 className="text-2xl font-bold text-slate-900">Learning Tracks</h2>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Learning Tracks</h2>
             </div>
-            <p className="text-[13px] text-slate-400">
+            <p className="text-[13px] text-slate-400 dark:text-slate-500">
               5 tracks · 61 modules · browser-native
             </p>
           </div>
@@ -155,12 +155,12 @@ export default function Home() {
         <section id="knowledge-graph">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-indigo-600 mb-1">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-1">
                 Interconnected Curriculum
               </p>
-              <h2 className="text-2xl font-bold text-slate-900">Knowledge Graph</h2>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Knowledge Graph</h2>
             </div>
-            <p className="text-[13px] text-slate-400">
+            <p className="text-[13px] text-slate-400 dark:text-slate-500">
               Hover or tap a node to expand its branch
             </p>
           </div>
@@ -170,24 +170,24 @@ export default function Home() {
 
         {/* ── Production Pipeline Architecture ── */}
         <section id="architecture">
-          <div className="rounded-2xl border border-slate-200 bg-white card-shadow overflow-hidden">
-            <div className="border-b border-slate-100 px-6 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 card-shadow overflow-hidden">
+            <div className="border-b border-slate-100 dark:border-slate-700 px-6 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 mb-1">
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-1">
                   Ecosystem Map
                 </p>
-                <h3 className="text-lg font-semibold text-slate-900">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
                   End-to-End Production Pipeline
                 </h3>
               </div>
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700">
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                 Reference Architecture
               </span>
             </div>
 
             <div className="px-6 py-5 space-y-5">
-              <p className="text-[13px] text-slate-500 leading-relaxed max-w-3xl">
+              <p className="text-[13px] text-slate-500 dark:text-slate-400 leading-relaxed max-w-3xl">
                 Modern cloud software moves through a synchronized sequence — from developer commits through security gates, container packaging, cloud orchestration, and finally across production network subnets.
               </p>
 
@@ -200,11 +200,11 @@ export default function Home() {
                     <div className={`text-[10px] font-bold uppercase tracking-wider ${p.badge}`}>
                       Phase {p.step}
                     </div>
-                    <div className="text-[13px] font-semibold text-slate-800 leading-snug">
+                    <div className="text-[13px] font-semibold text-slate-800 dark:text-slate-200 leading-snug">
                       {p.phase}
                     </div>
                     <div className={`text-[11px] font-medium ${p.badge}`}>{p.detail}</div>
-                    <div className="text-[11px] text-slate-500">{p.sub}</div>
+                    <div className="text-[11px] text-slate-500 dark:text-slate-400">{p.sub}</div>
                   </div>
                 ))}
               </div>

@@ -39,16 +39,16 @@ export default function SecVaultSection() {
   return (
     <section id="sec-vault" className="scroll-mt-20 space-y-6">
       {/* Section Header Card */}
-      <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-sm">
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
         <div className="flex items-center gap-2 mb-2">
-          <span className="px-2.5 py-0.5 rounded-full bg-violet-50 text-violet-600 border border-violet-300/40 text-xs font-mono font-semibold">
+          <span className="px-2.5 py-0.5 rounded-full bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 border border-violet-300/40 text-xs font-mono font-semibold">
             S3 · Secrets &amp; Vault Flow
           </span>
         </div>
-        <h3 className="text-lg font-bold text-slate-900">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
           3. Secret Management Workflow (HashiCorp Vault vs AWS Secrets Manager)
         </h3>
-        <p className="text-xs text-slate-500 mt-1">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
           Compare enterprise secret engine architecture, dynamic credential generation, token TTL leases, and automated rotation.
         </p>
       </div>
@@ -56,33 +56,33 @@ export default function SecVaultSection() {
       {/* Architecture Comparison Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* HashiCorp Vault */}
-        <div className="p-5 rounded-xl bg-white border border-violet-200 space-y-4 shadow-sm">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 space-y-4 shadow-sm">
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-3">
             <div className="flex items-center gap-2">
               <span className="text-xl">🔐</span>
-              <h4 className="text-base font-bold text-slate-900">
+              <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">
                 HashiCorp Vault
               </h4>
             </div>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-violet-50 text-violet-700 border border-violet-200 font-bold">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-700 font-bold">
               MULTI-CLOUD / ON-PREM
             </span>
           </div>
-          <ul className="text-xs text-slate-600 space-y-2">
+          <ul className="text-xs text-slate-600 dark:text-slate-300 space-y-2">
             <li className="flex items-start gap-2">
-              <span className="text-violet-500">•</span>
+              <span className="text-violet-500 dark:text-violet-400">•</span>
               <span>
                 <strong>Encryption:</strong> Shamir Secret Sharing, Transit Secrets Engine (EaaS).
               </span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-violet-500">•</span>
+              <span className="text-violet-500 dark:text-violet-400">•</span>
               <span>
                 <strong>Dynamic Secrets:</strong> Generates short-lived DB credentials (e.g. 1h TTL) on-demand.
               </span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-violet-500">•</span>
+              <span className="text-violet-500 dark:text-violet-400">•</span>
               <span>
                 <strong>Auth Methods:</strong> AppRole, Kubernetes ServiceAccount JWT, TLS Certificates.
               </span>
@@ -91,33 +91,33 @@ export default function SecVaultSection() {
         </div>
 
         {/* AWS Secrets Manager */}
-        <div className="p-5 rounded-xl bg-white border border-amber-200 space-y-4 shadow-sm">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-700 space-y-4 shadow-sm">
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-3">
             <div className="flex items-center gap-2">
               <span className="text-xl">☁️</span>
-              <h4 className="text-base font-bold text-slate-900">
+              <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">
                 AWS Secrets Manager
               </h4>
             </div>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-50 text-amber-700 border border-amber-200 font-bold">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700 font-bold">
               AWS NATIVE
             </span>
           </div>
-          <ul className="text-xs text-slate-600 space-y-2">
+          <ul className="text-xs text-slate-600 dark:text-slate-300 space-y-2">
             <li className="flex items-start gap-2">
-              <span className="text-amber-500">•</span>
+              <span className="text-amber-500 dark:text-amber-400">•</span>
               <span>
                 <strong>Encryption:</strong> Envelope Encryption integrated with AWS KMS keys.
               </span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-amber-500">•</span>
+              <span className="text-amber-500 dark:text-amber-400">•</span>
               <span>
                 <strong>Automated Rotation:</strong> Native AWS Lambda rotation templates for RDS, Redshift, DocumentDB.
               </span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-amber-500">•</span>
+              <span className="text-amber-500 dark:text-amber-400">•</span>
               <span>
                 <strong>Auth Methods:</strong> IAM Policies, STS Temporary Credentials, VPC Endpoints.
               </span>
@@ -127,8 +127,8 @@ export default function SecVaultSection() {
       </div>
 
       {/* Interactive Lifecycle Steps */}
-      <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-sm space-y-4">
-        <h4 className="text-sm font-bold text-slate-900">
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+        <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
           Secret Lifecycle Pipeline
         </h4>
 
@@ -145,7 +145,7 @@ export default function SecVaultSection() {
               className={`p-3 rounded-lg border text-xs font-semibold text-left transition-all ${
                 secretLifecycleStep === s.step
                   ? "bg-indigo-600 text-white font-bold border-indigo-600 shadow-sm"
-                  : "bg-slate-50 text-slate-500 border-slate-200 hover:text-slate-900 hover:border-slate-300"
+                  : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:hover:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600"
               }`}
             >
               {s.label}
@@ -153,7 +153,7 @@ export default function SecVaultSection() {
           ))}
         </div>
 
-        <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-700 leading-relaxed">
+        <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
           {secretLifecycleStep === 1 && (
             <p>
               <strong>Storage &amp; KMS Encryption:</strong> Secrets are encrypted using AES-256-GCM. In Vault, master keys are unsealed via Shamir threshold key shares. In AWS, KMS Envelope Encryption wraps data keys.
@@ -178,14 +178,14 @@ export default function SecVaultSection() {
       </div>
 
       {/* Interactive Live Secret Simulator */}
-      <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-sm space-y-4">
-        <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+        <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
           <span>💻</span> Secret Fetch &amp; Rotation Simulator
         </h4>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label className="block text-xs text-slate-500 mb-1">
+            <label className="block text-xs text-slate-500 dark:text-slate-400 mb-1">
               Select Provider:
             </label>
             <select
@@ -193,7 +193,7 @@ export default function SecVaultSection() {
               onChange={(e) =>
                 setSecretProvider(e.target.value as "vault" | "aws")
               }
-              className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono"
+              className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 font-mono"
             >
               <option value="vault">HashiCorp Vault (AppRole / KV v2)</option>
               <option value="aws">AWS Secrets Manager (KMS)</option>
@@ -201,14 +201,14 @@ export default function SecVaultSection() {
           </div>
 
           <div className="sm:col-span-2">
-            <label className="block text-xs text-slate-500 mb-1">
+            <label className="block text-xs text-slate-500 dark:text-slate-400 mb-1">
               Secret Identifier Path:
             </label>
             <input
               type="text"
               value={secretPath}
               onChange={(e) => setSecretPath(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono"
+              className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 font-mono"
             />
           </div>
         </div>
@@ -217,7 +217,7 @@ export default function SecVaultSection() {
           {/* Fix Issue 3: text-white (not text-slate-900) on bg-indigo-600 */}
           <button
             onClick={handleFetchSecret}
-            className="px-4 py-2 rounded-lg bg-indigo-600 text-white font-semibold text-xs hover:bg-indigo-700 transition-all"
+            className="px-4 py-2 rounded-lg bg-indigo-600 text-white font-semibold text-xs hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all"
           >
             Fetch Secret Payload
           </button>
@@ -225,19 +225,19 @@ export default function SecVaultSection() {
           {/* Fix Issue 4: use semantic amber action color */}
           <button
             onClick={handleRotateSecret}
-            className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs transition-all"
+            className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 dark:hover:bg-amber-500 text-white font-semibold text-xs transition-all"
           >
             Trigger Immediate Rotation
           </button>
 
           <button
             onClick={() => setIsSecretMasked(!isSecretMasked)}
-            className="px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 text-xs hover:text-slate-900 hover:border-slate-300 transition-all"
+            className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-xs hover:text-slate-900 dark:hover:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600 transition-all"
           >
             {isSecretMasked ? "👁️ Unmask Tokens" : "🙈 Mask Tokens"}
           </button>
 
-          <div className="ml-auto text-xs font-mono text-emerald-600">
+          <div className="ml-auto text-xs font-mono text-emerald-600 dark:text-emerald-400">
             Lease TTL: {rotationTimer}s remaining
           </div>
         </div>

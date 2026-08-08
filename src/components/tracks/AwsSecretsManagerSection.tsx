@@ -244,17 +244,17 @@ const TYPE_LEGEND: { type: ParamType; note: string; badge: string }[] = [
   {
     type: "SecureString",
     note: "Encrypted at rest via AWS KMS (envelope encryption). Requires kms:Decrypt + --with-decryption.",
-    badge: "bg-emerald-100 text-emerald-700 border border-emerald-300",
+    badge: "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-600",
   },
   {
     type: "String",
     note: "Plaintext string stored as-is. Suitable for non-sensitive config.",
-    badge: "bg-slate-100 text-slate-600 border border-slate-300",
+    badge: "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600",
   },
   {
     type: "StringList",
     note: "Comma-delimited plaintext list (e.g. hostnames). Parsed into an array by the SDK.",
-    badge: "bg-teal-50 text-teal-700 border border-teal-300",
+    badge: "bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 border border-teal-300 dark:border-teal-600",
   },
 ];
 
@@ -387,8 +387,8 @@ function CopyButton({ text, label }: { text: string; label: string }) {
       onClick={handleCopy}
       className={`px-3 py-1.5 rounded-lg text-[11px] font-bold border transition shadow-sm ${
         copied
-          ? "bg-emerald-50 text-emerald-600 border-emerald-300"
-          : "bg-slate-50 text-slate-600 border-slate-200 hover:border-emerald-400 hover:text-emerald-600"
+          ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600"
+          : "bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-400"
       }`}
     >
       {copied ? "✓ Copied!" : label}
@@ -399,10 +399,10 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 function ParamTypeBadge({ type }: { type: ParamType }) {
   const style =
     type === "SecureString"
-      ? "bg-emerald-100 text-emerald-700 border border-emerald-300"
+      ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-600"
       : type === "StringList"
-        ? "bg-teal-50 text-teal-700 border border-teal-300"
-        : "bg-slate-100 text-slate-600 border border-slate-300";
+        ? "bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 border border-teal-300 dark:border-teal-600"
+        : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600";
   return (
     <span
       className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold ${style}`}
@@ -417,10 +417,10 @@ function StagePill({ stage }: { stage: string }) {
     stage === "AWSCURRENT"
       ? "bg-emerald-500 text-white"
       : stage === "AWSPREVIOUS"
-        ? "bg-amber-100 text-amber-700 border border-amber-300"
+        ? "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-600"
         : stage === "AWSPENDING"
-          ? "bg-indigo-100 text-indigo-700 border border-indigo-300"
-          : "bg-slate-100 text-slate-600 border border-slate-300";
+          ? "bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-600"
+          : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600";
   return (
     <span
       className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold ${style}`}
@@ -589,17 +589,17 @@ export default function AwsSecretsManagerSection() {
         <div key={node.path}>
           <button
             onClick={() => toggleFolder(node.path)}
-            className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-emerald-50/70 text-left transition"
+            className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-emerald-50/70 dark:hover:bg-emerald-900/30 text-left transition"
             style={{ paddingLeft: `${8 + depth * 18}px` }}
           >
-            <span className="text-[10px] text-emerald-600 w-3 text-center">
+            <span className="text-[10px] text-emerald-600 dark:text-emerald-400 w-3 text-center">
               {expandedPaths.includes(node.path) ? "▼" : "▶"}
             </span>
-            <span className="text-emerald-500">📁</span>
-            <span className="text-xs font-bold text-slate-700 font-mono">
+            <span className="text-emerald-500 dark:text-emerald-400">📁</span>
+            <span className="text-xs font-bold text-slate-700 dark:text-slate-300 font-mono">
               {node.name}
             </span>
-            <span className="text-[10px] text-slate-400 font-mono ml-1">
+            <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono ml-1">
               ({countParams(node.children ?? [])})
             </span>
           </button>
@@ -613,16 +613,16 @@ export default function AwsSecretsManagerSection() {
           onClick={() => setSelectedParam(node)}
           className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-left transition ${
             selectedParam.path === node.path
-              ? "bg-emerald-50 ring-1 ring-emerald-400"
-              : "hover:bg-slate-50"
+              ? "bg-emerald-50 dark:bg-emerald-900/30 ring-1 ring-emerald-400"
+              : "hover:bg-slate-50 dark:hover:bg-slate-700"
           }`}
           style={{ paddingLeft: `${26 + depth * 18}px` }}
         >
-          <span className="text-emerald-500 text-[10px]">▸</span>
-          <span className="text-xs font-mono text-slate-700">{node.name}</span>
+          <span className="text-emerald-500 dark:text-emerald-400 text-[10px]">▸</span>
+          <span className="text-xs font-mono text-slate-700 dark:text-slate-300">{node.name}</span>
           {node.type && <ParamTypeBadge type={node.type} />}
           {node.value !== undefined && (
-            <span className="ml-auto text-[10px] font-mono text-slate-400 truncate max-w-[160px]">
+            <span className="ml-auto text-[10px] font-mono text-slate-400 dark:text-slate-500 truncate max-w-[160px]">
               {revealValue ? node.value : "••••••"}
             </span>
           )}
@@ -1019,19 +1019,19 @@ export default function AwsSecretsManagerSection() {
   return (
     <section id="aws-secrets-manager" className="scroll-mt-20 space-y-6">
       {/* ============ HEADER ============ */}
-      <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-sm">
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
         <div className="flex items-center gap-2 mb-2">
-          <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-300/60 text-xs font-mono font-semibold">
+          <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-300/60 dark:border-emerald-600/60 text-xs font-mono font-semibold">
             AWS · Secrets Manager &amp; Parameter Store
           </span>
-          <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 border border-slate-200 text-[10px] font-mono font-semibold">
+          <span className="px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 text-[10px] font-mono font-semibold">
             SECURITY TRACK
           </span>
         </div>
-        <h3 className="text-lg font-bold text-slate-900">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
           🔐 Secrets Manager &amp; Parameter Store — Secure Secret Lifecycle
         </h3>
-        <p className="text-xs text-slate-500 mt-1">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
           Hierarchical parameters, KMS envelope encryption, automated rotation
           scheduling, cross-account trust policies, IAM evaluation, and
           versioned rollback with staging labels.
@@ -1047,7 +1047,7 @@ export default function AwsSecretsManagerSection() {
             <a
               key={chip.href}
               href={chip.href}
-              className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition"
+              className="px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition"
             >
               {chip.label}
             </a>
@@ -1058,17 +1058,17 @@ export default function AwsSecretsManagerSection() {
       {/* ============ MODULE 1: HIERARCHY VISUALIZER ============ */}
       <div
         id="sm-hierarchy"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 shadow-sm"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 shadow-sm"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-200 pb-4 mb-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-4 mb-4">
           <div>
-            <div className="text-xs font-mono text-emerald-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
               01 · SSM Parameter Store
             </div>
-            <h4 className="text-base font-extrabold text-slate-900">
+            <h4 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
               Secrets Hierarchy Visualizer
             </h4>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               Path hierarchy with per-type encryption semantics — SecureString
               is envelope-encrypted with KMS, String / StringList are plaintext.
             </p>
@@ -1088,12 +1088,12 @@ export default function AwsSecretsManagerSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
           {/* Tree */}
-          <div className="lg:col-span-2 rounded-xl border border-slate-200 bg-slate-50/60 p-2">
+          <div className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-700/60 p-2">
             <div className="flex items-center justify-between px-2 py-1.5 mb-1">
-              <span className="text-[10px] font-mono text-slate-500 font-semibold">
+              <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 font-semibold">
                 $ aws ssm get-parameters-by-path --path / --recursive
               </span>
-              <span className="text-[10px] font-mono text-emerald-600 font-bold">
+              <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">
                 {countParams(PARAMETER_TREE)} params
               </span>
             </div>
@@ -1102,36 +1102,36 @@ export default function AwsSecretsManagerSection() {
 
           {/* Details */}
           <div className="lg:col-span-3 space-y-3">
-            <div className="rounded-xl border border-emerald-200 bg-emerald-50/40 p-4">
+            <div className="rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50/40 dark:bg-emerald-900/30 p-4">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs font-mono font-bold text-emerald-800 break-all">
+                <span className="text-xs font-mono font-bold text-emerald-800 dark:text-emerald-200 break-all">
                   {selectedParam.path}
                 </span>
                 {selectedParam.type && <ParamTypeBadge type={selectedParam.type} />}
                 {selectedParam.tier && (
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 text-slate-600 border border-slate-300">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600">
                     {selectedParam.tier} Tier
                   </span>
                 )}
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 text-slate-600 border border-slate-300">
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600">
                   v{selectedParam.version}
                 </span>
               </div>
 
               <div className="grid grid-cols-2 gap-3 mt-3 text-xs">
                 <div>
-                  <div className="text-[10px] font-mono text-slate-500">
+                  <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                     Last Modified
                   </div>
-                  <div className="font-mono text-slate-700 mt-0.5">
+                  <div className="font-mono text-slate-700 dark:text-slate-300 mt-0.5">
                     {selectedParam.lastModified}
                   </div>
                 </div>
                 <div>
-                  <div className="text-[10px] font-mono text-slate-500">
+                  <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                     KMS Key
                   </div>
-                  <div className="font-mono text-slate-700 mt-0.5 break-all truncate" title={selectedParam.kmsKey}>
+                  <div className="font-mono text-slate-700 dark:text-slate-300 mt-0.5 break-all truncate" title={selectedParam.kmsKey}>
                     {selectedParam.kmsKey ?? "None — plaintext at rest"}
                   </div>
                 </div>
@@ -1140,17 +1140,17 @@ export default function AwsSecretsManagerSection() {
               {/* Value */}
               <div className="mt-3">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-[10px] font-mono text-slate-500">
+                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                     Value
                     {selectedParam.type === "SecureString" && (
-                      <span className="text-emerald-600 ml-1">
+                      <span className="text-emerald-600 dark:text-emerald-400 ml-1">
                         (decrypt requires kms:Decrypt + --with-decryption)
                       </span>
                     )}
                   </span>
                   <button
                     onClick={() => setRevealValue((prev) => !prev)}
-                    className="px-2.5 py-1 rounded-lg text-[10px] font-bold font-mono bg-emerald-500/15 text-emerald-700 border border-emerald-300 hover:bg-emerald-500/25 transition"
+                    className="px-2.5 py-1 rounded-lg text-[10px] font-bold font-mono bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-600 hover:bg-emerald-500/25 transition"
                   >
                     {revealValue ? "🙈 Hide Value" : "👁️ Reveal Value"}
                   </button>
@@ -1161,18 +1161,18 @@ export default function AwsSecretsManagerSection() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 p-4">
-              <div className="text-xs font-bold text-slate-800 mb-2">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4">
+              <div className="text-xs font-bold text-slate-800 dark:text-slate-200 mb-2">
                 How to fetch this parameter
               </div>
-              <pre className="p-3 rounded-lg bg-slate-50 border border-slate-200 text-[11px] font-mono text-emerald-700 overflow-x-auto">
+              <pre className="p-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-[11px] font-mono text-emerald-700 dark:text-emerald-300 overflow-x-auto">
                 {`$ aws ssm get-parameter --name ${selectedParam.path} ${
                   selectedParam.type === "SecureString"
                     ? "--with-decryption"
                     : ""
                 }`}
               </pre>
-              <div className="mt-2 text-[11px] text-slate-500 leading-relaxed">
+              <div className="mt-2 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
                 {selectedParam.type === "SecureString"
                   ? "SecureString values are encrypted at rest with envelope encryption: the KMS customer/aws-managed key encrypts a data key, which encrypts the value. IAM must allow both ssm:GetParameter and kms:Decrypt on the key."
                   : selectedParam.type === "StringList"
@@ -1187,16 +1187,16 @@ export default function AwsSecretsManagerSection() {
       {/* ============ 2: ROTATION SCHEDULER ============ */}
       <div
         id="sm-rotation"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 shadow-sm"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 shadow-sm"
       >
-        <div className="border-b border-slate-200 pb-4 mb-4">
-          <div className="text-xs font-mono text-emerald-600 uppercase tracking-wider mb-1">
+        <div className="border-b border-slate-200 dark:border-slate-700 pb-4 mb-4">
+          <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
             02 · Secrets Rotation
           </div>
-          <h4 className="text-base font-extrabold text-slate-900">
+          <h4 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
             Rotation Schedule Configurator
           </h4>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Compose a rotation cadence, pick an execution window, and preview
             the exact schedule EventBridge will fire.
           </p>
@@ -1204,9 +1204,9 @@ export default function AwsSecretsManagerSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Configurator */}
-          <div className="rounded-xl border border-slate-200 p-4 space-y-4">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-4">
             <div>
-              <div className="text-[10px] font-mono text-slate-500 mb-1.5">
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1.5">
                 Rotation cadence
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -1224,7 +1224,7 @@ export default function AwsSecretsManagerSection() {
                     className={`px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold border transition ${
                       rotationCadence === value
                         ? "bg-emerald-500 text-white border-emerald-500 shadow"
-                        : "bg-slate-50 text-slate-600 border-slate-200 hover:border-emerald-400 hover:text-emerald-600"
+                        : "bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-400"
                     }`}
                   >
                     {label}
@@ -1235,13 +1235,13 @@ export default function AwsSecretsManagerSection() {
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-[10px] font-mono text-slate-500 mb-1">
+                <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
                   Preferred day (window)
                 </label>
                 <select
                   value={windowDay}
                   onChange={(e) => setWindowDay(parseInt(e.target.value, 10))}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
+                  className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
                 >
                   {WEEKDAYS.map((day, idx) => (
                     <option key={day} value={idx + 1}>
@@ -1251,13 +1251,13 @@ export default function AwsSecretsManagerSection() {
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-mono text-slate-500 mb-1">
+                <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
                   Hour (UTC)
                 </label>
                 <select
                   value={windowHour}
                   onChange={(e) => setWindowHour(parseInt(e.target.value, 10))}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
+                  className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
                 >
                   {Array.from({ length: 24 }, (_, h) => (
                     <option key={h} value={h}>
@@ -1270,21 +1270,21 @@ export default function AwsSecretsManagerSection() {
 
             {rotationCadence === "custom" && (
               <div>
-                <label className="block text-[10px] font-mono text-slate-500 mb-1">
+                <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
                   Cron expression (6-field AWS schedule)
                 </label>
                 <input
                   value={customCron}
                   onChange={(e) => handleCustomCronChange(e.target.value)}
                   placeholder="cron(min hour dom month dow year)"
-                  className={`w-full bg-slate-50 border rounded-lg px-2 py-1.5 text-xs font-mono focus:outline-none ${
+                  className={`w-full bg-slate-50 dark:bg-slate-700 border rounded-lg px-2 py-1.5 text-xs font-mono focus:outline-none ${
                     cronError
-                      ? "border-rose-400 text-rose-600"
-                      : "border-slate-200 text-emerald-700 focus:border-emerald-400"
+                      ? "border-rose-400 text-rose-600 dark:text-rose-400"
+                      : "border-slate-200 dark:border-slate-700 text-emerald-700 dark:text-emerald-300 focus:border-emerald-400"
                   }`}
                 />
                 {cronError && (
-                  <div className="mt-1 text-[10px] font-mono text-rose-600">
+                  <div className="mt-1 text-[10px] font-mono text-rose-600 dark:text-rose-400">
                     ⚠ {cronError}
                   </div>
                 )}
@@ -1292,7 +1292,7 @@ export default function AwsSecretsManagerSection() {
             )}
 
             <div>
-              <div className="text-[10px] font-mono text-slate-500 mb-1.5">
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1.5">
                 Rotation strategy
               </div>
               <div className="grid grid-cols-2 gap-1.5">
@@ -1300,12 +1300,12 @@ export default function AwsSecretsManagerSection() {
                   onClick={() => setRotationStrategy("single")}
                   className={`px-3 py-2 rounded-lg text-[11px] font-mono font-bold border transition text-left ${
                     rotationStrategy === "single"
-                      ? "bg-emerald-500/15 text-emerald-700 border-emerald-400"
-                      : "bg-slate-50 text-slate-600 border-slate-200 hover:border-emerald-400"
+                      ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-400"
+                      : "bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-400"
                   }`}
                 >
                   Single-User
-                  <div className="text-[9px] font-sans font-normal text-slate-500 mt-0.5">
+                  <div className="text-[9px] font-sans font-normal text-slate-500 dark:text-slate-400 mt-0.5">
                     One credential set, atomic swap
                   </div>
                 </button>
@@ -1313,26 +1313,26 @@ export default function AwsSecretsManagerSection() {
                   onClick={() => setRotationStrategy("alternating")}
                   className={`px-3 py-2 rounded-lg text-[11px] font-mono font-bold border text-left ${
                     rotationStrategy === "alternating"
-                      ? "bg-emerald-500/15 text-emerald-700 border-emerald-400"
-                      : "bg-slate-50 text-slate-600 border-slate-200 hover:border-emerald-400"
+                      ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-400"
+                      : "bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-400"
                   }`}
                 >
                   Alternating
-                  <div className="text-[9px] font-sans font-medium text-slate-500 mt-0.5">
+                  <div className="text-[9px] font-sans font-medium text-slate-500 dark:text-slate-400 mt-0.5">
                     AWSCURRENT / AWSPREVIOUS dual-set
                   </div>
                 </button>
               </div>
             </div>
 
-            <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
-              <div className="text-[10px] font-mono text-slate-500 mb-1">
+            <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 p-3">
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
                 Generated schedule (EventBridge rule)
               </div>
-              <div className="text-xs font-mono font-bold text-emerald-700 break-all">
+              <div className="text-xs font-mono font-bold text-emerald-700 dark:text-emerald-300 break-all">
                 {activeCron()}
               </div>
-              <div className="text-[10px] font-mono text-slate-500 mt-1">
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-1">
                 {windowLabel} · {cadenceLabel[rotationCadence]}
               </div>
             </div>
@@ -1340,12 +1340,12 @@ export default function AwsSecretsManagerSection() {
 
           {/* Schedule board */}
           <div className="space-y-4">
-            <div className="rounded-xl border border-slate-200 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-bold text-slate-800">
+                <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
                   Upcoming rotation runs
                 </span>
-                <span className="text-[10px] font-mono text-emerald-600 font-bold">
+                <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">
                   {rotationSpec ? "SCHEDULE ACTIVE" : "SCHEDULE INVALID"}
                 </span>
               </div>
@@ -1354,39 +1354,39 @@ export default function AwsSecretsManagerSection() {
                   {rotationRuns.map((run, idx) => (
                     <div
                       key={run.getTime()}
-                      className="flex items-center gap-3 rounded-lg bg-slate-50 border border-slate-200 px-3 py-2"
+                      className="flex items-center gap-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 px-3 py-2"
                     >
-                      <span className="w-6 h-6 rounded-full bg-emerald-500/15 border border-emerald-300 text-[10px] font-mono font-bold text-emerald-700 flex items-center justify-center">
+                      <span className="w-6 h-6 rounded-full bg-emerald-500/15 border border-emerald-300 dark:border-emerald-600 text-[10px] font-mono font-bold text-emerald-700 dark:text-emerald-300 flex items-center justify-center">
                         {idx + 1}
                       </span>
                       <div className="flex-1">
-                        <div className="text-xs font-mono font-bold text-slate-800">
+                        <div className="text-xs font-mono font-bold text-slate-800 dark:text-slate-200">
                           {formatUtc(run)}
                         </div>
-                        <div className="text-[10px] font-mono text-slate-500">
+                        <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                           rotation #{idx + 1} · {cadenceLabel[rotationCadence]}
                         </div>
                       </div>
-                      <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-mono font-bold">
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-[10px] font-mono font-bold">
                         T-{daysUntil(ROTATION_NOW, run)}d
                       </span>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="p-4 text-xs text-rose-600 font-mono bg-rose-50 border border-rose-200 rounded-lg">
+                <div className="p-4 text-xs text-rose-600 dark:text-rose-400 font-mono bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-700 rounded-lg">
                   Invalid cron expression — fix the custom schedule above.
                 </div>
               )}
 
               <div className="mt-3">
-                <div className="text-[10px] font-mono text-slate-500 mb-1.5">
+                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1.5">
                   Rotation pipeline ({rotationStrategy === "single" ? "single-user" : "alternating"})
                 </div>
                 <ol className="space-y-1">
                   {rotationFlowSteps[rotationStrategy].map((step, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-[11px] text-slate-600">
-                      <span className="mt-0.5 w-4 h-4 rounded bg-emerald-100 text-emerald-700 text-[9px] font-mono font-bold flex items-center justify-center shrink-0">
+                    <li key={idx} className="flex items-start gap-2 text-[11px] text-slate-600 dark:text-slate-300">
+                      <span className="mt-0.5 w-4 h-4 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-[9px] font-mono font-bold flex items-center justify-center shrink-0">
                         {idx + 1}
                       </span>
                       <span>{step}</span>
@@ -1396,9 +1396,9 @@ export default function AwsSecretsManagerSection() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-mono text-slate-500">
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                   Rotation rule (Secrets Manager + EventBridge)
                 </span>
                 <CopyButton text={rotationRuleJson} label="📋 Copy rule" />
@@ -1420,16 +1420,16 @@ export default function AwsSecretsManagerSection() {
       {/* ============ 3: CROSS-ACCOUNT TRUST ============ */}
       <div
         id="sm-cross-account"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 shadow-sm"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 shadow-sm"
       >
-        <div className="border-b border-slate-200 pb-4 mb-4">
-          <div className="text-xs font-mono text-emerald-600 uppercase tracking-wider mb-1">
+        <div className="border-b border-slate-200 dark:border-slate-700 pb-4 mb-4">
+          <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
             03 · Cross-Account Access
           </div>
-          <h4 className="text-base font-extrabold text-slate-900">
+          <h4 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
             Cross-Account Trust Policy Builder
           </h4>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Attach a resource-based policy to the secret so a role in another
             account can read it — the secret “trusts” the foreign principal.
           </p>
@@ -1437,46 +1437,46 @@ export default function AwsSecretsManagerSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Builder */}
-          <div className="rounded-xl border border-slate-200 p-4 space-y-4">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-4">
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-[10px] font-mono text-slate-500 mb-1">
+                <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
                   Owner account
                 </label>
                 <input
                   value={ownerAccount}
                   onChange={(e) => setOwnerAccount(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
+                  className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-mono text-slate-500 mb-1">
+                <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
                   Consumer account
                 </label>
                 <input
                   value={consumerAccount}
                   onChange={(e) => setConsumerAccount(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
+                  className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-[10px] font-mono text-slate-500 mb-1">
+              <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
                 Consumer role name
               </label>
               <input
                 value={consumerRole}
                 onChange={(e) => setConsumerRole(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
+                className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
               />
-              <div className="mt-1 text-[10px] font-mono text-slate-400">
+              <div className="mt-1 text-[10px] font-mono text-slate-400 dark:text-slate-500">
                 Principal: {principalArn}
               </div>
             </div>
 
             <div>
-              <div className="text-[10px] font-mono text-slate-500 mb-1.5">
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1.5">
                 Confused-deputy guard (Condition)
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -1493,14 +1493,14 @@ export default function AwsSecretsManagerSection() {
                     className={`px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold border transition ${
                       conditionMode === value
                         ? "bg-emerald-500 text-white border-emerald-500 shadow"
-                        : "bg-slate-50 text-slate-600 border-slate-200 hover:border-emerald-400 hover:text-emerald-600"
+                        : "bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-400"
                     }`}
                   >
                     {label}
                   </button>
                 ))}
               </div>
-              <p className="mt-1 text-[10px] text-slate-400 leading-relaxed">
+              <p className="mt-1 text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed">
                 {conditionMode === "sourceAccount"
                   ? "Restricts the grant to calls originating from the consumer account — guards against the confused-deputy problem."
                   : conditionMode === "principalArn"
@@ -1510,7 +1510,7 @@ export default function AwsSecretsManagerSection() {
             </div>
 
             <div>
-              <div className="text-[10px] font-mono text-slate-500 mb-1.5">
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1.5">
                 Actions granted to the consumer
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -1522,8 +1522,8 @@ export default function AwsSecretsManagerSection() {
                       onClick={() => toggleAction(action)}
                       className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold border transition ${
                         checked
-                          ? "bg-emerald-500/15 text-emerald-700 border-emerald-400"
-                          : "bg-slate-50 text-slate-500 border-slate-200 hover:border-emerald-400"
+                          ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-400"
+                          : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-emerald-400"
                       }`}
                     >
                       {checked ? "✓ " : ""}
@@ -1535,25 +1535,25 @@ export default function AwsSecretsManagerSection() {
             </div>
 
             {policyError ? (
-              <div className="rounded-lg bg-rose-50 border border-rose-200 px-3 py-2 text-[11px] font-mono text-rose-600">
+              <div className="rounded-lg bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-700 px-3 py-2 text-[11px] font-mono text-rose-600 dark:text-rose-400">
                 ⚠ {policyError}
               </div>
             ) : (
-              <div className="rounded-lg bg-emerald-50 border border-emerald-200 px-3 py-2 text-[11px] font-mono text-emerald-700">
+              <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 px-3 py-2 text-[11px] font-mono text-emerald-700 dark:text-emerald-300">
                 ✓ Policy valid — resource policy is attachable.
               </div>
             )}
 
-            <div className="rounded-xl bg-slate-50 border border-slate-200 p-3 space-y-2 text-[11px] text-slate-600">
-              <div className="text-[10px] font-mono text-slate-500 font-semibold">
+            <div className="rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-3 space-y-2 text-[11px] text-slate-600 dark:text-slate-300">
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 font-semibold">
                 Why this works (4 steps)
               </div>
-              <div className="flex items-center gap-1 text-[10px] font-mono text-emerald-700">
-                <span className="px-2 py-1 rounded bg-white border border-emerald-300">
+              <div className="flex items-center gap-1 text-[10px] font-mono text-emerald-700 dark:text-emerald-300">
+                <span className="px-2 py-1 rounded bg-white dark:bg-slate-800 border border-emerald-300 dark:border-emerald-600">
                   Owner {ownerAccount}
                 </span>
                 <span>—— resource policy ——▶</span>
-                <span className="px-2 py-1 rounded bg-white border border-emerald-300">
+                <span className="px-2 py-1 rounded bg-white dark:bg-slate-800 border border-emerald-300 dark:border-emerald-600">
                   {consumerRole} @ {consumerAccount}
                 </span>
               </div>
@@ -1562,11 +1562,11 @@ export default function AwsSecretsManagerSection() {
                 IAM “trust” is always intra-account.
               </div>
               <div>
-                2. The secret's resource policy (below) grants the foreign
+                2. The secret&apos;s resource policy (below) grants the foreign
                 principal ARN access — cross-account trust.
               </div>
               <div>
-                3. The secret's KMS key policy must also allow the same
+                3. The secret&apos;s KMS key policy must also allow the same
                 principal to kms:Decrypt — two policies, both required.
               </div>
               <div>
@@ -1578,9 +1578,9 @@ export default function AwsSecretsManagerSection() {
           </div>
 
           {/* Policy preview */}
-          <div className="rounded-xl border border-slate-200 p-4">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] font-mono text-slate-500">
+              <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                 Generated resource-based policy (trust policy)
               </span>
               <CopyButton text={trustPolicy} label="📋 Copy policy" />
@@ -1588,11 +1588,11 @@ export default function AwsSecretsManagerSection() {
             <pre className="p-3 rounded-lg bg-slate-900 text-emerald-400 text-[11px] font-mono overflow-x-auto">
               {trustPolicy}
             </pre>
-            <div className="mt-3 text-[11px] text-slate-500 leading-relaxed">
-              <span className="font-bold text-slate-700">Attach with:</span>{" "}
-              <span className="font-mono text-emerald-700">
+            <div className="mt-3 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              <span className="font-bold text-slate-700 dark:text-slate-300">Attach with:</span>{" "}
+              <span className="font-mono text-emerald-700 dark:text-emerald-300">
                 aws secretsmanager put-resource-policy --secret-id
-                prod/db/credentials --resource-policy '{trustPolicy}'
+                prod/db/credentials --resource-policy &apos;{trustPolicy}&apos;
               </span>
             </div>
           </div>
@@ -1602,16 +1602,16 @@ export default function AwsSecretsManagerSection() {
       {/* ============ 4: IAM POLICY EVALUATOR ============ */}
       <div
         id="sm-iam-eval"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 shadow-sm"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 shadow-sm"
       >
-        <div className="border-b border-slate-200 pb-4 mb-4">
-          <div className="text-xs font-mono text-emerald-600 uppercase tracking-wider mb-1">
+        <div className="border-b border-slate-200 dark:border-slate-700 pb-4 mb-4">
+          <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
             04 · IAM Authorization
           </div>
-          <h4 className="text-base font-extrabold text-slate-900">
+          <h4 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
             IAM Policy Evaluator for Secrets Access
           </h4>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Simulate an API request against an attachable identity policy —
             explicit Deny always wins, a matching Allow grants access, and
             everything else is implicitly denied.
@@ -1620,9 +1620,9 @@ export default function AwsSecretsManagerSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Request */}
-          <div className="rounded-xl border border-slate-200 p-4 space-y-4">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4 space-y-4">
             <div>
-              <div className="text-[10px] font-mono text-slate-500 mb-1.5">
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1.5">
                 Identity policy preset
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -1633,7 +1633,7 @@ export default function AwsSecretsManagerSection() {
                     className={`px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold border transition ${
                       presetId === preset.id
                         ? "bg-emerald-500 text-white border-emerald-500 shadow"
-                        : "bg-slate-50 text-slate-600 border-slate-200 hover:border-emerald-400 hover:text-emerald-600"
+                        : "bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-400"
                     }`}
                   >
                     {preset.label}
@@ -1644,13 +1644,13 @@ export default function AwsSecretsManagerSection() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-[10px] font-mono text-slate-500 mb-1">
+                <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
                   Requested action
                 </label>
                 <select
                   value={requestAction}
                   onChange={(e) => setRequestAction(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
+                  className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
                 >
                   {ACTION_OPTIONS.map((a) => (
                     <option key={a} value={a}>
@@ -1660,19 +1660,19 @@ export default function AwsSecretsManagerSection() {
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-mono text-slate-500 mb-1">
+                <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
                   Resource ARN
                 </label>
                 <input
                   value={requestResource}
                   onChange={(e) => setRequestResource(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
+                  className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono focus:border-emerald-400 focus:outline-none"
                 />
               </div>
             </div>
 
             <div>
-              <div className="text-[10px] font-mono text-slate-500 mb-1.5">
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1.5">
                 Request context (satisfied conditions)
               </div>
               <div className="grid grid-cols-3 gap-1.5">
@@ -1692,8 +1692,8 @@ export default function AwsSecretsManagerSection() {
                     onClick={() => setter(!value)}
                     className={`px-2 py-1.5 rounded-lg text-[10px] font-mono font-bold border transition ${
                       value
-                        ? "bg-emerald-500/15 text-emerald-700 border-emerald-400"
-                        : "bg-slate-50 text-slate-400 border-slate-200"
+                        ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-400"
+                        : "bg-slate-50 dark:bg-slate-700 text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-700"
                     }`}
                   >
                     {value ? "✓ " : "✗ "}
@@ -1707,14 +1707,14 @@ export default function AwsSecretsManagerSection() {
             <div
               className={`rounded-xl border p-4 ${
                 evalResult.decision === "ALLOW"
-                  ? "bg-emerald-50 border-emerald-300"
+                  ? "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-600"
                   : evalResult.decision === "EXPLICIT_DENY"
-                    ? "bg-rose-50 border-rose-300"
-                    : "bg-amber-50 border-amber-300"
+                    ? "bg-rose-50 dark:bg-rose-900/30 border-rose-300 dark:border-rose-600"
+                    : "bg-amber-50 dark:bg-amber-900/30 border-amber-300 dark:border-amber-600"
               }`}
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono text-slate-500">
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                   Authorization decision
                 </span>
                 <span
@@ -1733,7 +1733,7 @@ export default function AwsSecretsManagerSection() {
                       : "✘ IMPLICIT DENY"}
                 </span>
               </div>
-              <div className="text-xs text-slate-600 mt-2 leading-relaxed">
+              <div className="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
                 {evalResult.decision === "ALLOW"
                   ? "An explicit Allow statement matched the action and resource, and every required condition was satisfied."
                   : evalResult.decision === "EXPLICIT_DENY"
@@ -1744,8 +1744,8 @@ export default function AwsSecretsManagerSection() {
           </div>
 
           {/* Statement analysis */}
-          <div className="rounded-xl border border-slate-200 p-4">
-            <div className="text-[10px] font-mono text-slate-500 mb-2">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4">
+            <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-2">
               Statement-by-statement analysis — {activePreset.label}
             </div>
             <div className="space-y-2">
@@ -1755,13 +1755,13 @@ export default function AwsSecretsManagerSection() {
                   className={`rounded-lg border px-3 py-2.5 ${
                     row.applies
                       ? row.effect === "Deny"
-                        ? "bg-rose-50 border-rose-200"
-                        : "bg-emerald-50 border-emerald-200"
-                      : "bg-slate-50 border-slate-200"
+                        ? "bg-rose-50 dark:bg-rose-900/30 border-rose-200 dark:border-rose-700"
+                        : "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700"
+                      : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2 flex-wrap">
-                    <span className="text-xs font-mono font-bold text-slate-800">
+                    <span className="text-xs font-mono font-bold text-slate-800 dark:text-slate-200">
                       {row.sid}
                     </span>
                     <span
@@ -1770,7 +1770,7 @@ export default function AwsSecretsManagerSection() {
                           ? row.effect === "Deny"
                             ? "bg-rose-500 text-white"
                             : "bg-emerald-500 text-white"
-                          : "bg-slate-200 text-slate-500"
+                          : "bg-slate-200 dark:bg-slate-600 text-slate-500 dark:text-slate-400"
                       }`}
                     >
                       {row.applies
@@ -1778,15 +1778,15 @@ export default function AwsSecretsManagerSection() {
                         : "SKIPPED"}
                     </span>
                   </div>
-                  <div className="mt-1 text-[11px] text-slate-600 leading-snug">
+                  <div className="mt-1 text-[11px] text-slate-600 dark:text-slate-300 leading-snug">
                     {row.reason}
                   </div>
                   <div className="mt-1.5 flex flex-wrap gap-1 text-[9px] font-mono">
                     <span
                       className={`px-1.5 py-0.5 rounded ${
                         row.actionMatched
-                          ? "bg-emerald-100 text-emerald-700"
-                          : "bg-slate-100 text-slate-400"
+                          ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300"
+                          : "bg-slate-100 dark:bg-slate-700 text-slate-400 dark:text-slate-500"
                       }`}
                     >
                       action: {row.actionMatched ? "match" : "no match"}
@@ -1794,8 +1794,8 @@ export default function AwsSecretsManagerSection() {
                     <span
                       className={`px-1.5 py-0.5 rounded ${
                         row.resourceMatched
-                          ? "bg-emerald-100 text-emerald-700"
-                          : "bg-slate-100 text-slate-400"
+                          ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300"
+                          : "bg-slate-100 dark:bg-slate-700 text-slate-400 dark:text-slate-500"
                       }`}
                     >
                       resource: {row.resourceMatched ? "match" : "no match"}
@@ -1803,8 +1803,8 @@ export default function AwsSecretsManagerSection() {
                     <span
                       className={`px-1.5 py-0.5 rounded ${
                         row.conditionSkipped
-                          ? "bg-amber-100 text-amber-700"
-                          : "bg-slate-100 text-slate-400"
+                          ? "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300"
+                          : "bg-slate-100 dark:bg-slate-700 text-slate-400 dark:text-slate-500"
                       }`}
                     >
                       conditions: {row.conditionSkipped ? "failed" : "ok"}
@@ -1813,8 +1813,8 @@ export default function AwsSecretsManagerSection() {
                 </div>
               ))}
             </div>
-            <div className="mt-3 rounded-lg bg-slate-50 border border-slate-200 p-3 text-[11px] text-slate-500 leading-relaxed">
-              <span className="font-bold text-slate-700">Evaluation order:</span>{" "}
+            <div className="mt-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-3 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              <span className="font-bold text-slate-700 dark:text-slate-300">Evaluation order:</span>{" "}
               identity policies → resource policies → IAM boundary → SCP → session
               policy. Any explicit <span className="font-mono">Deny</span>{" "}
               anywhere wins; a missing Allow is an implicit deny. Wildcard
@@ -1828,26 +1828,26 @@ export default function AwsSecretsManagerSection() {
       {/* ============ 5: VERSION HISTORY ============ */}
       <div
         id="sm-versions"
-        className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 shadow-sm"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 shadow-sm"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-200 pb-4 mb-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-4 mb-4">
           <div>
-            <div className="text-xs font-mono text-emerald-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
               05 · Secret Provenance
             </div>
-            <h4 className="text-base font-extrabold text-slate-900">
+            <h4 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
               Version History Viewer
             </h4>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               Staging labels route clients: AWSCURRENT is the live value,
               AWSPREVIOUS enables instant rollback. {SECRET_ARN}
             </p>
           </div>
           <div className="flex flex-wrap gap-1.5 text-[10px] font-mono">
-            <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+            <span className="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700">
               Rotation: ON (30d)
             </span>
-            <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+            <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
               KMS: alias/aws/secretsmanager
             </span>
           </div>
@@ -1862,14 +1862,14 @@ export default function AwsSecretsManagerSection() {
                 onClick={() => setSelectedVersionId(v.id)}
                 className={`w-full text-left rounded-xl border px-3 py-2.5 transition ${
                   selectedVersionId === v.id
-                    ? "bg-emerald-50 border-emerald-400 ring-1 ring-emerald-400"
+                    ? "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-400 ring-1 ring-emerald-400"
                     : v.enabled
-                      ? "bg-white border-slate-200 hover:border-emerald-300"
-                      : "bg-slate-50 border-slate-200 opacity-70"
+                      ? "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-600"
+                      : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 opacity-70"
                 }`}
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[11px] font-mono font-bold text-slate-800">
+                  <span className="text-[11px] font-mono font-bold text-slate-800 dark:text-slate-200">
                     {v.id.slice(0, 8)}…{v.id.slice(-4)}
                   </span>
                   <div className="flex gap-1">
@@ -1878,13 +1878,13 @@ export default function AwsSecretsManagerSection() {
                     ))}
                   </div>
                 </div>
-                <div className="mt-1 flex items-center justify-between text-[10px] font-mono text-slate-500">
+                <div className="mt-1 flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400">
                   <span>{v.created}</span>
-                  <span className={v.enabled ? "text-emerald-600" : "text-rose-500"}>
+                  <span className={v.enabled ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500 dark:text-rose-400"}>
                     {v.enabled ? "ENABLED" : "DISABLED"}
                   </span>
                 </div>
-                <div className="mt-0.5 text-[10px] text-slate-400 truncate">
+                <div className="mt-0.5 text-[10px] text-slate-400 dark:text-slate-500 truncate">
                   {v.source}
                 </div>
               </button>
@@ -1893,27 +1893,27 @@ export default function AwsSecretsManagerSection() {
 
           {/* Detail */}
           <div className="lg:col-span-3 space-y-3">
-            <div className="rounded-xl border border-slate-200 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <div className="text-[10px] font-mono text-slate-500">
-                    Version: <span className="text-emerald-700">{selectedVersion.id}</span>
+                  <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                    Version: <span className="text-emerald-700 dark:text-emerald-300">{selectedVersion.id}</span>
                   </div>
-                  <div className="text-[10px] font-mono text-slate-500 mt-0.5">
+                  <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-0.5">
                     Created: {selectedVersion.created} · {selectedVersion.source}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setRevealVersionPayload((prev) => !prev)}
-                    className="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold border bg-slate-50 text-slate-600 border-slate-200 hover:border-emerald-400 hover:text-emerald-600 transition"
+                    className="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold border bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition"
                   >
                     {revealVersionPayload ? "🙈 Mask payload" : "👁️ Reveal payload"}
                   </button>
                   <button
                     onClick={() => handlePromote(selectedVersion.id)}
                     disabled={selectedVersion.stage.includes("AWSCURRENT")}
-                    className="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold border bg-emerald-500 text-white border-emerald-500 hover:bg-emerald-600 transition disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold border bg-emerald-500 text-white border-emerald-500 hover:bg-emerald-600 dark:hover:bg-emerald-500 transition disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     {selectedVersion.stage.includes("AWSCURRENT")
                       ? "✓ Already AWSCURRENT"
@@ -1924,7 +1924,7 @@ export default function AwsSecretsManagerSection() {
               <pre className="mt-3 p-3 rounded-lg bg-slate-900 text-emerald-400 text-[11px] font-mono overflow-x-auto">
                 {versionPayloadJson}
               </pre>
-              <div className="mt-2 text-[10px] font-mono text-slate-400">
+              <div className="mt-2 text-[10px] font-mono text-slate-400 dark:text-slate-500">
                 $ aws secretsmanager get-secret-value --secret-id prod/db/credentials
                 --version-id {selectedVersion.id.slice(0, 8)} --version-stage{" "}
                 {selectedVersion.stage[0] ?? "AWSCURRENT"}
@@ -1935,8 +1935,8 @@ export default function AwsSecretsManagerSection() {
       </div>
 
       {/* ============ FOOTER NOTE ============ */}
-      <div className="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200 text-[11px] text-slate-600 leading-relaxed">
-        <span className="font-bold text-emerald-700">Best practice recap: </span>
+      <div className="p-4 rounded-xl bg-emerald-50/60 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+        <span className="font-bold text-emerald-700 dark:text-emerald-300">Best practice recap: </span>
         Prefer Secrets Manager for values that rotate or need audit history;
         use Parameter Store for config. Always scope policy statements to a
         single secret ARN, require TLS + MFA for access, and enable rotation

@@ -60,10 +60,10 @@ const COMPLETION_ITEMS: CompletionItem[] = [
 ];
 
 const CLASSIFICATION_STYLES: Record<DataClassification, string> = {
-  public: "border-slate-200 bg-slate-50 text-slate-700",
-  internal: "border-blue-200 bg-blue-50 text-blue-700",
-  confidential: "border-amber-200 bg-amber-50 text-amber-700",
-  restricted: "border-rose-200 bg-rose-50 text-rose-700",
+  public: "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-300",
+  internal: "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+  confidential: "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+  restricted: "border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-700 dark:bg-rose-900/30 dark:text-rose-300",
 };
 
 const CONTROL_LABELS: Record<ControlKey, string> = {
@@ -100,56 +100,56 @@ export default function SecPrivacyComplianceSection() {
 
   return (
     <section id="sec-privacy-compliance" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-slate-200 bg-white p-5 card-shadow">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 card-shadow">
         <div className="mb-2 flex items-center gap-2">
-          <span className="rounded-full border border-violet-400/30 bg-violet-50 px-2.5 py-0.5 text-xs font-mono font-semibold text-violet-700">
+          <span className="rounded-full border border-violet-400/30 bg-violet-50 dark:bg-violet-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-violet-700 dark:text-violet-300">
             S14 · PRIVACY &amp; DATA CONTROLS
           </span>
         </div>
-        <h3 className="text-xl font-extrabold text-slate-900">14. Data Classification &amp; Privacy Controls</h3>
-        <p className="mt-1 max-w-3xl text-sm text-slate-500">
+        <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100">14. Data Classification &amp; Privacy Controls</h3>
+        <p className="mt-1 max-w-3xl text-sm text-slate-500 dark:text-slate-400">
           Classify example fields, inspect the protection controls mapped to each class, and complete a
           practical privacy readiness checklist.
         </p>
-        <p className="mt-3 rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 text-xs leading-relaxed text-violet-900" role="note">
+        <p className="mt-3 rounded-lg border border-violet-200 dark:border-violet-700 bg-violet-50 dark:bg-violet-900/30 px-3 py-2 text-xs leading-relaxed text-violet-900 dark:text-violet-200" role="note">
           Educational guidance only: this exercise is not formal legal compliance advice and does not
           determine obligations under any specific privacy law or contract.
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-5">
-        <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 card-shadow xl:col-span-3">
+        <div className="space-y-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 card-shadow xl:col-span-3">
           <div>
-            <h4 className="text-sm font-bold text-slate-900">Example data inventory</h4>
-            <p className="mt-1 text-xs text-slate-500">Choose a field, then classify it according to its sensitivity and use.</p>
+            <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Example data inventory</h4>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Choose a field, then classify it according to its sensitivity and use.</p>
           </div>
-          <div className="overflow-x-auto rounded-lg border border-slate-200">
+          <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
             <table className="w-full min-w-[540px] text-left text-xs">
               <caption className="sr-only">Example fields and data classifications</caption>
-              <thead className="border-b border-slate-200 bg-slate-50 text-[11px] font-mono text-slate-500">
+              <thead className="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 text-[11px] font-mono text-slate-500 dark:text-slate-400">
                 <tr>
                   <th scope="col" className="px-3 py-2.5">Field</th>
                   <th scope="col" className="px-3 py-2.5">Example value</th>
                   <th scope="col" className="px-3 py-2.5">Classification</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
                 {fields.map((field) => {
                   const selected = field.id === selectedFieldId;
                   return (
-                    <tr key={field.id} className={selected ? "bg-violet-50/60" : "hover:bg-slate-50"}>
+                    <tr key={field.id} className={selected ? "bg-violet-50/60 dark:bg-violet-900/30" : "hover:bg-slate-50 dark:hover:bg-slate-700"}>
                       <td className="px-3 py-3 align-top">
                         <button
                           type="button"
                           onClick={() => setSelectedFieldId(field.id)}
                           aria-label={`Select ${field.name}`}
-                          className="text-left font-mono font-semibold text-violet-800 underline-offset-2 hover:underline focus:outline-none focus:ring-2 focus:ring-violet-500"
+                          className="text-left font-mono font-semibold text-violet-800 dark:text-violet-200 underline-offset-2 hover:underline focus:outline-none focus:ring-2 focus:ring-violet-500"
                         >
                           {field.name}
                         </button>
-                        <p className="mt-1 text-[10px] text-slate-500">{field.purpose}</p>
+                        <p className="mt-1 text-[10px] text-slate-500 dark:text-slate-400">{field.purpose}</p>
                       </td>
-                      <td className="px-3 py-3 align-top font-mono text-slate-700">{field.example}</td>
+                      <td className="px-3 py-3 align-top font-mono text-slate-700 dark:text-slate-300">{field.example}</td>
                       <td className="px-3 py-3 align-top">
                         <span className={`rounded border px-2 py-1 text-[10px] font-bold uppercase ${CLASSIFICATION_STYLES[field.classification]}`}>
                           {field.classification}
@@ -162,16 +162,16 @@ export default function SecPrivacyComplianceSection() {
             </table>
           </div>
 
-          <fieldset className="rounded-lg border border-violet-200 bg-violet-50/50 p-4">
-            <legend className="px-1 text-xs font-bold text-violet-900">Classify {selectedField?.name ?? "selected field"}</legend>
+          <fieldset className="rounded-lg border border-violet-200 dark:border-violet-700 bg-violet-50/50 dark:bg-violet-900/30 p-4">
+            <legend className="px-1 text-xs font-bold text-violet-900 dark:text-violet-200">Classify {selectedField?.name ?? "selected field"}</legend>
             <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {(["public", "internal", "confidential", "restricted"] as const).map((classification) => (
                 <label
                   key={classification}
                   className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs font-semibold capitalize transition ${
                     selectedField?.classification === classification
-                      ? "border-violet-500 bg-white text-violet-800 ring-2 ring-violet-200"
-                      : "border-slate-200 bg-white text-slate-600 hover:border-violet-300"
+                      ? "border-violet-500 bg-white dark:bg-slate-800 text-violet-800 dark:text-violet-200 ring-2 ring-violet-200"
+                      : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-violet-300"
                   }`}
                 >
                   <input
@@ -189,32 +189,32 @@ export default function SecPrivacyComplianceSection() {
           </fieldset>
         </div>
 
-        <aside className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 card-shadow xl:col-span-2" aria-live="polite">
+        <aside className="space-y-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 card-shadow xl:col-span-2" aria-live="polite">
           <div>
-            <p className="text-[11px] font-mono font-semibold uppercase tracking-wide text-violet-700">Evaluator-backed controls</p>
-            <h4 className="mt-1 text-base font-bold text-slate-900">
+            <p className="text-[11px] font-mono font-semibold uppercase tracking-wide text-violet-700 dark:text-violet-300">Evaluator-backed controls</p>
+            <h4 className="mt-1 text-base font-bold text-slate-900 dark:text-slate-100">
               {selectedField?.name ?? "Selected field"} · {selectedField?.classification ?? "internal"}
             </h4>
-            <p className="mt-1 text-xs text-slate-500">Controls update when the classification changes.</p>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Controls update when the classification changes.</p>
           </div>
           <dl className="space-y-3">
             {(Object.keys(CONTROL_LABELS) as ControlKey[]).map((key) => (
-              <div key={key} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
-                <dt className="text-xs font-bold text-slate-700">{CONTROL_LABELS[key]}</dt>
-                <dd className="mt-1 text-sm leading-relaxed text-slate-600">{selectedControls[key]}</dd>
+              <div key={key} className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3">
+                <dt className="text-xs font-bold text-slate-700 dark:text-slate-300">{CONTROL_LABELS[key]}</dt>
+                <dd className="mt-1 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{selectedControls[key]}</dd>
               </div>
             ))}
           </dl>
         </aside>
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-5 card-shadow">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 card-shadow">
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
           <div>
-            <h4 className="text-sm font-bold text-slate-900">Privacy readiness checklist</h4>
-            <p className="mt-1 text-xs text-slate-500">Use the checklist to turn classification into operating controls.</p>
+            <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Privacy readiness checklist</h4>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Use the checklist to turn classification into operating controls.</p>
           </div>
-          <span className="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-800" role="status" aria-live="polite">
+          <span className="rounded-full bg-violet-50 dark:bg-violet-900/30 px-3 py-1 text-xs font-semibold text-violet-800 dark:text-violet-200" role="status" aria-live="polite">
             {completedCount}/{COMPLETION_ITEMS.length} complete
           </span>
         </div>
@@ -224,8 +224,8 @@ export default function SecPrivacyComplianceSection() {
               key={item.id}
               className={`flex cursor-pointer gap-3 rounded-lg border p-3 transition ${
                 completed[item.id]
-                  ? "border-emerald-200 bg-emerald-50"
-                  : "border-slate-200 bg-slate-50 hover:border-violet-300"
+                  ? "border-emerald-200 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/30"
+                  : "border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 hover:border-violet-300"
               }`}
             >
               <input
@@ -235,8 +235,8 @@ export default function SecPrivacyComplianceSection() {
                 className="mt-0.5 h-4 w-4 shrink-0 accent-emerald-600"
               />
               <span>
-                <span className="block text-xs font-semibold text-slate-900">{item.label}</span>
-                <span className="mt-1 block text-[11px] leading-relaxed text-slate-500">{item.detail}</span>
+                <span className="block text-xs font-semibold text-slate-900 dark:text-slate-100">{item.label}</span>
+                <span className="mt-1 block text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">{item.detail}</span>
               </span>
             </label>
           ))}

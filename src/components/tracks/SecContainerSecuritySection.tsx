@@ -88,22 +88,22 @@ export default function SecContainerSecuritySection() {
 
   return (
     <section id="sec-container-security" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-        <span className="rounded-full border border-cyan-200 bg-cyan-50 px-2.5 py-0.5 text-xs font-mono font-semibold text-cyan-700">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+        <span className="rounded-full border border-cyan-200 dark:border-cyan-700 bg-cyan-50 dark:bg-cyan-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-cyan-700 dark:text-cyan-300">
           S12 · Container Security
         </span>
-        <h3 className="mt-2 text-lg font-bold text-slate-900">Container admission simulator</h3>
-        <p className="mt-1 text-xs leading-relaxed text-slate-500">
+        <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">Container admission simulator</h3>
+        <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
           Toggle workload controls to model a Kubernetes admission decision. The shared evaluator
           rejects unsafe privileges, host access, unsigned images, and unconstrained resources.
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
           <fieldset>
-            <legend className="text-sm font-bold text-slate-900">Pod security controls</legend>
-            <p className="mt-1 text-xs leading-relaxed text-slate-500">
+            <legend className="text-sm font-bold text-slate-900 dark:text-slate-100">Pod security controls</legend>
+            <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
               Enable each control that is enforced by your workload policy. Host access controls
               are secure when their toggles remain off.
             </p>
@@ -112,7 +112,7 @@ export default function SecContainerSecuritySection() {
                 <label
                   key={control.key}
                   htmlFor={`sec-container-${control.key}`}
-                  className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700 hover:border-slate-300"
+                  className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3 text-xs text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600"
                 >
                   <input
                     id={`sec-container-${control.key}`}
@@ -122,8 +122,8 @@ export default function SecContainerSecuritySection() {
                     className="mt-0.5 accent-indigo-600"
                   />
                   <span>
-                    <span className="block font-semibold text-slate-800">{control.label}</span>
-                    <span className="mt-0.5 block leading-relaxed text-slate-500">{control.description}</span>
+                    <span className="block font-semibold text-slate-800 dark:text-slate-200">{control.label}</span>
+                    <span className="mt-0.5 block leading-relaxed text-slate-500 dark:text-slate-400">{control.description}</span>
                   </span>
                 </label>
               ))}
@@ -131,11 +131,11 @@ export default function SecContainerSecuritySection() {
           </fieldset>
         </div>
 
-        <div className="space-y-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="space-y-5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
           <div
             role="status"
             aria-live="polite"
-            className={`rounded-lg border p-4 ${evaluation.admitted ? "border-emerald-200 bg-emerald-50 text-emerald-800" : "border-rose-200 bg-rose-50 text-rose-800"}`}
+            className={`rounded-lg border p-4 ${evaluation.admitted ? "border-emerald-200 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200" : "border-rose-200 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/30 text-rose-800 dark:text-rose-200"}`}
           >
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
@@ -146,7 +146,7 @@ export default function SecContainerSecuritySection() {
                   {evaluation.admitted ? "Admitted" : "Rejected"}
                 </span>
               </div>
-              <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold uppercase tracking-wide">
+              <span className="rounded-full bg-white/70 dark:bg-slate-800/70 px-3 py-1 text-xs font-bold uppercase tracking-wide">
                 {evaluation.admitted ? "ALLOW" : "DENY"}
               </span>
             </div>
@@ -158,40 +158,40 @@ export default function SecContainerSecuritySection() {
           </div>
 
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wide text-slate-700">Failed controls</h4>
+            <h4 className="text-xs font-bold uppercase tracking-wide text-slate-700 dark:text-slate-300">Failed controls</h4>
             {evaluation.findings.length > 0 ? (
               <ul className="mt-2 space-y-3">
                 {evaluation.findings.map((finding) => (
-                  <li key={finding} className="rounded-lg border border-rose-200 bg-rose-50/60 p-3">
-                    <p className="text-xs font-semibold leading-relaxed text-rose-900">{finding}</p>
-                    <p className="mt-1.5 text-[11px] leading-relaxed text-slate-600">
-                      <span className="font-semibold text-slate-700">Remediation:</span>{" "}
+                  <li key={finding} className="rounded-lg border border-rose-200 dark:border-rose-700 bg-rose-50/60 dark:bg-rose-900/30 p-3">
+                    <p className="text-xs font-semibold leading-relaxed text-rose-900 dark:text-rose-200">{finding}</p>
+                    <p className="mt-1.5 text-[11px] leading-relaxed text-slate-600 dark:text-slate-300">
+                      <span className="font-semibold text-slate-700 dark:text-slate-300">Remediation:</span>{" "}
                       {REMEDIATIONS[finding] ?? "Review the workload security context and apply the required control."}
                     </p>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="mt-2 rounded-lg border border-dashed border-emerald-200 bg-emerald-50 p-3 text-xs text-emerald-800">
+              <p className="mt-2 rounded-lg border border-dashed border-emerald-200 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 p-3 text-xs text-emerald-800 dark:text-emerald-200">
                 No failed controls. This workload is ready for admission.
               </p>
             )}
           </div>
 
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-            <div className="rounded-lg bg-slate-50 p-3">
-              <span className="block text-[10px] text-slate-500">Controls passing</span>
-              <span className="font-mono text-sm font-bold text-slate-900">
+            <div className="rounded-lg bg-slate-50 dark:bg-slate-700 p-3">
+              <span className="block text-[10px] text-slate-500 dark:text-slate-400">Controls passing</span>
+              <span className="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">
                 {CONTROL_DEFINITIONS.length - evaluation.findings.length}
               </span>
             </div>
-            <div className="rounded-lg bg-slate-50 p-3">
-              <span className="block text-[10px] text-slate-500">Controls failed</span>
-              <span className="font-mono text-sm font-bold text-slate-900">{evaluation.findings.length}</span>
+            <div className="rounded-lg bg-slate-50 dark:bg-slate-700 p-3">
+              <span className="block text-[10px] text-slate-500 dark:text-slate-400">Controls failed</span>
+              <span className="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">{evaluation.findings.length}</span>
             </div>
-            <div className="col-span-2 rounded-lg bg-slate-50 p-3">
-              <span className="block text-[10px] text-slate-500">Policy mode</span>
-              <span className="font-mono text-sm font-bold text-slate-900">Strict admission</span>
+            <div className="col-span-2 rounded-lg bg-slate-50 dark:bg-slate-700 p-3">
+              <span className="block text-[10px] text-slate-500 dark:text-slate-400">Policy mode</span>
+              <span className="font-mono text-sm font-bold text-slate-900 dark:text-slate-100">Strict admission</span>
             </div>
           </div>
         </div>

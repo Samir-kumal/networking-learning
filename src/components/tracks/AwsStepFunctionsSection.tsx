@@ -132,11 +132,11 @@ const PALETTE: { type: StepType; icon: string; label: string; hint: string }[] =
 ];
 
 const TYPE_STYLE: Record<StepType, { badge: string; chip: string }> = {
-  Task: { badge: "bg-emerald-100 text-emerald-700 border-emerald-300", chip: "bg-emerald-50 border-emerald-200 text-emerald-700" },
-  Choice: { badge: "bg-amber-100 text-amber-700 border-amber-300", chip: "bg-amber-50 border-amber-200 text-amber-700" },
-  Parallel: { badge: "bg-teal-100 text-teal-700 border-teal-300", chip: "bg-teal-50 border-teal-200 text-teal-700" },
-  Wait: { badge: "bg-lime-100 text-lime-700 border-lime-300", chip: "bg-lime-50 border-lime-200 text-lime-700" },
-  CatchRetry: { badge: "bg-rose-100 text-rose-700 border-rose-300", chip: "bg-rose-50 border-rose-200 text-rose-700" },
+  Task: { badge: "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-600", chip: "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300" },
+  Choice: { badge: "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-600", chip: "bg-amber-50 dark:bg-amber-900/30 border-amber-200 dark:border-amber-700 text-amber-700 dark:text-amber-300" },
+  Parallel: { badge: "bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300 border-teal-300 dark:border-teal-600", chip: "bg-teal-50 dark:bg-teal-900/30 border-teal-200 dark:border-teal-700 text-teal-700 dark:text-teal-300" },
+  Wait: { badge: "bg-lime-100 dark:bg-lime-900/40 text-lime-700 dark:text-lime-300 border-lime-300 dark:border-lime-600", chip: "bg-lime-50 dark:bg-lime-900/30 border-lime-200 dark:border-lime-700 text-lime-700 dark:text-lime-300" },
+  CatchRetry: { badge: "bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-600", chip: "bg-rose-50 dark:bg-rose-900/30 border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-300" },
 };
 
 const EDGE_COLORS: Record<DiagramEdge["color"], string> = {
@@ -861,7 +861,7 @@ export default function AwsStepFunctionsSection() {
   };
 
   const endPill = () => (
-    <span className="ml-auto text-[9px] font-mono font-bold text-emerald-700 bg-emerald-100 border border-emerald-200 rounded px-1.5 py-0.5">
+    <span className="ml-auto text-[9px] font-mono font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/40 border border-emerald-200 dark:border-emerald-700 rounded px-1.5 py-0.5">
       END
     </span>
   );
@@ -877,9 +877,9 @@ export default function AwsStepFunctionsSection() {
         ? "ring-2 ring-rose-400"
         : "";
     if (s.type === "CatchRetry") {
-      return `relative z-10 ml-12 w-[calc(100%-96px)] bg-rose-50/50 border-2 border-dashed border-rose-300 rounded-xl p-3 shadow-sm transition-all ${ring}`;
+      return `relative z-10 ml-12 w-[calc(100%-96px)] bg-rose-50/50 dark:bg-rose-900/30 border-2 border-dashed border-rose-300 dark:border-rose-600 rounded-xl p-3 shadow-sm transition-all ${ring}`;
     }
-    return `relative z-10 w-[calc(100%-24px)] bg-white border border-slate-300 rounded-xl p-3 shadow-sm transition-all ${ring}`;
+    return `relative z-10 w-[calc(100%-24px)] bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl p-3 shadow-sm transition-all ${ring}`;
   };
 
   const renderNodeBody = (s: WorkflowStep) => {
@@ -888,20 +888,20 @@ export default function AwsStepFunctionsSection() {
         const r = RESOURCES[s.resource];
         return (
           <div className="flex items-start gap-2">
-            <span className="h-7 w-7 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-700 flex items-center justify-center text-xs font-bold shrink-0">
+            <span className="h-7 w-7 rounded-full bg-emerald-100 dark:bg-emerald-900/40 border border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300 flex items-center justify-center text-xs font-bold shrink-0">
               λ
             </span>
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-bold text-slate-900 truncate">{s.name}</span>
+                <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 truncate">{s.name}</span>
                 {!s.nextId && endPill()}
                 {statusDot(s.id)}
               </div>
-              <div className="mt-1 text-[10px] font-mono text-slate-500 truncate">{r?.label ?? s.resource}</div>
+              <div className="mt-1 text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">{r?.label ?? s.resource}</div>
               {s.resource === "lambda" && s.functionName && (
-                <div className="text-[10px] font-mono text-emerald-600 truncate">ƒ {s.functionName}</div>
+                <div className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 truncate">ƒ {s.functionName}</div>
               )}
-              {s.simulateError && <div className="text-[10px] font-mono text-rose-500">⚠ simulator injects failure here</div>}
+              {s.simulateError && <div className="text-[10px] font-mono text-rose-500 dark:text-rose-400">⚠ simulator injects failure here</div>}
             </div>
           </div>
         );
@@ -911,12 +911,12 @@ export default function AwsStepFunctionsSection() {
         const nextName = nameOf(s.nextId);
         return (
           <div className="flex flex-col items-center">
-            <div className="h-12 w-12 rotate-45 border-2 border-amber-400 bg-amber-50 rounded-sm flex items-center justify-center shadow-sm">
-              <span className="-rotate-45 text-amber-600 font-mono font-bold text-sm">?</span>
+            <div className="h-12 w-12 rotate-45 border-2 border-amber-400 bg-amber-50 dark:bg-amber-900/30 rounded-sm flex items-center justify-center shadow-sm">
+              <span className="-rotate-45 text-amber-600 dark:text-amber-400 font-mono font-bold text-sm">?</span>
             </div>
             <div className="mt-2 text-center text-[10px] font-mono leading-relaxed">
-              <div className="text-amber-700 font-bold">if {s.variable} {s.operator} {s.value} → {targetName ?? "default"}</div>
-              <div className="text-slate-400">else → {nextName ?? "END"}</div>
+              <div className="text-amber-700 dark:text-amber-300 font-bold">if {s.variable} {s.operator} {s.value} → {targetName ?? "default"}</div>
+              <div className="text-slate-400 dark:text-slate-500">else → {nextName ?? "END"}</div>
             </div>
           </div>
         );
@@ -927,10 +927,10 @@ export default function AwsStepFunctionsSection() {
         return (
           <div>
             <div className="flex items-center gap-2">
-              <span className="h-7 w-7 rounded-full bg-teal-100 border border-teal-300 text-teal-700 flex items-center justify-center text-xs font-bold shrink-0">
+              <span className="h-7 w-7 rounded-full bg-teal-100 dark:bg-teal-900/40 border border-teal-300 dark:border-teal-600 text-teal-700 dark:text-teal-300 flex items-center justify-center text-xs font-bold shrink-0">
                 ⑂
               </span>
-              <span className="text-xs font-mono font-bold text-slate-900 truncate">{s.name}</span>
+              <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 truncate">{s.name}</span>
               {!s.nextId && endPill()}
               {statusDot(s.id)}
             </div>
@@ -960,7 +960,7 @@ export default function AwsStepFunctionsSection() {
               {s.branches.map((b, i) => (
                 <span
                   key={i}
-                  className="absolute top-[16%] -translate-x-1/2 max-w-[42%] truncate text-center bg-teal-50 border border-teal-200 text-teal-700 rounded px-1.5 py-0.5 text-[9px] font-mono"
+                  className="absolute top-[16%] -translate-x-1/2 max-w-[42%] truncate text-center bg-teal-50 dark:bg-teal-900/30 border border-teal-200 dark:border-teal-700 text-teal-700 dark:text-teal-300 rounded px-1.5 py-0.5 text-[9px] font-mono"
                   style={{ left: `${laneX(i)}%` }}
                 >
                   {b}
@@ -973,16 +973,16 @@ export default function AwsStepFunctionsSection() {
       case "Wait":
         return (
           <div className="flex items-start gap-2">
-            <span className="h-7 w-7 rounded-full bg-lime-100 border border-lime-300 text-lime-700 flex items-center justify-center text-xs font-bold shrink-0">
+            <span className="h-7 w-7 rounded-full bg-lime-100 dark:bg-lime-900/40 border border-lime-300 dark:border-lime-600 text-lime-700 dark:text-lime-300 flex items-center justify-center text-xs font-bold shrink-0">
               ⏱
             </span>
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-bold text-slate-900 truncate">{s.name}</span>
+                <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 truncate">{s.name}</span>
                 {!s.nextId && endPill()}
                 {statusDot(s.id)}
               </div>
-              <div className="mt-1 text-[10px] font-mono text-slate-500">Seconds: {s.seconds}</div>
+              <div className="mt-1 text-[10px] font-mono text-slate-500 dark:text-slate-400">Seconds: {s.seconds}</div>
             </div>
           </div>
         );
@@ -991,16 +991,16 @@ export default function AwsStepFunctionsSection() {
         return (
           <div>
             <div className="flex items-center gap-2">
-              <span className="h-7 w-7 rounded-full bg-rose-100 border border-rose-300 text-rose-600 flex items-center justify-center text-xs shrink-0">
+              <span className="h-7 w-7 rounded-full bg-rose-100 dark:bg-rose-900/40 border border-rose-300 dark:border-rose-600 text-rose-600 dark:text-rose-400 flex items-center justify-center text-xs shrink-0">
                 🛟
               </span>
-              <span className="text-xs font-mono font-bold text-rose-700 truncate">{s.name}</span>
+              <span className="text-xs font-mono font-bold text-rose-700 dark:text-rose-300 truncate">{s.name}</span>
               {statusDot(s.id)}
             </div>
-            <div className="mt-1 pl-9 text-[10px] font-mono text-rose-600">
+            <div className="mt-1 pl-9 text-[10px] font-mono text-rose-600 dark:text-rose-400">
               retry {s.maxAttempts}× · interval {s.intervalSeconds}s · backoff ×{s.backoffRate.toFixed(1)}
             </div>
-            <div className="pl-9 text-[10px] font-mono text-slate-500">
+            <div className="pl-9 text-[10px] font-mono text-slate-500 dark:text-slate-400">
               {fbName ? `catch → ${fbName}` : "no fallback — task fails after retries"}
             </div>
           </div>
@@ -1018,23 +1018,23 @@ export default function AwsStepFunctionsSection() {
   return (
     <section
       id="step-functions"
-      className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 space-y-8 shadow-xl hover:border-emerald-400/40 transition-colors"
+      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 space-y-8 shadow-xl hover:border-emerald-400/40 transition-colors"
     >
       {/* ---------------------------------------------------------------- */}
       {/* HEADER */}
       {/* ---------------------------------------------------------------- */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
         <div>
-          <div className="text-xs font-mono text-emerald-600 uppercase tracking-wider mb-1">
+          <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
             Serverless Orchestration / Amazon Step Functions
           </div>
-          <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-3">
+          <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
             <span>🧩</span> Step Functions &amp; Event-Driven Orchestration
           </h2>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-xs font-mono text-slate-500">Workflow:</span>
-          <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">Workflow:</span>
+          <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700">
             {machine.stateCount} states · {steps.length} items
           </span>
           <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-600 text-white">
@@ -1043,12 +1043,12 @@ export default function AwsStepFunctionsSection() {
         </div>
       </div>
 
-      <p className="text-sm text-slate-500 leading-relaxed">
-        Amazon Step Functions builds <strong className="text-slate-900">state machines</strong> in the{" "}
-        <strong className="text-slate-900">Amazon States Language (ASL)</strong> to orchestrate Lambda functions and AWS
-        services. States transition via <strong className="text-slate-900">Next</strong> pointers, fan out with{" "}
-        <strong className="text-slate-900">Parallel</strong>, branch on data with <strong className="text-slate-900">Choice</strong>,
-        and recover from failures with <strong className="text-slate-900">Retry / Catch</strong> — build a workflow below, read the
+      <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+        Amazon Step Functions builds <strong className="text-slate-900 dark:text-slate-100">state machines</strong> in the{" "}
+        <strong className="text-slate-900 dark:text-slate-100">Amazon States Language (ASL)</strong> to orchestrate Lambda functions and AWS
+        services. States transition via <strong className="text-slate-900 dark:text-slate-100">Next</strong> pointers, fan out with{" "}
+        <strong className="text-slate-900 dark:text-slate-100">Parallel</strong>, branch on data with <strong className="text-slate-900 dark:text-slate-100">Choice</strong>,
+        and recover from failures with <strong className="text-slate-900 dark:text-slate-100">Retry / Catch</strong> — build a workflow below, read the
         generated ASL JSON, then watch it execute step by step.
       </p>
 
@@ -1058,27 +1058,27 @@ export default function AwsStepFunctionsSection() {
           {
             t: "State Machine",
             d: "A directed graph of states defined in ASL. Every state declares a Next transition or ends the machine.",
-            c: "border-emerald-200 bg-emerald-50/50",
+            c: "border-emerald-200 dark:border-emerald-700 bg-emerald-50/50 dark:bg-emerald-900/30",
           },
           {
             t: "Standard vs Express",
             d: "Standard: up to 1 year, exactly-once, auditable. Express: up to 5 minutes, at-least-once, high throughput.",
-            c: "border-teal-200 bg-teal-50/50",
+            c: "border-teal-200 dark:border-teal-700 bg-teal-50/50 dark:bg-teal-900/30",
           },
           {
             t: "Retry & Catch",
             d: "Retry applies backoff policies for transient errors. Catch routes failures to a fallback state instead of failing.",
-            c: "border-rose-200 bg-rose-50/50",
+            c: "border-rose-200 dark:border-rose-700 bg-rose-50/50 dark:bg-rose-900/30",
           },
           {
             t: "Event-Driven Triggers",
             d: "Start executions from EventBridge rules, API Gateway, S3 events, SQS, or the StartExecution SDK call.",
-            c: "border-amber-200 bg-amber-50/50",
+            c: "border-amber-200 dark:border-amber-700 bg-amber-50/50 dark:bg-amber-900/30",
           },
         ].map((k) => (
           <div key={k.t} className={`p-4 rounded-xl border ${k.c} space-y-1.5`}>
-            <div className="text-xs font-mono font-bold text-slate-900">{k.t}</div>
-            <p className="text-[11px] text-slate-500 leading-relaxed">{k.d}</p>
+            <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">{k.t}</div>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">{k.d}</p>
           </div>
         ))}
       </div>
@@ -1090,9 +1090,9 @@ export default function AwsStepFunctionsSection() {
         {/* --- Editor column --- */}
         <div className="lg:col-span-3 space-y-6">
           {/* Palette */}
-          <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
+          <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-slate-900 font-mono flex items-center gap-2">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono flex items-center gap-2">
                 <span>🧱</span> Step Palette
               </h3>
               <div className="flex items-center gap-2">
@@ -1102,7 +1102,7 @@ export default function AwsStepFunctionsSection() {
                     setTemplateId(e.target.value);
                     applyTemplate(e.target.value);
                   }}
-                  className="bg-white border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                  className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                 >
                   {TEMPLATES.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -1112,7 +1112,7 @@ export default function AwsStepFunctionsSection() {
                 </select>
                 <button
                   onClick={clearAll}
-                  className="px-2.5 py-1.5 rounded-lg text-xs font-mono font-bold border border-slate-300 text-slate-500 hover:bg-white transition-colors"
+                  className="px-2.5 py-1.5 rounded-lg text-xs font-mono font-bold border border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-800 transition-colors"
                 >
                   Clear
                 </button>
@@ -1123,34 +1123,34 @@ export default function AwsStepFunctionsSection() {
                 <button
                   key={p.type}
                   onClick={() => addStep(p.type)}
-                  className="group text-left bg-white border border-slate-200 hover:border-emerald-400 rounded-lg p-2.5 transition-colors"
+                  className="group text-left bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-400 rounded-lg p-2.5 transition-colors"
                 >
-                  <div className="text-xs font-mono font-bold text-slate-900">
+                  <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">
                     <span className="mr-1">{p.icon}</span>
                     {p.label}
-                    <span className="float-right text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity">+</span>
+                    <span className="float-right text-emerald-500 dark:text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity">+</span>
                   </div>
-                  <div className="text-[10px] text-slate-400 mt-0.5 leading-tight">{p.hint}</div>
+                  <div className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5 leading-tight">{p.hint}</div>
                 </button>
               ))}
             </div>
           </div>
 
           {/* Step list */}
-          <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
-            <h3 className="text-sm font-bold text-slate-900 font-mono flex items-center gap-2">
+          <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono flex items-center gap-2">
               <span>📋</span> Workflow Editor
-              <span className="ml-auto text-[10px] font-mono text-slate-400">Next/End transitions mirror ASL</span>
+              <span className="ml-auto text-[10px] font-mono text-slate-400 dark:text-slate-500">Next/End transitions mirror ASL</span>
             </h3>
             {steps.length === 0 && (
-              <div className="text-center text-xs font-mono text-slate-400 py-8 border border-dashed border-slate-300 rounded-xl">
+              <div className="text-center text-xs font-mono text-slate-400 dark:text-slate-500 py-8 border border-dashed border-slate-300 dark:border-slate-600 rounded-xl">
                 No steps yet — click a palette tile above to add your first state.
               </div>
             )}
             {steps.map((s, i) => (
-              <div key={s.id} className="bg-white border border-slate-200 rounded-xl p-3 space-y-2 shadow-sm">
+              <div key={s.id} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 space-y-2 shadow-sm">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[10px] font-mono font-bold text-slate-400 w-5 shrink-0">#{i + 1}</span>
+                  <span className="text-[10px] font-mono font-bold text-slate-400 dark:text-slate-500 w-5 shrink-0">#{i + 1}</span>
                   <span
                     className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${TYPE_STYLE[s.type].badge} shrink-0`}
                   >
@@ -1159,7 +1159,7 @@ export default function AwsStepFunctionsSection() {
                   <input
                     value={s.name}
                     onChange={(e) => updateStep(s.id, { name: e.target.value })}
-                    className="flex-1 min-w-[120px] bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                    className="flex-1 min-w-[120px] bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                     placeholder="State name"
                   />
                   {statusDot(s.id)}
@@ -1167,7 +1167,7 @@ export default function AwsStepFunctionsSection() {
                     <button
                       onClick={() => moveStep(s.id, -1)}
                       disabled={i === 0}
-                      className="h-6 w-6 rounded border border-slate-200 text-slate-500 text-xs font-mono disabled:opacity-30 hover:bg-slate-50"
+                      className="h-6 w-6 rounded border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-xs font-mono disabled:opacity-30 hover:bg-slate-50 dark:hover:bg-slate-700"
                       title="Move up"
                     >
                       ↑
@@ -1175,14 +1175,14 @@ export default function AwsStepFunctionsSection() {
                     <button
                       onClick={() => moveStep(s.id, 1)}
                       disabled={i === steps.length - 1}
-                      className="h-6 w-6 rounded border border-slate-200 text-slate-500 text-xs font-mono disabled:opacity-30 hover:bg-slate-50"
+                      className="h-6 w-6 rounded border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-xs font-mono disabled:opacity-30 hover:bg-slate-50 dark:hover:bg-slate-700"
                       title="Move down"
                     >
                       ↓
                     </button>
                     <button
                       onClick={() => removeStep(s.id)}
-                      className="h-6 w-6 rounded border border-rose-200 text-rose-500 text-xs font-mono hover:bg-rose-50"
+                      className="h-6 w-6 rounded border border-rose-200 dark:border-rose-700 text-rose-500 dark:text-rose-400 text-xs font-mono hover:bg-rose-50"
                       title="Delete step"
                     >
                       ✕
@@ -1194,11 +1194,11 @@ export default function AwsStepFunctionsSection() {
                 {s.type === "Task" && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pl-7">
                     <div>
-                      <label className="text-[10px] font-mono text-slate-400 block mb-0.5">Resource</label>
+                      <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 block mb-0.5">Resource</label>
                       <select
                         value={s.resource}
                         onChange={(e) => updateStep(s.id, { resource: e.target.value })}
-                        className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                       >
                         {Object.entries(RESOURCES).map(([k, r]) => (
                           <option key={k} value={k}>
@@ -1209,12 +1209,12 @@ export default function AwsStepFunctionsSection() {
                     </div>
                     {s.resource === "lambda" && (
                       <div>
-                        <label className="text-[10px] font-mono text-slate-400 block mb-0.5">Function name</label>
+                        <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 block mb-0.5">Function name</label>
                         <input
                           value={s.functionName}
                           onChange={(e) => updateStep(s.id, { functionName: e.target.value })}
                           placeholder="my-function"
-                          className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                          className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                         />
                       </div>
                     )}
@@ -1223,8 +1223,8 @@ export default function AwsStepFunctionsSection() {
                         onClick={() => updateStep(s.id, { simulateError: !s.simulateError })}
                         className={`w-full px-2 py-1 rounded text-xs font-mono font-bold border transition-colors ${
                           s.simulateError
-                            ? "bg-rose-500/10 text-rose-600 border-rose-300"
-                            : "bg-emerald-500/10 text-emerald-700 border-emerald-300"
+                            ? "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-300 dark:border-rose-600"
+                            : "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-600"
                         }`}
                       >
                         {s.simulateError ? "⚠ Simulator injects failure (on)" : "✓ Simulator succeeds (default)"}
@@ -1236,7 +1236,7 @@ export default function AwsStepFunctionsSection() {
                 {s.type === "Choice" && (
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pl-7">
                     <div>
-                      <label className="text-[10px] font-mono text-slate-400 block mb-0.5">Variable</label>
+                      <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 block mb-0.5">Variable</label>
                       <select
                         value={s.variable}
                         onChange={(e) => {
@@ -1246,18 +1246,18 @@ export default function AwsStepFunctionsSection() {
                             operator: variable === "$.amount" ? (s.operator === "==" || s.operator === "!=" ? s.operator : ">=") : "==",
                           });
                         }}
-                        className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                       >
                         <option value="$.amount">$.amount (number)</option>
                         <option value="$.itemType">$.itemType (string)</option>
                       </select>
                     </div>
                     <div>
-                      <label className="text-[10px] font-mono text-slate-400 block mb-0.5">Operator</label>
+                      <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 block mb-0.5">Operator</label>
                       <select
                         value={s.operator}
                         onChange={(e) => updateStep(s.id, { operator: e.target.value as ChoiceStep["operator"] })}
-                        className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                       >
                         {(s.variable === "$.amount" ? AMOUNT_OPERATORS : STRING_OPERATORS).map((o) => (
                           <option key={o} value={o}>
@@ -1267,19 +1267,19 @@ export default function AwsStepFunctionsSection() {
                       </select>
                     </div>
                     <div>
-                      <label className="text-[10px] font-mono text-slate-400 block mb-0.5">Value</label>
+                      <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 block mb-0.5">Value</label>
                       <input
                         value={s.value}
                         onChange={(e) => updateStep(s.id, { value: e.target.value })}
-                        className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-mono text-slate-400 block mb-0.5">Match → jump to</label>
+                      <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 block mb-0.5">Match → jump to</label>
                       <select
                         value={s.targetId}
                         onChange={(e) => updateStep(s.id, { targetId: e.target.value })}
-                        className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                       >
                         <option value="">Default path</option>
                         {realOptionList(s.id).map((o) => (
@@ -1295,7 +1295,7 @@ export default function AwsStepFunctionsSection() {
                 {s.type === "Parallel" && (
                   <div className="space-y-2 pl-7">
                     <div className="flex items-center gap-2">
-                      <label className="text-[10px] font-mono text-slate-400">Branches</label>
+                      <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500">Branches</label>
                       <select
                         value={s.branches.length}
                         onChange={(e) => {
@@ -1307,23 +1307,23 @@ export default function AwsStepFunctionsSection() {
                             updateStep(s.id, { branches: [...s.branches, extra] });
                           }
                         }}
-                        className="bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                        className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                       >
                         <option value={2}>2</option>
                         <option value={3}>3</option>
                       </select>
-                      <span className="text-[10px] font-mono text-slate-400">branches run concurrently and rejoin</span>
+                      <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">branches run concurrently and rejoin</span>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {s.branches.map((b, bi) => (
                         <div key={bi}>
-                          <label className="text-[10px] font-mono text-slate-400 block mb-0.5">Branch {bi + 1}</label>
+                          <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 block mb-0.5">Branch {bi + 1}</label>
                           <select
                             value={b}
                             onChange={(e) =>
                               updateStep(s.id, { branches: s.branches.map((x, xi) => (xi === bi ? e.target.value : x)) })
                             }
-                            className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                            className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                           >
                             {BRANCH_TASKS.filter((t) => t === b || !s.branches.includes(t)).map((t) => (
                               <option key={t} value={t}>
@@ -1339,23 +1339,23 @@ export default function AwsStepFunctionsSection() {
 
                 {s.type === "Wait" && (
                   <div className="pl-7 flex items-center gap-2">
-                    <label className="text-[10px] font-mono text-slate-400">Seconds</label>
+                    <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500">Seconds</label>
                     <input
                       type="number"
                       min={1}
                       max={300}
                       value={s.seconds}
                       onChange={(e) => updateStep(s.id, { seconds: Math.max(1, Math.min(300, parseInt(e.target.value, 10) || 1)) })}
-                      className="w-20 bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                      className="w-20 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                     />
-                    <span className="text-[10px] font-mono text-slate-400">(generated as Seconds in ASL)</span>
+                    <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">(generated as Seconds in ASL)</span>
                   </div>
                 )}
 
                 {s.type === "CatchRetry" && (
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pl-7">
                     <div>
-                      <label className="text-[10px] font-mono text-slate-400 block mb-0.5">Max attempts</label>
+                      <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 block mb-0.5">Max attempts</label>
                       <input
                         type="number"
                         min={1}
@@ -1364,11 +1364,11 @@ export default function AwsStepFunctionsSection() {
                         onChange={(e) =>
                           updateStep(s.id, { maxAttempts: Math.max(1, Math.min(5, parseInt(e.target.value, 10) || 1)) })
                         }
-                        className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-mono text-slate-400 block mb-0.5">Interval (s)</label>
+                      <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 block mb-0.5">Interval (s)</label>
                       <input
                         type="number"
                         min={1}
@@ -1379,11 +1379,11 @@ export default function AwsStepFunctionsSection() {
                             intervalSeconds: Math.max(1, Math.min(30, parseInt(e.target.value, 10) || 1)),
                           })
                         }
-                        className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-mono text-slate-400 block mb-0.5">Backoff rate</label>
+                      <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 block mb-0.5">Backoff rate</label>
                       <input
                         type="number"
                         min={1}
@@ -1393,15 +1393,15 @@ export default function AwsStepFunctionsSection() {
                         onChange={(e) =>
                           updateStep(s.id, { backoffRate: Math.max(1, Math.min(3, parseFloat(e.target.value) || 1)) })
                         }
-                        className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-mono text-slate-400 block mb-0.5">Catch → fallback</label>
+                      <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 block mb-0.5">Catch → fallback</label>
                       <select
                         value={s.fallbackId}
                         onChange={(e) => updateStep(s.id, { fallbackId: e.target.value })}
-                        className="w-full bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                       >
                         <option value="">None (fail after retries)</option>
                         {realOptionList(s.id).map((o) => (
@@ -1416,12 +1416,12 @@ export default function AwsStepFunctionsSection() {
 
                 {/* --- Next transition --- */}
                 {s.type !== "CatchRetry" && (
-                  <div className="flex items-center gap-2 pl-7 pt-1 border-t border-slate-100">
-                    <label className="text-[10px] font-mono text-slate-400">Next →</label>
+                  <div className="flex items-center gap-2 pl-7 pt-1 border-t border-slate-100 dark:border-slate-700">
+                    <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500">Next →</label>
                     <select
                       value={s.nextId ?? ""}
                       onChange={(e) => updateStep(s.id, { nextId: e.target.value || null })}
-                      className="bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                      className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                     >
                       <option value="">End</option>
                       {realOptionList(s.id).map((o) => (
@@ -1439,15 +1439,15 @@ export default function AwsStepFunctionsSection() {
 
         {/* --- Diagram column --- */}
         <div className="lg:col-span-2">
-          <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 h-full">
-            <h3 className="text-sm font-bold text-slate-900 font-mono flex items-center gap-2 mb-1">
+          <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-4 h-full">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono flex items-center gap-2 mb-1">
               <span>🗺️</span> Workflow Diagram
             </h3>
-            <p className="text-[10px] font-mono text-slate-400 mb-3">
+            <p className="text-[10px] font-mono text-slate-400 dark:text-slate-500 mb-3">
               Live view — arrows follow each state&apos;s Next transition
             </p>
 
-            <div className="flex items-center gap-3 mb-3 text-[10px] font-mono text-slate-500">
+            <div className="flex items-center gap-3 mb-3 text-[10px] font-mono text-slate-500 dark:text-slate-400">
               <span className="flex items-center gap-1">
                 <span className="h-2 w-2 rounded-full bg-emerald-500" /> success
               </span>
@@ -1483,7 +1483,7 @@ export default function AwsStepFunctionsSection() {
                   </div>
                 ))}
                 {realSteps.length === 0 && (
-                  <div className="text-center text-xs font-mono text-slate-400 py-10 border border-dashed border-slate-300 rounded-xl">
+                  <div className="text-center text-xs font-mono text-slate-400 dark:text-slate-500 py-10 border border-dashed border-slate-300 dark:border-slate-600 rounded-xl">
                     No states yet — add steps from the palette
                   </div>
                 )}
@@ -1532,7 +1532,7 @@ export default function AwsStepFunctionsSection() {
               {labels.map((l, i) => (
                 <div
                   key={i}
-                  className="absolute z-20 px-1.5 py-0.5 rounded bg-white/95 border border-slate-200 text-[9px] font-mono whitespace-nowrap shadow-sm"
+                  className="absolute z-20 px-1.5 py-0.5 rounded bg-white/95 dark:bg-slate-800/95 border border-slate-200 dark:border-slate-700 text-[9px] font-mono whitespace-nowrap shadow-sm"
                   style={{ left: l.x, top: l.y, transform: "translate(-100%, -50%)", color: l.color }}
                 >
                   {l.text}
@@ -1549,14 +1549,14 @@ export default function AwsStepFunctionsSection() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* --- ASL JSON --- */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between text-xs font-mono text-slate-500">
+          <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400">
             <span>📄 State Machine JSON (Amazon States Language)</span>
             <button
               onClick={copyJson}
               className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold border transition-colors ${
                 copied
                   ? "bg-emerald-600 text-white border-emerald-600"
-                  : "bg-white text-emerald-700 border-emerald-300 hover:bg-emerald-50"
+                  : "bg-white dark:bg-slate-800 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-600 hover:bg-emerald-50"
               }`}
             >
               {copied ? "✓ Copied" : "Copy JSON"}
@@ -1566,14 +1566,14 @@ export default function AwsStepFunctionsSection() {
             readOnly
             value={machine.json}
             rows={18}
-            className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs font-mono text-emerald-700 focus:border-emerald-400 focus:outline-none leading-relaxed"
+            className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-4 text-xs font-mono text-emerald-700 dark:text-emerald-300 focus:border-emerald-400 focus:outline-none leading-relaxed"
           />
           {machine.warnings.length > 0 && (
             <div className="space-y-1.5">
               {machine.warnings.map((w, i) => (
                 <div
                   key={i}
-                  className="bg-amber-50 border border-amber-200 text-amber-700 rounded-lg px-3 py-1.5 text-[11px] font-mono"
+                  className="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700 text-amber-700 dark:text-amber-300 rounded-lg px-3 py-1.5 text-[11px] font-mono"
                 >
                   ⚠ {w}
                 </div>
@@ -1583,34 +1583,34 @@ export default function AwsStepFunctionsSection() {
         </div>
 
         {/* --- Simulator --- */}
-        <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-4">
-          <h3 className="text-sm font-bold text-slate-900 font-mono border-b border-slate-200 pb-2 flex items-center gap-2">
+        <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5 space-y-4">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono border-b border-slate-200 dark:border-slate-700 pb-2 flex items-center gap-2">
             <span>▶</span> Execution Simulator
           </h3>
 
-          <div className="text-[11px] font-mono text-slate-500 bg-white border border-slate-200 rounded-lg px-3 py-2">
-            Simulated input to <span className="text-emerald-700">StartExecution</span>:{" "}
-            <span className="text-slate-800">
+          <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2">
+            Simulated input to <span className="text-emerald-700 dark:text-emerald-300">StartExecution</span>:{" "}
+            <span className="text-slate-800 dark:text-slate-200">
               {"{"} &quot;amount&quot;: {simAmount || "0"}, &quot;itemType&quot;: &quot;{simItemType}&quot; {"}"}
             </span>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-[10px] font-mono text-slate-400 block mb-1">$.amount (number)</label>
+              <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 block mb-1">$.amount (number)</label>
               <input
                 type="number"
                 value={simAmount}
                 onChange={(e) => setSimAmount(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
               />
             </div>
             <div>
-              <label className="text-[10px] font-mono text-slate-400 block mb-1">$.itemType (string)</label>
+              <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 block mb-1">$.itemType (string)</label>
               <select
                 value={simItemType}
                 onChange={(e) => setSimItemType(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-lg px-2 py-1.5 text-xs font-mono text-slate-900 focus:border-emerald-500 focus:outline-none"
+                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
               >
                 <option value="books">books</option>
                 <option value="electronics">electronics</option>
@@ -1624,14 +1624,14 @@ export default function AwsStepFunctionsSection() {
             <button
               onClick={runSimulation}
               disabled={simRunning}
-              className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-bold rounded-lg text-xs font-mono transition-colors shadow-md"
+              className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 dark:hover:bg-emerald-600 disabled:opacity-40 text-white font-bold rounded-lg text-xs font-mono transition-colors shadow-md"
             >
               {simRunning ? "⏳ Executing…" : "▶ Run Execution"}
             </button>
             <button
               onClick={resetSimulation}
               disabled={simRunning}
-              className="px-4 py-2.5 bg-white border border-slate-300 text-slate-600 font-bold rounded-lg text-xs font-mono hover:bg-slate-100 disabled:opacity-40 transition-colors"
+              className="px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-bold rounded-lg text-xs font-mono hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 transition-colors"
             >
               Reset
             </button>
@@ -1641,8 +1641,8 @@ export default function AwsStepFunctionsSection() {
             <div
               className={`p-3 rounded-xl border text-xs font-mono font-bold ${
                 finalStatus === "success"
-                  ? "bg-emerald-50 border-emerald-300 text-emerald-700"
-                  : "bg-rose-50 border-rose-300 text-rose-600"
+                  ? "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300"
+                  : "bg-rose-50 dark:bg-rose-900/30 border-rose-300 dark:border-rose-600 text-rose-600 dark:text-rose-400"
               }`}
             >
               {finalStatus === "success" ? "✔ EXECUTION SUCCEEDED" : "✘ EXECUTION FAILED"}
@@ -1680,7 +1680,7 @@ export default function AwsStepFunctionsSection() {
             ))}
           </div>
 
-          <p className="text-[10px] text-slate-400 leading-relaxed">
+          <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed">
             Tip: set a Task&apos;s simulator toggle to inject a failure, then re-run to watch Retry backoff and Catch
             routing. Set $.itemType to <span className="font-mono">poster</span> in the Image Thumbnail template to see a
             Choice loop back.

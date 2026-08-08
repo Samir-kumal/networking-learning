@@ -130,7 +130,7 @@ export default function AwsCostSection() {
       sub: "Pay per second, no commitment",
       monthly: monthlyOD,
       pct: 100,
-      barClass: "bg-slate-300",
+      barClass: "bg-slate-300 dark:bg-slate-600",
       savings: null as number | null,
     },
     {
@@ -159,15 +159,15 @@ export default function AwsCostSection() {
   return (
     <section id="aws-cost" className="scroll-mt-24 space-y-6">
       {/* ============ Section Header ============ */}
-      <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow flex flex-col sm:flex-row sm:items-center gap-3">
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow flex flex-col sm:flex-row sm:items-center gap-3">
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#f0883e]/10 text-[#f0883e] border border-[#f0883e]/30 text-xs font-mono font-bold shrink-0">
           AWS · COST OPTIMIZATION
         </span>
         <div>
-          <h3 className="text-lg font-bold text-slate-900">
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
             EC2 Pricing Calculator — On-Demand vs Reserved vs Spot
           </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Slide the fleet size, pick a region and commitment, then watch the
             live monthly / annual cost comparison. Reserved Instances trade
             flexibility for up to{" "}
@@ -181,17 +181,17 @@ export default function AwsCostSection() {
       </div>
 
       {/* ============ Pricing Controls ============ */}
-      <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
+      <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
             <div className="text-xs font-mono text-[#f0883e] uppercase tracking-wider mb-1">
               Pricing Controls
             </div>
-            <h4 className="text-sm font-bold text-slate-900">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
               Fleet Configuration — m5.large (2 vCPU / 8 GiB)
             </h4>
           </div>
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-xs font-mono text-slate-600">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-600 dark:text-slate-300">
             <span className="w-2 h-2 rounded-full bg-[#f0883e]" />
             {instanceCount} × {region.code}
           </span>
@@ -201,7 +201,7 @@ export default function AwsCostSection() {
           {/* Instance Count Slider */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider">
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Instance Count
               </label>
               <span className="px-2 py-0.5 rounded bg-[#f0883e]/10 text-[#f0883e] border border-[#f0883e]/30 text-xs font-mono font-bold">
@@ -218,7 +218,7 @@ export default function AwsCostSection() {
               className="w-full accent-[#f0883e]"
               aria-label="EC2 instance count"
             />
-            <div className="flex justify-between text-[10px] text-slate-400 font-mono mt-1">
+            <div className="flex justify-between text-[10px] text-slate-400 dark:text-slate-500 font-mono mt-1">
               <span>1</span>
               <span>50</span>
               <span>100</span>
@@ -228,7 +228,7 @@ export default function AwsCostSection() {
           {/* Region Slider */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider">
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Region
               </label>
               <span className="px-2 py-0.5 rounded bg-[#f0883e]/10 text-[#f0883e] border border-[#f0883e]/30 text-xs font-mono font-bold">
@@ -245,7 +245,7 @@ export default function AwsCostSection() {
               className="w-full accent-[#f0883e]"
               aria-label="AWS region"
             />
-            <div className="grid grid-cols-3 text-[10px] text-slate-400 font-mono mt-1">
+            <div className="grid grid-cols-3 text-[10px] text-slate-400 dark:text-slate-500 font-mono mt-1">
               {REGIONS.map((r) => (
                 <span
                   key={r.code}
@@ -264,7 +264,7 @@ export default function AwsCostSection() {
           {/* Commitment Term Slider */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider">
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Commitment Term
               </label>
               <span className="px-2 py-0.5 rounded bg-[#f0883e]/10 text-[#f0883e] border border-[#f0883e]/30 text-xs font-mono font-bold">
@@ -281,7 +281,7 @@ export default function AwsCostSection() {
               className="w-full accent-[#f0883e]"
               aria-label="Reserved instance commitment term"
             />
-            <div className="grid grid-cols-2 text-[10px] text-slate-400 font-mono mt-1">
+            <div className="grid grid-cols-2 text-[10px] text-slate-400 dark:text-slate-500 font-mono mt-1">
               <span className={term === 1 ? "text-[#f0883e] font-bold" : ""}>
                 1 Year
               </span>
@@ -294,7 +294,7 @@ export default function AwsCostSection() {
 
         {/* Payment Option Segmented Control */}
         <div>
-          <label className="block text-xs font-mono text-slate-500 uppercase tracking-wider mb-2">
+          <label className="block text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
             Reserved Payment Option
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -307,7 +307,7 @@ export default function AwsCostSection() {
                   className={`px-3 py-2 rounded-lg border text-xs font-semibold transition-all ${
                     isActive
                       ? "bg-[#f0883e]/20 text-[#f0883e] border-[#f0883e]/40 shadow-sm"
-                      : "bg-slate-50 text-slate-500 border-slate-200 hover:text-slate-900 hover:bg-white hover:border-[#f0883e]/40"
+                      : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:text-slate-100 hover:bg-white dark:hover:bg-slate-800 hover:border-[#f0883e]/40"
                   }`}
                 >
                   {option}
@@ -315,7 +315,7 @@ export default function AwsCostSection() {
               );
             })}
           </div>
-          <p className="text-[11px] text-slate-400 mt-2">
+          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-2">
             All Upfront = 100% of term billed now · Partial Upfront = 40% now,
             60% spread across the term · No Upfront = fully billed monthly.
           </p>
@@ -323,12 +323,12 @@ export default function AwsCostSection() {
       </div>
 
       {/* ============ Live Cost Comparison ============ */}
-      <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow space-y-6">
-        <div className="border-b border-slate-200 pb-4">
+      <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow space-y-6">
+        <div className="border-b border-slate-200 dark:border-slate-700 pb-4">
           <div className="text-xs font-mono text-[#f0883e] uppercase tracking-wider mb-1">
             Live Comparison
           </div>
-          <h4 className="text-sm font-bold text-slate-900">
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
             Monthly Spend — {instanceCount} × m5.large @ {region.code}
           </h4>
         </div>
@@ -340,23 +340,23 @@ export default function AwsCostSection() {
               <div className="flex items-center justify-between text-xs mb-1.5">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-sm shrink-0 inline-block bg-current" style={{ color: bar.key === "od" ? "#94a3b8" : bar.key === "ri" ? "#f0883e" : "#ffa657" }} />
-                  <span className="font-bold text-slate-900">{bar.label}</span>
-                  <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
+                  <span className="font-bold text-slate-900 dark:text-slate-100">{bar.label}</span>
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono hidden sm:inline">
                     {bar.sub}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono font-bold text-slate-900">
+                  <span className="font-mono font-bold text-slate-900 dark:text-slate-100">
                     {fmtUSD0(bar.monthly)}/mo
                   </span>
                   {bar.savings !== null && (
-                    <span className="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-200 text-[10px] font-mono font-bold">
+                    <span className="px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700 text-[10px] font-mono font-bold">
                       −{bar.savings.toFixed(0)}%
                     </span>
                   )}
                 </div>
               </div>
-              <div className="h-3 rounded-full bg-slate-100 border border-slate-200 overflow-hidden">
+              <div className="h-3 rounded-full bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-300 ${bar.barClass}`}
                   style={{ width: `${Math.max(bar.pct, 2)}%` }}
@@ -371,12 +371,12 @@ export default function AwsCostSection() {
           <div className="flex items-center gap-3">
             <span className="text-xl">🏆</span>
             <div>
-              <div className="text-xs font-bold text-slate-900">
+              <div className="text-xs font-bold text-slate-900 dark:text-slate-100">
                 Best pick: {cheapest.label} saves{" "}
                 {cheapest.savings !== null ? `${cheapest.savings.toFixed(0)}%` : "0%"} vs
                 On-Demand
               </div>
-              <div className="text-[11px] text-slate-500">
+              <div className="text-[11px] text-slate-500 dark:text-slate-400">
                 {cheapest.key === "ri"
                   ? `Lock in ${term}-year pricing with ${payment.toLowerCase()} — ideal for predictable, always-on production fleets.`
                   : "Spot pricing is ideal for stateless, fault-tolerant or batch workloads that tolerate interruptions."}
@@ -384,7 +384,7 @@ export default function AwsCostSection() {
             </div>
           </div>
           <div className="text-right">
-            <div className="text-[10px] font-mono text-slate-400 uppercase">
+            <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase">
               Est. monthly
             </div>
             <div className="text-xl font-extrabold font-mono text-[#f0883e]">
@@ -395,45 +395,45 @@ export default function AwsCostSection() {
 
         {/* Summary Strip: Monthly / Annual / Savings */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow">
-            <div className="text-[10px] font-mono text-slate-400 uppercase mb-1">
+          <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+            <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase mb-1">
               Reserved — Monthly / Annual
             </div>
             <div className="text-lg font-extrabold font-mono text-[#f0883e]">
               {fmtUSD0(monthlyRI)}
             </div>
-            <div className="text-xs text-slate-500 font-mono">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
               {fmtUSD0(annualRI)}/yr
             </div>
-            <div className="mt-2 inline-flex px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-200 text-[10px] font-mono font-bold">
+            <div className="mt-2 inline-flex px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700 text-[10px] font-mono font-bold">
               SAVES {riSavingsPct.toFixed(0)}% vs ON-DEMAND
             </div>
           </div>
-          <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow">
-            <div className="text-[10px] font-mono text-slate-400 uppercase mb-1">
+          <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+            <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase mb-1">
               Spot — Monthly / Annual
             </div>
             <div className="text-lg font-extrabold font-mono text-[#ffa657]">
               {fmtUSD0(monthlySpot)}
             </div>
-            <div className="text-xs text-slate-500 font-mono">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
               {fmtUSD0(annualSpot)}/yr
             </div>
-            <div className="mt-2 inline-flex px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-200 text-[10px] font-mono font-bold">
+            <div className="mt-2 inline-flex px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700 text-[10px] font-mono font-bold">
               SAVES {spotSavingsPct.toFixed(0)}% vs ON-DEMAND
             </div>
           </div>
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 card-shadow">
-            <div className="text-[10px] font-mono text-slate-400 uppercase mb-1">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 card-shadow">
+            <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase mb-1">
               On-Demand Baseline
             </div>
-            <div className="text-lg font-extrabold font-mono text-slate-900">
+            <div className="text-lg font-extrabold font-mono text-slate-900 dark:text-slate-100">
               {fmtUSD0(monthlyOD)}
             </div>
-            <div className="text-xs text-slate-500 font-mono">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
               {fmtUSD0(annualOD)}/yr
             </div>
-            <div className="mt-2 inline-flex px-2 py-0.5 rounded bg-slate-100 text-slate-500 border border-slate-200 text-[10px] font-mono">
+            <div className="mt-2 inline-flex px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 text-[10px] font-mono">
               NO COMMITMENT
             </div>
           </div>
@@ -441,52 +441,52 @@ export default function AwsCostSection() {
       </div>
 
       {/* ============ Term Projection & Billing Detail ============ */}
-      <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow space-y-6">
-        <div className="border-b border-slate-200 pb-4">
+      <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow space-y-6">
+        <div className="border-b border-slate-200 dark:border-slate-700 pb-4">
           <div className="text-xs font-mono text-[#f0883e] uppercase tracking-wider mb-1">
             Term Projection
           </div>
-          <h4 className="text-sm font-bold text-slate-900">
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
             {term}-Year Total Cost of Ownership — {instanceCount} × m5.large
           </h4>
         </div>
 
         {/* Reserved payment breakdown */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow">
-            <div className="text-[10px] font-mono text-slate-400 uppercase mb-1">
+          <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+            <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase mb-1">
               Upfront Payment ({payment})
             </div>
-            <div className="text-lg font-extrabold font-mono text-slate-900">
+            <div className="text-lg font-extrabold font-mono text-slate-900 dark:text-slate-100">
               {UPFRONT_RATIO[payment] > 0 ? fmtUSD0(upfrontPayment) : "$0"}
             </div>
-            <div className="text-[11px] text-slate-400">
+            <div className="text-[11px] text-slate-400 dark:text-slate-500">
               {UPFRONT_RATIO[payment] > 0
                 ? `${(UPFRONT_RATIO[payment] * 100).toFixed(0)}% of term billed today`
                 : "Nothing billed today"}
             </div>
           </div>
-          <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow">
-            <div className="text-[10px] font-mono text-slate-400 uppercase mb-1">
+          <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+            <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase mb-1">
               Monthly Bill During Term
             </div>
-            <div className="text-lg font-extrabold font-mono text-slate-900">
+            <div className="text-lg font-extrabold font-mono text-slate-900 dark:text-slate-100">
               {fmtUSD0(remainingMonthly)}
             </div>
-            <div className="text-[11px] text-slate-400">
+            <div className="text-[11px] text-slate-400 dark:text-slate-500">
               {UPFRONT_RATIO[payment] === 1
                 ? "Covered by upfront payment"
                 : `${(termMonths).toFixed(0)} × ${fmtUSD0(remainingMonthly)}`}
             </div>
           </div>
-          <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow">
-            <div className="text-[10px] font-mono text-slate-400 uppercase mb-1">
+          <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+            <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase mb-1">
               Effective Hourly / Instance
             </div>
-            <div className="text-lg font-extrabold font-mono text-slate-900">
+            <div className="text-lg font-extrabold font-mono text-slate-900 dark:text-slate-100">
               {fmtUSD3(odHourly * riFactor)}
             </div>
-            <div className="text-[11px] text-slate-400">
+            <div className="text-[11px] text-slate-400 dark:text-slate-500">
               vs {fmtUSD3(odHourly)} On-Demand
             </div>
           </div>
@@ -496,7 +496,7 @@ export default function AwsCostSection() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-200 text-[10px] font-mono text-slate-400 uppercase tracking-wider">
+              <tr className="border-b border-slate-200 dark:border-slate-700 text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                 <th className="p-3">Model</th>
                 <th className="p-3 text-right">Per-Instance Hourly</th>
                 <th className="p-3 text-right">Per-Instance Monthly</th>
@@ -505,30 +505,30 @@ export default function AwsCostSection() {
               </tr>
             </thead>
             <tbody className="font-mono">
-              <tr className="border-b border-slate-100">
-                <td className="p-3 font-bold text-slate-900">On-Demand</td>
-                <td className="p-3 text-right text-slate-600">{fmtUSD3(odHourly)}</td>
-                <td className="p-3 text-right text-slate-600">{fmtUSD3(odHourly * HOURS_PER_MONTH)}</td>
-                <td className="p-3 text-right text-slate-900 font-bold">{fmtUSD0(odTermTotal)}</td>
-                <td className="p-3 text-right text-slate-400">—</td>
+              <tr className="border-b border-slate-100 dark:border-slate-700">
+                <td className="p-3 font-bold text-slate-900 dark:text-slate-100">On-Demand</td>
+                <td className="p-3 text-right text-slate-600 dark:text-slate-300">{fmtUSD3(odHourly)}</td>
+                <td className="p-3 text-right text-slate-600 dark:text-slate-300">{fmtUSD3(odHourly * HOURS_PER_MONTH)}</td>
+                <td className="p-3 text-right text-slate-900 dark:text-slate-100 font-bold">{fmtUSD0(odTermTotal)}</td>
+                <td className="p-3 text-right text-slate-400 dark:text-slate-500">—</td>
               </tr>
-              <tr className="border-b border-slate-100">
+              <tr className="border-b border-slate-100 dark:border-slate-700">
                 <td className="p-3 font-bold text-[#f0883e]">
                   Reserved ({term}yr · {payment})
                 </td>
-                <td className="p-3 text-right text-slate-600">{fmtUSD3(odHourly * riFactor)}</td>
-                <td className="p-3 text-right text-slate-600">{fmtUSD3(odHourly * riFactor * HOURS_PER_MONTH)}</td>
+                <td className="p-3 text-right text-slate-600 dark:text-slate-300">{fmtUSD3(odHourly * riFactor)}</td>
+                <td className="p-3 text-right text-slate-600 dark:text-slate-300">{fmtUSD3(odHourly * riFactor * HOURS_PER_MONTH)}</td>
                 <td className="p-3 text-right text-[#f0883e] font-bold">{fmtUSD0(riTermTotal)}</td>
-                <td className="p-3 text-right text-emerald-600 font-bold">
+                <td className="p-3 text-right text-emerald-600 dark:text-emerald-400 font-bold">
                   −{riSavingsPct.toFixed(0)}%
                 </td>
               </tr>
               <tr>
                 <td className="p-3 font-bold text-[#ffa657]">Spot</td>
-                <td className="p-3 text-right text-slate-600">{fmtUSD3(odHourly * spotFactor)}</td>
-                <td className="p-3 text-right text-slate-600">{fmtUSD3(odHourly * spotFactor * HOURS_PER_MONTH)}</td>
+                <td className="p-3 text-right text-slate-600 dark:text-slate-300">{fmtUSD3(odHourly * spotFactor)}</td>
+                <td className="p-3 text-right text-slate-600 dark:text-slate-300">{fmtUSD3(odHourly * spotFactor * HOURS_PER_MONTH)}</td>
                 <td className="p-3 text-right text-[#ffa657] font-bold">{fmtUSD0(spotTermTotal)}</td>
-                <td className="p-3 text-right text-emerald-600 font-bold">
+                <td className="p-3 text-right text-emerald-600 dark:text-emerald-400 font-bold">
                   −{spotSavingsPct.toFixed(0)}%
                 </td>
               </tr>
@@ -538,11 +538,11 @@ export default function AwsCostSection() {
 
         {/* When to use which */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-            <div className="text-xs font-bold text-slate-900 mb-1 flex items-center gap-1.5">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+            <div className="text-xs font-bold text-slate-900 dark:text-slate-100 mb-1 flex items-center gap-1.5">
               <span>🕐</span> On-Demand
             </div>
-            <p className="text-[11px] text-slate-500 leading-relaxed">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
               Short-term spikes, dev/test environments, unknown or elastic
               workloads. Highest flexibility, highest price.
             </p>
@@ -551,17 +551,17 @@ export default function AwsCostSection() {
             <div className="text-xs font-bold text-[#f0883e] mb-1 flex items-center gap-1.5">
               <span>🔒</span> Reserved Instances
             </div>
-            <p className="text-[11px] text-slate-500 leading-relaxed">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
               Predictable, always-on production fleets (24×7 baselines).
               Upfront payment = bigger discount; 3-yr beats 1-yr; savings
               continue across the entire term.
             </p>
           </div>
           <div className="p-4 rounded-xl bg-[#ffa657]/5 border border-[#ffa657]/20">
-            <div className="text-xs font-bold text-amber-600 mb-1 flex items-center gap-1.5">
+            <div className="text-xs font-bold text-amber-600 dark:text-amber-400 mb-1 flex items-center gap-1.5">
               <span>⚡</span> Spot Instances
             </div>
-            <p className="text-[11px] text-slate-500 leading-relaxed">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
               Batch jobs, CI runners, stateless web tiers that survive
               interruptions. AWS can reclaim capacity with 2-minute notice —
               never run your only database on Spot.
@@ -569,7 +569,7 @@ export default function AwsCostSection() {
           </div>
         </div>
 
-        <p className="text-[10px] text-slate-400">
+        <p className="text-[10px] text-slate-400 dark:text-slate-500">
           Prices approximate public m5.large rates for educational comparison;
           Spot factors are representative discounts, not live market bids.
           Regional On-Demand: {REGIONS.map((r) => `${r.code} ${fmtUSD3(r.onDemandHourly)}/hr`).join(" · ")}.

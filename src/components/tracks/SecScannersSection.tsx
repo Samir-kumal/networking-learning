@@ -207,16 +207,16 @@ export default function SecScannersSection() {
   return (
     <section id="sec-scanners" className="scroll-mt-20 space-y-6">
       {/* Section Header Card */}
-      <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow">
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
         <div className="flex items-center gap-2 mb-2">
-          <span className="px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-600 border border-rose-400/20 text-xs font-mono font-semibold">
+          <span className="px-2.5 py-0.5 rounded-full bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-400/20 text-xs font-mono font-semibold">
             S1 · SAST/DAST &amp; Container Scans
           </span>
         </div>
-        <h3 className="text-xl font-extrabold text-slate-900">
+        <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100">
           1. SAST / DAST &amp; Container Vulnerability Scanner
         </h3>
-        <p className="text-sm text-slate-500 mt-1">
+        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
           Simulate Trivy container image scans, Snyk SAST code analysis, and OWASP ZAP DAST web
           inspection. Identify CVEs, misconfigurations, and dependency risks before they reach
           production.
@@ -224,11 +224,11 @@ export default function SecScannersSection() {
       </div>
 
       {/* Controls Bar */}
-      <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-4">
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h4 className="text-base font-bold text-slate-900">Scanner Controls</h4>
-            <p className="text-xs text-slate-500">
+            <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">Scanner Controls</h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Select a scanner engine and target to begin vulnerability analysis.
             </p>
           </div>
@@ -252,7 +252,7 @@ export default function SecScannersSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
           <div>
-            <label className="block text-xs text-slate-500 mb-1 font-medium">
+            <label className="block text-xs text-slate-500 dark:text-slate-400 mb-1 font-medium">
               Scanner Engine:
             </label>
             <select
@@ -260,7 +260,7 @@ export default function SecScannersSection() {
               onChange={(e) =>
                 setScanTool(e.target.value as "Trivy" | "Snyk Code" | "OWASP ZAP")
               }
-              className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <option value="Trivy">Trivy (Container Image Scanner)</option>
               <option value="Snyk Code">Snyk Code (SAST Static Analysis)</option>
@@ -269,14 +269,14 @@ export default function SecScannersSection() {
           </div>
 
           <div className="sm:col-span-2">
-            <label className="block text-xs text-slate-500 mb-1 font-medium">
+            <label className="block text-xs text-slate-500 dark:text-slate-400 mb-1 font-medium">
               Scan Target / Image / Repo:
             </label>
             <input
               type="text"
               value={scanTarget}
               onChange={(e) => setScanTarget(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="e.g. docker.io/my-app:v1.0"
             />
           </div>
@@ -306,40 +306,40 @@ export default function SecScannersSection() {
 
       {/* Scan Results Summary Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl bg-white border border-rose-200 bg-gradient-to-br from-rose-50 to-transparent card-shadow">
-          <div className="text-xs text-slate-500">Critical CVEs</div>
-          <div className="text-2xl font-extrabold text-rose-600 mt-1">
+        <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-rose-200 dark:border-rose-700 bg-gradient-to-br from-rose-50 to-transparent card-shadow">
+          <div className="text-xs text-slate-500 dark:text-slate-400">Critical CVEs</div>
+          <div className="text-2xl font-extrabold text-rose-600 dark:text-rose-400 mt-1">
             {scanResultsList.filter((r) => r.severity === "CRITICAL").length}
           </div>
-          <div className="text-[11px] text-rose-500 mt-1 font-mono">
+          <div className="text-[11px] text-rose-500 dark:text-rose-400 mt-1 font-mono">
             Immediate Patch Required
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-amber-200 bg-gradient-to-br from-amber-50 to-transparent card-shadow">
-          <div className="text-xs text-slate-500">High Severity</div>
-          <div className="text-2xl font-extrabold text-amber-600 mt-1">
+        <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-700 bg-gradient-to-br from-amber-50 to-transparent card-shadow">
+          <div className="text-xs text-slate-500 dark:text-slate-400">High Severity</div>
+          <div className="text-2xl font-extrabold text-amber-600 dark:text-amber-400 mt-1">
             {scanResultsList.filter((r) => r.severity === "HIGH").length}
           </div>
-          <div className="text-[11px] text-amber-500 mt-1 font-mono">Fix within 7 days</div>
+          <div className="text-[11px] text-amber-500 dark:text-amber-400 mt-1 font-mono">Fix within 7 days</div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-violet-200 bg-gradient-to-br from-violet-50 to-transparent card-shadow">
-          <div className="text-xs text-slate-500">Medium Severity</div>
-          <div className="text-2xl font-extrabold text-violet-600 mt-1">
+        <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 bg-gradient-to-br from-violet-50 to-transparent card-shadow">
+          <div className="text-xs text-slate-500 dark:text-slate-400">Medium Severity</div>
+          <div className="text-2xl font-extrabold text-violet-600 dark:text-violet-400 mt-1">
             {scanResultsList.filter((r) => r.severity === "MEDIUM").length}
           </div>
-          <div className="text-[11px] text-violet-500 mt-1 font-mono">
+          <div className="text-[11px] text-violet-500 dark:text-violet-400 mt-1 font-mono">
             Scheduled Maintenance
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-indigo-200 bg-gradient-to-br from-indigo-50 to-transparent card-shadow">
-          <div className="text-xs text-slate-500">Low / Info</div>
-          <div className="text-2xl font-extrabold text-indigo-600 mt-1">
+        <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-indigo-200 dark:border-indigo-700 bg-gradient-to-br from-indigo-50 to-transparent card-shadow">
+          <div className="text-xs text-slate-500 dark:text-slate-400">Low / Info</div>
+          <div className="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-1">
             {scanResultsList.filter((r) => r.severity === "LOW").length}
           </div>
-          <div className="text-[11px] text-indigo-500 mt-1 font-mono">
+          <div className="text-[11px] text-indigo-500 dark:text-indigo-400 mt-1 font-mono">
             Best practice hardening
           </div>
         </div>
@@ -348,14 +348,14 @@ export default function SecScannersSection() {
       {/* Results Table & Details Inspector */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Table */}
-        <div className="lg:col-span-2 p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-4">
+        <div className="lg:col-span-2 p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <h4 className="text-sm font-bold text-slate-900">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
               Detected Vulnerabilities ({filteredScanResults.length})
             </h4>
 
             {/* Filter Selector */}
-            <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-lg border border-slate-200">
+            <div className="flex items-center gap-1 bg-slate-50 dark:bg-slate-700 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
               {["ALL", "CRITICAL", "HIGH", "MEDIUM", "LOW"].map((sev) => (
                 <button
                   key={sev}
@@ -363,7 +363,7 @@ export default function SecScannersSection() {
                   className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all ${
                     scanFilterSeverity === sev
                       ? "bg-indigo-600 text-white"
-                      : "text-slate-500 hover:text-slate-900"
+                      : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
                   }`}
                 >
                   {sev}
@@ -374,7 +374,7 @@ export default function SecScannersSection() {
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-500 font-mono border-b border-slate-200">
+              <thead className="bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-mono border-b border-slate-200 dark:border-slate-700">
                 <tr>
                   <th className="py-2.5 px-3">CVE / ID</th>
                   <th className="py-2.5 px-3">Severity</th>
@@ -383,16 +383,16 @@ export default function SecScannersSection() {
                   <th className="py-2.5 px-3">CVSS</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 font-mono">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-700 font-mono">
                 {filteredScanResults.map((item) => {
                   const isSelected = selectedScanResult?.id === item.id;
-                  let sevBg = "bg-indigo-50 text-indigo-600 border-indigo-200";
+                  let sevBg = "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-700";
                   if (item.severity === "CRITICAL")
-                    sevBg = "bg-rose-50 text-rose-600 border-rose-200";
+                    sevBg = "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-700";
                   if (item.severity === "HIGH")
-                    sevBg = "bg-amber-50 text-amber-600 border-amber-200";
+                    sevBg = "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-700";
                   if (item.severity === "MEDIUM")
-                    sevBg = "bg-violet-50 text-violet-600 border-violet-200";
+                    sevBg = "bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 border-violet-200 dark:border-violet-700";
 
                   return (
                     <tr
@@ -400,11 +400,11 @@ export default function SecScannersSection() {
                       onClick={() => setSelectedScanResult(item)}
                       className={`cursor-pointer transition-colors ${
                         isSelected
-                          ? "bg-indigo-50 text-slate-900"
-                          : "hover:bg-slate-50"
+                          ? "bg-indigo-50 dark:bg-indigo-900/30 text-slate-900 dark:text-slate-100"
+                          : "dark:hover:bg-slate-700 hover:bg-slate-50"
                       }`}
                     >
-                      <td className="py-2.5 px-3 font-semibold text-indigo-600">
+                      <td className="py-2.5 px-3 font-semibold text-indigo-600 dark:text-indigo-400">
                         {item.cve}
                       </td>
                       <td className="py-2.5 px-3">
@@ -414,9 +414,9 @@ export default function SecScannersSection() {
                           {item.severity}
                         </span>
                       </td>
-                      <td className="py-2.5 px-3 text-slate-500">{item.tool}</td>
-                      <td className="py-2.5 px-3 text-slate-900">{item.component}</td>
-                      <td className="py-2.5 px-3 font-bold text-slate-900">
+                      <td className="py-2.5 px-3 text-slate-500 dark:text-slate-400">{item.tool}</td>
+                      <td className="py-2.5 px-3 text-slate-900 dark:text-slate-100">{item.component}</td>
+                      <td className="py-2.5 px-3 font-bold text-slate-900 dark:text-slate-100">
                         {item.cvssScore.toFixed(1)}
                       </td>
                     </tr>
@@ -428,57 +428,57 @@ export default function SecScannersSection() {
         </div>
 
         {/* Vulnerability Inspector Drawer */}
-        <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-4">
-          <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+        <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span>🔬</span> Vulnerability Details &amp; Fix
           </h4>
 
           {selectedScanResult ? (
             <div className="space-y-4 text-xs">
               <div>
-                <span className="text-[11px] font-mono text-slate-500">
+                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                   {selectedScanResult.cve} ({selectedScanResult.tool})
                 </span>
-                <h5 className="text-sm font-bold text-slate-900 mt-0.5">
+                <h5 className="text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5">
                   {selectedScanResult.title}
                 </h5>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 text-[11px] font-mono p-3 rounded-lg bg-slate-50 border border-slate-200">
+              <div className="grid grid-cols-2 gap-2 text-[11px] font-mono p-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
                 <div>
-                  <span className="text-slate-500">Affected:</span>
-                  <div className="text-rose-600 font-semibold">
+                  <span className="text-slate-500 dark:text-slate-400">Affected:</span>
+                  <div className="text-rose-600 dark:text-rose-400 font-semibold">
                     {selectedScanResult.installedVersion}
                   </div>
                 </div>
                 <div>
-                  <span className="text-slate-500">Remediated:</span>
-                  <div className="text-emerald-600 font-semibold">
+                  <span className="text-slate-500 dark:text-slate-400">Remediated:</span>
+                  <div className="text-emerald-600 dark:text-emerald-400 font-semibold">
                     {selectedScanResult.fixedVersion}
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-500 mb-1 font-semibold">
+                <label className="block text-slate-500 dark:text-slate-400 mb-1 font-semibold">
                   Description:
                 </label>
-                <p className="text-slate-700 leading-relaxed">
+                <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
                   {selectedScanResult.description}
                 </p>
               </div>
 
               <div>
-                <label className="block text-emerald-700 mb-1 font-semibold flex items-center gap-1">
+                <label className="block text-emerald-700 dark:text-emerald-300 mb-1 font-semibold flex items-center gap-1">
                   <span>🛠️</span> Remediation Fix Snippet:
                 </label>
-                <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-[11px] break-all">
+                <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300 font-mono text-[11px] break-all">
                   {selectedScanResult.remediation}
                 </div>
               </div>
             </div>
           ) : (
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Select a vulnerability from the table to inspect details and remediation
               instructions.
             </p>

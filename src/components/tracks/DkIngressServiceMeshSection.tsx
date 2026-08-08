@@ -1301,7 +1301,7 @@ spec:
               <div className="mt-4 flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
                 <div>
                   <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Header-based split</div>
-                  <div className="text-[10px] text-slate-500 dark:text-slate-400">x-canary: "true" always goes to canary</div>
+                  <div className="text-[10px] text-slate-500 dark:text-slate-400">x-canary: &quot;true&quot; always goes to canary</div>
                 </div>
                 <button
                   onClick={() => setCanaryHeader(!canaryHeader)}

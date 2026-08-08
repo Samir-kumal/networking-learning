@@ -138,67 +138,67 @@ export default function SecIamSection() {
 
   return (
     <section id="sec-iam" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-        <span className="rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-0.5 text-xs font-mono font-semibold text-indigo-700">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+        <span className="rounded-full border border-indigo-200 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-indigo-700 dark:text-indigo-300">
           S6 · IAM, RBAC &amp; Least Privilege
         </span>
-        <h3 className="mt-2 text-lg font-bold text-slate-900">IAM policy evaluator</h3>
-        <p className="mt-1 text-xs leading-relaxed text-slate-500">
+        <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">IAM policy evaluator</h3>
+        <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
           Build an access request and evaluate it against a local policy set. Explicit Deny rules,
           wildcard matching, and MFA conditions are handled by the shared evaluator.
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="sec-iam-principal" className="mb-1 block text-xs font-semibold text-slate-700">Principal</label>
+              <label htmlFor="sec-iam-principal" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Principal</label>
               <select
                 id="sec-iam-principal"
                 value={principal}
                 onChange={(event) => handlePrincipalChange(event.target.value as Principal)}
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900"
+                className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
               >
                 {PRINCIPAL_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
             </div>
             <div>
-              <label htmlFor="sec-iam-action" className="mb-1 block text-xs font-semibold text-slate-700">Action</label>
+              <label htmlFor="sec-iam-action" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Action</label>
               <select
                 id="sec-iam-action"
                 value={action}
                 onChange={(event) => handleActionChange(event.target.value as Action)}
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900"
+                className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
               >
                 {ACTION_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
             </div>
             <div>
-              <label htmlFor="sec-iam-resource" className="mb-1 block text-xs font-semibold text-slate-700">Resource</label>
+              <label htmlFor="sec-iam-resource" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Resource</label>
               <select
                 id="sec-iam-resource"
                 value={resource}
                 onChange={(event) => handleResourceChange(event.target.value as Resource)}
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900"
+                className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
               >
                 {RESOURCE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
             </div>
             <div>
-              <label htmlFor="sec-iam-source" className="mb-1 block text-xs font-semibold text-slate-700">Source context</label>
+              <label htmlFor="sec-iam-source" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Source context</label>
               <select
                 id="sec-iam-source"
                 value={source}
                 onChange={(event) => handleSourceChange(event.target.value as Source)}
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900"
+                className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
               >
                 {SOURCE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
             </div>
           </div>
 
-          <label htmlFor="sec-iam-mfa" className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700">
+          <label htmlFor="sec-iam-mfa" className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3 text-xs text-slate-700 dark:text-slate-300">
             <input
               id="sec-iam-mfa"
               type="checkbox"
@@ -207,8 +207,8 @@ export default function SecIamSection() {
               className="mt-0.5 accent-indigo-600"
             />
             <span>
-              <span className="block font-semibold text-slate-800">MFA verified</span>
-              <span className="mt-0.5 block text-slate-500">Satisfies rules that require step-up authentication.</span>
+              <span className="block font-semibold text-slate-800 dark:text-slate-200">MFA verified</span>
+              <span className="mt-0.5 block text-slate-500 dark:text-slate-400">Satisfies rules that require step-up authentication.</span>
             </span>
           </label>
 
@@ -217,45 +217,45 @@ export default function SecIamSection() {
           </button>
 
           {evaluation ? (
-            <div role="status" className={`rounded-lg border p-4 ${evaluation.decision === "ALLOW" ? "border-emerald-200 bg-emerald-50" : "border-rose-200 bg-rose-50"}`}>
+            <div role="status" className={`rounded-lg border p-4 ${evaluation.decision === "ALLOW" ? "border-emerald-200 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/30" : "border-rose-200 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/30"}`}>
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="text-xs font-semibold uppercase tracking-wide text-slate-600">Decision</span>
+                <span className="text-xs font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-300">Decision</span>
                 <span className={`rounded-full px-3 py-1 text-sm font-bold ${evaluation.decision === "ALLOW" ? "bg-emerald-600 text-white" : "bg-rose-600 text-white"}`}>
                   {evaluation.decision}
                 </span>
               </div>
               <dl className="mt-3 space-y-2 text-xs">
                 <div>
-                  <dt className="font-semibold text-slate-700">Matched rule</dt>
-                  <dd className="mt-0.5 break-words font-mono text-slate-600">
+                  <dt className="font-semibold text-slate-700 dark:text-slate-300">Matched rule</dt>
+                  <dd className="mt-0.5 break-words font-mono text-slate-600 dark:text-slate-300">
                     {evaluation.matchedRule ? ruleSummary(evaluation.matchedRule) : "No rule matched"}
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-semibold text-slate-700">Reason</dt>
-                  <dd className="mt-0.5 leading-relaxed text-slate-600">{evaluation.reason}</dd>
+                  <dt className="font-semibold text-slate-700 dark:text-slate-300">Reason</dt>
+                  <dd className="mt-0.5 leading-relaxed text-slate-600 dark:text-slate-300">{evaluation.reason}</dd>
                 </div>
               </dl>
             </div>
           ) : (
-            <p className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-4 text-xs text-slate-500">
+            <p className="rounded-lg border border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 p-4 text-xs text-slate-500 dark:text-slate-400">
               Submit the request to see the evaluator decision, matched rule, and reason.
             </p>
           )}
         </form>
 
-        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
           <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
             <div>
-              <h4 className="text-sm font-bold text-slate-900">Local policy set</h4>
-              <p className="mt-1 text-xs text-slate-500">Deny rules are evaluated before matching Allow rules.</p>
+              <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Local policy set</h4>
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Deny rules are evaluated before matching Allow rules.</p>
             </div>
-            <span className="rounded-full bg-slate-100 px-2 py-1 text-[10px] font-mono font-semibold text-slate-600">{POLICY_RULES.length} rules</span>
+            <span className="rounded-full bg-slate-100 dark:bg-slate-700 px-2 py-1 text-[10px] font-mono font-semibold text-slate-600 dark:text-slate-300">{POLICY_RULES.length} rules</span>
           </div>
-          <div className="overflow-x-auto rounded-lg border border-slate-200">
+          <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
             <table className="w-full min-w-[620px] text-left text-[11px]">
               <caption className="sr-only">IAM policy rules used by the evaluator</caption>
-              <thead className="bg-slate-50 text-[10px] uppercase tracking-wide text-slate-500">
+              <thead className="bg-slate-50 dark:bg-slate-700 text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">
                 <tr>
                   <th scope="col" className="px-3 py-2 font-semibold">Effect</th>
                   <th scope="col" className="px-3 py-2 font-semibold">Principal</th>
@@ -264,10 +264,10 @@ export default function SecIamSection() {
                   <th scope="col" className="px-3 py-2 font-semibold">Condition</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
                 {POLICY_RULES.map((rule, index) => (
-                  <tr key={`${rule.effect}-${rule.principal}-${rule.action}-${index}`} className="text-slate-600">
-                    <td className={`px-3 py-2 font-bold ${rule.effect === "Allow" ? "text-emerald-700" : "text-rose-700"}`}>{rule.effect}</td>
+                  <tr key={`${rule.effect}-${rule.principal}-${rule.action}-${index}`} className="text-slate-600 dark:text-slate-300">
+                    <td className={`px-3 py-2 font-bold ${rule.effect === "Allow" ? "text-emerald-700 dark:text-emerald-300" : "text-rose-700 dark:text-rose-300"}`}>{rule.effect}</td>
                     <td className="px-3 py-2 font-mono">{rule.principal}</td>
                     <td className="px-3 py-2 font-mono">{rule.action}</td>
                     <td className="px-3 py-2 font-mono">{rule.resource}</td>

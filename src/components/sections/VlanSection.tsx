@@ -109,7 +109,7 @@ export default function VlanSection() {
               Layer 3 Gateway (Router / L3 Switch)
             </div>
             <div className="text-sm font-mono font-bold text-slate-900 dark:text-slate-100">
-              Inter-VLAN Routing ("Router-on-a-Stick")
+              Inter-VLAN Routing (&quot;Router-on-a-Stick&quot;)
             </div>
             <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
               Evaluates Firewall ACLs before forwarding packets between subnets
