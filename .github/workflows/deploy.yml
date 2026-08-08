@@ -13,9 +13,9 @@ concurrency:
 
 jobs:
   verify:
-    # Hosted runner: build/lint/test load stays off the production VM, and
-    # this also runs (as a required status check) on PRs before they merge.
-    runs-on: ubuntu-latest
+    # GitHub-hosted runners are unavailable (account billing is locked), so
+    # this runs on the same self-hosted runner as deploy, sequentially.
+    runs-on: [self-hosted, deploy]
     timeout-minutes: 15
     steps:
       - name: Checkout
