@@ -407,10 +407,10 @@ export default function AwsSection() {
       </div>
 
       {/* ========================================================================= */}
-      {/* SUB-MODULE 1: AWS VPC SUBNETTING & CIDR BLOCK PLANNING (#vpc) */}
+      {/* SUB-MODULE 1: AWS VPC SUBNETTING & CIDR BLOCK PLANNING (#aws-vpc) */}
       {/* ========================================================================= */}
       <section
-        id="vpc"
+        id="aws-vpc"
         className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow space-y-8 shadow-xl hover:border-[#f0883e]/40 transition-colors"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
@@ -656,10 +656,10 @@ Resources:
       </section>
 
       {/* ========================================================================= */}
-      {/* SUB-MODULE 2: IAM POLICY JSON SIMULATOR & ACCESS CONTROL (#iam) */}
+      {/* SUB-MODULE 2: IAM POLICY JSON SIMULATOR & ACCESS CONTROL (#aws-iam) */}
       {/* ========================================================================= */}
       <section
-        id="iam"
+        id="aws-iam"
         className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow space-y-8 shadow-xl hover:border-indigo-300 transition-colors"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
@@ -820,10 +820,10 @@ Resources:
       </section>
 
       {/* ========================================================================= */}
-      {/* SUB-MODULE 3: S3 BUCKET SECURITY POLICIES & ENCRYPTION (#s3) */}
+      {/* SUB-MODULE 3: S3 BUCKET SECURITY POLICIES & ENCRYPTION (#aws-s3) */}
       {/* ========================================================================= */}
       <section
-        id="s3"
+        id="aws-s3"
         className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow space-y-8 shadow-xl hover:border-violet-400/40 transition-colors"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
@@ -998,10 +998,10 @@ Resources:
       </section>
 
       {/* ========================================================================= */}
-      {/* SUB-MODULE 4: EC2 vs ECS vs EKS CONTAINER INFRASTRUCTURE (#compute) */}
+      {/* SUB-MODULE 4: EC2 vs ECS vs EKS CONTAINER INFRASTRUCTURE (#aws-compute) */}
       {/* ========================================================================= */}
       <section
-        id="compute"
+        id="aws-compute"
         className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow space-y-8 shadow-xl hover:border-emerald-400/40 transition-colors"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
@@ -1169,10 +1169,10 @@ Resources:
       </section>
 
       {/* ========================================================================= */}
-      {/* SUB-MODULE 5: LAMBDA SERVERLESS EXECUTION FLOW & CLOUDFRONT CDN (#lambda) */}
+      {/* SUB-MODULE 5: LAMBDA SERVERLESS EXECUTION FLOW & CLOUDFRONT CDN (#aws-serverless) */}
       {/* ========================================================================= */}
       <section
-        id="lambda"
+        id="aws-serverless"
         className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 card-shadow sm:p-8 card-shadow space-y-8 shadow-xl hover:border-amber-400/40 transition-colors"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
