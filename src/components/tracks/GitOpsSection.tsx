@@ -43,9 +43,34 @@ const INITIAL_GITFLOW_COMMITS: CommitNode[] = [
   { id: "g3", hash: "f103e3f", branch: "develop", message: "feat: user profile schema", type: "commit", timestamp: "09:20:00" },
 ];
 
+const TAB_BY_HASH = {
+  "git-branching": "git",
+  "git-actions": "actions",
+  "git-semver": "semver",
+  "git-deploy": "deploy",
+} as const;
+
 export default function GitOpsSection() {
   // Navigation / Active Module
   const [activeTab, setActiveTab] = useState<"git" | "actions" | "semver" | "deploy">("git");
+
+  useEffect(() => {
+    const syncTabToHash = () => {
+      const tab = TAB_BY_HASH[window.location.hash.slice(1) as keyof typeof TAB_BY_HASH];
+      if (tab) setActiveTab(tab);
+    };
+
+    syncTabToHash();
+    window.addEventListener("hashchange", syncTabToHash);
+    return () => window.removeEventListener("hashchange", syncTabToHash);
+  }, []);
+
+  useEffect(() => {
+    const targetId = window.location.hash.slice(1);
+    if (TAB_BY_HASH[targetId as keyof typeof TAB_BY_HASH] === activeTab) {
+      document.getElementById(targetId)?.scrollIntoView({ block: "start" });
+    }
+  }, [activeTab]);
 
   // ==========================================
   // 1. GIT BRANCHING SIMULATOR STATE
@@ -715,7 +740,7 @@ ${stepsYaml.join("\n\n")}`;
       {/* MODULE 1: INTERACTIVE GIT BRANCHING SIMULATOR */}
       {/* ========================================================================= */}
       {activeTab === "git" && (
-        <div className="space-y-6">
+        <div id="git-branching" className="space-y-6">
           {/* Strategy Toggle Card */}
           <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow shadow-lg space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
@@ -1002,7 +1027,7 @@ ${stepsYaml.join("\n\n")}`;
       {/* MODULE 2: GITHUB ACTIONS CI/CD BUILDER & TEST RUNNER */}
       {/* ========================================================================= */}
       {activeTab === "actions" && (
-        <div className="space-y-6">
+        <div id="git-actions" className="space-y-6">
           <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow shadow-lg space-y-6">
             <div className="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
@@ -1216,7 +1241,7 @@ ${stepsYaml.join("\n\n")}`;
       {/* MODULE 3: SEMANTIC VERSIONING CALCULATOR */}
       {/* ========================================================================= */}
       {activeTab === "semver" && (
-        <div className="space-y-6">
+        <div id="git-semver" className="space-y-6">
           <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow shadow-lg space-y-6">
             <div className="border-b border-slate-200 pb-4">
               <h2 className="text-xl font-bold text-white flex items-center space-x-2">
@@ -1371,7 +1396,7 @@ ${stepsYaml.join("\n\n")}`;
       {/* MODULE 4: DEPLOYMENT STRATEGY SIMULATOR */}
       {/* ========================================================================= */}
       {activeTab === "deploy" && (
-        <div className="space-y-6">
+        <div id="git-deploy" className="space-y-6">
           <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow shadow-lg space-y-6">
             <div className="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>

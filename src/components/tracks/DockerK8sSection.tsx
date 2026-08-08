@@ -664,7 +664,7 @@ spec:
       {/* ========================================================================= */}
       {/* MODULE 1: Interactive Multi-Stage Dockerfile Builder & Inspector */}
       {/* ========================================================================= */}
-      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section id="k8s-dockerfile" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
@@ -915,7 +915,7 @@ spec:
       {/* ========================================================================= */}
       {/* MODULE 2: Docker Compose Service Stack Generator & Network Topology */}
       {/* ========================================================================= */}
-      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section id="k8s-compose" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
@@ -1104,7 +1104,7 @@ spec:
       {/* ========================================================================= */}
       {/* MODULE 3: Kubernetes Architecture Inspector & Traffic Flow */}
       {/* ========================================================================= */}
-      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section id="k8s-cluster" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
@@ -1335,7 +1335,7 @@ spec:
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left Column: Helm Values Customizer */}
-          <div className="lg:col-span-5 space-y-5">
+          <div id="k8s-helm" className="lg:col-span-5 space-y-5">
             <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               1. Helm Chart values.yaml Parameters
             </div>
@@ -1431,7 +1431,7 @@ spec:
           </div>
 
           {/* Right Column: ArgoCD GitOps Sync Simulation Control Panel */}
-          <div className="lg:col-span-7 space-y-6">
+          <div id="k8s-argocd" className="lg:col-span-7 space-y-6">
             <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               2. ArgoCD GitOps Continuous Reconciliation Dashboard
             </div>

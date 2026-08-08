@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export interface NavItem {
   id: string;
@@ -116,6 +116,7 @@ interface SidebarProps {
 
 export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [activeId, setActiveId]           = useState<string>("basics");
   const [isMobileOpen, setIsMobileOpen]   = useState<boolean>(false);
   const [searchQuery, setSearchQuery]     = useState<string>("");
@@ -148,10 +149,19 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
 
   // IntersectionObserver: track active section
   useEffect(() => {
-    const ids = navItems.map((i) => i.id);
-    const observers: IntersectionObserver[] = [];
+    const setActiveFromHash = () => {
+      const hash = window.location.hash.slice(1);
+      if (navItems.some((item) => item.id === hash)) {
+        setActiveId(hash);
+      }
+    };
 
-    ids.forEach((id) => {
+    setActiveId(navItems[0]?.id ?? "");
+    setActiveFromHash();
+    window.addEventListener("hashchange", setActiveFromHash);
+
+    const observers: IntersectionObserver[] = [];
+    navItems.forEach(({ id }) => {
       const el = document.getElementById(id);
       if (!el) return;
       const obs = new IntersectionObserver(
@@ -162,7 +172,10 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
       observers.push(obs);
     });
 
-    return () => observers.forEach((o) => o.disconnect());
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+      window.removeEventListener("hashchange", setActiveFromHash);
+    };
   }, [navItems]);
 
   const SidebarContent = () => (
@@ -206,6 +219,14 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
               <Link
                 key={track.id}
                 href={track.path}
+                onClick={(event) => {
+                  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
+                    return;
+                  }
+                  event.preventDefault();
+                  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+                  router.push(track.path);
+                }}
                 title={isCollapsed ? track.name : undefined}
                 className={`flex items-center gap-2.5 rounded-md px-2 py-2 text-sm transition-all ${
                   isActive
