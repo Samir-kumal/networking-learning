@@ -224,8 +224,16 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
                     return;
                   }
                   event.preventDefault();
+                  const isCurrentTrack = pathname === track.path;
+                  if (window.location.hash) {
+                    window.history.replaceState(null, "", window.location.pathname);
+                  }
                   window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-                  router.push(track.path);
+                  if (isCurrentTrack) {
+                    setActiveId(MODULE_ITEMS_BY_TRACK[track.id]?.[0]?.id ?? "");
+                    return;
+                  }
+                  router.push(track.path, { scroll: true });
                 }}
                 title={isCollapsed ? track.name : undefined}
                 className={`flex items-center gap-2.5 rounded-md px-2 py-2 text-sm transition-all ${
