@@ -3,6 +3,8 @@ name: Deploy
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch: {}
 
 concurrency:
@@ -10,7 +12,42 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  verify:
+    # Hosted runner: build/lint/test load stays off the production VM, and
+    # this also runs (as a required status check) on PRs before they merge.
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Audit dependencies (high/critical only)
+        run: npm audit --audit-level=high
+
+      - name: Build
+        run: npm run build
+
   deploy:
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: [self-hosted, deploy]
     timeout-minutes: 15
     steps:
