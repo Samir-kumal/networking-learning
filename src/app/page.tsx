@@ -1,5 +1,6 @@
 import HubHero from "@/components/HubHero";
 import TrackCard from "@/components/TrackCard";
+import KnowledgeGraphSection from "@/components/KnowledgeGraphSection";
 
 const TRACKS = [
   {
@@ -148,6 +149,23 @@ export default function Home() {
               <TrackCard key={t.id} {...t} />
             ))}
           </div>
+        </section>
+
+        {/* ── Knowledge Graph ── */}
+        <section id="knowledge-graph">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-indigo-600 mb-1">
+                Interconnected Curriculum
+              </p>
+              <h2 className="text-2xl font-bold text-slate-900">Knowledge Graph</h2>
+            </div>
+            <p className="text-[13px] text-slate-400">
+              Hover or tap a node to expand its branch
+            </p>
+          </div>
+
+          <KnowledgeGraphSection />
         </section>
 
         {/* ── Production Pipeline Architecture ── */}

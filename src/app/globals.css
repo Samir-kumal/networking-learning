@@ -1,6 +1,21 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme inline {
+  --color-primary: var(--primary);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-grid: var(--grid);
+  --color-node-1: var(--node-1);
+  --color-node-2: var(--node-2);
+  --color-node-3: var(--node-3);
+  --color-node-4: var(--node-4);
+  --color-node-5: var(--node-5);
+}
+
 @layer base {
   :root {
     /* Backgrounds */
@@ -27,6 +42,20 @@
     --accent-rose:    #e11d48;
     --accent-violet:  #7c3aed;
     --accent-sky:     #0284c7;
+
+    /* Knowledge graph */
+    --primary: var(--accent-indigo);
+    --foreground: var(--text-primary);
+    --muted-foreground: var(--text-secondary);
+    --border: var(--border-default);
+    --surface: #ffffff;
+    --surface-2: var(--bg-subtle);
+    --grid: var(--border-default);
+    --node-1: var(--accent-indigo);
+    --node-2: var(--accent-amber);
+    --node-3: var(--accent-rose);
+    --node-4: var(--accent-violet);
+    --node-5: var(--accent-sky);
   }
 
   .dark {
@@ -45,6 +74,10 @@
     --text-secondary: #94a3b8;
     --text-muted:     #64748b;
     --text-inverse:   #0f172a;
+
+    --primary: #818cf8;
+    --surface: #1e293b;
+    --surface-2: #334155;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -140,4 +173,18 @@
 
 .animate-soft-pulse {
   animation: soft-pulse 2.5s ease-in-out infinite;
+}
+
+/* Knowledge graph edge animation */
+@keyframes kg-dash {
+  to { stroke-dashoffset: -400; }
+}
+
+@keyframes kg-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.kg-rise {
+  animation: kg-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
