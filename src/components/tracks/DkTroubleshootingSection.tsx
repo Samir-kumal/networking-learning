@@ -1283,9 +1283,9 @@ export default function DkTroubleshootingSection() {
               <div className="mt-2 text-xs text-slate-300 dark:text-slate-400">No events yet — replay a scenario above.</div>
             </div>
           ) : (
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-slate-100 dark:divide-slate-700">
               {events.map((ev) => (
-                <div key={ev.id} className="grid grid-cols-12 gap-2 px-4 py-2.5 hover:bg-sky-50/40 text-xs">
+                <div key={ev.id} className="grid grid-cols-12 gap-2 px-4 py-2.5 hover:bg-sky-50/40 dark:hover:bg-sky-900/30 text-xs">
                   <div className="col-span-2 font-mono text-slate-400 dark:text-slate-500">
                     {ev.time}
                     {ev.count > 1 && <span className="ml-1 text-amber-600 dark:text-amber-400 font-bold">×{ev.count}</span>}

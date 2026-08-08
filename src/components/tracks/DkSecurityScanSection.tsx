@@ -1068,7 +1068,7 @@ export default function DkSecurityScanSection() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {HARDENING_CHECKS.map((h) => (
-                  <div key={h.title} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/60 p-3">
+                  <div key={h.title} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-700/60 p-3">
                     <div className="flex items-start gap-2">
                       <span className="mt-0.5 text-[#38bdf8]">✓</span>
                       <div>

@@ -731,7 +731,7 @@ export default function DkHpaVpaSection() {
           </div>
 
           {/* Scale-up panel */}
-          <div className="p-3.5 rounded-xl border border-sky-200 dark:border-sky-700 bg-sky-50/40">
+          <div className="p-3.5 rounded-xl border border-sky-200 dark:border-sky-700 bg-sky-50/40 dark:bg-sky-900/30">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-mono font-bold text-sky-700 dark:text-sky-300">▲ Scale-Up</span>
               <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">window {behavior.upWindow}s · select {behavior.upSelect}</span>
@@ -777,7 +777,7 @@ export default function DkHpaVpaSection() {
           </div>
 
           {/* Scale-down panel */}
-          <div className="p-3.5 rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50/30">
+          <div className="p-3.5 rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50/30 dark:bg-amber-900/30">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-mono font-bold text-amber-700 dark:text-amber-300">▼ Scale-Down</span>
               <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">window {behavior.downWindow}s · {behavior.downSelect === "Disabled" ? "DISABLED" : `selectPolicy ${behavior.downSelect}`}</span>

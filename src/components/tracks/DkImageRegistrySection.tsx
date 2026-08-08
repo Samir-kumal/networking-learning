@@ -885,7 +885,7 @@ rules:
                   key={img.id}
                   className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg border text-[11px] font-mono ${
                     img.action === "expire"
-                      ? "bg-rose-50/60 border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-300"
+                      ? "bg-rose-50/60 dark:bg-rose-900/30 border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-300"
                       : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300"
                   }`}
                 >
@@ -1116,7 +1116,7 @@ rules:
             <div
               key={r.id}
               className={`relative rounded-xl border p-4 ${
-                costModel.cheapest.id === r.id ? "border-sky-400 bg-sky-50/60" : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"
+                costModel.cheapest.id === r.id ? "border-sky-400 bg-sky-50/60 dark:bg-sky-900/30" : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"
               }`}
             >
               {costModel.cheapest.id === r.id && (

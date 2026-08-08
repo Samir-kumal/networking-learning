@@ -943,7 +943,7 @@ ${labels}
                   key={k}
                   onClick={() => setSelectedGauge(k)}
                   className={`text-left p-4 rounded-xl border transition-all ${
-                    active ? "border-sky-400 bg-sky-50/60 shadow-md" : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-sky-200"
+                    active ? "border-sky-400 bg-sky-50/60 dark:bg-sky-900/30 shadow-md" : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-sky-200"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2 mb-1.5">
@@ -1099,29 +1099,29 @@ ${labels}
 
           {/* Dashboard canvas */}
           <div className="lg:col-span-9 space-y-4">
-            <div className={`rounded-xl border-2 border-dashed p-4 min-h-[320px] transition-colors ${dashTheme === "dark" ? "border-slate-700 bg-[#111c2e]" : "border-slate-200 dark:border-slate-700 bg-slate-50/60"}`}>
+            <div className={`rounded-xl border-2 border-dashed p-4 min-h-[320px] transition-colors ${dashTheme === "dark" ? "border-slate-700 bg-[#111c2e]" : "border-slate-200 bg-slate-50"}`}>
               <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-200/20">
-                <span className={`text-xs font-mono font-bold ${dashTheme === "dark" ? "text-sky-300" : "text-slate-800 dark:text-slate-200"}`}>
+                <span className={`text-xs font-mono font-bold ${dashTheme === "dark" ? "text-sky-300" : "text-slate-800"}`}>
                   {dashPreset ?? "Untitled Dashboard"} <span className="opacity-50">· {placedWidgets.length} panels</span>
                 </span>
-                <span className={`text-[9px] font-mono ${dashTheme === "dark" ? "text-slate-500 dark:text-slate-400" : "text-slate-400 dark:text-slate-500"}`}>auto refresh 15s · time range 1h</span>
+                <span className={`text-[9px] font-mono ${dashTheme === "dark" ? "text-slate-500" : "text-slate-400"}`}>auto refresh 15s · time range 1h</span>
               </div>
               {placedWidgets.length === 0 ? (
                 <div className="flex flex-col items-center justify-center gap-2 py-16 text-center">
-                  <span className={`text-4xl ${dashTheme === "dark" ? "text-slate-700 dark:text-slate-200" : "text-slate-300 dark:text-slate-400"}`}>▦</span>
-                  <p className={`text-sm font-mono ${dashTheme === "dark" ? "text-slate-500 dark:text-slate-400" : "text-slate-400 dark:text-slate-500"}`}>empty canvas — add widgets from the palette</p>
-                  <p className={`text-[10px] font-mono ${dashTheme === "dark" ? "text-slate-600 dark:text-slate-300" : "text-slate-400 dark:text-slate-500"}`}>or pick a preset template above</p>
+                  <span className={`text-4xl ${dashTheme === "dark" ? "text-slate-700" : "text-slate-300"}`}>▦</span>
+                  <p className={`text-sm font-mono ${dashTheme === "dark" ? "text-slate-500" : "text-slate-400"}`}>empty canvas — add widgets from the palette</p>
+                  <p className={`text-[10px] font-mono ${dashTheme === "dark" ? "text-slate-600" : "text-slate-400"}`}>or pick a preset template above</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {placedWidgets.map((w) => (
                     <div
                       key={w.id}
-                      className={`rounded-xl ${dashTheme === "dark" ? "bg-[#12233b] border border-slate-700/60" : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700"} shadow-sm overflow-hidden flex flex-col ${SIZE_SPAN[w.size]}`}
+                      className={`rounded-xl ${dashTheme === "dark" ? "bg-[#12233b] border border-slate-700/60" : "bg-white border border-slate-200"} shadow-sm overflow-hidden flex flex-col ${SIZE_SPAN[w.size]}`}
                     >
-                      <div className={`flex items-center justify-between px-3 py-1.5 border-b ${dashTheme === "dark" ? "border-slate-700/60" : "border-slate-100 dark:border-slate-700"}`}>
-                        <span className={`text-[11px] font-mono font-bold flex items-center gap-1.5 ${dashTheme === "dark" ? "text-sky-300" : "text-slate-900 dark:text-slate-100"}`}>
-                          <span className={dashTheme === "dark" ? "text-sky-500 dark:text-sky-400" : "text-blue-600 dark:text-blue-400"}>{WIDGETS[w.type].icon}</span>
+                      <div className={`flex items-center justify-between px-3 py-1.5 border-b ${dashTheme === "dark" ? "border-slate-700/60" : "border-slate-100"}`}>
+                        <span className={`text-[11px] font-mono font-bold flex items-center gap-1.5 ${dashTheme === "dark" ? "text-sky-300" : "text-slate-900"}`}>
+                          <span className={dashTheme === "dark" ? "text-sky-500" : "text-blue-600"}>{WIDGETS[w.type].icon}</span>
                           {WIDGETS[w.type].title}
                         </span>
                         <div className="flex items-center gap-1">
@@ -1129,7 +1129,7 @@ ${labels}
                             value={w.size}
                             onChange={(e) => resizeWidget(w.id, Number(e.target.value) as 1 | 2 | 3)}
                             className={`px-1 py-0.5 rounded border text-[9px] font-mono ${
-                              dashTheme === "dark" ? "bg-slate-800 border-slate-600 text-slate-300 dark:text-slate-400" : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300"
+                              dashTheme === "dark" ? "bg-slate-800 border-slate-600 text-slate-300" : "bg-white border-slate-200 text-slate-600"
                             }`}
                             aria-label={`${WIDGETS[w.type].title} size`}
                           >
@@ -1140,7 +1140,7 @@ ${labels}
                           <button
                             onClick={() => removeWidget(w.id)}
                             className={`px-1.5 rounded text-[10px] transition-colors ${
-                              dashTheme === "dark" ? "text-slate-500 dark:text-slate-400 hover:text-rose-400" : "text-slate-400 dark:text-slate-500 hover:text-rose-500 hover:bg-rose-50"
+                              dashTheme === "dark" ? "text-slate-500 hover:text-rose-400" : "text-slate-400 hover:text-rose-500 hover:bg-rose-50"
                             }`}
                             aria-label={`Remove ${WIDGETS[w.type].title}`}
                           >
@@ -1224,7 +1224,7 @@ ${labels}
                     key={t.id}
                     onClick={() => { setTraceId(t.id); setSelectedSpanIdx(2); }}
                     className={`w-full p-3 rounded-xl border text-left transition-all ${
-                      traceId === t.id ? "border-cyan-400 bg-cyan-50/60 shadow-md" : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-cyan-200"
+                      traceId === t.id ? "border-cyan-400 bg-cyan-50/60 dark:bg-cyan-900/30 shadow-md" : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-cyan-200"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
@@ -1262,9 +1262,9 @@ ${labels}
 
               {/* Timeline ruler */}
               <div className="px-4 pt-3">
-                <div className="relative h-2 rounded bg-gradient-to-r from-cyan-100 via-sky-100 to-blue-100 border border-slate-100 dark:border-slate-700">
+                <div className="relative h-2 rounded bg-gradient-to-r from-cyan-100 via-sky-100 to-blue-100 dark:from-cyan-900/40 dark:via-sky-900/40 dark:to-blue-900/40 border border-slate-100 dark:border-slate-700">
                   {[0, 0.25, 0.5, 0.75, 1].map((p) => (
-                    <span key={p} className="absolute top-0 bottom-0 w-px bg-slate-300/70" style={{ left: `${p * 100}%` }} />
+                    <span key={p} className="absolute top-0 bottom-0 w-px bg-slate-300/70 dark:bg-slate-600/70" style={{ left: `${p * 100}%` }} />
                   ))}
                 </div>
                 <div className="flex justify-between px-0.5 text-[8px] font-mono text-slate-400 dark:text-slate-500 mt-1">
@@ -1281,7 +1281,7 @@ ${labels}
                   const color = SERVICE_COLORS[s.service] ?? "#38bdf8";
                   const isSelected = selectedSpanIdx === i;
                   return (
-                    <button key={`${s.name}-${i}`} onClick={() => setSelectedSpanIdx(i)} className={`w-full flex items-center gap-2 text-left rounded-lg px-1.5 py-0.5 transition-colors ${isSelected ? "bg-cyan-50/70" : "hover:bg-slate-50"}`}>
+                    <button key={`${s.name}-${i}`} onClick={() => setSelectedSpanIdx(i)} className={`w-full flex items-center gap-2 text-left rounded-lg px-1.5 py-0.5 transition-colors ${isSelected ? "bg-cyan-50/70 dark:bg-cyan-900/30" : "hover:bg-slate-50 dark:hover:bg-slate-600"}`}>
                       <span className="w-40 shrink-0 truncate pl-2 text-[10px] font-mono">
                         <span className="font-bold text-slate-800 dark:text-slate-200">{s.service}</span>
                         <span className="text-slate-400 dark:text-slate-500"> · {s.operation}</span>

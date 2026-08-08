@@ -557,7 +557,7 @@ export default function DkNetworkPolicySection() {
           </div>
 
           {/* Policy scope editor */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-sky-50/50 border border-sky-100 dark:border-sky-700 rounded-lg p-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-sky-50/50 dark:bg-sky-900/30 border border-sky-100 dark:border-sky-700 rounded-lg p-3">
             <label className="block">
               <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Policy name</span>
               <input
@@ -879,7 +879,7 @@ export default function DkNetworkPolicySection() {
 
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 items-stretch">
           {/* INGRESS SOURCES */}
-          <div className="rounded-lg bg-sky-50/60 border border-sky-200 dark:border-sky-700 p-3">
+          <div className="rounded-lg bg-sky-50/60 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 p-3">
             <div className="flex items-center gap-2 mb-2">
               <span className="px-2 py-0.5 rounded-full bg-sky-600 text-white text-[10px] font-bold">INGRESS</span>
               <span className="text-[11px] text-slate-500 dark:text-slate-400">→ protected pod</span>
@@ -935,7 +935,7 @@ export default function DkNetworkPolicySection() {
           </div>
 
           {/* EGRESS TARGETS */}
-          <div className="rounded-lg bg-blue-50/60 border border-blue-200 dark:border-blue-700 p-3">
+          <div className="rounded-lg bg-blue-50/60 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 p-3">
             <div className="flex items-center gap-2 mb-2">
               <span className="px-2 py-0.5 rounded bg-blue-600 text-white text-[10px] font-bold">EGRESS</span>
               <span className="text-[11px] text-slate-500 dark:text-slate-400">protected pod →</span>

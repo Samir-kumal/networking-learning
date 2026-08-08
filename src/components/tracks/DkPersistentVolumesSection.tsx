@@ -641,7 +641,7 @@ spec:
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700">
-              <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 bg-blue-50/60 px-4 py-2.5">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 bg-blue-50/60 dark:bg-blue-900/30 px-4 py-2.5">
                 <span className="text-xs font-mono font-bold text-blue-700 dark:text-blue-300">{sc.name} — live details</span>
                 <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">dynamic provisioning</span>
               </div>
@@ -796,7 +796,7 @@ spec:
                 </thead>
                 <tbody className="font-mono text-slate-600 dark:text-slate-300">
                   {(["RWO", "ROX", "RWX"] as AccessMode[]).map((m) => (
-                    <tr key={m} className={`border-t border-slate-100 dark:border-slate-700 ${accessMode === m ? "bg-sky-50/60" : ""}`}>
+                    <tr key={m} className={`border-t border-slate-100 dark:border-slate-700 ${accessMode === m ? "bg-sky-50/60 dark:bg-sky-900/30" : ""}`}>
                       <td className="px-3 py-2 font-bold text-slate-800 dark:text-slate-200">{m}</td>
                       <td className="px-3 py-2">{ACCESS_MODES[m].full}</td>
                       <td className="px-3 py-2">{ACCESS_MODES[m].nodeCount}</td>
@@ -964,7 +964,7 @@ spec:
                 </thead>
                 <tbody className="font-mono text-slate-600 dark:text-slate-300">
                   {plannerRows.map((row) => (
-                    <tr key={row.key} className={`border-t border-slate-100 dark:border-slate-700 ${selectedSC === row.key ? "bg-sky-50/60" : ""}`}>
+                    <tr key={row.key} className={`border-t border-slate-100 dark:border-slate-700 ${selectedSC === row.key ? "bg-sky-50/60 dark:bg-sky-900/30" : ""}`}>
                       <td className="px-3 py-2 font-bold text-slate-800 dark:text-slate-200">{row.shortName}</td>
                       <td className="px-3 py-2">${row.pricePerGiB}</td>
                       <td className="px-3 py-2 font-bold text-blue-600 dark:text-blue-400">${(totalGiB * row.pricePerGiB).toFixed(2)}</td>
@@ -1079,7 +1079,7 @@ spec:
 
           <div className="lg:col-span-7">
             <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700">
-              <div className="border-b border-slate-200 dark:border-slate-700 bg-cyan-50/50 px-4 py-2.5 font-mono text-[11px] text-cyan-700 dark:text-cyan-300">
+              <div className="border-b border-slate-200 dark:border-slate-700 bg-cyan-50/50 dark:bg-cyan-900/30 px-4 py-2.5 font-mono text-[11px] text-cyan-700 dark:text-cyan-300">
                 snapshot registry
               </div>
               {snapshots.length === 0 ? (
