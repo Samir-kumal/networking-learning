@@ -1223,7 +1223,7 @@ ${stepsYaml.join("\n\n")}`;
               {/* Terminal Logs */}
               <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-mono text-xs text-gray-300 h-40 overflow-y-auto space-y-1">
                 {ciTerminalLogs.length === 0 ? (
-                  <div className="text-gray-500 dark:text-gray-400 italic">Click 'Run Pipeline' to execute simulated GitHub Actions workflow...</div>
+                  <div className="text-gray-500 dark:text-gray-400 italic">Click &apos;Run Pipeline&apos; to execute simulated GitHub Actions workflow...</div>
                 ) : (
                   ciTerminalLogs.map((log, idx) => (
                     <div key={idx} className="leading-relaxed">

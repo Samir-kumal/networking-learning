@@ -1654,7 +1654,7 @@ export default function AwsStepFunctionsSection() {
             className="h-64 overflow-y-auto bg-slate-900 rounded-xl p-3 space-y-1 font-mono text-[11px] leading-relaxed"
           >
             {log.length === 0 && (
-              <div className="text-slate-500">// press Run Execution to trace the state machine step by step</div>
+              <div className="text-slate-500">{`// press Run Execution to trace the state machine step by step`}</div>
             )}
             {log.map((l) => (
               <div

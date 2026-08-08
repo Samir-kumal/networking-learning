@@ -778,7 +778,7 @@ export default function AwsApiGatewaySection() {
         </div>
 
         <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-          An <strong className="text-slate-900 dark:text-slate-100">authorizer</strong> runs before a route's integration and decides whether a
+          An <strong className="text-slate-900 dark:text-slate-100">authorizer</strong> runs before a route&apos;s integration and decides whether a
           caller may invoke it. API Gateway supports <strong className="text-violet-600 dark:text-violet-400">IAM (SigV4)</strong> for machine-to-machine
           access, <strong className="text-violet-600 dark:text-violet-400">Lambda token authorizers</strong> for custom logic (OAuth2 introspection, API keys,
           custom headers), and <strong className="text-violet-600 dark:text-violet-400">Cognito User Pools</strong> for JWT-based user authentication.
@@ -814,16 +814,16 @@ export default function AwsApiGatewaySection() {
               <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono">How IAM Authorization Works</h3>
               <ol className="text-xs text-slate-600 dark:text-slate-300 space-y-2 leading-relaxed">
                 <li><strong className="text-violet-700 dark:text-violet-300">1.</strong> Client signs the request with AWS Signature Version 4 (access key + secret).</li>
-                <li><strong className="text-violet-700 dark:text-violet-300">2.</strong> API Gateway verifies the signature and resolves the caller's IAM identity.</li>
+                <li><strong className="text-violet-700 dark:text-violet-300">2.</strong> API Gateway verifies the signature and resolves the caller&apos;s IAM identity.</li>
                 <li><strong className="text-violet-700 dark:text-violet-300">3.</strong> An <code className="font-mono text-violet-600 dark:text-violet-400">execute-api:Invoke</code> permission on the route resource is required — otherwise the caller gets HTTP 403.</li>
                 <li><strong className="text-violet-700 dark:text-violet-300">4.</strong> Optional resource policies restrict access at the API level (VPC, IP, account, org).</li>
               </ol>
               <div className="rounded-lg bg-slate-900 p-3 font-mono text-[11px] text-slate-300 space-y-1">
                 <div className="text-violet-400 text-[10px] uppercase tracking-wider">Required IAM Permission</div>
                 <div>{"{"}</div>
-                <div className="pl-3">"Effect": "Allow",</div>
-                <div className="pl-3">"Action": "execute-api:Invoke",</div>
-                <div className="pl-3">"Resource": "arn:aws:execute-api:us-east-1:123456789012:{apiId}/*/GET/pets"</div>
+                <div className="pl-3">&quot;Effect&quot;: &quot;Allow&quot;,</div>
+                <div className="pl-3">&quot;Action&quot;: &quot;execute-api:Invoke&quot;,</div>
+                <div className="pl-3">{`"Resource": "arn:aws:execute-api:us-east-1:123456789012:${apiId}/*/GET/pets"`}</div>
                 <div>{"}"}</div>
               </div>
               <p className="text-[11px] text-slate-400 dark:text-slate-500 font-mono">
@@ -1225,7 +1225,7 @@ export default function AwsApiGatewaySection() {
           </div>
           <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
             Routes marked <span className="px-1.5 py-0.5 rounded bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-700 text-[10px]">VALIDATE</span> in
-            Module 02 are exported with a <code className="text-violet-600 dark:text-violet-400">"full"</code> validator — {validatedCount}/{routes.length} currently.
+            Module 02 are exported with a <code className="text-violet-600 dark:text-violet-400">&quot;full&quot;</code> validator — {validatedCount}/{routes.length} currently.
           </p>
         </div>
       </section>
