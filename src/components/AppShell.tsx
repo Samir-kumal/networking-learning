@@ -36,7 +36,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-2 text-[12px] text-slate-500 dark:text-slate-400">
             <span className="font-semibold text-slate-700 dark:text-slate-200">DevOps Hub</span>
             <span className="text-slate-300 dark:text-slate-600">/</span>
-            <span>Next.js 16.3 · Docker · Port 3008</span>
+            <span>Docker</span>
           </div>
           <div className="flex items-center gap-2 text-[11px]">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-soft-pulse" />
