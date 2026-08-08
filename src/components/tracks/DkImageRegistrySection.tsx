@@ -578,7 +578,7 @@ rules:
   // ==========================================================================
 
   return (
-    <section id="dk-image-registry" className="space-y-8 text-slate-900">
+    <section id="dk-image-registry" className="space-y-8 text-slate-900 dark:text-slate-100">
       {/* Track header */}
       <div className="rounded-2xl bg-gradient-to-r from-sky-500 to-blue-500 p-6 text-white shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -603,19 +603,19 @@ rules:
       {/* ==================================================================== */}
       {/* MODULE 1 — Tag Strategy Selector */}
       {/* ==================================================================== */}
-      <div className="p-5 rounded-2xl bg-slate-50 border border-sky-200 space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+      <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-700 border border-sky-200 dark:border-sky-700 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-3">
           <div className="flex items-center gap-2">
             <span className="text-xl">🏷️</span>
             <div>
-              <h3 className="text-sm font-bold text-slate-900">Image Tag Strategy Selector</h3>
-              <p className="text-xs text-slate-500">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">Image Tag Strategy Selector</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Each strategy is a promise about <span className="font-mono">repo:tag → digest</span> stability. Pick one
                 and inspect its failure modes.
               </p>
             </div>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 text-sky-600 border border-sky-200">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700">
             Module 1
           </span>
         </div>
@@ -631,40 +631,40 @@ rules:
                 onClick={() => setStrategy(key)}
                 className={`p-3 rounded-xl text-left border transition-all hover:scale-[1.01] ${
                   selected
-                    ? "bg-white border-sky-400 ring-1 ring-sky-400 shadow-sm"
-                    : "bg-white border-slate-200 hover:border-sky-300"
+                    ? "bg-white dark:bg-slate-800 border-sky-400 ring-1 ring-sky-400 shadow-sm"
+                    : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-sky-300"
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <span className="text-lg">{s.emoji}</span>
                   {s.immutable ? (
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-600">
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
                       immutable
                     </span>
                   ) : (
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-50 text-rose-600">
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400">
                       mutable
                     </span>
                   )}
                 </div>
-                <p className="mt-1 text-sm font-bold text-slate-900">{s.name}</p>
-                <p className="text-[11px] font-mono text-sky-600 mt-0.5 truncate">{s.format}</p>
+                <p className="mt-1 text-sm font-bold text-slate-900 dark:text-slate-100">{s.name}</p>
+                <p className="text-[11px] font-mono text-sky-600 dark:text-sky-400 mt-0.5 truncate">{s.format}</p>
               </button>
             );
           })}
         </div>
 
         {/* Selected strategy detail */}
-        <div className="rounded-xl bg-white border border-slate-200 p-4 space-y-3">
+        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 space-y-3">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-bold text-slate-900">{activeStrategy.emoji} {activeStrategy.name}</span>
+            <span className="text-xs font-bold text-slate-900 dark:text-slate-100">{activeStrategy.emoji} {activeStrategy.name}</span>
             <span
               className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
                 activeStrategy.risk === "low"
-                  ? "bg-emerald-50 text-emerald-600 border-emerald-200"
+                  ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700"
                   : activeStrategy.risk === "medium"
-                    ? "bg-amber-50 text-amber-600 border-amber-200"
-                    : "bg-rose-50 text-rose-600 border-rose-200"
+                    ? "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-700"
+                    : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-700"
               }`}
             >
               risk: {activeStrategy.risk}
@@ -672,34 +672,34 @@ rules:
             <span
               className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
                 activeStrategy.k8sSafety === "Rolls on digest"
-                  ? "bg-sky-50 text-sky-600 border-sky-200"
-                  : "bg-amber-50 text-amber-600 border-amber-200"
+                  ? "bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 border-sky-200 dark:border-sky-700"
+                  : "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-700"
               }`}
             >
               {activeStrategy.k8sSafety}
             </span>
           </div>
 
-          <div className="text-xs text-slate-600 leading-relaxed">{activeStrategy.verdict}</div>
+          <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{activeStrategy.verdict}</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-            <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-              <span className="font-bold text-sky-600 block mb-1">✅ Best for</span>
-              <span className="text-slate-600">{activeStrategy.goodFor}</span>
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+              <span className="font-bold text-sky-600 dark:text-sky-400 block mb-1">✅ Best for</span>
+              <span className="text-slate-600 dark:text-slate-300">{activeStrategy.goodFor}</span>
             </div>
-            <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-              <span className="font-bold text-rose-600 block mb-1">⚠️ Pitfalls</span>
-              <span className="text-slate-600">{activeStrategy.pitfall}</span>
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+              <span className="font-bold text-rose-600 dark:text-rose-400 block mb-1">⚠️ Pitfalls</span>
+              <span className="text-slate-600 dark:text-slate-300">{activeStrategy.pitfall}</span>
             </div>
           </div>
 
           {/* Example tags */}
           <div>
-            <p className="text-[11px] font-mono text-slate-400 mb-1.5">Example references</p>
+            <p className="text-[11px] font-mono text-slate-400 dark:text-slate-500 mb-1.5">Example references</p>
             <div className="flex flex-wrap gap-1.5">
               {activeStrategy.exampleTags.map((t) => (
                 <span
                   key={t}
-                  className="px-2 py-1 rounded bg-sky-50 border border-sky-200 font-mono text-[11px] text-sky-700"
+                  className="px-2 py-1 rounded bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 font-mono text-[11px] text-sky-700 dark:text-sky-300"
                 >
                   {t}
                 </span>
@@ -712,18 +712,18 @@ rules:
       {/* ==================================================================== */}
       {/* MODULE 2 — Image Lifecycle Visualizer */}
       {/* ==================================================================== */}
-      <div className="p-5 rounded-2xl bg-slate-50 border border-sky-100 space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+      <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-700 border border-sky-100 dark:border-sky-700 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-3">
           <div className="flex items-center gap-2">
             <span className="text-xl">🔁</span>
             <div>
-              <h3 className="text-sm font-bold text-slate-900">Image Lifecycle Visualizer</h3>
-              <p className="text-xs text-slate-500">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">Image Lifecycle Visualizer</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Every image travels build → registry → cluster → garbage. Drag the stage slider.
               </p>
             </div>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 text-sky-600 border border-sky-200">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700">
             Module 2
           </span>
         </div>
@@ -738,8 +738,8 @@ rules:
                 i === stageIndex
                   ? "bg-sky-600 text-white border-sky-600"
                   : i < stageIndex
-                    ? "bg-blue-50 text-sky-700 border-blue-200"
-                    : "bg-white text-slate-500 border-slate-200 hover:border-sky-300"
+                    ? "bg-blue-50 dark:bg-blue-900/30 text-sky-700 dark:text-sky-300 border-blue-200 dark:border-blue-700"
+                    : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-sky-300"
               }`}
             >
               {st.emoji} {st.id}
@@ -757,25 +757,25 @@ rules:
           aria-label="Lifecycle stage"
         />
 
-        <div className="rounded-xl bg-white border border-slate-200 p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-2xl">{LIFECYCLE_STAGES[stageIndex].emoji}</span>
               <div>
-                <p className="text-sm font-bold text-slate-900">{LIFECYCLE_STAGES[stageIndex].title}</p>
-                <p className="text-[10px] font-mono text-sky-600">{LIFECYCLE_STAGES[stageIndex].marker}</p>
+                <p className="text-sm font-bold text-slate-900 dark:text-slate-100">{LIFECYCLE_STAGES[stageIndex].title}</p>
+                <p className="text-[10px] font-mono text-sky-600 dark:text-sky-400">{LIFECYCLE_STAGES[stageIndex].marker}</p>
               </div>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed">{LIFECYCLE_STAGES[stageIndex].summary}</p>
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{LIFECYCLE_STAGES[stageIndex].summary}</p>
           </div>
           <div className="space-y-2 text-xs">
-            <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
-              <span className="font-bold text-slate-700 block mb-0.5">Registry state</span>
-              <span className="text-slate-500">{LIFECYCLE_STAGES[stageIndex].registryState}</span>
+            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+              <span className="font-bold text-slate-700 dark:text-slate-200 block mb-0.5">Registry state</span>
+              <span className="text-slate-500 dark:text-slate-400">{LIFECYCLE_STAGES[stageIndex].registryState}</span>
             </div>
-            <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
-              <span className="font-bold text-slate-700 block mb-0.5">Cluster impact</span>
-              <span className="text-slate-500">{LIFECYCLE_STAGES[stageIndex].uiImpact}</span>
+            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+              <span className="font-bold text-slate-700 dark:text-slate-200 block mb-0.5">Cluster impact</span>
+              <span className="text-slate-500 dark:text-slate-400">{LIFECYCLE_STAGES[stageIndex].uiImpact}</span>
             </div>
           </div>
         </div>
@@ -784,26 +784,26 @@ rules:
       {/* ==================================================================== */}
       {/* MODULE 3 — Retention Policy Builder */}
       {/* ==================================================================== */}
-      <div className="p-5 rounded-2xl bg-slate-50 border border-sky-100 space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+      <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-700 border border-sky-100 dark:border-sky-700 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-3">
           <div className="flex items-center gap-2">
             <span className="text-xl">🧹</span>
             <div>
-              <h3 className="text-sm font-bold text-slate-900">Retention Policy Builder</h3>
-              <p className="text-xs text-slate-500">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">Retention Policy Builder</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Policies fight registry sprawl. Tune rules below and watch the prune preview.
               </p>
             </div>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 text-sky-600 border border-sky-200">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700">
             Module 3
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* keep count */}
-          <div className="p-3 rounded-xl bg-white border border-slate-200">
-            <label className="text-[11px] font-bold text-slate-600">Keep newest tagged</label>
+          <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+            <label className="text-[11px] font-bold text-slate-600 dark:text-slate-300">Keep newest tagged</label>
             <div className="flex items-center gap-2 mt-1">
               <input
                 type="range"
@@ -813,14 +813,14 @@ rules:
                 onChange={(e) => setKeepCount(Number(e.target.value))}
                 className="flex-1 accent-sky-600"
               />
-              <span className="w-6 text-xs font-mono text-sky-600 font-bold">{keepCount}</span>
+              <span className="w-6 text-xs font-mono text-sky-600 dark:text-sky-400 font-bold">{keepCount}</span>
             </div>
-            <p className="text-[10px] text-slate-400 mt-1">per repository</p>
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">per repository</p>
           </div>
 
           {/* untagged */}
-          <div className="p-3 rounded-xl bg-white border border-slate-200">
-            <label className="text-[11px] font-bold text-slate-600">Expire untagged after</label>
+          <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+            <label className="text-[11px] font-bold text-slate-600 dark:text-slate-300">Expire untagged after</label>
             <div className="flex items-center gap-2 mt-1">
               <input
                 type="range"
@@ -830,14 +830,14 @@ rules:
                 onChange={(e) => setExpireUntaggedDays(Number(e.target.value))}
                 className="flex-1 accent-sky-600"
               />
-              <span className="w-12 text-xs font-mono text-sky-600 font-bold">{expireUntaggedDays}d</span>
+              <span className="w-12 text-xs font-mono text-sky-600 dark:text-sky-400 font-bold">{expireUntaggedDays}d</span>
             </div>
-            <p className="text-[10px] text-slate-400 mt-1">orphaned manifests</p>
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">orphaned manifests</p>
           </div>
 
           {/* tagged age */}
-          <div className="p-3 rounded-xl bg-white border border-slate-200">
-            <label className="text-[11px] font-bold text-slate-600">Expire tagged after</label>
+          <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+            <label className="text-[11px] font-bold text-slate-600 dark:text-slate-300">Expire tagged after</label>
             <div className="flex items-center gap-2 mt-1">
               <input
                 type="range"
@@ -847,34 +847,34 @@ rules:
                 onChange={(e) => setExpireTaggedDays(Number(e.target.value))}
                 className="flex-1 accent-sky-600"
               />
-              <span className="w-12 text-xs font-mono text-sky-600 font-bold">{expireTaggedDays}d</span>
+              <span className="w-12 text-xs font-mono text-sky-600 dark:text-sky-400 font-bold">{expireTaggedDays}d</span>
             </div>
-            <p className="text-[10px] text-slate-400 mt-1">beyond newest {keepCount}</p>
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">beyond newest {keepCount}</p>
           </div>
 
           {/* protected */}
-          <div className="p-3 rounded-xl bg-white border border-slate-200">
-            <label className="text-[11px] font-bold text-slate-600">Protected tag patterns</label>
+          <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+            <label className="text-[11px] font-bold text-slate-600 dark:text-slate-300">Protected tag patterns</label>
             <input
               type="text"
               value={protectPatterns}
               onChange={(e) => setProtectPatterns(e.target.value)}
-              className="mt-1 w-full px-2 py-1 rounded border border-slate-200 font-mono text-[11px] text-slate-700 focus:border-sky-400 focus:outline-none"
+              className="mt-1 w-full px-2 py-1 rounded border border-slate-200 dark:border-slate-700 font-mono text-[11px] text-slate-700 dark:text-slate-200 focus:border-sky-400 focus:outline-none"
             />
-            <p className="text-[10px] text-slate-400 mt-1">comma-separated; never expires</p>
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">comma-separated; never expires</p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* prune preview */}
-          <div className="lg:col-span-2 rounded-xl bg-white border border-slate-200 p-4">
+          <div className="lg:col-span-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs font-bold text-slate-900">Prune preview — {RETENTION_IMAGES.length} images</p>
+              <p className="text-xs font-bold text-slate-900 dark:text-slate-100">Prune preview — {RETENTION_IMAGES.length} images</p>
               <div className="flex gap-2 text-[10px] font-mono">
-                <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-200">
+                <span className="px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700">
                   keep {retentionPlan.images.filter((i) => i.action === "keep").length}
                 </span>
-                <span className="px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-200">
+                <span className="px-2 py-0.5 rounded bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700">
                   expire {retentionPlan.images.filter((i) => i.action === "expire").length}
                 </span>
               </div>
@@ -885,8 +885,8 @@ rules:
                   key={img.id}
                   className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg border text-[11px] font-mono ${
                     img.action === "expire"
-                      ? "bg-rose-50/60 border-rose-200 text-rose-700"
-                      : "bg-slate-50 border-slate-200 text-slate-600"
+                      ? "bg-rose-50/60 border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-300"
+                      : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300"
                   }`}
                 >
                   <div className="flex items-center gap-2 min-w-0">
@@ -894,44 +894,44 @@ rules:
                     <span className="truncate font-bold">
                       {img.repo}:{img.tag ?? "<untagged>"}
                     </span>
-                    <span className="text-[10px] text-slate-400">{img.daysOld}d old</span>
+                    <span className="text-[10px] text-slate-400 dark:text-slate-500">{img.daysOld}d old</span>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
-                    <span className="text-[10px] text-slate-400">{fmtGb(img.sizeMb)}</span>
-                    <span className="text-slate-300">·</span>
-                    <span className="text-slate-500 truncate max-w-[220px]">{img.reason}</span>
+                    <span className="text-[10px] text-slate-400 dark:text-slate-500">{fmtGb(img.sizeMb)}</span>
+                    <span className="text-slate-300 dark:text-slate-400">·</span>
+                    <span className="text-slate-500 dark:text-slate-400 truncate max-w-[220px]">{img.reason}</span>
                   </div>
                 </div>
               ))}
             </div>
             <div className="mt-3 flex items-center justify-between text-[11px]">
-              <span className="text-slate-500">
-                Freed on next run: <span className="font-mono text-emerald-600">{fmtGb(retentionPlan.expiredMb)}</span>
+              <span className="text-slate-500 dark:text-slate-400">
+                Freed on next run: <span className="font-mono text-emerald-600 dark:text-emerald-400">{fmtGb(retentionPlan.expiredMb)}</span>
               </span>
-              <span className="text-slate-500">
-                ≈ <span className="font-mono text-sky-600">${(retentionPlan.monthlySavingUsd).toFixed(2)}/mo</span> at
+              <span className="text-slate-500 dark:text-slate-400">
+                ≈ <span className="font-mono text-sky-600 dark:text-sky-400">${(retentionPlan.monthlySavingUsd).toFixed(2)}/mo</span> at
                 $0.10/GB
               </span>
             </div>
           </div>
 
           {/* policy output */}
-          <div className="rounded-xl bg-white border border-slate-200 p-4 flex flex-col">
+          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 flex flex-col">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-bold text-slate-900">Generated policy</p>
+              <p className="text-xs font-bold text-slate-900 dark:text-slate-100">Generated policy</p>
               <button
                 onClick={() => setShowPolicyPreview(!showPolicyPreview)}
-                className="text-[10px] font-mono px-2 py-1 rounded bg-sky-50 text-sky-600 border border-sky-200 hover:bg-sky-100"
+                className="text-[10px] font-mono px-2 py-1 rounded bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700 hover:bg-sky-100"
               >
                 {showPolicyPreview ? "hide" : "show"}
               </button>
             </div>
             {showPolicyPreview && (
-              <pre className="flex-1 text-[10px] font-mono text-slate-600 whitespace-pre-wrap leading-relaxed bg-slate-50 rounded-lg p-3 border border-slate-200 overflow-auto">
+              <pre className="flex-1 text-[10px] font-mono text-slate-600 dark:text-slate-300 whitespace-pre-wrap leading-relaxed bg-slate-50 dark:bg-slate-700 rounded-lg p-3 border border-slate-200 dark:border-slate-700 overflow-auto">
                 {policyYaml}
               </pre>
             )}
-            <p className="text-[10px] text-slate-400 mt-2 leading-relaxed">
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-2 leading-relaxed">
               Mutable tags (branch deployments, re-tagged versions) escape age rules — pin policies to digest when
               traceability matters
             </p>
@@ -942,26 +942,26 @@ rules:
       {/* ==================================================================== */}
       {/* MODULE 4 — Multi-Arch Manifest Viewer */}
       {/* ==================================================================== */}
-      <div className="p-5 rounded-2xl bg-slate-50 border border-sky-100 space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+      <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-700 border border-sky-100 dark:border-sky-700 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-3">
           <div className="flex items-center gap-2">
             <span className="text-xl">🧬</span>
             <div>
-              <h3 className="text-sm font-bold text-slate-900">Multi-Arch Manifest Viewer</h3>
-              <p className="text-xs text-slate-500">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">Multi-Arch Manifest Viewer</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 One tag, many architectures: the manifest list (index) points to per-arch manifests.
               </p>
             </div>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 text-sky-600 border border-sky-200">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700">
             Module 4
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Platform list */}
-          <div className="rounded-xl bg-white border border-slate-200 p-3">
-            <p className="text-xs font-bold text-slate-900 mb-2">
+          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3">
+            <p className="text-xs font-bold text-slate-900 dark:text-slate-100 mb-2">
               registry.example.com/team/payment-api:latest (index)
             </p>
             <div className="space-y-1.5">
@@ -973,15 +973,15 @@ rules:
                     onClick={() => setSelectedPlatform(p.key)}
                     className={`w-full text-left rounded-lg border px-3 py-2 transition-colors ${
                       selectedPlatform === p.key
-                        ? "bg-sky-50 border-sky-400 text-sky-700"
-                        : "bg-slate-50 border-slate-200 text-slate-600 hover:border-sky-300"
+                        ? "bg-sky-50 dark:bg-sky-900/30 border-sky-400 text-sky-700 dark:text-sky-300"
+                        : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-sky-300"
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-mono font-bold">{containerName}</span>
-                      <span className="text-[10px] font-mono text-slate-500">{p.sizeMb} MB</span>
+                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{p.sizeMb} MB</span>
                     </div>
-                    <div className="text-[10px] font-mono text-slate-400 truncate">{p.digest}</div>
+                    <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 truncate">{p.digest}</div>
                   </button>
                 );
               })}
@@ -989,48 +989,48 @@ rules:
           </div>
 
           {/* Selected platform detail + raw manifest */}
-          <div className="rounded-xl bg-white border border-slate-200 p-3 overflow-hidden">
+          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 overflow-hidden">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-bold text-slate-900">Selected manifest</p>
+              <p className="text-xs font-bold text-slate-900 dark:text-slate-100">Selected manifest</p>
               <button
                 onClick={() => setShowRawManifest(!showRawManifest)}
-                className="text-[10px] font-mono px-2 py-1 rounded bg-sky-50 text-sky-600 border border-sky-200 hover:bg-sky-100"
+                className="text-[10px] font-mono px-2 py-1 rounded bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700 hover:bg-sky-100"
               >
                 {showRawManifest ? "hide JSON" : "raw JSON"}
               </button>
             </div>
             {showRawManifest ? (
-              <pre className="text-[10px] leading-relaxed font-mono text-slate-600 bg-slate-50 rounded-lg p-3 border border-slate-200 whitespace-pre overflow-auto h-56">
+              <pre className="text-[10px] leading-relaxed font-mono text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-700 rounded-lg p-3 border border-slate-200 dark:border-slate-700 whitespace-pre overflow-auto h-56">
                 {MANIFEST_LIST_JSON}
               </pre>
             ) : (() => {
               const p = PLATFORMS.find((x) => x.key === selectedPlatform)!;
               return (
                 <div className="space-y-1.5 text-[11px] font-mono">
-                  <div className="flex justify-between py-1 border-b border-slate-100">
-                    <span className="text-slate-400">platform</span>
-                    <span className="text-slate-700">{p.os}/{p.arch + (p.variant ? " variant " + p.variant : "")}</span>
+                  <div className="flex justify-between py-1 border-b border-slate-100 dark:border-slate-700">
+                    <span className="text-slate-400 dark:text-slate-500">platform</span>
+                    <span className="text-slate-700 dark:text-slate-200">{p.os}/{p.arch + (p.variant ? " variant " + p.variant : "")}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-100">
-                    <span className="text-slate-400">mediaType</span>
-                    <span className="text-slate-700">manifest.v2+json</span>
+                  <div className="flex justify-between py-1 border-b border-slate-100 dark:border-slate-700">
+                    <span className="text-slate-400 dark:text-slate-500">mediaType</span>
+                    <span className="text-slate-700 dark:text-slate-200">manifest.v2+json</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-100">
-                    <span className="text-slate-400">size</span>
-                    <span className="text-slate-700">{p.sizeMb} MB ({p.layersCount} layers)</span>
+                  <div className="flex justify-between py-1 border-b border-slate-100 dark:border-slate-700">
+                    <span className="text-slate-400 dark:text-slate-500">size</span>
+                    <span className="text-slate-700 dark:text-slate-200">{p.sizeMb} MB ({p.layersCount} layers)</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-100 gap-2">
-                    <span className="text-slate-400 shrink-0">config</span>
-                    <span className="text-slate-700 truncate">{p.config}</span>
+                  <div className="flex justify-between py-1 border-b border-slate-100 dark:border-slate-700 gap-2">
+                    <span className="text-slate-400 dark:text-slate-500 shrink-0">config</span>
+                    <span className="text-slate-700 dark:text-slate-200 truncate">{p.config}</span>
                   </div>
                   <div className="flex justify-between py-1 gap-2">
-                    <span className="text-slate-400 shrink-0">entrypoint</span>
-                    <span className="text-slate-700 break-all">{p.entrypoint}</span>
+                    <span className="text-slate-400 dark:text-slate-500 shrink-0">entrypoint</span>
+                    <span className="text-slate-700 dark:text-slate-200 break-all">{p.entrypoint}</span>
                   </div>
                 </div>
               );
             })()}
-            <div className="mt-3 rounded-lg bg-sky-50 border border-sky-200 p-2.5 text-[10px] text-sky-700 leading-relaxed">
+            <div className="mt-3 rounded-lg bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 p-2.5 text-[10px] text-sky-700 dark:text-sky-300 leading-relaxed">
               Kubelet (arm64) asks for the index, receives this digest, and pulls only the arm64 manifest — amd64 nodes
               never download arm layers. Upstream:{" "}
               <span className="font-mono">docker pull --platform linux/arm64</span>
@@ -1039,18 +1039,18 @@ rules:
         </div>
 
         {/* FAB: architecture summary strip */}
-        <div className="rounded-xl bg-white border border-slate-200 p-3 flex flex-col sm:flex-row gap-2 text-[11px] font-mono">
-          <div className="flex-1 px-3 py-2 rounded-lg bg-sky-50 border border-sky-200">
-            <span className="text-sky-600 font-bold block">1 push</span>
-            <span className="text-slate-500">tag v2.4.1 published once</span>
+        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 flex flex-col sm:flex-row gap-2 text-[11px] font-mono">
+          <div className="flex-1 px-3 py-2 rounded-lg bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700">
+            <span className="text-sky-600 dark:text-sky-400 font-bold block">1 push</span>
+            <span className="text-slate-500 dark:text-slate-400">tag v2.4.1 published once</span>
           </div>
-          <div className="flex-1 px-3 py-2 rounded-lg bg-blue-50 border border-blue-200">
-            <span className="text-blue-600 font-bold block">3 manifests</span>
-            <span className="text-slate-500">one per architecture</span>
+          <div className="flex-1 px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700">
+            <span className="text-blue-600 dark:text-blue-400 font-bold block">3 manifests</span>
+            <span className="text-slate-500 dark:text-slate-400">one per architecture</span>
           </div>
-          <div className="flex-1 px-3 py-2 rounded-lg bg-emerald-50 border border-emerald-200">
-            <span className="text-emerald-600 font-bold block">1 release train</span>
-            <span className="text-slate-500">cluster-wide same version</span>
+          <div className="flex-1 px-3 py-2 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700">
+            <span className="text-emerald-600 dark:text-emerald-400 font-bold block">1 release train</span>
+            <span className="text-slate-500 dark:text-slate-400">cluster-wide same version</span>
           </div>
         </div>
       </div>
@@ -1058,55 +1058,55 @@ rules:
       {/* ==================================================================== */}
       {/* MODULE 5 — Registry Cost Calculator */}
       {/* ==================================================================== */}
-      <div className="p-5 rounded-2xl bg-slate-50 border border-sky-100 space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+      <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-700 border border-sky-100 dark:border-sky-700 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-3">
           <div className="flex items-center gap-2">
             <span className="text-xl">💸</span>
             <div>
-              <h3 className="text-sm font-bold text-slate-900">Registry Cost Calculator — ECR / ACR / GCR</h3>
-              <p className="text-xs text-slate-500">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">Registry Cost Calculator — ECR / ACR / GCR</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Storage is billed per unique byte; egress per pull crossing the cloud boundary.
               </p>
             </div>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 text-sky-600 border border-sky-200">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700">
             Module 5
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
-          <div className="rounded-xl bg-white border border-slate-200 p-3">
-            <label className="text-[11px] font-bold text-slate-600 block">Image size</label>
+          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3">
+            <label className="text-[11px] font-bold text-slate-600 dark:text-slate-300 block">Image size</label>
             <div className="flex items-center gap-2">
               <input type="range" min={200} max={5000} step={100} value={avgImageSizeMb} onChange={(e) => setAvgImageSizeMb(Number(e.target.value))} className="flex-1 accent-sky-600 w-full" />
-              <span className="text-xs font-mono text-sky-600 font-bold w-14 text-right">{avgImageSizeMb} MB</span>
+              <span className="text-xs font-mono text-sky-600 dark:text-sky-400 font-bold w-14 text-right">{avgImageSizeMb} MB</span>
             </div>
           </div>
-          <div className="rounded-xl bg-white border border-slate-200 p-3">
-            <label className="text-[11px] font-bold text-slate-600 block">Distinct tags kept</label>
+          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3">
+            <label className="text-[11px] font-bold text-slate-600 dark:text-slate-300 block">Distinct tags kept</label>
             <div className="flex items-center gap-2">
               <input type="range" min={5} max={500} step={5} value={tagCount} onChange={(e) => setTagCount(Number(e.target.value))} className="flex-1 accent-sky-600" />
-              <span className="text-xs font-mono text-sky-600 font-bold w-10 text-right">{tagCount}</span>
+              <span className="text-xs font-mono text-sky-600 dark:text-sky-400 font-bold w-10 text-right">{tagCount}</span>
             </div>
           </div>
-          <div className="rounded-xl bg-white border border-slate-200 p-3">
-            <label className="text-[11px] font-bold text-slate-600 block">Egress / month</label>
+          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3">
+            <label className="text-[11px] font-bold text-slate-600 dark:text-slate-300 block">Egress / month</label>
             <div className="flex items-center gap-2">
               <input type="range" min={0} max={300} step={1} value={monthlyEgressGb} onChange={(e) => setMonthlyEgressGb(Number(e.target.value))} className="flex-1 accent-sky-600" />
-              <span className="text-xs font-mono text-sky-600 font-bold w-10 text-right">{monthlyEgressGb} GB</span>
+              <span className="text-xs font-mono text-sky-600 dark:text-sky-400 font-bold w-10 text-right">{monthlyEgressGb} GB</span>
             </div>
           </div>
-          <div className="rounded-lg bg-white border border-slate-200 p-3">
-            <label className="text-[11px] font-bold text-slate-600 block">Layer reuse</label>
+          <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3">
+            <label className="text-[11px] font-bold text-slate-600 dark:text-slate-300 block">Layer reuse</label>
             <div className="flex items-center gap-2">
               <input type="range" min={0} max={60} step={5} value={layerReusePct} onChange={(e) => setLayerReusePct(Number(e.target.value))} className="flex-1 accent-sky-600" />
-              <span className="text-xs font-mono text-sky-600 font-bold w-10 text-right">{layerReusePct}%</span>
+              <span className="text-xs font-mono text-sky-600 dark:text-sky-400 font-bold w-10 text-right">{layerReusePct}%</span>
             </div>
           </div>
-          <div className="rounded-lg bg-white border border-slate-200 p-3">
-            <label className="text-[11px] font-bold text-slate-600 block">ACR SKU fee ($/mo)</label>
-            <input type="number" min={0} step={5} value={acrSkuFee} onChange={(e) => setAcrSkuFee(Number(e.target.value) || 0)} className="w-full mt-1 px-2 py-1 border border-slate-200 rounded text-xs font-mono text-sky-600 focus:border-sky-400 focus:outline-none" />
-            <p className="text-[10px] text-slate-400 mt-1">Basic = $0, Standard/$25, Premium/$100</p>
+          <div className="rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3">
+            <label className="text-[11px] font-bold text-slate-600 dark:text-slate-300 block">ACR SKU fee ($/mo)</label>
+            <input type="number" min={0} step={5} value={acrSkuFee} onChange={(e) => setAcrSkuFee(Number(e.target.value) || 0)} className="w-full mt-1 px-2 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs font-mono text-sky-600 dark:text-sky-400 focus:border-sky-400 focus:outline-none" />
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">Basic = $0, Standard/$25, Premium/$100</p>
           </div>
         </div>
 
@@ -1116,7 +1116,7 @@ rules:
             <div
               key={r.id}
               className={`relative rounded-xl border p-4 ${
-                costModel.cheapest.id === r.id ? "border-sky-400 bg-sky-50/60" : "border-slate-200 bg-white"
+                costModel.cheapest.id === r.id ? "border-sky-400 bg-sky-50/60" : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"
               }`}
             >
               {costModel.cheapest.id === r.id && (
@@ -1125,37 +1125,37 @@ rules:
                 </span>
               )}
               <div className="flex items-center justify-between">
-                <p className="text-sm font-bold text-slate-900">{r.name}</p>
-                <span className="text-[10px] font-mono text-slate-400">{r.vendor}</span>
+                <p className="text-sm font-bold text-slate-900 dark:text-slate-100">{r.name}</p>
+                <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">{r.vendor}</span>
               </div>
               <div className="mt-2 text-xs space-y-1">
                 <div className="flex justify-between">
-                  <span className="text-slate-500">storage ({(costModel.effectiveStorageGb).toFixed(1)} GB @${r.storageRateUsd.toFixed(2)})</span>
-                  <span className="font-mono text-slate-700">${r.storageCost.toFixed(2)}</span>
+                  <span className="text-slate-500 dark:text-slate-400">storage ({(costModel.effectiveStorageGb).toFixed(1)} GB @${r.storageRateUsd.toFixed(2)})</span>
+                  <span className="font-mono text-slate-700 dark:text-slate-200">${r.storageCost.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">egress ({monthlyEgressGb} GB @${r.egressRateUsd.toFixed(3)})</span>
-                  <span className="font-mono text-slate-700">${r.egressCost.toFixed(2)}</span>
+                  <span className="text-slate-500 dark:text-slate-400">egress ({monthlyEgressGb} GB @${r.egressRateUsd.toFixed(3)})</span>
+                  <span className="font-mono text-slate-700 dark:text-slate-200">${r.egressCost.toFixed(2)}</span>
                 </div>
                 {r.skuFee > 0 && (
                   <div className="flex justify-between">
-                    <span className="text-slate-500">SKU fee</span>
-                    <span className="font-mono text-slate-700">${r.skuFee.toFixed(2)}</span>
+                    <span className="text-slate-500 dark:text-slate-400">SKU fee</span>
+                    <span className="font-mono text-slate-700 dark:text-slate-200">${r.skuFee.toFixed(2)}</span>
                   </div>
                 )}
               </div>
-              <div className="mt-3 h-2 rounded-full bg-slate-100 overflow-hidden">
+              <div className="mt-3 h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
                 <div
                   className={`h-full rounded-full ${costModel.cheapest.id === r.id ? "bg-sky-500" : "bg-blue-300"}`}
                   style={{ width: `${(r.total / costModel.maxTotal) * 100}%` }}
                 />
               </div>
-              <p className="mt-2 text-xl font-extrabold text-slate-900">{fmtUsd(r.total)}<span className="text-xs text-slate-400 font-medium">/mo</span></p>
-              <p className="mt-1 text-[10px] text-slate-400 leading-snug">{r.note}</p>
+              <p className="mt-2 text-xl font-extrabold text-slate-900 dark:text-slate-100">{fmtUsd(r.total)}<span className="text-xs text-slate-400 dark:text-slate-500 font-medium">/mo</span></p>
+              <p className="mt-1 text-[10px] text-slate-400 dark:text-slate-500 leading-snug">{r.note}</p>
             </div>
           ))}
         </div>
-        <p className="text-[10px] text-slate-400 leading-relaxed">
+        <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed">
           Storage = unique layers after reuse deduction ({Math.max(0, 100 - layerReusePct)}%); actual bills depend on
           image variance and retention. ACR also carries SKU monthly fees — the SKU input above is your own plan price.
         </p>
@@ -1164,18 +1164,18 @@ rules:
       {/* ==================================================================== */}
       {/* MODULE 6 — Image Layer Analyzer */}
       {/* ==================================================================== */}
-      <div className="p-5 rounded-2xl bg-slate-50 border border-sky-100 space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+      <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-700 border border-sky-100 dark:border-sky-700 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-3">
           <div className="flex items-center gap-2">
             <span className="text-xl">🧅</span>
             <div>
-              <h3 className="text-sm font-bold text-slate-900">Image Layer Analyzer</h3>
-              <p className="text-xs text-slate-500">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">Image Layer Analyzer</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Peel an image: each layer is a filesystem diff. Same layers between images = stored once.
               </p>
             </div>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 text-sky-600 border border-sky-200">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700">
             Module 6
           </span>
         </div>
@@ -1188,7 +1188,7 @@ rules:
               className={`px-3 py-2 rounded-lg border text-xs font-mono transition-colors ${
                 analyzedImage === img.id
                   ? "bg-sky-600 text-white border-sky-600"
-                  : "bg-white border-slate-200 text-slate-600 hover:border-sky-300"
+                  : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-sky-300"
               }`}
             >
               {img.name}
@@ -1196,18 +1196,18 @@ rules:
           ))}
         </div>
 
-        <div className="rounded-xl bg-white border border-slate-200 p-4">
+        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4">
           <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-            <p className="text-xs font-mono text-slate-600 truncate">{layerModel.image.ref}</p>
+            <p className="text-xs font-mono text-slate-600 dark:text-slate-300 truncate">{layerModel.image.ref}</p>
             <div className="flex gap-2 text-[10px] font-mono">
-              <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600">logical {fmtGb(layerModel.totalLogical)}</span>
-              <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-600">unique {fmtGb(layerModel.uniqueMb)}</span>
-              <span className="px-2 py-0.5 rounded bg-sky-50 text-sky-600">dedupable {fmtGb(layerModel.sharedMb)}</span>
+              <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">logical {fmtGb(layerModel.totalLogical)}</span>
+              <span className="px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">unique {fmtGb(layerModel.uniqueMb)}</span>
+              <span className="px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400">dedupable {fmtGb(layerModel.sharedMb)}</span>
             </div>
           </div>
 
           {/* stacked bar */}
-          <div className="flex h-5 rounded-md overflow-hidden mb-4 border border-slate-200">
+          <div className="flex h-5 rounded-md overflow-hidden mb-4 border border-slate-200 dark:border-slate-700">
             {layerModel.image.layers.map((l) => (
               <div
                 key={l.id + l.label}
@@ -1223,22 +1223,22 @@ rules:
               <div key={l.id + l.label} className="flex items-center gap-3 text-[11px]">
                 <div className="w-40 shrink-0 flex items-center gap-1.5">
                   <span className={`w-2.5 h-2.5 rounded-sm ${LAYER_KIND_COLORS[l.kind]}`} />
-                  <span className="font-mono text-slate-500 truncate">{l.kind}</span>
+                  <span className="font-mono text-slate-500 dark:text-slate-400 truncate">{l.kind}</span>
                 </div>
                 <div className="flex-1 flex items-center gap-2">
-                  <div className="h-4 rounded bg-slate-100 overflow-hidden flex-1">
+                  <div className="h-4 rounded bg-slate-100 dark:bg-slate-700 overflow-hidden flex-1">
                     <div
                       className={`h-full ${l.sharedWith.length ? "bg-sky-400" : "bg-blue-500"}`}
                       style={{ width: `${Math.max((l.sizeMb / maxLayerMb) * 100, 2)}%` }}
                     />
                   </div>
-                  <span className="font-mono text-slate-600 w-16 text-right">{fmtGb(l.sizeMb)}</span>
+                  <span className="font-mono text-slate-600 dark:text-slate-300 w-16 text-right">{fmtGb(l.sizeMb)}</span>
                   {l.sharedWith.length > 0 ? (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-50 text-sky-600 whitespace-nowrap">
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 whitespace-nowrap">
                       shared w/ {l.sharedWith.join(", ")}
                     </span>
                   ) : (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-50 text-blue-600 whitespace-nowrap">
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 whitespace-nowrap">
                       unique
                     </span>
                   )}
@@ -1247,7 +1247,7 @@ rules:
             ))}
           </div>
 
-          <p className="mt-3 text-[10px] text-slate-400 leading-relaxed">
+          <p className="mt-3 text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed">
             {layerModel.image.note} Even a tiny app ships the full base — check apk/apt layers &amp; multi-stage=1.
           </p>
         </div>

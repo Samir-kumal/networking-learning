@@ -53,36 +53,36 @@ const SEVERITY_META: Record<
   { chip: string; label: string; dot: string; bar: string; weight: number }
 > = {
   CRITICAL: {
-    chip: "bg-rose-50 border-rose-300 text-rose-700",
-    label: "text-rose-600",
+    chip: "bg-rose-50 dark:bg-rose-900/30 border-rose-300 dark:border-rose-600 text-rose-700 dark:text-rose-300",
+    label: "text-rose-600 dark:text-rose-400",
     dot: "bg-rose-500",
     bar: "bg-rose-500",
     weight: 10,
   },
   HIGH: {
-    chip: "bg-orange-50 border-orange-300 text-orange-700",
-    label: "text-orange-500",
+    chip: "bg-orange-50 dark:bg-orange-900/30 border-orange-300 dark:border-orange-600 text-orange-700 dark:text-orange-300",
+    label: "text-orange-500 dark:text-orange-400",
     dot: "bg-orange-500",
     bar: "bg-orange-500",
     weight: 5,
   },
   MEDIUM: {
-    chip: "bg-amber-50 border-amber-300 text-amber-700",
-    label: "text-amber-500",
+    chip: "bg-amber-50 dark:bg-amber-900/30 border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300",
+    label: "text-amber-500 dark:text-amber-400",
     dot: "bg-amber-500",
     bar: "bg-amber-400",
     weight: 2,
   },
   LOW: {
-    chip: "bg-sky-50 border-sky-300 text-sky-700",
-    label: "text-sky-500",
+    chip: "bg-sky-50 dark:bg-sky-900/30 border-sky-300 dark:border-sky-600 text-sky-700 dark:text-sky-300",
+    label: "text-sky-500 dark:text-sky-400",
     dot: "bg-sky-500",
     bar: "bg-sky-400",
     weight: 0.5,
   },
   UNKNOWN: {
-    chip: "bg-slate-50 border-slate-300 text-slate-600",
-    label: "text-slate-500",
+    chip: "bg-slate-50 dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300",
+    label: "text-slate-500 dark:text-slate-400",
     dot: "bg-slate-400",
     bar: "bg-slate-300",
     weight: 0,
@@ -93,12 +93,12 @@ const GRADE_META: Record<
   Grade,
   { badge: string; text: string }
 > = {
-  "A+": { badge: "bg-emerald-50 border-emerald-300 text-emerald-700", text: "text-emerald-600" },
-  A: { badge: "bg-sky-50 border-sky-300 text-sky-700", text: "text-sky-500" },
-  B: { badge: "bg-amber-50 border-amber-300 text-amber-700", text: "text-amber-500" },
-  C: { badge: "bg-orange-50 border-orange-300 text-orange-700", text: "text-orange-500" },
-  D: { badge: "bg-rose-50 border-rose-300 text-rose-700", text: "text-rose-500" },
-  F: { badge: "bg-red-50 border-red-300 text-red-700", text: "text-red-600" },
+  "A+": { badge: "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300", text: "text-emerald-600 dark:text-emerald-400" },
+  A: { badge: "bg-sky-50 dark:bg-sky-900/30 border-sky-300 dark:border-sky-600 text-sky-700 dark:text-sky-300", text: "text-sky-500 dark:text-sky-400" },
+  B: { badge: "bg-amber-50 dark:bg-amber-900/30 border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300", text: "text-amber-500 dark:text-amber-400" },
+  C: { badge: "bg-orange-50 dark:bg-orange-900/30 border-orange-300 dark:border-orange-600 text-orange-700 dark:text-orange-300", text: "text-orange-500 dark:text-orange-400" },
+  D: { badge: "bg-rose-50 dark:bg-rose-900/30 border-rose-300 dark:border-rose-600 text-rose-700 dark:text-rose-300", text: "text-rose-500 dark:text-rose-400" },
+  F: { badge: "bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-600 text-red-700 dark:text-red-300", text: "text-red-600 dark:text-red-400" },
 };
 
 // ==========================================
@@ -789,15 +789,15 @@ export default function DkSecurityScanSection() {
   return (
     <section id="dk-security-scan" className="scroll-mt-24 space-y-6">
       {/* ============ Section Header ============ */}
-      <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow flex flex-col sm:flex-row sm:items-center gap-3">
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow flex flex-col sm:flex-row sm:items-center gap-3">
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#38bdf8]/10 text-[#38bdf8] border border-[#38bdf8]/30 text-xs font-mono font-bold shrink-0">
           DOCKER · CONTAINER SECURITY
         </span>
         <div>
-          <h3 className="text-lg font-bold text-slate-900">
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
             Trivy Scanner Simulator — CVE Hunt Inside Your Image
           </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Pick an image, run a simulated{" "}
             <span className="text-[#38bdf8] font-semibold">trivy image</span> scan, and watch
             the vulnerability report build up: severity counts, per-package fixes, an SBOM
@@ -807,15 +807,15 @@ export default function DkSecurityScanSection() {
       </div>
 
       {/* ============ Scanner Console ============ */}
-      <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 border-b border-slate-200 pb-4">
+      <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
             <div className="text-xs font-mono text-[#38bdf8] uppercase tracking-wider mb-1">
               Scanner Console
             </div>
-            <h4 className="text-sm font-bold text-slate-900">Select an Image Target & Scan</h4>
+            <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Select an Image Target & Scan</h4>
           </div>
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-xs font-mono text-slate-600">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-600 dark:text-slate-300">
             <span className={`w-2 h-2 rounded-full ${scanPhase === "scanning" ? "bg-amber-400 animate-pulse" : scanPhase === "done" ? "bg-emerald-500" : "bg-slate-300"}`} />
             {scanPhase === "idle" ? "ready" : scanPhase === "scanning" ? "scanning…" : "complete"}
           </span>
@@ -833,18 +833,18 @@ export default function DkSecurityScanSection() {
                 className={`text-left rounded-xl border p-3 transition-colors ${
                   active
                     ? "border-[#38bdf8] bg-[#38bdf8]/5 ring-1 ring-[#38bdf8]/40"
-                    : "border-slate-200 bg-white hover:border-slate-300"
+                    : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300"
                 }`}
                 aria-pressed={active}
               >
                 <div className="flex items-center justify-between">
-                  <span className={`font-mono text-xs font-bold ${active ? "text-[#0ea5e9]" : "text-slate-700"}`}>
+                  <span className={`font-mono text-xs font-bold ${active ? "text-[#0ea5e9]" : "text-slate-700 dark:text-slate-200"}`}>
                     {img.name}
                   </span>
-                  <span className="font-mono text-[10px] text-slate-400">:{img.tag}</span>
+                  <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500">:{img.tag}</span>
                 </div>
-                <div className="text-[10px] text-slate-500 mt-1 font-mono">{img.baseImage}</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">Pkgs: {img.vulnerabilities.length} · {img.size}</div>
+                <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 font-mono">{img.baseImage}</div>
+                <div className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Pkgs: {img.vulnerabilities.length} · {img.size}</div>
               </button>
             );
           })}
@@ -857,14 +857,14 @@ export default function DkSecurityScanSection() {
             disabled={scanPhase === "scanning"}
             className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold font-mono transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
               scanPhase === "done"
-                ? "bg-emerald-50 text-emerald-700 border border-emerald-300 hover:bg-emerald-100"
+                ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-600 hover:bg-emerald-100"
                 : "bg-[#38bdf8] text-white hover:bg-[#0ea5e9] border border-[#38bdf8]"
             }`}
           >
             {scanPhase === "done" ? "↻ Re-scan Image" : scanPhase === "scanning" ? "Scanning…" : "▶ Run Trivy Scan"}
           </button>
           {scanPhase === "done" && (
-            <span className="text-[11px] font-mono text-slate-500">
+            <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
               scan finished in {SCAN_STEPS.length * 0.6}s · 412 package entries checked
             </span>
           )}
@@ -872,28 +872,28 @@ export default function DkSecurityScanSection() {
 
         {/* Console output */}
         <div className="rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] leading-5 p-4 min-h-[120px]">
-          <div className="text-slate-500 mb-2">$ trivy image --format table --severity CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN {image.name}:{image.tag}</div>
+          <div className="text-slate-500 dark:text-slate-400 mb-2">$ trivy image --format table --severity CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN {image.name}:{image.tag}</div>
           {scanLog.map((line, i) => (
             <div key={i} className="text-sky-300">
-              <span className="text-slate-600">{String(i + 1).padStart(2, "0")} </span>
+              <span className="text-slate-600 dark:text-slate-300">{String(i + 1).padStart(2, "0")} </span>
               {line}
             </div>
           ))}
           {scanPhase === "scanning" && (
-            <div className="flex items-center gap-2 text-slate-400">
+            <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500">
               scanning <span className="inline-block w-1.5 h-3.5 bg-sky-400 animate-pulse" />
             </div>
           )}
-          {scanPhase === "idle" && <div className="text-slate-600">awaiting target…</div>}
+          {scanPhase === "idle" && <div className="text-slate-600 dark:text-slate-300">awaiting target…</div>}
           {scanPhase === "done" && (
-            <div className="text-emerald-400">
+            <div className="text-emerald-400 dark:text-emerald-300">
               ✓ 412 packages scanned · {results.total} vulnerabilities found
               {fixesApplied ? ` · ${fixedUpgradeCount} remediated` : ""}
             </div>
           )}
         </div>
         {scanPhase === "scanning" && (
-          <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+          <div className="h-1.5 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
             <div
               className="h-full bg-[#38bdf8] transition-all duration-500"
               style={{ width: `${progressPct}%` }}
@@ -906,13 +906,13 @@ export default function DkSecurityScanSection() {
       {scanPhase === "done" && (
         <>
           {/* Severity summary */}
-          <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow space-y-5">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
+          <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-700 pb-4">
               <div>
                 <div className="text-xs font-mono text-[#38bdf8] uppercase tracking-wider mb-1">
                   Scan Findings
                 </div>
-                <h4 className="text-sm font-bold text-slate-900">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
                   Vulnerabilities by severity — {image.name}:{image.tag}
                 </h4>
               </div>
@@ -943,28 +943,28 @@ export default function DkSecurityScanSection() {
                   <span className={`w-16 shrink-0 font-mono text-[10px] font-bold tracking-wider ${SEVERITY_META[sev].label}`}>
                     {sev}
                   </span>
-                  <div className="flex-1 h-2 rounded-full bg-slate-100 overflow-hidden">
+                  <div className="flex-1 h-2 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
                     <div
                       className={`h-full ${SEVERITY_META[sev].bar}`}
                       style={{ width: `${(results.counts[sev] / maxCount) * 100}%` }}
                     />
                   </div>
-                  <span className="w-8 text-right font-mono text-xs text-slate-600">{results.counts[sev]}</span>
+                  <span className="w-8 text-right font-mono text-xs text-slate-600 dark:text-slate-300">{results.counts[sev]}</span>
                 </div>
               ))}
             </div>
 
-            <div className="flex flex-wrap gap-2 text-[11px] font-mono text-slate-600 pt-2 border-t border-slate-100">
-              <span className="px-2 py-1 rounded-md bg-slate-50 border border-slate-200">score {results.score.toFixed(1)}</span>
-              <span className="px-2 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700">fixable {results.fixable}</span>
-              <span className="px-2 py-1 rounded-md bg-rose-50 border border-rose-200 text-rose-600">no upstream fix {results.total - results.fixable}</span>
+            <div className="flex flex-wrap gap-2 text-[11px] font-mono text-slate-600 dark:text-slate-300 pt-2 border-t border-slate-100 dark:border-slate-700">
+              <span className="px-2 py-1 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">score {results.score.toFixed(1)}</span>
+              <span className="px-2 py-1 rounded-md bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300">fixable {results.fixable}</span>
+              <span className="px-2 py-1 rounded-md bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-700 text-rose-600 dark:text-rose-400">no upstream fix {results.total - results.fixable}</span>
             </div>
 
             {/* Apply fixes toggle */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 rounded-xl border border-[#38bdf8]/30 bg-[#38bdf8]/5 p-4">
               <div className="flex-1">
-                <div className="text-xs font-bold text-slate-800">Apply recommended fixes (simulation)</div>
-                <div className="text-[11px] text-slate-500 font-mono mt-0.5">
+                <div className="text-xs font-bold text-slate-800 dark:text-slate-200">Apply recommended fixes (simulation)</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 font-mono mt-0.5">
                   Remediates every finding with an upstream fixed version — then re-runs the scan in-sim.
                 </div>
               </div>
@@ -972,21 +972,21 @@ export default function DkSecurityScanSection() {
                 type="button"
                 onClick={() => setFixesApplied((v) => !v)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  fixesApplied ? "bg-[#38bdf8]" : "bg-slate-200"
+                  fixesApplied ? "bg-[#38bdf8]" : "bg-slate-200 dark:bg-slate-600"
                 }`}
                 role="switch"
                 aria-checked={fixesApplied}
                 aria-label="Apply fixable vulnerability updates"
               >
                 <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-slate-800 shadow transition-transform ${
                     fixesApplied ? "translate-x-6" : "translate-x-1"
                   }`}
                 />
               </button>
             </div>
             {fixesApplied && (
-              <div className="text-[11px] font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
+              <div className="text-[11px] font-mono text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 rounded-lg px-3 py-2">
                 ✓ {fixedUpgradeCount} vulnerability(ies) remediated via pinned fixed versions — remaining {results.total} require base-image rebuild or upstream patches.
               </div>
             )}
@@ -995,7 +995,7 @@ export default function DkSecurityScanSection() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-200 text-[10px] font-mono uppercase tracking-wider text-slate-500">
+                  <tr className="border-b border-slate-200 dark:border-slate-700 text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     <th className="py-2 pr-3">CVE</th>
                     <th className="py-2 pr-3">Package</th>
                     <th className="py-2 pr-3">Installed</th>
@@ -1009,11 +1009,11 @@ export default function DkSecurityScanSection() {
 {results.sorted.map((v) => {
                     const rowPkg = `${v.pkgName}${v.pkgType !== "deb" && v.pkgType !== "apk" ? ` (${v.pkgType})` : ""}`;
                     return (
-                      <tr key={v.id} className="border-b border-slate-100 align-top">
-                        <td className="py-2 pr-3 font-mono text-slate-700 whitespace-nowrap">{v.id}</td>
-                        <td className="py-2 pr-3 font-mono text-slate-800 whitespace-nowrap">{rowPkg}</td>
-                        <td className="py-2 pr-3 font-mono text-slate-500 whitespace-nowrap">{v.installedVersion}</td>
-                        <td className="py-2 pr-3 font-mono text-emerald-700 whitespace-nowrap">{v.fixedVersion ?? "—"}</td>
+                      <tr key={v.id} className="border-b border-slate-100 dark:border-slate-700 align-top">
+                        <td className="py-2 pr-3 font-mono text-slate-700 dark:text-slate-200 whitespace-nowrap">{v.id}</td>
+                        <td className="py-2 pr-3 font-mono text-slate-800 dark:text-slate-200 whitespace-nowrap">{rowPkg}</td>
+                        <td className="py-2 pr-3 font-mono text-slate-500 dark:text-slate-400 whitespace-nowrap">{v.installedVersion}</td>
+                        <td className="py-2 pr-3 font-mono text-emerald-700 dark:text-emerald-300 whitespace-nowrap">{v.fixedVersion ?? "—"}</td>
                         <td className="py-2 pr-3">
                           <span className={`inline-block px-2 py-0.5 rounded-full border font-mono text-[10px] font-bold ${SEVERITY_META[v.severity].chip}`}>
                             {v.severity}
@@ -1021,12 +1021,12 @@ export default function DkSecurityScanSection() {
                         </td>
                         <td className="py-2 pr-3">
                           <span className={`inline-block px-2 py-0.5 rounded-full font-mono text-[10px] ${
-                            v.status === "fix-available" ? "bg-emerald-50 text-emerald-700 border border-emerald-300" : "bg-rose-50 text-rose-600 border border-rose-300"
+                            v.status === "fix-available" ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-600" : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-300 dark:border-rose-600"
                           }`}>
                             {v.status === "fix-available" ? "fix available" : "no fix"}
                           </span>
                         </td>
-                        <td className="py-2 text-slate-600 max-w-[280px]">
+                        <td className="py-2 text-slate-600 dark:text-slate-300 max-w-[280px]">
                           {v.title}
                           <div className="font-mono text-[10px] text-[#0ea5e9] mt-1 break-all">{v.fixCommand}</div>
                         </td>
@@ -1039,22 +1039,22 @@ export default function DkSecurityScanSection() {
           </div>
 
           {/* ============ Fix Recommendations ============ */}
-          <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow space-y-4">
-            <div className="border-b border-slate-200 pb-4">
+          <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow space-y-4">
+            <div className="border-b border-slate-200 dark:border-slate-700 pb-4">
               <div className="text-xs font-mono text-[#38bdf8] uppercase tracking-wider mb-1">
                 Remediation Plan
               </div>
-              <h4 className="text-sm font-bold text-slate-900">Fix Recommendations (deduplicated per package)</h4>
+              <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Fix Recommendations (deduplicated per package)</h4>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {fixCommands.map(({ vuln, command }) => (
                 <div key={vuln.id} className={`rounded-xl border p-3 ${SEVERITY_META[vuln.severity].chip}`}>
                   <div className="flex items-center justify-between gap-2">
-                    <span className="font-mono text-[11px] font-bold text-slate-800">{command}</span>
+                    <span className="font-mono text-[11px] font-bold text-slate-800 dark:text-slate-200">{command}</span>
                     <span className="shrink-0 text-[10px] font-mono font-bold">{vuln.severity}</span>
                   </div>
-                  <div className="mt-1.5 text-[11px] text-slate-600 font-mono">
+                  <div className="mt-1.5 text-[11px] text-slate-600 dark:text-slate-300 font-mono">
                     {vuln.id} · {vuln.pkgName} {vuln.installedVersion}
                     {vuln.fixedVersion ? ` → ${vuln.fixedVersion}` : " (no upstream fix)"}
                   </div>
@@ -1062,18 +1062,18 @@ export default function DkSecurityScanSection() {
               ))}
             </div>
 
-            <div className="pt-2 border-t border-slate-100">
+            <div className="pt-2 border-t border-slate-100 dark:border-slate-700">
               <div className="text-xs font-mono text-[#38bdf8] uppercase tracking-wider mb-3">
                 Hardening Checklist
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {HARDENING_CHECKS.map((h) => (
-                  <div key={h.title} className="rounded-xl border border-slate-200 bg-slate-50/60 p-3">
+                  <div key={h.title} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/60 p-3">
                     <div className="flex items-start gap-2">
                       <span className="mt-0.5 text-[#38bdf8]">✓</span>
                       <div>
-                        <div className="text-xs font-bold text-slate-800">{h.title}</div>
-                        <div className="text-[11px] text-slate-500 mt-1">{h.detail}</div>
+                        <div className="text-xs font-bold text-slate-800 dark:text-slate-200">{h.title}</div>
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">{h.detail}</div>
                       </div>
                     </div>
                   </div>
@@ -1083,13 +1083,13 @@ export default function DkSecurityScanSection() {
           </div>
 
           {/* ============ SBOM ============ */}
-          <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
+          <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-4">
               <div>
                 <div className="text-xs font-mono text-[#38bdf8] uppercase tracking-wider mb-1">
                   Software Bill of Materials
                 </div>
-                <h4 className="text-sm font-bold text-slate-900">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
                   SBOM Preview — {image.name}:{image.tag}
                 </h4>
               </div>
@@ -1104,18 +1104,18 @@ export default function DkSecurityScanSection() {
 
             {sbomVisible && (
               <>
-                <div className="flex flex-wrap gap-2 text-[11px] font-mono text-slate-600">
-                  <span className="px-2 py-1 rounded-md bg-slate-50 border border-slate-200">{image.sbom.length} components</span>
+                <div className="flex flex-wrap gap-2 text-[11px] font-mono text-slate-600 dark:text-slate-300">
+                  <span className="px-2 py-1 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">{image.sbom.length} components</span>
                   {licenseSummary.map(([license, n]) => (
-                    <span key={license} className="px-2 py-1 rounded-md bg-slate-50 border border-slate-200">
+                    <span key={license} className="px-2 py-1 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
                       {license} × {n}
                     </span>
                   ))}
                 </div>
 
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-slate-500">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400">
                       trivy sbom --format cyclonedx --output bom.json
                     </span>
                     <button
@@ -1127,12 +1127,12 @@ export default function DkSecurityScanSection() {
                       {copied === "sbom" ? "✓ copied" : "copy"}
                     </button>
                   </div>
-                  <pre className="text-[10px] font-mono leading-4 text-slate-700 max-h-[280px] overflow-auto whitespace-pre">
+                  <pre className="text-[10px] font-mono leading-4 text-slate-700 dark:text-slate-200 max-h-[280px] overflow-auto whitespace-pre">
                     {sbomJson}
                   </pre>
                 </div>
 
-                <div className="flex flex-wrap gap-2 text-[11px] font-mono text-slate-600">
+                <div className="flex flex-wrap gap-2 text-[11px] font-mono text-slate-600 dark:text-slate-300">
                   <span className="w-full md:w-auto">licenses found: {licenseSummary.length} · device: container</span>
                 </div>
               </>
@@ -1140,12 +1140,12 @@ export default function DkSecurityScanSection() {
           </div>
 
           {/* ============ Export ============ */}
-          <div className="rounded-2xl bg-white border border-slate-200 p-6 card-shadow space-y-4">
-            <div className="border-b border-slate-200 pb-4">
+          <div className="rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow space-y-4">
+            <div className="border-b border-slate-200 dark:border-slate-700 pb-4">
               <div className="text-xs font-mono text-[#38bdf8] uppercase tracking-wider mb-1">
                 Result Export
               </div>
-              <h4 className="text-sm font-bold text-slate-900">Download & Share the Scan Report</h4>
+              <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Download & Share the Scan Report</h4>
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -1159,14 +1159,14 @@ export default function DkSecurityScanSection() {
               <button
                 type="button"
                 onClick={() => copyText(markdownSummary, "report")}
-                className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold font-mono border border-slate-200 text-slate-600 hover:border-slate-300 transition-colors"
+                className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold font-mono border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 transition-colors"
               >
                 {copied === "report" ? "✓ copied to clipboard" : "copy markdown summary"}
               </button>
             </div>
 
             {exported && (
-              <div className="text-[11px] font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
+              <div className="text-[11px] font-mono text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 rounded-lg px-3 py-2">
                 ✓ Report downloaded — artifact {image.name}:{image.tag} · {exportPayload.sizeKb} KB
               </div>
             )}
@@ -1175,7 +1175,7 @@ export default function DkSecurityScanSection() {
               <summary className="cursor-pointer text-xs font-mono text-[#0ea5e9] hover:text-[#0284c7] select-none">
                 peek at exported payload (truncated preview)
               </summary>
-              <pre className="mt-2 rounded-xl border border-slate-200 bg-slate-950 text-[10px] font-mono leading-4 text-sky-200/80 p-4 max-h-[280px] overflow-auto whitespace-pre">
+              <pre className="mt-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-950 text-[10px] font-mono leading-4 text-sky-200/80 p-4 max-h-[280px] overflow-auto whitespace-pre">
                 {exportPayload.payloadText.length > 2600
                   ? exportPayload.payloadText.slice(0, 2600) + "\n… (truncated)"
                   : exportPayload.payloadText}

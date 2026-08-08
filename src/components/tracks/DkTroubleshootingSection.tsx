@@ -38,7 +38,7 @@ const PHASE_DETAILS: Record<PodPhase, PhaseDetail> = {
     ],
     kubectl: "kubectl describe pod <name> | grep -A 20 Events",
     tip: "Pending + zero scheduled reason in Events almost always means a scheduling problem, not an application problem.",
-    check: "bg-sky-50 border-sky-300 text-sky-700",
+    check: "bg-sky-50 dark:bg-sky-900/30 border-sky-300 dark:border-sky-600 text-sky-700 dark:text-sky-300",
   },
   ContainerCreating: {
     icon: "📦",
@@ -57,7 +57,7 @@ const PHASE_DETAILS: Record<PodPhase, PhaseDetail> = {
     ],
     kubectl: "kubectl describe pod <pod> && kubectl get events --sort-by=.lastTimestamp",
     tip: "Stuck in ContainerCreating >60s: check image pull secrets, PVC status, and CNI plugin health on the node.",
-    check: "bg-sky-50 border-sky-300 text-sky-700",
+    check: "bg-sky-50 dark:bg-sky-900/30 border-sky-300 dark:border-sky-600 text-sky-700 dark:text-sky-300",
   },
   Running: {
     icon: "🟢",
@@ -76,7 +76,7 @@ const PHASE_DETAILS: Record<PodPhase, PhaseDetail> = {
     ],
     kubectl: "kubectl get pod <pod> -o wide",
     tip: "Running + mismatched ready count (e.g. 0/1) means the container runs but probes fail — check readiness probes and Service endpoints.",
-    check: "bg-emerald-50 border-emerald-300 text-emerald-700",
+    check: "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300",
   },
   Succeeded: {
     icon: "✅",
@@ -93,7 +93,7 @@ const PHASE_DETAILS: Record<PodPhase, PhaseDetail> = {
     ],
     kubectl: "kubectl logs <pod> --previous && kubectl get job <job>",
     tip: "For Deployments, a Succeeded Pod means your main process exited — containers should stay resident (foreground process, not a script that returns).",
-    check: "bg-emerald-50 border-emerald-300 text-emerald-700",
+    check: "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300",
   },
   Failed: {
     icon: "❌",
@@ -112,7 +112,7 @@ const PHASE_DETAILS: Record<PodPhase, PhaseDetail> = {
     ],
     kubectl: "kubectl get pod <pod> -o json | jq '.status.containerStatuses[0].state.terminated'",
     tip: "Failed is a terminal verdict — capture the exit code and reason before the controller replaces the pod and you lose the logs.",
-    check: "bg-rose-50 border-rose-300 text-rose-700",
+    check: "bg-rose-50 dark:bg-rose-900/30 border-rose-300 dark:border-rose-600 text-rose-700 dark:text-rose-300",
   },
   Unknown: {
     icon: "❓",
@@ -131,7 +131,7 @@ const PHASE_DETAILS: Record<PodPhase, PhaseDetail> = {
     ],
     kubectl: "kubectl get nodes && kubectl describe node <node> | tail -20",
     tip: "When a node disappears, pods go Unknown before the controller force-deletes and reschedules them — fix the node first.",
-    check: "bg-amber-50 border-amber-300 text-amber-700",
+    check: "bg-amber-50 dark:bg-amber-900/30 border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300",
   },
 };
 
@@ -497,19 +497,19 @@ const PROBE_KIND_INFO: Record<ProbeKind, { label: string; icon: string; desc: st
     label: "Liveness",
     icon: "❤️",
     desc: "Restarts the container when the probe fails. Used for self-healing a deadlocked app — never for deep dependencies (DB, cache), or you get cascading restarts.",
-    color: "text-rose-600 bg-rose-50 border-rose-200",
+    color: "text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/30 border-rose-200 dark:border-rose-700",
   },
   readiness: {
     label: "Readiness",
     icon: "🟢",
     desc: "Cuts the Service endpoint when the probe fails — the pod stays alive but stops receiving traffic. The right tool for slow boot and dependency health.",
-    color: "text-sky-600 bg-sky-50 border-sky-200",
+    color: "text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/30 border-sky-200 dark:border-sky-700",
   },
   startup: {
     label: "Startup",
     icon: "🚀",
     desc: "Runs during slow boot so liveness doesn't kill the pod mid-initialization. On success, kubelet hands over to liveness/readiness.",
-    color: "text-cyan-600 bg-cyan-50 border-cyan-200",
+    color: "text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-900/30 border-cyan-200 dark:border-cyan-700",
   },
 };
 
@@ -528,7 +528,7 @@ const MAX_ATTEMPTS = 12;
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">{label}</span>
+      <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider block mb-1">{label}</span>
       {children}
     </label>
   );
@@ -544,8 +544,8 @@ function ToggleRow({
   onChange: (v: boolean) => void;
 }) {
   return (
-    <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200">
-      <div className="text-xs font-bold text-slate-900">{label}</div>
+    <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+      <div className="text-xs font-bold text-slate-900 dark:text-slate-100">{label}</div>
       <button
         onClick={() => onChange(!checked)}
         className={`w-11 h-6 rounded-full transition-colors relative p-1 ${
@@ -554,7 +554,7 @@ function ToggleRow({
         aria-label={label}
       >
         <span
-          className={`block w-4 h-4 rounded-full bg-white transition-transform ${
+          className={`block w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${
             checked ? "translate-x-5" : "translate-x-0"
           }`}
         />
@@ -579,10 +579,10 @@ function SliderField({
   unit: string;
 }) {
   return (
-    <label className="block p-3 rounded-xl bg-white border border-slate-200">
+    <label className="block p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">{label}</span>
-        <span className="text-xs font-mono text-sky-700 font-bold">
+        <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">{label}</span>
+        <span className="text-xs font-mono text-sky-700 dark:text-sky-300 font-bold">
           {value}{unit}
         </span>
       </div>
@@ -604,34 +604,34 @@ function DetailPanel({ detail, phase }: { detail: PhaseDetail; phase: PodPhase }
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="text-2xl">{detail.icon}</span>
-          <h3 className="text-base font-extrabold text-slate-900">{phase}</h3>
+          <h3 className="text-base font-extrabold text-slate-900 dark:text-slate-100">{phase}</h3>
         </div>
         <span className={`px-2 py-0.5 rounded-md border text-[10px] font-mono ${detail.check}`}>
           {detail.status}
         </span>
       </div>
-      <p className="text-sm text-slate-600 leading-relaxed">{detail.meaning}</p>
+      <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{detail.meaning}</p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-          <div className="text-[10px] font-mono text-sky-600 uppercase tracking-wider mb-1.5">
+        <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+          <div className="text-[10px] font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1.5">
             How you get here
           </div>
           <ul className="space-y-1">
             {detail.entrySignals.map((s, i) => (
-              <li key={i} className="text-[11px] text-slate-600 flex gap-1.5">
-                <span className="text-sky-400 shrink-0">▸</span>
+              <li key={i} className="text-[11px] text-slate-600 dark:text-slate-300 flex gap-1.5">
+                <span className="text-sky-400 dark:text-sky-300 shrink-0">▸</span>
                 {s}
               </li>
             ))}
           </ul>
         </div>
-        <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-          <div className="text-[10px] font-mono text-sky-600 uppercase tracking-wider mb-1.5">
+        <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+          <div className="text-[10px] font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1.5">
             Output signals
           </div>
           <ul className="space-y-1">
             {detail.outputSignals.map((s, i) => (
-              <li key={i} className="text-[11px] text-slate-600 font-mono leading-snug break-words">
+              <li key={i} className="text-[11px] text-slate-600 dark:text-slate-300 font-mono leading-snug break-words">
                 {s}
               </li>
             ))}
@@ -639,10 +639,10 @@ function DetailPanel({ detail, phase }: { detail: PhaseDetail; phase: PodPhase }
         </div>
       </div>
       <div className="rounded-lg bg-slate-900 text-sky-200 font-mono text-xs p-3 overflow-x-auto">
-        <div className="text-slate-500 mb-1">$</div>
+        <div className="text-slate-500 dark:text-slate-400 mb-1">$</div>
         <pre className="whitespace-pre-wrap">{detail.kubectl}</pre>
       </div>
-      <div className="p-3 rounded-lg bg-sky-50 border border-sky-200 text-[11px] text-sky-800 leading-relaxed">
+      <div className="p-3 rounded-lg bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 text-[11px] text-sky-800 dark:text-sky-200 leading-relaxed">
         <span className="font-bold">Tip: </span>
         {detail.tip}
       </div>
@@ -750,7 +750,7 @@ export default function DkTroubleshootingSection() {
         detail: endpointHealthy
           ? "Readiness probe passing; Service endpoints include this pod."
           : "Readiness failing after threshold; pod removed from Service endpoints but stays running.",
-        tone: endpointHealthy ? "text-emerald-600 bg-emerald-50 border-emerald-200" : "text-amber-600 bg-amber-50 border-amber-200",
+        tone: endpointHealthy ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700" : "text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 border-amber-200 dark:border-amber-700",
       };
     }
     return {
@@ -758,7 +758,7 @@ export default function DkTroubleshootingSection() {
       detail: endpointHealthy
         ? "Liveness probe passing; kubelet leaves the container alone."
         : "Liveness failureThreshold consecutive failures — kubelet kills and restarts the container.",
-      tone: endpointHealthy ? "text-emerald-600 bg-emerald-50 border-emerald-200" : "text-rose-600 bg-rose-50 border-rose-200",
+      tone: endpointHealthy ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700" : "text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/30 border-rose-200 dark:border-rose-700",
     };
   }, [probeKind, endpointHealthy]);
 
@@ -814,17 +814,17 @@ export default function DkTroubleshootingSection() {
       {/* ========================================================================= */}
       {/* MODULE 1: Pod Lifecycle State Machine */}
       {/* ========================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
               Module 1 • Lifecycle &amp; States
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               Pod Lifecycle State Machine Simulator
             </h2>
           </div>
-          <span className="text-xs font-mono text-slate-500">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
             Pick a scenario → watch the phase graph light up
           </span>
         </div>
@@ -838,7 +838,7 @@ export default function DkTroubleshootingSection() {
               className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
                 selectedScenario === sc.id
                   ? "bg-sky-600 text-white border-sky-600 shadow-sm"
-                  : "bg-sky-50 text-sky-700 border-sky-200 hover:border-sky-400"
+                  : "bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-700 hover:border-sky-400"
               }`}
             >
               {sc.label}
@@ -847,12 +847,12 @@ export default function DkTroubleshootingSection() {
         </div>
 
         {/* State flow diagram */}
-        <div className="p-5 rounded-xl bg-slate-50 border border-slate-200">
+        <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Phase Transition Graph
             </span>
-            <span className="text-[10px] font-mono text-sky-600">click a phase for details</span>
+            <span className="text-[10px] font-mono text-sky-600 dark:text-sky-400">click a phase for details</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
@@ -864,8 +864,8 @@ export default function DkTroubleshootingSection() {
                     highlightedPhase === phase
                       ? "bg-sky-600 text-white border-sky-600 shadow-md"
                       : scenarioStates.has(phase)
-                        ? "bg-white border-sky-300 text-sky-700 ring-1 ring-sky-200"
-                        : "bg-white border-slate-300 text-slate-400"
+                        ? "bg-white dark:bg-slate-800 border-sky-300 dark:border-sky-600 text-sky-700 dark:text-sky-300 ring-1 ring-sky-200"
+                        : "bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 text-slate-400 dark:text-slate-500"
                   }`}
                 >
                   <span className="mr-1.5">{PHASE_DETAILS[phase].icon}</span>
@@ -875,8 +875,8 @@ export default function DkTroubleshootingSection() {
                   <span
                     className={
                       scenarioStates.has(phase) && scenarioStates.has(arr[i + 1])
-                        ? "text-sky-500"
-                        : "text-slate-300"
+                        ? "text-sky-500 dark:text-sky-400"
+                        : "text-slate-300 dark:text-slate-400"
                     }
                   >
                     →
@@ -888,7 +888,7 @@ export default function DkTroubleshootingSection() {
 
           {/* Branch states */}
           <div className="mt-3 flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-mono text-slate-400 uppercase">Branches:</span>
+            <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase">Branches:</span>
             {(["Failed", "Unknown"] as PodPhase[]).map((phase) => (
               <button
                 key={phase}
@@ -897,8 +897,8 @@ export default function DkTroubleshootingSection() {
                   highlightedPhase === phase
                     ? "bg-sky-600 text-white border-sky-600"
                     : scenarioStates.has(phase)
-                      ? "bg-white border-rose-300 text-rose-700"
-                      : "bg-white border-slate-300 text-slate-400"
+                      ? "bg-white dark:bg-slate-800 border-rose-300 dark:border-rose-600 text-rose-700 dark:text-rose-300"
+                      : "bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 text-slate-400 dark:text-slate-500"
                 }`}
               >
                 {PHASE_DETAILS[phase].icon} {phase}
@@ -910,24 +910,24 @@ export default function DkTroubleshootingSection() {
         {/* Scene + detail panel */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Scenario explanation */}
-          <div className="p-5 rounded-xl bg-white border border-sky-200 card-shadow space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-              <span className="text-xs font-mono text-sky-600 uppercase tracking-wider">Driving sequence</span>
-              <span className="text-[10px] font-mono text-slate-400">{activeScenario.id}</span>
+          <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 card-shadow space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
+              <span className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider">Driving sequence</span>
+              <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">{activeScenario.id}</span>
             </div>
-            <p className="text-sm text-slate-600 leading-relaxed">{activeScenario.drive}</p>
+            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{activeScenario.drive}</p>
             <div className="flex flex-wrap gap-1.5">
               {activeScenario.path.map((p) => (
                 <span
                   key={p}
-                  className="px-2 py-0.5 rounded-md bg-sky-50 border border-sky-200 text-sky-700 text-[10px] font-mono"
+                  className="px-2 py-0.5 rounded-md bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 text-sky-700 dark:text-sky-300 text-[10px] font-mono"
                 >
                   {p}
                 </span>
               ))}
             </div>
             <div className="rounded-lg bg-slate-900 text-sky-200 font-mono text-xs p-3 overflow-x-auto">
-              <div className="text-slate-500 mb-1">$ kubectl get pod</div>
+              <div className="text-slate-500 dark:text-slate-400 mb-1">$ kubectl get pod</div>
               <pre className="whitespace-pre">{activeScenario.payload}</pre>
             </div>
           </div>
@@ -939,7 +939,7 @@ export default function DkTroubleshootingSection() {
             ) : (
               <div className="flex flex-col items-center justify-center text-center gap-2 h-full py-10">
                 <div className="text-3xl">🖱️</div>
-                <p className="text-sm text-slate-500 max-w-xs">
+                <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xs">
                   {activeScenario.path.length > 1
                     ? `This scenario passes through ${activeScenario.path.join(" → ")}. Click any phase to inspect its meaning, output signals, and the exact kubectl probe.`
                     : `This scenario parks in ${activeScenario.path[0]}. Click the phase to see why and what to run.`}
@@ -953,17 +953,17 @@ export default function DkTroubleshootingSection() {
       {/* ========================================================================= */}
       {/* MODULE 2: Failure pattern library */}
       {/* ========================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
               Module 2 • Failure Patterns
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               Common Pod Failure Pattern Library
             </h2>
           </div>
-          <span className="text-xs font-mono text-slate-500">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
             The four states you will debug 95% of the time
           </span>
         </div>
@@ -980,12 +980,12 @@ export default function DkTroubleshootingSection() {
                 className={`text-left p-4 rounded-xl border transition-all ${
                   active
                     ? "bg-sky-600 border-sky-600 text-white shadow-lg shadow-sky-200"
-                    : "bg-white border-slate-200 hover:border-sky-300 hover:bg-sky-50/50"
+                    : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-sky-300 hover:bg-sky-50/50"
                 }`}
               >
                 <div className="text-xl mb-1.5">{pat.icon}</div>
-                <div className={`text-sm font-bold ${active ? "text-white" : "text-slate-900"}`}>{key}</div>
-                <div className={`text-[11px] mt-1 leading-snug ${active ? "text-sky-100" : "text-slate-500"}`}>
+                <div className={`text-sm font-bold ${active ? "text-white" : "text-slate-900 dark:text-slate-100"}`}>{key}</div>
+                <div className={`text-[11px] mt-1 leading-snug ${active ? "text-sky-100" : "text-slate-500 dark:text-slate-400"}`}>
                   {pat.tagline}
                 </div>
               </button>
@@ -999,35 +999,35 @@ export default function DkTroubleshootingSection() {
           return (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="space-y-4">
-                <div className="p-5 rounded-xl bg-white border border-sky-200 card-shadow">
-                  <div className="text-[11px] font-mono text-sky-600 uppercase tracking-wider mb-1.5">
+                <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 card-shadow">
+                  <div className="text-[11px] font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1.5">
                     Definition
                   </div>
-                  <p className="text-sm text-slate-700 leading-relaxed">{pat.definition}</p>
+                  <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{pat.definition}</p>
                 </div>
 
-                <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow">
-                  <div className="text-[11px] font-mono text-sky-600 uppercase tracking-wider mb-2">
+                <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                  <div className="text-[11px] font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-2">
                     Root causes
                   </div>
                   <ul className="space-y-2">
                     {pat.causes.map((c, i) => (
-                      <li key={i} className="flex gap-2 text-sm text-slate-600">
-                        <span className="text-sky-500 font-mono shrink-0">▸</span>
+                      <li key={i} className="flex gap-2 text-sm text-slate-600 dark:text-slate-300">
+                        <span className="text-sky-500 dark:text-sky-400 font-mono shrink-0">▸</span>
                         {c}
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow">
-                  <div className="text-[11px] font-mono text-sky-600 uppercase tracking-wider mb-2">
+                <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                  <div className="text-[11px] font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-2">
                     First-response fixes
                   </div>
                   <ol className="space-y-2 list-none">
                     {pat.fixes.map((f, i) => (
-                      <li key={i} className="flex gap-2 text-sm text-slate-600">
-                        <span className="w-5 h-5 rounded-full bg-sky-100 text-sky-700 text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                      <li key={i} className="flex gap-2 text-sm text-slate-600 dark:text-slate-300">
+                        <span className="w-5 h-5 rounded-full bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                           {i + 1}
                         </span>
                         {f}
@@ -1038,8 +1038,8 @@ export default function DkTroubleshootingSection() {
               </div>
 
               <div className="space-y-4">
-                <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow">
-                  <div className="text-[11px] font-mono text-sky-600 uppercase tracking-wider mb-2">
+                <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                  <div className="text-[11px] font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-2">
                     Detection commands
                   </div>
                   <div className="rounded-lg bg-slate-900 text-sky-200 font-mono text-xs p-3 overflow-x-auto whitespace-pre-wrap mb-4">
@@ -1047,20 +1047,20 @@ export default function DkTroubleshootingSection() {
                   </div>
                   <ul className="space-y-1.5">
                     {pat.detection.map((d, i) => (
-                      <li key={i} className="flex gap-2 text-xs text-slate-500">
-                        <span className="text-sky-400 font-mono shrink-0">✓</span>
+                      <li key={i} className="flex gap-2 text-xs text-slate-500 dark:text-slate-400">
+                        <span className="text-sky-400 dark:text-sky-300 font-mono shrink-0">✓</span>
                         {d}
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow">
+                <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[11px] font-mono text-sky-600 uppercase tracking-wider">
+                    <span className="text-[11px] font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider">
                       Witness it in a real terminal
                     </span>
-                    <span className="text-[10px] font-mono text-slate-400">simulated output</span>
+                    <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">simulated output</span>
                   </div>
                   <div className="rounded-lg bg-slate-950 text-emerald-300 font-mono text-xs p-3 overflow-x-auto whitespace-pre leading-relaxed h-64">
                     {pat.verificationLog}
@@ -1075,17 +1075,17 @@ export default function DkTroubleshootingSection() {
       {/* ========================================================================= */}
       {/* MODULE 3: kubectl command generator */}
       {/* ========================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
               Module 3 • Debug Arsenal
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               kubectl Debug Command Generator
             </h2>
           </div>
-          <span className="text-xs font-mono text-slate-500">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
             Compose exact commands, never fumble the flags
           </span>
         </div>
@@ -1093,7 +1093,7 @@ export default function DkTroubleshootingSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Category picker */}
           <div className="lg:col-span-4 space-y-3">
-            <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">
+            <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
               Command category
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -1104,7 +1104,7 @@ export default function DkTroubleshootingSection() {
                   className={`text-left px-3 py-2.5 rounded-xl border text-xs font-bold transition-all ${
                     cmdCategory === spec.key
                       ? "bg-sky-600 border-sky-600 text-white shadow-md"
-                      : "bg-white border-slate-200 text-slate-700 hover:border-sky-300"
+                      : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-sky-300"
                   }`}
                 >
                   <span className="mr-1.5">{spec.icon}</span>
@@ -1112,14 +1112,14 @@ export default function DkTroubleshootingSection() {
                 </button>
               ))}
             </div>
-            <div className="mt-3 p-3 rounded-xl bg-sky-50 border border-sky-200 text-[11px] text-sky-800 leading-relaxed">
+            <div className="mt-3 p-3 rounded-xl bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 text-[11px] text-sky-800 dark:text-sky-200 leading-relaxed">
               {COMMAND_SPECS.find((s) => s.key === cmdCategory)?.hint}
             </div>
           </div>
 
           {/* Options */}
           <div className="lg:col-span-4 space-y-3">
-            <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">
+            <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
               Parameters
             </label>
 
@@ -1128,28 +1128,28 @@ export default function DkTroubleshootingSection() {
                 <input
                   value={podName}
                   onChange={(e) => setPodName(e.target.value)}
-                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
                 />
               </Field>
               <Field label="Namespace">
                 <input
                   value={namespace}
                   onChange={(e) => setNamespace(e.target.value)}
-                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
                 />
               </Field>
               <Field label="Container">
                 <input
                   value={container}
                   onChange={(e) => setContainer(e.target.value)}
-                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
                 />
               </Field>
               <Field label="Local port (port-forward)">
                 <input
                   value={localPort}
                   onChange={(e) => setLocalPort(e.target.value)}
-                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
                 />
               </Field>
             </div>
@@ -1165,7 +1165,7 @@ export default function DkTroubleshootingSection() {
                 min={0}
                 value={tailLines}
                 onChange={(e) => setTailLines(Number(e.target.value))}
-                className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
               />
             </Field>
             <Field label="grep filter (optional)">
@@ -1173,7 +1173,7 @@ export default function DkTroubleshootingSection() {
                 value={grepFilter}
                 onChange={(e) => setGrepFilter(e.target.value)}
                 placeholder="error|panic|exception"
-                className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
               />
             </Field>
             {cmdCategory === "exec" && (
@@ -1181,7 +1181,7 @@ export default function DkTroubleshootingSection() {
                 <input
                   value={execArgs}
                   onChange={(e) => setExecArgs(e.target.value)}
-                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
                 />
               </Field>
             )}
@@ -1190,7 +1190,7 @@ export default function DkTroubleshootingSection() {
                 <input
                   value={debugImage}
                   onChange={(e) => setDebugImage(e.target.value)}
-                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
                 />
               </Field>
             )}
@@ -1204,7 +1204,7 @@ export default function DkTroubleshootingSection() {
                   <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                  <span className="ml-2 text-[10px] font-mono text-slate-400">ops-terminal — kubectl</span>
+                  <span className="ml-2 text-[10px] font-mono text-slate-400 dark:text-slate-500">ops-terminal — kubectl</span>
                 </div>
                 <button
                   onClick={copyCommand}
@@ -1214,7 +1214,7 @@ export default function DkTroubleshootingSection() {
                 </button>
               </div>
               <div className="p-4 font-mono text-xs text-sky-200 overflow-x-auto flex-1 leading-relaxed">
-                <div className="text-slate-500 mb-1">$</div>
+                <div className="text-slate-500 dark:text-slate-400 mb-1">$</div>
                 <pre className="whitespace-pre-wrap break-all text-sky-100">{generatedCommand}</pre>
               </div>
             </div>
@@ -1225,24 +1225,24 @@ export default function DkTroubleshootingSection() {
       {/* ========================================================================= */}
       {/* MODULE 4: Events viewer simulator */}
       {/* ========================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
               Module 4 • Signal Stream
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               kubectl get events — Live Viewer Simulator
             </h2>
           </div>
-          <span className="text-xs font-mono text-slate-500">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
             Replay what the Events stream looks like under real failure
           </span>
         </div>
 
         {/* Scenario buttons */}
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-mono text-slate-400 uppercase tracking-wider mr-1">Replay:</span>
+          <span className="text-xs font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mr-1">Replay:</span>
           {SCENARIO_FEEDS.map((feed) => (
             <button
               key={feed.id}
@@ -1250,7 +1250,7 @@ export default function DkTroubleshootingSection() {
               className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
                 eventsOrigin === feed.label
                   ? "bg-sky-600 text-white border-sky-600"
-                  : "bg-white text-slate-600 border-slate-200 hover:border-sky-300"
+                  : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-sky-300"
               }`}
             >
               {feed.label}
@@ -1262,7 +1262,7 @@ export default function DkTroubleshootingSection() {
                 setEvents([]);
                 setEventsOrigin(null);
               }}
-              className="px-3 py-1.5 rounded-lg text-xs font-mono border border-slate-200 text-slate-500 hover:text-rose-600 hover:border-rose-300"
+              className="px-3 py-1.5 rounded-lg text-xs font-mono border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-rose-600 hover:border-rose-300"
             >
               Clear
             </button>
@@ -1270,50 +1270,50 @@ export default function DkTroubleshootingSection() {
         </div>
 
         {/* Events table */}
-        <div className="rounded-xl border border-slate-200 overflow-hidden card-shadow">
-          <div className="grid grid-cols-12 gap-2 px-4 py-2.5 bg-sky-50 border-b border-sky-200 text-[10px] font-mono text-sky-700 uppercase tracking-wider">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden card-shadow">
+          <div className="grid grid-cols-12 gap-2 px-4 py-2.5 bg-sky-50 dark:bg-sky-900/30 border-b border-sky-200 dark:border-sky-700 text-[10px] font-mono text-sky-700 dark:text-sky-300 uppercase tracking-wider">
             <div className="col-span-2">Time</div>
             <div className="col-span-3">Object</div>
             <div className="col-span-2">Type / Reason</div>
             <div className="col-span-5">Message</div>
           </div>
           {events.length === 0 ? (
-            <div className="px-4 py-10 text-center text-sm text-slate-400 font-mono">
+            <div className="px-4 py-10 text-center text-sm text-slate-400 dark:text-slate-500 font-mono">
               $ kubectl get events --sort-by=.lastTimestamp
-              <div className="mt-2 text-xs text-slate-300">No events yet — replay a scenario above.</div>
+              <div className="mt-2 text-xs text-slate-300 dark:text-slate-400">No events yet — replay a scenario above.</div>
             </div>
           ) : (
             <div className="divide-y divide-slate-100">
               {events.map((ev) => (
                 <div key={ev.id} className="grid grid-cols-12 gap-2 px-4 py-2.5 hover:bg-sky-50/40 text-xs">
-                  <div className="col-span-2 font-mono text-slate-400">
+                  <div className="col-span-2 font-mono text-slate-400 dark:text-slate-500">
                     {ev.time}
-                    {ev.count > 1 && <span className="ml-1 text-amber-600 font-bold">×{ev.count}</span>}
+                    {ev.count > 1 && <span className="ml-1 text-amber-600 dark:text-amber-400 font-bold">×{ev.count}</span>}
                   </div>
-                  <div className="col-span-3 font-mono text-slate-700 break-all">
+                  <div className="col-span-3 font-mono text-slate-700 dark:text-slate-200 break-all">
                     {ev.object}
-                    <span className="ml-1 text-[10px] text-slate-400">{ev.namespace}</span>
+                    <span className="ml-1 text-[10px] text-slate-400 dark:text-slate-500">{ev.namespace}</span>
                   </div>
                   <div className="col-span-2">
                     <span
                       className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${
                         ev.kind === "Warning"
-                          ? "bg-rose-50 text-rose-600 border border-rose-200"
-                          : "bg-emerald-50 text-emerald-600 border border-emerald-200"
+                          ? "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700"
+                          : "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700"
                       }`}
                     >
                       {ev.kind}
                     </span>
-                    <div className="mt-0.5 font-mono text-slate-500">{ev.reason}</div>
+                    <div className="mt-0.5 font-mono text-slate-500 dark:text-slate-400">{ev.reason}</div>
                   </div>
-                  <div className="col-span-5 text-slate-600 leading-snug break-words">{ev.message}</div>
+                  <div className="col-span-5 text-slate-600 dark:text-slate-300 leading-snug break-words">{ev.message}</div>
                 </div>
               ))}
             </div>
           )}
         </div>
 
-        <div className="p-3 rounded-xl bg-sky-50 border border-sky-200 text-[11px] text-sky-800">
+        <div className="p-3 rounded-xl bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 text-[11px] text-sky-800 dark:text-sky-200">
           <span className="font-bold font-mono">SRE readout: </span>
           {eventsOrigin
             ? `The "${eventsOrigin}" drill produced ${events.length} events (${
@@ -1326,17 +1326,17 @@ export default function DkTroubleshootingSection() {
       {/* ========================================================================= */}
       {/* MODULE 5: Probe debugger */}
       {/* ========================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
               Module 5 • Probe Lab
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               Liveness / Readiness / Startup Probe Debugger
             </h2>
           </div>
-          <span className="text-xs font-mono text-slate-500">
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
             Tune thresholds → see the kubelet fire
           </span>
         </div>
@@ -1344,7 +1344,7 @@ export default function DkTroubleshootingSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Probe builder */}
           <div className="lg:col-span-5 space-y-3">
-            <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">
+            <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
               Probe configuration
             </label>
 
@@ -1356,7 +1356,7 @@ export default function DkTroubleshootingSection() {
                   className={`flex-1 px-3 py-2 rounded-lg border text-xs font-bold transition-all ${
                     probeKind === kind
                       ? "bg-sky-600 border-sky-600 text-white shadow-sm"
-                      : "bg-white border-slate-200 text-slate-600 hover:border-sky-300"
+                      : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-sky-300"
                   }`}
                 >
                   {PROBE_KIND_INFO[kind].icon} {PROBE_KIND_INFO[kind].label}
@@ -1374,7 +1374,7 @@ export default function DkTroubleshootingSection() {
               <select
                 value={probeMechanism}
                 onChange={(e) => setProbeMechanism(e.target.value as ProbeMechanism)}
-                className="px-3 py-2 col-span-2 text-xs font-mono rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                className="px-3 py-2 col-span-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
               >
                 <option value="httpGet">HTTP GET</option>
                 <option value="tcpSocket">TCP socket</option>
@@ -1386,14 +1386,14 @@ export default function DkTroubleshootingSection() {
                     <input
                       value={probePath}
                       onChange={(e) => setProbePath(e.target.value)}
-                      className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                      className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
                     />
                   </Field>
                   <Field label="Port">
                     <input
                       value={probePort}
                       onChange={(e) => setProbePort(e.target.value)}
-                      className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                      className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
                     />
                   </Field>
                 </>
@@ -1403,7 +1403,7 @@ export default function DkTroubleshootingSection() {
                   <input
                     value={probeCommand}
                     onChange={(e) => setProbeCommand(e.target.value)}
-                    className="w-full px-3 py-2 col-span-2 text-xs font-mono rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                    className="w-full px-3 py-2 col-span-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
                   />
                 </Field>
               )}
@@ -1412,7 +1412,7 @@ export default function DkTroubleshootingSection() {
                   <input
                     value={probePort}
                     onChange={(e) => setProbePort(e.target.value)}
-                    className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
+                    className="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-400"
                   />
                 </Field>
               )}
@@ -1424,10 +1424,10 @@ export default function DkTroubleshootingSection() {
               <SliderField label="timeoutSeconds" value={timeoutSec} onChange={setTimeoutSec} min={1} max={10} unit="s" />
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
               <div>
-                <div className="text-xs font-bold text-slate-900">Endpoint responds</div>
-                <div className="text-[11px] text-slate-500">
+                <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Endpoint responds</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">
                   {endpointHealthy ? "200 OK — probe will pass" : "500 / hang — probe will fail"}
                 </div>
               </div>
@@ -1439,7 +1439,7 @@ export default function DkTroubleshootingSection() {
                 aria-label="Toggle endpoint health"
               >
                 <span
-                  className={`block w-4 h-4 rounded-full bg-white transition-transform ${
+                  className={`block w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${
                     endpointHealthy ? "translate-x-6" : "translate-x-0"
                   }`}
                 />
@@ -1450,16 +1450,16 @@ export default function DkTroubleshootingSection() {
           {/* Timeline + verdict */}
           <div className="lg:col-span-7 space-y-4">
             {/* Probe timeline */}
-            <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow">
+            <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
               <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-mono text-sky-600 uppercase tracking-wider">
+                <span className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider">
                   Probe timeline (t = container start)
                 </span>
                 <button
                   onClick={() => setProbeRunning(true)}
                   className={`px-3 py-1 rounded-lg text-xs font-mono border transition-all ${
                     probeRunning
-                      ? "bg-emerald-500/15 border-emerald-400 text-emerald-600"
+                      ? "bg-emerald-500/15 border-emerald-400 text-emerald-600 dark:text-emerald-400"
                       : "bg-sky-600 text-white border-sky-600 hover:bg-sky-500"
                   }`}
                 >
@@ -1471,12 +1471,12 @@ export default function DkTroubleshootingSection() {
                 <>
                   {/* Initial delay zone */}
                   <div className="relative">
-                    <div className="h-16 rounded-lg bg-sky-50 border border-sky-200 relative mb-3 overflow-hidden">
+                    <div className="h-16 rounded-lg bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 relative mb-3 overflow-hidden">
                       <div
                         className="absolute top-0 bottom-0 bg-sky-200/60"
                         style={{ width: `${(initialDelay / (period * MAX_ATTEMPTS)) * 100}%` }}
                       />
-                      <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-sky-700">
+                      <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-sky-700 dark:text-sky-300">
                         initialDelay {initialDelay}s — kubelet waits before the first probe
                       </span>
                     </div>
@@ -1490,7 +1490,7 @@ export default function DkTroubleshootingSection() {
                             }`}
                             title={`t=${a.tick}s — ${a.note}`}
                           />
-                          <span className="text-[9px] font-mono text-slate-400">{a.tick}s</span>
+                          <span className="text-[9px] font-mono text-slate-400 dark:text-slate-500">{a.tick}s</span>
                         </div>
                       ))}
                     </div>
@@ -1500,10 +1500,10 @@ export default function DkTroubleshootingSection() {
                       <span
                         className={`px-2 py-1 rounded-md font-mono ${
                           probeTimeline.every((a) => a.result === "ok")
-                            ? "bg-emerald-50 text-emerald-700"
+                            ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300"
                             : probeTimeline.slice(-3).some((a) => a.result === "ok")
-                              ? "bg-amber-50 text-amber-700"
-                              : "bg-rose-50 text-rose-700"
+                              ? "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300"
+                              : "bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300"
                         }`}
                       >
                         {probeTimeline.every((a) => a.result === "ok")
@@ -1512,7 +1512,7 @@ export default function DkTroubleshootingSection() {
                             ? "Flapping — watch the trend"
                             : "Failing — threshold kicked in"}
                       </span>
-                      <span className="text-slate-400 font-mono">
+                      <span className="text-slate-400 dark:text-slate-500 font-mono">
                         {probeKind === "readiness"
                           ? "endpoint membership reacts after failureThreshold consecutive failures"
                           : "restart policy reacts after failureThreshold consecutive failures"}
@@ -1521,7 +1521,7 @@ export default function DkTroubleshootingSection() {
                   </div>
                 </>
               ) : (
-                <div className="py-8 text-center text-sm text-slate-400 font-mono">
+                <div className="py-8 text-center text-sm text-slate-400 dark:text-slate-500 font-mono">
                   Press ▶ Run probe simulation to watch the kubelet schedule probe rounds.
                 </div>
               )}
@@ -1534,9 +1534,9 @@ export default function DkTroubleshootingSection() {
 
               {/* Next probe math */}
               {probeRunning && finalAttempt && (
-                <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-mono text-slate-500">
-                  <span className="px-2 py-1 rounded bg-slate-100">next probe ≈ t+{finalAttempt.tick + period}s</span>
-                  <span className="px-2 py-1 rounded bg-slate-100">
+                <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                  <span className="px-2 py-1 rounded bg-slate-100 dark:bg-slate-700">next probe ≈ t+{finalAttempt.tick + period}s</span>
+                  <span className="px-2 py-1 rounded bg-slate-100 dark:bg-slate-700">
                     verdict at failureThreshold {failureThreshold}: ~t+{initialDelay + (failureThreshold - 1) * period}s
                   </span>
                 </div>
@@ -1544,12 +1544,12 @@ export default function DkTroubleshootingSection() {
             </div>
 
             {/* Generated YAML */}
-            <div className="rounded-xl bg-white border border-slate-200 card-shadow overflow-hidden">
-              <div className="flex items-center justify-between bg-white px-4 py-2.5 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-900 font-bold">Probe YAML (generated)</span>
-                <span className="text-[10px] font-mono text-sky-600">deployment spec fragment</span>
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow overflow-hidden">
+              <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-900 dark:text-slate-100 font-bold">Probe YAML (generated)</span>
+                <span className="text-[10px] font-mono text-sky-600 dark:text-sky-400">deployment spec fragment</span>
               </div>
-              <div className="p-4 font-mono text-xs text-slate-900 bg-slate-50 overflow-x-auto whitespace-pre leading-relaxed">
+              <div className="p-4 font-mono text-xs text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-700 overflow-x-auto whitespace-pre leading-relaxed">
                 {probeYaml}
               </div>
             </div>

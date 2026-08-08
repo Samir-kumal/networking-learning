@@ -159,8 +159,8 @@ const RECLAIM_POLICIES: Record<
     outcome:
       "PVC deleted → PV phase becomes Released → the EBS volume / EFS file system is untouched. PV is NOT automatically rebound — an admin must delete the PV (and optionally re-market the volume). Data is safe but orphaned without manual cleanup; the cloud storage keeps billing you.",
     risk: "Low",
-    chipClass: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    panelClass: "bg-emerald-50 border-emerald-200",
+    chipClass: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700",
+    panelClass: "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700",
   },
   Delete: {
     label: "Delete",
@@ -170,8 +170,8 @@ const RECLAIM_POLICIES: Record<
     outcome:
       "PVC deleted → CSI driver issues a DeleteVolume RPC → EBS volume (or EFS file system) is permanently removed. Cleanest auto-cleanup and the default reclaimPolicy for aws-ebs/gp3/efs — use backups or snapshots if you value the data.",
     risk: "High",
-    chipClass: "bg-sky-50 text-sky-700 border-sky-200",
-    panelClass: "bg-sky-50 border-sky-200",
+    chipClass: "bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-700",
+    panelClass: "bg-sky-50 dark:bg-sky-900/30 border-sky-200 dark:border-sky-700",
   },
   Recycle: {
     label: "Recycle",
@@ -181,8 +181,8 @@ const RECLAIM_POLICIES: Record<
     outcome:
       "PVC deleted → PV briefly becomes Released → a recycle pod scrubs its contents → PV is available to bind again. Removed from Kubernetes in 1.20-era deprecation; never use it on production — prefer Retain (safe) or Delete (clean) with a backup strategy.",
     risk: "Medium",
-    chipClass: "bg-amber-50 text-amber-700 border-amber-200",
-    panelClass: "bg-amber-50 border-amber-200",
+    chipClass: "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700",
+    panelClass: "bg-amber-50 dark:bg-amber-900/30 border-amber-200 dark:border-amber-700",
   },
 };
 
@@ -460,19 +460,19 @@ spec:
       </div>
 
       {/* ===================== MODULE 1 — LIFECYCLE ===================== */}
-      <section className="rounded-2xl border border-sky-200 bg-white p-6 shadow-xl sm:p-8">
-        <div className="flex flex-col gap-4 border-b border-sky-200 pb-5 lg:flex-row lg:items-center lg:justify-between">
+      <section className="rounded-2xl border border-sky-200 dark:border-sky-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8">
+        <div className="flex flex-col gap-4 border-b border-sky-200 dark:border-sky-700 pb-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <div className="mb-1 text-xs font-mono uppercase tracking-wider text-sky-600">
+            <div className="mb-1 text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400">
               Module 1 • PV/PVC Lifecycle Visualizer
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               Pending → Bound → Deleted → (what happened to my data?)
             </h2>
           </div>
           <button
             onClick={handleResetLifecycle}
-            className="rounded-lg border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-mono text-sky-700 transition-colors hover:bg-sky-100"
+            className="rounded-lg border border-sky-200 dark:border-sky-700 bg-sky-50 dark:bg-sky-900/30 px-3 py-1.5 text-xs font-mono text-sky-700 dark:text-sky-300 transition-colors hover:bg-sky-100"
           >
             ↺ Reset Simulation
           </button>
@@ -488,38 +488,38 @@ spec:
             </div>
 
             <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <div className="rounded-xl border border-slate-200 bg-white p-3.5 card-shadow">
-                <div className="text-[11px] font-mono text-slate-500">PVC Phase</div>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3.5 card-shadow">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">PVC Phase</div>
                 <div
                   className={`mt-1 text-xl font-extrabold ${
-                    stage === "bound" ? "text-emerald-600" : stage === "pending" ? "text-amber-500" : "text-rose-500"
+                    stage === "bound" ? "text-emerald-600 dark:text-emerald-400" : stage === "pending" ? "text-amber-500 dark:text-amber-400" : "text-rose-500 dark:text-rose-400"
                   }`}
                 >
                   {pvcPhase}
                 </div>
               </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-3.5 card-shadow">
-                <div className="text-[11px] font-mono text-slate-500">PV Phase</div>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3.5 card-shadow">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">PV Phase</div>
                 <div
                   className={`mt-1 text-xl font-extrabold ${
                     pvPhase.includes("Deleted")
-                      ? "text-rose-500"
+                      ? "text-rose-500 dark:text-rose-400"
                       : pvPhase.includes("Available")
-                        ? "text-emerald-600"
-                        : "text-sky-600"
+                        ? "text-emerald-600 dark:text-emerald-400"
+                        : "text-sky-600 dark:text-sky-400"
                   }`}
                 >
                   {pvPhase.split(" ")[0]}
                 </div>
               </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-3.5 card-shadow">
-                <div className="text-[11px] font-mono text-slate-500">Storage</div>
-                <div className="mt-1 text-xl font-extrabold text-slate-900">{sc.shortName}</div>
-                <div className="text-[10px] font-mono text-slate-400">{sc.volumeType}</div>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3.5 card-shadow">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">Storage</div>
+                <div className="mt-1 text-xl font-extrabold text-slate-900 dark:text-slate-100">{sc.shortName}</div>
+                <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">{sc.volumeType}</div>
               </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-3.5 card-shadow">
-                <div className="text-[11px] font-mono text-slate-500">Reclaim</div>
-                <div className="mt-1 text-xl font-extrabold text-indigo-600">{RECLAIM_POLICIES[reclaimPolicy].label}</div>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3.5 card-shadow">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">Reclaim</div>
+                <div className="mt-1 text-xl font-extrabold text-indigo-600 dark:text-indigo-400">{RECLAIM_POLICIES[reclaimPolicy].label}</div>
               </div>
             </div>
 
@@ -530,7 +530,7 @@ spec:
                 className={`rounded-lg px-4 py-2 text-xs font-mono font-bold shadow-lg transition-colors ${
                   stage === "pending"
                     ? "bg-sky-600 text-white shadow-sky-200 hover:bg-sky-500"
-                    : "cursor-not-allowed bg-slate-100 text-slate-300"
+                    : "cursor-not-allowed bg-slate-100 dark:bg-slate-700 text-slate-300 dark:text-slate-400"
                 }`}
               >
                 ⚡ Provision &amp; Bind
@@ -541,7 +541,7 @@ spec:
                 className={`rounded-lg px-4 py-2 text-xs font-mono font-bold shadow-lg transition-colors ${
                   stage === "bound"
                     ? "bg-rose-500 text-white shadow-rose-200 hover:bg-rose-400"
-                    : "cursor-not-allowed bg-slate-100 text-slate-300"
+                    : "cursor-not-allowed bg-slate-100 dark:bg-slate-700 text-slate-300 dark:text-slate-400"
                 }`}
               >
                 🗑 Delete PVC
@@ -552,23 +552,23 @@ spec:
                 className={`rounded-lg px-4 py-2 text-xs font-mono font-bold shadow-lg transition-colors ${
                   stage === "deleted"
                     ? "bg-indigo-600 text-white shadow-indigo-200 hover:bg-indigo-500"
-                    : "cursor-not-allowed bg-slate-100 text-slate-300"
+                    : "cursor-not-allowed bg-slate-100 dark:bg-slate-700 text-slate-300 dark:text-slate-400"
                 }`}
               >
                 🔁 Run Reclaim ({RECLAIM_POLICIES[reclaimPolicy].short})
               </button>
             </div>
 
-            <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <div className="mb-2 text-[11px] font-mono uppercase tracking-wider text-slate-500">
+            <div className="mt-6 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4">
+              <div className="mb-2 text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 kube-controller-manager event log
               </div>
               {eventLog.length === 0 ? (
-                <div className="text-xs font-mono text-slate-400">— awaiting simulation steps —</div>
+                <div className="text-xs font-mono text-slate-400 dark:text-slate-500">— awaiting simulation steps —</div>
               ) : (
                 <ul className="space-y-1">
                   {eventLog.map((line, i) => (
-                    <li key={i} className="text-[11px] font-mono leading-relaxed text-slate-600">
+                    <li key={i} className="text-[11px] font-mono leading-relaxed text-slate-600 dark:text-slate-300">
                       {line}
                     </li>
                   ))}
@@ -579,9 +579,9 @@ spec:
 
           {/* right: explainer */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="rounded-xl border border-sky-200 bg-sky-50 p-4">
-              <div className="mb-2 text-xs font-mono uppercase tracking-wider text-sky-700">what you are watching</div>
-              <ul className="space-y-2 text-xs leading-relaxed text-slate-600">
+            <div className="rounded-xl border border-sky-200 dark:border-sky-700 bg-sky-50 dark:bg-sky-900/30 p-4">
+              <div className="mb-2 text-xs font-mono uppercase tracking-wider text-sky-700 dark:text-sky-300">what you are watching</div>
+              <ul className="space-y-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
                 <li>• <b>PVC</b> = a claim; <b>PV</b> = the actual volume (EBS volume or EFS file system).</li>
                 <li>• The StorageClass provisioner ({sc.provisioner}) creates PVs on demand — dynamic provisioning.</li>
                 <li>• With <b>WaitForFirstConsumer</b> (gp3 / io2), the PV is only created after a Pod is scheduled — so the EBS volume lands in the node&apos;s AZ.</li>
@@ -589,8 +589,8 @@ spec:
                 <li>• EBS PVs attach to exactly one node; EFS PVs are mounted over NFS from any node.</li>
               </ul>
             </div>
-            <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs leading-relaxed text-slate-600">
-              <span className="font-mono font-bold text-amber-700">⚠ Gotcha:</span> a <b>Released</b> PV is not automatically reusable —
+            <div className="rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/30 p-4 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+              <span className="font-mono font-bold text-amber-700 dark:text-amber-300">⚠ Gotcha:</span> a <b>Released</b> PV is not automatically reusable —
               Retain leaves the bytes untouched but detached, Delete removes them permanently, Recycle wipes and re-offers
               them. That&apos;s why cloud providers default to <code className="font-mono">Delete</code>.
             </div>
@@ -599,12 +599,12 @@ spec:
       </section>
 
       {/* ===================== MODULE 2 — STORAGECLASS ===================== */}
-      <section className="rounded-2xl border border-blue-200 bg-white p-6 shadow-xl sm:p-8">
-        <div className="border-b border-blue-200 pb-5">
-          <div className="mb-1 text-xs font-mono uppercase tracking-wider text-blue-600">
+      <section className="rounded-2xl border border-blue-200 dark:border-blue-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8">
+        <div className="border-b border-blue-200 dark:border-blue-700 pb-5">
+          <div className="mb-1 text-xs font-mono uppercase tracking-wider text-blue-600 dark:text-blue-400">
             Module 2 • StorageClass Provisioner Selector
           </div>
-          <h2 className="text-2xl font-extrabold text-slate-900">EBS vs EFS — choose your provisioner</h2>
+          <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">EBS vs EFS — choose your provisioner</h2>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -617,17 +617,17 @@ spec:
                 onClick={() => setSelectedSC(key)}
                 className={`rounded-xl border p-4 text-left transition-all ${
                   active
-                    ? "border-blue-400 bg-blue-50 ring-2 ring-blue-200"
-                    : "border-slate-200 bg-white hover:border-blue-300"
+                    ? "border-blue-400 bg-blue-50 dark:bg-blue-900/30 ring-2 ring-blue-200"
+                    : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-300"
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold text-slate-900">{cls.name}</span>
-                  {active && <span className="text-xs font-bold text-blue-600">✓</span>}
+                  <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{cls.name}</span>
+                  {active && <span className="text-xs font-bold text-blue-600 dark:text-blue-400">✓</span>}
                 </div>
-                <div className="mt-1 font-mono text-[11px] text-blue-600">{cls.provisioner}</div>
-                <p className="mt-2 text-[11px] leading-relaxed text-slate-500">{cls.blurb}</p>
-                <div className="mt-3 grid grid-cols-2 gap-x-2 gap-y-1 border-t border-slate-200 pt-2 text-[10px] font-mono text-slate-500">
+                <div className="mt-1 font-mono text-[11px] text-blue-600 dark:text-blue-400">{cls.provisioner}</div>
+                <p className="mt-2 text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">{cls.blurb}</p>
+                <div className="mt-3 grid grid-cols-2 gap-x-2 gap-y-1 border-t border-slate-200 dark:border-slate-700 pt-2 text-[10px] font-mono text-slate-500 dark:text-slate-400">
                   <span>Mode: {cls.volumeBindingMode}</span>
                   <span>{cls.zoneScope}</span>
                   <span>${cls.pricePerGiB}/GiB-mo</span>
@@ -640,42 +640,42 @@ spec:
 
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <div className="overflow-hidden rounded-xl border border-slate-200">
-              <div className="flex items-center justify-between border-b border-slate-200 bg-blue-50/60 px-4 py-2.5">
-                <span className="text-xs font-mono font-bold text-blue-700">{sc.name} — live details</span>
-                <span className="text-[10px] font-mono text-slate-400">dynamic provisioning</span>
+            <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 bg-blue-50/60 px-4 py-2.5">
+                <span className="text-xs font-mono font-bold text-blue-700 dark:text-blue-300">{sc.name} — live details</span>
+                <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">dynamic provisioning</span>
               </div>
               <div className="grid grid-cols-2 gap-x-4 gap-y-3 p-4 text-xs">
                 <div>
-                  <div className="font-mono text-[10px] uppercase text-slate-400">IOPS</div>
-                  <div className="mt-0.5 font-medium text-slate-800">{sc.iopsNote}</div>
+                  <div className="font-mono text-[10px] uppercase text-slate-400 dark:text-slate-500">IOPS</div>
+                  <div className="mt-0.5 font-medium text-slate-800 dark:text-slate-200">{sc.iopsNote}</div>
                 </div>
                 <div>
-                  <div className="font-mono text-[10px] uppercase text-slate-400">Throughput</div>
-                  <div className="mt-0.5 font-medium text-slate-800">{sc.throughputNote}</div>
+                  <div className="font-mono text-[10px] uppercase text-slate-400 dark:text-slate-500">Throughput</div>
+                  <div className="mt-0.5 font-medium text-slate-800 dark:text-slate-200">{sc.throughputNote}</div>
                 </div>
                 <div>
-                  <div className="font-mono text-[10px] uppercase text-slate-400">Latency</div>
-                  <div className="mt-0.5 font-medium text-slate-800">{sc.latencyNote}</div>
+                  <div className="font-mono text-[10px] uppercase text-slate-400 dark:text-slate-500">Latency</div>
+                  <div className="mt-0.5 font-medium text-slate-800 dark:text-slate-200">{sc.latencyNote}</div>
                 </div>
                 <div>
-                  <div className="font-mono text-[10px] uppercase text-slate-400">Durability</div>
-                  <div className="mt-0.5 font-medium text-slate-800">{sc.durabilityNote}</div>
+                  <div className="font-mono text-[10px] uppercase text-slate-400 dark:text-slate-500">Durability</div>
+                  <div className="mt-0.5 font-medium text-slate-800 dark:text-slate-200">{sc.durabilityNote}</div>
                 </div>
                 <div className="col-span-2">
-                  <div className="font-mono text-[10px] uppercase text-slate-400">Best for</div>
-                  <div className="mt-0.5 font-medium text-slate-800">{sc.useCases.join(" · ")}</div>
+                  <div className="font-mono text-[10px] uppercase text-slate-400 dark:text-slate-500">Best for</div>
+                  <div className="mt-0.5 font-medium text-slate-800 dark:text-slate-200">{sc.useCases.join(" · ")}</div>
                 </div>
               </div>
             </div>
-            <p className="mt-3 text-xs leading-relaxed text-slate-500">{sc.tip}</p>
+            <p className="mt-3 text-xs leading-relaxed text-slate-500 dark:text-slate-400">{sc.tip}</p>
           </div>
 
           <div className="lg:col-span-5">
-            <div className="overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-[11px] leading-relaxed whitespace-pre text-slate-700">
+            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4 font-mono text-[11px] leading-relaxed whitespace-pre text-slate-700 dark:text-slate-200">
               {storageClassYaml}
             </div>
-            <p className="mt-2 text-[11px] text-slate-400">
+            <p className="mt-2 text-[11px] text-slate-400 dark:text-slate-500">
               <code className="font-mono">reclaimPolicy</code> follows Module 4&apos;s selector — a class is created once; edit means recreate.
             </p>
           </div>
@@ -683,12 +683,12 @@ spec:
       </section>
 
       {/* ===================== MODULE 3 — ACCESS MODES ===================== */}
-      <section className="rounded-2xl border border-sky-200 bg-white p-6 shadow-xl sm:p-8">
-        <div className="border-b border-sky-200 pb-5">
-          <div className="mb-1 text-xs font-mono uppercase tracking-wider text-sky-600">
+      <section className="rounded-2xl border border-sky-200 dark:border-sky-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8">
+        <div className="border-b border-sky-200 dark:border-sky-700 pb-5">
+          <div className="mb-1 text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400">
             Module 3 • Access Mode Calculator
           </div>
-          <h2 className="text-2xl font-extrabold text-slate-900">RWO / ROX / RWX — how many pods can touch it?</h2>
+          <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">RWO / ROX / RWX — how many pods can touch it?</h2>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
@@ -701,7 +701,7 @@ spec:
                   className={`rounded-xl border py-3 text-center text-sm font-bold transition-all ${
                     accessMode === m
                       ? "border-sky-600 bg-sky-600 text-white shadow-lg shadow-sky-200"
-                      : "border-slate-200 bg-white text-slate-500 hover:border-sky-300"
+                      : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-sky-300"
                   }`}
                 >
                   {m}
@@ -709,16 +709,16 @@ spec:
               ))}
             </div>
 
-            <div className="space-y-2 rounded-xl border border-slate-200 bg-white p-4 card-shadow">
-              <div className="text-xs font-bold text-slate-900">
+            <div className="space-y-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 card-shadow">
+              <div className="text-xs font-bold text-slate-900 dark:text-slate-100">
                 {ACCESS_MODES[accessMode].full} ({accessMode})
               </div>
-              <div className="text-xs leading-relaxed text-slate-500">{ACCESS_MODES[accessMode].example}</div>
+              <div className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">{ACCESS_MODES[accessMode].example}</div>
               <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
-                <div className="rounded-lg bg-sky-50 px-2 py-1.5 text-sky-700">Nodes: {ACCESS_MODES[accessMode].nodeCount}</div>
-                <div className="rounded-lg bg-blue-50 px-2 py-1.5 text-blue-700">Writers: {ACCESS_MODES[accessMode].writers}</div>
+                <div className="rounded-lg bg-sky-50 dark:bg-sky-900/30 px-2 py-1.5 text-sky-700 dark:text-sky-300">Nodes: {ACCESS_MODES[accessMode].nodeCount}</div>
+                <div className="rounded-lg bg-blue-50 dark:bg-blue-900/30 px-2 py-1.5 text-blue-700 dark:text-blue-300">Writers: {ACCESS_MODES[accessMode].writers}</div>
               </div>
-              <div className="rounded-lg border border-amber-200 bg-amber-50 px-2 py-1.5 text-[11px] leading-relaxed text-amber-700">
+              <div className="rounded-lg border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/30 px-2 py-1.5 text-[11px] leading-relaxed text-amber-700 dark:text-amber-300">
                 {ACCESS_MODES[accessMode].caution}
               </div>
             </div>
@@ -726,8 +726,8 @@ spec:
             <div
               className={`rounded-xl border p-4 font-mono text-xs ${
                 accessModeSupported
-                  ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-                  : "border-rose-200 bg-rose-50 text-rose-700"
+                  ? "border-emerald-200 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300"
+                  : "border-rose-200 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300"
               }`}
             >
               {accessModeSupported
@@ -737,16 +737,16 @@ spec:
           </div>
 
           <div className="space-y-4 lg:col-span-7">
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <div className="mb-3 text-[11px] font-mono uppercase tracking-wider text-slate-500">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4">
+              <div className="mb-3 text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 cluster view — {ACCESS_MODES[accessMode].nodeCount}
               </div>
               <div className="grid grid-cols-3 gap-3">
                 {[1, 2, 3].map((node) => {
                   const canMount = accessMode === "RWO" ? node === 1 : true;
                   return (
-                    <div key={node} className={`rounded-xl border p-3 ${canMount ? "border-sky-200 bg-white" : "border-slate-200 bg-slate-100"}`}>
-                      <div className="font-mono text-[10px] uppercase text-slate-400">Node {node}</div>
+                    <div key={node} className={`rounded-xl border p-3 ${canMount ? "border-sky-200 dark:border-sky-700 bg-white dark:bg-slate-800" : "border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-700"}`}>
+                      <div className="font-mono text-[10px] uppercase text-slate-400 dark:text-slate-500">Node {node}</div>
                       <div className="mt-2 space-y-1.5">
                         {[1, 2].map((p) => (
                           <div
@@ -756,7 +756,7 @@ spec:
                                 ? p === 2 && accessMode === "RWO"
                                   ? "bg-rose-300"
                                   : "bg-sky-500/80"
-                                : "bg-slate-200"
+                                : "bg-slate-200 dark:bg-slate-600"
                             }`}
                           />
                         ))}
@@ -765,15 +765,15 @@ spec:
                         {canMount ? (
                           accessMode === "RWO" ? (
                             node === 1 ? (
-                              <span className="text-emerald-600">volume attached</span>
+                              <span className="text-emerald-600 dark:text-emerald-400">volume attached</span>
                             ) : (
-                              <span className="text-rose-500">cannot attach</span>
+                              <span className="text-rose-500 dark:text-rose-400">cannot attach</span>
                             )
                           ) : (
-                            <span className="text-sky-600">{accessMode === "ROX" ? "read-only" : "read-write"}</span>
+                            <span className="text-sky-600 dark:text-sky-400">{accessMode === "ROX" ? "read-only" : "read-write"}</span>
                           )
                         ) : (
-                          <span className="text-slate-400">mount blocked</span>
+                          <span className="text-slate-400 dark:text-slate-500">mount blocked</span>
                         )}
                       </div>
                     </div>
@@ -782,10 +782,10 @@ spec:
               </div>
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-slate-200">
+            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="bg-sky-50 font-mono text-[10px] uppercase text-sky-700">
+                  <tr className="bg-sky-50 dark:bg-sky-900/30 font-mono text-[10px] uppercase text-sky-700 dark:text-sky-300">
                     <th className="px-3 py-2">Mode</th>
                     <th className="px-3 py-2">Full name</th>
                     <th className="px-3 py-2">Nodes</th>
@@ -794,38 +794,38 @@ spec:
                     <th className="px-3 py-2">EFS</th>
                   </tr>
                 </thead>
-                <tbody className="font-mono text-slate-600">
+                <tbody className="font-mono text-slate-600 dark:text-slate-300">
                   {(["RWO", "ROX", "RWX"] as AccessMode[]).map((m) => (
-                    <tr key={m} className={`border-t border-slate-100 ${accessMode === m ? "bg-sky-50/60" : ""}`}>
-                      <td className="px-3 py-2 font-bold text-slate-800">{m}</td>
+                    <tr key={m} className={`border-t border-slate-100 dark:border-slate-700 ${accessMode === m ? "bg-sky-50/60" : ""}`}>
+                      <td className="px-3 py-2 font-bold text-slate-800 dark:text-slate-200">{m}</td>
                       <td className="px-3 py-2">{ACCESS_MODES[m].full}</td>
                       <td className="px-3 py-2">{ACCESS_MODES[m].nodeCount}</td>
                       <td className="px-3 py-2">{ACCESS_MODES[m].writers}</td>
-                      <td className={`px-3 py-2 font-bold ${ACCESS_MODES[m].ebs === "✓" ? "text-emerald-600" : "text-rose-500"}`}>{ACCESS_MODES[m].ebs}</td>
-                      <td className={`px-3 py-2 font-bold ${ACCESS_MODES[m].efs === "✓" ? "text-emerald-600" : "text-rose-500"}`}>{ACCESS_MODES[m].efs}</td>
+                      <td className={`px-3 py-2 font-bold ${ACCESS_MODES[m].ebs === "✓" ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500 dark:text-rose-400"}`}>{ACCESS_MODES[m].ebs}</td>
+                      <td className={`px-3 py-2 font-bold ${ACCESS_MODES[m].efs === "✓" ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500 dark:text-rose-400"}`}>{ACCESS_MODES[m].efs}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            <div className="overflow-hidden rounded-xl border border-slate-200 bg-white card-shadow">
-              <div className="border-b border-slate-200 px-4 py-2.5 font-mono text-[11px] text-slate-500">
+            <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 card-shadow">
+              <div className="border-b border-slate-200 dark:border-slate-700 px-4 py-2.5 font-mono text-[11px] text-slate-500 dark:text-slate-400">
                 rendered PVC manifest
               </div>
-              <pre className="overflow-x-auto p-4 font-mono text-[11px] leading-relaxed whitespace-pre text-slate-700">{pvcYaml}</pre>
+              <pre className="overflow-x-auto p-4 font-mono text-[11px] leading-relaxed whitespace-pre text-slate-700 dark:text-slate-200">{pvcYaml}</pre>
             </div>
           </div>
         </div>
       </section>
 
       {/* ===================== MODULE 4 — RECLAIM POLICY ===================== */}
-      <section className="rounded-2xl border border-indigo-200 bg-white p-6 shadow-xl sm:p-8">
-        <div className="border-b border-indigo-200 pb-5">
-          <div className="mb-1 text-xs font-mono uppercase tracking-wider text-indigo-600">
+      <section className="rounded-2xl border border-indigo-200 dark:border-indigo-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8">
+        <div className="border-b border-indigo-200 dark:border-indigo-700 pb-5">
+          <div className="mb-1 text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
             Module 4 • Reclaim Policy Selector
           </div>
-          <h2 className="text-2xl font-extrabold text-slate-900">The fate of your bytes when the PVC is deleted</h2>
+          <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">The fate of your bytes when the PVC is deleted</h2>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
@@ -838,15 +838,15 @@ spec:
                 onClick={() => setReclaimPolicy(p)}
                 className={`rounded-xl border p-5 text-left transition-all ${
                   active
-                    ? "border-indigo-400 bg-white shadow-lg ring-2 ring-indigo-200"
-                    : "border-slate-200 bg-white hover:border-indigo-300"
+                    ? "border-indigo-400 bg-white dark:bg-slate-800 shadow-lg ring-2 ring-indigo-200"
+                    : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-indigo-300"
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-base font-extrabold text-slate-900">{pol.label}</span>
+                  <span className="text-base font-extrabold text-slate-900 dark:text-slate-100">{pol.label}</span>
                   <span className={`rounded border px-2 py-0.5 font-mono text-[10px] ${pol.chipClass}`}>{pol.risk} risk</span>
                 </div>
-                <p className="mt-2 text-xs leading-relaxed text-slate-500">{pol.blurb}</p>
+                <p className="mt-2 text-xs leading-relaxed text-slate-500 dark:text-slate-400">{pol.blurb}</p>
               </button>
             );
           })}
@@ -855,23 +855,23 @@ spec:
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <div className={`rounded-xl border p-4 ${RECLAIM_POLICIES[reclaimPolicy].panelClass}`}>
-              <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wider text-slate-500">
+              <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 when PVC is deleted → {reclaimPolicy} outcome
               </div>
-              <p className="text-xs leading-relaxed text-slate-700">{RECLAIM_POLICIES[reclaimPolicy].outcome}</p>
+              <p className="text-xs leading-relaxed text-slate-700 dark:text-slate-200">{RECLAIM_POLICIES[reclaimPolicy].outcome}</p>
             </div>
-            <div className="mt-4 flex flex-wrap gap-2 font-mono text-[11px] text-slate-500">
-              <span className="rounded bg-slate-100 px-2 py-1">PV phase → {pvPhase}</span>
-              <span className="rounded bg-slate-100 px-2 py-1">PVC phase → {pvcPhase}</span>
-              <span className="rounded bg-slate-100 px-2 py-1">storage → {sc.shortName}</span>
+            <div className="mt-4 flex flex-wrap gap-2 font-mono text-[11px] text-slate-500 dark:text-slate-400">
+              <span className="rounded bg-slate-100 dark:bg-slate-700 px-2 py-1">PV phase → {pvPhase}</span>
+              <span className="rounded bg-slate-100 dark:bg-slate-700 px-2 py-1">PVC phase → {pvcPhase}</span>
+              <span className="rounded bg-slate-100 dark:bg-slate-700 px-2 py-1">storage → {sc.shortName}</span>
             </div>
-            <p className="mt-3 text-[11px] leading-relaxed text-slate-400">
+            <p className="mt-3 text-[11px] leading-relaxed text-slate-400 dark:text-slate-500">
               Tip: <code className="font-mono">reclaimPolicy</code> is fixed at StorageClass creation — choose Delete for auto-cleanup or
               Retain for insurance policies, and pair either with scheduled snapshots (Module 6).
             </p>
           </div>
           <div className="lg:col-span-5">
-            <div className="overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-[11px] leading-relaxed whitespace-pre text-slate-700">
+            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4 font-mono text-[11px] leading-relaxed whitespace-pre text-slate-700 dark:text-slate-200">
               {storageClassYaml}
             </div>
           </div>
@@ -879,17 +879,17 @@ spec:
       </section>
 
       {/* ===================== MODULE 5 — CAPACITY PLANNER ===================== */}
-      <section className="rounded-2xl border border-blue-200 bg-white p-6 shadow-xl sm:p-8">
-        <div className="border-b border-blue-200 pb-5">
-          <div className="mb-1 text-xs font-mono uppercase tracking-wider text-blue-600">Module 5 • Capacity Planner</div>
-          <h2 className="text-2xl font-extrabold text-slate-900">Right-size the cluster storage budget</h2>
+      <section className="rounded-2xl border border-blue-200 dark:border-blue-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8">
+        <div className="border-b border-blue-200 dark:border-blue-700 pb-5">
+          <div className="mb-1 text-xs font-mono uppercase tracking-wider text-blue-600 dark:text-blue-400">Module 5 • Capacity Planner</div>
+          <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Right-size the cluster storage budget</h2>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
           <div className="space-y-6 lg:col-span-5">
             <div>
-              <div className="mb-2 flex justify-between text-xs font-mono text-slate-500">
-                <span>Volume size per PVC: <b className="text-blue-600">{formatCapacity(capacityGiB)}</b></span>
+              <div className="mb-2 flex justify-between text-xs font-mono text-slate-500 dark:text-slate-400">
+                <span>Volume size per PVC: <b className="text-blue-600 dark:text-blue-400">{formatCapacity(capacityGiB)}</b></span>
                 <span>{capacityGiB} GiB</span>
               </div>
               <input
@@ -901,15 +901,15 @@ spec:
                 onChange={(e) => setCapacityGiB(Number(e.target.value))}
                 className="w-full accent-sky-600"
               />
-              <div className="mt-1 flex justify-between font-mono text-[10px] text-slate-400">
+              <div className="mt-1 flex justify-between font-mono text-[10px] text-slate-400 dark:text-slate-500">
                 <span>10 GiB</span>
                 <span>2 000 GiB</span>
               </div>
             </div>
 
             <div>
-              <div className="mb-2 text-xs font-mono text-slate-500">
-                PVCs in the cluster: <b className="text-blue-600">{claimCount}</b>
+              <div className="mb-2 text-xs font-mono text-slate-500 dark:text-slate-400">
+                PVCs in the cluster: <b className="text-blue-600 dark:text-blue-400">{claimCount}</b>
               </div>
               <input
                 type="range"
@@ -920,29 +920,29 @@ spec:
                 onChange={(e) => setClaimCount(Number(e.target.value))}
                 className="w-full accent-sky-600"
               />
-              <div className="mt-1 flex justify-between font-mono text-[10px] text-slate-400">
+              <div className="mt-1 flex justify-between font-mono text-[10px] text-slate-400 dark:text-slate-500">
                 <span>1</span>
                 <span>20</span>
               </div>
             </div>
 
-            <div className="space-y-3 rounded-xl border border-sky-200 bg-sky-50 p-4">
+            <div className="space-y-3 rounded-xl border border-sky-200 dark:border-sky-700 bg-sky-50 dark:bg-sky-900/30 p-4">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-xs text-sky-700">Total provisioned</span>
-                <span className="text-2xl font-extrabold text-sky-800">{formatCapacity(totalGiB)}</span>
+                <span className="font-mono text-xs text-sky-700 dark:text-sky-300">Total provisioned</span>
+                <span className="text-2xl font-extrabold text-sky-800 dark:text-sky-200">{formatCapacity(totalGiB)}</span>
               </div>
               <div>
-                <div className="mb-1 flex justify-between font-mono text-[11px] text-sky-600">
+                <div className="mb-1 flex justify-between font-mono text-[11px] text-sky-600 dark:text-sky-400">
                   <span>Monthly cost ({sc.shortName})</span>
                   <span className="font-bold">${monthlyCost.toFixed(2)}/mo</span>
                 </div>
-                <div className="h-2.5 overflow-hidden rounded-full border border-sky-200 bg-white">
+                <div className="h-2.5 overflow-hidden rounded-full border border-sky-200 dark:border-sky-700 bg-white dark:bg-slate-800">
                   <div
                     className="h-full rounded-full bg-gradient-to-r from-sky-400 to-blue-600 transition-all"
                     style={{ width: `${Math.min(100, (totalGiB / 5120) * 100)}%` }}
                   />
                 </div>
-                <div className="mt-1 font-mono text-[10px] text-slate-400">
+                <div className="mt-1 font-mono text-[10px] text-slate-400 dark:text-slate-500">
                   {totalGiB >= 5120 ? "⚠ over 5TiB budget" : `≈ ${Math.round((totalGiB / 5120) * 100)}% of 5 TiB budget`}
                 </div>
               </div>
@@ -950,10 +950,10 @@ spec:
           </div>
 
           <div className="space-y-4 lg:col-span-7">
-            <div className="overflow-x-auto rounded-xl border border-slate-200">
+            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="bg-blue-50 font-mono text-[10px] uppercase text-blue-700">
+                  <tr className="bg-blue-50 dark:bg-blue-900/30 font-mono text-[10px] uppercase text-blue-700 dark:text-blue-300">
                     <th className="px-3 py-2">Class</th>
                     <th className="px-3 py-2">$/GiB</th>
                     <th className="px-3 py-2">Cost for {formatCapacity(totalGiB)}</th>
@@ -962,12 +962,12 @@ spec:
                     <th className="px-3 py-2">Zones</th>
                   </tr>
                 </thead>
-                <tbody className="font-mono text-slate-600">
+                <tbody className="font-mono text-slate-600 dark:text-slate-300">
                   {plannerRows.map((row) => (
-                    <tr key={row.key} className={`border-t border-slate-100 ${selectedSC === row.key ? "bg-sky-50/60" : ""}`}>
-                      <td className="px-3 py-2 font-bold text-slate-800">{row.shortName}</td>
+                    <tr key={row.key} className={`border-t border-slate-100 dark:border-slate-700 ${selectedSC === row.key ? "bg-sky-50/60" : ""}`}>
+                      <td className="px-3 py-2 font-bold text-slate-800 dark:text-slate-200">{row.shortName}</td>
                       <td className="px-3 py-2">${row.pricePerGiB}</td>
-                      <td className="px-3 py-2 font-bold text-blue-600">${(totalGiB * row.pricePerGiB).toFixed(2)}</td>
+                      <td className="px-3 py-2 font-bold text-blue-600 dark:text-blue-400">${(totalGiB * row.pricePerGiB).toFixed(2)}</td>
                       <td className="px-3 py-2">{row.iops}</td>
                       <td className="px-3 py-2">{row.throughput}</td>
                       <td className="px-3 py-2">{row.zoneScope}</td>
@@ -978,24 +978,24 @@ spec:
             </div>
 
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              <div className="rounded-xl border border-slate-200 bg-white p-3.5 card-shadow">
-                <div className="font-mono text-[11px] text-slate-500">Yearly estimate</div>
-                <div className="mt-1 text-lg font-extrabold text-indigo-600">${(monthlyCost * 12).toFixed(0)}</div>
-                <div className="mt-0.5 font-mono text-[10px] text-slate-400">12 × monthly config</div>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3.5 card-shadow">
+                <div className="font-mono text-[11px] text-slate-500 dark:text-slate-400">Yearly estimate</div>
+                <div className="mt-1 text-lg font-extrabold text-indigo-600 dark:text-indigo-400">${(monthlyCost * 12).toFixed(0)}</div>
+                <div className="mt-0.5 font-mono text-[10px] text-slate-400 dark:text-slate-500">12 × monthly config</div>
               </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-3.5 card-shadow">
-                <div className="font-mono text-[11px] text-slate-500">Per-PVC unit</div>
-                <div className="mt-1 text-lg font-extrabold text-sky-600">{formatCapacity(capacityGiB)}</div>
-                <div className="mt-0.5 font-mono text-[10px] text-slate-400">× {claimCount} claims</div>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3.5 card-shadow">
+                <div className="font-mono text-[11px] text-slate-500 dark:text-slate-400">Per-PVC unit</div>
+                <div className="mt-1 text-lg font-extrabold text-sky-600 dark:text-sky-400">{formatCapacity(capacityGiB)}</div>
+                <div className="mt-0.5 font-mono text-[10px] text-slate-400 dark:text-slate-500">× {claimCount} claims</div>
               </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-3.5 card-shadow">
-                <div className="font-mono text-[11px] text-slate-500">Snapshot margin</div>
-                <div className="mt-1 text-lg font-extrabold text-emerald-600">{formatCapacity(Math.round(totalGiB * 0.15))}</div>
-                <div className="mt-0.5 font-mono text-[10px] text-slate-400">+15% for backups</div>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3.5 card-shadow">
+                <div className="font-mono text-[11px] text-slate-500 dark:text-slate-400">Snapshot margin</div>
+                <div className="mt-1 text-lg font-extrabold text-emerald-600 dark:text-emerald-400">{formatCapacity(Math.round(totalGiB * 0.15))}</div>
+                <div className="mt-0.5 font-mono text-[10px] text-slate-400 dark:text-slate-500">+15% for backups</div>
               </div>
             </div>
 
-            <p className="text-[11px] leading-relaxed text-slate-400">
+            <p className="text-[11px] leading-relaxed text-slate-400 dark:text-slate-500">
               IOPS estimates are per volume of the selected size (gp2: 3×GiB · gp3: 3 000 + 0.5×GiB · io2: 500×GiB) — EFS scales
               elastically regardless of reported capacity.
             </p>
@@ -1004,15 +1004,15 @@ spec:
       </section>
 
       {/* ===================== MODULE 6 — SNAPSHOT SIMULATOR ===================== */}
-      <section className="rounded-2xl border border-cyan-200 bg-white p-6 shadow-xl sm:p-8">
-        <div className="flex flex-col gap-4 border-b border-cyan-200 pb-5 lg:flex-row lg:items-center lg:justify-between">
+      <section className="rounded-2xl border border-cyan-200 dark:border-cyan-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8">
+        <div className="flex flex-col gap-4 border-b border-cyan-200 dark:border-cyan-700 pb-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <div className="mb-1 text-xs font-mono uppercase tracking-wider text-cyan-600">
+            <div className="mb-1 text-xs font-mono uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
               Module 6 • Volume Snapshot Simulator
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">Point-in-time recovery in three clicks</h2>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Point-in-time recovery in three clicks</h2>
           </div>
-          <div className="flex items-center gap-2 rounded-lg border border-cyan-200 bg-cyan-50 px-3 py-1.5 font-mono text-xs text-cyan-700">
+          <div className="flex items-center gap-2 rounded-lg border border-cyan-200 dark:border-cyan-700 bg-cyan-50 dark:bg-cyan-900/30 px-3 py-1.5 font-mono text-xs text-cyan-700 dark:text-cyan-300">
             snapshot class: {selectedSC === "efs" ? "efs-backup" : "ebs-backup"}
           </div>
         </div>
@@ -1032,7 +1032,7 @@ spec:
                 className={`rounded-lg px-4 py-2 text-xs font-mono font-bold transition-colors ${
                   snapshots.some((s) => s.status === "Completed")
                     ? "bg-emerald-600 text-white shadow-lg shadow-emerald-200 hover:bg-emerald-500"
-                    : "cursor-not-allowed bg-slate-100 text-slate-300"
+                    : "cursor-not-allowed bg-slate-100 dark:bg-slate-700 text-slate-300 dark:text-slate-400"
                 }`}
               >
                 ♻ Restore Latest
@@ -1042,7 +1042,7 @@ spec:
                 className={`rounded-lg border px-4 py-2 text-xs font-mono font-bold transition-colors ${
                   scheduledSnap
                     ? "border-blue-600 bg-blue-600 text-white"
-                    : "border-cyan-300 bg-white text-cyan-700 hover:bg-cyan-50"
+                    : "border-cyan-300 dark:border-cyan-600 bg-white dark:bg-slate-800 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-50"
                 }`}
               >
                 {scheduledSnap ? "⏱ daily 03:00 UTC (on)" : "⏹ enable schedule"}
@@ -1050,23 +1050,23 @@ spec:
             </div>
 
             {scheduledSnap && (
-              <div className="rounded-xl border border-cyan-200 bg-cyan-50 p-3 text-xs leading-relaxed text-cyan-800">
+              <div className="rounded-xl border border-cyan-200 dark:border-cyan-700 bg-cyan-50 dark:bg-cyan-900/30 p-3 text-xs leading-relaxed text-cyan-800 dark:text-cyan-200">
                 <b>Backup strategy on:</b> a CronJob writes a daily VolumeSnapshot via the VolumeSnapshotClass,
                 keeps 10 generations, and restores one per week into a fresh PVC for DR validation.
               </div>
             )}
 
-            <div className="overflow-hidden rounded-xl border border-slate-200 bg-white card-shadow">
-              <div className="border-b border-slate-200 px-4 py-2.5 font-mono text-[11px] text-slate-500">
+            <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 card-shadow">
+              <div className="border-b border-slate-200 dark:border-slate-700 px-4 py-2.5 font-mono text-[11px] text-slate-500 dark:text-slate-400">
                 snapshot &amp; restore manifests
               </div>
-              <pre className="overflow-x-auto p-4 font-mono text-[11px] leading-relaxed whitespace-pre text-slate-700">
+              <pre className="overflow-x-auto p-4 font-mono text-[11px] leading-relaxed whitespace-pre text-slate-700 dark:text-slate-200">
                 {snapshotYaml}
               </pre>
             </div>
 
             {restores.length > 0 && (
-              <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-xs leading-relaxed text-emerald-700">
+              <div className="rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 p-3 text-xs leading-relaxed text-emerald-700 dark:text-emerald-300">
                 <b>Restores:</b>
                 <ul className="mt-1 list-inside list-disc font-mono text-[11px]">
                   {restores.map((r, i) => (
@@ -1078,18 +1078,18 @@ spec:
           </div>
 
           <div className="lg:col-span-7">
-            <div className="overflow-hidden rounded-xl border border-slate-200">
-              <div className="border-b border-slate-200 bg-cyan-50/50 px-4 py-2.5 font-mono text-[11px] text-cyan-700">
+            <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700">
+              <div className="border-b border-slate-200 dark:border-slate-700 bg-cyan-50/50 px-4 py-2.5 font-mono text-[11px] text-cyan-700 dark:text-cyan-300">
                 snapshot registry
               </div>
               {snapshots.length === 0 ? (
-                <div className="p-8 text-center font-mono text-xs text-slate-400">
+                <div className="p-8 text-center font-mono text-xs text-slate-400 dark:text-slate-500">
                   No snapshots yet — press 📸 Take Snapshot (an EBS snapshot is saved to S3 within ~1 s for this sized volume).
                 </div>
               ) : (
                 <table className="w-full text-left text-xs">
                   <thead>
-                    <tr className="bg-slate-50 font-mono text-[10px] uppercase text-slate-500">
+                    <tr className="bg-slate-50 dark:bg-slate-700 font-mono text-[10px] uppercase text-slate-500 dark:text-slate-400">
                       <th className="px-3 py-2">Name</th>
                       <th className="px-3 py-2">Size</th>
                       <th className="px-3 py-2">Created</th>
@@ -1099,18 +1099,18 @@ spec:
                   </thead>
                   <tbody>
                     {snapshots.map((s) => (
-                      <tr key={s.id} className={`border-t border-slate-100 ${s.status === "Deleted" ? "opacity-40" : ""}`}>
-                        <td className="px-3 py-2 font-mono text-slate-800">{s.name}</td>
-                        <td className="px-3 py-2 font-mono text-slate-500">{formatCapacity(s.sizeGiB)}</td>
-                        <td className="px-3 py-2 font-mono text-slate-500">{s.createdAt}</td>
+                      <tr key={s.id} className={`border-t border-slate-100 dark:border-slate-700 ${s.status === "Deleted" ? "opacity-40" : ""}`}>
+                        <td className="px-3 py-2 font-mono text-slate-800 dark:text-slate-200">{s.name}</td>
+                        <td className="px-3 py-2 font-mono text-slate-500 dark:text-slate-400">{formatCapacity(s.sizeGiB)}</td>
+                        <td className="px-3 py-2 font-mono text-slate-500 dark:text-slate-400">{s.createdAt}</td>
                         <td className="px-3 py-2">
                           <span
                             className={`rounded border px-2 py-0.5 font-mono text-[10px] ${
                               s.status === "Completed"
-                                ? "border-emerald-200 bg-emerald-50 text-emerald-600"
+                                ? "border-emerald-200 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400"
                                 : s.status === "Creating"
-                                  ? "border-amber-200 bg-amber-50 text-amber-600"
-                                  : "border-slate-200 bg-slate-100 text-slate-500"
+                                  ? "border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"
+                                  : "border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
                             }`}
                           >
                             {s.status}
@@ -1120,7 +1120,7 @@ spec:
                           {s.status === "Completed" && (
                             <button
                               onClick={() => handleDeleteSnapshot(s.id)}
-                              className="font-mono text-[10px] text-rose-500 hover:text-rose-700"
+                              className="font-mono text-[10px] text-rose-500 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300"
                             >
                               delete
                             </button>
@@ -1133,8 +1133,8 @@ spec:
               )}
             </div>
 
-            <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-xs leading-relaxed text-slate-600">
-              <span className="font-mono font-bold text-slate-700">Snapshot semantics:</span> EBS snapshots are crash-consistent
+            <div className="mt-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+              <span className="font-mono font-bold text-slate-700 dark:text-slate-200">Snapshot semantics:</span> EBS snapshots are crash-consistent
               (stored in S3, incremental, restorable to any size); EFS snapshots cover a full file system and restore into the
               same region. In Kubernetes, restore means <em>creating a brand-new PVC</em> whose{" "}
               <code className="font-mono">dataSource</code> points at the VolumeSnapshot — the original volume is never touched.
@@ -1153,12 +1153,12 @@ function FragmentSwitcher({ label, active, last }: { label: string; active: bool
         className={`rounded-lg border px-3 py-2 text-xs font-mono transition-all ${
           active
             ? "border-sky-600 bg-sky-600 text-white shadow-lg shadow-sky-200"
-            : "border-slate-200 bg-white text-slate-500"
+            : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400"
         }`}
       >
         {label}
       </div>
-      {!last && <span className="text-sm font-bold text-sky-400">→</span>}
+      {!last && <span className="text-sm font-bold text-sky-400 dark:text-sky-300">→</span>}
     </>
   );
 }

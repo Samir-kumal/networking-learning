@@ -876,7 +876,7 @@ ${labels}
             Docker Track • Container Observability
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Observability Stack Lab</h1>
-          <p className="text-sm text-slate-300 max-w-3xl leading-relaxed">
+          <p className="text-sm text-slate-300 dark:text-slate-400 max-w-3xl leading-relaxed">
             Prometheus metric collection, Grafana dashboard composition, Tempo/Jaeger distributed tracing,
             structured log streams, alert rule authoring, and SLI/SLO budgeting — the full observability
             loop for containerized workloads.
@@ -889,7 +889,7 @@ ${labels}
               ["Tempo", "trace.id propagation"],
             ].map(([k, v]) => (
               <span key={k} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono text-sky-200">
-                {k} <span className="text-slate-500">·</span> {v}
+                {k} <span className="text-slate-500 dark:text-slate-400">·</span> {v}
               </span>
             ))}
           </div>
@@ -897,12 +897,12 @@ ${labels}
       </div>
 
       {/* ========================================================================= */}
-      <section id="metrics" className="scroll-mt-24 space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="metrics" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">Module 1 • Prometheus Metrics</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">Live Metric Simulator</h2>
-            <p className="text-sm text-slate-500 mt-1">
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 1 • Prometheus Metrics</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Live Metric Simulator</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
               Gauges sampled every {simSpeed === "2x" ? "650" : "1300"}ms — counters stay monotonic, rate() converts them to usable rates.
             </p>
           </div>
@@ -910,18 +910,18 @@ ${labels}
             <button
               onClick={() => setPaused(!paused)}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono border font-bold transition-all ${
-                paused ? "bg-slate-50 text-slate-500 border-slate-200" : "bg-emerald-50 text-emerald-600 border-emerald-300"
+                paused ? "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700" : "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600"
               }`}
             >
               {paused ? "❚❚ PAUSED" : "● SAMPLING"}
             </button>
-            <div className="flex items-center gap-1 rounded-lg bg-slate-50 border border-slate-200 px-1 py-1">
+            <div className="flex items-center gap-1 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 px-1 py-1">
               {(["1x", "2x"] as const).map((s) => (
                 <button
                   key={s}
                   onClick={() => setSimSpeed(s)}
                   className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold transition-colors ${
-                    simSpeed === s ? "bg-sky-100 text-sky-700" : "text-slate-500"
+                    simSpeed === s ? "bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300" : "text-slate-500 dark:text-slate-400"
                   }`}
                 >
                   {s}
@@ -943,23 +943,23 @@ ${labels}
                   key={k}
                   onClick={() => setSelectedGauge(k)}
                   className={`text-left p-4 rounded-xl border transition-all ${
-                    active ? "border-sky-400 bg-sky-50/60 shadow-md" : "border-slate-200 bg-white hover:border-sky-200"
+                    active ? "border-sky-400 bg-sky-50/60 shadow-md" : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-sky-200"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2 mb-1.5">
                     <div className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-full" style={{ background: g.color }} />
-                      <span className="text-xs font-bold text-slate-900">{g.label}</span>
+                      <span className="text-xs font-bold text-slate-900 dark:text-slate-100">{g.label}</span>
                     </div>
-                    <span className="text-[10px] font-mono text-slate-400">{g.unit}</span>
+                    <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">{g.unit}</span>
                   </div>
-                  <div className="text-2xl font-extrabold font-mono text-slate-900">
+                  <div className="text-2xl font-extrabold font-mono text-slate-900 dark:text-slate-100">
                     {currentValue(k).toFixed(k === "memory" || k === "disk" || k === "network" || k === "latency" ? 0 : 1)}
-                    <span className="text-xs font-mono text-slate-400 ml-1">{g.unit}</span>
+                    <span className="text-xs font-mono text-slate-400 dark:text-slate-500 ml-1">{g.unit}</span>
                   </div>
                   <div className="mt-2 flex items-center gap-2">
-                    <span className="text-[9px] font-mono text-slate-400 w-8">{g.short}</span>
-                    <div className="flex-1 h-1.5 bg-slate-100 rounded overflow-hidden">
+                    <span className="text-[9px] font-mono text-slate-400 dark:text-slate-500 w-8">{g.short}</span>
+                    <div className="flex-1 h-1.5 bg-slate-100 dark:bg-slate-700 rounded overflow-hidden">
                       <div
                         className={`h-full rounded transition-all duration-700 ${
                           pct > 88 ? "bg-rose-400" : pct > 68 ? "bg-amber-400" : "bg-gradient-to-r from-sky-400 to-blue-500"
@@ -967,7 +967,7 @@ ${labels}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
-                    <span className={`text-[9px] font-mono font-bold ${pct > 88 ? "text-rose-500" : "text-slate-400"}`}>{pct.toFixed(0)}%</span>
+                    <span className={`text-[9px] font-mono font-bold ${pct > 88 ? "text-rose-500 dark:text-rose-400" : "text-slate-400 dark:text-slate-500"}`}>{pct.toFixed(0)}%</span>
                   </div>
                 </button>
               );
@@ -976,50 +976,50 @@ ${labels}
 
           {/* Selected gauge detail + scrape targets */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="rounded-xl border border-slate-200 shadow-sm p-4 bg-white">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-4 bg-white dark:bg-slate-800">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs font-mono font-bold text-slate-900">{GAUGES[selectedGauge].label}</span>
-                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-sky-50 text-sky-600 border border-sky-200">Gauge</span>
+                <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">{GAUGES[selectedGauge].label}</span>
+                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-700">Gauge</span>
               </div>
-              <div className="text-[10px] font-mono text-slate-500 leading-relaxed min-h-[64px]">{GAUGES[selectedGauge].description}</div>
-              <div className="text-[10px] font-mono text-slate-500 mt-2 bg-slate-50 border border-slate-100 rounded-lg px-2.5 py-2 break-all">
-                <span className="text-sky-600 font-bold">query</span> {GAUGES[selectedGauge].metric}
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed min-h-[64px]">{GAUGES[selectedGauge].description}</div>
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-2 bg-slate-50 dark:bg-slate-700 border border-slate-100 dark:border-slate-700 rounded-lg px-2.5 py-2 break-all">
+                <span className="text-sky-600 dark:text-sky-400 font-bold">query</span> {GAUGES[selectedGauge].metric}
               </div>
               <div className="mt-2">
                 <Sparkline data={history[selectedGauge]} color={GAUGES[selectedGauge].color} max={GAUGES[selectedGauge].max} />
               </div>
-              <div className="text-[9px] font-mono text-slate-400 flex justify-between border-t border-slate-100 pt-1.5">
+              <div className="text-[9px] font-mono text-slate-400 dark:text-slate-500 flex justify-between border-t border-slate-100 dark:border-slate-700 pt-1.5">
                 <span>window {POINTS}p · last {simSpeed === "2x" ? "650" : "1300"}ms</span>
                 <span>{paused ? "sampling paused" : "next scrape…"}</span>
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-mono font-bold text-slate-900 uppercase tracking-wider">Scrape targets</span>
-                <span className="text-[9px] font-mono text-slate-400">TSDB state</span>
+                <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider">Scrape targets</span>
+                <span className="text-[9px] font-mono text-slate-400 dark:text-slate-500">TSDB state</span>
               </div>
               <div className="space-y-1.5">
                 {SCRAPE_TARGETS.map((t) => (
-                  <div key={t.name} className="flex items-center justify-between px-2 py-1.5 rounded-lg bg-white border border-slate-200 text-[10px] font-mono">
+                  <div key={t.name} className="flex items-center justify-between px-2 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-mono">
                     <div className="flex items-center gap-2 min-w-0">
                       <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${t.up ? "bg-emerald-400" : "bg-rose-500 animate-ping"}`} />
-                      <span className="font-bold text-slate-800 truncate">{t.name}</span>
-                      <span className="text-slate-400 hidden sm:inline truncate">:{t.endpoint}</span>
+                      <span className="font-bold text-slate-800 dark:text-slate-200 truncate">{t.name}</span>
+                      <span className="text-slate-400 dark:text-slate-500 hidden sm:inline truncate">:{t.endpoint}</span>
                     </div>
-                    <span className={`shrink-0 font-bold ${t.up ? "text-emerald-600" : "text-rose-500"}`}>{t.up ? "UP" : "DOWN"}</span>
+                    <span className={`shrink-0 font-bold ${t.up ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500 dark:text-rose-400"}`}>{t.up ? "UP" : "DOWN"}</span>
                   </div>
                 ))}
               </div>
-              <div className="text-[10px] font-mono text-slate-500 mt-2.5 leading-relaxed bg-slate-100 border border-slate-200 rounded-lg px-2.5 py-2">
-                <span className="font-bold text-sky-700">up</span> = scrape succeeded · <span className="font-bold text-sky-700">labels</span> define each series' cardivality key.
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-2.5 leading-relaxed bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-2">
+                <span className="font-bold text-sky-700 dark:text-sky-300">up</span> = scrape succeeded · <span className="font-bold text-sky-700 dark:text-sky-300">labels</span> define each series' cardivality key.
               </div>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-3.5 font-mono">
-          <span className="font-bold text-sky-600">PROMETHEUS:</span>
+        <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 font-mono">
+          <span className="font-bold text-sky-600 dark:text-sky-400">PROMETHEUS:</span>
           <span>counters always increase — use rate()</span>
           <span>gauges go up and down (current value) ·</span>
           <span>histograms power quantiles + SLIs ·</span>
@@ -1028,21 +1028,21 @@ ${labels}
       </section>
 
       {/* ========================================================================= */}
-      <section id="dashboard" className="scroll-mt-24 space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-blue-300 transition-colors">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="dashboard" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-blue-300 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-blue-600 uppercase tracking-wider mb-1">Module 2 • Grafana</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">Dashboard Builder</h2>
-            <p className="text-sm text-slate-500 mt-0.5">Compose panels from the widget palette, size them on the canvas, export provisioning JSON.</p>
+            <div className="text-xs font-mono text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">Module 2 • Grafana</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Dashboard Builder</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Compose panels from the widget palette, size them on the canvas, export provisioning JSON.</p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <div className="flex rounded-lg bg-slate-50 border border-slate-200 px-1 py-1">
+            <div className="flex rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 px-1 py-1">
               {(["light", "dark"] as const).map((t) => (
                 <button
                   key={t}
                   onClick={() => setDashTheme(t)}
                   className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold transition-colors ${
-                    dashTheme === t ? (t === "dark" ? "bg-slate-800 text-white" : "bg-blue-100 text-blue-700") : "text-slate-500"
+                    dashTheme === t ? (t === "dark" ? "bg-slate-800 text-white" : "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300") : "text-slate-500 dark:text-slate-400"
                   }`}
                 >
                   {t === "dark" ? "● dark" : "○ light"}
@@ -1051,13 +1051,13 @@ ${labels}
             </div>
             <button
               onClick={exportDashboard}
-              className="px-3 py-1.5 rounded-lg text-xs font-mono font-bold border transition-colors bg-blue-50 text-blue-700 border-blue-300 hover:bg-blue-100"
+              className="px-3 py-1.5 rounded-lg text-xs font-mono font-bold border transition-colors bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-600 hover:bg-blue-100"
             >
               Export JSON
             </button>
             <button
               onClick={clearCanvas}
-              className="px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-slate-200 text-slate-500 hover:text-rose-500 hover:border-rose-300 transition-colors"
+              className="px-3 py-1.5 rounded-lg text-xs font-mono font-bold border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-rose-500 hover:border-rose-300 transition-colors"
             >
               ✕ Clear
             </button>
@@ -1066,32 +1066,32 @@ ${labels}
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Widget palette + presets */}
-          <div className="lg:col-span-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <div className="lg:col-span-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4">
             <div className="flex flex-wrap gap-1.5 mb-3">
               {WIDGET_PRESETS.map((p) => (
                 <button
                   key={p.label}
                   onClick={() => applyPreset(p.label)}
                   className={`px-2.5 py-1 rounded-lg text-[10px] font-mono border transition-colors ${
-                    dashPreset === p.label ? "bg-blue-100 text-blue-700 border-blue-300 font-bold" : "text-slate-500 border-slate-200 bg-white hover:border-blue-300"
+                    dashPreset === p.label ? "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-600 font-bold" : "text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-300"
                   }`}
                 >
                   {p.label}
                 </button>
               ))}
             </div>
-            <div className="text-xs font-mono font-bold text-slate-900 uppercase tracking-wider mb-2">Widget palette</div>
+            <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-2">Widget palette</div>
             <div className="grid grid-cols-1 gap-2">
               {WIDGET_IDS.map((id) => (
                 <button
                   key={id}
                   onClick={() => addWidget(id)}
-                  className="p-3 rounded-lg text-left border text-xs transition-all border-slate-200 bg-white hover:border-blue-300 text-slate-700"
+                  className="p-3 rounded-lg text-left border text-xs transition-all border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-300 text-slate-700 dark:text-slate-200"
                 >
                   <span className="flex items-center gap-2 font-bold">
-                    <span className="text-sm text-blue-600">{WIDGETS[id].icon}</span> {WIDGETS[id].title}
+                    <span className="text-sm text-blue-600 dark:text-blue-400">{WIDGETS[id].icon}</span> {WIDGETS[id].title}
                   </span>
-                  <span className="block text-[10px] text-slate-400 mt-0.5 font-mono">{WIDGETS[id].desc}</span>
+                  <span className="block text-[10px] text-slate-400 dark:text-slate-500 mt-0.5 font-mono">{WIDGETS[id].desc}</span>
                 </button>
               ))}
             </div>
@@ -1099,29 +1099,29 @@ ${labels}
 
           {/* Dashboard canvas */}
           <div className="lg:col-span-9 space-y-4">
-            <div className={`rounded-xl border-2 border-dashed p-4 min-h-[320px] transition-colors ${dashTheme === "dark" ? "border-slate-700 bg-[#111c2e]" : "border-slate-200 bg-slate-50/60"}`}>
+            <div className={`rounded-xl border-2 border-dashed p-4 min-h-[320px] transition-colors ${dashTheme === "dark" ? "border-slate-700 bg-[#111c2e]" : "border-slate-200 dark:border-slate-700 bg-slate-50/60"}`}>
               <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-200/20">
-                <span className={`text-xs font-mono font-bold ${dashTheme === "dark" ? "text-sky-300" : "text-slate-800"}`}>
+                <span className={`text-xs font-mono font-bold ${dashTheme === "dark" ? "text-sky-300" : "text-slate-800 dark:text-slate-200"}`}>
                   {dashPreset ?? "Untitled Dashboard"} <span className="opacity-50">· {placedWidgets.length} panels</span>
                 </span>
-                <span className={`text-[9px] font-mono ${dashTheme === "dark" ? "text-slate-500" : "text-slate-400"}`}>auto refresh 15s · time range 1h</span>
+                <span className={`text-[9px] font-mono ${dashTheme === "dark" ? "text-slate-500 dark:text-slate-400" : "text-slate-400 dark:text-slate-500"}`}>auto refresh 15s · time range 1h</span>
               </div>
               {placedWidgets.length === 0 ? (
                 <div className="flex flex-col items-center justify-center gap-2 py-16 text-center">
-                  <span className={`text-4xl ${dashTheme === "dark" ? "text-slate-700" : "text-slate-300"}`}>▦</span>
-                  <p className={`text-sm font-mono ${dashTheme === "dark" ? "text-slate-500" : "text-slate-400"}`}>empty canvas — add widgets from the palette</p>
-                  <p className={`text-[10px] font-mono ${dashTheme === "dark" ? "text-slate-600" : "text-slate-400"}`}>or pick a preset template above</p>
+                  <span className={`text-4xl ${dashTheme === "dark" ? "text-slate-700 dark:text-slate-200" : "text-slate-300 dark:text-slate-400"}`}>▦</span>
+                  <p className={`text-sm font-mono ${dashTheme === "dark" ? "text-slate-500 dark:text-slate-400" : "text-slate-400 dark:text-slate-500"}`}>empty canvas — add widgets from the palette</p>
+                  <p className={`text-[10px] font-mono ${dashTheme === "dark" ? "text-slate-600 dark:text-slate-300" : "text-slate-400 dark:text-slate-500"}`}>or pick a preset template above</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {placedWidgets.map((w) => (
                     <div
                       key={w.id}
-                      className={`rounded-xl ${dashTheme === "dark" ? "bg-[#12233b] border border-slate-700/60" : "bg-white border border-slate-200"} shadow-sm overflow-hidden flex flex-col ${SIZE_SPAN[w.size]}`}
+                      className={`rounded-xl ${dashTheme === "dark" ? "bg-[#12233b] border border-slate-700/60" : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700"} shadow-sm overflow-hidden flex flex-col ${SIZE_SPAN[w.size]}`}
                     >
-                      <div className={`flex items-center justify-between px-3 py-1.5 border-b ${dashTheme === "dark" ? "border-slate-700/60" : "border-slate-100"}`}>
-                        <span className={`text-[11px] font-mono font-bold flex items-center gap-1.5 ${dashTheme === "dark" ? "text-sky-300" : "text-slate-900"}`}>
-                          <span className={dashTheme === "dark" ? "text-sky-500" : "text-blue-600"}>{WIDGETS[w.type].icon}</span>
+                      <div className={`flex items-center justify-between px-3 py-1.5 border-b ${dashTheme === "dark" ? "border-slate-700/60" : "border-slate-100 dark:border-slate-700"}`}>
+                        <span className={`text-[11px] font-mono font-bold flex items-center gap-1.5 ${dashTheme === "dark" ? "text-sky-300" : "text-slate-900 dark:text-slate-100"}`}>
+                          <span className={dashTheme === "dark" ? "text-sky-500 dark:text-sky-400" : "text-blue-600 dark:text-blue-400"}>{WIDGETS[w.type].icon}</span>
                           {WIDGETS[w.type].title}
                         </span>
                         <div className="flex items-center gap-1">
@@ -1129,7 +1129,7 @@ ${labels}
                             value={w.size}
                             onChange={(e) => resizeWidget(w.id, Number(e.target.value) as 1 | 2 | 3)}
                             className={`px-1 py-0.5 rounded border text-[9px] font-mono ${
-                              dashTheme === "dark" ? "bg-slate-800 border-slate-600 text-slate-300" : "bg-white border-slate-200 text-slate-600"
+                              dashTheme === "dark" ? "bg-slate-800 border-slate-600 text-slate-300 dark:text-slate-400" : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300"
                             }`}
                             aria-label={`${WIDGETS[w.type].title} size`}
                           >
@@ -1140,7 +1140,7 @@ ${labels}
                           <button
                             onClick={() => removeWidget(w.id)}
                             className={`px-1.5 rounded text-[10px] transition-colors ${
-                              dashTheme === "dark" ? "text-slate-500 hover:text-rose-400" : "text-slate-400 hover:text-rose-500 hover:bg-rose-50"
+                              dashTheme === "dark" ? "text-slate-500 dark:text-slate-400 hover:text-rose-400" : "text-slate-400 dark:text-slate-500 hover:text-rose-500 hover:bg-rose-50"
                             }`}
                             aria-label={`Remove ${WIDGETS[w.type].title}`}
                           >
@@ -1155,8 +1155,8 @@ ${labels}
               )}
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-[11px] font-mono text-slate-500 leading-relaxed">
-              <span className="font-bold text-blue-600">GRAFANA PANELS:</span> each panel renders a <span className="text-slate-700">PromQL</span> target — the query defines the data, the visualization defines the shape (lines, gauges, heatmaps, tables).
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
+              <span className="font-bold text-blue-600 dark:text-blue-400">GRAFANA PANELS:</span> each panel renders a <span className="text-slate-700 dark:text-slate-200">PromQL</span> target — the query defines the data, the visualization defines the shape (lines, gauges, heatmaps, tables).
             </div>
           </div>
         </div>
@@ -1164,10 +1164,10 @@ ${labels}
         {exportedJson && (
           <div className="rounded-xl bg-[#0b1526] border border-slate-700 overflow-hidden">
             <div className="flex items-center justify-between px-4 py-2 border-b border-slate-700/60 bg-[#0e2238]">
-              <span className="text-xs font-mono text-slate-300 font-bold">dashboard.json · provisioning export</span>
+              <span className="text-xs font-mono text-slate-300 dark:text-slate-400 font-bold">dashboard.json · provisioning export</span>
               <button
                 onClick={copyJson}
-                className="px-2.5 py-1 rounded bg-white/10 border border-white/15 text-[10px] font-mono text-slate-300 hover:bg-white/20 transition-colors"
+                className="px-2.5 py-1 rounded bg-white/10 border border-white/15 text-[10px] font-mono text-slate-300 dark:text-slate-400 hover:bg-white/20 transition-colors"
               >
                 {copiedJson ? "✓ copied" : "Copy"}
               </button>
@@ -1176,8 +1176,8 @@ ${labels}
           </div>
         )}
 
-        <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-3.5 font-mono">
-          <span className="font-bold text-blue-600">KEY CONCEPTS:</span>
+        <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 font-mono">
+          <span className="font-bold text-blue-600 dark:text-blue-400">KEY CONCEPTS:</span>
           <span>dashboards are JSON + provisioned via config ·</span>
           <span>folders/teams gate dashboard access ·</span>
           <span>unified alerting = Prometheus rules rendered as panels ·</span>
@@ -1186,28 +1186,28 @@ ${labels}
       </section>
 
       {/* ========================================================================= */}
-      <section id="tracing" className="scroll-mt-24 space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-cyan-300 transition-colors">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="tracing" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-cyan-300 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-cyan-600 uppercase tracking-wider mb-1">Module 3 • Distributed Tracing</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">Trace Waterfall — Jaeger / Tempo</h2>
-            <p className="text-sm text-slate-500 mt-0.5">One user request fans out across services; every span carries start time, duration, status, and its parent link.</p>
+            <div className="text-xs font-mono text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-1">Module 3 • Distributed Tracing</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Trace Waterfall — Jaeger / Tempo</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">One user request fans out across services; every span carries start time, duration, status, and its parent link.</p>
           </div>
           <div className="flex items-center gap-2">
-            <div className="flex rounded-lg bg-slate-50 border border-slate-200 px-1 py-1">
+            <div className="flex rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 px-1 py-1">
               {(["tempo", "jaeger"] as const).map((b) => (
                 <button
                   key={b}
                   onClick={() => setTraceBackend(b)}
                   className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold transition-colors ${
-                    traceBackend === b ? "bg-cyan-100 text-cyan-700" : "text-slate-500"
+                    traceBackend === b ? "bg-cyan-100 dark:bg-cyan-900/40 text-cyan-700 dark:text-cyan-300" : "text-slate-500 dark:text-slate-400"
                   }`}
                 >
                   {b === "jaeger" ? "Jaeger" : "Tempo"}
                 </button>
               ))}
             </div>
-            <span className="px-3 py-1 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-200 text-[10px] font-mono">
+            <span className="px-3 py-1 rounded-full bg-cyan-50 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-700 text-[10px] font-mono">
               Sampling {traceBackend === "jaeger" ? "head-based 10%" : "tail-based 1% + errors"}
             </span>
           </div>
@@ -1216,58 +1216,58 @@ ${labels}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Trace list */}
           <div className="lg:col-span-3 space-y-3">
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <span className="text-xs font-mono font-bold text-slate-900 uppercase tracking-wider">Traces ({TRACE_SAMPLES.length})</span>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4">
+              <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider">Traces ({TRACE_SAMPLES.length})</span>
               <div className="mt-2 space-y-2">
                 {TRACE_SAMPLES.map((t) => (
                   <button
                     key={t.id}
                     onClick={() => { setTraceId(t.id); setSelectedSpanIdx(2); }}
                     className={`w-full p-3 rounded-xl border text-left transition-all ${
-                      traceId === t.id ? "border-cyan-400 bg-cyan-50/60 shadow-md" : "border-slate-200 bg-white hover:border-cyan-200"
+                      traceId === t.id ? "border-cyan-400 bg-cyan-50/60 shadow-md" : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-cyan-200"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-[10px] font-mono font-bold text-slate-900 truncate">{t.operation}</span>
+                      <span className="text-[10px] font-mono font-bold text-slate-900 dark:text-slate-100 truncate">{t.operation}</span>
                       <span
                         className={`shrink-0 px-1.5 py-0.5 rounded text-[8px] font-mono font-bold ${
-                          t.status === "OK" ? "bg-emerald-50 text-emerald-600 border border-emerald-200" : "bg-rose-50 text-rose-600 border border-rose-200"
+                          t.status === "OK" ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700" : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700"
                         }`}
                       >
                         {t.status}
                       </span>
                     </div>
-                    <div className="text-[10px] font-mono text-slate-400 mt-1">
+                    <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-1">
                       {t.service} · {t.totalMs}ms · {t.spans} spans
                     </div>
                   </button>
                 ))}
               </div>
             </div>
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-[10px] font-mono text-slate-500 leading-relaxed">
-              <span className="font-bold text-cyan-600">TRACE ID:</span> <span className="break-all">{trace.sample.traceId}</span>
-              <div className="mt-1">propagated via <span className="text-slate-700">traceparent</span> header · W3C ctx</div>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3.5 text-[10px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
+              <span className="font-bold text-cyan-600 dark:text-cyan-400">TRACE ID:</span> <span className="break-all">{trace.sample.traceId}</span>
+              <div className="mt-1">propagated via <span className="text-slate-700 dark:text-slate-200">traceparent</span> header · W3C ctx</div>
             </div>
           </div>
 
           {/* Waterfall */}
           <div className="lg:col-span-9 space-y-4">
-            <div className="rounded-xl border border-slate-200 shadow-sm overflow-hidden bg-white">
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 bg-slate-50">
-                <span className="text-xs font-mono font-bold text-slate-900">
-                  {trace.sample.operation} <span className="text-cyan-600">· {trace.sample.totalMs}ms total</span>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden bg-white dark:bg-slate-800">
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700">
+                <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">
+                  {trace.sample.operation} <span className="text-cyan-600 dark:text-cyan-400">· {trace.sample.totalMs}ms total</span>
                 </span>
-                <span className="text-[10px] font-mono text-slate-400">{trace.sample.spans} spans · service depth {new Set(trace.spans.map((s) => s.service)).size}</span>
+                <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">{trace.sample.spans} spans · service depth {new Set(trace.spans.map((s) => s.service)).size}</span>
               </div>
 
               {/* Timeline ruler */}
               <div className="px-4 pt-3">
-                <div className="relative h-2 rounded bg-gradient-to-r from-cyan-100 via-sky-100 to-blue-100 border border-slate-100">
+                <div className="relative h-2 rounded bg-gradient-to-r from-cyan-100 via-sky-100 to-blue-100 border border-slate-100 dark:border-slate-700">
                   {[0, 0.25, 0.5, 0.75, 1].map((p) => (
                     <span key={p} className="absolute top-0 bottom-0 w-px bg-slate-300/70" style={{ left: `${p * 100}%` }} />
                   ))}
                 </div>
-                <div className="flex justify-between px-0.5 text-[8px] font-mono text-slate-400 mt-1">
+                <div className="flex justify-between px-0.5 text-[8px] font-mono text-slate-400 dark:text-slate-500 mt-1">
                   {[0, Math.round(trace.sample.totalMs / 4), Math.round(trace.sample.totalMs / 2), Math.round((trace.sample.totalMs * 3) / 4), trace.sample.totalMs].map((m) => (
                     <span key={m}>{m}ms</span>
                   ))}
@@ -1283,12 +1283,12 @@ ${labels}
                   return (
                     <button key={`${s.name}-${i}`} onClick={() => setSelectedSpanIdx(i)} className={`w-full flex items-center gap-2 text-left rounded-lg px-1.5 py-0.5 transition-colors ${isSelected ? "bg-cyan-50/70" : "hover:bg-slate-50"}`}>
                       <span className="w-40 shrink-0 truncate pl-2 text-[10px] font-mono">
-                        <span className="font-bold text-slate-800">{s.service}</span>
-                        <span className="text-slate-400"> · {s.operation}</span>
+                        <span className="font-bold text-slate-800 dark:text-slate-200">{s.service}</span>
+                        <span className="text-slate-400 dark:text-slate-500"> · {s.operation}</span>
                       </span>
-                      <span className="flex-1 relative h-5 bg-slate-100 rounded overflow-hidden">
+                      <span className="flex-1 relative h-5 bg-slate-100 dark:bg-slate-700 rounded overflow-hidden">
                         <span
-                          className={`absolute top-0 bottom-0 rounded border ${s.status === "OK" ? "border-white/40" : "border-rose-200"}`}
+                          className={`absolute top-0 bottom-0 rounded border ${s.status === "OK" ? "border-white/40" : "border-rose-200 dark:border-rose-700"}`}
                           style={{
                             left: `${left}%`,
                             width: `${width}%`,
@@ -1297,8 +1297,8 @@ ${labels}
                           }}
                         />
                       </span>
-                      <span className="w-16 shrink-0 text-right text-[10px] font-mono text-slate-500">{s.durationMs}ms</span>
-                      <span className={`shrink-0 w-12 text-center text-[8px] font-mono font-bold ${s.status === "OK" ? "text-emerald-500" : "text-rose-500"}`}>{s.kind}</span>
+                      <span className="w-16 shrink-0 text-right text-[10px] font-mono text-slate-500 dark:text-slate-400">{s.durationMs}ms</span>
+                      <span className={`shrink-0 w-12 text-center text-[8px] font-mono font-bold ${s.status === "OK" ? "text-emerald-500 dark:text-emerald-400" : "text-rose-500 dark:text-rose-400"}`}>{s.kind}</span>
                     </button>
                   );
                 })}
@@ -1307,12 +1307,12 @@ ${labels}
 
             {/* Span detail */}
             {selectedSpan && (
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4">
                 <div className="flex items-center justify-between gap-2 flex-wrap mb-3">
-                  <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold ${selectedSpan.status === "OK" ? "bg-emerald-50 text-emerald-600 border border-emerald-200" : "bg-rose-50 text-rose-600 border border-rose-200"}`}>
+                  <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold ${selectedSpan.status === "OK" ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700" : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700"}`}>
                     {selectedSpan.status} · {selectedSpan.kind}
                   </span>
-                  <span className="text-[10px] font-mono text-slate-400">critical path: {selectedSpan.critical ? "yes" : "no"}</span>
+                  <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">critical path: {selectedSpan.critical ? "yes" : "no"}</span>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-[10px]">
                   {[
@@ -1325,12 +1325,12 @@ ${labels}
                     ["tags", selectedSpan.db ? "db.system=postgres" : "component=http"],
                     ["parent", selectedSpan.startMs === 0 ? "ROOT" : `span@${selectedSpan.startMs - 30}ms`],
                   ].map(([k, v]) => (
-                    <div key={k} className="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5">
-                      <span className="text-slate-400">{k}:</span> <span className="text-slate-800 font-bold">{v}</span>
+                    <div key={k} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5">
+                      <span className="text-slate-400 dark:text-slate-500">{k}:</span> <span className="text-slate-800 dark:text-slate-200 font-bold">{v}</span>
                     </div>
                   ))}
                 </div>
-                <p className="text-[11px] font-mono text-slate-500 mt-3 leading-relaxed">
+                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
                   {selectedSpan.status === "ERROR"
                     ? `Root cause: ${trace.sample.operation} → ${selectedSpan.service} — this span burned ${selectedSpan.durationMs}ms (${((selectedSpan.durationMs / trace.sample.totalMs) * 100).toFixed(0)}% of trace time).`
                     : `This span took ${selectedSpan.durationMs}ms — ${((selectedSpan.durationMs / trace.sample.totalMs) * 100).toFixed(0)}% of the ${trace.sample.totalMs}ms trace. ${
@@ -1340,8 +1340,8 @@ ${labels}
               </div>
             )}
 
-            <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-3.5 font-mono">
-              <span className="font-bold text-cyan-600">TRACING 101:</span>
+            <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 font-mono">
+              <span className="font-bold text-cyan-600 dark:text-cyan-400">TRACING 101:</span>
               <span>trace id propagates via traceparent / b3 headers ·</span>
               <span>span context carries parent→child topology ·</span>
               <span>tail sampling keeps error traces, drops happy paths ·</span>
@@ -1352,17 +1352,17 @@ ${labels}
       </section>
 
       {/* ========================================================================= */}
-      <section id="logs" className="scroll-mt-24 space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="logs" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-cyan-600 uppercase tracking-wider mb-1">Module 4 • Structured Logging</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">Log Stream Explorer</h2>
-            <p className="text-sm text-slate-500 mt-0.5">JSON-structured entries with levels, services, and key=value fields — filter, search, live-tail.</p>
+            <div className="text-xs font-mono text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-1">Module 4 • Structured Logging</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Log Stream Explorer</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">JSON-structured entries with levels, services, and key=value fields — filter, search, live-tail.</p>
           </div>
           <button
             onClick={() => setLiveTail(!liveTail)}
             className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold border transition-all ${
-              liveTail ? "bg-emerald-50 text-emerald-600 border-emerald-300" : "bg-slate-50 text-slate-500 border-slate-200"
+              liveTail ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600" : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
             }`}
           >
             {liveTail ? "● LIVE TAIL ON" : "❚❚ LIVE TAIL OFF"}
@@ -1375,7 +1375,7 @@ ${labels}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Filter by message, service, SKU…"
-              className="flex-1 min-w-[160px] px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-sky-400"
+              className="flex-1 min-w-[160px] px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-sky-400"
             />
             {LOG_LEVELS.map((lv) => {
               const on = activeLevels.includes(lv);
@@ -1384,7 +1384,7 @@ ${labels}
                   key={lv}
                   onClick={() => toggleLevel(lv)}
                   className={`px-2.5 py-1.5 rounded-lg text-[10px] font-mono font-bold border transition-all ${
-                    on ? levelChipColor(lv) : "text-slate-400 border-slate-200 bg-white opacity-50"
+                    on ? levelChipColor(lv) : "text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 opacity-50"
                   }`}
                 >
                   {lv} <span className="opacity-60">{countLevel(lv)}</span>
@@ -1393,7 +1393,7 @@ ${labels}
             })}
             <button
               onClick={() => setLogLines([])}
-              className="px-2.5 py-1.5 rounded-lg text-[10px] font-mono font-bold border border-slate-200 text-slate-500 hover:text-rose-500 hover:border-rose-300 transition-colors"
+              className="px-2.5 py-1.5 rounded-lg text-[10px] font-mono font-bold border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-rose-500 hover:border-rose-300 transition-colors"
             >
               ✕ Clear
             </button>
@@ -1405,58 +1405,58 @@ ${labels}
                 <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
-                <span className="ml-2 text-xs font-mono text-slate-300 font-bold">loki / cluster-aggregate</span>
+                <span className="ml-2 text-xs font-mono text-slate-300 dark:text-slate-400 font-bold">loki / cluster-aggregate</span>
               </div>
-              <span className="text-[10px] font-mono text-slate-500">{filteredLogs.length} of {logLines.length} lines</span>
+              <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{filteredLogs.length} of {logLines.length} lines</span>
             </div>
             <div className="p-4 space-y-0.5 h-[320px] overflow-y-auto font-mono text-[11px] leading-5">
               {filteredLogs.length === 0 ? (
-                <div className="text-slate-600 text-center py-12 text-xs">
+                <div className="text-slate-600 dark:text-slate-300 text-center py-12 text-xs">
                   no lines match the current filters — {liveTail ? "waiting for new entries…" : "tail is paused"}
                 </div>
               ) : (
                 filteredLogs.map((l, i) => (
                   <div key={`${l.ts}-${i}`} className="flex gap-3 whitespace-nowrap hover:bg-white/5 rounded px-1 transition-colors">
-                    <span className="shrink-0 text-slate-500">{l.ts}</span>
+                    <span className="shrink-0 text-slate-500 dark:text-slate-400">{l.ts}</span>
                     <span className={`shrink-0 w-14 font-bold ${levelColor(l.level)}`}>{l.level.padEnd(5)}</span>
                     <span className="shrink-0 text-cyan-300/90 w-28">{l.service}</span>
-                    <span className={l.level === "ERROR" ? "text-rose-200" : l.level === "WARN" ? "text-amber-200/90" : "text-slate-300"}>
-                      {l.message} <span className="text-slate-500">{renderFields(l.fields)}</span>
+                    <span className={l.level === "ERROR" ? "text-rose-200" : l.level === "WARN" ? "text-amber-200/90" : "text-slate-300 dark:text-slate-400"}>
+                      {l.message} <span className="text-slate-500 dark:text-slate-400">{renderFields(l.fields)}</span>
                     </span>
                   </div>
                 ))
               )}
               {liveTail && filteredLogs.length > 0 && (
-                <div className="flex items-center gap-1.5 text-emerald-400 text-[10px] pt-1 animate-pulse">
+                <div className="flex items-center gap-1.5 text-emerald-400 dark:text-emerald-300 text-[10px] pt-1 animate-pulse">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> tailing…
                 </div>
               )}
             </div>
           </div>
 
-          <div className="rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-[11px] font-mono text-slate-500 leading-relaxed">
-            <span className="font-bold text-cyan-700">STRUCTURED LOGGING:</span> names + levels only — search by field (e.g.{" "}
-            <span className="text-slate-700">order_id="ord-10*"</span>), correlate to traces via trace_id, and keep INFO for operational context while WARN/ERROR feed the alert path.
+          <div className="rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-3.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
+            <span className="font-bold text-cyan-700 dark:text-cyan-300">STRUCTURED LOGGING:</span> names + levels only — search by field (e.g.{" "}
+            <span className="text-slate-700 dark:text-slate-200">order_id="ord-10*"</span>), correlate to traces via trace_id, and keep INFO for operational context while WARN/ERROR feed the alert path.
           </div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      <section id="alerts" className="scroll-mt-24 space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-amber-300 transition-colors">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="alerts" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-amber-300 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-amber-600 uppercase tracking-wider mb-1">Module 5 • Alert Rules</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">Prometheus Alert Configurator</h2>
-            <p className="text-sm text-slate-500 mt-0.5">Author a rule against live simulated values, evaluate it repeatedly, and export the YAML for your cluster.</p>
+            <div className="text-xs font-mono text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">Module 5 • Alert Rules</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Prometheus Alert Configurator</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Author a rule against live simulated values, evaluate it repeatedly, and export the YAML for your cluster.</p>
           </div>
           <div className="flex items-center gap-2">
             <span
               className={`px-3 py-1.5 rounded-full text-xs font-mono font-bold border ${
                 alertState === "INACTIVE" || alertState === "DISABLED"
-                  ? "bg-emerald-50 text-emerald-600 border-emerald-300"
+                  ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600"
                   : alertState === "PENDING"
-                    ? "bg-amber-50 text-amber-600 border-amber-300"
-                    : "bg-rose-50 text-rose-600 border-rose-300"
+                    ? "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border-amber-300 dark:border-amber-600"
+                    : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border-rose-300 dark:border-rose-600"
               }`}
             >
               STATE: {alertState}
@@ -1464,7 +1464,7 @@ ${labels}
             <button
               onClick={() => setAlertEnabled(!alertEnabled)}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold border transition-colors ${
-                alertEnabled ? "bg-emerald-50 text-emerald-600 border-emerald-300" : "bg-slate-50 text-slate-400 border-slate-200"
+                alertEnabled ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600" : "bg-slate-50 dark:bg-slate-700 text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-700"
               }`}
             >
               {alertEnabled ? "RULE ENABLED" : "RULE DISABLED"}
@@ -1475,13 +1475,13 @@ ${labels}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Rule editor */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="rounded-xl border border-slate-200 card-shadow p-4">
-              <div className="text-xs font-mono font-bold text-slate-900 mb-3">1 · Metric & Condition</div>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 card-shadow p-4">
+              <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 mb-3">1 · Metric & Condition</div>
               <div className="flex flex-col gap-2">
                 <select
                   value={alertMetric}
                   onChange={(e) => changeAlertMetric(e.target.value as AlertMetricKey)}
-                  className="px-3 py-2 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-sky-400"
+                  className="px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-sky-400"
                 >
                   {ALERT_KEYS.map((k) => (
                     <option key={k} value={k}>
@@ -1489,14 +1489,14 @@ ${labels}
                     </option>
                   ))}
                 </select>
-                <div className="rounded-lg bg-slate-50 border border-slate-200 p-2.5 text-[10px] font-mono text-slate-500 break-all">
-                  <span className="text-sky-600 font-bold">expr</span> {alertDef.expr}
+                <div className="rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-2.5 text-[10px] font-mono text-slate-500 dark:text-slate-400 break-all">
+                  <span className="text-sky-600 dark:text-sky-400 font-bold">expr</span> {alertDef.expr}
                 </div>
                 <div className="flex items-center gap-2">
                   <select
                     value={alertOperator}
                     onChange={(e) => setAlertOperator(e.target.value as ">" | ">=" | "<" | "<=")}
-                    className="px-2 py-2 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-sky-400"
+                    className="px-2 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-sky-400"
                   >
                     <option value=">">&gt;</option>
                     <option value=">=">&gt;=</option>
@@ -1507,19 +1507,19 @@ ${labels}
                     type="number"
                     value={alertThreshold}
                     onChange={(e) => setAlertThreshold(Number(e.target.value))}
-                    className="flex-1 px-3 py-2 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-sky-400"
+                    className="flex-1 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-sky-400"
                   />
-                  <span className="text-[10px] font-mono text-slate-400 w-8">{alertDef.unit}</span>
+                  <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 w-8">{alertDef.unit}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">for</span>
-                  <div className="flex rounded-lg bg-slate-50 border border-slate-200 px-1 py-1">
+                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">for</span>
+                  <div className="flex rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 px-1 py-1">
                     {FOR_OPTIONS.map((f) => (
                       <button
                         key={f}
                         onClick={() => setAlertFor(f)}
                         className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold transition-colors ${
-                          alertFor === f ? "bg-amber-100 text-amber-700" : "text-slate-500"
+                          alertFor === f ? "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300" : "text-slate-500 dark:text-slate-400"
                         }`}
                       >
                         {f}
@@ -1530,10 +1530,10 @@ ${labels}
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 card-shadow p-4">
-              <div className="text-xs font-mono font-bold text-slate-900 mb-3">2 · Labels & Severity</div>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 card-shadow p-4">
+              <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 mb-3">2 · Labels & Severity</div>
               <div className="flex flex-col gap-2">
-                <div className="flex rounded-lg bg-slate-50 border border-slate-200 px-1 py-1 w-fit">
+                <div className="flex rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 px-1 py-1 w-fit">
                   {(["critical", "warning", "info"] as const).map((sev) => (
                     <button
                       key={sev}
@@ -1541,66 +1541,66 @@ ${labels}
                       className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold transition-colors ${
                         alertSeverity === sev
                           ? sev === "critical"
-                            ? "bg-rose-100 text-rose-700"
+                            ? "bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300"
                             : sev === "warning"
-                              ? "bg-amber-100 text-amber-700"
-                              : "bg-sky-100 text-sky-700"
-                          : "text-slate-500"
+                              ? "bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300"
+                              : "bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300"
+                          : "text-slate-500 dark:text-slate-400"
                       }`}
                     >
                       {sev}
                     </button>
                   ))}
                 </div>
-                <label className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">labels (key=value, one per line)</label>
+                <label className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">labels (key=value, one per line)</label>
                 <textarea
                   value={alertLabels}
                   onChange={(e) => setAlertLabels(e.target.value)}
                   rows={3}
-                  className="p-2.5 rounded-lg bg-white border border-slate-200 text-[10px] font-mono text-slate-900 outline-none focus:border-sky-400 resize-none"
+                  className="p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-sky-400 resize-none"
                 />
               </div>
             </div>
 
             <button
               onClick={evaluateRule}
-              className="w-full py-2.5 rounded-xl text-xs font-mono font-bold border transition-all bg-amber-50 text-amber-700 border-amber-300 hover:bg-amber-100"
+              className="w-full py-2.5 rounded-xl text-xs font-mono font-bold border transition-all bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-600 hover:bg-amber-100"
             >
               ⟳ Evaluate rule ({evalCount}/2 cycles to FIRE)
             </button>
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-[11px] font-mono text-slate-500 leading-relaxed">
-              <span className="font-bold text-amber-600">STATES:</span> value {alertValue}
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
+              <span className="font-bold text-amber-600 dark:text-amber-400">STATES:</span> value {alertValue}
               {alertDef.unit} {alertOperator} {alertThreshold} →{" "}
               {alertBreached ? (
-                <span className="text-rose-600 font-bold">breached</span>
+                <span className="text-rose-600 dark:text-rose-400 font-bold">breached</span>
               ) : (
-                <span className="text-emerald-600 font-bold">within budget</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold">within budget</span>
               )}
-              . <span className="text-slate-700">for: {alertFor}</span> means the condition must persist through evaluations before FIRING.
+              . <span className="text-slate-700 dark:text-slate-200">for: {alertFor}</span> means the condition must persist through evaluations before FIRING.
             </div>
           </div>
 
           {/* Live value + generated YAML */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="rounded-xl border border-slate-200 card-shadow p-4">
-              <div className="text-xs font-mono font-bold text-slate-900 mb-2">Live value vs threshold — simulated feed</div>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 card-shadow p-4">
+              <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 mb-2">Live value vs threshold — simulated feed</div>
               <div className="flex items-end gap-3">
-                <div className="text-3xl font-extrabold font-mono text-slate-900">
+                <div className="text-3xl font-extrabold font-mono text-slate-900 dark:text-slate-100">
                   {alertValue}
-                  <span className="text-xs font-mono text-slate-400 ml-1">{alertDef.unit}</span>
+                  <span className="text-xs font-mono text-slate-400 dark:text-slate-500 ml-1">{alertDef.unit}</span>
                 </div>
                 <div
                   className={`px-2 py-1 rounded-lg text-[10px] font-mono font-bold border ${
-                    alertBreached ? "bg-rose-50 text-rose-600 border-rose-300" : "bg-emerald-50 text-emerald-600 border-emerald-300"
+                    alertBreached ? "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border-rose-300 dark:border-rose-600" : "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600"
                   }`}
                 >
                   {alertBreached ? "◉ BREACHING" : "○ NORMAL"}
                 </div>
-                <div className="ml-auto flex items-center gap-1.5 text-[10px] font-mono text-slate-400">
+                <div className="ml-auto flex items-center gap-1.5 text-[10px] font-mono text-slate-400 dark:text-slate-500">
                   <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" /> live from module 1 sim
                 </div>
               </div>
-              <div className="mt-3 h-3 bg-slate-100 rounded overflow-hidden relative">
+              <div className="mt-3 h-3 bg-slate-100 dark:bg-slate-700 rounded overflow-hidden relative">
                 <div
                   className={`absolute top-0 bottom-0 rounded transition-all duration-700 ${
                     alertBreached ? "bg-gradient-to-r from-rose-400 to-orange-400" : "bg-gradient-to-r from-sky-400 to-blue-400"
@@ -1613,7 +1613,7 @@ ${labels}
                   title={`threshold ${alertThreshold}${alertDef.unit}`}
                 />
               </div>
-              <div className="flex justify-between text-[9px] font-mono text-slate-400 mt-1">
+              <div className="flex justify-between text-[9px] font-mono text-slate-400 dark:text-slate-500 mt-1">
                 <span>0</span>
                 <span>threshold {alertThreshold}{alertDef.unit}</span>
                 <span>scale max</span>
@@ -1623,13 +1623,13 @@ ${labels}
                   <span
                     key={i}
                     className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold border ${
-                      i < evalCount ? (alertBreached ? "bg-rose-50 text-rose-600 border-rose-300" : "bg-emerald-50 text-emerald-600 border-emerald-300") : "bg-white text-slate-400 border-slate-200"
+                      i < evalCount ? (alertBreached ? "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border-rose-300 dark:border-rose-600" : "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600") : "bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-700"
                     }`}
                   >
                     eval {i + 1}{i < evalCount ? " ✓" : ""}
                   </span>
                 ))}
-                <span className="ml-auto text-[9px] font-mono text-slate-400">
+                <span className="ml-auto text-[9px] font-mono text-slate-400 dark:text-slate-500">
                   {alertState === "PENDING" && `${2 - evalCount} more eval(s) to FIRE`}
                   {alertState === "FIRING" && "⚠ alert route: ops-oncall → slack"}{" "}
                   {alertState === "INACTIVE" && "no alert condition met"}
@@ -1639,10 +1639,10 @@ ${labels}
 
             <div className="rounded-xl bg-[#0b1526] border border-slate-700 overflow-hidden">
               <div className="flex items-center justify-between px-4 py-2 border-b border-slate-700/60 bg-[#0e2238]">
-                <span className="text-xs font-mono text-slate-300 font-bold">prometheus-alerts.yml</span>
+                <span className="text-xs font-mono text-slate-300 dark:text-slate-400 font-bold">prometheus-alerts.yml</span>
                 <button
                   onClick={copyRule}
-                  className="px-2.5 py-1 rounded bg-white/10 border border-white/15 text-[10px] font-mono text-slate-300 hover:bg-white/20 transition-colors"
+                  className="px-2.5 py-1 rounded bg-white/10 border border-white/15 text-[10px] font-mono text-slate-300 dark:text-slate-400 hover:bg-white/20 transition-colors"
                 >
                   {copiedRule ? "✓ copied" : "Copy"}
                 </button>
@@ -1650,8 +1650,8 @@ ${labels}
               <pre className="p-4 text-[10px] font-mono text-amber-200 overflow-x-auto leading-relaxed">{generatedRuleYaml}</pre>
             </div>
 
-            <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-3.5 font-mono">
-              <span className="font-bold text-amber-600">ALERTING:</span>
+            <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 font-mono">
+              <span className="font-bold text-amber-600 dark:text-amber-400">ALERTING:</span>
               <span>expr is a PromQL boolean — true = breach ·</span>
               <span>for= prevents flapping ·</span>
               <span>labels route → receiver (severity, team) ·</span>
@@ -1662,20 +1662,20 @@ ${labels}
       </section>
 
       {/* ========================================================================= */}
-      <section id="slo" className="scroll-mt-24 space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-emerald-300 transition-colors">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="slo" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-emerald-300 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-emerald-600 uppercase tracking-wider mb-1">Module 6 • SLI / SLO</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">Error Budget Calculator</h2>
-            <p className="text-sm text-slate-500 mt-0.5">Turn SLIs (good / total) into an SLO, then track how much of the error budget has been consumed.</p>
+            <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">Module 6 • SLI / SLO</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Error Budget Calculator</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Turn SLIs (good / total) into an SLO, then track how much of the error budget has been consumed.</p>
           </div>
-          <div className="flex rounded-lg bg-slate-50 border border-slate-200 px-1 py-1">
+          <div className="flex rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 px-1 py-1">
             {(["availability", "latency"] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => setSloType(t)}
                 className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold transition-colors ${
-                  sloType === t ? "bg-emerald-100 text-emerald-700" : "text-slate-500"
+                  sloType === t ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300" : "text-slate-500 dark:text-slate-400"
                 }`}
               >
                 {t === "availability" ? "Availability" : "Latency p95"}
@@ -1687,15 +1687,15 @@ ${labels}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Inputs */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="rounded-xl border border-slate-200 card-shadow p-4 space-y-3">
-              <div className="text-xs font-mono font-bold text-slate-900">Window & Target</div>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 card-shadow p-4 space-y-3">
+              <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">Window & Target</div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono text-slate-500 w-24">window (days)</span>
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 w-24">window (days)</span>
                 <input
                   type="number"
                   value={sloWindowDays}
                   onChange={(e) => setSloWindowDays(Math.max(1, Math.min(365, Number(e.target.value))))}
-                  className="flex-1 px-3 py-2 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-emerald-400"
+                  className="flex-1 px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-emerald-400"
                 />
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -1704,7 +1704,7 @@ ${labels}
                     key={t}
                     onClick={() => setSloTarget(t)}
                     className={`px-2.5 py-1 rounded-lg text-[10px] font-mono border transition-colors ${
-                      sloTarget === t ? "bg-emerald-100 text-emerald-700 border-emerald-300 font-bold" : "text-slate-500 border-slate-200 bg-white hover:border-emerald-300"
+                      sloTarget === t ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-600 font-bold" : "text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-emerald-300"
                     }`}
                   >
                     {t}%
@@ -1715,57 +1715,57 @@ ${labels}
               {sloType === "availability" ? (
                 <>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono text-slate-500 w-[120px]">good requests</span>
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 w-[120px]">good requests</span>
                     <input
                       type="number"
                       value={sloTotal}
                       onChange={(e) => setSloTotal(Math.max(0, Number(e.target.value)))}
-                      className="flex-1 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-emerald-400"
+                      className="flex-1 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-emerald-400"
                     />
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono text-slate-500 w-[120px]">bad (5xx / timeouts)</span>
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 w-[120px]">bad (5xx / timeouts)</span>
                     <input
                       type="number"
                       value={sloBad}
                       onChange={(e) => setSloBad(Math.max(0, Number(e.target.value)))}
-                      className="flex-1 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-emerald-400"
+                      className="flex-1 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-emerald-400"
                     />
                   </div>
-                  <p className="text-[10px] font-mono text-slate-400">
+                  <p className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
                     SLI = successful requests / total requests — counts "good" events over the window.
                   </p>
                 </>
               ) : (
                 <>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono text-slate-500 w-[120px]">measured p95 (ms)</span>
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 w-[120px]">measured p95 (ms)</span>
                     <input
                       type="number"
                       value={sloLatencyMs}
                       onChange={(e) => setSloLatencyMs(Math.max(0, Number(e.target.value)))}
-                      className="flex-1 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-emerald-400"
+                      className="flex-1 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-emerald-400"
                     />
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono text-slate-500 w-[120px]">budget (ms)</span>
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 w-[120px]">budget (ms)</span>
                     <input
                       type="number"
                       value={sloLatencyBudgetMs}
                       onChange={(e) => setSloLatencyBudgetMs(Math.max(1, Number(e.target.value)))}
-                      className="flex-1 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-emerald-400"
+                      className="flex-1 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-emerald-400"
                     />
                   </div>
-                  <p className="text-[10px] font-mono text-slate-400">
+                  <p className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
                     SLI = histogram_quantile(0.95, rate(...[5m])) — the budget is the SLO for that percentile.
                   </p>
                 </>
               )}
             </div>
 
-            <div className="rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-[11px] font-mono text-slate-500 leading-relaxed">
-              <span className="font-bold text-emerald-700">DEFINITIONS:</span> <span className="text-slate-700">SLI</span> = the measured indicator ·
-              <span className="text-slate-700"> SLO</span> = the agreed target · <span className="text-slate-700">error budget</span> = 100% − SLO target, the seconds of
+            <div className="rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-3.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
+              <span className="font-bold text-emerald-700 dark:text-emerald-300">DEFINITIONS:</span> <span className="text-slate-700 dark:text-slate-200">SLI</span> = the measured indicator ·
+              <span className="text-slate-700 dark:text-slate-200"> SLO</span> = the agreed target · <span className="text-slate-700 dark:text-slate-200">error budget</span> = 100% − SLO target, the seconds of
               allowed failure each month.
             </div>
           </div>
@@ -1780,8 +1780,8 @@ ${labels}
                     ["Bad events allowed", `${slo.allowedBad.toLocaleString()}`, "text-sky-600"],
                     ["Remaining budget", `${slo.remainingBad.toLocaleString()} events`, "text-emerald-600"],
                   ].map(([k, v, c]) => (
-                    <div key={k} className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                      <div className="text-[10px] font-mono text-slate-500">{k}</div>
+                    <div key={k} className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                      <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{k}</div>
                       <div className={`text-xl font-extrabold mt-1 font-mono ${c}`}>{v}</div>
                     </div>
                   ))
@@ -1791,25 +1791,25 @@ ${labels}
                     { key: "Consumed", v: `${slo.consumedPct.toFixed(1)}%`, c: slo.consumedPct > 85 ? "text-rose-600" : "text-slate-900" },
                     { key: "Remaining", v: `${slo.remainingPct.toFixed(1)}%`, c: "text-emerald-600" },
                   ].map((m) => (
-                    <div key={m.key} className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                      <div className="text-[10px] font-mono text-slate-500">{m.key}</div>
+                    <div key={m.key} className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                      <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{m.key}</div>
                       <div className={`text-xl font-extrabold mt-1 font-mono ${m.c}`}>{m.v}</div>
                     </div>
                   ))}
             </div>
 
-            <div className="rounded-xl border border-slate-200 card-shadow p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 card-shadow p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-mono font-bold text-slate-900">Error budget consumption</span>
+                <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">Error budget consumption</span>
                 <span
                   className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${
-                    slo.status === "COMPLIANT" ? "bg-emerald-50 text-emerald-600 border-emerald-300" : "bg-rose-50 text-rose-600 border-rose-300"
+                    slo.status === "COMPLIANT" ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600" : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border-rose-300 dark:border-rose-600"
                   }`}
                 >
                   {slo.status}
                 </span>
               </div>
-              <div className="h-4 bg-slate-100 rounded overflow-hidden relative">
+              <div className="h-4 bg-slate-100 dark:bg-slate-700 rounded overflow-hidden relative">
                 <div
                   className={`h-full rounded transition-all duration-700 ${
                     slo.consumedPct > 85 ? "bg-gradient-to-r from-rose-400 to-orange-400" : slo.consumedPct > 55 ? "bg-gradient-to-r from-amber-300 to-orange-300" : "bg-gradient-to-r from-emerald-400 to-sky-400"
@@ -1818,7 +1818,7 @@ ${labels}
                 />
                 <div className="absolute top-0 bottom-0 left-[85%] w-px bg-slate-800/40" title="fast-burn threshold" />
               </div>
-              <div className="flex justify-between text-[9px] font-mono text-slate-400 mt-1">
+              <div className="flex justify-between text-[9px] font-mono text-slate-400 dark:text-slate-500 mt-1">
                 <span>0%</span>
                 <span>85% fast-burn guardrail</span>
                 <span>100%</span>
@@ -1828,59 +1828,59 @@ ${labels}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {sloType === "availability" ? (
                 <>
-                  <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                    <div className="text-[10px] font-mono text-slate-500">Good traffic</div>
-                    <div className="text-xl font-extrabold mt-1 font-mono text-slate-900">
+                  <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Good traffic</div>
+                    <div className="text-xl font-extrabold mt-1 font-mono text-slate-900 dark:text-slate-100">
                       {slo.availability === null ? "0" : slo.availability.toFixed(1)}%
                     </div>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                    <div className="text-[10px] font-mono text-slate-500">Burn rate (multiplier)</div>
-                    <div className="text-xl font-extrabold mt-1 font-mono text-sky-600">
+                  <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Burn rate (multiplier)</div>
+                    <div className="text-xl font-extrabold mt-1 font-mono text-sky-600 dark:text-sky-400">
                       {sloType === "availability" ? (slo.consumedPct / 100).toFixed(2) : "—"}×
                     </div>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                    <div className="text-[10px] font-mono text-slate-500">Projected exhaustion</div>
-                    <div className="text-xl font-extrabold mt-1 font-mono text-slate-900">
+                  <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Projected exhaustion</div>
+                    <div className="text-xl font-extrabold mt-1 font-mono text-slate-900 dark:text-slate-100">
                       {slo.burnRate > 0 ? `${Math.max(0, Math.round(sloWindowDays / slo.burnRate))}d` : "—"}
                     </div>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                    <div className="text-[10px] font-mono text-slate-500">Budget left</div>
-                    <div className="text-xl font-extrabold mt-1 font-mono text-emerald-600">{slo.remainingPct.toFixed(1)}%</div>
+                  <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Budget left</div>
+                    <div className="text-xl font-extrabold mt-1 font-mono text-emerald-600 dark:text-emerald-400">{slo.remainingPct.toFixed(1)}%</div>
                   </div>
                 </>
               ) : (
                 <>
-                  <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                    <div className="text-[10px] font-mono text-slate-500">Headroom</div>
-                    <div className="text-xl font-extrabold mt-1 font-mono text-slate-900">
+                  <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Headroom</div>
+                    <div className="text-xl font-extrabold mt-1 font-mono text-slate-900 dark:text-slate-100">
                       {Math.max(0, sloLatencyBudgetMs - sloLatencyMs)}ms
                     </div>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                    <div className="text-[10px] font-mono text-slate-500">Percentile result</div>
-                    <div className="text-xl font-extrabold mt-1 font-mono text-sky-600">
+                  <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Percentile result</div>
+                    <div className="text-xl font-extrabold mt-1 font-mono text-sky-600 dark:text-sky-400">
                       {sloLatencyMs <= sloLatencyBudgetMs ? "OK" : "BREACH"}
                     </div>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                    <div className="text-[10px] font-mono text-slate-500">Fast-burn page</div>
-                    <div className="text-xl font-extrabold mt-1 font-mono text-slate-900">
+                  <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Fast-burn page</div>
+                    <div className="text-xl font-extrabold mt-1 font-mono text-slate-900 dark:text-slate-100">
                       {slo.consumedPct > 85 ? "YES" : "no"}
                     </div>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                    <div className="text-[10px] font-mono text-slate-500">Budget left</div>
-                    <div className="text-xl font-extrabold mt-1 font-mono text-emerald-600">{slo.remainingPct.toFixed(1)}%</div>
+                  <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Budget left</div>
+                    <div className="text-xl font-extrabold mt-1 font-mono text-emerald-600 dark:text-emerald-400">{slo.remainingPct.toFixed(1)}%</div>
                   </div>
                 </>
               )}
             </div>
 
-            <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-3.5 font-mono">
-              <span className="font-bold text-emerald-600">MULTI-WINDOW:</span>
+            <div className="flex flex-wrap gap-2 text-[11px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 font-mono">
+              <span className="font-bold text-emerald-600 dark:text-emerald-400">MULTI-WINDOW:</span>
               <span>burn rate = consumed / elapsed window ·</span>
               <span>1× burn = steady state ·</span>
               <span>14.4× = page (fast burn) ·</span>
@@ -1892,7 +1892,7 @@ ${labels}
 
       {/* ========================================================================= */}
       {/* Summary strip */}
-      <div className="rounded-2xl bg-slate-900 text-slate-300 p-6 sm:p-8 relative overflow-hidden">
+      <div className="rounded-2xl bg-slate-900 text-slate-300 dark:text-slate-400 p-6 sm:p-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 space-y-4">
           <h2 className="text-xl font-extrabold text-white">Observability Loop Cheat Sheet</h2>
@@ -1907,7 +1907,7 @@ ${labels}
             ].map((k) => (
               <div key={k.t} className="rounded-xl bg-white/5 border border-white/10 p-4">
                 <div className={`text-sm font-extrabold font-mono ${k.c}`}>{k.t}</div>
-                <p className="text-[11px] text-slate-400 mt-1.5 leading-relaxed">{k.d}</p>
+                <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1.5 leading-relaxed">{k.d}</p>
               </div>
             ))}
           </div>

@@ -12,6 +12,7 @@ Bring all 15 Docker & Kubernetes modules to the same light/dark behavior and vis
 
 Update the Docker track sources:
 
+- `src/app/globals.css`
 - `src/components/tracks/DockerK8sSection.tsx`
 - `src/components/tracks/DkSecurityScanSection.tsx`
 - `src/components/tracks/DkResourceQuotasSection.tsx`
@@ -24,11 +25,13 @@ Update the Docker track sources:
 - `src/components/tracks/DkTroubleshootingSection.tsx`
 - `src/components/tracks/DkObservabilitySection.tsx`
 
-Do not change `ThemeToggle`, global theme tokens, routing, module data, or interactive logic.
+Configure Tailwind's `dark:` variant to follow the application's `.dark` root class so the existing theme toggle controls both the global tokens and utility classes.
+
+Do not change `ThemeToggle`, global theme tokens, routing, module data, or interactive logic. The only global CSS change is the `dark:` variant selector needed to make the existing root-class theme contract effective.
 
 ## Design
 
-Use the existing Networking implementation as the styling contract. Add explicit `dark:` variants alongside existing light classes rather than introducing a global descendant override or a second theme abstraction.
+Use the existing Networking implementation as the styling contract. Configure Tailwind's `dark:` variant to use the document `.dark` class, then add explicit `dark:` variants alongside existing light classes rather than introducing a global descendant override or a second theme abstraction.
 
 ### Surface hierarchy
 

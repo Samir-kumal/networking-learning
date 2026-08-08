@@ -772,11 +772,11 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
   }, [secPrivileged, secAllowEsc, secRunAsNonRoot, secRunAsUser, secReadOnlyRoot, secDropAllCaps, secAddCaps, secSeccomp, secFsGroup, secHostNetwork, secHostPID]);
 
   const gradeStyles: Record<string, string> = {
-    "A+": "bg-emerald-50 text-emerald-600 border-emerald-200",
-    A: "bg-emerald-50 text-emerald-600 border-emerald-200",
-    B: "bg-sky-50 text-sky-600 border-sky-200",
-    C: "bg-amber-50 text-amber-600 border-amber-200",
-    F: "bg-rose-50 text-rose-600 border-rose-200",
+    "A+": "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700",
+    A: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700",
+    B: "bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 border-sky-200 dark:border-sky-700",
+    C: "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-700",
+    F: "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-700",
   };
 
   const copy = (text: string, setCopied: (v: boolean) => void) => {
@@ -789,7 +789,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
     <button
       onClick={onClick}
       disabled={disabled}
-      className="px-3 py-1 rounded bg-sky-600 hover:bg-sky-700 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-mono flex items-center gap-1.5 transition-colors"
+      className="px-3 py-1 rounded bg-sky-600 hover:bg-sky-700 dark:hover:bg-sky-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-mono flex items-center gap-1.5 transition-colors"
     >
       {copied ? <span>✓ Copied</span> : <span>📋 {label}</span>}
     </button>
@@ -820,13 +820,13 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
       {/* ===================================================================== */}
       {/* MODULE 1: Role / ClusterRole Builder */}
       {/* ===================================================================== */}
-      <section id="dk-rbac-roles" className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="dk-rbac-roles" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">Module 1 • Authorization Primitives</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">Role &amp; ClusterRole Builder</h2>
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 1 • Authorization Primitives</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Role &amp; ClusterRole Builder</h2>
           </div>
-          <div className="flex items-center gap-2 text-xs font-mono bg-sky-50 px-3 py-1.5 rounded-lg border border-sky-200 text-sky-700">
+          <div className="flex items-center gap-2 text-xs font-mono bg-sky-50 dark:bg-sky-900/30 px-3 py-1.5 rounded-lg border border-sky-200 dark:border-sky-700 text-sky-700 dark:text-sky-300">
             <span className="w-2 h-2 rounded-full bg-sky-600" />
             {roleKind === "Role" ? `Role · namespace ${roleNamespace}` : "ClusterRole · cluster-wide"}
           </div>
@@ -836,46 +836,46 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
           {/* Left column: builder controls */}
           <div className="lg:col-span-5 space-y-6">
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">1. Role Type</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">1. Role Type</label>
               <div className="grid grid-cols-2 gap-2">
                 {(["Role", "ClusterRole"] as const).map((k) => (
                   <button
                     key={k}
                     onClick={() => setRoleKind(k)}
                     className={`p-3 rounded-xl border transition-all text-left ${
-                      roleKind === k ? "bg-sky-50 border-sky-400 ring-1 ring-sky-500" : "bg-slate-50 border-slate-200 hover:border-sky-300"
+                      roleKind === k ? "bg-sky-50 dark:bg-sky-900/30 border-sky-400 ring-1 ring-sky-500" : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 hover:border-sky-300"
                     }`}
                   >
-                    <div className="text-sm font-bold text-slate-900">{k}</div>
-                    <div className="text-[11px] text-slate-500 mt-0.5">{k === "Role" ? "Scoped to one namespace" : "Applies cluster-wide"}</div>
+                    <div className="text-sm font-bold text-slate-900 dark:text-slate-100">{k}</div>
+                    <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{k === "Role" ? "Scoped to one namespace" : "Applies cluster-wide"}</div>
                   </button>
                 ))}
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">2. Role Name</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">2. Role Name</label>
               <div className="flex gap-2">
                 <input
                   value={roleName}
                   onChange={(e) => setRoleName(e.target.value)}
-                  className="flex-1 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="flex-1 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
                   placeholder="role-name"
                 />
                 {roleKind === "Role" && (
                   <input
                     value={roleNamespace}
                     onChange={(e) => setRoleNamespace(e.target.value)}
-                    className="w-36 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                    className="w-36 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
                     placeholder="namespace"
                   />
                 )}
               </div>
-              <p className="text-[11px] text-slate-500">Namespaced Roles only affect resources in their own namespace.</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">Namespaced Roles only affect resources in their own namespace.</p>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">3. Quick Preset</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">3. Quick Preset</label>
               <div className="flex flex-wrap gap-2">
                 {[
                   { id: "viewer", label: "Read-Only Viewer" },
@@ -887,7 +887,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                   <button
                     key={p.id}
                     onClick={() => applyRolePreset(p.id)}
-                    className="px-3 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 text-xs font-mono text-sky-700 transition-colors"
+                    className="px-3 py-1.5 rounded-lg bg-sky-50 dark:bg-sky-900/30 hover:bg-sky-100 border border-sky-200 dark:border-sky-700 text-xs font-mono text-sky-700 dark:text-sky-300 transition-colors"
                   >
                     {p.label}
                   </button>
@@ -895,11 +895,11 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
               </div>
             </div>
 
-            <form onSubmit={addRule} className="space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">4. Add Access Rule</label>
+            <form onSubmit={addRule} className="space-y-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4">
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">4. Add Access Rule</label>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">API Group</label>
+                  <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">API Group</label>
                   <select
                     value={ruleApiGroup}
                     onChange={(e) => {
@@ -909,7 +909,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                         return prev.every((r) => RESOURCE_OPTIONS.find((o) => o.value === r)?.group === group) ? prev : ["pods"];
                       });
                     }}
-                    className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                    className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
                   >
                     {(Object.keys(API_GROUPS) as ApiGroupKey[]).map((k) => (
                       <option key={k} value={k}>
@@ -919,17 +919,17 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Resource Names (optional)</label>
+                  <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">Resource Names (optional)</label>
                   <input
                     value={ruleResourceNames}
                     onChange={(e) => setRuleResourceNames(e.target.value)}
-                    className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                    className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
                     placeholder="e.g. api-key, admin-secret"
                   />
                 </div>
               </div>
               <div>
-                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Resources</label>
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">Resources</label>
                 <div className="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto">
                   {RESOURCE_OPTIONS.filter((o) => o.group === ruleApiGroup).map((o) => (
                     <button
@@ -937,7 +937,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                       type="button"
                       onClick={() => setRuleResources((prev) => (prev.includes(o.value) ? prev.filter((v) => v !== o.value) : [...prev, o.value]))}
                       className={`px-2 py-1 rounded-md border text-[11px] font-mono transition-colors ${
-                        ruleResources.includes(o.value) ? "bg-sky-600 text-white border-sky-600" : "bg-white text-slate-600 border-slate-200 hover:border-sky-300"
+                        ruleResources.includes(o.value) ? "bg-sky-600 text-white border-sky-600" : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-sky-300"
                       }`}
                     >
                       {o.value}
@@ -946,7 +946,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                 </div>
               </div>
               <div>
-                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Verbs</label>
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">Verbs</label>
                 <div className="flex flex-wrap gap-1.5">
                   {VERB_OPTIONS.map((v) => (
                     <button
@@ -954,7 +954,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                       type="button"
                       onClick={() => setRuleVerbs((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))}
                       className={`px-2 py-1 rounded-md border text-[11px] font-mono transition-colors ${
-                        ruleVerbs.includes(v) ? "bg-sky-600 text-white border-sky-600" : "bg-white text-slate-600 border-slate-200 hover:border-sky-300"
+                        ruleVerbs.includes(v) ? "bg-sky-600 text-white border-sky-600" : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-sky-300"
                       }`}
                     >
                       {v}
@@ -965,32 +965,32 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
               <button
                 type="submit"
                 disabled={ruleResources.length === 0 || ruleVerbs.length === 0}
-                className="w-full py-2 rounded-xl bg-sky-600 hover:bg-sky-700 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-bold transition-colors"
+                className="w-full py-2 rounded-xl bg-sky-600 hover:bg-sky-700 dark:hover:bg-sky-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-bold transition-colors"
               >
                 + Add Rule
               </button>
             </form>
 
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">5. Rules in this role</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">5. Rules in this role</label>
               {rules.length === 0 && (
-                <div className="text-xs text-slate-400 bg-slate-50 border border-dashed border-slate-300 rounded-lg p-3 font-mono">
+                <div className="text-xs text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 border border-dashed border-slate-300 dark:border-slate-600 rounded-lg p-3 font-mono">
                   No rules — this role grants NOTHING (least privilege).
                 </div>
               )}
               {rules.map((r) => (
-                <div key={r.id} className="flex items-start justify-between gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
-                  <div className="text-[11px] font-mono text-slate-700 leading-relaxed">
-                    <div className="text-sky-700 font-bold">apiGroups: [{r.apiGroup}]</div>
+                <div key={r.id} className="flex items-start justify-between gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+                  <div className="text-[11px] font-mono text-slate-700 dark:text-slate-200 leading-relaxed">
+                    <div className="text-sky-700 dark:text-sky-300 font-bold">apiGroups: [{r.apiGroup}]</div>
                     <div>
                       resources: [{r.resources.join(", ")}]
-                      {r.resourceNames.length > 0 && <span className="text-amber-600"> · names: [{r.resourceNames.join(", ")}]</span>}
+                      {r.resourceNames.length > 0 && <span className="text-amber-600 dark:text-amber-400"> · names: [{r.resourceNames.join(", ")}]</span>}
                     </div>
                     <div>verbs: [{r.verbs.join(", ")}]</div>
                   </div>
                   <button
                     onClick={() => setRules((prev) => prev.filter((x) => x.id !== r.id))}
-                    className="shrink-0 px-2 py-1 rounded-md text-[10px] font-mono bg-white border border-rose-200 text-rose-500 hover:bg-rose-50 transition-colors"
+                    className="shrink-0 px-2 py-1 rounded-md text-[10px] font-mono bg-white dark:bg-slate-800 border border-rose-200 dark:border-rose-700 text-rose-500 dark:text-rose-400 hover:bg-rose-50 transition-colors"
                   >
                     Remove
                   </button>
@@ -1001,16 +1001,16 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
 
           {/* Right column: YAML preview */}
           <div className="lg:col-span-7">
-            <div className="rounded-xl border border-slate-200 shadow-lg overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-100 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-700">rbac.authorization.k8s.io/v1 · {roleKind}</span>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 shadow-lg overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-700 dark:text-slate-200">rbac.authorization.k8s.io/v1 · {roleKind}</span>
                 {copyButton("Copy YAML", copiedRoleYaml, false, () => copy(generatedRoleYaml, setCopiedRoleYaml))}
               </div>
               <pre className="p-4 bg-[#0b1526] text-sky-100 text-xs leading-relaxed whitespace-pre overflow-x-auto min-h-[320px]">{generatedRoleYaml}</pre>
             </div>
-            <p className="text-[11px] text-slate-500 mt-3 leading-relaxed">
-              💡 <span className="font-mono text-sky-600">get/list/watch</span> is read-only, <span className="font-mono text-sky-600">create/update/patch</span> mutates,
-              <span className="font-mono text-sky-600"> delete</span> destroys. Grant the least set the workload actually needs.
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">
+              💡 <span className="font-mono text-sky-600 dark:text-sky-400">get/list/watch</span> is read-only, <span className="font-mono text-sky-600 dark:text-sky-400">create/update/patch</span> mutates,
+              <span className="font-mono text-sky-600 dark:text-sky-400"> delete</span> destroys. Grant the least set the workload actually needs.
             </p>
           </div>
         </div>
@@ -1019,59 +1019,59 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
       {/* ===================================================================== */}
       {/* MODULE 2: RoleBinding / ClusterRoleBinding Configurator */}
       {/* ===================================================================== */}
-      <section id="dk-rbac-bindings" className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="dk-rbac-bindings" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">Module 2 • Subject Binding</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">RoleBinding / ClusterRoleBinding Configurator</h2>
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 2 • Subject Binding</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">RoleBinding / ClusterRoleBinding Configurator</h2>
           </div>
-          <div className="text-xs font-mono bg-sky-50 px-3 py-1.5 rounded-lg border border-sky-200 text-sky-700">Subjects: User · Group · ServiceAccount</div>
+          <div className="text-xs font-mono bg-sky-50 dark:bg-sky-900/30 px-3 py-1.5 rounded-lg border border-sky-200 dark:border-sky-700 text-sky-700 dark:text-sky-300">Subjects: User · Group · ServiceAccount</div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Controls */}
           <div className="lg:col-span-5 space-y-5">
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">Binding Type</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Binding Type</label>
               <div className="grid grid-cols-2 gap-2">
                 {(["RoleBinding", "ClusterRoleBinding"] as const).map((k) => (
                   <button
                     key={k}
                     onClick={() => setBindingKind(k)}
                     className={`p-3 rounded-xl border transition-all text-left ${
-                      bindingKind === k ? "bg-sky-50 border-sky-400 ring-1 ring-sky-500" : "bg-slate-50 border-slate-200 hover:border-sky-300"
+                      bindingKind === k ? "bg-sky-50 dark:bg-sky-900/30 border-sky-400 ring-1 ring-sky-500" : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 hover:border-sky-300"
                     }`}
                   >
-                    <div className="text-sm font-bold text-slate-900">{k}</div>
-                    <div className="text-[11px] text-slate-500 mt-0.5">{k === "RoleBinding" ? "Grants inside one namespace" : "Grants cluster-wide"}</div>
+                    <div className="text-sm font-bold text-slate-900 dark:text-slate-100">{k}</div>
+                    <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{k === "RoleBinding" ? "Grants inside one namespace" : "Grants cluster-wide"}</div>
                   </button>
                 ))}
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">Binding Name</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Binding Name</label>
               <input
                 value={bindingName}
                 onChange={(e) => setBindingName(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
               />
               {bindingKind === "RoleBinding" && (
                 <input
                   value={bindingNamespace}
                   onChange={(e) => setBindingNamespace(e.target.value)}
                   placeholder="namespace"
-                  className="w-full mt-2 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="w-full mt-2 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
                 />
               )}
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">Reference Role / ClusterRole</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Reference Role / ClusterRole</label>
               <select
                 value={bindingRoleId}
                 onChange={(e) => setBindingRoleId(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
               >
                 {ROLE_CATALOG.map((r) => (
                   <option key={r.id} value={r.id}>
@@ -1080,18 +1080,18 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                   </option>
                 ))}
               </select>
-              <p className="text-[11px] text-slate-500">{bindingRole.description}</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">{bindingRole.description}</p>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">Subject</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Subject</label>
               <div className="grid grid-cols-3 gap-2">
                 {(["User", "Group", "ServiceAccount"] as SubjectKind[]).map((k) => (
                   <button
                     key={k}
                     onClick={() => setBindingSubjectKind(k)}
                     className={`px-2 py-1.5 rounded-lg border text-[11px] font-mono transition-colors ${
-                      bindingSubjectKind === k ? "bg-sky-600 text-white border-sky-600" : "bg-slate-50 text-slate-600 border-slate-200 hover:border-sky-300"
+                      bindingSubjectKind === k ? "bg-sky-600 text-white border-sky-600" : "bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-sky-300"
                     }`}
                   >
                     {k}
@@ -1102,22 +1102,22 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                 value={bindingSubjectName}
                 onChange={(e) => setBindingSubjectName(e.target.value)}
                 placeholder="subject name"
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
               />
               {bindingSubjectKind === "ServiceAccount" && (
                 <input
                   value={bindingSubjectNamespace}
                   onChange={(e) => setBindingSubjectNamespace(e.target.value)}
                   placeholder="service account namespace"
-                  className="w-full mt-2 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="w-full mt-2 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
                 />
               )}
             </div>
 
             {bindingErrors.length > 0 && (
-              <div className="space-y-1.5 p-3 rounded-xl bg-rose-50 border border-rose-200">
+              <div className="space-y-1.5 p-3 rounded-xl bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-700">
                 {bindingErrors.map((err, i) => (
-                  <div key={i} className="text-[11px] font-mono text-rose-600">⛔ {err}</div>
+                  <div key={i} className="text-[11px] font-mono text-rose-600 dark:text-rose-400">⛔ {err}</div>
                 ))}
               </div>
             )}
@@ -1125,26 +1125,26 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
 
           {/* Diagram + YAML */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="flex items-center gap-2 flex-wrap p-4 rounded-xl bg-sky-50 border border-sky-200">
-              <div className="px-3 py-2 rounded-lg bg-white border border-sky-300 text-xs font-mono text-sky-800">
+            <div className="flex items-center gap-2 flex-wrap p-4 rounded-xl bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700">
+              <div className="px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-sky-300 dark:border-sky-600 text-xs font-mono text-sky-800 dark:text-sky-200">
                 {bindingSubjectKind === "ServiceAccount" ? `${bindingSubjectName}@${bindingSubjectNamespace || "?"}` : `${bindingSubjectKind} ${bindingSubjectName}`}
               </div>
-              <span className="text-sky-400 font-bold">⇢</span>
-              <div className="px-3 py-2 rounded-lg bg-white border border-sky-300 text-xs font-mono text-sky-800">
+              <span className="text-sky-400 dark:text-sky-300 font-bold">⇢</span>
+              <div className="px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-sky-300 dark:border-sky-600 text-xs font-mono text-sky-800 dark:text-sky-200">
                 {bindingKind} “{bindingName}”
               </div>
-              <span className="text-sky-400 font-bold">⇢</span>
-              <div className="px-3 py-2 rounded-lg bg-white border border-sky-300 text-xs font-mono text-sky-800">
+              <span className="text-sky-400 dark:text-sky-300 font-bold">⇢</span>
+              <div className="px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-sky-300 dark:border-sky-600 text-xs font-mono text-sky-800 dark:text-sky-200">
                 {bindingRole.kind} {bindingRole.name}
               </div>
-              <span className="text-slate-400 text-[11px] font-mono ml-auto">
+              <span className="text-slate-400 dark:text-slate-500 text-[11px] font-mono ml-auto">
                 scope: {bindingKind === "ClusterRoleBinding" ? "🌐 all namespaces" : `🗂 ns/${bindingNamespace}`}
               </span>
             </div>
 
-            <div className="rounded-xl border border-slate-200 shadow-lg overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-100 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-700">Generated object</span>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 shadow-lg overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-700 dark:text-slate-200">Generated object</span>
                 {copyButton("Copy YAML", copiedBindingYaml, bindingErrors.length > 0, () => copy(generatedBindingYaml, setCopiedBindingYaml))}
               </div>
               <pre className="p-4 bg-[#0b1526] text-sky-100 text-xs leading-relaxed whitespace-pre overflow-x-auto min-h-[220px]">{generatedBindingYaml}</pre>
@@ -1156,26 +1156,26 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
       {/* ===================================================================== */}
       {/* MODULE 3: Permission Evaluator */}
       {/* ===================================================================== */}
-      <section id="dk-rbac-evaluator" className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="dk-rbac-evaluator" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">Module 3 • Live Authorization Engine</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">Permission Evaluator</h2>
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 3 • Live Authorization Engine</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Permission Evaluator</h2>
           </div>
-          <div className="text-xs font-mono bg-sky-50 px-3 py-1.5 rounded-lg border border-sky-200 text-sky-700">RBAC request path simulation</div>
+          <div className="text-xs font-mono bg-sky-50 dark:bg-sky-900/30 px-3 py-1.5 rounded-lg border border-sky-200 dark:border-sky-700 text-sky-700 dark:text-sky-300">RBAC request path simulation</div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left: request builder */}
           <div className="lg:col-span-5 space-y-5">
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">Request Presets</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Request Presets</label>
               <div className="flex flex-wrap gap-2">
                 {presetRequests.map((p) => (
                   <button
                     key={p.label}
                     onClick={() => setEvalRequest(p.req)}
-                    className="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 text-[11px] font-mono text-sky-700 transition-colors text-left"
+                    className="px-2.5 py-1.5 rounded-lg bg-sky-50 dark:bg-sky-900/30 hover:bg-sky-100 border border-sky-200 dark:border-sky-700 text-[11px] font-mono text-sky-700 dark:text-sky-300 transition-colors text-left"
                   >
                     {p.label}
                   </button>
@@ -1185,11 +1185,11 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Subject</label>
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">Subject</label>
                 <select
                   value={evalRequest.subjectKind}
                   onChange={(e) => setEvalRequest({ ...evalRequest, subjectKind: e.target.value as SubjectKind })}
-                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900"
+                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100"
                 >
                   <option value="ServiceAccount">ServiceAccount</option>
                   <option value="User">User</option>
@@ -1197,37 +1197,37 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                 </select>
               </div>
               <div>
-                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Subject Name</label>
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">Subject Name</label>
                 <input
                   value={evalRequest.subjectName}
                   onChange={(e) => setEvalRequest({ ...evalRequest, subjectName: e.target.value })}
-                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900"
+                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100"
                 />
               </div>
               {evalRequest.subjectKind === "ServiceAccount" && (
                 <div>
-                  <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">SA Namespace</label>
+                  <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">SA Namespace</label>
                   <input
                     value={evalRequest.subjectNamespace ?? ""}
                     onChange={(e) => setEvalRequest({ ...evalRequest, subjectNamespace: e.target.value })}
-                    className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900"
+                    className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100"
                   />
                 </div>
               )}
               <div>
-                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Request Namespace</label>
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">Request Namespace</label>
                 <input
                   value={evalRequest.namespace}
                   onChange={(e) => setEvalRequest({ ...evalRequest, namespace: e.target.value })}
-                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900"
+                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100"
                 />
               </div>
               <div>
-                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Verb</label>
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">Verb</label>
                 <select
                   value={evalRequest.verb}
                   onChange={(e) => setEvalRequest({ ...evalRequest, verb: e.target.value })}
-                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900"
+                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100"
                 >
                   {VERB_OPTIONS.map((v) => (
                     <option key={v} value={v}>{v}</option>
@@ -1235,11 +1235,11 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                 </select>
               </div>
               <div>
-                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Resource</label>
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">Resource</label>
                 <select
                   value={evalRequest.resource}
                   onChange={(e) => setEvalRequest({ ...evalRequest, resource: e.target.value })}
-                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900"
+                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100"
                 >
                   {RESOURCE_OPTIONS.map((o) => (
                     <option key={o.value} value={o.value}>{o.value}</option>
@@ -1247,11 +1247,11 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                 </select>
               </div>
               <div>
-                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">API Group</label>
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">API Group</label>
                 <select
                   value={evalRequest.apiGroup}
                   onChange={(e) => setEvalRequest({ ...evalRequest, apiGroup: e.target.value })}
-                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900"
+                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100"
                 >
                   {(Object.keys(API_GROUPS) as ApiGroupKey[]).map((k) => (
                     <option key={k} value={API_GROUPS[k].apiGroup}>{API_GROUPS[k].label}</option>
@@ -1259,26 +1259,26 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                 </select>
               </div>
               <div>
-                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Resource Name (optional)</label>
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">Resource Name (optional)</label>
                 <input
                   value={evalRequest.resourceName}
                   onChange={(e) => setEvalRequest({ ...evalRequest, resourceName: e.target.value })}
-                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900"
+                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100"
                   placeholder="e.g. payment-api-creds"
                 />
               </div>
             </div>
 
             {/* Decision output */}
-            <div className={`rounded-xl border p-4 ${evaluate.allowed ? "bg-emerald-50 border-emerald-200" : "bg-rose-50 border-rose-200"}`}>
+            <div className={`rounded-xl border p-4 ${evaluate.allowed ? "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700" : "bg-rose-50 dark:bg-rose-900/30 border-rose-200 dark:border-rose-700"}`}>
               <div className="flex items-center gap-3">
                 <span className={`w-3 h-3 rounded-full ${evaluate.allowed ? "bg-emerald-500" : "bg-rose-500"} animate-pulse`} />
-                <span className={`text-2xl font-extrabold font-mono ${evaluate.allowed ? "text-emerald-600" : "text-rose-600"}`}>
+                <span className={`text-2xl font-extrabold font-mono ${evaluate.allowed ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
                   {evaluate.allowed ? "ALLOW" : "DENY"}
                 </span>
-                <span className="text-xs text-slate-500 ml-auto font-mono">{evaluate.candidateCount} binding{evaluate.candidateCount === 1 ? "" : "s"} evaluated</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 ml-auto font-mono">{evaluate.candidateCount} binding{evaluate.candidateCount === 1 ? "" : "s"} evaluated</span>
               </div>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
                 {evaluate.allowed
                   ? `Decision path: ${evaluate.allowedNames.slice(0, 3).join(" · ")}${evaluate.allowedNames.length > 3 ? " · …" : ""}`
                   : `No binding grants ${subjectLabel} the verb “${evalRequest.verb}” on “${evalRequest.resource}”${
@@ -1286,13 +1286,13 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                     } in ${evalRequest.apiGroup === '""' ? "core/v1" : evalRequest.apiGroup.replace(/"/g, "")} · ${evalRequest.namespace}. Kubernetes is deny-by-default.`}
               </p>
               {evaluate.clusterAdminCount > 0 && (
-                <p className="text-[11px] font-mono text-amber-600 mt-2">⚠ Warning: subject holds a cluster-admin binding — excessive cluster-wide privilege.</p>
+                <p className="text-[11px] font-mono text-amber-600 dark:text-amber-400 mt-2">⚠ Warning: subject holds a cluster-admin binding — excessive cluster-wide privilege.</p>
               )}
             </div>
 
             {/* Binding inventory toggles */}
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">Binding Inventory (toggle bindings to simulate)</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Binding Inventory (toggle bindings to simulate)</label>
               <div className="space-y-1.5 max-h-44 overflow-y-auto pr-1">
                 {INITIAL_BINDINGS.map((b) => {
                   const active = enabledBindingIds.includes(b.id);
@@ -1301,12 +1301,12 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                       key={b.id}
                       onClick={() => setEnabledBindingIds((prev) => (active ? prev.filter((i) => i !== b.id) : [...prev, b.id]))}
                       className={`w-full flex items-center gap-2 p-2 rounded-lg border text-left transition-colors ${
-                        active ? "bg-sky-50 border-sky-200" : "bg-slate-50 border-slate-200 opacity-60"
+                        active ? "bg-sky-50 dark:bg-sky-900/30 border-sky-200 dark:border-sky-700" : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 opacity-60"
                       }`}
                     >
                       <span className={`w-2 h-2 rounded-full ${active ? "bg-sky-500" : "bg-slate-300"}`} />
-                      <span className="text-[11px] font-mono text-slate-700">
-                        {b.bindingKind} <span className="text-slate-900 font-bold">{b.bindingName}</span>
+                      <span className="text-[11px] font-mono text-slate-700 dark:text-slate-200">
+                        {b.bindingKind} <span className="text-slate-900 dark:text-slate-100 font-bold">{b.bindingName}</span>
                         {b.bindingKind === "RoleBinding" ? ` (ns/${b.bindingNamespace})` : " (cluster)"} → {ROLE_BY_ID(b.roleRefId).name}
                       </span>
                     </button>
@@ -1318,53 +1318,53 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
 
           {/* Right: decision trace + effective matrix */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="rounded-xl border border-slate-200 overflow-hidden">
-              <div className="px-4 py-2.5 bg-slate-100 border-b border-slate-200 text-xs font-mono text-slate-700">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+              <div className="px-4 py-2.5 bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-700 dark:text-slate-200">
                 Request: {subjectLabel} · {evalRequest.verb} {evalRequest.resource}
                 {evalRequest.resourceName ? ` named “${evalRequest.resourceName}”` : ""} · {evalRequest.apiGroup === '""' ? "core/v1" : evalRequest.apiGroup.replace(/"/g, "")} · {evalRequest.namespace}
               </div>
               <div className="p-4 space-y-2 max-h-72 overflow-y-auto">
                 {evaluate.rows.length === 0 && (
-                  <div className="text-xs text-slate-400 font-mono">No bindings match this subject in the cluster. Request is DENIED (no authorization path).</div>
+                  <div className="text-xs text-slate-400 dark:text-slate-500 font-mono">No bindings match this subject in the cluster. Request is DENIED (no authorization path).</div>
                 )}
                 {evaluate.rows.map((row) => (
                   <div
                     key={row.id}
                     className={`p-2.5 rounded-lg border text-[11px] font-mono leading-relaxed ${
-                      row.verdict === "ALLOW" ? "bg-emerald-50 border-emerald-200" : "bg-slate-50 border-slate-200"
+                      row.verdict === "ALLOW" ? "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700" : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700"
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      <span className={`font-bold ${row.verdict === "ALLOW" ? "text-emerald-600" : "text-slate-400"}`}>
+                      <span className={`font-bold ${row.verdict === "ALLOW" ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-slate-500"}`}>
                         {row.verdict === "ALLOW" ? "✓ ALLOW" : "— skip"}
                       </span>
-                      <span className="text-slate-700">
-                        {row.bindingName} <span className="text-slate-400">({row.scopeLabel})</span>
+                      <span className="text-slate-700 dark:text-slate-200">
+                        {row.bindingName} <span className="text-slate-400 dark:text-slate-500">({row.scopeLabel})</span>
                       </span>
-                      <span className="ml-auto text-slate-400">{row.roleLabel}</span>
+                      <span className="ml-auto text-slate-400 dark:text-slate-500">{row.roleLabel}</span>
                     </div>
                     {row.verdict === "ALLOW" && row.matchedRule && (
-                      <div className="text-emerald-700 mt-1">
+                      <div className="text-emerald-700 dark:text-emerald-300 mt-1">
                         rule: apiGroups [{row.matchedRule.apiGroup}] · resources [{row.matchedRule.resources.join(", ")}] · verbs [{row.matchedRule.verbs.join(", ")}]
                       </div>
                     )}
-                    {row.hint && <div className="text-slate-400 mt-1">hint: {row.hint}</div>}
+                    {row.hint && <div className="text-slate-400 dark:text-slate-500 mt-1">hint: {row.hint}</div>}
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 overflow-hidden">
-              <div className="px-4 py-2.5 bg-slate-100 border-b border-slate-200 text-xs font-mono text-slate-700">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+              <div className="px-4 py-2.5 bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-700 dark:text-slate-200">
                 Effective permissions in request scope ({evaluate.matrix.length} entries)
               </div>
               <div className="p-4 max-h-64 overflow-y-auto">
                 {evaluate.matrix.length === 0 ? (
-                  <div className="text-xs text-slate-400 font-mono">No effective permissions — subject has zero grants in this scope.</div>
+                  <div className="text-xs text-slate-400 dark:text-slate-500 font-mono">No effective permissions — subject has zero grants in this scope.</div>
                 ) : (
                   <table className="w-full text-[11px] font-mono">
                     <thead>
-                      <tr className="text-left text-slate-400 uppercase">
+                      <tr className="text-left text-slate-400 dark:text-slate-500 uppercase">
                         <th className="pb-2">API Group</th>
                         <th className="pb-2">Resource</th>
                         <th className="pb-2">Verbs</th>
@@ -1372,13 +1372,13 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                     </thead>
                     <tbody>
                       {evaluate.matrix.map((m) => (
-                        <tr key={m.key} className="border-t border-slate-100">
-                          <td className="py-1.5 pr-2 text-sky-700">{m.apiGroup === '""' ? "core/v1" : m.apiGroup.replace(/"/g, "")}</td>
-                          <td className="py-1.5 pr-2 text-slate-700">{m.resource}</td>
+                        <tr key={m.key} className="border-t border-slate-100 dark:border-slate-700">
+                          <td className="py-1.5 pr-2 text-sky-700 dark:text-sky-300">{m.apiGroup === '""' ? "core/v1" : m.apiGroup.replace(/"/g, "")}</td>
+                          <td className="py-1.5 pr-2 text-slate-700 dark:text-slate-200">{m.resource}</td>
                           <td className="py-1.5">
                             <div className="flex flex-wrap gap-1">
                               {m.verbs.map((v) => (
-                                <span key={v} className="px-1.5 py-0.5 rounded bg-sky-50 border border-sky-200 text-sky-700">{v}</span>
+                                <span key={v} className="px-1.5 py-0.5 rounded bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 text-sky-700 dark:text-sky-300">{v}</span>
                               ))}
                             </div>
                           </td>
@@ -1396,99 +1396,99 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
       {/* ===================================================================== */}
       {/* MODULE 4: ServiceAccount & Pod Association */}
       {/* ===================================================================== */}
-      <section id="dk-rbac-serviceaccounts" className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="dk-rbac-serviceaccounts" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">Module 4 • Workload Identity</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">ServiceAccount &amp; Pod Association</h2>
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 4 • Workload Identity</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">ServiceAccount &amp; Pod Association</h2>
           </div>
-          <div className="text-xs font-mono bg-sky-50 px-3 py-1.5 rounded-lg border border-sky-200 text-sky-700">Tokens mount at /var/run/secrets/kubernetes.io/serviceaccount</div>
+          <div className="text-xs font-mono bg-sky-50 dark:bg-sky-900/30 px-3 py-1.5 rounded-lg border border-sky-200 dark:border-sky-700 text-sky-700 dark:text-sky-300">Tokens mount at /var/run/secrets/kubernetes.io/serviceaccount</div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-5 space-y-5">
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">ServiceAccount Name</label>
-                <input value={saName} onChange={(e) => setSaName(e.target.value)} className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900" />
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">ServiceAccount Name</label>
+                <input value={saName} onChange={(e) => setSaName(e.target.value)} className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100" />
               </div>
               <div>
-                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Namespace</label>
-                <input value={saNamespace} onChange={(e) => setSaNamespace(e.target.value)} className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900" />
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">Namespace</label>
+                <input value={saNamespace} onChange={(e) => setSaNamespace(e.target.value)} className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100" />
               </div>
             </div>
 
             <div className="space-y-2">
-              <div className="flex items-center justify-between p-3 rounded-lg bg-white border border-slate-200">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                 <div>
-                  <div className="text-xs font-bold text-slate-900">automountServiceAccountToken</div>
-                  <div className="text-[11px] text-slate-500">Mount the identity token into every Pod using this SA</div>
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">automountServiceAccountToken</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400">Mount the identity token into every Pod using this SA</div>
                 </div>
                 <button
                   onClick={() => setAutomountToken((v) => !v)}
                   className={`w-12 h-6 rounded-full transition-colors relative p-1 ${automountToken ? "bg-sky-500" : "bg-slate-300"}`}
                 >
-                  <div className={`w-4 h-4 rounded-full bg-white transition-transform ${automountToken ? "translate-x-6" : "translate-x-0"}`} />
+                  <div className={`w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${automountToken ? "translate-x-6" : "translate-x-0"}`} />
                 </button>
               </div>
-              <div className="flex items-center justify-between p-3 rounded-lg bg-white border border-slate-200">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                 <div>
-                  <div className="text-xs font-bold text-slate-900">imagePullSecrets</div>
-                  <div className="text-[11px] text-slate-500">Pull images from a private registry</div>
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">imagePullSecrets</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400">Pull images from a private registry</div>
                 </div>
                 <button
                   onClick={() => setUseImagePullSecrets((v) => !v)}
                   className={`w-12 h-6 rounded-full transition-colors relative p-1 ${useImagePullSecrets ? "bg-sky-500" : "bg-slate-300"}`}
                 >
-                  <div className={`w-4 h-4 rounded-full bg-white transition-transform ${useImagePullSecrets ? "translate-x-6" : "translate-x-0"}`} />
+                  <div className={`w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${useImagePullSecrets ? "translate-x-6" : "translate-x-0"}`} />
                 </button>
               </div>
               {useImagePullSecrets && (
                 <div className="flex items-center gap-2">
-                  <label className="text-[10px] font-mono text-slate-400 uppercase">Secret</label>
-                  <input value={pullSecretName} onChange={(e) => setPullSecretName(e.target.value)} className="flex-1 px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900" />
+                  <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase">Secret</label>
+                  <input value={pullSecretName} onChange={(e) => setPullSecretName(e.target.value)} className="flex-1 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100" />
                 </div>
               )}
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">Target Pod</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Target Pod</label>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Pod Name</label>
-                  <input value={podName} onChange={(e) => setPodName(e.target.value)} className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900" />
+                  <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">Pod Name</label>
+                  <input value={podName} onChange={(e) => setPodName(e.target.value)} className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100" />
                 </div>
                 <div>
-                  <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Image</label>
-                  <input value={podImage} onChange={(e) => setPodImage(e.target.value)} className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900" />
+                  <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">Image</label>
+                  <input value={podImage} onChange={(e) => setPodImage(e.target.value)} className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100" />
                 </div>
               </div>
             </div>
 
-            <div className="rounded-lg bg-sky-50 border border-sky-200 p-3">
-              <div className="text-[10px] font-mono text-sky-600 uppercase mb-2">Token files projected by kubelet</div>
+            <div className="rounded-lg bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 p-3">
+              <div className="text-[10px] font-mono text-sky-600 dark:text-sky-400 uppercase mb-2">Token files projected by kubelet</div>
               <div className="flex gap-2 flex-wrap">
-                <span className="px-2 py-1 bg-white border border-sky-200 rounded text-[10px] font-mono text-sky-800">token</span>
-                <span className="px-2 py-1 bg-white border border-sky-200 rounded text-[10px] font-mono text-sky-800">ca.crt</span>
-                <span className="px-2 py-1 bg-white border border-sky-200 rounded text-[10px] font-mono text-sky-800">namespace</span>
+                <span className="px-2 py-1 bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 rounded text-[10px] font-mono text-sky-800 dark:text-sky-200">token</span>
+                <span className="px-2 py-1 bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 rounded text-[10px] font-mono text-sky-800 dark:text-sky-200">ca.crt</span>
+                <span className="px-2 py-1 bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 rounded text-[10px] font-mono text-sky-800 dark:text-sky-200">namespace</span>
               </div>
-              <p className="text-[11px] text-slate-500 mt-2">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
                 The API server authenticates in-cluster calls with this token — which ServiceAccount you bind decides what that Pod may do (Module 3).
               </p>
             </div>
           </div>
 
           <div className="lg:col-span-7 space-y-4">
-            <div className="rounded-xl border border-slate-200 shadow-lg overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-100 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-700">ServiceAccount YAML</span>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 shadow-lg overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-700 dark:text-slate-200">ServiceAccount YAML</span>
                 {copyButton("Copy", copiedSaYaml, false, () => copy(saYaml, setCopiedSaYaml))}
               </div>
               <pre className="p-4 bg-[#0b1526] text-sky-100 text-xs leading-relaxed whitespace-pre overflow-x-auto min-h-[180px]">{saYaml}</pre>
             </div>
-            <div className="rounded-xl border border-slate-200 shadow-lg overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-100 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-700">Pod association</span>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 shadow-lg overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-700 dark:text-slate-200">Pod association</span>
                 {copyButton("Copy YAML", copiedSaPodYaml, false, () => copy(saPodYaml, setCopiedSaPodYaml))}
               </div>
               <pre className="p-4 bg-[#0b1526] text-sky-100 text-xs leading-relaxed whitespace-pre overflow-x-auto min-h-[200px]">{saPodYaml}</pre>
@@ -1500,19 +1500,19 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
       {/* ===================================================================== */}
       {/* MODULE 5: Pod Security Standards */}
       {/* ===================================================================== */}
-      <section id="dk-rbac-pss" className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="dk-rbac-pss" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">Module 5 • Admission Control</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">Pod Security Standards</h2>
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 5 • Admission Control</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Pod Security Standards</h2>
           </div>
-          <div className="text-xs font-mono bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-500">Privileged → Baseline → Restricted</div>
+          <div className="text-xs font-mono bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">Privileged → Baseline → Restricted</div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-5 space-y-5">
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">Namespace Policy Level</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Namespace Policy Level</label>
               <div className="grid grid-cols-3 gap-2">
                 {PSS_STANCE_ORDER.map((s) => (
                   <button
@@ -1523,7 +1523,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                         ? s === "privileged"
                           ? "bg-slate-600 text-white border-slate-600"
                           : "bg-sky-600 text-white border-sky-600"
-                        : "bg-slate-50 text-slate-500 border-slate-200 hover:border-sky-300"
+                        : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-sky-300"
                     }`}
                   >
                     {PSS_STANCE_LABEL[s]}
@@ -1536,7 +1536,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                     key={m}
                     onClick={() => setPssMode(m)}
                     className={`px-2 py-1.5 rounded-lg border text-[11px] font-mono transition-colors ${
-                      pssMode === m ? "bg-sky-50 border-sky-400 text-sky-700 font-bold" : "bg-white border-slate-200 text-slate-500"
+                      pssMode === m ? "bg-sky-50 dark:bg-sky-900/30 border-sky-400 text-sky-700 dark:text-sky-300 font-bold" : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400"
                     }`}
                   >
                     {m}
@@ -1544,10 +1544,10 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                 ))}
               </div>
               <div className="flex items-center gap-2 mt-2">
-                <label className="text-[10px] font-mono text-slate-400 uppercase">Namespace</label>
-                <input value={pssNamespace} onChange={(e) => setPssNamespace(e.target.value)} className="flex-1 px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900" />
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase">Namespace</label>
+                <input value={pssNamespace} onChange={(e) => setPssNamespace(e.target.value)} className="flex-1 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100" />
               </div>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
                 {pssMode === "enforce"
                   ? "Enforce rejects non-compliant Pods at admission."
                   : pssMode === "warn"
@@ -1557,20 +1557,20 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">My Pod’s Risk Profile</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">My Pod’s Risk Profile</label>
               <div className="space-y-2">
                 {podRiskRows.map((c) => (
-                  <div key={c.label} className="flex items-center justify-between p-2.5 rounded-lg bg-white border border-slate-200">
+                  <div key={c.label} className="flex items-center justify-between p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                     <div>
-                      <div className="text-[11px] font-mono text-slate-800">{c.label}</div>
-                      <div className="text-[10px] text-slate-500">{c.desc}</div>
+                      <div className="text-[11px] font-mono text-slate-800 dark:text-slate-200">{c.label}</div>
+                      <div className="text-[10px] text-slate-500 dark:text-slate-400">{c.desc}</div>
                     </div>
                     <button
                       onClick={c.onToggle}
                       className={`w-12 h-6 rounded-full transition-colors relative p-1 ${c.checked ? "bg-rose-400" : "bg-sky-500"}`}
                       title={c.checked ? "risky — click to harden" : "secure"}
                     >
-                      <div className={`w-4 h-4 rounded-full bg-white transition-transform ${c.checked ? "translate-x-6" : "translate-x-0"}`} />
+                      <div className={`w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${c.checked ? "translate-x-6" : "translate-x-0"}`} />
                     </button>
                   </div>
                 ))}
@@ -1580,34 +1580,34 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
 
           <div className="lg:col-span-7 space-y-4">
             {/* Verdict */}
-            <div className={`rounded-xl border p-4 ${pssVerdict.pass ? "bg-emerald-50 border-emerald-200" : "bg-rose-50 border-rose-200"}`}>
+            <div className={`rounded-xl border p-4 ${pssVerdict.pass ? "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700" : "bg-rose-50 dark:bg-rose-900/30 border-rose-200 dark:border-rose-700"}`}>
               <div className="flex items-center gap-3">
-                <span className={`text-lg font-extrabold font-mono ${pssVerdict.pass ? "text-emerald-600" : "text-rose-600"}`}>
+                <span className={`text-lg font-extrabold font-mono ${pssVerdict.pass ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
                   {pssVerdict.pass ? "✓ POD ACCEPTED" : "✗ POD REJECTED"}
                 </span>
-                <span className="text-xs text-slate-600">
+                <span className="text-xs text-slate-600 dark:text-slate-300">
                   against {PSS_STANCE_LABEL[pssStance]} policy in ns/{pssNamespace} ({pssMode})
                 </span>
               </div>
               {!pssVerdict.pass ? (
-                <ul className="mt-3 space-y-1 text-[11px] font-mono text-rose-600">
+                <ul className="mt-3 space-y-1 text-[11px] font-mono text-rose-600 dark:text-rose-400">
                   {pssVerdict.fails.map((f, i) => (
                     <li key={i}>• {f}</li>
                   ))}
                 </ul>
               ) : (
-                <p className="mt-2 text-[11px] text-emerald-700">
+                <p className="mt-2 text-[11px] text-emerald-700 dark:text-emerald-300">
                   All controls of the {PSS_STANCE_LABEL[pssStance]} stance are satisfied — the Namespace label will admit this Pod.
                 </p>
               )}
             </div>
 
             {/* Controls matrix */}
-            <div className="rounded-xl border border-slate-200 overflow-hidden">
-              <div className="px-4 py-2.5 bg-slate-100 border-b border-slate-200 text-xs font-mono text-slate-700">Controls enforced by each stance</div>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+              <div className="px-4 py-2.5 bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-700 dark:text-slate-200">Controls enforced by each stance</div>
               <table className="w-full text-[11px]">
                 <thead>
-                  <tr className="text-left text-slate-400 uppercase border-b border-slate-200">
+                  <tr className="text-left text-slate-400 dark:text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
                     <th className="py-2 px-3">Control</th>
                     <th className="py-2 px-2 text-center">Privileged</th>
                     <th className="py-2 px-2 text-center">Baseline</th>
@@ -1616,20 +1616,20 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                 </thead>
                 <tbody>
                   {PSS_CONTROLS.map((c) => (
-                    <tr key={c.id} className="border-b border-slate-100 last:border-0">
+                    <tr key={c.id} className="border-b border-slate-100 dark:border-slate-700 last:border-0">
                       <td className="py-2 px-3">
-                        <div className="font-bold text-slate-800">{c.label}</div>
-                        <div className="text-[10px] text-slate-400 font-mono">{c.detail}</div>
+                        <div className="font-bold text-slate-800 dark:text-slate-200">{c.label}</div>
+                        <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">{c.detail}</div>
                       </td>
                       {PSS_STANCE_ORDER.map((s) => (
                         <td key={s} className="py-2 px-2 text-center">
                           <span
                             className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-mono border ${
                               c.levels[s] === "allowed"
-                                ? "bg-emerald-50 text-emerald-600 border-emerald-200"
+                                ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700"
                                 : c.levels[s] === "limited"
-                                ? "bg-amber-50 text-amber-600 border-amber-200"
-                                : "bg-rose-50 text-rose-500 border-rose-200"
+                                ? "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-700"
+                                : "bg-rose-50 dark:bg-rose-900/30 text-rose-500 dark:text-rose-400 border-rose-200 dark:border-rose-700"
                             }`}
                           >
                             {c.levels[s] === "allowed" ? "✓" : c.levels[s] === "limited" ? "◐" : "✗"}
@@ -1643,9 +1643,9 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
             </div>
 
             {/* YAML */}
-            <div className="rounded-xl border border-slate-200 shadow-lg overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-100 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-700">Namespace labels · {pssMode} mode</span>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 shadow-lg overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-700 dark:text-slate-200">Namespace labels · {pssMode} mode</span>
                 {copyButton("Copy YAML", copiedPssYaml, false, () => copy(pssYaml, setCopiedPssYaml))}
               </div>
               <pre className="p-4 bg-[#0b1526] text-sky-100 text-xs leading-relaxed whitespace-pre overflow-x-auto min-h-[160px]">{pssYaml}</pre>
@@ -1657,11 +1657,11 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
       {/* ===================================================================== */}
       {/* MODULE 6: Security Context Configurator */}
       {/* ===================================================================== */}
-      <section id="dk-rbac-security-context" className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section id="dk-rbac-security-context" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">Module 6 • Runtime Hardening</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">Security Context Configurator</h2>
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 6 • Runtime Hardening</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Security Context Configurator</h2>
           </div>
           <div className={`flex items-center gap-2 text-xs font-mono px-3 py-1.5 rounded-lg border ${gradeStyles[hardening.grade]}`}>
             Grade {hardening.grade} · {hardening.score}/100
@@ -1672,7 +1672,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
           <div className="lg:col-span-5 space-y-5">
             {/* Container securityContext toggles */}
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">Container securityContext</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Container securityContext</label>
               <div className="space-y-2">
                 {[
                   { label: "privileged: true", desc: "host kernel access — never in production", checked: secPrivileged, risk: true, onToggle: () => setSecPrivileged((v) => !v) },
@@ -1684,16 +1684,16 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                   { label: "hostPID: true", desc: "share host process namespace", checked: secHostPID, risk: true, onToggle: () => setSecHostPID((v) => !v) },
                   { label: "fsGroup: 2000", desc: "pod-level fsGroup ownership for volumes", checked: secFsGroup, onToggle: () => setSecFsGroup((v) => !v) },
                 ].map((t) => (
-                  <div key={t.label} className="flex items-center justify-between p-2.5 rounded-lg bg-white border border-slate-200">
+                  <div key={t.label} className="flex items-center justify-between p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                     <div>
-                      <div className="text-[11px] font-mono text-slate-800">{t.label}</div>
-                      <div className="text-[10px] text-slate-500">{t.desc}</div>
+                      <div className="text-[11px] font-mono text-slate-800 dark:text-slate-200">{t.label}</div>
+                      <div className="text-[10px] text-slate-500 dark:text-slate-400">{t.desc}</div>
                     </div>
                     <button
                       onClick={t.onToggle}
                       className={`w-12 h-6 rounded-full transition-colors relative p-1 ${t.checked ? (t.risk ? "bg-rose-400" : "bg-sky-500") : "bg-slate-300"}`}
                     >
-                      <div className={`w-4 h-4 rounded-full bg-white transition-transform ${t.checked ? "translate-x-6" : "translate-x-0"}`} />
+                      <div className={`w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${t.checked ? "translate-x-6" : "translate-x-0"}`} />
                     </button>
                   </div>
                 ))}
@@ -1701,14 +1701,14 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">Identities &amp; Capabilities</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Identities &amp; Capabilities</label>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">runAsUser</label>
+                  <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">runAsUser</label>
                   <select
                     value={secRunAsUser}
                     onChange={(e) => setSecRunAsUser(e.target.value)}
-                    className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900"
+                    className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100"
                   >
                     <option value="0">0 (root)</option>
                     <option value="1000">1000</option>
@@ -1716,11 +1716,11 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">runAsGroup</label>
+                  <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">runAsGroup</label>
                   <select
                     value={secRunAsGroup}
                     onChange={(e) => setSecRunAsGroup(e.target.value)}
-                    className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900"
+                    className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100"
                   >
                     <option value="0">0 (root)</option>
                     <option value="3000">3000</option>
@@ -1729,11 +1729,11 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                 </div>
               </div>
               <div>
-                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">seccompProfile</label>
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">seccompProfile</label>
                 <select
                   value={secSeccomp}
                   onChange={(e) => setSecSeccomp(e.target.value as "RuntimeDefault" | "Unconfined" | "Localhost")}
-                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-mono text-slate-900"
+                  className="w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100"
                 >
                   <option value="RuntimeDefault">RuntimeDefault (recommended)</option>
                   <option value="Localhost">Localhost</option>
@@ -1741,14 +1741,14 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                 </select>
               </div>
               <div>
-                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Add Capabilities</label>
+                <label className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase block mb-1">Add Capabilities</label>
                 <div className="flex flex-wrap gap-1.5">
                   {CAP_OPTIONS.map((c) => (
                     <button
                       key={c}
                       onClick={() => setSecAddCaps((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]))}
                       className={`px-2 py-1 rounded-md border text-[11px] font-mono transition-colors ${
-                        secAddCaps.includes(c) ? "bg-sky-600 text-white border-sky-600" : "bg-white text-slate-600 border-slate-200 hover:border-sky-300"
+                        secAddCaps.includes(c) ? "bg-sky-600 text-white border-sky-600" : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-sky-300"
                       }`}
                     >
                       {c}
@@ -1761,25 +1761,25 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
 
           {/* Right: score + YAML */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="rounded-xl border border-slate-200 overflow-hidden">
-              <div className="px-4 py-2.5 bg-slate-100 border-b border-slate-200 text-xs font-mono text-slate-700">Hardening assessment</div>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+              <div className="px-4 py-2.5 bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-700 dark:text-slate-200">Hardening assessment</div>
               <div className="p-4">
                 <div className="flex items-center gap-4">
                   <div
                     className={`w-20 h-20 rounded-2xl flex items-center justify-center text-xl font-extrabold font-mono border-2 ${
                       hardening.grade === "A+" || hardening.grade === "A"
-                        ? "text-emerald-600 border-emerald-300 bg-emerald-50"
+                        ? "text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-600 bg-emerald-50 dark:bg-emerald-900/30"
                         : hardening.grade === "B"
-                        ? "text-sky-600 border-sky-300 bg-sky-50"
+                        ? "text-sky-600 dark:text-sky-400 border-sky-300 dark:border-sky-600 bg-sky-50 dark:bg-sky-900/30"
                         : hardening.grade === "C"
-                        ? "text-amber-600 border-amber-300 bg-amber-50"
-                        : "text-rose-600 border-rose-300 bg-rose-50"
+                        ? "text-amber-600 dark:text-amber-400 border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/30"
+                        : "text-rose-600 dark:text-rose-400 border-rose-300 dark:border-rose-600 bg-rose-50 dark:bg-rose-900/30"
                     }`}
                   >
                     {hardening.grade}
                   </div>
                   <div className="flex-1">
-                    <div className="h-2.5 rounded-full bg-slate-100 overflow-hidden">
+                    <div className="h-2.5 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
                       <div
                         className={`h-full rounded-full transition-all ${
                           hardening.grade === "F" ? "bg-rose-500" : hardening.grade === "C" ? "bg-amber-500" : hardening.grade === "B" ? "bg-sky-500" : "bg-emerald-500"
@@ -1787,29 +1787,29 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                         style={{ width: `${hardening.score}%` }}
                       />
                     </div>
-                    <div className="text-[11px] font-mono text-slate-400 mt-1.5">{hardening.score}/100 hardening score</div>
+                    <div className="text-[11px] font-mono text-slate-400 dark:text-slate-500 mt-1.5">{hardening.score}/100 hardening score</div>
                   </div>
                 </div>
                 {hardening.issues.length > 0 ? (
-                  <ul className="mt-3 space-y-1 text-[11px] font-mono text-rose-500">
+                  <ul className="mt-3 space-y-1 text-[11px] font-mono text-rose-500 dark:text-rose-400">
                     {hardening.issues.map((iss, i) => (
                       <li key={i}>⚠ {iss}</li>
                     ))}
                   </ul>
                 ) : (
-                  <p className="mt-3 text-[11px] font-mono text-emerald-600">✓ No hardening issues detected — this Pod matches restricted-level best practice.</p>
+                  <p className="mt-3 text-[11px] font-mono text-emerald-600 dark:text-emerald-400">✓ No hardening issues detected — this Pod matches restricted-level best practice.</p>
                 )}
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 shadow-lg overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-100 border-b border-slate-200">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 shadow-lg overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2.5 bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-mono text-slate-700">Pod</span>
+                  <span className="text-xs font-mono text-slate-700 dark:text-slate-200">Pod</span>
                   <input
                     value={secPodName}
                     onChange={(e) => setSecPodName(e.target.value)}
-                    className="px-2 py-0.5 rounded border border-slate-200 text-xs font-mono text-slate-900"
+                    className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100"
                   />
                 </div>
                 {copyButton("Copy YAML", copiedSecYaml, false, () => copy(secCtxYaml, setCopiedSecYaml))}

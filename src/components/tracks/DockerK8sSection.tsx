@@ -645,17 +645,17 @@ spec:
   return (
     <div className="space-y-16 pb-16">
       {/* Header Banner */}
-      <div className="rounded-2xl bg-gradient-to-r from-[#1c2333] via-[#161b22] to-[#1c2333] border border-slate-200 p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-violet-50 rounded-full blur-3xl pointer-events-none" />
+      <div className="rounded-2xl bg-gradient-to-r from-[#1c2333] via-[#161b22] to-[#1c2333] border border-slate-200 dark:border-slate-700 p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-violet-50 dark:bg-violet-900/30 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#bc8cff]/15 border border-violet-200 text-xs font-mono text-violet-600">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#bc8cff]/15 border border-violet-200 dark:border-violet-700 text-xs font-mono text-violet-600 dark:text-violet-400">
             <span className="w-2 h-2 rounded-full bg-[#bc8cff] animate-ping" />
             Track 5 • Cloud-Native Infrastructure & Orchestration
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
             Docker Containers & Kubernetes Architecture
           </h1>
-          <p className="text-sm sm:text-base text-slate-500 max-w-3xl leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
             Master production multi-stage container optimization, Docker Compose multi-service topology networking, Kubernetes control plane architecture, and Helm & ArgoCD GitOps continuous deployment.
           </p>
         </div>
@@ -664,19 +664,19 @@ spec:
       {/* ========================================================================= */}
       {/* MODULE 1: Interactive Multi-Stage Dockerfile Builder & Inspector */}
       {/* ========================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-violet-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
               Module 1 • Image Engineering & Security
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               Multi-Stage Dockerfile Builder & Optimization Inspector
             </h2>
           </div>
-          <div className="flex items-center gap-2 text-xs font-mono bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-500">
+          <div className="flex items-center gap-2 text-xs font-mono bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
             <span>Base Image:</span>
-            <span className="text-indigo-600 font-bold">{BASE_IMAGES[selectedBaseImage].dockerRef}</span>
+            <span className="text-indigo-600 dark:text-indigo-400 font-bold">{BASE_IMAGES[selectedBaseImage].dockerRef}</span>
           </div>
         </div>
 
@@ -685,7 +685,7 @@ spec:
           <div className="lg:col-span-5 space-y-6">
             {/* 1. Base Image Selector */}
             <div className="space-y-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                 1. Select Base Operating System Image
               </label>
               <div className="grid grid-cols-1 gap-2">
@@ -698,28 +698,28 @@ spec:
                       onClick={() => setSelectedBaseImage(key)}
                       className={`text-left p-3 rounded-xl border transition-all ${
                         isSelected
-                          ? "bg-slate-50 border-indigo-400 ring-1 ring-[#58a6ff]"
-                          : "bg-slate-50 border-slate-200 hover:border-[#8b949e]"
+                          ? "bg-slate-50 dark:bg-slate-700 border-indigo-400 ring-1 ring-[#58a6ff]"
+                          : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 hover:border-[#8b949e]"
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-bold text-slate-900">{item.name}</span>
+                        <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{item.name}</span>
                         <span
                           className={`text-xs px-2 py-0.5 rounded font-mono ${
                             item.securityRating === "A+"
-                              ? "bg-emerald-50 text-emerald-600 border border-emerald-200"
+                              ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700"
                               : item.securityRating === "B"
-                              ? "bg-indigo-50 text-indigo-600 border border-indigo-200"
+                              ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700"
                               : item.securityRating === "C"
-                              ? "bg-amber-50 text-amber-600 border border-amber-200"
-                              : "bg-rose-50 text-rose-600 border border-rose-200"
+                              ? "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-700"
+                              : "bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700"
                           }`}
                         >
                           Grade {item.securityRating}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-500 mt-1">{item.description}</p>
-                      <div className="flex items-center gap-4 text-[10px] font-mono text-slate-500 mt-2 pt-2 border-t border-slate-200/50">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{item.description}</p>
+                      <div className="flex items-center gap-4 text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-2 pt-2 border-t border-slate-200/50 dark:border-slate-700/60">
                         <span>Base Size: ~{item.baseSizeMb} MB</span>
                         <span>CVEs: {item.cveCount}</span>
                       </div>
@@ -731,15 +731,15 @@ spec:
 
             {/* 2. Optimization Toggles */}
             <div className="space-y-3 pt-2">
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
                 2. Hardening & Optimization Flags
               </label>
 
               {/* Toggle 1: Multi-Stage */}
-              <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 card-shadow">
+              <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
                 <div>
-                  <div className="text-xs font-bold text-slate-900">Multi-Stage Build</div>
-                  <div className="text-[11px] text-slate-500">Separate build tools from lightweight runtime</div>
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Multi-Stage Build</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400">Separate build tools from lightweight runtime</div>
                 </div>
                 <button
                   onClick={() => setIsMultiStage(!isMultiStage)}
@@ -748,7 +748,7 @@ spec:
                   }`}
                 >
                   <div
-                    className={`w-4 h-4 rounded-full bg-white transition-transform ${
+                    className={`w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${
                       isMultiStage ? "translate-x-6" : "translate-x-0"
                     }`}
                   />
@@ -756,10 +756,10 @@ spec:
               </div>
 
               {/* Toggle 2: Cache Optimization */}
-              <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 card-shadow">
+              <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
                 <div>
-                  <div className="text-xs font-bold text-slate-900">Layer Cache Strategy</div>
-                  <div className="text-[11px] text-slate-500">Copy package.json before source code</div>
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Layer Cache Strategy</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400">Copy package.json before source code</div>
                 </div>
                 <button
                   onClick={() => setUseCacheOptimization(!useCacheOptimization)}
@@ -768,7 +768,7 @@ spec:
                   }`}
                 >
                   <div
-                    className={`w-4 h-4 rounded-full bg-white transition-transform ${
+                    className={`w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${
                       useCacheOptimization ? "translate-x-6" : "translate-x-0"
                     }`}
                   />
@@ -776,10 +776,10 @@ spec:
               </div>
 
               {/* Toggle 3: Non-Root User */}
-              <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 card-shadow">
+              <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
                 <div>
-                  <div className="text-xs font-bold text-slate-900">Non-Root Execution User</div>
-                  <div className="text-[11px] text-slate-500">Run container process as unprivileged user</div>
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Non-Root Execution User</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400">Run container process as unprivileged user</div>
                 </div>
                 <button
                   onClick={() => setUseNonRootUser(!useNonRootUser)}
@@ -788,7 +788,7 @@ spec:
                   }`}
                 >
                   <div
-                    className={`w-4 h-4 rounded-full bg-white transition-transform ${
+                    className={`w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${
                       useNonRootUser ? "translate-x-6" : "translate-x-0"
                     }`}
                   />
@@ -796,10 +796,10 @@ spec:
               </div>
 
               {/* Toggle 4: Production Only Deps */}
-              <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 card-shadow">
+              <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
                 <div>
-                  <div className="text-xs font-bold text-slate-900">Prune DevDependencies</div>
-                  <div className="text-[11px] text-slate-500">Strip build tools, tests, and dev binaries</div>
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Prune DevDependencies</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400">Strip build tools, tests, and dev binaries</div>
                 </div>
                 <button
                   onClick={() => setUseProdOnlyDeps(!useProdOnlyDeps)}
@@ -808,7 +808,7 @@ spec:
                   }`}
                 >
                   <div
-                    className={`w-4 h-4 rounded-full bg-white transition-transform ${
+                    className={`w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${
                       useProdOnlyDeps ? "translate-x-6" : "translate-x-0"
                     }`}
                   />
@@ -821,56 +821,56 @@ spec:
           <div className="lg:col-span-7 space-y-6 flex flex-col justify-between">
             {/* Live Metrics Dashboard */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                <div className="text-[11px] font-mono text-slate-500">Final Image Size</div>
-                <div className="text-xl font-extrabold text-emerald-600 mt-1">{dockerMetrics.finalSizeMb} MB</div>
-                <div className="text-[10px] font-mono text-emerald-600 mt-0.5">-{dockerMetrics.reductionPercent}% reduced</div>
+              <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">Final Image Size</div>
+                <div className="text-xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1">{dockerMetrics.finalSizeMb} MB</div>
+                <div className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 mt-0.5">-{dockerMetrics.reductionPercent}% reduced</div>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                <div className="text-[11px] font-mono text-slate-500">CVE Vulnerabilities</div>
-                <div className={`text-xl font-extrabold mt-1 ${dockerMetrics.cveCount === 0 ? "text-emerald-600" : "text-rose-600"}`}>
+              <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">CVE Vulnerabilities</div>
+                <div className={`text-xl font-extrabold mt-1 ${dockerMetrics.cveCount === 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
                   {dockerMetrics.cveCount} CVEs
                 </div>
-                <div className="text-[10px] font-mono text-slate-500 mt-0.5">Trivy scan report</div>
+                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-0.5">Trivy scan report</div>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                <div className="text-[11px] font-mono text-slate-500">Rebuild Time</div>
-                <div className="text-xl font-extrabold text-indigo-600 mt-1">{dockerMetrics.buildTimeSec}s</div>
-                <div className="text-[10px] font-mono text-slate-500 mt-0.5">{useCacheOptimization ? "Cache Hit ⚡" : "Cache Miss 🐢"}</div>
+              <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">Rebuild Time</div>
+                <div className="text-xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-1">{dockerMetrics.buildTimeSec}s</div>
+                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-0.5">{useCacheOptimization ? "Cache Hit ⚡" : "Cache Miss 🐢"}</div>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
-                <div className="text-[11px] font-mono text-slate-500">Security Grade</div>
+              <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">Security Grade</div>
                 <div
                   className={`text-xl font-extrabold mt-1 ${
                     dockerMetrics.securityScore === "A+" || dockerMetrics.securityScore === "A"
-                      ? "text-emerald-600"
+                      ? "text-emerald-600 dark:text-emerald-400"
                       : dockerMetrics.securityScore === "B"
-                      ? "text-indigo-600"
+                      ? "text-indigo-600 dark:text-indigo-400"
                       : dockerMetrics.securityScore === "C"
-                      ? "text-amber-600"
-                      : "text-rose-600"
+                      ? "text-amber-600 dark:text-amber-400"
+                      : "text-rose-600 dark:text-rose-400"
                   }`}
                 >
                   Grade {dockerMetrics.securityScore}
                 </div>
-                <div className="text-[10px] font-mono text-slate-500 mt-0.5">CIS Benchmark</div>
+                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-0.5">CIS Benchmark</div>
               </div>
             </div>
 
             {/* Generated Code Preview Tabs */}
-            <div className="rounded-xl bg-white border border-slate-200 card-shadow overflow-hidden flex-1 flex flex-col min-h-[340px]">
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow overflow-hidden flex-1 flex flex-col min-h-[340px]">
               {/* Tab Header */}
-              <div className="flex items-center justify-between bg-white px-4 py-2.5 border-b border-slate-200">
+              <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setActiveCodeTab("dockerfile")}
                     className={`px-3 py-1 rounded-md text-xs font-mono transition-colors ${
                       activeCodeTab === "dockerfile"
-                        ? "bg-slate-50 text-indigo-600 font-bold border border-slate-200"
-                        : "text-slate-500 hover:text-slate-900"
+                        ? "bg-slate-50 dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 font-bold border border-slate-200 dark:border-slate-700"
+                        : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
                     }`}
                   >
                     Dockerfile
@@ -879,8 +879,8 @@ spec:
                     onClick={() => setActiveCodeTab("dockerignore")}
                     className={`px-3 py-1 rounded-md text-xs font-mono transition-colors ${
                       activeCodeTab === "dockerignore"
-                        ? "bg-slate-50 text-indigo-600 font-bold border border-slate-200"
-                        : "text-slate-500 hover:text-slate-900"
+                        ? "bg-slate-50 dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 font-bold border border-slate-200 dark:border-slate-700"
+                        : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
                     }`}
                   >
                     .dockerignore
@@ -893,10 +893,10 @@ spec:
                       activeCodeTab === "dockerfile" ? generatedDockerfile : generatedDockerignore
                     )
                   }
-                  className="px-3 py-1 rounded bg-slate-50 hover:bg-[#252d3d] border border-slate-200 text-xs font-mono text-slate-900 flex items-center gap-1.5 transition-colors"
+                  className="px-3 py-1 rounded bg-slate-50 dark:bg-slate-700 hover:bg-[#252d3d] border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 flex items-center gap-1.5 transition-colors"
                 >
                   {copiedDockerfile ? (
-                    <span className="text-emerald-600">✓ Copied!</span>
+                    <span className="text-emerald-600 dark:text-emerald-400">✓ Copied!</span>
                   ) : (
                     <span>📋 Copy Code</span>
                   )}
@@ -904,7 +904,7 @@ spec:
               </div>
 
               {/* Code Display Area */}
-              <div className="p-4 font-mono text-xs text-slate-900 bg-slate-50 overflow-x-auto flex-1 whitespace-pre leading-relaxed">
+              <div className="p-4 font-mono text-xs text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-700 overflow-x-auto flex-1 whitespace-pre leading-relaxed">
                 {activeCodeTab === "dockerfile" ? generatedDockerfile : generatedDockerignore}
               </div>
             </div>
@@ -915,13 +915,13 @@ spec:
       {/* ========================================================================= */}
       {/* MODULE 2: Docker Compose Service Stack Generator & Network Topology */}
       {/* ========================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-emerald-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
               Module 2 • Multi-Container Orchestration
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               Docker Compose Service Stack Generator & Topology Engine
             </h2>
           </div>
@@ -930,8 +930,8 @@ spec:
               onClick={() => setNetworkMode(networkMode === "isolated" ? "single" : "isolated")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
                 networkMode === "isolated"
-                  ? "bg-emerald-500/15 border-emerald-400 text-emerald-600"
-                  : "bg-slate-50 border-slate-200 text-slate-500"
+                  ? "bg-emerald-500/15 border-emerald-400 text-emerald-600 dark:text-emerald-400"
+                  : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400"
               }`}
             >
               Network: {networkMode === "isolated" ? "Dual Isolated Bridges 🔒" : "Single Default Bridge 🌐"}
@@ -941,8 +941,8 @@ spec:
               onClick={() => setVolumeType(volumeType === "named" ? "bind" : "named")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
                 volumeType === "named"
-                  ? "bg-indigo-600/15 border-indigo-400 text-indigo-600"
-                  : "bg-slate-50 border-slate-200 text-slate-500"
+                  ? "bg-indigo-600/15 border-indigo-400 text-indigo-600 dark:text-indigo-400"
+                  : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400"
               }`}
             >
               Volumes: {volumeType === "named" ? "Named Volumes 💾" : "Bind Mounts 📁"}
@@ -953,7 +953,7 @@ spec:
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left Column: Service Stack Toggles */}
           <div className="lg:col-span-5 space-y-4">
-            <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">
+            <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
               Toggle Stack Services & Settings
             </label>
 
@@ -963,8 +963,8 @@ spec:
                   key={service.id}
                   className={`p-3.5 rounded-xl border transition-all ${
                     service.enabled
-                      ? "bg-slate-50 border-slate-200"
-                      : "bg-slate-50/50 border-slate-200/40 opacity-60"
+                      ? "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700"
+                      : "bg-slate-50/50 dark:bg-slate-700/50 border-slate-200/40 dark:border-slate-700/60 opacity-60"
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -976,37 +976,37 @@ spec:
                         className="w-4 h-4 rounded accent-[#58a6ff]"
                       />
                       <div>
-                        <span className="text-sm font-bold text-slate-900">{service.name}</span>
-                        <span className="text-[10px] font-mono text-indigo-600 ml-2">({service.port})</span>
+                        <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{service.name}</span>
+                        <span className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 ml-2">({service.port})</span>
                       </div>
                     </div>
 
                     <span
                       className={`text-[10px] font-mono px-2 py-0.5 rounded ${
                         service.network === "frontend-net"
-                          ? "bg-indigo-50 text-indigo-600"
+                          ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"
                           : service.network === "backend-net"
-                          ? "bg-violet-50 text-violet-600"
-                          : "bg-emerald-50 text-emerald-600"
+                          ? "bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400"
+                          : "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400"
                       }`}
                     >
                       {service.network}
                     </span>
                   </div>
 
-                  <div className="mt-2 text-xs font-mono text-slate-500 flex items-center justify-between">
+                  <div className="mt-2 text-xs font-mono text-slate-500 dark:text-slate-400 flex items-center justify-between">
                     <span>Image: {service.image}</span>
-                    {service.volumeName && <span className="text-amber-600">Vol: {service.volumeName}</span>}
+                    {service.volumeName && <span className="text-amber-600 dark:text-amber-400">Vol: {service.volumeName}</span>}
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Healthcheck Toggle */}
-            <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 card-shadow">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
               <div>
-                <div className="text-xs font-bold text-slate-900">Enable Healthcheck Conditions</div>
-                <div className="text-[11px] text-slate-500">wait for DB healthy before app start</div>
+                <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Enable Healthcheck Conditions</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">wait for DB healthy before app start</div>
               </div>
               <button
                 onClick={() => setEnableHealthchecks(!enableHealthchecks)}
@@ -1015,7 +1015,7 @@ spec:
                 }`}
               >
                 <div
-                  className={`w-4 h-4 rounded-full bg-white transition-transform ${
+                  className={`w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${
                     enableHealthchecks ? "translate-x-6" : "translate-x-0"
                   }`}
                 />
@@ -1026,48 +1026,48 @@ spec:
           {/* Right Column: Visual Topology & YAML Output */}
           <div className="lg:col-span-7 space-y-6">
             {/* Visual Architecture Topology Diagram */}
-            <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-                <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">
+            <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   Interactive Network Isolation Topology
                 </span>
-                <span className="text-[10px] font-mono text-emerald-600">
+                <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400">
                   {networkMode === "isolated" ? "2 Bridge Networks Active" : "1 Bridge Network Active"}
                 </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                 {/* Frontend Bridge Network */}
-                <div className="p-3.5 rounded-xl bg-white border border-indigo-300 space-y-2">
-                  <div className="flex items-center justify-between text-xs font-mono text-indigo-600 font-bold border-b border-slate-200 pb-1.5">
+                <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-indigo-300 dark:border-indigo-600 space-y-2">
+                  <div className="flex items-center justify-between text-xs font-mono text-indigo-600 dark:text-indigo-400 font-bold border-b border-slate-200 dark:border-slate-700 pb-1.5">
                     <span>🌐 frontend-net (Bridge)</span>
-                    <span className="text-[10px] bg-indigo-50 px-1.5 py-0.5 rounded">Public Facing</span>
+                    <span className="text-[10px] bg-indigo-50 dark:bg-indigo-900/30 px-1.5 py-0.5 rounded">Public Facing</span>
                   </div>
                   <div className="space-y-1.5">
                     {composeServices
                       .filter((s) => s.enabled && (s.network === "frontend-net" || s.network === "both"))
                       .map((s) => (
-                        <div key={s.id} className="p-2 rounded bg-slate-50 text-xs flex items-center justify-between">
-                          <span className="font-bold text-slate-900">{s.name}</span>
-                          <span className="font-mono text-[10px] text-slate-500">{s.port}</span>
+                        <div key={s.id} className="p-2 rounded bg-slate-50 dark:bg-slate-700 text-xs flex items-center justify-between">
+                          <span className="font-bold text-slate-900 dark:text-slate-100">{s.name}</span>
+                          <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400">{s.port}</span>
                         </div>
                       ))}
                   </div>
                 </div>
 
                 {/* Backend Bridge Network */}
-                <div className="p-3.5 rounded-xl bg-white border border-violet-400/40 space-y-2">
-                  <div className="flex items-center justify-between text-xs font-mono text-violet-600 font-bold border-b border-slate-200 pb-1.5">
+                <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-violet-400/40 space-y-2">
+                  <div className="flex items-center justify-between text-xs font-mono text-violet-600 dark:text-violet-400 font-bold border-b border-slate-200 dark:border-slate-700 pb-1.5">
                     <span>🔒 backend-net (Isolated)</span>
-                    <span className="text-[10px] bg-violet-50 px-1.5 py-0.5 rounded">Internal Only</span>
+                    <span className="text-[10px] bg-violet-50 dark:bg-violet-900/30 px-1.5 py-0.5 rounded">Internal Only</span>
                   </div>
                   <div className="space-y-1.5">
                     {composeServices
                       .filter((s) => s.enabled && (s.network === "backend-net" || s.network === "both"))
                       .map((s) => (
-                        <div key={s.id} className="p-2 rounded bg-slate-50 text-xs flex items-center justify-between">
-                          <span className="font-bold text-slate-900">{s.name}</span>
-                          <span className="font-mono text-[10px] text-amber-600">
+                        <div key={s.id} className="p-2 rounded bg-slate-50 dark:bg-slate-700 text-xs flex items-center justify-between">
+                          <span className="font-bold text-slate-900 dark:text-slate-100">{s.name}</span>
+                          <span className="font-mono text-[10px] text-amber-600 dark:text-amber-400">
                             {s.volumeName ? `Vol: ${s.volumeName}` : s.port}
                           </span>
                         </div>
@@ -1078,22 +1078,22 @@ spec:
             </div>
 
             {/* Generated docker-compose.yml Viewer */}
-            <div className="rounded-xl bg-white border border-slate-200 card-shadow overflow-hidden flex flex-col min-h-[300px]">
-              <div className="flex items-center justify-between bg-white px-4 py-2.5 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-900 font-bold">docker-compose.yml</span>
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow overflow-hidden flex flex-col min-h-[300px]">
+              <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-900 dark:text-slate-100 font-bold">docker-compose.yml</span>
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(generatedComposeYml);
                     setCopiedCompose(true);
                     setTimeout(() => setCopiedCompose(false), 2000);
                   }}
-                  className="px-3 py-1 rounded bg-slate-50 hover:bg-[#252d3d] border border-slate-200 text-xs font-mono text-slate-900 transition-colors"
+                  className="px-3 py-1 rounded bg-slate-50 dark:bg-slate-700 hover:bg-[#252d3d] border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 transition-colors"
                 >
-                  {copiedCompose ? <span className="text-emerald-600">✓ Copied!</span> : <span>📋 Copy YAML</span>}
+                  {copiedCompose ? <span className="text-emerald-600 dark:text-emerald-400">✓ Copied!</span> : <span>📋 Copy YAML</span>}
                 </button>
               </div>
 
-              <div className="p-4 font-mono text-xs text-slate-900 bg-slate-50 overflow-x-auto flex-1 whitespace-pre leading-relaxed">
+              <div className="p-4 font-mono text-xs text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-700 overflow-x-auto flex-1 whitespace-pre leading-relaxed">
                 {generatedComposeYml}
               </div>
             </div>
@@ -1104,24 +1104,24 @@ spec:
       {/* ========================================================================= */}
       {/* MODULE 3: Kubernetes Architecture Inspector & Traffic Flow */}
       {/* ========================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-indigo-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
               Module 3 • Production Kubernetes Cluster Mechanics
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               Kubernetes Control Plane vs Worker Node Architecture
             </h2>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-slate-500">Routing Dataplane:</span>
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">Routing Dataplane:</span>
             <button
               onClick={() => setSimDataplane(simDataplane === "ebpf" ? "iptables" : "ebpf")}
               className={`px-3 py-1 rounded-lg text-xs font-mono border transition-all ${
                 simDataplane === "ebpf"
-                  ? "bg-emerald-500/15 border-emerald-400 text-emerald-600"
-                  : "bg-[#ffa657]/15 border-amber-400 text-amber-600"
+                  ? "bg-emerald-500/15 border-emerald-400 text-emerald-600 dark:text-emerald-400"
+                  : "bg-[#ffa657]/15 border-amber-400 text-amber-600 dark:text-amber-400"
               }`}
             >
               {simDataplane === "ebpf" ? "eBPF (Cilium) 🚀" : "iptables (kube-proxy) ⚙️"}
@@ -1132,16 +1132,16 @@ spec:
         {/* Dual Layout: Control Plane vs Worker Nodes Visual Map */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Control Plane Box */}
-          <div className="p-5 rounded-2xl bg-slate-50 border border-indigo-300 space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-700 border border-indigo-300 dark:border-indigo-600 space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-3">
               <div className="flex items-center gap-2">
                 <span className="text-xl">🧠</span>
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900">Control Plane (Master Node)</h3>
-                  <p className="text-[11px] text-slate-500">Global cluster state, scheduling & API management</p>
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">Control Plane (Master Node)</h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Global cluster state, scheduling & API management</p>
                 </div>
               </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 border border-indigo-200">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700">
                 Active Cluster Leader
               </span>
             </div>
@@ -1155,12 +1155,12 @@ spec:
                     onClick={() => setSelectedK8sComp(comp)}
                     className={`p-3 rounded-xl border text-left transition-all ${
                       isSelected
-                        ? "bg-slate-50 border-indigo-400 ring-1 ring-[#58a6ff]"
-                        : "bg-white border-slate-200 hover:border-[#8b949e]"
+                        ? "bg-slate-50 dark:bg-slate-700 border-indigo-400 ring-1 ring-[#58a6ff]"
+                        : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-[#8b949e]"
                     }`}
                   >
-                    <div className="text-xs font-bold text-slate-900">{comp.title}</div>
-                    <div className="text-[10px] font-mono text-indigo-600 mt-1">{comp.port}</div>
+                    <div className="text-xs font-bold text-slate-900 dark:text-slate-100">{comp.title}</div>
+                    <div className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 mt-1">{comp.port}</div>
                   </button>
                 );
               })}
@@ -1168,16 +1168,16 @@ spec:
           </div>
 
           {/* Worker Node Box */}
-          <div className="p-5 rounded-2xl bg-slate-50 border border-emerald-400/40 space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-700 border border-emerald-400/40 space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-3">
               <div className="flex items-center gap-2">
                 <span className="text-xl">⚙️</span>
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900">Worker Nodes (Node 01..03)</h3>
-                  <p className="text-[11px] text-slate-500">Runs application pods, container runtime & networking</p>
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">Worker Nodes (Node 01..03)</h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Runs application pods, container runtime & networking</p>
                 </div>
               </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-200">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700">
                 3 Nodes Online
               </span>
             </div>
@@ -1191,12 +1191,12 @@ spec:
                     onClick={() => setSelectedK8sComp(comp)}
                     className={`p-3 rounded-xl border text-left transition-all ${
                       isSelected
-                        ? "bg-slate-50 border-emerald-400 ring-1 ring-[#7ee787]"
-                        : "bg-white border-slate-200 hover:border-[#8b949e]"
+                        ? "bg-slate-50 dark:bg-slate-700 border-emerald-400 ring-1 ring-[#7ee787]"
+                        : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-[#8b949e]"
                     }`}
                   >
-                    <div className="text-xs font-bold text-slate-900">{comp.title}</div>
-                    <div className="text-[10px] font-mono text-emerald-600 mt-1">{comp.port}</div>
+                    <div className="text-xs font-bold text-slate-900 dark:text-slate-100">{comp.title}</div>
+                    <div className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 mt-1">{comp.port}</div>
                   </button>
                 );
               })}
@@ -1205,42 +1205,42 @@ spec:
         </div>
 
         {/* Deep Dive Component Inspector Card */}
-        <div className="p-5 rounded-xl bg-white border border-slate-200 card-shadow space-y-3">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-2">
+        <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-700 pb-2">
             <div className="flex items-center gap-3">
-              <span className="text-base font-bold text-slate-900">{selectedK8sComp.title}</span>
-              <span className="text-xs font-mono px-2 py-0.5 rounded bg-indigo-50 text-indigo-600">
+              <span className="text-base font-bold text-slate-900 dark:text-slate-100">{selectedK8sComp.title}</span>
+              <span className="text-xs font-mono px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">
                 {selectedK8sComp.category}
               </span>
             </div>
-            <div className="text-xs font-mono text-slate-500">
-              Port / Spec: <span className="text-slate-900">{selectedK8sComp.port}</span> ({selectedK8sComp.protocol})
+            <div className="text-xs font-mono text-slate-500 dark:text-slate-400">
+              Port / Spec: <span className="text-slate-900 dark:text-slate-100">{selectedK8sComp.port}</span> ({selectedK8sComp.protocol})
             </div>
           </div>
 
-          <p className="text-xs text-slate-500 leading-relaxed">{selectedK8sComp.functionDesc}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{selectedK8sComp.functionDesc}</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono pt-1">
-            <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
-              <span className="text-emerald-600 font-bold block mb-0.5">HA & Redundancy Strategy:</span>
-              <span className="text-slate-500 text-[11px]">{selectedK8sComp.haStrategy}</span>
+            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+              <span className="text-emerald-600 dark:text-emerald-400 font-bold block mb-0.5">HA & Redundancy Strategy:</span>
+              <span className="text-slate-500 dark:text-slate-400 text-[11px]">{selectedK8sComp.haStrategy}</span>
             </div>
 
-            <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
-              <span className="text-rose-600 font-bold block mb-0.5">Failure Impact:</span>
-              <span className="text-slate-500 text-[11px]">{selectedK8sComp.failureImpact}</span>
+            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+              <span className="text-rose-600 dark:text-rose-400 font-bold block mb-0.5">Failure Impact:</span>
+              <span className="text-slate-500 dark:text-slate-400 text-[11px]">{selectedK8sComp.failureImpact}</span>
             </div>
           </div>
         </div>
 
         {/* Interactive Ingress -> Service -> Pod Packet Flow Simulator */}
-        <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-5">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+        <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-3">
             <div>
-              <h3 className="text-sm font-bold text-slate-900">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
                 Ingress ➔ Kubernetes Service ➔ Pod Endpoints Traffic Flow
               </h3>
-              <p className="text-xs text-slate-500">Simulate live HTTP ingress packet decapsulation and load balancing</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Simulate live HTTP ingress packet decapsulation and load balancing</p>
             </div>
 
             <div className="flex items-center gap-2">
@@ -1250,8 +1250,8 @@ spec:
                   onClick={() => setSimServiceType(mode)}
                   className={`px-2.5 py-1 rounded text-xs font-mono border transition-all ${
                     simServiceType === mode
-                      ? "bg-indigo-100 border-indigo-400 text-indigo-600 font-bold"
-                      : "bg-white border-slate-200 text-slate-500"
+                      ? "bg-indigo-100 dark:bg-indigo-900/40 border-indigo-400 text-indigo-600 dark:text-indigo-400 font-bold"
+                      : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400"
                   }`}
                 >
                   {mode.toUpperCase()}
@@ -1263,10 +1263,10 @@ spec:
           {/* Pod Load Counters Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {["pod-web-1", "pod-web-2", "pod-web-3"].map((podName, idx) => (
-              <div key={podName} className="p-3.5 rounded-xl bg-white border border-slate-200 text-center space-y-1">
-                <div className="text-xs font-bold text-slate-900">Pod 0{idx + 1} ({podName})</div>
-                <div className="text-xs font-mono text-slate-500">10.244.{idx + 1}.{15 + idx * 30}:8080</div>
-                <div className="text-lg font-extrabold text-emerald-600 pt-1">{podCounters[podName]} Requests</div>
+              <div key={podName} className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-center space-y-1">
+                <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Pod 0{idx + 1} ({podName})</div>
+                <div className="text-xs font-mono text-slate-500 dark:text-slate-400">10.244.{idx + 1}.{15 + idx * 30}:8080</div>
+                <div className="text-lg font-extrabold text-emerald-600 dark:text-emerald-400 pt-1">{podCounters[podName]} Requests</div>
               </div>
             ))}
           </div>
@@ -1275,20 +1275,20 @@ spec:
           <div className="space-y-3">
             <button
               onClick={handleSimulateRequest}
-              className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#58a6ff] to-[#7ee787] text-slate-900 font-bold text-xs font-mono shadow-lg hover:opacity-95 transition-opacity"
+              className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#58a6ff] to-[#7ee787] text-slate-900 dark:text-slate-100 font-bold text-xs font-mono shadow-lg hover:opacity-95 transition-opacity"
             >
               ⚡ Send Simulated Ingress Traffic Request
             </button>
 
             {packetTraceLogs.length > 0 && (
-              <div className="p-4 rounded-xl bg-white border border-slate-200 font-mono text-xs text-slate-900 space-y-1.5">
-                <div className="text-[10px] text-emerald-600 uppercase tracking-wider border-b border-slate-200 pb-1 mb-2">
+              <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-mono text-xs text-slate-900 dark:text-slate-100 space-y-1.5">
+                <div className="text-[10px] text-emerald-600 dark:text-emerald-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-700 pb-1 mb-2">
                   Real-time Packet Routing Hop Trace
                 </div>
                 {packetTraceLogs.map((log, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <span className="text-slate-500 font-mono text-[10px]">[{i + 1}]</span>
-                    <span className={i === packetTraceLogs.length - 1 ? "text-emerald-600 font-bold" : "text-slate-900"}>
+                    <span className="text-slate-500 dark:text-slate-400 font-mono text-[10px]">[{i + 1}]</span>
+                    <span className={i === packetTraceLogs.length - 1 ? "text-emerald-600 dark:text-emerald-400 font-bold" : "text-slate-900 dark:text-slate-100"}>
                       {log}
                     </span>
                   </div>
@@ -1302,29 +1302,29 @@ spec:
       {/* ========================================================================= */}
       {/* MODULE 4: Helm Charts & ArgoCD GitOps Sync State Visualizer */}
       {/* ========================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-amber-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">
               Module 4 • Continuous Deployment & GitOps
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               Helm Charts Packaging & ArgoCD GitOps Sync Visualizer
             </h2>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-50 border border-slate-200">
-              <span className="text-xs font-mono text-slate-500">Sync State:</span>
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400">Sync State:</span>
               <span
                 className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
                   syncStatus === "Synced"
-                    ? "bg-emerald-500/15 text-emerald-600"
+                    ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
                     : syncStatus === "OutOfSync"
-                    ? "bg-[#ffa657]/15 text-amber-600"
+                    ? "bg-[#ffa657]/15 text-amber-600 dark:text-amber-400"
                     : syncStatus === "Syncing"
-                    ? "bg-indigo-600/15 text-indigo-600 animate-pulse"
-                    : "bg-[#ff7b72]/15 text-rose-600"
+                    ? "bg-indigo-600/15 text-indigo-600 dark:text-indigo-400 animate-pulse"
+                    : "bg-[#ff7b72]/15 text-rose-600 dark:text-rose-400"
                 }`}
               >
                 ● {syncStatus}
@@ -1336,15 +1336,15 @@ spec:
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left Column: Helm Values Customizer */}
           <div className="lg:col-span-5 space-y-5">
-            <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">
+            <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               1. Helm Chart values.yaml Parameters
             </div>
 
             {/* Slider 1: Replicas */}
-            <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow space-y-2">
+            <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-2">
               <div className="flex justify-between text-xs">
-                <span className="font-bold text-slate-900">replicaCount</span>
-                <span className="font-mono text-indigo-600 font-bold">{helmReplicas} Pods</span>
+                <span className="font-bold text-slate-900 dark:text-slate-100">replicaCount</span>
+                <span className="font-mono text-indigo-600 dark:text-indigo-400 font-bold">{helmReplicas} Pods</span>
               </div>
               <input
                 type="range"
@@ -1357,23 +1357,23 @@ spec:
             </div>
 
             {/* Input 2: Image Tag */}
-            <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow space-y-1.5">
-              <label className="text-xs font-bold text-slate-900 block">image.tag</label>
+            <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-1.5">
+              <label className="text-xs font-bold text-slate-900 dark:text-slate-100 block">image.tag</label>
               <input
                 type="text"
                 value={helmTag}
                 onChange={(e) => setHelmTag(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-indigo-400"
+                className="w-full px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-400"
               />
             </div>
 
             {/* Dropdown 3: Memory Limit */}
-            <div className="p-3.5 rounded-xl bg-white border border-slate-200 card-shadow space-y-1.5">
-              <label className="text-xs font-bold text-slate-900 block">resources.limits.memory</label>
+            <div className="p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-1.5">
+              <label className="text-xs font-bold text-slate-900 dark:text-slate-100 block">resources.limits.memory</label>
               <select
                 value={helmMemoryLimit}
                 onChange={(e) => setHelmMemoryLimit(e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-mono text-slate-900 outline-none focus:border-indigo-400"
+                className="w-full px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-400"
               >
                 <option value="256Mi">256Mi</option>
                 <option value="512Mi">512Mi</option>
@@ -1383,10 +1383,10 @@ spec:
             </div>
 
             {/* Toggle 4: Ingress */}
-            <div className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-slate-200 card-shadow">
+            <div className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
               <div>
-                <div className="text-xs font-bold text-slate-900">ingress.enabled</div>
-                <div className="text-[11px] text-slate-500">Provision NGINX Ingress rules</div>
+                <div className="text-xs font-bold text-slate-900 dark:text-slate-100">ingress.enabled</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">Provision NGINX Ingress rules</div>
               </div>
               <button
                 onClick={() => setHelmIngressEnabled(!helmIngressEnabled)}
@@ -1395,7 +1395,7 @@ spec:
                 }`}
               >
                 <div
-                  className={`w-4 h-4 rounded-full bg-white transition-transform ${
+                  className={`w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${
                     helmIngressEnabled ? "translate-x-6" : "translate-x-0"
                   }`}
                 />
@@ -1403,13 +1403,13 @@ spec:
             </div>
 
             {/* Helm Code Tab Viewer */}
-            <div className="rounded-xl bg-white border border-slate-200 card-shadow overflow-hidden flex flex-col min-h-[220px]">
-              <div className="flex items-center justify-between bg-white px-4 py-2 border-b border-slate-200">
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow overflow-hidden flex flex-col min-h-[220px]">
+              <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-2 border-b border-slate-200 dark:border-slate-700">
                 <div className="flex gap-2">
                   <button
                     onClick={() => setActiveHelmTab("values")}
                     className={`px-2.5 py-0.5 rounded text-xs font-mono ${
-                      activeHelmTab === "values" ? "bg-slate-50 text-indigo-600 font-bold" : "text-slate-500"
+                      activeHelmTab === "values" ? "bg-slate-50 dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 font-bold" : "text-slate-500 dark:text-slate-400"
                     }`}
                   >
                     values.yaml
@@ -1417,14 +1417,14 @@ spec:
                   <button
                     onClick={() => setActiveHelmTab("deployment")}
                     className={`px-2.5 py-0.5 rounded text-xs font-mono ${
-                      activeHelmTab === "deployment" ? "bg-slate-50 text-indigo-600 font-bold" : "text-slate-500"
+                      activeHelmTab === "deployment" ? "bg-slate-50 dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 font-bold" : "text-slate-500 dark:text-slate-400"
                     }`}
                   >
                     deployment.yaml
                   </button>
                 </div>
               </div>
-              <div className="p-3 font-mono text-[11px] text-slate-900 bg-slate-50 overflow-x-auto flex-1 whitespace-pre leading-relaxed">
+              <div className="p-3 font-mono text-[11px] text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-700 overflow-x-auto flex-1 whitespace-pre leading-relaxed">
                 {activeHelmTab === "values" ? helmValuesYml : helmRenderedDeployment}
               </div>
             </div>
@@ -1432,34 +1432,34 @@ spec:
 
           {/* Right Column: ArgoCD GitOps Sync Simulation Control Panel */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="text-xs font-mono text-slate-500 uppercase tracking-wider">
+            <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               2. ArgoCD GitOps Continuous Reconciliation Dashboard
             </div>
 
             {/* State Comparison Box */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Git Repository State */}
-              <div className="p-4 rounded-xl bg-slate-50 border border-indigo-300 space-y-2">
-                <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-                  <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-700 border border-indigo-300 dark:border-indigo-600 space-y-2">
+                <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
+                  <span className="text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
                     <span>🐙</span> Git Source Repo
                   </span>
-                  <span className="text-[10px] font-mono text-indigo-600">SHA: {gitSha}</span>
+                  <span className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400">SHA: {gitSha}</span>
                 </div>
-                <div className="text-xs font-mono text-slate-500 truncate">{gitCommitMsg}</div>
-                <div className="text-[11px] font-mono text-emerald-600 pt-1">Target Tag: {helmTag}</div>
+                <div className="text-xs font-mono text-slate-500 dark:text-slate-400 truncate">{gitCommitMsg}</div>
+                <div className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 pt-1">Target Tag: {helmTag}</div>
               </div>
 
               {/* Live Cluster State */}
-              <div className="p-4 rounded-xl bg-slate-50 border border-emerald-400/40 space-y-2">
-                <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-                  <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-700 border border-emerald-400/40 space-y-2">
+                <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
+                  <span className="text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
                     <span>☸️</span> Live K8s Cluster
                   </span>
-                  <span className="text-[10px] font-mono text-emerald-600">SHA: {clusterSha}</span>
+                  <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400">SHA: {clusterSha}</span>
                 </div>
-                <div className="text-xs font-mono text-slate-500">Replicas: {helmReplicas} active pods</div>
-                <div className="text-[11px] font-mono text-indigo-600 pt-1">Health: {healthStatus}</div>
+                <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Replicas: {helmReplicas} active pods</div>
+                <div className="text-[11px] font-mono text-indigo-600 dark:text-indigo-400 pt-1">Health: {healthStatus}</div>
               </div>
             </div>
 
@@ -1467,36 +1467,36 @@ spec:
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               <button
                 onClick={handleGitCommitChange}
-                className="p-2.5 rounded-xl bg-slate-50 hover:bg-[#252d3d] border border-slate-200 text-xs font-mono text-slate-900 transition-all hover:scale-[1.02]"
+                className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-700 hover:bg-[#252d3d] border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 transition-all hover:scale-[1.02]"
               >
                 1. Git Push (Update Tag)
               </button>
 
               <button
                 onClick={handleTriggerArgoSync}
-                className="p-2.5 rounded-xl bg-gradient-to-r from-[#58a6ff] to-[#7ee787] text-slate-900 font-bold text-xs font-mono shadow-md transition-all hover:scale-[1.02]"
+                className="p-2.5 rounded-xl bg-gradient-to-r from-[#58a6ff] to-[#7ee787] text-slate-900 dark:text-slate-100 font-bold text-xs font-mono shadow-md transition-all hover:scale-[1.02]"
               >
                 2. ArgoCD Sync 🔄
               </button>
 
               <button
                 onClick={handleSimulateDrift}
-                className="p-2.5 rounded-xl bg-slate-50 hover:bg-[#252d3d] border border-amber-400/40 text-xs font-mono text-amber-600 transition-all hover:scale-[1.02]"
+                className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-700 hover:bg-[#252d3d] border border-amber-400/40 text-xs font-mono text-amber-600 dark:text-amber-400 transition-all hover:scale-[1.02]"
               >
                 3. Cause Drift ⚠️
               </button>
 
               <button
                 onClick={handleRollback}
-                className="p-2.5 rounded-xl bg-slate-50 hover:bg-[#252d3d] border border-rose-400/40 text-xs font-mono text-rose-600 transition-all hover:scale-[1.02]"
+                className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-700 hover:bg-[#252d3d] border border-rose-400/40 text-xs font-mono text-rose-600 dark:text-rose-400 transition-all hover:scale-[1.02]"
               >
                 4. Rollback Commit ⏪
               </button>
             </div>
 
             {/* Live Diff Viewer Box */}
-            <div className="p-4 rounded-xl bg-white border border-slate-200 card-shadow font-mono text-xs min-h-[160px] space-y-1">
-              <div className="text-[10px] text-slate-500 uppercase tracking-wider border-b border-slate-200 pb-1 mb-2 flex justify-between">
+            <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow font-mono text-xs min-h-[160px] space-y-1">
+              <div className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-700 pb-1 mb-2 flex justify-between">
                 <span>ArgoCD GitOps Live Unified Diff Viewer</span>
                 <span>{diffView.length > 0 ? "Changes Detected" : "In Sync (0 diffs)"}</span>
               </div>
@@ -1507,19 +1507,19 @@ spec:
                     key={i}
                     className={
                       line.startsWith("+")
-                        ? "text-emerald-600"
+                        ? "text-emerald-600 dark:text-emerald-400"
                         : line.startsWith("-")
-                        ? "text-rose-600"
+                        ? "text-rose-600 dark:text-rose-400"
                         : line.startsWith("@")
-                        ? "text-indigo-600"
-                        : "text-slate-500"
+                        ? "text-indigo-600 dark:text-indigo-400"
+                        : "text-slate-500 dark:text-slate-400"
                     }
                   >
                     {line}
                   </div>
                 ))
               ) : (
-                <div className="text-slate-500 text-center pt-8">
+                <div className="text-slate-500 dark:text-slate-400 text-center pt-8">
                   ✓ Desired Git State matches Live Cluster State perfectly. No drift detected.
                 </div>
               )}
