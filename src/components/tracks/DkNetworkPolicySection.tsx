@@ -499,16 +499,16 @@ export default function DkNetworkPolicySection() {
 
   const directionBadge = (d: Direction) =>
     d === "ingress" ? (
-      <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-100 text-sky-700">IN</span>
+      <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300">IN</span>
     ) : (
-      <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700">OUT</span>
+      <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">OUT</span>
     );
 
   const peerKindBadge = (k: PeerKind) => {
     const map: Record<PeerKind, string> = {
-      pod: "bg-sky-50 text-sky-700 border border-sky-200",
-      namespace: "bg-blue-50 text-blue-700 border border-blue-200",
-      cidr: "bg-violet-50 text-violet-700 border border-violet-200",
+      pod: "bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-700",
+      namespace: "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700",
+      cidr: "bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-700",
     };
     return <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${map[k]}`}>{k}</span>;
   };
@@ -528,16 +528,16 @@ export default function DkNetworkPolicySection() {
   return (
     <section id="netpol" className="scroll-mt-20 space-y-6">
       {/* ======= Header ======= */}
-      <div className="p-5 rounded-xl bg-white border border-sky-200 card-shadow">
+      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 card-shadow">
         <div className="flex items-center gap-2 mb-2">
-          <span className="px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-300/50 text-xs font-mono font-semibold">
+          <span className="px-2.5 py-0.5 rounded-full bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 border border-sky-300/50 text-xs font-mono font-semibold">
             K8s · Network Policies
           </span>
         </div>
-        <h3 className="text-lg font-bold text-slate-900">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
           Kubernetes Network Policy Visual Builder 🛡️
         </h3>
-        <p className="text-xs text-slate-500 mt-1">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
           Build ingress/egress allowlists with pod, namespace and CIDR selectors — then preview the
           traffic flow, generated YAML, and a live allow/deny simulator.
         </p>
@@ -546,42 +546,42 @@ export default function DkNetworkPolicySection() {
       {/* ======= Rule Builder + Simulator ======= */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* --- Rule Builder --- */}
-        <div id="netpol-rules" className="lg:col-span-2 p-5 rounded-xl bg-white border border-sky-200 card-shadow space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-            <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <span className="text-sky-600">🛡️</span> Ingress / Egress Rule Builder
+        <div id="netpol-rules" className="lg:col-span-2 p-5 rounded-xl bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 card-shadow space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <span className="text-sky-600 dark:text-sky-400">🛡️</span> Ingress / Egress Rule Builder
             </h4>
-            <span className="text-[11px] font-mono text-sky-600 bg-sky-50 rounded px-2 py-0.5">
+            <span className="text-[11px] font-mono text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/30 rounded px-2 py-0.5">
               {rules.filter((r) => r.enabled).length} active
             </span>
           </div>
 
           {/* Policy scope editor */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-sky-50/50 border border-sky-100 rounded-lg p-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-sky-50/50 dark:bg-sky-900/30 border border-sky-100 dark:border-sky-700 rounded-lg p-3">
             <label className="block">
-              <span className="text-[10px] font-mono text-slate-500 uppercase">Policy name</span>
+              <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Policy name</span>
               <input
                 value={policyName}
                 onChange={(e) => setPolicyName(e.target.value)}
-                className="mt-1 w-full px-2 py-1.5 rounded-md bg-white border border-sky-200 text-xs font-mono text-slate-800 outline-none focus:border-sky-400"
+                className="mt-1 w-full px-2 py-1.5 rounded-md bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 text-xs font-mono text-slate-800 dark:text-slate-200 outline-none focus:border-sky-400"
               />
             </label>
             <label className="block">
-              <span className="text-[10px] font-mono text-slate-500 uppercase">Namespace</span>
+              <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Namespace</span>
               <input
                 value={policyNamespace}
                 onChange={(e) => setPolicyNamespace(e.target.value)}
-                className="mt-1 w-full px-2 py-1.5 rounded-md bg-white border border-sky-200 text-xs font-mono text-slate-800 outline-none focus:border-sky-400"
+                className="mt-1 w-full px-2 py-1.5 rounded-md bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 text-xs font-mono text-slate-800 dark:text-slate-200 outline-none focus:border-sky-400"
               />
             </label>
             <label className="block">
-              <span className="text-[10px] font-mono text-slate-500 uppercase">
+              <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">
                 podSelector matchLabels (a=b, c=d)
               </span>
               <input
                 value={podSelector}
                 onChange={(e) => setPodSelector(e.target.value)}
-                className="mt-1 w-full px-2 py-1.5 rounded-md bg-white border border-sky-200 text-xs font-mono text-slate-800 outline-none focus:border-sky-400"
+                className="mt-1 w-full px-2 py-1.5 rounded-md bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 text-xs font-mono text-slate-800 dark:text-slate-200 outline-none focus:border-sky-400"
               />
             </label>
           </div>
@@ -592,7 +592,7 @@ export default function DkNetworkPolicySection() {
               <div
                 key={rule.id}
                 className={`rounded-lg border p-3 space-y-2 transition-colors ${
-                  rule.enabled ? "border-sky-200 bg-white" : "border-slate-200 bg-slate-50 opacity-80"
+                  rule.enabled ? "border-sky-200 dark:border-sky-700 bg-white dark:bg-slate-800" : "border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 opacity-80"
                 }`}
               >
                 <div className="flex flex-wrap items-center gap-2">
@@ -600,9 +600,9 @@ export default function DkNetworkPolicySection() {
                   <input
                     value={rule.name}
                     onChange={(e) => updateRule(rule.id, { name: e.target.value })}
-                    className="px-2 py-1 rounded border border-slate-200 text-xs font-mono text-slate-800 bg-white outline-none focus:border-sky-400"
+                    className="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-800 outline-none focus:border-sky-400"
                   />
-                  <label className="flex items-center gap-1.5 ml-auto text-[11px] font-mono text-slate-500">
+                  <label className="flex items-center gap-1.5 ml-auto text-[11px] font-mono text-slate-500 dark:text-slate-400">
                     <input
                       type="checkbox"
                       checked={rule.enabled}
@@ -613,7 +613,7 @@ export default function DkNetworkPolicySection() {
                   </label>
                   <button
                     onClick={() => removeRule(rule.id)}
-                    className="text-[10px] font-mono px-2 py-1 rounded border border-rose-200 text-rose-500 hover:bg-rose-50"
+                    className="text-[10px] font-mono px-2 py-1 rounded border border-rose-200 dark:border-rose-700 text-rose-500 dark:text-rose-400 hover:bg-rose-50"
                   >
                     ✕ delete
                   </button>
@@ -628,7 +628,7 @@ export default function DkNetworkPolicySection() {
                       className={`px-2 py-0.5 text-[11px] font-mono rounded-full border transition-colors ${
                         rule.direction === d
                           ? "bg-sky-600 text-white border-sky-600"
-                          : "bg-white text-slate-500 border-slate-200"
+                          : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
                       }`}
                     >
                       {d.toUpperCase()}
@@ -638,7 +638,7 @@ export default function DkNetworkPolicySection() {
 
                 {/* peers */}
                 <div className="space-y-1.5">
-                  <div className="text-[10px] font-mono text-slate-500 uppercase">Peers (any match)</div>
+                  <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Peers (any match)</div>
                   {rule.peers.map((peer) => (
                     <div key={peer.id} className="flex flex-wrap items-center gap-1.5">
                       {peerKindBadge(peer.kind)}
@@ -652,7 +652,7 @@ export default function DkNetworkPolicySection() {
                             cidr: kind === "cidr" ? (peer.cidr || "10.0.0.0/24") : "",
                           });
                         }}
-                        className="px-1.5 py-1 rounded border border-slate-200 text-[11px] font-mono bg-white"
+                        className="px-1.5 py-1 rounded border border-slate-200 dark:border-slate-700 text-[11px] font-mono bg-white dark:bg-slate-800"
                       >
                         <option>pod</option>
                         <option>namespace</option>
@@ -663,19 +663,19 @@ export default function DkNetworkPolicySection() {
                           value={peer.cidr}
                           onChange={(e) => updatePeer(rule.id, peer.id, { cidr: e.target.value })}
                           placeholder="10.0.0.0/24"
-                          className="flex-1 min-w-[120px] px-2 py-1 rounded border border-slate-200 text-xs font-mono bg-white outline-none focus:border-sky-400"
+                          className="flex-1 min-w-[120px] px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs font-mono bg-white dark:bg-slate-800 outline-none focus:border-sky-400"
                         />
                       ) : (
                         <input
                           value={peer.labels}
                           onChange={(e) => updatePeer(rule.id, peer.id, { labels: e.target.value })}
                           placeholder={peer.kind === "pod" ? "app=frontend, tier=web" : "role=monitoring"}
-                          className="flex-1 min-w-[120px] px-2 py-1 rounded border border-slate-200 text-xs font-mono bg-white outline-none focus:border-sky-400"
+                          className="flex-1 min-w-[120px] px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs font-mono bg-white dark:bg-slate-800 outline-none focus:border-sky-400"
                         />
                       )}
                       <button
                         onClick={() => removePeer(rule.id, peer.id)}
-                        className="text-slate-400 hover:text-rose-500 text-xs font-mono px-1"
+                        className="text-slate-400 dark:text-slate-500 hover:text-rose-500 text-xs font-mono px-1"
                         title="Remove peer"
                       >
                         ✕
@@ -684,7 +684,7 @@ export default function DkNetworkPolicySection() {
                   ))}
                   <button
                     onClick={() => addPeer(rule.id, "pod")}
-                    className="text-[11px] font-mono text-sky-600 hover:text-sky-700"
+                    className="text-[11px] font-mono text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300"
                   >
                     + add peer
                   </button>
@@ -692,19 +692,19 @@ export default function DkNetworkPolicySection() {
 
                 {/* port */}
                 <div className="flex flex-wrap items-center gap-1.5">
-                  <span className="text-[10px] font-mono text-slate-500 uppercase">port</span>
+                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">port</span>
                   <input
                     value={rule.port.port}
                     onChange={(e) => updateRule(rule.id, { port: { ...rule.port, port: e.target.value } })}
                     placeholder="80 (blank = all)"
-                    className="w-20 px-2 py-1 rounded border border-slate-200 text-xs font-mono bg-white outline-none focus:border-sky-400"
+                    className="w-20 px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs font-mono bg-white dark:bg-slate-800 outline-none focus:border-sky-400"
                   />
                   <select
                     value={rule.port.protocol}
                     onChange={(e) =>
                       updateRule(rule.id, { port: { ...rule.port, protocol: e.target.value as Protocol } })
                     }
-                    className="px-1.5 py-1 rounded border border-slate-200 text-[11px] font-mono bg-white"
+                    className="px-1.5 py-1 rounded border border-slate-200 dark:border-slate-700 text-[11px] font-mono bg-white dark:bg-slate-800"
                   >
                     <option>TCP</option>
                     <option>UDP</option>
@@ -718,10 +718,10 @@ export default function DkNetworkPolicySection() {
             {showRuleForm ? (
               <form
                 onSubmit={addRule}
-                className="rounded-lg border border-dashed border-sky-300 bg-sky-50/40 p-3 space-y-2"
+                className="rounded-lg border border-dashed border-sky-300 dark:border-sky-600 bg-sky-50/40 p-3 space-y-2"
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-mono text-slate-500">New rule direction:</span>
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">New rule direction:</span>
                   {(["ingress", "egress"] as const).map((d) => (
                     <button
                       key={d}
@@ -730,7 +730,7 @@ export default function DkNetworkPolicySection() {
                       className={`px-2 py-0.5 text-[11px] font-mono rounded-full border ${
                         newDirection === d
                           ? "bg-sky-600 text-white border-sky-600"
-                          : "bg-white text-slate-500 border-slate-200"
+                          : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
                       }`}
                     >
                       {d}
@@ -740,14 +740,14 @@ export default function DkNetworkPolicySection() {
                 <div className="flex gap-2">
                   <button
                     type="submit"
-                    className="px-3 py-1.5 rounded-md bg-sky-600 text-white text-xs font-semibold hover:bg-sky-700"
+                    className="px-3 py-1.5 rounded-md bg-sky-600 text-white text-xs font-semibold hover:bg-sky-700 dark:hover:bg-sky-600"
                   >
                     + Create rule
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowRuleForm(false)}
-                    className="px-3 py-1.5 rounded-md border border-slate-200 text-slate-500 text-xs"
+                    className="px-3 py-1.5 rounded-md border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-xs"
                   >
                     Cancel
                   </button>
@@ -757,7 +757,7 @@ export default function DkNetworkPolicySection() {
             {!showRuleForm && (
               <button
                 onClick={() => setShowRuleForm(true)}
-                className="w-full py-2 rounded-lg border border-dashed border-sky-300 text-sky-600 text-xs font-semibold hover:bg-sky-50"
+                className="w-full py-2 rounded-lg border border-dashed border-sky-300 dark:border-sky-600 text-sky-600 dark:text-sky-400 text-xs font-semibold hover:bg-sky-50"
               >
                 + Add new {newDirection} rule
               </button>
@@ -766,13 +766,13 @@ export default function DkNetworkPolicySection() {
         </div>
 
         {/* --- Simulator --- */}
-        <div id="netpol-sim" className="p-5 rounded-xl bg-white border border-sky-200 card-shadow space-y-4">
-          <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
-            <span className="text-sky-600">🧪</span> Policy Effect Simulator
+        <div id="netpol-sim" className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 card-shadow space-y-4">
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 border-b border-slate-100 dark:border-slate-700 pb-3">
+            <span className="text-sky-600 dark:text-sky-400">🧪</span> Policy Effect Simulator
           </h4>
 
           <label className="block">
-            <span className="text-[10px] font-mono text-slate-500 uppercase">Traffic direction</span>
+            <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Traffic direction</span>
             <div className="mt-1 flex gap-1.5">
               {(["ingress", "egress"] as const).map((d) => (
                 <button
@@ -781,7 +781,7 @@ export default function DkNetworkPolicySection() {
                   className={`flex-1 px-2 py-1.5 rounded-md border text-xs font-mono ${
                     simDirection === d
                       ? "bg-sky-600 text-white border-sky-600"
-                      : "bg-white text-slate-500 border-slate-200"
+                      : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
                   }`}
                 >
                   {d === "ingress" ? "IN → pod" : "pod → OUT"}
@@ -791,13 +791,13 @@ export default function DkNetworkPolicySection() {
           </label>
 
           <label className="block">
-            <span className="text-[10px] font-mono text-slate-500 uppercase">
+            <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">
               {simDirection === "ingress" ? "Source endpoint" : "Destination endpoint"}
             </span>
             <select
               value={simEndpointId}
               onChange={(e) => setSimEndpointId(e.target.value)}
-              className="mt-1 w-full px-2 py-1.5 rounded-md border border-sky-200 text-xs font-mono bg-white outline-none focus:border-sky-400"
+              className="mt-1 w-full px-2 py-1.5 rounded-md border border-sky-200 dark:border-sky-700 text-xs font-mono bg-white dark:bg-slate-800 outline-none focus:border-sky-400"
             >
               {ENDPOINTS.map((ep) => (
                 <option key={ep.id} value={ep.id}>
@@ -809,19 +809,19 @@ export default function DkNetworkPolicySection() {
 
           <div className="grid grid-cols-2 gap-2">
             <label className="block">
-              <span className="text-[10px] font-mono text-slate-500 uppercase">Port</span>
+              <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Port</span>
               <input
                 value={simPort}
                 onChange={(e) => setSimPort(e.target.value)}
-                className="mt-1 w-full px-2 py-1.5 rounded-md border border-sky-200 text-xs font-mono bg-white outline-none focus:border-sky-400"
+                className="mt-1 w-full px-2 py-1.5 rounded-md border border-sky-200 dark:border-sky-700 text-xs font-mono bg-white dark:bg-slate-800 outline-none focus:border-sky-400"
               />
             </label>
             <label className="block">
-              <span className="text-[10px] font-mono text-slate-500 uppercase">Protocol</span>
+              <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Protocol</span>
               <select
                 value={simProtocol}
                 onChange={(e) => setSimProtocol(e.target.value as Protocol)}
-                className="mt-1 w-full px-2 py-1.5 rounded-md border border-sky-200 text-xs font-mono bg-white outline-none focus:border-sky-400"
+                className="mt-1 w-full px-2 py-1.5 rounded-md border border-sky-200 dark:border-sky-700 text-xs font-mono bg-white dark:bg-slate-800 outline-none focus:border-sky-400"
               >
                 <option>TCP</option>
                 <option>UDP</option>
@@ -834,8 +834,8 @@ export default function DkNetworkPolicySection() {
             onClick={runSimulation}
             className={`w-full py-2 rounded-md text-xs font-bold transition-colors ${
               isolation === "open"
-                ? "bg-emerald-600 text-white hover:bg-emerald-700"
-                : "bg-sky-600 text-white hover:bg-sky-700"
+                ? "bg-emerald-600 text-white hover:bg-emerald-700 dark:hover:bg-emerald-600"
+                : "bg-sky-600 text-white hover:bg-sky-700 dark:hover:bg-sky-600"
             }`}
           >
             ▶ Run simulation ({isolationLabel[isolation]})
@@ -845,8 +845,8 @@ export default function DkNetworkPolicySection() {
             <div
               className={`p-3 rounded-lg border text-xs font-mono ${
                 simResult.allowed
-                  ? "bg-emerald-50 border-emerald-200 text-emerald-700"
-                  : "bg-rose-50 border-rose-200 text-rose-700"
+                  ? "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300"
+                  : "bg-rose-50 dark:bg-rose-900/30 border-rose-200 dark:border-rose-700 text-rose-700 dark:text-rose-300"
               }`}
             >
               <div className="text-sm font-bold">{simResult.allowed ? "✅ ALLOW" : "🚫 DENY"}</div>
@@ -855,7 +855,7 @@ export default function DkNetworkPolicySection() {
           )}
 
           {simLog.length > 0 && (
-            <div className="rounded-lg bg-slate-900 text-slate-300 p-3 text-[10px] font-mono leading-5 max-h-48 overflow-auto">
+            <div className="rounded-lg bg-slate-900 text-slate-300 dark:text-slate-400 p-3 text-[10px] font-mono leading-5 max-h-48 overflow-auto">
               {simLog.map((line, i) => (
                 <div key={i}>{line}</div>
               ))}
@@ -865,51 +865,51 @@ export default function DkNetworkPolicySection() {
       </div>
 
       {/* ======= Traffic Flow Diagram ======= */}
-      <div id="netpol-flow" className="p-5 rounded-xl bg-white border border-sky-200 card-shadow space-y-4">
-        <div className="flex flex-wrap items-center justify-between border-b border-slate-100 pb-3">
-          <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-            <span className="text-sky-600">📡</span> Visual Traffic Flow
+      <div id="netpol-flow" className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 card-shadow space-y-4">
+        <div className="flex flex-wrap items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+            <span className="text-sky-600 dark:text-sky-400">📡</span> Visual Traffic Flow
           </h4>
           <div className="flex items-center gap-3 text-[10px] font-mono">
-            <span className="text-emerald-600">● allowed</span>
-            <span className="text-rose-500">● denied (default)</span>
-            <span className="text-slate-400">→ rule direction</span>
+            <span className="text-emerald-600 dark:text-emerald-400">● allowed</span>
+            <span className="text-rose-500 dark:text-rose-400">● denied (default)</span>
+            <span className="text-slate-400 dark:text-slate-500">→ rule direction</span>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 items-stretch">
           {/* INGRESS SOURCES */}
-          <div className="rounded-lg bg-sky-50/60 border border-sky-200 p-3">
+          <div className="rounded-lg bg-sky-50/60 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 p-3">
             <div className="flex items-center gap-2 mb-2">
               <span className="px-2 py-0.5 rounded-full bg-sky-600 text-white text-[10px] font-bold">INGRESS</span>
-              <span className="text-[11px] text-slate-500">→ protected pod</span>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400">→ protected pod</span>
             </div>
             {ingressPeers.length === 0 && (
-              <div className="text-[11px] font-mono text-slate-400">No ingress rules — default:</div>
+              <div className="text-[11px] font-mono text-slate-400 dark:text-slate-500">No ingress rules — default:</div>
             )}
             {ingressPeers.map(({ rule, peer }) => (
               <div
                 key={`${rule.id}-${peer.id}`}
-                className="flex items-center gap-1.5 py-1 border-b border-sky-100 last:border-0"
+                className="flex items-center gap-1.5 py-1 border-b border-sky-100 dark:border-sky-700 last:border-0"
               >
-                <span className="text-[10px] font-mono text-sky-700 bg-sky-100 rounded px-1.5 py-0.5 truncate max-w-[130px]">
+                <span className="text-[10px] font-mono text-sky-700 dark:text-sky-300 bg-sky-100 dark:bg-sky-900/40 rounded px-1.5 py-0.5 truncate max-w-[130px]">
                   {peerSummary(peer)}
                 </span>
-                <span className="text-[10px] text-sky-500">→</span>
-                <span className="text-[10px] font-mono text-slate-500">{fmtPort(rule.port)}</span>
-                <span className="ml-auto text-[10px] font-mono text-emerald-600">ALLOW</span>
+                <span className="text-[10px] text-sky-500 dark:text-sky-400">→</span>
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{fmtPort(rule.port)}</span>
+                <span className="ml-auto text-[10px] font-mono text-emerald-600 dark:text-emerald-400">ALLOW</span>
               </div>
             ))}
             {/* default unmatched traffic */}
             <div className="flex items-center gap-1.5 py-1 opacity-80">
-              <span className="text-[10px] font-mono rounded px-1.5 py-0.5 bg-slate-100 text-slate-500 truncate max-w-[130px]">
+              <span className="text-[10px] font-mono rounded px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 truncate max-w-[130px]">
                 unmatched traffic
               </span>
-              <span className="text-[10px] text-slate-400">→</span>
-              <span className="text-[10px] font-mono text-slate-400">any port</span>
+              <span className="text-[10px] text-slate-400 dark:text-slate-500">→</span>
+              <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">any port</span>
               <span
                 className={`ml-auto text-[10px] font-mono ${
-                  isDeny ? "text-rose-500" : "text-emerald-600"
+                  isDeny ? "text-rose-500 dark:text-rose-400" : "text-emerald-600 dark:text-emerald-400"
                 }`}
               >
                 {isDeny ? "DENY" : "ALLOW"}
@@ -929,42 +929,42 @@ export default function DkNetworkPolicySection() {
                 ns: {policyNamespace}
               </div>
             </div>
-            <div className="text-[10px] font-mono text-slate-400">
+            <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">
               status: {isDeny ? "🔒 deny-by-default" : "open (allow-all default)"}
             </div>
           </div>
 
           {/* EGRESS TARGETS */}
-          <div className="rounded-lg bg-blue-50/60 border border-blue-200 p-3">
+          <div className="rounded-lg bg-blue-50/60 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 p-3">
             <div className="flex items-center gap-2 mb-2">
               <span className="px-2 py-0.5 rounded bg-blue-600 text-white text-[10px] font-bold">EGRESS</span>
-              <span className="text-[11px] text-slate-500">protected pod →</span>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400">protected pod →</span>
             </div>
             {egressPeers.length === 0 && (
-              <div className="text-[11px] font-mono text-slate-400">No enabled egress — default:</div>
+              <div className="text-[11px] font-mono text-slate-400 dark:text-slate-500">No enabled egress — default:</div>
             )}
             {egressPeers.map(({ rule, peer }) => (
               <div
                 key={`${rule.id}-${peer.id}`}
-                className="flex items-center gap-1.5 py-1 border-b border-blue-100 last:border-0"
+                className="flex items-center gap-1.5 py-1 border-b border-blue-100 dark:border-blue-700 last:border-0"
               >
-                <span className="text-[10px] font-mono text-slate-500">{fmtPort(rule.port)}</span>
-                <span className="text-[10px] text-blue-500">→</span>
-                <span className="text-[10px] font-mono text-blue-700 bg-blue-100 rounded px-1.5 py-0.5 truncate max-w-[130px]">
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{fmtPort(rule.port)}</span>
+                <span className="text-[10px] text-blue-500 dark:text-blue-400">→</span>
+                <span className="text-[10px] font-mono text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/40 rounded px-1.5 py-0.5 truncate max-w-[130px]">
                   {peerSummary(peer)}
                 </span>
-                <span className="ml-auto text-[10px] font-mono text-emerald-600">ALLOW</span>
+                <span className="ml-auto text-[10px] font-mono text-emerald-600 dark:text-emerald-400">ALLOW</span>
               </div>
             ))}
             <div className="flex items-center gap-1.5 py-1 opacity-80">
-              <span className="text-[10px] font-mono text-slate-400">any port</span>
-              <span className="text-[10px] text-slate-400">→</span>
-              <span className="text-[10px] font-mono rounded px-1.5 py-0.5 bg-slate-100 text-slate-500 truncate max-w-[130px]">
+              <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">any port</span>
+              <span className="text-[10px] text-slate-400 dark:text-slate-500">→</span>
+              <span className="text-[10px] font-mono rounded px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 truncate max-w-[130px]">
                 unmatched traffic
               </span>
               <span
                 className={`ml-auto text-[10px] font-mono ${
-                  isDeny ? "text-rose-500" : "text-emerald-600"
+                  isDeny ? "text-rose-500 dark:text-rose-400" : "text-emerald-600 dark:text-emerald-400"
                 }`}
               >
                 {isDeny ? "DENY" : "ALLOW"}
@@ -973,9 +973,9 @@ export default function DkNetworkPolicySection() {
           </div>
         </div>
 
-        <div className="rounded-lg bg-slate-50 border border-slate-200 p-3 text-[11px] leading-5 text-slate-600">
-          <span className="font-bold text-slate-800">How to read:</span> arrows show the direction a
-          packet travels. <span className="text-emerald-600 font-mono">ALLOW</span> rows come from
+        <div className="rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-3 text-[11px] leading-5 text-slate-600 dark:text-slate-300">
+          <span className="font-bold text-slate-800 dark:text-slate-200">How to read:</span> arrows show the direction a
+          packet travels. <span className="text-emerald-600 dark:text-emerald-400 font-mono">ALLOW</span> rows come from
           enabled rules; the <span className="font-mono">unmatched traffic</span> row shows the{" "}
           {isDeny ? "default-deny verdict when the namespace is isolated" : "allow-open verdict when no isolation is applied"}.
           Kubernetes NetworkPolicies are <b>allowlist-only</b> — rules never explicitly "deny", the
@@ -986,17 +986,17 @@ export default function DkNetworkPolicySection() {
       {/* ======= YAML Generator + Isolation ======= */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* --- YAML --- */}
-        <div id="netpol-yaml" className="lg:col-span-2 p-5 rounded-xl bg-white border border-sky-200 card-shadow space-y-3">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
-            <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <span className="text-sky-600">📄</span> Generated YAML
+        <div id="netpol-yaml" className="lg:col-span-2 p-5 rounded-xl bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 card-shadow space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-700 pb-3">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <span className="text-sky-600 dark:text-sky-400">📄</span> Generated YAML
             </h4>
             <button
               onClick={copyYaml}
               className={`px-3 py-1.5 rounded-md text-[11px] font-semibold border transition-colors ${
                 copied
                   ? "bg-emerald-600 text-white border-emerald-600"
-                  : "border-sky-200 text-sky-700 hover:bg-sky-50"
+                  : "border-sky-200 dark:border-sky-700 text-sky-700 dark:text-sky-300 hover:bg-sky-50"
               }`}
             >
               {copied ? "✓ Copied!" : "Copy YAML"}
@@ -1008,9 +1008,9 @@ export default function DkNetworkPolicySection() {
         </div>
 
         {/* --- Isolation --- */}
-        <div id="netpol-isolation" className="p-5 rounded-xl bg-white border border-sky-200 card-shadow space-y-3">
-          <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
-            <span className="text-sky-600">🔒</span> Namespace Isolation Mode
+        <div id="netpol-isolation" className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 card-shadow space-y-3">
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2 border-b border-slate-100 dark:border-slate-700 pb-3">
+            <span className="text-sky-600 dark:text-sky-400">🔒</span> Namespace Isolation Mode
           </h4>
           <div className="space-y-2">
             {(["open", "same-ns", "isolate"] as IsolationMode[]).map((mode) => (
@@ -1019,17 +1019,17 @@ export default function DkNetworkPolicySection() {
                 onClick={() => setIsolation(mode)}
                 className={`w-full text-left p-2.5 rounded-lg border text-xs transition-colors ${
                   isolation === mode
-                    ? "border-sky-400 bg-sky-50 ring-1 ring-sky-200"
-                    : "border-slate-200 hover:border-sky-200"
+                    ? "border-sky-400 bg-sky-50 dark:bg-sky-900/30 ring-1 ring-sky-200"
+                    : "border-slate-200 dark:border-slate-700 hover:border-sky-200"
                 }`}
               >
-                <div className="font-bold text-slate-800">{isolationLabel[mode]}</div>
-                <div className="text-[11px] text-slate-500 mt-0.5">{isolationDesc[mode]}</div>
+                <div className="font-bold text-slate-800 dark:text-slate-200">{isolationLabel[mode]}</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{isolationDesc[mode]}</div>
               </button>
             ))}
           </div>
-          <div className="rounded-lg bg-slate-50 border border-slate-200 p-2.5 text-[11px] font-mono text-slate-600 leading-5">
-            <div className="text-slate-800 font-bold mb-1">policyTypes</div>
+          <div className="rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-2.5 text-[11px] font-mono text-slate-600 dark:text-slate-300 leading-5">
+            <div className="text-slate-800 dark:text-slate-200 font-bold mb-1">policyTypes</div>
             {isolation === "open"
               ? "[] → no pod is denied by default"
               : "[Ingress, Egress] → default-deny both directions"}

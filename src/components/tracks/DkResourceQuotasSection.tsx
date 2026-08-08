@@ -56,8 +56,8 @@ function SliderRow(props: {
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between gap-2">
-        <label className="text-sm text-slate-600 font-medium">{label}</label>
-        <span className="text-xs font-mono text-sky-700 bg-sky-50 border border-sky-200 rounded px-2 py-0.5 font-bold">
+        <label className="text-sm text-slate-600 dark:text-slate-300 font-medium">{label}</label>
+        <span className="text-xs font-mono text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 rounded px-2 py-0.5 font-bold">
           {valueText}
         </span>
       </div>
@@ -70,7 +70,7 @@ function SliderRow(props: {
         onChange={(e) => onChange(clamp(Number(e.target.value), min, max))}
         className="w-full accent-[#58a6ff]"
       />
-      {hint ? <p className="text-[11px] text-slate-400">{hint}</p> : null}
+      {hint ? <p className="text-[11px] text-slate-400 dark:text-slate-500">{hint}</p> : null}
     </div>
   );
 }
@@ -79,9 +79,9 @@ function ToggleRow(props: { label: string; checked: boolean; onChange: (v: boole
   const { label, checked, onChange, suffix } = props;
   return (
     <label className="flex items-center justify-between gap-3 py-1 cursor-pointer group">
-      <span className="text-sm text-slate-600 group-hover:text-slate-900 font-medium">
+      <span className="text-sm text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 font-medium">
         {label}
-        {suffix ? <span className="ml-1.5 text-[11px] font-mono text-slate-400">{suffix}</span> : null}
+        {suffix ? <span className="ml-1.5 text-[11px] font-mono text-slate-400 dark:text-slate-500">{suffix}</span> : null}
       </span>
       <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="w-4 h-4 rounded accent-[#58a6ff]" />
     </label>
@@ -100,10 +100,10 @@ function QosField(props: {
   const { label, setting, unit, onReqSet, onReqVal, onLimSet, onLimVal } = props;
   const maxVal = unit === "m" ? 16384 : 262144;
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-2.5 space-y-2">
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">{label}</div>
+    <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-2.5 space-y-2">
+      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">{label}</div>
       <div className="flex items-center justify-between gap-2">
-        <label className="flex items-center gap-1.5 text-[11px] text-slate-500">
+        <label className="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400">
           <input type="checkbox" checked={setting.reqSet} onChange={(e) => onReqSet(e.target.checked)} className="w-3 h-3 accent-[#58a6ff]" />
           req
         </label>
@@ -114,11 +114,11 @@ function QosField(props: {
           max={maxVal}
           disabled={!setting.reqSet}
           onChange={(e) => onReqVal(clamp(Number(e.target.value) || 0, 0, maxVal))}
-          className="w-20 bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs font-mono text-slate-900 disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-sky-400"
+          className="w-20 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-1.5 py-0.5 text-xs font-mono text-slate-900 dark:text-slate-100 disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-sky-400"
         />
       </div>
       <div className="flex items-center justify-between gap-2">
-        <label className="flex items-center gap-1.5 text-[11px] text-slate-500">
+        <label className="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400">
           <input type="checkbox" checked={setting.limSet} onChange={(e) => onLimSet(e.target.checked)} className="w-3 h-3 accent-[#58a6ff]" />
           lim
         </label>
@@ -129,7 +129,7 @@ function QosField(props: {
           max={maxVal}
           disabled={!setting.limSet}
           onChange={(e) => onLimVal(clamp(Number(e.target.value) || 0, 0, maxVal))}
-          className="w-20 bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs font-mono text-slate-900 disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-sky-400"
+          className="w-20 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-1.5 py-0.5 text-xs font-mono text-slate-900 dark:text-slate-100 disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-sky-400"
         />
       </div>
     </div>
@@ -146,14 +146,14 @@ function NumInput(props: {
   const { label, value, onChange, min, max } = props;
   return (
     <label className="block">
-      <span className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">{label}</span>
+      <span className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1">{label}</span>
       <input
         type="number"
         value={value}
         min={min}
         max={max}
         onChange={(e) => onChange(clamp(Number(e.target.value) || 0, min, max))}
-        className="w-full bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400"
+        className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400"
       />
     </label>
   );
@@ -163,13 +163,13 @@ function Stat(props: { label: string; value: string; tone?: Tone }) {
   const { label, value, tone = "ok" } = props;
   const toneCls =
     tone === "ok"
-      ? "text-sky-700"
+      ? "text-sky-700 dark:text-sky-300"
       : tone === "warn"
-        ? "text-amber-600"
-        : "text-red-600";
+        ? "text-amber-600 dark:text-amber-400"
+        : "text-red-600 dark:text-red-400";
   return (
-    <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">{label}</div>
+    <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3">
+      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">{label}</div>
       <div className={`text-lg font-extrabold font-mono mt-1 ${toneCls}`}>{value}</div>
     </div>
   );
@@ -184,7 +184,7 @@ function NoticeBlock(props: { notices: Notice[] }) {
         <div
           key={i}
           className={`flex items-start gap-2 text-xs rounded-lg px-3 py-2 border ${
-            n.tone === "error" ? "bg-red-50 text-red-700 border-red-200" : "bg-amber-50 text-amber-700 border-amber-200"
+            n.tone === "error" ? "bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-700" : "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700"
           }`}
         >
           <span className="font-bold">{n.tone === "error" ? "✕" : "⚠"}</span>
@@ -208,21 +208,21 @@ function CopyBlock(props: { label: string; code: string }) {
     }
   };
   return (
-    <div className="rounded-xl bg-white border border-slate-200 card-shadow overflow-hidden flex flex-col">
-      <div className="flex items-center justify-between bg-white px-4 py-2.5 border-b border-slate-200">
-        <span className="text-xs font-mono text-slate-900 font-bold">{label}</span>
+    <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow overflow-hidden flex flex-col">
+      <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
+        <span className="text-xs font-mono text-slate-900 dark:text-slate-100 font-bold">{label}</span>
         <button
           onClick={copy}
           className={`text-xs font-mono px-2.5 py-1 rounded-md border transition-all ${
             copied
-              ? "bg-emerald-50 text-emerald-600 border-emerald-200"
-              : "bg-slate-50 text-slate-600 border-slate-200 hover:border-sky-300 hover:text-sky-700"
+              ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700"
+              : "bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-sky-300 hover:text-sky-700 dark:hover:text-sky-300"
           }`}
         >
           {copied ? "✓ Copied" : "Copy"}
         </button>
       </div>
-      <pre className="p-4 font-mono text-xs text-slate-900 bg-slate-50 overflow-x-auto flex-1 whitespace-pre leading-relaxed max-h-[420px] overflow-y-auto">
+      <pre className="p-4 font-mono text-xs text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-700 overflow-x-auto flex-1 whitespace-pre leading-relaxed max-h-[420px] overflow-y-auto">
         {code}
       </pre>
     </div>
@@ -247,13 +247,13 @@ function ResourceGauge(props: {
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between text-xs font-mono">
-        <span className="text-slate-500 font-medium">{resource}</span>
-        <span className="text-slate-400">
-          req <span className="text-sky-700 font-bold">{unit === "m" ? `${fmtCpuM(request)}c` : fmtMemMi(request)}</span>
-          {" / "}lim <span className="text-blue-700 font-bold">{unit === "m" ? `${fmtCpuM(limit)}c` : fmtMemMi(limit)}</span>
+        <span className="text-slate-500 dark:text-slate-400 font-medium">{resource}</span>
+        <span className="text-slate-400 dark:text-slate-500">
+          req <span className="text-sky-700 dark:text-sky-300 font-bold">{unit === "m" ? `${fmtCpuM(request)}c` : fmtMemMi(request)}</span>
+          {" / "}lim <span className="text-blue-700 dark:text-blue-300 font-bold">{unit === "m" ? `${fmtCpuM(limit)}c` : fmtMemMi(limit)}</span>
         </span>
       </div>
-      <div className="relative h-4 rounded-full bg-slate-100 border border-slate-200 overflow-hidden">
+      <div className="relative h-4 rounded-full bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 overflow-hidden">
         <div
           className="absolute left-0 top-0 bottom-0 bg-sky-500 transition-all"
           style={{ width: `${reqPct}%` }}
@@ -268,9 +268,9 @@ function ResourceGauge(props: {
         ) : null}
         {overflow ? <div className="absolute right-0 top-0 bottom-0 w-1 bg-red-500" title="Limit exceeds node capacity" /> : null}
       </div>
-      <p className="text-[11px] text-slate-400">
+      <p className="text-[11px] text-slate-400 dark:text-slate-500">
         {overflow ? (
-          <span className="text-red-500 font-semibold">⚠ Limit {limFull} exceeds node capacity — unschedulable.</span>
+          <span className="text-red-500 dark:text-red-400 font-semibold">⚠ Limit {limFull} exceeds node capacity — unschedulable.</span>
         ) : (
           `Spare node headroom: ${unit === "m" ? `${fmtCpuM(capacity - request)} cores` : fmtMemMi(capacity - request)}`
         )}
@@ -317,19 +317,19 @@ type QosClass = "Guaranteed" | "Burstable" | "BestEffort";
 
 const QOS_META: Record<QosClass, { badge: string; dot: string; blurb: string }> = {
   Guaranteed: {
-    badge: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    badge: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700",
     dot: "bg-emerald-500",
     blurb:
       "Every container sets CPU and memory requests equal to its limits. Highest priority: scheduled first, essentially never evicted under node pressure.",
   },
   Burstable: {
-    badge: "bg-amber-50 text-amber-700 border-amber-200",
+    badge: "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700",
     dot: "bg-amber-500",
     blurb:
       "At least one container declares a request or limit, but the Guaranteed criteria are not fully met. Middle tier: can burst, may be evicted when pressure hits.",
   },
   BestEffort: {
-    badge: "bg-slate-100 text-slate-600 border-slate-200",
+    badge: "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700",
     dot: "bg-slate-400",
     blurb:
       "No container sets any requests or limits. Lowest tier: first to be evicted under node pressure and gets no resource guarantees.",
@@ -679,10 +679,10 @@ export default function DkResourceQuotasSection() {
   return (
     <div id="dk-resource-quotas" className="space-y-16 pb-16">
       {/* Header Banner */}
-      <div className="rounded-2xl bg-gradient-to-r from-sky-500 via-blue-600 to-[#1e3a8a] border border-sky-200 p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-sky-100 rounded-full blur-3xl pointer-events-none" />
+      <div className="rounded-2xl bg-gradient-to-r from-sky-500 via-blue-600 to-[#1e3a8a] border border-sky-200 dark:border-sky-700 p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-sky-100 dark:bg-sky-900/40 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-300/20 border border-sky-200 text-xs font-mono text-sky-50">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-300/20 border border-sky-200 dark:border-sky-700 text-xs font-mono text-sky-50">
             <span className="w-2 h-2 rounded-full bg-sky-200 animate-ping" />
             Track 5 • Cloud-Native Infrastructure &amp; Orchestration
           </div>
@@ -700,22 +700,22 @@ export default function DkResourceQuotasSection() {
       {/* ===================================================================== */}
       {/* MODULE 1 — Requests & Limits Calculator */}
       {/* ===================================================================== */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
               Module 1 • Scheduling Math
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               CPU &amp; Memory Requests/Limits Calculator
             </h2>
           </div>
-          <div className="flex items-center gap-2 text-xs font-mono bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-500">
+          <div className="flex items-center gap-2 text-xs font-mono bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
             <span>Node:</span>
             <select
               value={nodeIdx}
               onChange={(e) => setNodeIdx(Number(e.target.value))}
-              className="bg-transparent text-sky-700 font-bold focus:outline-none"
+              className="bg-transparent text-sky-700 dark:text-sky-300 font-bold focus:outline-none"
             >
               {NODE_PRESETS.map((n, i) => (
                 <option key={n.id} value={i}>
@@ -728,8 +728,8 @@ export default function DkResourceQuotasSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-5 space-y-6">
-            <div className="space-y-4 bg-slate-50 border border-slate-200 rounded-xl p-5">
-              <div className="text-xs font-mono uppercase tracking-wider text-slate-400">CPU (millicores)</div>
+            <div className="space-y-4 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5">
+              <div className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">CPU (millicores)</div>
               <SliderRow
                 label="requests.cpu"
                 value={cpuReqM}
@@ -751,8 +751,8 @@ export default function DkResourceQuotasSection() {
                 hint="Burst ceiling before CPU throttling"
               />
             </div>
-            <div className="space-y-4 bg-slate-50 border border-slate-200 rounded-xl p-5">
-              <div className="text-xs font-mono uppercase tracking-wider text-slate-400">Memory</div>
+            <div className="space-y-4 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5">
+              <div className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">Memory</div>
               <SliderRow
                 label="requests.memory"
                 value={memReqMi}
@@ -791,14 +791,14 @@ export default function DkResourceQuotasSection() {
               <Stat label="Est. pods / node" value={m1.estPods === null ? "∞" : `${m1.estPods}`} tone="ok" />
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-xs text-slate-900 whitespace-pre leading-relaxed">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4 font-mono text-xs text-slate-900 dark:text-slate-100 whitespace-pre leading-relaxed">
               {m1SpecYaml}
             </div>
 
             {m1Warnings.length > 0 ? (
               <NoticeBlock notices={m1Warnings} />
             ) : (
-              <div className="text-xs text-slate-600 bg-sky-50 border border-sky-200 rounded-lg px-3 py-2 font-mono">
+              <div className="text-xs text-slate-600 dark:text-slate-300 bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 rounded-lg px-3 py-2 font-mono">
                 ✅ Schedulable on {node.label}: request {cpuDisplay(cpuReqM)} / {fmtMemMi(memReqMi)} · limit {cpuDisplay(cpuLimM)} / {fmtMemMi(memLimMi)}
               </div>
             )}
@@ -809,29 +809,29 @@ export default function DkResourceQuotasSection() {
       {/* ===================================================================== */}
       {/* MODULE 2 — ResourceQuota Builder */}
       {/* ===================================================================== */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
               Module 2 • Namespace Guardrails
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">ResourceQuota Builder</h2>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">ResourceQuota Builder</h2>
           </div>
           <div className="flex items-center gap-2 text-xs font-mono">
-            <label className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-500">
+            <label className="flex items-center gap-2 bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
               <span>name:</span>
               <input
                 value={quotaName}
                 onChange={(e) => setQuotaName(e.target.value)}
-                className="w-32 bg-transparent text-sky-700 font-bold focus:outline-none"
+                className="w-32 bg-transparent text-sky-700 dark:text-sky-300 font-bold focus:outline-none"
               />
             </label>
-            <label className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-500">
+            <label className="flex items-center gap-2 bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
               <span>namespace:</span>
               <input
                 value={quotaNs}
                 onChange={(e) => setQuotaNs(e.target.value)}
-                className="w-28 bg-transparent text-sky-700 font-bold focus:outline-none"
+                className="w-28 bg-transparent text-sky-700 dark:text-sky-300 font-bold focus:outline-none"
               />
             </label>
           </div>
@@ -839,38 +839,38 @@ export default function DkResourceQuotasSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-5 space-y-5">
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-1">
-              <div className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Compute resources</div>
+            <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5 space-y-1">
+              <div className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Compute resources</div>
               <ToggleRow label="Pods" checked={qEnablePods} onChange={setQEnablePods} />
               <ToggleRow label="requests.cpu" checked={qEnableCpuReq} onChange={setQEnableCpuReq} />
               <ToggleRow label="limits.cpu" checked={qEnableCpuLim} onChange={setQEnableCpuLim} />
               <ToggleRow label="requests.memory" checked={qEnableMemReq} onChange={setQEnableMemReq} />
               <ToggleRow label="limits.memory" checked={qEnableMemLim} onChange={setQEnableMemLim} />
             </div>
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-1">
-              <div className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Other resources</div>
+            <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5 space-y-1">
+              <div className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Other resources</div>
               <ToggleRow label="PersistentVolumeClaims" checked={qEnablePvc} onChange={setQEnablePvc} />
               <ToggleRow label="requests.storage" checked={qEnableStorage} onChange={setQEnableStorage} />
               <ToggleRow label="Services" checked={qEnableServices} onChange={setQEnableServices} />
               <ToggleRow label="Secrets" checked={qEnableSecrets} onChange={setQEnableSecrets} />
               <ToggleRow label="ConfigMaps" checked={qEnableCm} onChange={setQEnableCm} />
             </div>
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
-              <div className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Scope</div>
+            <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5">
+              <div className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Scope</div>
               <div className="flex gap-1">
                 {(["Default", "BestEffort", "NotBestEffort"] as const).map((s) => (
                   <button
                     key={s}
                     onClick={() => setQuotaScope(s)}
                     className={`px-3 py-1.5 rounded-md text-xs font-mono transition-all ${
-                      quotaScope === s ? "bg-sky-500 text-white shadow" : "text-slate-500 hover:text-sky-700"
+                      quotaScope === s ? "bg-sky-500 text-white shadow" : "text-slate-500 dark:text-slate-400 hover:text-sky-700 dark:hover:text-sky-300"
                     }`}
                   >
                     {s}
                   </button>
                 ))}
               </div>
-              <p className="text-[11px] text-slate-400 mt-2">
+              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-2">
                 Scope restricts the quota to pods matching that QoS class (BestEffort / NotBestEffort) or the whole namespace (Default).
               </p>
             </div>
@@ -894,8 +894,8 @@ export default function DkResourceQuotasSection() {
 
             <CopyBlock label="resourcequota.yaml" code={quotaYaml} />
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-1.5 text-xs text-slate-600 leading-relaxed">
-              <div className="text-xs font-mono text-slate-500 uppercase tracking-wider mb-1">Enforcement rules</div>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4 space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Enforcement rules</div>
               <p>
                 • Admission is rejected when the pod&apos;s declared request/limit would exceed the remaining quota for that resource.
               </p>
@@ -913,17 +913,17 @@ export default function DkResourceQuotasSection() {
       {/* ===================================================================== */}
       {/* MODULE 3 — LimitRange Configurator */}
       {/* ===================================================================== */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">Module 3 • Defaults &amp; Bounds</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">LimitRange Configurator</h2>
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 3 • Defaults &amp; Bounds</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">LimitRange Configurator</h2>
           </div>
-          <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-lg p-1">
+          <div className="flex items-center gap-1 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg p-1">
             <button
               onClick={() => setLrKind("Container")}
               className={`px-3 py-1.5 rounded-md text-xs font-mono transition-all ${
-                lrKind === "Container" ? "bg-sky-500 text-white shadow" : "text-slate-500 hover:text-sky-700"
+                lrKind === "Container" ? "bg-sky-500 text-white shadow" : "text-slate-500 dark:text-slate-400 hover:text-sky-700 dark:hover:text-sky-300"
               }`}
             >
               Containers
@@ -931,7 +931,7 @@ export default function DkResourceQuotasSection() {
             <button
               onClick={() => setLrKind("PVC")}
               className={`px-3 py-1.5 rounded-md text-xs font-mono transition-all ${
-                lrKind === "PVC" ? "bg-sky-500 text-white shadow" : "text-slate-500 hover:text-sky-700"
+                lrKind === "PVC" ? "bg-sky-500 text-white shadow" : "text-slate-500 dark:text-slate-400 hover:text-sky-700 dark:hover:text-sky-300"
               }`}
             >
               PVC Storage
@@ -942,22 +942,22 @@ export default function DkResourceQuotasSection() {
         {lrKind === "Container" ? (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-5 space-y-6">
-              <div className="space-y-4 bg-slate-50 border border-slate-200 rounded-xl p-5">
-                <div className="text-xs font-mono uppercase tracking-wider text-slate-500">CPU (millicores)</div>
+              <div className="space-y-4 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5">
+                <div className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">CPU (millicores)</div>
                 <SliderRow label="min.cpu" value={lrMinCpuM} onChange={setLrMinCpuM} min={1} max={2000} step={10} valueText={`${lrMinCpuM}m`} hint="Lowest allowed request/limit" />
                 <SliderRow label="defaultRequest.cpu" value={lrDefReqCpuM} onChange={setLrDefReqCpuM} min={10} max={4000} step={10} valueText={`${lrDefReqCpuM}m`} hint="Injected when request omitted" />
                 <SliderRow label="default.cpu" value={lrDefCpuM} onChange={setLrDefCpuM} min={10} max={8000} step={10} valueText={`${lrDefCpuM}m`} hint="Injected when limit omitted" />
                 <SliderRow label="max.cpu" value={lrMaxCpuM} onChange={setLrMaxCpuM} min={100} max={16000} step={100} valueText={`${lrMaxCpuM}m`} hint="Hard ceiling per container" />
               </div>
-              <div className="space-y-4 bg-slate-50 border border-slate-200 rounded-xl p-5">
-                <div className="text-xs font-mono uppercase tracking-wider text-slate-500">Memory (Mi)</div>
+              <div className="space-y-4 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5">
+                <div className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">Memory (Mi)</div>
                 <SliderRow label="min.memory" value={lrMinMemMi} onChange={setLrMinMemMi} min={16} max={16384} step={16} valueText={fmtMemMi(lrMinMemMi)} hint="Lowest allowed request/limit" />
                 <SliderRow label="defaultRequest.memory" value={lrDefReqMemMi} onChange={setLrDefReqMemMi} min={64} max={32768} step={64} valueText={fmtMemMi(lrDefReqMemMi)} hint="Injected when request omitted" />
                 <SliderRow label="default.memory" value={lrDefMemMi} onChange={setLrDefMemMi} min={64} max={65536} step={64} valueText={fmtMemMi(lrDefMemMi)} hint="Injected when limit omitted" />
                 <SliderRow label="max.memory" value={lrMaxMemMi} onChange={setLrMaxMemMi} min={128} max={131072} step={128} valueText={fmtMemMi(lrMaxMemMi)} hint="Hard ceiling per container" />
               </div>
-              <div className="space-y-3 bg-slate-50 border border-slate-200 rounded-xl p-5">
-                <div className="text-xs font-mono uppercase tracking-wider text-slate-500">maxLimitRequestRatio</div>
+              <div className="space-y-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5">
+                <div className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">maxLimitRequestRatio</div>
                 <SliderRow label="cpu ratio" value={lrRatioCpu} onChange={setLrRatioCpu} min={1} max={10} valueText={`${lrRatioCpu}`} />
                 <SliderRow label="memory ratio" value={lrRatioMem} onChange={setLrRatioMem} min={1} max={10} valueText={`${lrRatioMem}`} />
               </div>
@@ -966,8 +966,8 @@ export default function DkResourceQuotasSection() {
             <div className="lg:col-span-7 space-y-5">
               <NoticeBlock notices={lrWarnings} />
               <CopyBlock label="limitrange.yaml" code={lrYaml} />
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-1.5 text-xs text-slate-600 leading-relaxed">
-                <div className="text-xs font-mono text-slate-500 uppercase tracking-wider mb-1">How LimitRange applies</div>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4 space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">How LimitRange applies</div>
                 <p>• When a container omits a limit, the namespace default is injected; when it omits a request, defaultRequest is injected.</p>
                 <p>• Containers declaring values outside [min, max] are rejected at admission.</p>
                 <p>• maxLimitRequestRatio caps how far a container&apos;s limit may exceed its request for the same resource.</p>
@@ -976,14 +976,14 @@ export default function DkResourceQuotasSection() {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-5 space-y-5 bg-slate-50 border border-slate-200 rounded-xl p-5">
+            <div className="lg:col-span-5 space-y-5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5">
               <SliderRow label="min.storage" value={lrMinStorageGi} onChange={setLrMinStorageGi} min={1} max={lrMaxStorageGi} valueText={`${lrMinStorageGi}Gi`} hint="Smallest claim allowed" />
               <SliderRow label="max.storage" value={lrMaxStorageGi} onChange={setLrMaxStorageGi} min={1} max={10000} valueText={`${lrMaxStorageGi}Gi`} hint="Largest claim allowed" />
               <NoticeBlock notices={lrWarnings} />
             </div>
             <div className="lg:col-span-7 space-y-5">
               <CopyBlock label="limitrange-pvc.yaml" code={lrYaml} />
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-xs text-slate-600 leading-relaxed">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 Applies to PersistentVolumeClaim sizes: claims outside [min.storage, max.storage] are rejected at admission time.
               </div>
             </div>
@@ -994,28 +994,28 @@ export default function DkResourceQuotasSection() {
       {/* ===================================================================== */}
       {/* MODULE 4 — QoS Class Calculator */}
       {/* ===================================================================== */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">Module 4 • Pod Priority Tiers</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">QoS Class Calculator</h2>
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 4 • Pod Priority Tiers</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">QoS Class Calculator</h2>
           </div>
-          <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-lg p-1">
+          <div className="flex items-center gap-1 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg p-1">
             <button
               onClick={() => applyPreset("guaranteed")}
-              className="px-3 py-1.5 rounded-md text-xs font-mono text-slate-500 hover:text-sky-700"
+              className="px-3 py-1.5 rounded-md text-xs font-mono text-slate-500 dark:text-slate-400 hover:text-sky-700 dark:hover:text-sky-300"
             >
               Guaranteed preset
             </button>
             <button
               onClick={() => applyPreset("burstable")}
-              className="px-3 py-1.5 rounded-md text-xs font-mono text-slate-500 hover:text-sky-700"
+              className="px-3 py-1.5 rounded-md text-xs font-mono text-slate-500 dark:text-slate-400 hover:text-sky-700 dark:hover:text-sky-300"
             >
               Burstable preset
             </button>
             <button
               onClick={() => applyPreset("besteffort")}
-              className="px-3 py-1.5 rounded-md text-xs font-mono text-slate-500 hover:text-sky-700"
+              className="px-3 py-1.5 rounded-md text-xs font-mono text-slate-500 dark:text-slate-400 hover:text-sky-700 dark:hover:text-sky-300"
             >
               BestEffort preset
             </button>
@@ -1025,17 +1025,17 @@ export default function DkResourceQuotasSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-6 space-y-5">
             {containers.map((c, i) => (
-              <div key={i} className="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3">
+              <div key={i} className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5 space-y-3">
                 <div className="flex items-center justify-between gap-2">
                   <input
                     value={c.name}
                     onChange={(e) => patchContainer(i, "cpu", {}, e.target.value)}
-                    className="text-sm font-bold text-slate-900 bg-white border border-slate-200 rounded-lg px-2 py-1 font-mono focus:outline-none focus:ring-2 focus:ring-sky-400"
+                    className="text-sm font-bold text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 font-mono focus:outline-none focus:ring-2 focus:ring-sky-400"
                   />
                   {containers.length > 1 ? (
                     <button
                       onClick={() => setContainers((prev) => prev.filter((_, idx) => idx !== i))}
-                      className="text-xs font-mono text-red-400 hover:text-red-600"
+                      className="text-xs font-mono text-red-400 dark:text-red-300 hover:text-red-600"
                     >
                       remove
                     </button>
@@ -1049,7 +1049,7 @@ export default function DkResourceQuotasSection() {
             ))}
             <button
               onClick={() => setContainers((prev) => [...prev, { ...DEFAULT_CONTAINER(`container-${prev.length + 1}`) }])}
-              className="text-xs font-mono text-sky-600 border border-dashed border-sky-300 rounded-lg px-3 py-2 w-full hover:bg-sky-50"
+              className="text-xs font-mono text-sky-600 dark:text-sky-400 border border-dashed border-sky-300 dark:border-sky-600 rounded-lg px-3 py-2 w-full hover:bg-sky-50"
             >
               + Add container
             </button>
@@ -1065,8 +1065,8 @@ export default function DkResourceQuotasSection() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-1.5 text-xs text-slate-600 leading-relaxed">
-              <div className="text-xs font-mono text-slate-500 uppercase tracking-wider mb-1">Decision rules</div>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4 space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Decision rules</div>
               <p>1. No requests or limits anywhere → <span className="font-mono font-bold">BestEffort</span>.</p>
               <p>2. Every container sets CPU request = CPU limit AND memory request = memory limit → <span className="font-mono font-bold">Guaranteed</span>.</p>
               <p>3. Anything else with at least one request/limit → <span className="font-mono font-bold">Burstable</span>.</p>
@@ -1080,18 +1080,18 @@ export default function DkResourceQuotasSection() {
       {/* ===================================================================== */}
       {/* MODULE 5 — Resource Efficiency Metrics */}
       {/* ===================================================================== */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">Module 5 • Cost &amp; Capacity</div>
-            <h2 className="text-2xl font-extrabold text-slate-900">Resource Efficiency Metrics</h2>
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 5 • Cost &amp; Capacity</div>
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Resource Efficiency Metrics</h2>
           </div>
-          <div className="flex items-center gap-2 text-xs font-mono bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-500">
+          <div className="flex items-center gap-2 text-xs font-mono bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
             <span>Node size:</span>
             <select
               value={effNodeIdx}
               onChange={(e) => setEffNodeIdx(Number(e.target.value))}
-              className="bg-transparent text-sky-700 font-bold focus:outline-none"
+              className="bg-transparent text-sky-700 dark:text-sky-300 font-bold focus:outline-none"
             >
               {NODE_PRESETS.map((n, i) => (
                 <option key={n.id} value={i}>
@@ -1104,16 +1104,16 @@ export default function DkResourceQuotasSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-5 space-y-6">
-            <div className="space-y-4 bg-slate-50 border border-slate-200 rounded-xl p-5">
-              <div className="text-xs font-mono uppercase tracking-wider text-slate-400">Workload shape (per pod)</div>
+            <div className="space-y-4 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5">
+              <div className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">Workload shape (per pod)</div>
               <SliderRow label="replicas" value={effReplicas} onChange={setEffReplicas} min={1} max={24} valueText={`${effReplicas}`} />
               <SliderRow label="CPU request" value={effCpuReqM} onChange={setEffCpuReqM} min={50} max={8000} step={50} valueText={cpuDisplay(effCpuReqM)} />
               <SliderRow label="CPU limit" value={effCpuLimM} onChange={setEffCpuLimM} min={50} max={16000} step={50} valueText={cpuDisplay(effCpuLimM)} />
               <SliderRow label="Mem request" value={effMemReqMi} onChange={setEffMemReqMi} min={64} max={65536} step={64} valueText={fmtMemMi(effMemReqMi)} />
               <SliderRow label="Mem limit" value={effMemLimMi} onChange={setEffMemLimMi} min={64} max={131072} step={64} valueText={fmtMemMi(effMemLimMi)} />
             </div>
-            <div className="space-y-4 bg-slate-50 border border-slate-200 rounded-xl p-5">
-              <div className="text-xs font-mono uppercase tracking-wider text-slate-400">Measured utilization (% of request)</div>
+            <div className="space-y-4 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5">
+              <div className="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">Measured utilization (% of request)</div>
               <SliderRow label="CPU utilization" value={effCpuUsePct} onChange={setEffCpuUsePct} min={0} max={100} valueText={`${effCpuUsePct}%`} hint="From metrics: sum(rate(container_cpu_usage_seconds_total))/requests" />
               <SliderRow label="Memory utilization" value={effMemUsePct} onChange={setEffMemUsePct} min={0} max={100} valueText={`${effMemUsePct}%`} hint="From metrics: container_memory_working_set_bytes vs requests" />
             </div>
@@ -1130,22 +1130,22 @@ export default function DkResourceQuotasSection() {
             <ResourceGauge resource="CPU fleet (request vs limit)" request={eff.totalCpuReq * 1000} limit={eff.totalCpuLim * 1000} capacity={effNode.cores * 1000} unit="m" />
             <ResourceGauge resource="Memory fleet" request={eff.totalMemReq} limit={eff.totalMemLim} capacity={effNode.memGi * 1024} unit="Mi" />
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
               <div>
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">CPU in use</div>
-                <div className="text-sm font-mono font-bold text-slate-900 mt-1">{fmtNum(eff.cpuActual)}c</div>
+                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">CPU in use</div>
+                <div className="text-sm font-mono font-bold text-slate-900 dark:text-slate-100 mt-1">{fmtNum(eff.cpuActual)}c</div>
               </div>
               <div>
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">CPU waste</div>
-                <div className="text-sm font-mono font-bold text-slate-900 mt-1">{fmtNum(eff.totalCpuReq - eff.cpuActual)}c</div>
+                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">CPU waste</div>
+                <div className="text-sm font-mono font-bold text-slate-900 dark:text-slate-100 mt-1">{fmtNum(eff.totalCpuReq - eff.cpuActual)}c</div>
               </div>
               <div>
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Mem in use</div>
-                <div className="text-sm font-mono font-bold text-slate-900 mt-1">{fmtNum(eff.memActual)}Mi</div>
+                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">Mem in use</div>
+                <div className="text-sm font-mono font-bold text-slate-900 dark:text-slate-100 mt-1">{fmtNum(eff.memActual)}Mi</div>
               </div>
               <div>
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Pods fit / node</div>
-                <div className="text-sm font-mono font-bold text-slate-900 mt-1">{eff.podsFit === null ? "—" : eff.podsFit}</div>
+                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">Pods fit / node</div>
+                <div className="text-sm font-mono font-bold text-slate-900 dark:text-slate-100 mt-1">{eff.podsFit === null ? "—" : eff.podsFit}</div>
               </div>
             </div>
 
@@ -1155,10 +1155,10 @@ export default function DkResourceQuotasSection() {
                   key={i}
                   className={`flex items-start gap-2 text-xs rounded-lg px-3 py-2 border ${
                     r.tone === "good"
-                      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                      ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700"
                       : r.tone === "warn"
-                        ? "bg-amber-50 text-amber-700 border-amber-200"
-                        : "bg-red-50 text-red-700 border-red-200"
+                        ? "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700"
+                        : "bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-700"
                   }`}
                 >
                   <span className="font-bold">{r.tone === "good" ? "✓" : r.tone === "warn" ? "⚠" : "✕"}</span>

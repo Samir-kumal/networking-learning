@@ -362,7 +362,7 @@ export default function DkIngressServiceMeshSection() {
         return {
           label: "Automatic mTLS — REQUIRED",
           edgeLabel: "mutual TLS",
-          edge: "border-sky-400 bg-sky-50 text-sky-600",
+          edge: "border-sky-400 bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400",
           edgeIconBg: "bg-sky-500",
           warn: null,
         };
@@ -370,7 +370,7 @@ export default function DkIngressServiceMeshSection() {
         return {
           label: "Plaintext or mTLS",
           edgeLabel: "plain OR mTLS",
-          edge: "border-blue-200 bg-blue-50 text-blue-500",
+          edge: "border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/30 text-blue-500 dark:text-blue-400",
           edgeIconBg: "bg-blue-400",
           warn: "Permissive: services negotiate — legacy apps may still send plaintext.",
         };
@@ -378,7 +378,7 @@ export default function DkIngressServiceMeshSection() {
         return {
           label: "mTLS DISABLED",
           edgeLabel: "plaintext (no auth)",
-          edge: "border-rose-200 bg-rose-50 text-rose-500",
+          edge: "border-rose-200 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/30 text-rose-500 dark:text-rose-400",
           edgeIconBg: "bg-rose-400",
           warn: "DISABLE only for migration troubleshooting — workloads trust the network entirely.",
         };
@@ -609,12 +609,12 @@ spec:
             traffic mirroring with Istio. Compare the two control planes side by side.
           </p>
           <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono">
-            <span className="bg-sky-50 border border-sky-300 text-sky-700 px-3 py-1 rounded-lg">NGINX vs Istio</span>
-            <span className="bg-sky-50 border border-sky-300 text-sky-700 px-3 py-1 rounded-lg">Path Routing</span>
-            <span className="bg-sky-50 border border-sky-300 text-sky-700 px-3 py-1 rounded-lg">TLS Termination</span>
-            <span className="bg-sky-50 border border-sky-300 text-sky-700 px-3 py-1 rounded-lg">mTLS Mesh</span>
-            <span className="bg-sky-50 border border-sky-300 text-sky-700 px-3 py-1 rounded-lg">Canary Weights</span>
-            <span className="bg-sky-50 border border-sky-300 text-sky-700 px-3 py-1 rounded-lg">Traffic Mirroring</span>
+            <span className="bg-sky-50 dark:bg-sky-900/30 border border-sky-300 dark:border-sky-600 text-sky-700 dark:text-sky-300 px-3 py-1 rounded-lg">NGINX vs Istio</span>
+            <span className="bg-sky-50 dark:bg-sky-900/30 border border-sky-300 dark:border-sky-600 text-sky-700 dark:text-sky-300 px-3 py-1 rounded-lg">Path Routing</span>
+            <span className="bg-sky-50 dark:bg-sky-900/30 border border-sky-300 dark:border-sky-600 text-sky-700 dark:text-sky-300 px-3 py-1 rounded-lg">TLS Termination</span>
+            <span className="bg-sky-50 dark:bg-sky-900/30 border border-sky-300 dark:border-sky-600 text-sky-700 dark:text-sky-300 px-3 py-1 rounded-lg">mTLS Mesh</span>
+            <span className="bg-sky-50 dark:bg-sky-900/30 border border-sky-300 dark:border-sky-600 text-sky-700 dark:text-sky-300 px-3 py-1 rounded-lg">Canary Weights</span>
+            <span className="bg-sky-50 dark:bg-sky-900/30 border border-sky-300 dark:border-sky-600 text-sky-700 dark:text-sky-300 px-3 py-1 rounded-lg">Traffic Mirroring</span>
           </div>
         </div>
       </div>
@@ -622,25 +622,25 @@ spec:
       {/* ======================================================================= */}
       {/* MODULE 1: NGINX vs Istio — interactive comparison */}
       {/* ======================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
               Module 1 • Control Plane Comparison
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               NGINX Ingress Controller vs Istio Service Mesh
             </h2>
           </div>
-          <div className="flex items-center gap-1 text-xs font-mono bg-slate-50 px-1.5 py-1 rounded-lg border border-slate-200">
+          <div className="flex items-center gap-1 text-xs font-mono bg-slate-50 dark:bg-slate-700 px-1.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700">
             {(["matrix", "nginx", "istio"] as CompareTab[]).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setCompareTab(tab)}
                 className={`px-3 py-1.5 rounded-md transition-colors ${
                   compareTab === tab
-                    ? "bg-sky-100 text-sky-700 font-bold border border-sky-200"
-                    : "text-slate-500 hover:bg-slate-100"
+                    ? "bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 font-bold border border-sky-200 dark:border-sky-700"
+                    : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-600"
                 }`}
               >
                 {tab === "matrix" ? "Side-by-Side" : tab.toUpperCase()}
@@ -651,39 +651,39 @@ spec:
 
         {compareTab === "matrix" && (
           <div className="space-y-3">
-            <div className="grid grid-cols-12 gap-2 text-[11px] font-mono text-slate-500 uppercase tracking-wider px-1">
+            <div className="grid grid-cols-12 gap-2 text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">
               <div className="col-span-3">Dimension</div>
               <div className="col-span-3 text-right">NGINX Ingress</div>
               <div className="col-span-3 text-right">Istio Mesh</div>
               <div className="col-span-3">{/* legend */}</div>
             </div>
             {COMPARISON_ROWS.map((row) => (
-              <div key={row.dimension} className="grid grid-cols-12 gap-2 items-center p-3 rounded-xl border border-slate-200 bg-slate-50/50">
+              <div key={row.dimension} className="grid grid-cols-12 gap-2 items-center p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/50">
                 <div className="col-span-3">
-                  <div className="text-xs font-bold text-slate-900">{row.dimension}</div>
-                  <div className="text-[10px] text-slate-400 mt-0.5">{row.note}</div>
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">{row.dimension}</div>
+                  <div className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">{row.note}</div>
                 </div>
                 <div className="col-span-3 space-y-1.5">
-                  <div className="text-right text-[11px] font-mono text-slate-600 truncate" title={row.nginx}>{row.nginx}</div>
-                  <div className="h-1.5 rounded-full bg-slate-200 overflow-hidden ml-auto" style={{ width: "80%" }}>
+                  <div className="text-right text-[11px] font-mono text-slate-600 dark:text-slate-300 truncate" title={row.nginx}>{row.nginx}</div>
+                  <div className="h-1.5 rounded-full bg-slate-200 dark:bg-slate-600 overflow-hidden ml-auto" style={{ width: "80%" }}>
                     <div
                       className="h-full rounded-full bg-sky-500 transition-all duration-500"
                       style={{ width: `${row.nginxScore}%`, marginLeft: `${100 - row.nginxScore}%` }}
                     />
                   </div>
-                  <div className="text-right text-[10px] font-mono text-sky-600">{row.nginxScore}/100</div>
+                  <div className="text-right text-[10px] font-mono text-sky-600 dark:text-sky-400">{row.nginxScore}/100</div>
                 </div>
                 <div className="col-span-3 space-y-1.5">
-                  <div className="text-[11px] font-mono text-slate-600" title={row.istio}>{row.istio}</div>
-                  <div className="h-1.5 rounded-full bg-slate-200 overflow-hidden" style={{ width: "80%" }}>
+                  <div className="text-[11px] font-mono text-slate-600 dark:text-slate-300" title={row.istio}>{row.istio}</div>
+                  <div className="h-1.5 rounded-full bg-slate-200 dark:bg-slate-600 overflow-hidden" style={{ width: "80%" }}>
                     <div
                       className="h-full rounded-full bg-blue-600 transition-all duration-500"
                       style={{ width: `${row.istioScore}%` }}
                     />
                   </div>
-                  <div className="text-[10px] font-mono text-blue-600">{row.istioScore}/100</div>
+                  <div className="text-[10px] font-mono text-blue-600 dark:text-blue-400">{row.istioScore}/100</div>
                 </div>
-                <div className="col-span-3 hidden sm:block text-[10px] font-mono text-slate-400">
+                <div className="col-span-3 hidden sm:block text-[10px] font-mono text-slate-400 dark:text-slate-500">
                   {row.nginxScore >= row.istioScore ? "NGINX wins" : "Istio wins"}
                 </div>
               </div>
@@ -694,26 +694,26 @@ spec:
         {compareTab === "nginx" && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-5 space-y-3">
-              <h3 className="text-sm font-bold text-slate-900">When NGINX is the right call</h3>
-              <ul className="space-y-2 text-xs text-slate-600">
-                <li className="p-3 rounded-lg bg-sky-50 border border-sky-200">You only need external L7 edge routing — host/path rules + TLS</li>
-                <li className="p-3 rounded-lg bg-sky-50 border border-sky-200">Small team; one Deployment + ConfigMap to understand</li>
-                <li className="p-3 rounded-lg bg-sky-50 border border-sky-200">No need for mTLS between services; app-level auth suffices</li>
-                <li className="p-3 rounded-lg bg-sky-50 border border-sky-200">Best performance profile: single process decision per request</li>
-                <li className="p-3 rounded-lg bg-sky-50 border border-sky-200">Canary via annotations, mirror via annotations — but per-Ingress only</li>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">When NGINX is the right call</h3>
+              <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+                <li className="p-3 rounded-lg bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700">You only need external L7 edge routing — host/path rules + TLS</li>
+                <li className="p-3 rounded-lg bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700">Small team; one Deployment + ConfigMap to understand</li>
+                <li className="p-3 rounded-lg bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700">No need for mTLS between services; app-level auth suffices</li>
+                <li className="p-3 rounded-lg bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700">Best performance profile: single process decision per request</li>
+                <li className="p-3 rounded-lg bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700">Canary via annotations, mirror via annotations — but per-Ingress only</li>
               </ul>
             </div>
-            <div className="lg:col-span-7 rounded-xl bg-white border border-slate-200 shadow-sm overflow-hidden">
-              <div className="flex items-center justify-between bg-white px-4 py-2.5 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-900 font-bold">ingress.yaml — controller + canary annotations</span>
+            <div className="lg:col-span-7 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+              <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-900 dark:text-slate-100 font-bold">ingress.yaml — controller + canary annotations</span>
                 <button
                   onClick={() => copyCode("nginx-deep", NGNIX_DEEP_INFO)}
-                  className="px-3 py-1 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-mono text-slate-900 transition-colors"
+                  className="px-3 py-1 rounded bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 transition-colors"
                 >
-                  {copied === "nginx-deep" ? <span className="text-emerald-600">✓ Copied!</span> : <span>Copy YAML</span>}
+                  {copied === "nginx-deep" ? <span className="text-emerald-600 dark:text-emerald-400">✓ Copied!</span> : <span>Copy YAML</span>}
                 </button>
               </div>
-              <div className="p-4 font-mono text-xs text-slate-900 bg-slate-50 overflow-x-auto whitespace-pre leading-relaxed">
+              <div className="p-4 font-mono text-xs text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-700 overflow-x-auto whitespace-pre leading-relaxed">
                 {NGNIX_DEEP_INFO}
               </div>
             </div>
@@ -723,26 +723,26 @@ spec:
         {compareTab === "istio" && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-5 space-y-3">
-              <h3 className="text-sm font-bold text-slate-900">When Istio is the right call</h3>
-              <ul className="space-y-2 text-xs text-slate-600">
-                <li className="p-3 rounded-lg bg-blue-50 border border-blue-200">• East-west microservice traffic with automatic mTLS and SPIFFE identity</li>
-                <li className="p-3 rounded-lg bg-blue-50 border border-blue-200">• Weight splitting, retries, timeouts, fault injection — per-route policies</li>
-                <li className="p-3 rounded-lg bg-blue-50 border border-blue-200">• Mirror + mirrorWeight for precise shadowing</li>
-                <li className="p-3 rounded-lg bg-blue-50 border border-blue-200">• Observability: per-hop tracing, metrics, and telemetry from Envoy</li>
-                <li className="p-3 rounded-lg bg-blue-50 border border-blue-200">• Costs: istiod control plane + sidecar memory; needs mesh-savvy operators</li>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">When Istio is the right call</h3>
+              <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+                <li className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700">• East-west microservice traffic with automatic mTLS and SPIFFE identity</li>
+                <li className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700">• Weight splitting, retries, timeouts, fault injection — per-route policies</li>
+                <li className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700">• Mirror + mirrorWeight for precise shadowing</li>
+                <li className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700">• Observability: per-hop tracing, metrics, and telemetry from Envoy</li>
+                <li className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700">• Costs: istiod control plane + sidecar memory; needs mesh-savvy operators</li>
               </ul>
             </div>
-            <div className="lg:col-span-7 rounded-xl bg-white border border-slate-200 shadow-sm overflow-hidden">
-              <div className="flex items-center justify-between bg-white px-4 py-2.5 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-900 font-bold">Gateway + VirtualService — the mesh equivalent</span>
+            <div className="lg:col-span-7 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+              <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-900 dark:text-slate-100 font-bold">Gateway + VirtualService — the mesh equivalent</span>
                 <button
                   onClick={() => copyCode("istio-deep", ISTIO_DEEP_INFO)}
-                  className="px-3 py-1 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-mono text-slate-900 transition-colors"
+                  className="px-3 py-1 rounded bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 transition-colors"
                 >
-                  {copied === "istio-deep" ? <span className="text-emerald-600">✓ Copied!</span> : <span>Copy YAML</span>}
+                  {copied === "istio-deep" ? <span className="text-emerald-600 dark:text-emerald-400">✓ Copied!</span> : <span>Copy YAML</span>}
                 </button>
               </div>
-              <div className="p-4 font-mono text-xs text-slate-900 bg-slate-50 overflow-x-auto whitespace-pre leading-relaxed">
+              <div className="p-4 font-mono text-xs text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-700 overflow-x-auto whitespace-pre leading-relaxed">
                 {ISTIO_DEEP_INFO}
               </div>
             </div>
@@ -753,22 +753,22 @@ spec:
       {/* ======================================================================= */}
       {/* MODULE 2: Ingress path-based routing builder */}
       {/* ======================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-blue-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">
               Module 2 • Edge Traffic Router
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               Ingress Resource — Path-Based Routing Builder
             </h2>
           </div>
-          <div className="flex items-center gap-2 text-xs font-mono bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-500">
+          <div className="flex items-center gap-2 text-xs font-mono bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
             <span>Host:</span>
             <input
               value={host}
               onChange={(e) => setHost(e.target.value)}
-              className="bg-transparent text-sky-600 font-bold outline-none border-b border-sky-200 focus:border-sky-500 w-40"
+              className="bg-transparent text-sky-600 dark:text-sky-400 font-bold outline-none border-b border-sky-200 dark:border-sky-700 focus:border-sky-500 w-40"
             />
           </div>
         </div>
@@ -776,7 +776,7 @@ spec:
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Builder column */}
           <div className="lg:col-span-5 space-y-4">
-            <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block">
+            <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
               1. Path Rules (longest prefix wins)
             </label>
             <div className="space-y-2.5">
@@ -784,7 +784,7 @@ spec:
                 <div
                   key={route.id}
                   className={`p-3 rounded-xl border transition-all ${
-                    route.enabled ? "bg-slate-50 border-slate-200" : "bg-slate-50/50 border-slate-200/40 opacity-70"
+                    route.enabled ? "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700" : "bg-slate-50/50 dark:bg-slate-700/50 border-slate-200/40 dark:border-slate-700/60 opacity-70"
                   }`}
                 >
                   <div className="flex items-center gap-2">
@@ -797,12 +797,12 @@ spec:
                     <input
                       value={route.path}
                       onChange={(e) => updateRoute(route.id, { path: e.target.value })}
-                      className="w-28 px-2 py-1 rounded border border-slate-200 bg-white text-xs font-mono text-slate-900 focus:border-sky-400 focus:outline-none"
+                      className="w-28 px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-sky-400 focus:outline-none"
                     />
                     <select
                       value={route.pathType}
                       onChange={(e) => updateRoute(route.id, { pathType: e.target.value as PathType })}
-                      className="px-1.5 py-1 rounded border border-slate-200 bg-white text-[10px] font-mono text-slate-600 focus:border-sky-400 focus:outline-none"
+                      className="px-1.5 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-[10px] font-mono text-slate-600 dark:text-slate-300 focus:border-sky-400 focus:outline-none"
                     >
                       <option>Prefix</option>
                       <option>Exact</option>
@@ -811,19 +811,19 @@ spec:
                     {routes.length > 1 && (
                       <button
                         onClick={() => removeRoute(route.id)}
-                        className="ml-auto text-slate-400 hover:text-rose-500 text-xs font-mono"
+                        className="ml-auto text-slate-400 dark:text-slate-500 hover:text-rose-500 text-xs font-mono"
                         aria-label={`remove ${route.path}`}
                       >
                         ✕
                       </button>
                     )}
                   </div>
-                  <div className="mt-2 flex items-center gap-2 text-[10px] font-mono text-slate-500">
+                  <div className="mt-2 flex items-center gap-2 text-[10px] font-mono text-slate-500 dark:text-slate-400">
                     <span>Backend:</span>
                     <input
                       value={route.backend}
                       onChange={(e) => updateRoute(route.id, { backend: e.target.value })}
-                      className="px-1.5 py-0.5 rounded border border-slate-200 bg-white w-28 font-mono text-slate-900 focus:border-sky-400 focus:outline-none"
+                      className="px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 w-28 font-mono text-slate-900 dark:text-slate-100 focus:border-sky-400 focus:outline-none"
                     />
                     <input
                       type="number"
@@ -831,7 +831,7 @@ spec:
                       max={65535}
                       value={route.port}
                       onChange={(e) => updateRoute(route.id, { port: Number(e.target.value) || 80 })}
-                      className="w-16 px-1.5 py-0.5 rounded border border-slate-200 bg-white font-mono text-slate-900 focus:border-sky-400 focus:outline-none"
+                      className="w-16 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 font-mono text-slate-900 dark:text-slate-100 focus:border-sky-400 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -841,11 +841,11 @@ spec:
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={addRoute}
-                className="px-3 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 text-xs font-mono text-sky-700 transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-sky-50 dark:bg-sky-900/30 hover:bg-sky-100 border border-sky-200 dark:border-sky-700 text-xs font-mono text-sky-700 dark:text-sky-300 transition-colors"
               >
                 + Add path rule
               </button>
-              <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-500">
+              <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400">
                 <span>Class:</span>
                 {(["nginx", "istio-gateway"] as IngressClass[]).map((c) => (
                   <button
@@ -854,14 +854,14 @@ spec:
                     className={`px-2 py-1 rounded border text-[10px] transition-colors ${
                       ingressClass === c
                         ? "bg-blue-600 text-white border-blue-600"
-                        : "bg-white border-slate-200 text-slate-500 hover:border-sky-300"
+                        : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-sky-300"
                     }`}
                   >
                     {c}
                   </button>
                 ))}
               </div>
-              <label className="flex items-center gap-2 text-[11px] font-mono text-slate-500 ml-auto">
+              <label className="flex items-center gap-2 text-[11px] font-mono text-slate-500 dark:text-slate-400 ml-auto">
                 <input
                   type="checkbox"
                   checked={tlsEnabled}
@@ -873,19 +873,19 @@ spec:
             </div>
 
             {/* Request simulator */}
-            <div className="rounded-xl bg-sky-50 border border-sky-200 p-4 space-y-3">
-              <div className="text-[11px] font-mono text-sky-700 uppercase tracking-wider">Request simulation</div>
+            <div className="rounded-xl bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 p-4 space-y-3">
+              <div className="text-[11px] font-mono text-sky-700 dark:text-sky-300 uppercase tracking-wider">Request simulation</div>
               <div className="flex gap-2">
                 <input
                   value={reqPath}
                   onChange={(e) => setReqPath(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && simulateRequest(reqPath)}
                   placeholder="/api/…"
-                  className="flex-1 px-3 py-2 rounded-lg border border-sky-200 bg-white font-mono text-sm text-slate-900 focus:border-sky-400 focus:outline-none"
+                  className="flex-1 px-3 py-2 rounded-lg border border-sky-200 dark:border-sky-700 bg-white dark:bg-slate-800 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-sky-400 focus:outline-none"
                 />
                 <button
                   onClick={() => simulateRequest(reqPath)}
-                  className="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-mono transition-colors"
+                  className="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 dark:hover:bg-sky-600 text-white text-xs font-mono transition-colors"
                 >
                   Route →
                 </button>
@@ -898,7 +898,7 @@ spec:
                       setReqPath(p);
                       simulateRequest(p);
                     }}
-                    className="px-2 py-1 rounded border border-sky-200 bg-white text-[10px] font-mono text-slate-600 hover:border-sky-400 transition-colors"
+                    className="px-2 py-1 rounded border border-sky-200 dark:border-sky-700 bg-white dark:bg-slate-800 text-[10px] font-mono text-slate-600 dark:text-slate-300 hover:border-sky-400 transition-colors"
                   >
                     {p}
                   </button>
@@ -907,12 +907,12 @@ spec:
               {simResult && (
                 <div
                   className={`rounded-lg p-3 font-mono text-xs ${
-                    simResult.found ? "bg-white border border-emerald-200 text-emerald-700" : "bg-white border border-rose-200 text-rose-600"
+                    simResult.found ? "bg-white dark:bg-slate-800 border border-emerald-200 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300" : "bg-white dark:bg-slate-800 border border-rose-200 dark:border-rose-700 text-rose-600 dark:text-rose-400"
                   }`}
                 >
                   <div className="font-bold">{simResult.found ? "MATCH FOUND" : "404 — NO MATCH"}</div>
                   <div className="mt-1 whitespace-pre-wrap">{simResult.message}</div>
-                  <div className="mt-1 text-sky-700">→ backend: {simResult.backend}</div>
+                  <div className="mt-1 text-sky-700 dark:text-sky-300">→ backend: {simResult.backend}</div>
                 </div>
               )}
             </div>
@@ -920,24 +920,24 @@ spec:
 
           {/* YAML column */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="rounded-xl bg-white border border-slate-200 shadow-sm overflow-hidden flex flex-col min-h-[420px]">
-              <div className="flex items-center justify-between bg-white px-4 py-2.5 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-900 font-bold">ingress.yaml (generated live)</span>
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col min-h-[420px]">
+              <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-900 dark:text-slate-100 font-bold">ingress.yaml (generated live)</span>
                 <button
                   onClick={() => copyCode("ingress-yaml", generatedIngressYaml)}
-                  className="px-3 py-1 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-mono text-slate-900 transition-colors"
+                  className="px-3 py-1 rounded bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 transition-colors"
                 >
-                  {copied === "ingress-yaml" ? <span className="text-emerald-600">✓ Copied!</span> : <span>Copy YAML</span>}
+                  {copied === "ingress-yaml" ? <span className="text-emerald-600 dark:text-emerald-400">✓ Copied!</span> : <span>Copy YAML</span>}
                 </button>
               </div>
-              <div className="p-4 font-mono text-xs text-slate-900 bg-slate-50 overflow-x-auto flex-1 whitespace-pre leading-relaxed">
+              <div className="p-4 font-mono text-xs text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-700 overflow-x-auto flex-1 whitespace-pre leading-relaxed">
                 {generatedIngressYaml}
               </div>
             </div>
-            <div className="p-4 rounded-xl bg-sky-50 border border-sky-200 text-xs text-slate-600 space-y-1.5">
-              <div className="font-mono text-sky-700 font-bold">How NGINX picks the backend</div>
+            <div className="p-4 rounded-xl bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+              <div className="font-mono text-sky-700 dark:text-sky-300 font-bold">How NGINX picks the backend</div>
               <div>1. Host match → 2. most specific segment-aware prefix match (or Exact) → 3. Service port → EndpointSlice load balancing.</div>
-              <div className="text-[10px] text-slate-400">Precedence: Exact rules beat Prefix; among Prefix rules, the longest path wins — so /api/v1/orders beats /api.</div>
+              <div className="text-[10px] text-slate-400 dark:text-slate-500">Precedence: Exact rules beat Prefix; among Prefix rules, the longest path wins — so /api/v1/orders beats /api.</div>
             </div>
           </div>
         </div>
@@ -946,24 +946,24 @@ spec:
       {/* ======================================================================= */}
       {/* MODULE 3: TLS termination configuration */}
       {/* ======================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-700 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-sky-700 dark:text-sky-300 uppercase tracking-wider mb-1">
               Module 3 • Edge Cryptography
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               TLS Termination Configuration
             </h2>
           </div>
-          <div className="text-[10px] font-mono text-slate-400">tls block + annotations → controller behavior</div>
+          <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">tls block + annotations → controller behavior</div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Controls */}
           <div className="lg:col-span-4 space-y-4">
             <div>
-              <label className="text-xs font-mono text-slate-500 uppercase tracking-wider block mb-2">Certificate source</label>
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-2">Certificate source</label>
               <div className="grid grid-cols-2 gap-2">
                 {(["secret", "cert-manager"] as const).map((src) => (
                   <button
@@ -971,12 +971,12 @@ spec:
                     onClick={() => setTlsSource(src)}
                     className={`text-left p-3 rounded-xl border transition-all ${
                       tlsSource === src
-                        ? "bg-sky-50 border-sky-400 ring-1 ring-sky-300"
-                        : "bg-slate-50 border-slate-200 hover:border-sky-300"
+                        ? "bg-sky-50 dark:bg-sky-900/30 border-sky-400 ring-1 ring-sky-300"
+                        : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 hover:border-sky-300"
                     }`}
                   >
-                    <div className="text-xs font-bold text-slate-900">{src === "secret" ? "Manual Secret" : "cert-manager"}</div>
-                    <div className="text-[10px] font-mono text-slate-500 mt-0.5">
+                    <div className="text-xs font-bold text-slate-900 dark:text-slate-100">{src === "secret" ? "Manual Secret" : "cert-manager"}</div>
+                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-0.5">
                       {src === "secret" ? "self-managed tls Secret" : "auto-issue + renew (Let's Encrypt)"}
                     </div>
                   </button>
@@ -984,23 +984,23 @@ spec:
               </div>
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
               <div>
-                <div className="text-xs font-bold text-slate-900">Redirect HTTP → HTTPS</div>
-                <div className="text-[11px] text-slate-500">ssl-redirect / force-ssl-redirect annotations</div>
+                <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Redirect HTTP → HTTPS</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">ssl-redirect / force-ssl-redirect annotations</div>
               </div>
               <button
                 onClick={() => setSslRedirect(!sslRedirect)}
                 className={`w-12 h-6 rounded-full transition-colors relative p-1 ${sslRedirect ? "bg-sky-500" : "bg-[#30363d]"}`}
               >
-                <div className={`w-4 h-4 rounded-full bg-white transition-transform ${sslRedirect ? "translate-x-6" : "translate-x-0"}`} />
+                <div className={`w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${sslRedirect ? "translate-x-6" : "translate-x-0"}`} />
               </button>
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
               <div>
-                <div className="text-xs font-bold text-slate-900">Minimum TLS version</div>
-                <div className="text-[11px] text-slate-500">pin the handshake floor (TLSv1.2+ recommended)</div>
+                <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Minimum TLS version</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">pin the handshake floor (TLSv1.2+ recommended)</div>
               </div>
               <div className="flex gap-1">
                 {(["TLSv1.2", "TLSv1.3"] as const).map((v) => (
@@ -1008,7 +1008,7 @@ spec:
                     key={v}
                     onClick={() => setMinTls(v)}
                     className={`px-2.5 py-1 rounded text-[11px] font-mono transition-colors ${
-                      minTls === v ? "bg-sky-600 text-white" : "bg-slate-50 border border-slate-200 text-slate-500"
+                      minTls === v ? "bg-sky-600 text-white" : "bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400"
                     }`}
                   >
                     {v}
@@ -1017,10 +1017,10 @@ spec:
               </div>
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
               <div>
-                <div className="text-xs font-bold text-slate-900">Backend transport</div>
-                <div className="text-[11px] text-slate-500">http = plaintext pod-to-pod (cluster net)</div>
+                <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Backend transport</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">http = plaintext pod-to-pod (cluster net)</div>
               </div>
               <div className="flex gap-1">
                 {(["http", "https"] as const).map((p) => (
@@ -1028,7 +1028,7 @@ spec:
                     key={p}
                     onClick={() => setBackendProto(p)}
                     className={`px-2.5 py-1 rounded text-[11px] font-mono transition-colors ${
-                      backendProto === p ? "bg-blue-600 text-white" : "bg-slate-50 border border-slate-200 text-slate-500"
+                      backendProto === p ? "bg-blue-600 text-white" : "bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400"
                     }`}
                   >
                     {p.toUpperCase()}
@@ -1041,65 +1041,65 @@ spec:
           {/* Flow visualization + manifest */}
           <div className="lg:col-span-8 space-y-4">
             {/* TLS flow */}
-            <div className="rounded-xl bg-white border border-slate-200 p-4 shadow-sm">
-              <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 uppercase tracking-wider border-b border-slate-200 pb-2 mb-3">
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 shadow-sm">
+              <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">
                 <span>Request flow — TLS terminates at the ingress edge</span>
-                <span className="text-sky-600">minSsl {minTls}</span>
+                <span className="text-sky-600 dark:text-sky-400">minSsl {minTls}</span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-center">
-                  <div className="text-[11px] font-bold text-slate-700">Client</div>
-                  <div className="text-[10px] font-mono text-slate-400 mt-1">HTTPS :443</div>
-                  <div className="mt-2 inline-block px-2 py-0.5 rounded bg-sky-100 text-sky-700 text-[10px] font-mono">
+                <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3 text-center">
+                  <div className="text-[11px] font-bold text-slate-700 dark:text-slate-200">Client</div>
+                  <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-1">HTTPS :443</div>
+                  <div className="mt-2 inline-block px-2 py-0.5 rounded bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 text-[10px] font-mono">
                     TLS {minTls.slice(-3)} ↦
                   </div>
                 </div>
-                <div className="rounded-lg border border-sky-300 bg-sky-50 p-3 text-center relative">
-                  <div className="text-[11px] font-bold text-sky-800">Ingress Controller</div>
-                  <div className="text-[10px] font-mono text-slate-500 mt-1">terminates TLS here</div>
+                <div className="rounded-lg border border-sky-300 dark:border-sky-600 bg-sky-50 dark:bg-sky-900/30 p-3 text-center relative">
+                  <div className="text-[11px] font-bold text-sky-800 dark:text-sky-200">Ingress Controller</div>
+                  <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-1">terminates TLS here</div>
                   <div className="mt-2 space-y-1">
-                    <div className="px-2 py-0.5 rounded bg-white border border-sky-200 text-[10px] font-mono text-sky-700">
+                    <div className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 text-[10px] font-mono text-sky-700 dark:text-sky-300">
                       {tlsSource === "cert-manager" ? "cert-manager auto-issue + renew" : "secret: app-tls (manual)"}
                     </div>
                     {sslRedirect && (
-                      <div className="px-2 py-0.5 rounded bg-white border border-sky-200 text-[10px] font-mono text-sky-600">
+                      <div className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 text-[10px] font-mono text-sky-600 dark:text-sky-400">
                         301 → https://{host}
                       </div>
                     )}
                   </div>
                 </div>
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-center">
-                  <div className="text-[11px] font-bold text-slate-700">Service (VIP)</div>
-                  <div className="text-[10px] font-mono text-slate-400 mt-1">podIP routing</div>
-                  <div className="text-[10px] font-mono text-slate-400 mt-1">cluster-internal</div>
+                <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3 text-center">
+                  <div className="text-[11px] font-bold text-slate-700 dark:text-slate-200">Service (VIP)</div>
+                  <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-1">podIP routing</div>
+                  <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-1">cluster-internal</div>
                 </div>
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-center">
-                  <div className="text-[11px] font-bold text-slate-700">Pod (web-svc)</div>
+                <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3 text-center">
+                  <div className="text-[11px] font-bold text-slate-700 dark:text-slate-200">Pod (web-svc)</div>
                   <div className={`mt-2 inline-block px-2 py-0.5 rounded font-mono ${
                     backendProto === "http"
-                      ? "bg-amber-50 text-amber-600 border border-amber-200"
-                      : "bg-sky-100 text-sky-700 border border-sky-200"
+                      ? "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-700"
+                      : "bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-700"
                   }`}>
                     {backendProto === "http" ? "plain HTTP :80" : "HTTPS :443"}
                   </div>
-                  <div className="text-[10px] text-slate-400 mt-1.5">
+                  <div className="text-[10px] text-slate-400 dark:text-slate-500 mt-1.5">
                     {backendProto === "http" ? "trust cluster network" : "second TLS hop (or use mesh mTLS)"}
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-xl bg-white border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-              <div className="flex items-center justify-between bg-white px-4 py-2.5 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-900 font-bold">ingress.yaml — TLS block + annotations</span>
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col">
+              <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-900 dark:text-slate-100 font-bold">ingress.yaml — TLS block + annotations</span>
                 <button
                   onClick={() => copyCode("tls-yaml", generatedTlsManifest)}
-                  className="px-3 py-1 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-mono text-slate-900 transition-colors"
+                  className="px-3 py-1 rounded bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 transition-colors"
                 >
-                  {copied === "tls-yaml" ? <span className="text-emerald-600">✓ Copied!</span> : <span>Copy YAML</span>}
+                  {copied === "tls-yaml" ? <span className="text-emerald-600 dark:text-emerald-400">✓ Copied!</span> : <span>Copy YAML</span>}
                 </button>
               </div>
-              <div className="p-4 font-mono text-xs text-slate-900 bg-slate-50 overflow-x-auto whitespace-pre leading-relaxed">
+              <div className="p-4 font-mono text-xs text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-700 overflow-x-auto whitespace-pre leading-relaxed">
                 {generatedTlsManifest}
               </div>
             </div>
@@ -1110,17 +1110,17 @@ spec:
       {/* ======================================================================= */}
       {/* MODULE 4: mTLS mesh visualization */}
       {/* ======================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-blue-700 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-blue-700 dark:text-blue-300 uppercase tracking-wider mb-1">
               Module 4 • Mesh Security
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               mTLS Service Mesh Visualization
             </h2>
           </div>
-          <div className="flex items-center gap-1.5 text-xs font-mono bg-slate-50 px-1.5 py-1 rounded-lg border border-slate-200">
+          <div className="flex items-center gap-1.5 text-xs font-mono bg-slate-50 dark:bg-slate-700 px-1.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700">
             {(["DISABLE", "PERMISSIVE", "STRICT"] as MTLSSMode[]).map((mode) => (
               <button
                 key={mode}
@@ -1128,11 +1128,11 @@ spec:
                 className={`px-3 py-1.5 rounded-md transition-colors ${
                   mtlsMode === mode
                     ? mtlsMode === "DISABLE"
-                      ? "bg-rose-100 text-rose-700 font-bold border border-rose-200"
+                      ? "bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 font-bold border border-rose-200 dark:border-rose-700"
                       : mtlsMode === "PERMISSIVE"
-                      ? "bg-blue-100 text-blue-700 font-bold border border-blue-200"
-                      : "bg-sky-100 text-sky-700 font-bold border border-sky-200"
-                    : "text-slate-500 hover:bg-slate-100"
+                      ? "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-bold border border-blue-200 dark:border-blue-700"
+                      : "bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 font-bold border border-sky-200 dark:border-sky-700"
+                    : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-600"
                 }`}
               >
                 {mode}
@@ -1144,27 +1144,27 @@ spec:
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Mesh diagram */}
           <div className="lg:col-span-7 space-y-3">
-            <div className="rounded-xl bg-white border border-slate-200 shadow-sm p-5">
-              <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 uppercase tracking-wider border-b border-slate-200 pb-2 mb-4">
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm p-5">
+              <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">
                 <span>Imagined mesh — prod namespace (sidecars injected)</span>
                 <span className={`px-2 py-0.5 rounded ${meshState.edge}`}>{meshState.label}</span>
               </div>
 
               {/* GW → frontend */}
               <div className="flex items-center justify-center gap-4 mb-3">
-                <div className="rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-center min-w-[130px]">
-                  <div className="text-xs font-bold text-slate-800">istio-ingressgateway</div>
-                  <div className="text-[10px] font-mono text-slate-400">Public :443</div>
-                  <div className="mt-1 text-[10px] font-mono text-sky-600">tls Secret</div>
+                <div className="rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 px-4 py-2.5 text-center min-w-[130px]">
+                  <div className="text-xs font-bold text-slate-800 dark:text-slate-200">istio-ingressgateway</div>
+                  <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">Public :443</div>
+                  <div className="mt-1 text-[10px] font-mono text-sky-600 dark:text-sky-400">tls Secret</div>
                 </div>
                 <div className={`flex-1 flex items-center gap-2 border-t-2 border-dashed px-2 ${meshState.edge}`}>
                   <span className={`w-2.5 h-2.5 rounded-full ${meshState.edgeIconBg}`} />
                   <span className="text-[10px] font-mono">{meshState.edgeLabel}</span>
                 </div>
-                <div className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-center min-w-[130px]">
-                  <div className="text-xs font-bold text-slate-900">frontend-svc</div>
-                  <div className="text-[10px] font-mono text-slate-400">sa/frontend</div>
-                  <div className="mt-1 text-[9px] font-mono text-sky-500 truncate">SPIFFE://cluster.local/ns/prod/sa/frontend</div>
+                <div className="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-center min-w-[130px]">
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">frontend-svc</div>
+                  <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">sa/frontend</div>
+                  <div className="mt-1 text-[9px] font-mono text-sky-500 dark:text-sky-400 truncate">SPIFFE://cluster.local/ns/prod/sa/frontend</div>
                 </div>
               </div>
 
@@ -1174,10 +1174,10 @@ spec:
                   <span className={`w-2.5 h-2.5 rounded-full ${meshState.edgeIconBg}`} />
                   <span className="text-[10px] font-mono">{meshState.edgeLabel}</span>
                 </div>
-                <div className="rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-center min-w-[130px]">
-                  <div className="text-xs font-bold text-slate-900">checkout-svc</div>
-                  <div className="text-[10px] font-mono text-slate-400">svc/checkout</div>
-                  <div className="mt-1 text-[9px] font-mono text-sky-500 truncate">SPIFFE://cluster.local/ns/prod/sa/checkout</div>
+                <div className="rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 px-4 py-2.5 text-center min-w-[130px]">
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">checkout-svc</div>
+                  <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">svc/checkout</div>
+                  <div className="mt-1 text-[9px] font-mono text-sky-500 dark:text-sky-400 truncate">SPIFFE://cluster.local/ns/prod/sa/checkout</div>
                 </div>
               </div>
 
@@ -1187,24 +1187,24 @@ spec:
                   <span className={`w-2.5 h-2.5 rounded-full ${meshState.edgeIconBg}`} />
                   <span className="text-[10px] font-mono">{meshState.edgeLabel}</span>
                 </div>
-                <div className="rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-center min-w-[130px]">
-                  <div className="text-xs font-bold text-slate-900">payments-svc</div>
-                  <div className="text-[10px] font-mono text-slate-400">svc/payments</div>
-                  <div className="mt-1 text-[9px] font-mono text-sky-500 truncate">SPIFFE://cluster.local/ns/prod/sa/payments</div>
+                <div className="rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 px-4 py-2.5 text-center min-w-[130px]">
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">payments-svc</div>
+                  <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">svc/payments</div>
+                  <div className="mt-1 text-[9px] font-mono text-sky-500 dark:text-sky-400 truncate">SPIFFE://cluster.local/ns/prod/sa/payments</div>
                 </div>
               </div>
 
               {meshState.warn && (
-                <div className="mt-4 rounded-lg bg-rose-50 border border-rose-200 p-3 text-xs font-mono text-rose-600">
+                <div className="mt-4 rounded-lg bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-700 p-3 text-xs font-mono text-rose-600 dark:text-rose-400">
                   {meshState.warn}
                 </div>
               )}
 
               {/* Handshake trace */}
-              <div className="mt-4 rounded-lg bg-slate-50 border border-slate-200 p-3">
-                <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-1.5">Sidecar handshake (Envoy → Envoy)</div>
+              <div className="mt-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-3">
+                <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">Sidecar handshake (Envoy → Envoy)</div>
                 {handshakeSteps.map((step) => (
-                  <div key={step} className="text-[11px] font-mono text-slate-600 py-0.5 whitespace-pre-wrap leading-5">
+                  <div key={step} className="text-[11px] font-mono text-slate-600 dark:text-slate-300 py-0.5 whitespace-pre-wrap leading-5">
                     {step}
                   </div>
                 ))}
@@ -1214,23 +1214,23 @@ spec:
 
           {/* Policies column */}
           <div className="lg:col-span-5 space-y-3">
-            <div className="rounded-xl bg-white border border-slate-200 shadow-sm overflow-hidden">
-              <div className="flex items-center justify-between bg-white px-4 py-2.5 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-900 font-bold">PeerAuthentication + DestinationRule</span>
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+              <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-900 dark:text-slate-100 font-bold">PeerAuthentication + DestinationRule</span>
                 <button
                   onClick={() => copyCode("mtsl-yaml", peerAuthYaml)}
-                  className="px-3 py-1 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-mono text-slate-900 transition-colors"
+                  className="px-3 py-1 rounded bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 transition-colors"
                 >
-                  {copied === "mtsl-yaml" ? <span className="text-emerald-600">✓ Copied!</span> : <span>Copy YAML</span>}
+                  {copied === "mtsl-yaml" ? <span className="text-emerald-600 dark:text-emerald-400">✓ Copied!</span> : <span>Copy YAML</span>}
                 </button>
               </div>
-              <div className="p-4 font-mono text-xs text-slate-900 bg-slate-50 overflow-x-auto whitespace-pre leading-relaxed min-h-[240px]">
+              <div className="p-4 font-mono text-xs text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-700 overflow-x-auto whitespace-pre leading-relaxed min-h-[240px]">
                 {peerAuthYaml}
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-sky-50 border border-sky-200 space-y-2 text-xs text-slate-600">
-              <div className="font-mono text-sky-700 font-bold">Why mTLS matters</div>
+            <div className="p-4 rounded-xl bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 space-y-2 text-xs text-slate-600 dark:text-slate-300">
+              <div className="font-mono text-sky-700 dark:text-sky-300 font-bold">Why mTLS matters</div>
               <div className="text-[11px] leading-relaxed">
                 With sidecars, every workload gets a SPIFFE identity (k8s service account). istiod signs
                 24-hour workload certificates, so:<br />
@@ -1246,26 +1246,26 @@ spec:
       {/* ======================================================================= */}
       {/* MODULE 5: Canary deployment weights */}
       {/* ======================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-sky-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
               Module 5 • Progressive Delivery
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               Canary Deployment Weights
             </h2>
           </div>
-          <div className="text-[10px] font-mono text-slate-400">Istio VirtualService weights • NGINX canary annotations</div>
+          <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">Istio VirtualService weights • NGINX canary annotations</div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Controls */}
           <div className="lg:col-span-5 space-y-5">
-            <div className="rounded-xl bg-white border border-slate-200 shadow-sm p-5">
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm p-5">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">Canary traffic weight</span>
-                <span className="text-2xl font-extrabold text-sky-600">{canaryWeight}%</span>
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">Canary traffic weight</span>
+                <span className="text-2xl font-extrabold text-sky-600 dark:text-sky-400">{canaryWeight}%</span>
               </div>
               <input
                 type="range"
@@ -1276,7 +1276,7 @@ spec:
                 onChange={(e) => setCanaryWeight(Number(e.target.value))}
                 className="w-full accent-sky-500"
               />
-              <div className="flex justify-between text-[10px] font-mono text-slate-400">
+              <div className="flex justify-between text-[10px] font-mono text-slate-400 dark:text-slate-500">
                 <span>0% (smoke)</span>
                 <span>10% (safe)</span>
                 <span>25% (bold)</span>
@@ -1290,7 +1290,7 @@ spec:
                     className={`px-2.5 py-1 rounded border text-[10px] font-mono transition-colors ${
                       canaryWeight === w
                         ? "bg-sky-600 text-white border-sky-600"
-                        : "bg-slate-50 border-slate-200 text-slate-500 hover:border-sky-300"
+                        : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-sky-300"
                     }`}
                   >
                     {w}%
@@ -1298,25 +1298,25 @@ spec:
                 ))}
               </div>
 
-              <div className="mt-4 flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200">
+              <div className="mt-4 flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
                 <div>
-                  <div className="text-xs font-bold text-slate-900">Header-based split</div>
-                  <div className="text-[10px] text-slate-500">x-canary: "true" always goes to canary</div>
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Header-based split</div>
+                  <div className="text-[10px] text-slate-500 dark:text-slate-400">x-canary: "true" always goes to canary</div>
                 </div>
                 <button
                   onClick={() => setCanaryHeader(!canaryHeader)}
                   className={`w-12 h-6 rounded-full transition-colors relative p-1 ${canaryHeader ? "bg-sky-500" : "bg-[#30363d]"}`}
                   aria-label="toggle header-based canary"
                 >
-                  <div className={`w-4 h-4 rounded-full bg-white transition-transform ${canaryHeader ? "translate-x-6" : "translate-x-0"}`} />
+                  <div className={`w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${canaryHeader ? "translate-x-6" : "translate-x-0"}`} />
                 </button>
               </div>
             </div>
 
             {/* Weight visualization */}
-            <div className="rounded-xl bg-white border border-slate-200 shadow-sm p-5">
-              <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mb-2">Live split</div>
-              <div className="flex h-4 rounded-full overflow-hidden border border-slate-200">
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm p-5">
+              <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Live split</div>
+              <div className="flex h-4 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700">
                 <div
                   className="bg-blue-500 transition-all duration-500"
                   style={{ width: `${100 - canaryWeight}%` }}
@@ -1328,28 +1328,28 @@ spec:
                   title={`canary ${canaryWeight}%`}
                 />
               </div>
-              <div className="flex justify-between text-[10px] font-mono text-slate-500 mt-1.5">
-                <span className="text-blue-600">stable v1 — {100 - canaryWeight}%</span>
-                <span className="text-sky-600">canary v2 — {canaryWeight}%</span>
+              <div className="flex justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-1.5">
+                <span className="text-blue-600 dark:text-blue-400">stable v1 — {100 - canaryWeight}%</span>
+                <span className="text-sky-600 dark:text-sky-400">canary v2 — {canaryWeight}%</span>
               </div>
 
               <button
                 onClick={sendCanaryRequest}
-                className="mt-4 w-full px-4 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition-colors"
+                className="mt-4 w-full px-4 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-700 dark:hover:bg-sky-600 text-white text-xs font-bold transition-colors"
               >
                 Send test request (also honors x-canary header)
               </button>
 
               <div className="mt-3 space-y-1">
                 {requestLog.length === 0 && (
-                  <div className="text-[11px] font-mono text-slate-400">No requests yet — click to observe weighting.</div>
+                  <div className="text-[11px] font-mono text-slate-400 dark:text-slate-500">No requests yet — click to observe weighting.</div>
                 )}
                 {requestLog.map((r) => (
                   <div key={r.id} className="flex items-center gap-2 text-[11px] font-mono">
-                    <span className="text-slate-400">{r.ts}</span>
+                    <span className="text-slate-400 dark:text-slate-500">{r.ts}</span>
                     <span
                       className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                        r.picked === "stable" ? "bg-blue-100 text-blue-700" : "bg-sky-100 text-sky-700"
+                        r.picked === "stable" ? "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300" : "bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300"
                       }`}
                     >
                       {r.picked}
@@ -1362,13 +1362,13 @@ spec:
 
           {/* YAML output */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="flex items-center gap-1.5 text-xs font-mono bg-slate-50 px-1.5 py-1 rounded-lg border border-slate-200 w-fit">
+            <div className="flex items-center gap-1.5 text-xs font-mono bg-slate-50 dark:bg-slate-700 px-1.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 w-fit">
               {(["istio", "destrule", "nginx"] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setCanaryTab(tab)}
                   className={`px-3 py-1.5 rounded-md transition-colors ${
-                    canaryTab === tab ? "bg-sky-100 text-sky-700 font-bold border border-sky-200" : "text-slate-500 hover:bg-slate-100"
+                    canaryTab === tab ? "bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 font-bold border border-sky-200 dark:border-sky-700" : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-600"
                   }`}
                 >
                   {tab === "istio" ? "VirtualService" : tab === "destrule" ? "DestinationRule" : "NGINX"}
@@ -1376,9 +1376,9 @@ spec:
               ))}
             </div>
 
-            <div className="rounded-xl bg-white border border-slate-200 shadow-sm overflow-hidden">
-              <div className="flex items-center justify-between bg-white px-4 py-2.5 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-900 font-bold">
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+              <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-900 dark:text-slate-100 font-bold">
                   {canaryTab === "istio" ? "frontend-vs.yaml — weighted split (VirtualService)" : canaryTab === "destrule" ? "frontend-dr.yaml — subsets (DestinationRule)" : "frontend-ingress.yaml — NGINX annotations"}
                 </span>
                 <button
@@ -1388,12 +1388,12 @@ spec:
                       canaryTab === "istio" ? generatedCanaryIstio : canaryTab === "destrule" ? generatedCanaryDestRule : generatedCanaryNginx
                     )
                   }
-                  className="px-3 py-1 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-mono text-slate-900 transition-colors"
+                  className="px-3 py-1 rounded bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 transition-colors"
                 >
-                  {copied === "canary-yaml" ? <span className="text-emerald-600">✓ Copied!</span> : <span>Copy YAML</span>}
+                  {copied === "canary-yaml" ? <span className="text-emerald-600 dark:text-emerald-400">✓ Copied!</span> : <span>Copy YAML</span>}
                 </button>
               </div>
-              <div className="p-4 font-mono text-xs text-slate-900 bg-slate-50 overflow-x-auto whitespace-pre leading-relaxed min-h-[340px]">
+              <div className="p-4 font-mono text-xs text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-700 overflow-x-auto whitespace-pre leading-relaxed min-h-[340px]">
                 {canaryTab === "istio" ? generatedCanaryIstio : canaryTab === "destrule" ? generatedCanaryDestRule : generatedCanaryNginx}
               </div>
             </div>
@@ -1404,40 +1404,40 @@ spec:
       {/* ======================================================================= */}
       {/* MODULE 6: Traffic mirroring */}
       {/* ======================================================================= */}
-      <section className="space-y-6 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
-            <div className="text-xs font-mono text-blue-600 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">
               Module 6 • Shadow Traffic
             </div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
               Traffic Mirroring (Shadowing)
             </h2>
           </div>
-          <div className="text-[10px] font-mono text-slate-400">copy live requests to a canary/shadow without affecting users</div>
+          <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">copy live requests to a canary/shadow without affecting users</div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Controls + diagram */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
               <div>
-                <div className="text-xs font-bold text-slate-900">Enable mirroring</div>
-                <div className="text-[11px] text-slate-500">shadow traffic fires-and-forgets</div>
+                <div className="text-xs font-bold text-slate-900 dark:text-slate-100">Enable mirroring</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">shadow traffic fires-and-forgets</div>
               </div>
               <button
                 onClick={() => setMirrorOn(!mirrorOn)}
                 className={`w-12 h-6 rounded-full transition-colors relative p-1 ${mirrorOn ? "bg-sky-500" : "bg-[#30363d]"}`}
                 aria-label="toggle traffic mirroring"
               >
-                <div className={`w-4 h-4 rounded-full bg-white transition-transform ${mirrorOn ? "translate-x-6" : "translate-x-0"}`} />
+                <div className={`w-4 h-4 rounded-full bg-white dark:bg-slate-800 transition-transform ${mirrorOn ? "translate-x-6" : "translate-x-0"}`} />
               </button>
             </div>
 
-            <div className="rounded-xl bg-white border border-slate-200 shadow-sm p-5">
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm p-5">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">Mirror weight (Istio mirrorWeight)</span>
-                <span className="text-xl font-extrabold text-sky-600">{mirrorOn ? mirrorWeight : 0}%</span>
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">Mirror weight (Istio mirrorWeight)</span>
+                <span className="text-xl font-extrabold text-sky-600 dark:text-sky-400">{mirrorOn ? mirrorWeight : 0}%</span>
               </div>
               <input
                 type="range"
@@ -1451,18 +1451,18 @@ spec:
 
               <button
                 onClick={triggerMirror}
-                className="mt-4 w-full px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors disabled:opacity-40"
+                className="mt-4 w-full px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-600 text-white text-xs font-bold transition-colors disabled:opacity-40"
               >
                 Simulate a live transaction
               </button>
 
               <div className="mt-3 space-y-1">
                 {mirrorLogs.length === 0 && (
-                  <div className="text-[11px] font-mono text-slate-400">Shadow log empty — simulate a request to see mirrored copies.</div>
+                  <div className="text-[11px] font-mono text-slate-400 dark:text-slate-500">Shadow log empty — simulate a request to see mirrored copies.</div>
                 )}
                 {mirrorLogs.map((l) => (
-                  <div key={l.id} className={`text-[10px] font-mono leading-5 ${l.line.includes("OFF") ? "text-slate-400" : "text-slate-600"}`}>
-                    <span className="text-slate-400">{l.ts} </span>
+                  <div key={l.id} className={`text-[10px] font-mono leading-5 ${l.line.includes("OFF") ? "text-slate-400 dark:text-slate-500" : "text-slate-600 dark:text-slate-300"}`}>
+                    <span className="text-slate-400 dark:text-slate-500">{l.ts} </span>
                     {l.line}
                   </div>
                 ))}
@@ -1470,24 +1470,24 @@ spec:
             </div>
 
             {/* Diagram */}
-            <div className="rounded-xl bg-white border border-slate-200 shadow-sm p-4">
-              <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider border-b border-slate-200 pb-2 mb-3">
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm p-4">
+              <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">
                 Request path with mirror
               </div>
               <div className="flex items-center gap-2 text-xs font-mono">
-                <div className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-center">Client</div>
-                <div className="text-slate-400">→</div>
-                <div className="rounded-lg border border-sky-300 bg-sky-50 px-3 py-2 text-center relative">
+                <div className="rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-center">Client</div>
+                <div className="text-slate-400 dark:text-slate-500">→</div>
+                <div className="rounded-lg border border-sky-300 dark:border-sky-600 bg-sky-50 dark:bg-sky-900/30 px-3 py-2 text-center relative">
                   Envoy (checkout-svc)
-                  <div className="text-[9px] text-sky-600 mt-0.5">route weight {mirrorOn ? `${100 - mirrorWeight}%` : "100%"}</div>
+                  <div className="text-[9px] text-sky-600 dark:text-sky-400 mt-0.5">route weight {mirrorOn ? `${100 - mirrorWeight}%` : "100%"}</div>
                 </div>
               </div>
-              <div className="ml-14 mt-1 space-y-1 border-l-2 border-slate-200 pl-3">
-                <div className="flex items-center gap-2 text-[10px] font-mono text-blue-600">
+              <div className="ml-14 mt-1 space-y-1 border-l-2 border-slate-200 dark:border-slate-700 pl-3">
+                <div className="flex items-center gap-2 text-[10px] font-mono text-blue-600 dark:text-blue-400">
                   → checkout-svc version v1 (real request)
                 </div>
                 {mirrorOn && mirrorWeight > 0 && (
-                  <div className="flex items-center gap-2 text-[10px] font-mono text-sky-600">
+                  <div className="flex items-center gap-2 text-[10px] font-mono text-sky-600 dark:text-sky-400">
                     ⤷ shadow copy: version shadow (fire-and-forget, no client response)
                   </div>
                 )}
@@ -1497,37 +1497,37 @@ spec:
 
           {/* YAML output */}
           <div className="lg:col-span-7 space-y-3">
-            <div className="flex items-center gap-1.5 text-xs font-mono bg-slate-50 px-1.5 py-1 rounded-lg border border-slate-200 w-fit">
+            <div className="flex items-center gap-1.5 text-xs font-mono bg-slate-50 dark:bg-slate-700 px-1.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 w-fit">
               {(["istio", "nginx"] as const).map((t) => (
                 <button
                   key={t}
                   onClick={() => setMirrorTab(t)}
                   className={`px-3 py-1.5 rounded-md transition-colors ${
-                    mirrorTab === t ? "bg-sky-100 text-sky-700 font-bold border border-sky-200" : "text-slate-500 hover:bg-slate-100"
+                    mirrorTab === t ? "bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 font-bold border border-sky-200 dark:border-sky-700" : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-600"
                   }`}
                 >
                   {t === "istio" ? "Istio VirtualService" : "NGINX Annotations"}
                 </button>
               ))}
             </div>
-            <div className="rounded-xl bg-white border border-slate-200 shadow-sm overflow-hidden">
-              <div className="flex items-center justify-between bg-white px-4 py-2.5 border-b border-slate-200">
-                <span className="text-xs font-mono text-slate-900 font-bold">
+            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+              <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-2.5 border-b border-slate-200 dark:border-slate-700">
+                <span className="text-xs font-mono text-slate-900 dark:text-slate-100 font-bold">
                   {mirrorTab === "istio" ? "checkout-vs.yaml — mirror + mirrorWeight" : "checkout-ingress.yaml — mirror-target"}
                 </span>
                 <button
                   onClick={() => copyCode("mirror-yaml", mirrorTab === "istio" ? generatedMirrorIstio : generatedMirrorNginx)}
-                  className="px-3 py-1 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-mono text-slate-900 transition-colors"
+                  className="px-3 py-1 rounded bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 transition-colors"
                 >
-                  {copied === "mirror-yaml" ? <span className="text-emerald-600">✓ Copied!</span> : <span>Copy YAML</span>}
+                  {copied === "mirror-yaml" ? <span className="text-emerald-600 dark:text-emerald-400">✓ Copied!</span> : <span>Copy YAML</span>}
                 </button>
               </div>
-              <div className="p-4 font-mono text-xs text-slate-900 bg-slate-50 overflow-x-auto whitespace-pre leading-relaxed min-h-[260px]">
+              <div className="p-4 font-mono text-xs text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-slate-700 overflow-x-auto whitespace-pre leading-relaxed min-h-[260px]">
                 {mirrorTab === "istio" ? generatedMirrorIstio : generatedMirrorNginx}
               </div>
             </div>
-            <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 text-xs text-slate-600">
-              <span className="font-mono text-blue-700 font-bold">Mirroring vs Canary:</span> mirrored copies never see the client
+            <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 text-xs text-slate-600 dark:text-slate-300">
+              <span className="font-mono text-blue-700 dark:text-blue-300 font-bold">Mirroring vs Canary:</span> mirrored copies never see the client
               response — they validate requests, replay, or warm caches. Canaries answer real traffic with a
               percentage split. Both are used together for risk-free releases.
             </div>
