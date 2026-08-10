@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
+import NetworkingSubsection from "@/components/NetworkingSubsection";
 import BasicsSection from "@/components/sections/BasicsSection";
 import BinarySection from "@/components/sections/BinarySection";
 import CidrSection from "@/components/sections/CidrSection";
@@ -52,30 +53,65 @@ export default function NetworkingPage() {
 
       <Hero />
 
-      <div className="space-y-12">
-        <BasicsSection />
-        <BinarySection />
-        <CidrSection />
-        <VlsmSection />
-        <VlanSection />
-        <Ipv6Section />
-        <NatSection />
-        <SubnetCalculator />
-        <CreateSubnetSection />
-        <SupernetSection />
-        <CloudSubnetSection />
-        <FirewallSection />
-        <TroubleshootingSection />
-        <PracticeSection />
-        <CheatSheetSection />
-        <QuizSection />
-        <ContainerSection />
-        <DiagnosticsSection />
-        <RoutingSection />
-        <DhcpSection />
-        <PacketSection />
-        <WirelessSection />
-        <SecuritySection />
+      <div className="space-y-16">
+        <NetworkingSubsection
+          id="foundations"
+          label="01 · Foundations"
+          title="Networking Foundations"
+          description="Build a reliable mental model for addresses, prefixes, segmentation, and protocol boundaries."
+          moduleCount={7}
+        >
+          <BasicsSection />
+          <BinarySection />
+          <CidrSection />
+          <VlsmSection />
+          <VlanSection />
+          <Ipv6Section />
+          <NatSection />
+        </NetworkingSubsection>
+
+        <NetworkingSubsection
+          id="tools"
+          label="02 · Tools"
+          title="Design & Operations Tools"
+          description="Turn subnetting theory into repeatable design, allocation, policy, and troubleshooting workflows."
+          moduleCount={6}
+        >
+          <SubnetCalculator />
+          <CreateSubnetSection />
+          <SupernetSection />
+          <CloudSubnetSection />
+          <FirewallSection />
+          <TroubleshootingSection />
+        </NetworkingSubsection>
+
+        <NetworkingSubsection
+          id="advanced"
+          label="03 · Advanced"
+          title="Advanced Networking"
+          description="Apply routing, security, services, packet analysis, containers, diagnostics, and wireless concepts."
+          moduleCount={7}
+        >
+          <RoutingSection />
+          <SecuritySection />
+          <DhcpSection />
+          <PacketSection />
+          <ContainerSection />
+          <DiagnosticsSection />
+          <WirelessSection />
+        </NetworkingSubsection>
+
+        <NetworkingSubsection
+          id="evaluation"
+          label="04 · Evaluation"
+          title="Practice & Review"
+          description="Reinforce the track with guided practice, fast-reference formulas, and a final knowledge check."
+          moduleCount={3}
+        >
+          <PracticeSection />
+          <CheatSheetSection />
+          <QuizSection />
+        </NetworkingSubsection>
       </div>
     </div>
   );
