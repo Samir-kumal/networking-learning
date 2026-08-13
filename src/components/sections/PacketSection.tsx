@@ -784,7 +784,7 @@ export default function PacketSection() {
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>
-          17. Packet Encapsulation & Analysis
+          14. Packet Encapsulation & Analysis
         </h2>
       </div>
 

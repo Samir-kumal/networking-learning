@@ -169,12 +169,12 @@ Use primary sources first and add claim-specific sources as the audit progresses
 | IPv4 point-to-point `/31` links | [RFC 3021](https://www.rfc-editor.org/rfc/rfc3021) |
 | CIDR aggregation | [RFC 4632](https://www.rfc-editor.org/rfc/rfc4632) |
 | IPv6 addressing architecture | [RFC 4291](https://www.rfc-editor.org/rfc/rfc4291) |
-| IPv6 `/64` boundary guidance | [RFC 7421](https://www.rfc-editor.org/rfc/rfc7421) |
-| IPv6 NAT/security considerations | [RFC 4864](https://www.rfc-editor.org/rfc/rfc4864) |
+| IPv6 `/64` boundary analysis (informational) | [RFC 7421](https://www.rfc-editor.org/rfc/rfc7421) |
+| IPv6 local-network protection and NAT rationale (informational) | [RFC 4864](https://www.rfc-editor.org/rfc/rfc4864) |
 | Current VRRP Version 3 terminology and timers | [RFC 9568](https://www.rfc-editor.org/rfc/rfc9568) |
 | VXLAN encapsulation and VNI | [RFC 7348](https://www.rfc-editor.org/rfc/rfc7348) |
 | AWS subnet sizing and reserved addresses | [AWS subnet sizing](https://docs.aws.amazon.com/vpc/latest/userguide/subnet-sizing.html) |
-| IEEE 802.1Q VLAN tagging overview | [Cisco 802.1Q tagging](https://www.cisco.com/c/en/us/support/docs/lan-switching/802-1q/10023-3.html) |
+| IEEE 802.1Q VLAN and bridging overview | [IEEE 802.1Q](https://www.ieee802.org/1/pages/802.1Q.html) |
 | WireGuard primitives and handshake | [WireGuard protocol](https://www.wireguard.com/protocol/) |
 | Cloud provider behavior | Official AWS, Azure, and Google Cloud documentation for the specific claim |
 | Wi-Fi behavior | Current IEEE or Wi-Fi Alliance documentation for the specific amendment and regulatory domain |
@@ -194,7 +194,39 @@ The baseline review corrected or qualified claims related to:
 
 A future session MUST verify these claims again against the current sources rather than assuming the baseline is still correct.
 
+## Claim audit matrix
+
+This matrix is a tracking baseline, not proof that the current claims are still correct. `Baseline noted; recheck required` means the topic appeared in the baseline review notes but still needs a claim-level source check in the current repository.
+
+| Item | Status | Claim areas to recheck | Primary source or action | Baseline action | Recheck |
+|---|---|---|---|---|---|
+| `basics` | Baseline noted; recheck required | Subnet boundaries, VLAN mapping, broadcast scope | RFC 1918; add VLAN-specific source | Qualified | Required |
+| `binary` | Baseline noted; recheck required | IPv4 bits, private, loopback, and link-local semantics | RFC 1918; add RFC 3927 | Qualified | Required |
+| `cidr` | Baseline noted; recheck required | Host formulas, directed broadcast, `/31`, and `/32` semantics | RFC 3021; RFC 4632 | Qualified | Required |
+| `calculator` | Baseline noted; recheck required | Calculated network, host, and broadcast results | Local utility tests; recheck edge cases against RFC 3021 | Preserved | Required |
+| `create` | Baseline noted; recheck required | Gateway conventions and local subnet configuration examples | RFC 1918; provider/vendor documentation | Qualified | Required |
+| `vlsm` | Baseline noted; recheck required | Alignment, capacity, and non-overlapping allocations | RFC 4632; verify examples | Preserved | Required |
+| `supernetting` | Baseline noted; recheck required | Contiguous blocks and CIDR aggregation | RFC 4632 | Qualified | Required |
+| `vlans` | Baseline noted; recheck required | 802.1Q tagging and VLAN/subnet boundaries | IEEE 802.1Q; vendor-specific configuration docs | Qualified | Required |
+| `dhcp` | Baseline noted; recheck required | DORA, relay behavior, options, and defaults | Add RFC 2131 and RFC 2132 | Qualified | Required |
+| `ipv6` | Baseline noted; recheck required | Address architecture, `/64` convention, and NAT rationale | RFC 4291; RFC 7421; RFC 4864 | Qualified | Required |
+| `ips` | Baseline noted; recheck required | Private/public ranges and NAT/PAT behavior | RFC 1918; add RFC 3022 and RFC 4787 | Qualified | Required |
+| `cloud` | Baseline noted; recheck required | Provider reservations, scope, and security defaults | AWS, Azure, and Google Cloud docs for each claim | Qualified | Required |
+| `wireless` | Baseline noted; recheck required | Wi-Fi 7 channel widths, RF behavior, and throughput | Current IEEE/Wi-Fi Alliance source per amendment and regulatory domain | Qualified | Required |
+| `packets` | Baseline noted; recheck required | Header fields, MTU, encapsulation, and protocol examples | Add RFC 791, RFC 8200, and IEEE Ethernet source | Qualified | Required |
+| `routing` | Baseline noted; recheck required | HSRP/VRRP roles, timers, and routing protocol behavior | RFC 9568; Cisco HSRP and protocol-specific sources | Qualified | Required |
+| `firewall` | Baseline noted; recheck required | ACL direction, state, defaults, and logging | Vendor/provider documentation for each implementation | Qualified | Required |
+| `security` | Baseline noted; recheck required | IPsec, WireGuard, VXLAN, and security-control semantics | RFC 7348; WireGuard protocol; add RFC 4301 | Qualified | Required |
+| `diagnostics` | Baseline noted; recheck required | Command syntax, defaults, and simulated output | Platform manuals; label local simulator behavior | Qualified | Required |
+| `troubleshooting` | Baseline noted; recheck required | Failure scenarios and diagnostic conclusions | Platform/vendor docs; separate local assumptions | Qualified | Required |
+| `containers` | Baseline noted; recheck required | Kubernetes, CNI, Docker, and overlay behavior | Official Kubernetes/Docker/CNI docs; RFC 7348 | Qualified | Required |
+| `practice` | Baseline noted; recheck required | Worked subnetting and VLSM answers | Source rows for IPv4/CIDR/VLSM; local tests | Preserved | Required |
+| `cheatsheet` | Baseline noted; recheck required | Formula boundaries and special-prefix exceptions | Source rows for CIDR and `/31`; local tests | Qualified | Required |
+| `quiz` | Baseline noted; recheck required | Answer keys and explanations match reviewed claims | Recheck against preceding module sources | Preserved | Required |
+
 ## Review record
+
+### Historical baseline
 
 - Baseline date: 2026-08-12
 - Baseline page tests: 3 passed
@@ -203,6 +235,43 @@ A future session MUST verify these claims again against the current sources rath
 - Baseline production build: passed
 - Baseline browser smoke check: passed
 - Baseline lint: passed with warnings; no errors
+
+### Pre-follow-up working-tree snapshot
+
+Verification date: 2026-08-13. This snapshot superseded the historical baseline before the requested follow-up changes began.
+
+- Scope: Current working tree before follow-up
+- Networking page tests: 3 passed in 1 file
+- Full tests: 55 passed in 13 files
+- Typecheck: passed
+- Production build: passed
+- Browser/runtime smoke check: passed for `/networking`; the page loaded with four groups and 23 module anchors. The sidebar order/category mismatch was identified for follow-up.
+- Lint: passed with no errors
+- Lint warnings: 15 existing React hook dependency warnings
+
+### Post-follow-up working-tree verification
+
+Verification date: 2026-08-13. These results were collected after the follow-up curriculum, navigation, test, and handoff changes, before their final commit.
+
+- Scope: After follow-up, before final commit
+- Networking page tests: 5 passed in 1 file
+- Full tests: 57 passed in 13 files
+- Typecheck: passed
+- Production build: passed; `/networking` and the other app routes generated successfully
+- Browser/runtime smoke check: passed for `/networking`; heading, four groups, 23 unique module anchors, visible sidebar order/categories, and displayed module numbers matched the curriculum
+- Lint: passed with no errors
+- Lint warnings: 15 existing React hook dependency warnings
+
+### Working-tree state
+
+- Repository commit at verification time: `b6a4e25` (`Review networking curriculum content`)
+- Staged files: 0
+- Unstaged modified files: 20
+- Untracked files: 0
+- Modified paths: `docs/networking-review-handoff.md`, `src/app/networking/page.test.tsx`, `src/components/Sidebar.tsx`, and 17 networking section files (`CloudSubnetSection`, `ContainerSection`, `CreateSubnetSection`, `DhcpSection`, `DiagnosticsSection`, `FirewallSection`, `Ipv6Section`, `NatSection`, `PacketSection`, `RoutingSection`, `SecuritySection`, `SubnetCalculator`, `SupernetSection`, `TroubleshootingSection`, `VlanSection`, `VlsmSection`, and `WirelessSection`)
+- Generated or ignored artifacts: Next.js build output under `.next/`
+
+The review record MUST identify whether each result is historical baseline evidence or current working-tree evidence.
 
 ## Final handoff response format
 
@@ -215,3 +284,5 @@ A completed review should report:
 5. Organization changes and prerequisite rationale.
 6. Exact test, typecheck, build, lint, and browser results.
 7. Remaining implementation-dependent claims or follow-up risks.
+8. Review status and whether results describe the baseline or current working tree.
+9. Working-tree status, including commit, staged, unstaged, untracked, and generated/ignored files.

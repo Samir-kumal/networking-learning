@@ -66,7 +66,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊞</span>
-          9. Creating Subnets on Your Local Network
+          5. Creating Subnets on Your Local Network
         </h2>
       </div>
 

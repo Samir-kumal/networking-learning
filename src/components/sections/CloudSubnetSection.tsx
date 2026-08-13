@@ -108,7 +108,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◉</span>
-          11. Subnets in the Cloud
+          12. Subnets in the Cloud
         </h2>
       </div>
 

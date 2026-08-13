@@ -21,7 +21,7 @@ export default function Ipv6Section() {
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⑂</span>
-          6. IPv6 — The Next Generation
+          10. IPv6 — The Next Generation
         </h2>
       </div>
 

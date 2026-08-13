@@ -132,7 +132,7 @@ nc -zv 192.168.20.10 5432`,
         </span>
         <h2 className="min-w-0 flex-1 text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊘</span>
-          13. Troubleshooting Subnet Issues
+          19. Troubleshooting Subnet Issues
         </h2>
       </div>
 

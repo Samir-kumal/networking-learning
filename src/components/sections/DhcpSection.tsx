@@ -345,7 +345,7 @@ interface GigabitEthernet0/0.10
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>
-          16. DHCP & IP Address Management (IPAM)
+          9. DHCP & IP Address Management (IPAM)
         </h2>
         </div>
         <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed max-w-4xl">
