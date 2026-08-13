@@ -19,10 +19,14 @@ export default function CheatSheetSection() {
   const [filterCategory, setFilterCategory] = useState<string>("all");
   const [copiedIndex, setCopiedIndex] = useState<string | null>(null);
 
-  const copyToClipboard = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedIndex(id);
-    setTimeout(() => setCopiedIndex(null), 2000);
+  const copyToClipboard = async (text: string, id: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedIndex(id);
+      setTimeout(() => setCopiedIndex(null), 2000);
+    } catch {
+      // Clipboard access may be unavailable or denied; do not report a false success.
+    }
   };
 
   const coreFormulas = [
@@ -36,9 +40,9 @@ export default function CheatSheetSection() {
     {
       id: "usable-hosts",
       title: "Usable Host Count",
-      formula: "2^H - 2",
-      example: "For /24: 256 - 2 = 254 usable host addresses",
-      description: "Subtracts 2 for Network ID (first address) and Broadcast ID (last address).",
+      formula: "2^H - 2 (conventional IPv4 subnet, H >= 2)",
+      example: "For /24: 256 - 2 = 254 conventional usable host addresses",
+      description: "Subtracts the conventional network and directed-broadcast addresses; /31 point-to-point and /32 host routes use special semantics.",
     },
     {
       id: "block-size",
@@ -99,8 +103,8 @@ export default function CheatSheetSection() {
       usableHosts: "16,777,214",
       blockSize: "256 (Octet 1)",
       interestingOctet: "Octet 1",
-      useCase: "Class A Default / Large Global Core Networks",
-      badge: "Class A",
+      useCase: "Historic classful /8 boundary; modern networks use CIDR",
+      badge: "Historic Class A",
       highlight: true,
     },
     {
@@ -174,9 +178,8 @@ export default function CheatSheetSection() {
       usableHosts: "65,534",
       blockSize: "1 (Octet 2) / 256 (Octet 3)",
       interestingOctet: "Octet 2",
-      useCase: "Class B Default / Standard Cloud VPC (192.168.0.0/16, 10.0.0.0/16)",
-      badge: "Class B",
-      highlight: true,
+      useCase: "Historic classful /16 boundary; a /16 can still be chosen by design",
+      badge: "Historic Class B",
     },
     {
       cidr: "/17",
@@ -212,7 +215,7 @@ export default function CheatSheetSection() {
       usableHosts: "4,094",
       blockSize: "16 (Octet 3)",
       interestingOctet: "Octet 3",
-      useCase: "Cloud Availability Zone (AZ) Subnets",
+      useCase: "Example cloud or campus allocation; provider limits vary",
     },
     {
       cidr: "/21",
@@ -230,7 +233,7 @@ export default function CheatSheetSection() {
       usableHosts: "1,022",
       blockSize: "4 (Octet 3)",
       interestingOctet: "Octet 3",
-      useCase: "Kubernetes Node / Pod CIDR Blocks",
+      useCase: "Example Kubernetes node or Pod allocation; CNI and cluster sizing vary",
     },
     {
       cidr: "/23",
@@ -248,9 +251,8 @@ export default function CheatSheetSection() {
       usableHosts: "254",
       blockSize: "1 (Octet 3) / 256 (Octet 4)",
       interestingOctet: "Octet 3",
-      useCase: "Class C Default / Standard Office & Home LAN",
-      badge: "Class C",
-      highlight: true,
+      useCase: "Historic classful /24 boundary; common LAN example today",
+      badge: "Historic Class C",
     },
     {
       cidr: "/25",
@@ -296,7 +298,7 @@ export default function CheatSheetSection() {
       usableHosts: "6",
       blockSize: "8 (Octet 4)",
       interestingOctet: "Octet 4",
-      useCase: "Router Cluster / HSRP / VRRP Virtual VIPs",
+      useCase: "Small infrastructure segment or virtual-router example",
     },
     {
       cidr: "/30",
@@ -327,7 +329,7 @@ export default function CheatSheetSection() {
       usableHosts: "1",
       blockSize: "1 (Octet 4)",
       interestingOctet: "Octet 4",
-      useCase: "Host Route / Loopback Interface / Firewall Rule",
+      useCase: "Host route, loopback interface, or single-address policy object",
       badge: "Host Route",
       highlight: true,
     },
@@ -409,7 +411,7 @@ export default function CheatSheetSection() {
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊞</span>
-          15. Subnetting Cheat Sheet
+          22. Subnetting Cheat Sheet
         </h2>
       </div>
 
@@ -435,7 +437,7 @@ export default function CheatSheetSection() {
                   <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">{item.title}</h4>
                   <button
                     onClick={() => copyToClipboard(item.formula, item.id)}
-                    className="px-2 py-0.5 rounded text-[11px] font-mono bg-[#21262d] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 hover:bg-[#30363d] border border-slate-200 dark:border-slate-700 transition-all"
+                    className="px-2 py-0.5 rounded text-[11px] font-mono bg-[#21262d] text-white dark:text-slate-100 hover:text-white hover:bg-[#30363d] border border-slate-200 dark:border-slate-700 transition-all"
                   >
                     {copiedIndex === item.id ? "Copied!" : "Copy"}
                   </button>
@@ -479,6 +481,7 @@ export default function CheatSheetSection() {
               placeholder="Search /24 or 255..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              aria-label="Search subnetting reference table"
               className="px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-xs text-slate-900 dark:text-slate-100 placeholder-[#8b949e] focus:outline-none focus:border-indigo-400 font-mono"
             />
 

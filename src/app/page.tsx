@@ -140,7 +140,7 @@ export default function Home() {
               <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Learning Tracks</h2>
             </div>
             <p className="text-[13px] text-slate-400 dark:text-slate-500">
-              5 tracks · 61 modules · browser-native
+              5 tracks · 71 modules · browser-native
             </p>
           </div>
 

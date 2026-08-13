@@ -16,7 +16,7 @@ export default function VlsmSection() {
       </div>
 
       <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        <strong className="text-slate-900 dark:text-slate-100">Variable Length Subnet Masking (VLSM)</strong> allows network engineers to subdivide an IP address space into non-uniform subnets tailored to exact host requirements. Instead of assigning a fixed mask (like `/24`) everywhere, VLSM prevents IP address exhaustion by assigning larger masks (e.g., `/26`, `/27`, `/30`) where fewer hosts reside.
+        <strong className="text-slate-900 dark:text-slate-100">Variable Length Subnet Masking (VLSM)</strong> allows network engineers to subdivide an address block into non-uniform subnets sized for different host requirements. Longer prefixes such as <code className="text-indigo-600 dark:text-indigo-400">/27</code> and <code className="text-indigo-600 dark:text-indigo-400">/30</code> create smaller subnets; allocating the smallest suitable block avoids wasting addresses.
       </p>
 
       {/* Prefix Cards (/30, /27, /24) */}
@@ -34,7 +34,7 @@ export default function VlsmSection() {
               Point-to-Point Router Links
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-              Provides exactly 4 total IP addresses ($2^2$), yielding <strong className="text-emerald-600 dark:text-emerald-400">2 usable hosts</strong>. Ideal for point-to-point links between two core routers, eliminating address wastage.
+              Provides exactly 4 total IPv4 addresses (2<sup>2</sup>), yielding <strong className="text-emerald-600 dark:text-emerald-400">2 conventional host addresses</strong>. It is common for two-endpoint links, while RFC 3021 <code>/31</code> can use both addresses on supported point-to-point interfaces.
             </p>
           </div>
           <div className="pt-3 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center text-xs font-mono">
@@ -56,7 +56,7 @@ export default function VlsmSection() {
               Branch & Small Departments
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-              Provides 32 total IP addresses ($2^5$), yielding <strong className="text-emerald-600 dark:text-emerald-400">30 usable hosts</strong>. Perfect for small department teams, remote office locations, or server racks.
+              Provides 32 total IP addresses (2<sup>5</sup>), yielding <strong className="text-emerald-600 dark:text-emerald-400">30 usable hosts</strong>. Perfect for small department teams, remote office locations, or server racks.
             </p>
           </div>
           <div className="pt-3 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center text-xs font-mono">
@@ -78,7 +78,7 @@ export default function VlsmSection() {
               Standard Building / LAN
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-              Provides 256 total IP addresses ($2^8$), yielding <strong className="text-emerald-600 dark:text-emerald-400">254 usable hosts</strong>. Standard default allocation size for corporate office floors and DHCP user pools.
+              Provides 256 total IPv4 addresses (2<sup>8</sup>), yielding <strong className="text-emerald-600 dark:text-emerald-400">254 conventional host addresses</strong>. It is a common LAN example, not a universal allocation size.
             </p>
           </div>
           <div className="pt-3 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center text-xs font-mono">
@@ -100,7 +100,7 @@ export default function VlsmSection() {
             </p>
           </div>
           <span className="px-2.5 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-indigo-600 dark:text-indigo-400">
-            Rule: Always allocate largest requirements first!
+            Heuristic: allocate largest requirements first to simplify alignment
           </span>
         </div>
 
@@ -167,10 +167,10 @@ export default function VlsmSection() {
                 <td className="p-3 font-bold text-slate-500 dark:text-slate-400">Unassigned Pool</td>
                 <td className="p-3 text-slate-500 dark:text-slate-400">Future expansion</td>
                 <td className="p-3 text-slate-500 dark:text-slate-400">136 IPs free</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">Various</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">192.168.1.120</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">192.168.1.120 — 192.168.1.255</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">192.168.1.255</td>
+                <td className="p-3 text-slate-500 dark:text-slate-400">/29 + /25</td>
+                <td className="p-3 text-slate-500 dark:text-slate-400">192.168.1.120/29 + 192.168.1.128/25</td>
+                <td className="p-3 text-slate-500 dark:text-slate-400">192.168.1.120–.127; .128–.255 (136 raw addresses)</td>
+                <td className="p-3 text-slate-500 dark:text-slate-400">Free range, no broadcast assignment</td>
               </tr>
             </tbody>
           </table>
@@ -188,7 +188,7 @@ export default function VlsmSection() {
 ├── 192.168.1.96/28  [Executive:   10 hosts required, 14 usable (.97-.110)]
 ├── 192.168.1.112/30 [Router Link 1: 2 hosts required, 2 usable (.113-.114)]
 ├── 192.168.1.116/30 [Router Link 2: 2 hosts required, 2 usable (.117-.118)]
-└── 192.168.1.120/24 [Reserved Future Allocation Pool: 136 IPs remaining]`}</pre>
+└── 192.168.1.120/29 + 192.168.1.128/25 [Reserved Future Allocation Pool: 136 raw addresses (.120-.127 and .128-.255)]`}</pre>
         </div>
       </div>
 
@@ -203,8 +203,7 @@ export default function VlsmSection() {
           </h3>
         </div>
         <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-          Under standard IPv4 rules, a <code className="text-amber-600 dark:text-amber-400">/30</code> subnet uses 4 addresses to supply only 2 usable host IPs (a 50% loss due to dedicated network and broadcast IPs). 
-          <strong className="text-slate-900 dark:text-slate-100"> RFC 3021</strong> eliminates this waste by allowing <code className="text-emerald-600 dark:text-emerald-400">/31</code> prefix masks on point-to-point links.
+          Under conventional IPv4 subnet rules, a <code className="text-amber-600 dark:text-amber-400">/30</code> block uses 4 addresses to supply 2 host addresses. <strong className="text-slate-900 dark:text-slate-100">RFC 3021</strong> defines a limited <code className="text-emerald-600 dark:text-emerald-400">/31</code> interpretation for point-to-point links so both addresses can identify the two endpoints.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
@@ -216,16 +215,16 @@ export default function VlsmSection() {
             <div className="text-slate-500 dark:text-slate-400">.3 (Broadcast - Unusable)</div>
           </div>
 
-          <div className="bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-emerald-400/40">
-            <div className="text-emerald-600 dark:text-emerald-400 font-bold mb-1">RFC 3021 /31 Link (2 IPs - 100% Efficient):</div>
-            <div className="text-emerald-600 dark:text-emerald-400">.0 (Router A Interface)</div>
-            <div className="text-emerald-600 dark:text-emerald-400">.1 (Router B Interface)</div>
-            <div className="text-slate-500 dark:text-slate-400 mt-1 text-[11px] font-sans">
-              No broadcast or network ID overhead required!
+            <div className="bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-emerald-400/40">
+              <div className="text-emerald-600 dark:text-emerald-400 font-bold mb-1">RFC 3021 /31 Link (2 IPs - 100% Efficient):</div>
+              <div className="text-emerald-600 dark:text-emerald-400">.0 (Router A Interface)</div>
+              <div className="text-emerald-600 dark:text-emerald-400">.1 (Router B Interface)</div>
+              <div className="text-slate-500 dark:text-slate-400 mt-1 text-[11px] font-sans">
+                Network and directed-broadcast semantics are not used for these two endpoints on the point-to-point link.
+              </div>
             </div>
           </div>
         </div>
-      </div>
     </section>
   );
 }

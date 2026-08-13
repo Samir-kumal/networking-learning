@@ -69,11 +69,11 @@ const QUESTIONS: Question[] = [
   },
   {
     id: 7,
-    question: "Which address is NOT valid in 192.168.1.0/30?",
+    question: "Which address is outside the conventional host range of 192.168.1.0/30?",
     options: ["192.168.1.1", "192.168.1.4", "192.168.1.2"],
     correctIndex: 1,
     explanation:
-      "A /30 block has 4 IP addresses: 192.168.1.0 (Network), .1 and .2 (Usable Hosts), and .3 (Broadcast). 192.168.1.4 belongs to the next subnet boundary (192.168.1.4/30).",
+      "The /30 block 192.168.1.0–.3 has .0 as the network address, .1 and .2 as conventional host addresses, and .3 as the directed-broadcast address. .4 starts the next /30 block.",
   },
   {
     id: 8,
@@ -119,7 +119,7 @@ export default function QuizSection() {
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◉</span>
-          16. Test Your Knowledge
+          23. Test Your Knowledge
         </h2>
       </div>
 

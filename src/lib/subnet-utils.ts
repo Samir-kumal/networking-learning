@@ -40,13 +40,22 @@ export function calculateSubnet(ipStr: string, c: number): SubnetResult | null {
   const net = (ip & mask) >>> 0;
   const bcast = (net | (~mask >>> 0)) >>> 0;
   const total = Math.pow(2, 32 - c);
-  const hosts = Math.max(total - 2, 0);
+  const isRfc3021PointToPoint = c === 31;
+  const isHostRoute = c === 32;
+  const hosts = isRfc3021PointToPoint ? 2 : isHostRoute ? 1 : Math.max(total - 2, 0);
+
+  // RFC 3021 treats both addresses in a /31 as usable point-to-point
+  // endpoints. A /32 is a single host route, so neither prefix has a
+  // network or broadcast address to reserve.
+  const firstUsable = isHostRoute || isRfc3021PointToPoint ? intToIp(net) : hosts ? intToIp(net + 1) : '—';
+  const lastUsable = isHostRoute || isRfc3021PointToPoint ? intToIp(bcast) : hosts ? intToIp(bcast - 1) : '—';
+  const broadcastAddress = isRfc3021PointToPoint || isHostRoute ? '—' : intToIp(bcast);
 
   return {
     networkAddress: intToIp(net) + '/' + c,
-    broadcastAddress: intToIp(bcast),
-    firstUsable: hosts ? intToIp(net + 1) : '—',
-    lastUsable: hosts ? intToIp(bcast - 1) : '—',
+    broadcastAddress,
+    firstUsable,
+    lastUsable,
     subnetMask: maskArr.join('.'),
     usableHosts: hosts.toLocaleString()
   };

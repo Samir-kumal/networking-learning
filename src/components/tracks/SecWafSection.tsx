@@ -158,23 +158,23 @@ export default function SecWafSection() {
         )
       );
       setWafResult(
-        `⛔ WAF ACTION: ${blockedByRule.action} (403 Forbidden)\nRule Matched: "${blockedByRule.name}" [ID: ${blockedByRule.id}]\nCondition: ${blockedByRule.condition}\nPayload Analyzed: "${payload}"\nVerdict: Request inspected at L7 layer and dropped before reaching upstream web application.`
+        `⛔ LOCAL FILTER ACTION: ${blockedByRule.action}\nRule Matched: "${blockedByRule.name}" [ID: ${blockedByRule.id}]\nCondition: ${blockedByRule.condition}\nPayload Analyzed: "${payload}"\nVerdict: This teaching fixture marks the request as filtered; it is not a live WAF or DDoS defense.`
       );
     } else {
       setWafResult(
-        `✅ WAF ACTION: ALLOW (200 OK)\nPayload: "${payload}"\nVerdict: Request passed all enabled inspection filters cleanly and routed to backend web service.`
+        `✅ LOCAL FILTER ACTION: ALLOW\nPayload: "${payload}"\nVerdict: This teaching fixture found no matching enabled rule; a real WAF may still apply other rules and the application must validate the request.`
       );
     }
   };
 
-  // SSL Labs Grade Calculation
+  // Local TLS and security-header heuristic
   const computeSslGrade = () => {
     if (enableWeakCiphers) return { grade: "F", color: "text-rose-600 dark:text-rose-400", reason: "Weak RC4/3DES ciphers enabled!" };
     if (!tls13 && !tls12) return { grade: "F", color: "text-rose-600 dark:text-rose-400", reason: "No valid TLS protocols enabled!" };
-    if (!enableHsts) return { grade: "B", color: "text-amber-600 dark:text-amber-400", reason: "HSTS header missing (Vulnerable to SSL Strip)." };
-    if (!enableCsp) return { grade: "A-", color: "text-indigo-600 dark:text-indigo-400", reason: "Content-Security-Policy missing." };
-    if (tls13 && enableHsts && enableCsp && enableXFrame) return { grade: "A+", color: "text-emerald-600 dark:text-emerald-400", reason: "Optimal TLS 1.3 & Security Headers Hardening!" };
-    return { grade: "A", color: "text-emerald-600 dark:text-emerald-400", reason: "Strong TLS configuration." };
+    if (!enableHsts) return { grade: "B", color: "text-amber-600 dark:text-amber-400", reason: "Local heuristic: HSTS is missing; browsers can make an initial HTTP request before learning the policy." };
+    if (!enableCsp) return { grade: "A-", color: "text-indigo-600 dark:text-indigo-400", reason: "Local heuristic: no CSP example is enabled; an effective policy must match the application." };
+    if (tls13 && enableHsts && enableCsp && enableXFrame) return { grade: "A+", color: "text-emerald-600 dark:text-emerald-400", reason: "Local heuristic: selected protocol and header examples are enabled." };
+    return { grade: "A", color: "text-emerald-600 dark:text-emerald-400", reason: "Local heuristic: selected TLS and header settings are broadly hardened." };
   };
 
   const sslGrade = computeSslGrade();
@@ -189,10 +189,10 @@ export default function SecWafSection() {
           </span>
         </div>
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-          Web Application Firewall (WAF) &amp; SSL/TLS Hardening Lab
+          Web Application Firewall (WAF) &amp; TLS Hardening Lab
         </h3>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Configure L7 WAF protection rulesets, test attack payloads, and audit SSL/TLS cipher suites &amp; security response headers.
+          Configure illustrative request-filtering rules, compare TLS and HTTP-header settings, and inspect a local heuristic. A WAF is not a substitute for secure application code or dedicated DDoS protection.
         </p>
       </div>
 
@@ -201,10 +201,10 @@ export default function SecWafSection() {
         {/* Active Rules List */}
         <div className="lg:col-span-2 p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
           <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-            WAF Rule Table ({wafRules.length} Active Rules)
+            WAF Rule Table ({wafRules.length} configured rules)
           </h4>
 
-          <div className="overflow-x-auto">
+            <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-mono border-b border-slate-200 dark:border-slate-700">
                 <tr>
@@ -337,7 +337,7 @@ export default function SecWafSection() {
               <option value="normal">Normal HTTP GET Traffic</option>
               <option value="sqli">SQL Injection Attack Payload</option>
               <option value="xss">Cross-Site Scripting (XSS) Payload</option>
-              <option value="ddos">DDoS Traffic Burst (Rate Limit)</option>
+              <option value="ddos">Rate-limit test burst (not a DDoS simulation)</option>
             </select>
           </div>
 
@@ -345,7 +345,7 @@ export default function SecWafSection() {
             onClick={handleTestWafTraffic}
             className="w-full py-2.5 rounded-lg bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-600/90 transition-all"
           >
-            Send Test Request to WAF Engine
+            Evaluate local filter fixture
           </button>
 
           {wafResult && (
@@ -361,15 +361,15 @@ export default function SecWafSection() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
             <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">
-              SSL/TLS Protocol Hardening &amp; Response Header Audit
+              TLS Hardening &amp; Security Header Checklist
             </h4>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Configure SSL Labs target grading settings and test header compliance.
+              Configure a local teaching heuristic for TLS and response headers; this is not an SSL Labs grade.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-xs text-slate-500 dark:text-slate-400">SSL Rating:</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">Local grade:</span>
             <span
               className={`text-2xl font-black font-mono ${sslGrade.color}`}
             >
@@ -392,7 +392,7 @@ export default function SecWafSection() {
                 onChange={(e) => setTls13(e.target.checked)}
                 className="accent-indigo-500"
               />
-              <span>Enable TLS 1.3 (Modern, Perfect Forward Secrecy)</span>
+              <span>Enable TLS 1.3 (modern cipher suites provide forward secrecy)</span>
             </label>
 
             <label className="flex items-center gap-2 cursor-pointer text-slate-900 dark:text-slate-100">
@@ -402,7 +402,7 @@ export default function SecWafSection() {
                 onChange={(e) => setTls12(e.target.checked)}
                 className="accent-indigo-500"
               />
-              <span>Enable TLS 1.2</span>
+              <span>Enable TLS 1.2 (select an appropriate forward-secret cipher suite)</span>
             </label>
 
             <label className="flex items-center gap-2 cursor-pointer text-rose-600 dark:text-rose-400">
@@ -412,7 +412,7 @@ export default function SecWafSection() {
                 onChange={(e) => setEnableWeakCiphers(e.target.checked)}
                 className="accent-rose-500"
               />
-              <span>Enable Weak Ciphers (RC4, 3DES, CBC) - ⚠️ INSECURE</span>
+              <span>Enable legacy or weak cipher suites (RC4, 3DES, or unsuitable CBC) - ⚠️ INSECURE</span>
             </label>
           </div>
 
@@ -439,7 +439,7 @@ export default function SecWafSection() {
                 onChange={(e) => setEnableCsp(e.target.checked)}
                 className="accent-indigo-500"
               />
-              <span>Content-Security-Policy (CSP default-src &apos;self&apos;)</span>
+              <span>Content-Security-Policy (example default-src &apos;self&apos;)</span>
             </label>
 
             <label className="flex items-center gap-2 cursor-pointer text-slate-900 dark:text-slate-100">
@@ -449,7 +449,7 @@ export default function SecWafSection() {
                 onChange={(e) => setEnableXFrame(e.target.checked)}
                 className="accent-indigo-500"
               />
-              <span>X-Frame-Options (DENY Clickjacking)</span>
+              <span>X-Frame-Options (example clickjacking defense)</span>
             </label>
           </div>
         </div>

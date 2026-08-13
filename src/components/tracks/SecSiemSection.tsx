@@ -105,7 +105,8 @@ export default function SecSiemSection() {
         </span>
         <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">Event filtering and detection rules</h3>
         <p className="mt-1 max-w-3xl text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Query deterministic authentication, API, WAF, and cloud audit events. Filters narrow analyst scope; the shared evaluator determines which events match the selected detection rule.
+          Query deterministic synthetic authentication, API, WAF, and cloud audit events. Filters narrow analyst scope;
+          the shared evaluator applies local example thresholds, not a universal SIEM detection standard.
         </p>
       </div>
 

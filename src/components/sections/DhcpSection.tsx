@@ -14,7 +14,7 @@ interface DoraStep {
   dstMac: string;
   srcPort: number;
   dstPort: number;
-  castType: "Broadcast" | "Unicast";
+  castType: string;
   color: string;
   badgeBg: string;
   badgeText: string;
@@ -62,11 +62,11 @@ export default function DhcpSection() {
       options: [
         { key: "Option 53", value: "DHCP Message Type = Discover (1)", desc: "Identifies the packet type" },
         { key: "Option 55", value: "Parameter Request List (1, 3, 6, 15, 121)", desc: "Options client is asking for" },
-        { key: "Option 61", value: "Client Identifier (MAC)", desc: "Unique hardware identity" },
-        { key: "Option 12", value: "Host Name = 'MacBook-Pro'", desc: "Client hostname declaration" },
+        { key: "Option 61", value: "Client Identifier", desc: "Identifier supplied by the client" },
+        { key: "Option 12", value: "Host Name = 'MacBook-Pro'", desc: "Optional client hostname" },
       ],
       details:
-        "When an unconfigured device connects to a network, it has no IP address. It sends a Layer 3 UDP broadcast to 255.255.255.255 on port 67. Since the client has no IP yet, its source IP is 0.0.0.0 and UDP source port is 68.",
+        "When an unconfigured device connects to a network, it commonly sends a UDP broadcast from 0.0.0.0:68 to 255.255.255.255:67. A DHCP relay can forward the request to servers on another network.",
     },
     {
       id: 2,
@@ -75,12 +75,12 @@ export default function DhcpSection() {
       sender: "DHCP Server (192.168.10.1)",
       receiver: "Client Workstation",
       srcIp: "192.168.10.1",
-      dstIp: "192.168.10.50 (or 255.255.255.255)",
+      dstIp: "192.168.10.50 or 255.255.255.255",
       srcMac: "00:00:0C:9F:F0:01",
-      dstMac: "00:1A:2B:3C:4D:5E (or FF:FF:FF:...)",
+      dstMac: "00:1A:2B:3C:4D:5E or FF:FF:FF:FF:FF:FF",
       srcPort: 67,
       dstPort: 68,
-      castType: "Unicast",
+      castType: "Unicast or broadcast",
       color: "#7ee787",
       badgeBg: "bg-emerald-50 dark:bg-emerald-900/30",
       badgeText: "text-emerald-600 dark:text-emerald-400",
@@ -95,7 +95,7 @@ export default function DhcpSection() {
         { key: "Option 54", value: "Server Identifier = 192.168.10.1", desc: "IP of offering server" },
       ],
       details:
-        "The DHCP server intercepts the Discover broadcast, checks its address pool for an unallocated IP (or existing static reservation), temporarily places a ping probe check to prevent conflict, and sends back a DHCP OFFER with network parameters.",
+        "The server receives the Discover directly or through a relay, selects an address and configuration, and sends an OFFER. A server may check that the address appears unused, but the exact conflict-detection method is an implementation choice.",
     },
     {
       id: 3,
@@ -113,14 +113,14 @@ export default function DhcpSection() {
       color: "#ffa657",
       badgeBg: "bg-amber-50 dark:bg-amber-900/30",
       badgeText: "text-amber-600 dark:text-amber-400",
-      summary: "Client accepts the offer by broadcasting a Request specifying chosen Server ID.",
+      summary: "In the initial selecting state, the client broadcasts a Request naming the chosen server and address.",
       options: [
         { key: "Option 53", value: "DHCP Message Type = Request (3)", desc: "Formal lease request" },
-        { key: "Option 50", value: "Requested IP = 192.168.10.50", desc: "IP accepted by client" },
-        { key: "Option 54", value: "Server Identifier = 192.168.10.1", desc: "Explicitly notifies chosen server" },
+        { key: "Option 50", value: "Requested IP = 192.168.10.50", desc: "Requested address" },
+        { key: "Option 54", value: "Server Identifier = 192.168.10.1", desc: "Chosen server in selecting state" },
       ],
       details:
-        "Why broadcast? If multiple DHCP servers sent OFFER packets, broadcasting Option 54 (Server Identifier) informs the chosen server that its offer is accepted, while implicitly notifying other servers to release their reserved offers back into their available pools.",
+        "In the selecting state, broadcasting the Server Identifier tells the chosen server to proceed and lets other offering servers withdraw their offers. Renewing clients use different DHCPREQUEST behavior and may unicast.",
     },
     {
       id: 4,
@@ -134,7 +134,7 @@ export default function DhcpSection() {
       dstMac: "00:1A:2B:3C:4D:5E",
       srcPort: 67,
       dstPort: 68,
-      castType: "Unicast",
+      castType: "Unicast or broadcast",
       color: "#bc8cff",
       badgeBg: "bg-violet-50 dark:bg-violet-900/30",
       badgeText: "text-violet-600 dark:text-violet-400",
@@ -146,7 +146,7 @@ export default function DhcpSection() {
         { key: "Option 59", value: "T2 Rebinding Time = 75600s (87.5%)", desc: "Time client broadcasts rebinding" },
       ],
       details:
-        "The DHCP server receives the Request, commits the binding (MAC ↔ IP) into its IPAM lease database, and sends an ACK packet. Upon receiving ACK, the client performs Gratuitous ARP (GARP) to ensure no IP collision, then binds 192.168.10.50 to its network interface.",
+        "The server records the lease and sends an ACK, which may be unicast or broadcast according to the exchange. Afterward, the client configures the address and may perform duplicate-address detection such as an ARP probe.",
     },
   ];
 
@@ -173,10 +173,14 @@ interface GigabitEthernet0/0.10
  ip dhcp relay information option
  ip dhcp relay information trust-all`;
 
-  const copyCode = () => {
-    navigator.clipboard.writeText(ciscoRelayConfig);
-    setCopiedConfig(true);
-    setTimeout(() => setCopiedConfig(false), 2000);
+  const copyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(ciscoRelayConfig);
+      setCopiedConfig(true);
+      setTimeout(() => setCopiedConfig(false), 2000);
+    } catch {
+      // Clipboard access may be unavailable or denied; do not report a false success.
+    }
   };
 
   // ---------------------------------------------------------------------------
@@ -341,7 +345,7 @@ interface GigabitEthernet0/0.10
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>
-          19. DHCP & IP Address Management (IPAM)
+          16. DHCP & IP Address Management (IPAM)
         </h2>
         </div>
         <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed max-w-4xl">
@@ -710,6 +714,7 @@ interface GigabitEthernet0/0.10
           <div className="space-y-1.5">
             <label className="text-xs font-mono text-slate-500 dark:text-slate-400">Subnet Size (CIDR Prefix)</label>
             <select
+              aria-label="Subnet size CIDR prefix"
               value={cidrPrefix}
               onChange={(e) => setCidrPrefix(Number(e.target.value))}
               className="w-full p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-indigo-400 outline-none cursor-pointer"
@@ -726,6 +731,7 @@ interface GigabitEthernet0/0.10
           <div className="space-y-1.5">
             <label className="text-xs font-mono text-slate-500 dark:text-slate-400">Reserved Static IPs (Gateways/Servers)</label>
             <input
+              aria-label="Reserved static IP addresses"
               type="number"
               min={0}
               max={usableTotalIps}
@@ -739,6 +745,7 @@ interface GigabitEthernet0/0.10
           <div className="space-y-1.5">
             <label className="text-xs font-mono text-slate-500 dark:text-slate-400">Active Concurrent Leases</label>
             <input
+              aria-label="Active concurrent DHCP leases"
               type="number"
               min={0}
               max={totalSubnetIps}
@@ -752,6 +759,7 @@ interface GigabitEthernet0/0.10
           <div className="space-y-1.5">
             <label className="text-xs font-mono text-slate-500 dark:text-slate-400">Daily Device Turnover (New MACs/Day)</label>
             <input
+              aria-label="Daily device turnover"
               type="number"
               min={0}
               max={500}

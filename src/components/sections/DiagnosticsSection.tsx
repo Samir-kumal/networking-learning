@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { parseCommandTarget } from "@/lib/diagnostics-parser";
 import CopyButton from "@/components/CopyButton";
 
 interface TerminalLine {
@@ -161,7 +162,7 @@ export default function DiagnosticsSection() {
         break;
 
       case "ping": {
-        const target = args.find((a) => !a.startsWith("-")) || "8.8.8.8";
+        const target = parseCommandTarget(baseCmd, args) || "8.8.8.8";
         const isTimeout =
           target.includes("10.255") || target.includes("99.99") || target.includes("unreachable");
 
@@ -200,7 +201,7 @@ export default function DiagnosticsSection() {
 
       case "traceroute":
       case "tracert": {
-        const target = args.find((a) => !a.startsWith("-")) || "8.8.8.8";
+        const target = parseCommandTarget(baseCmd, args) || "8.8.8.8";
         outputLines = [
           {
             id: "t1",
@@ -217,7 +218,7 @@ export default function DiagnosticsSection() {
       }
 
       case "mtr": {
-        const target = args.find((a) => !a.startsWith("-")) || "8.8.8.8";
+        const target = parseCommandTarget(baseCmd, args) || "8.8.8.8";
         outputLines = [
           { id: "m1", type: "info", text: `My traceroute [v0.95] (target: ${target})` },
           {
@@ -327,7 +328,7 @@ export default function DiagnosticsSection() {
         const isTrace = args.includes("+trace");
         const recType =
           args.find((a) => ["A", "AAAA", "MX", "NS", "TXT", "CNAME"].includes(a.toUpperCase())) || "A";
-        const domain = args.find((a) => !a.startsWith("-") && !a.startsWith("+") && a.toUpperCase() !== recType) || "google.com";
+        const domain = parseCommandTarget(baseCmd, args) || "google.com";
 
         if (isShort) {
           if (recType.toUpperCase() === "MX") {
@@ -371,7 +372,7 @@ export default function DiagnosticsSection() {
       }
 
       case "nmap": {
-        const target = args.find((a) => !a.startsWith("-")) || "192.168.1.1";
+        const target = parseCommandTarget(baseCmd, args) || "192.168.1.1";
         outputLines = [
           { id: "n1", type: "info", text: `Starting Nmap 7.94 ( https://nmap.org ) at 2026-08-08 14:35 UTC` },
           { id: "n2", type: "output", text: `Nmap scan report for ${target}` },
@@ -433,9 +434,15 @@ export default function DiagnosticsSection() {
   };
 
   const handleCopyCmd = (cmd: string) => {
-    navigator.clipboard.writeText(cmd);
-    setCopiedCmd(cmd);
-    setTimeout(() => setCopiedCmd(null), 2000);
+    void navigator.clipboard?.writeText(cmd).then(
+      () => {
+        setCopiedCmd(cmd);
+        setTimeout(() => setCopiedCmd(null), 2000);
+      },
+      () => {
+        // Clipboard access is optional in the simulated terminal.
+      },
+    );
   };
 
   const presetCommands = [
@@ -455,7 +462,7 @@ export default function DiagnosticsSection() {
       name: "ping (Packet InterNet Groper)",
       badge: "ICMP / Layer 3",
       layer: "Layer 3 (Network)",
-      description: "Sends ICMP Echo Request packets to verify end-to-end IP reachability, latency (RTT), and packet loss percentage.",
+      description: "Sends ICMP Echo Requests to test IP-layer reachability and measure replies, RTT, and loss when the destination and path permit ICMP.",
       syntax: "ping [options] <destination_ip_or_hostname>",
       flags: [
         { flag: "-c <count>", desc: "Stop after sending specified number of ECHO_REQUEST packets." },
@@ -464,23 +471,23 @@ export default function DiagnosticsSection() {
         { flag: "-t <ttl>", desc: "Set IP Time To Live (TTL) hop count limit." },
       ],
       example: "ping -c 4 -s 1472 8.8.8.8",
-      useCase: "Quick sanity check for gateway reachability and testing MTU fragment limits without path discovery.",
+      useCase: "Quick sanity check for gateway reachability; payload-size tests can help investigate MTU issues, but results depend on fragmentation and filtering.",
     },
     {
       tool: "traceroute",
       name: "traceroute / tracert",
       badge: "ICMP & UDP / Layer 3",
       layer: "Layer 3 (Network)",
-      description: "Maps every intermediate router hop along the packet path by incrementing IP TTL field from 1 up to destination.",
+      description: "Sends probes with increasing IP TTL values and reports routers that return errors. Missing replies, filtering, load balancing, and asymmetric paths can leave gaps or make the result incomplete.",
       syntax: "traceroute [options] <destination_host>",
       flags: [
         { flag: "-n", desc: "Print hop addresses numerically without executing slow DNS reverse lookups." },
-        { flag: "-m <max_ttl>", desc: "Set maximum number of hops (TTL) to search (default 30)." },
-        { flag: "-I", desc: "Use ICMP ECHO requests instead of default UDP datagrams." },
+        { flag: "-m <max_ttl>", desc: "Set maximum number of hops (Linux default: 30)." },
+        { flag: "-I", desc: "On Linux traceroute, use ICMP Echo requests instead of the default UDP probes." },
         { flag: "-p <port>", desc: "Specify destination base port for UDP probes." },
       ],
       example: "traceroute -n -m 20 1.1.1.1",
-      useCase: "Isolating which specific ISP router or inter-subnet hop is introducing latency spikes or packet drops.",
+      useCase: "Comparing observed hop responses while isolating a possible routing or latency change; it cannot guarantee a complete map of the path.",
     },
     {
       tool: "mtr",
@@ -496,14 +503,14 @@ export default function DiagnosticsSection() {
         { flag: "-n", desc: "No DNS resolution on hop IP addresses." },
       ],
       example: "mtr -r -c 10 github.com",
-      useCase: "Generating non-interactive diagnostic reports for ISPs to prove intermittent packet loss over time.",
+      useCase: "Generating repeatable diagnostic reports for an authorized network investigation; interpret intermediate-hop loss carefully because routers may rate-limit probes.",
     },
     {
       tool: "iperf3",
       name: "iperf3 (Bandwidth Benchmark)",
       badge: "TCP & UDP / Layer 4",
       layer: "Layer 4 (Transport)",
-      description: "Measures maximum attainable TCP and UDP network bandwidth, packet jitter, and datagram loss between two hosts.",
+      description: "Measures observed TCP or UDP throughput between two hosts; UDP mode can report jitter and datagram loss.",
       syntax: "iperf3 -c <server_ip> [options] | iperf3 -s",
       flags: [
         { flag: "-c <host>", desc: "Run in client mode, connecting to specified iperf3 server host." },
@@ -536,7 +543,7 @@ export default function DiagnosticsSection() {
       name: "nmap (Network Mapper)",
       badge: "TCP & UDP / Layer 4 & 7",
       layer: "Layer 4 & 7 (Security)",
-      description: "Industry-standard port scanner and network security auditor used for host discovery and service enumeration.",
+      description: "A port scanner and service-enumeration tool for authorized assessments; results depend on scan type, filtering, and target responses.",
       syntax: "nmap [scan_type] [options] <target>",
       flags: [
         { flag: "-sS", desc: "TCP SYN Stealth Scan (half-open scan, does not complete 3-way handshake)." },
@@ -545,7 +552,7 @@ export default function DiagnosticsSection() {
         { flag: "-O", desc: "Enable remote operating system fingerprint detection." },
       ],
       example: "nmap -sV -p 22,80,443 192.168.1.1",
-      useCase: "Auditing firewall rule enforcement, finding rogue listening daemons, and mapping open subnet ports.",
+      useCase: "Auditing firewall rules or inventorying services on systems you own or are authorized to assess.",
     },
   ];
 
@@ -604,7 +611,7 @@ export default function DiagnosticsSection() {
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◐</span>
-          22. Network Diagnostics & CLI Sandbox
+          19. Network Diagnostics & CLI Sandbox
         </h2>
       </div>
 
@@ -698,6 +705,7 @@ export default function DiagnosticsSection() {
             onChange={(e) => setInputVal(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Type CLI command (e.g. ping -c 4 8.8.8.8, dig google.com, nmap 192.168.1.1)..."
+            aria-label="CLI command input"
             className="flex-1 bg-transparent text-slate-900 dark:text-slate-100 font-mono text-xs sm:text-sm focus:outline-none placeholder-[#484f58]"
           />
           <button

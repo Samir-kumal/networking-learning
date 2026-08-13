@@ -38,15 +38,14 @@ const PROTOCOLS: Record<string, ProtocolInfo> = {
     algorithm: "Dijkstra's Shortest Path First (SPF)",
     ad: 110,
     metric: "Cost = 100,000,000 / Bandwidth (bps)",
-    convergence: "Fast (Sub-second with BFD)",
+    convergence: "Can be fast; BFD is optional and timer-dependent",
     scope: "Interior Gateway Protocol (IGP) / Enterprise LAN/WAN",
     multicastIp: "224.0.0.5 (All OSPF) / 224.0.0.6 (DR/BDR)",
     ciscoCode: "O",
     bestFor: "Medium to large enterprise networks requiring fast convergence and hierarchical area design (Backbone Area 0).",
     keyFeatures: [
       "Hierarchical structuring via Area 0 (Backbone) and stub areas.",
-      "Sends Link-State Advertisements (LSAs) only on topology changes.",
-      "Elects Designated Router (DR) and Backup Designated Router (BDR) on multi-access networks.",
+      "Floods topology changes and periodically refreshes link-state information.",
       "Open IETF standard protocol (RFC 2328).",
     ],
   },
@@ -63,7 +62,7 @@ const PROTOCOLS: Record<string, ProtocolInfo> = {
     ciscoCode: "B",
     bestFor: "Connecting Autonomous Systems (AS), multi-homing to ISPs, and enterprise Internet edge routing.",
     keyFeatures: [
-      "Powers the global Internet routing table (>900,000 IPv4 prefixes).",
+      "Carries Internet-scale reachability information between autonomous systems.",
       "Uses TCP port 179 for reliable peer session establishment.",
       "Path-Vector mechanism prevents loops via AS-Path inspection.",
       "Extensive policy control using BGP route maps and communities.",
@@ -76,13 +75,13 @@ const PROTOCOLS: Record<string, ProtocolInfo> = {
     algorithm: "DUAL (Diffusing Update Algorithm)",
     ad: 90, // Internal
     metric: "Composite: K-values based on Bandwidth & Delay",
-    convergence: "Ultra-Fast (Pre-calculated Feasible Successors)",
+    convergence: "Can fail over quickly when a feasible successor exists; timers and topology matter",
     scope: "Interior Gateway Protocol (IGP) / Cisco Enterprise Networks",
     multicastIp: "224.0.0.10",
     ciscoCode: "D",
-    bestFor: "Cisco-centric enterprise networks seeking minimal setup overhead and instant failover.",
+    bestFor: "Cisco-centric networks that want integrated IGP features and unequal-cost load balancing.",
     keyFeatures: [
-      "Maintains Feasible Successor routes in topology table for instantaneous failover.",
+      "Can maintain feasible successors for rapid failover when the topology meets the conditions.",
       "Supports unequal-cost load balancing via the 'variance' command.",
       "Partial bounded updates sent only to affected routers when topology shifts.",
       "Originally Cisco proprietary, published as informational RFC 7868.",
@@ -120,10 +119,10 @@ const PROTOCOLS: Record<string, ProtocolInfo> = {
     ciscoCode: "S",
     bestFor: "Small networks, connecting stub sites, or pointing default route (0.0.0.0/0) to an ISP upstream.",
     keyFeatures: [
-      "Zero protocol overhead, CPU usage, or network bandwidth consumption.",
-      "Highest security: routes do not dynamic broadcast or leak.",
+      "No dynamic routing-protocol traffic is exchanged by the route itself.",
+      "A static route is predictable but not inherently more secure.",
       "Does not automatically adapt to link outages without IP SLA tracking.",
-      "Administrative Distance of 1 overrides dynamic protocols unless floating static (higher AD) is used.",
+      "Cisco IOS default administrative distance is 1; floating static routes use a higher configured distance.",
     ],
   },
 };
@@ -272,37 +271,35 @@ export default function RoutingSection() {
   const [r1Active, setR1Active] = useState<boolean>(true);
   const [preemptEnabled, setPreemptEnabled] = useState<boolean>(true);
   const [failoverHistory, setFailoverHistory] = useState<string[]>([
-    "12:00:00 - Initial state: Router A is ACTIVE/MASTER (Priority 110). Router B is STANDBY/BACKUP (Priority 100).",
-    "12:00:00 - Virtual IP 192.168.1.1 bound to Virtual MAC (0000.5E00.0101). Serving LAN Host 192.168.1.50.",
+    "12:00:00 - Initial state: Router A is ACTIVE (Priority 110). Router B is STANDBY (Priority 100).",
+    "12:00:00 - Virtual IP 192.168.1.1 is served by the selected FHRP group. Serving LAN Host 192.168.1.50.",
   ]);
 
   const toggleR1Status = () => {
     if (r1Active) {
-      // R1 fails
       setR1Active(false);
       const time = new Date().toLocaleTimeString();
       setFailoverHistory((prev) => [
-        `${time} - 🔴 Router A (192.168.1.2) Physical Interface Failure simulated!`,
-        `${time} - ⏱️ Router B missed 3 heartbeats (Hold Timer 10s expired).`,
-        `${time} - ⚡ ${fhrpProtocol.toUpperCase()} Failover: Router B promoted from STANDBY -> ACTIVE!`,
-        `${time} - 📢 Router B sent Gratuitous ARP to update L2 Switch tables for 192.168.1.1.`,
+        `${time} - Router A (192.168.1.2) physical interface failure simulated.`,
+        `${time} - Router B detection timer (${fhrpProtocol === "hsrp" ? "10s" : "about 3.6s"}) expired.`,
+        `${time} - ${fhrpProtocol.toUpperCase()} failover: Router B takes over the virtual gateway.`,
+        `${time} - Router B issued a gratuitous ARP for Virtual IP 192.168.1.1.`,
         ...prev,
       ]);
     } else {
-      // R1 recovers
       setR1Active(true);
       const time = new Date().toLocaleTimeString();
       if (preemptEnabled) {
         setFailoverHistory((prev) => [
-          `${time} - 🟢 Router A (192.168.1.2) Restored! Priority (110) > Router B (100).`,
-          `${time} - 👑 Preemption active: Router A re-claims ACTIVE/MASTER status.`,
-          `${time} - 📢 Router A issued Gratuitous ARP for Virtual IP 192.168.1.1.`,
+          `${time} - Router A (192.168.1.2) restored. Priority (110) > Router B (100).`,
+          `${time} - Preemption active: Router A reclaims the virtual gateway role.`,
+          `${time} - Router A issued a gratuitous ARP for Virtual IP 192.168.1.1.`,
           ...prev,
         ]);
       } else {
         setFailoverHistory((prev) => [
-          `${time} - 🟢 Router A (192.168.1.2) Restored!`,
-          `${time} - ℹ️ Preemption DISABLED: Router B remains ACTIVE/MASTER until next reset. Router A enters STANDBY.`,
+          `${time} - Router A (192.168.1.2) restored.`,
+          `${time} - Preemption disabled: Router B keeps the virtual gateway role until protocol state changes.`,
           ...prev,
         ]);
       }
@@ -348,6 +345,10 @@ export default function RoutingSection() {
   ];
 
   const currentBgp = bgpPresets[bgpPreset];
+  const aggregatePrefix = Number(currentBgp.aggregate.split("/")[1]);
+  const aggregateMask =
+    aggregatePrefix === 0 ? 0 : ((~0 << (32 - aggregatePrefix)) >>> 0);
+  const aggregateMaskIp = longToIp(aggregateMask);
 
   // --- State 4: Routing Table Simulator ---
   const [targetIp, setTargetIp] = useState<string>("10.0.1.50");
@@ -480,14 +481,13 @@ export default function RoutingSection() {
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⑂</span>
-          17. Routing & Gateway Protocols
+          14. Routing & Gateway Protocols
         </h2>
       </div>
 
       <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Routers are the backbone of IP communications. They build forwarding decisions by evaluating packet destination addresses against local <strong className="text-indigo-600 dark:text-indigo-400">Routing Tables</strong>. Explore how routers learn paths dynamically via <strong className="text-emerald-600 dark:text-emerald-400">IGP & EGP Protocols</strong>, maintain seamless default gateway uptime with <strong className="text-amber-600 dark:text-amber-400">HSRP/VRRP Redundancy</strong>, condense massive ISP tables using <strong className="text-violet-600 dark:text-violet-400">BGP Aggregation</strong>, and execute <strong className="text-rose-600 dark:text-rose-400">Longest Prefix Matching</strong>.
+        Routers build forwarding decisions by evaluating destination addresses against local <strong className="text-indigo-600 dark:text-indigo-400">routing tables</strong>. Explore dynamic <strong className="text-emerald-600 dark:text-emerald-400">IGP & EGP protocols</strong>, configured first-hop redundancy with <strong className="text-amber-600 dark:text-amber-400">HSRP/VRRP</strong>, policy-controlled <strong className="text-violet-600 dark:text-violet-400">BGP aggregation</strong>, and <strong className="text-rose-600 dark:text-rose-400">longest-prefix matching</strong>.
       </p>
-
       {/* ITEM 1: Static vs Dynamic Routing Comparison */}
       <div className="mb-12">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
@@ -707,17 +707,13 @@ export default function RoutingSection() {
                           : "bg-[#ff7b72]/20 text-rose-600 dark:text-rose-400"
                       }`}
                     >
-                      {r1Active
-                        ? fhrpProtocol === "hsrp"
-                          ? "ACTIVE"
-                          : "MASTER"
-                        : "FAILED"}
+                      {r1Active ? "ACTIVE" : "FAILED"}
                     </span>
                   </div>
                   <div className="text-xs font-mono text-slate-500 dark:text-slate-400 space-y-1">
                     <div>Phys IP: <span className="text-slate-900 dark:text-slate-100">192.168.1.2</span></div>
                     <div>Priority: <span className="text-indigo-600 dark:text-indigo-400 font-bold">110</span></div>
-                    <div>Hello: <span className="text-emerald-600 dark:text-emerald-400">Every 3s</span></div>
+                    <div>{fhrpProtocol === "hsrp" ? "Hello: " : "Advertisement: "}<span className="text-emerald-600 dark:text-emerald-400">{fhrpProtocol === "hsrp" ? "Every 3s" : "Every 1s"}</span></div>
                   </div>
                   {r1Active && (
                     <div className="mt-3 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
@@ -747,9 +743,7 @@ export default function RoutingSection() {
                       }`}
                     >
                       {!r1Active
-                        ? fhrpProtocol === "hsrp"
-                          ? "ACTIVE (Promoted)"
-                          : "MASTER (Promoted)"
+                        ? "ACTIVE (Promoted)"
                         : fhrpProtocol === "hsrp"
                         ? "STANDBY"
                         : "BACKUP"}
@@ -758,7 +752,7 @@ export default function RoutingSection() {
                   <div className="text-xs font-mono text-slate-500 dark:text-slate-400 space-y-1">
                     <div>Phys IP: <span className="text-slate-900 dark:text-slate-100">192.168.1.3</span></div>
                     <div>Priority: <span className="text-amber-600 dark:text-amber-400">100</span></div>
-                    <div>Hold Timer: <span className="text-amber-600 dark:text-amber-400">10s</span></div>
+                    <div>{fhrpProtocol === "hsrp" ? "Hold Timer: " : "Active Down Interval: "}<span className="text-amber-600 dark:text-amber-400">{fhrpProtocol === "hsrp" ? "10s" : "about 3.6s"}</span></div>
                   </div>
                   {!r1Active && (
                     <div className="mt-3 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
@@ -828,6 +822,7 @@ export default function RoutingSection() {
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
+                        aria-label="Enable FHRP preemption"
                         checked={preemptEnabled}
                         onChange={(e) => setPreemptEnabled(e.target.checked)}
                         className="sr-only peer"
@@ -895,10 +890,9 @@ export default function RoutingSection() {
                 Reducing Global Routing Table Bloat
               </h4>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-                The Internet routing table contains over 900,000 IPv4 prefixes. To protect router RAM and CPU, Autonomous Systems summarize contiguous subnets into a single prefix before advertising to ISP peers.
+                The global routing table is large and changes over time. Autonomous systems can summarize contiguous, aligned prefixes before advertising to peers, reducing routing state when policy allows.
               </p>
             </div>
-
             <div className="space-y-3 border-t border-slate-200 dark:border-slate-700 pt-4 text-xs font-mono">
               <div className="flex items-center justify-between">
                 <span className="text-slate-500 dark:text-slate-400">Original Routes:</span>
@@ -932,9 +926,9 @@ export default function RoutingSection() {
                 const hostPart = bitsWithoutDots.slice(currentBgp.commonBits);
 
                 return (
-                  <div key={i} className="flex items-center justify-between gap-4 border-b border-slate-200/40 dark:border-slate-700/40 pb-1.5">
+                  <div key={i} className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200/40 dark:border-slate-700/40 pb-1.5">
                     <span className="text-indigo-600 dark:text-indigo-400 w-32 shrink-0">{sub}</span>
-                    <div className="tracking-widest font-mono">
+                    <div className="min-w-0 max-w-full overflow-x-auto tracking-widest font-mono">
                       <span className="text-emerald-600 dark:text-emerald-400 font-bold">{commonPart}</span>
                       <span className="text-slate-500 dark:text-slate-400">{hostPart}</span>
                     </div>
@@ -953,7 +947,7 @@ export default function RoutingSection() {
                 </div>
               ))}
               <div className="pl-4 text-emerald-600 dark:text-emerald-400 font-bold mt-1">
-                aggregate-address {currentBgp.aggregate.split("/")[0]} 255.255.252.0
+                aggregate-address {currentBgp.aggregate.split("/")[0]} {aggregateMaskIp}
                 {summaryOnly ? " summary-only" : ""}
                 {asSet ? " as-set" : ""}
               </div>
@@ -963,6 +957,7 @@ export default function RoutingSection() {
             <div className="flex flex-wrap gap-4 mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 text-xs">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
+                  aria-label="Advertise only the aggregate route"
                   type="checkbox"
                   checked={summaryOnly}
                   onChange={(e) => setSummaryOnly(e.target.checked)}
@@ -975,6 +970,7 @@ export default function RoutingSection() {
 
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
+                  aria-label="Preserve AS path with as-set"
                   type="checkbox"
                   checked={asSet}
                   onChange={(e) => setAsSet(e.target.checked)}
@@ -1017,6 +1013,7 @@ export default function RoutingSection() {
               </label>
               <div className="relative">
                 <input
+                  aria-label="Destination IP address for route lookup"
                   type="text"
                   value={targetIp}
                   onChange={(e) => setTargetIp(e.target.value)}
@@ -1033,6 +1030,7 @@ export default function RoutingSection() {
               <div className="flex flex-wrap gap-2">
                 {["10.0.1.50", "10.0.1.35", "10.0.5.12", "192.168.1.100", "8.8.8.8"].map((ip) => (
                   <button
+                    aria-label={`Use ${ip} as route lookup destination`}
                     key={ip}
                     onClick={() => setTargetIp(ip)}
                     className="px-2.5 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-indigo-600 dark:text-indigo-400 hover:border-indigo-400/60"
@@ -1174,6 +1172,7 @@ export default function RoutingSection() {
                 Network CIDR
               </label>
               <input
+                aria-label="New route network in CIDR notation"
                 type="text"
                 value={newNetwork}
                 onChange={(e) => setNewNetwork(e.target.value)}
@@ -1186,6 +1185,7 @@ export default function RoutingSection() {
                 Next Hop IP
               </label>
               <input
+                aria-label="New route next hop"
                 type="text"
                 value={newNextHop}
                 onChange={(e) => setNewNextHop(e.target.value)}
@@ -1198,6 +1198,7 @@ export default function RoutingSection() {
                 Exit Interface
               </label>
               <input
+                aria-label="New route interface"
                 type="text"
                 value={newInterface}
                 onChange={(e) => setNewInterface(e.target.value)}
@@ -1210,6 +1211,7 @@ export default function RoutingSection() {
                 Protocol
               </label>
               <select
+                aria-label="New route protocol"
                 value={newProtocol}
                 onChange={(e) => setNewProtocol(e.target.value as RouteItem["protocol"])}
                 className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-3 py-1.5 font-mono text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-indigo-400"

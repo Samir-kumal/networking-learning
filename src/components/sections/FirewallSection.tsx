@@ -9,10 +9,14 @@ export default function FirewallSection() {
     1: true,
   });
 
-  const handleCopy = (code: string, index: number) => {
-    navigator.clipboard.writeText(code);
-    setCopiedIndex(index);
-    setTimeout(() => setCopiedIndex(null), 2000);
+  const handleCopy = async (code: string, index: number) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopiedIndex(index);
+      setTimeout(() => setCopiedIndex(null), 2000);
+    } catch {
+      // Clipboard access may be unavailable or denied; do not report a false success.
+    }
   };
 
   const toggleRule = (idx: number) => {
@@ -28,8 +32,8 @@ access-list 100 permit tcp 192.168.10.0 0.0.0.255 192.168.20.0 0.0.0.255 eq 5432
 access-list 100 remark --- Permit Web to Shared HTTPS ---
 access-list 100 permit tcp 192.168.10.0 0.0.0.255 192.168.30.0 0.0.0.255 eq 443
 
-! 3. Explicitly DENY all remaining inter-subnet traffic & log violation attempts
-access-list 100 remark --- Deny & Log all other cross-subnet packets ---
+! 3. Explicitly DENY remaining Web-to-DB traffic and log attempts
+access-list 100 remark --- Deny other Web to DB packets ---
 access-list 100 deny ip 192.168.10.0 0.0.0.255 192.168.20.0 0.0.0.255 log
 
 ! 4. Apply ACL inbound on VLAN 10 Interface
@@ -38,20 +42,20 @@ interface GigabitEthernet0/0.10
 
   const homeRouterTips = [
     {
-      title: "Isolate Guest Wi-Fi Subnet Completely",
-      desc: "Enable 'Guest Network Isolation' on your Wi-Fi router so guests (e.g. 192.168.2.0/24) cannot scan or connect to private NAS drives, PCs, or printers on 192.168.1.0/24.",
+      title: "Isolate Guest Wi-Fi Subnet",
+      desc: "If the platform supports guest isolation, enable it and apply policy so guests (e.g. 192.168.2.0/24) cannot reach private NAS drives, PCs, or printers on 192.168.1.0/24.",
     },
     {
-      title: "Segregate Smart Home IoT Devices into a Dedicated VLAN",
-      desc: "Place smart TVs, cameras, smart plugs, and voice assistants on an isolated IoT subnet (e.g. 192.168.50.0/24). Block inbound requests from the IoT subnet to your main LAN.",
+      title: "Segregate Smart Home IoT Devices",
+      desc: "Place smart TVs, cameras, smart plugs, and voice assistants on an isolated IoT subnet (e.g. 192.168.50.0/24). Explicitly block or restrict traffic from that subnet to the main LAN.",
     },
     {
-      title: "Disable UPnP Across Inter-Subnet Boundaries",
-      desc: "Universal Plug and Play (UPnP) should be strictly disabled between subnets to prevent malicious IoT software from dynamically requesting open router port forwards.",
+      title: "Review UPnP Across Trust Boundaries",
+      desc: "Avoid allowing Universal Plug and Play (UPnP) port-mapping requests from less-trusted IoT or guest networks to create exposure into protected subnets; exact controls depend on the router.",
     },
     {
-      title: "Utilize Stateful Firewall Engines (pfSense / OPNsense / UniFi)",
-      desc: "Deploy stateful firewall rules that automatically permit return traffic for outbound requests initiated by trusted LAN hosts without opening static inbound ports.",
+      title: "Use Stateful Firewall Engines Carefully",
+      desc: "When policy and defaults allow outbound sessions, stateful firewall engines can permit matching return traffic without static inbound ports. Verify the product's defaults and rule direction.",
     },
   ];
 
@@ -72,7 +76,7 @@ interface GigabitEthernet0/0.10
       </div>
 
       <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Subnetting divides physical networks into isolated broadcast domains, but routers forward traffic between subnets by default. <strong className="text-rose-600 dark:text-rose-400">Firewalls & Access Control Lists (ACLs)</strong> enforce Zero-Trust boundaries by inspecting and filtering packet headers at subnet gateways.
+        Subnets define addressing and broadcast boundaries, but inter-subnet communication also depends on routing. A router or Layer 3 switch may forward traffic when a route exists; firewalls and ACLs then apply the platform&apos;s configured policy to permit, deny, or log packets.
       </p>
 
       {/* 3 Security Action Cards (Block, Allow, Log) */}
@@ -87,7 +91,7 @@ interface GigabitEthernet0/0.10
               Default-DENY (Block)
             </h3>
             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-              Enforces Zero-Trust isolation. Inter-subnet traffic is implicitly or explicitly dropped unless an explicit permit rule allows it.
+              A default-deny policy drops traffic that does not match an explicit permit rule. The exact default depends on the device and rule direction, so verify it rather than assuming it.
             </p>
           </div>
           <div className="pt-3 border-t border-slate-200 dark:border-slate-700 text-xs font-mono text-rose-600 dark:text-rose-400 flex justify-between">
@@ -156,7 +160,7 @@ interface GigabitEthernet0/0.10
           </pre>
           <button
             onClick={() => handleCopy(ciscoAclCode, 1)}
-            className="absolute top-3 right-3 px-2.5 py-1 bg-[#21262d] hover:bg-[#30363d] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
+            className="absolute top-3 right-3 px-2.5 py-1 bg-[#21262d] hover:bg-[#30363d] text-white dark:text-slate-100 hover:text-white rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
           >
             {copiedIndex === 1 ? "Copied!" : "Copy ACL"}
           </button>
@@ -183,6 +187,7 @@ interface GigabitEthernet0/0.10
               <input
                 type="checkbox"
                 checked={!!checkedRules[idx]}
+                aria-label={`Mark ${tip.title} as complete`}
                 onChange={() => toggleRule(idx)}
                 className="mt-1 rounded border-slate-200 dark:border-slate-700 text-emerald-600 dark:text-emerald-400 focus:ring-0 bg-white dark:bg-slate-800 cursor-pointer"
               />

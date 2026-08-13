@@ -29,10 +29,14 @@ export default function ContainerSection() {
   const [totalRequests, setTotalRequests] = useState<number>(0);
 
   // Copy helper
-  const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedCode(true);
-    setTimeout(() => setCopiedCode(false), 2000);
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedCode(true);
+      setTimeout(() => setCopiedCode(false), 2000);
+    } catch {
+      // Clipboard access may be unavailable or denied; leave the copied state unchanged.
+    }
   };
 
   // CNI Data
@@ -43,7 +47,7 @@ export default function ContainerSection() {
       dataplane: "VXLAN / UDP Encapsulation",
       policySupport: "None (Requires Third-Party Policy Engine)",
       performance: "Moderate (UDP overhead / Kernel context switches)",
-      architecture: "Assigns a dedicated /24 subnet per node from the global Pod CIDR. Creates a flannel.1 VXLAN overlay interface on each host to encapsulate Layer 2 frames in UDP packets (port 4789).",
+      architecture: "A common Flannel configuration assigns a node subnet from the cluster Pod CIDR and uses a VXLAN device to encapsulate traffic between nodes. The subnet size, backend, and UDP port are configuration choices.",
       yamlSnippet: `# Flannel CNI Core Config (Net-Conf)
 net-conf.json: |
   {
@@ -61,7 +65,7 @@ net-conf.json: |
       dataplane: "BGP Native L3 / VXLAN / eBPF",
       policySupport: "Rich L3/L4 NetworkPolicy & GlobalNetworkPolicy",
       performance: "High (No encapsulation in non-overlay BGP mode)",
-      architecture: "Uses Felix agent on each node to manipulate Linux kernel routing tables and iptables/eBPF. Runs BIRD BGP peer on each node to advertise Pod IPs directly to physical Top-of-Rack (ToR) switches without overlay overhead.",
+      architecture: "Calico's Felix programs routes and policy into the node dataplane. In BGP mode, Calico can advertise Pod routes to peers; other deployments use VXLAN, IP-in-IP, or eBPF instead.",
       yamlSnippet: `# Calico NetworkPolicy Example (Zero-Trust API Isolation)
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
@@ -82,8 +86,8 @@ spec:
       creator: "Isovalent / CNCF",
       dataplane: "eBPF (Extended Berkeley Packet Filter)",
       policySupport: "L3/L4 + L7 API-Aware (HTTP, gRPC, Kafka)",
-      performance: "Maximum (Direct socket bypass, bypasses iptables/IPVS)",
-      architecture: "Injects bytecode programs directly into kernel hooks (tc, cgroups, XDP). Replaces iptables DNAT entirely with eBPF BPF_MAP lookup tables. Provides Hubble deep flow observability and transparent WireGuard encryption.",
+      performance: "Can reduce per-packet overhead in supported datapaths; results depend on kernel, mode, and workload.",
+      architecture: "Cilium uses eBPF programs at selected kernel hooks for networking, policy, and observability. It can integrate with or replace kube-proxy in supported modes; Hubble and WireGuard encryption are optional features.",
       yamlSnippet: `# Cilium L7 HTTP NetworkPolicy Example
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
@@ -114,36 +118,36 @@ spec:
       name: "Bridge Mode (Default)",
       flag: "docker run --net=bridge",
       subnet: "172.17.0.0/16 (docker0)",
-      description: "Containers connect to a virtual software bridge (docker0) via virtual ethernet (veth) pairs. Outbound traffic uses IP Masquerading (NAT). User-defined bridges enable automatic container name DNS lookup.",
-      pros: ["Isolated container network namespace", "Automatic container DNS on custom bridges", "Secure default for standalone single-host containers"],
-      cons: ["Port forwarding NAT overhead", "Cannot span across multiple physical hosts without custom routing"],
+      description: "Containers connect to a virtual software bridge (docker0) via virtual ethernet (veth) pairs. Outbound traffic commonly uses IP masquerading. User-defined bridges provide automatic container-name DNS lookup.",
+      pros: ["Isolated container network namespace", "Automatic container DNS on custom bridges", "Useful default for standalone single-host containers"],
+      cons: ["Port publishing may add NAT and filtering work", "Multi-host communication needs an overlay or other routing design"],
       command: "docker run -d --name web -p 8080:80 nginx:alpine",
     },
     host: {
       name: "Host Mode",
       flag: "docker run --net=host",
       subnet: "Shares Host Network (eth0)",
-      description: "Removes network isolation between container and host. Container directly binds host IP interfaces and ports. Port 80 in container listens directly on host interface IP:80 without NAT or veth overhead.",
-      pros: ["Zero NAT or bridge performance overhead", "Maximum packet-per-second throughput", "Ideal for low-latency network benchmarks"],
-      cons: ["No network isolation from host", "Port conflicts (two containers cannot bind port 80 simultaneously)", "Linux host only"],
+      description: "Shares the host network namespace, so the container binds directly to host interfaces and ports without a separate container veth/bridge path. Availability and behavior vary by platform.",
+      pros: ["Avoids a separate bridge path", "Can suit workloads that need host-network access"],
+      cons: ["No network isolation from host", "Port conflicts with host or other containers", "Feature availability varies by platform"],
       command: "docker run -d --net=host redis:alpine",
     },
     overlay: {
       name: "Overlay Mode (Swarm / Multi-Host)",
       flag: "docker network create -d overlay",
       subnet: "10.0.0.0/16 (Multi-Host VXLAN)",
-      description: "Connects multiple Docker daemon hosts across physical networks. Encapsulates Layer 2 container frames inside Layer 4 UDP packets via VXLAN (port 4789). Includes built-in ingress routing mesh & Virtual IP load balancing.",
-      pros: ["Multi-host container communication out-of-the-box", "Built-in VIP load balancing", "Encrypted control plane and data plane options"],
-      cons: ["VXLAN encapsulation header overhead (50 bytes)", "Requires Docker Swarm cluster state or key-value store"],
+      description: "Connects Docker hosts across physical networks using an overlay datapath such as VXLAN. Swarm mode supplies the control-plane membership and service routing features shown here.",
+      pros: ["Multi-host container communication through Docker networking", "Can provide service discovery and ingress routing in Swarm"],
+      cons: ["Encapsulation adds overhead", "Requires a compatible multi-host control plane and underlay reachability"],
       command: "docker network create -d overlay --attachable app-overlay",
     },
     macvlan: {
       name: "Macvlan Mode",
       flag: "docker run --net=macvlan_net",
       subnet: "Direct LAN Router Subnet (e.g. 192.168.1.0/24)",
-      description: "Assigns a unique physical MAC address to each container interface. Containers appear as distinct, direct physical devices on your LAN network switch/router.",
-      pros: ["Containers get real physical LAN IP addresses", "Bypasses host bridge and iptables NAT", "Ideal for legacy monitoring & network traffic analyzers"],
-      cons: ["Requires network switch interface in promiscuous mode", "Host cannot ping macvlan containers directly without sub-interface workaround"],
+      description: "Assigns a distinct MAC address and address from the connected Layer 2 network to each container interface. The parent network and switch must permit the resulting MAC traffic.",
+      pros: ["Containers can appear as separate LAN endpoints", "Avoids the default bridge path and its NAT"],
+      cons: ["Parent and switch configuration may limit MAC scale", "Host-to-container communication needs a sub-interface or another route"],
       command: "docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 macvlan_net",
     },
   };
@@ -201,19 +205,19 @@ spec:
         `[CLIENT] Initiating connection from ${clientIp}`,
         `[POD KERNEL] Target ClusterIP Virtual Address 10.96.45.120:80`,
         simEngine === "iptables"
-          ? `[KUBE-PROXY / IPTABLES] Evaluated iptables KUBE-SERVICES chain ($O(N)$ random rule matching)`
-          : `[CILIUM / eBPF] Intercepted at socket layer via bpf_sockmap ($O(1)$ BPF hash lookup, bypasses TCP stack overhead)`,
-        `[DNAT REWRITE] Translated Destination VIP 10.96.45.120:80 ➔ Pod IP ${podIps[pickedPod]}`,
-        `[DELIVERY] Packet routed directly to target container on ${nodeIps[pickedPod]}`,
+          ? `[KUBE-PROXY / IPTABLES] Applied the configured Service rules for endpoint selection`
+          : `[CILIUM / eBPF] Applied the configured eBPF Service datapath`,
+        `[DNAT OR LOAD BALANCE] Selected endpoint ${podIps[pickedPod]}`,
+        `[DELIVERY] Packet routed to the selected endpoint on ${nodeIps[pickedPod]}`,
       ];
     } else if (simServiceType === "nodeport") {
       trace = [
         `[CLIENT] Initiating HTTP request to Node IP 192.168.10.101:31244`,
         `[NODE INTERFACE] Packet enters worker node eth0 on static NodePort 31244`,
         simEngine === "iptables"
-          ? `[KUBE-PROXY / IPTABLES] Rule KUBE-NODEPORTS triggered DNAT state machine`
-          : `[CILIUM / eBPF] XDP (eXpress Data Path) kernel hook intercepted packet before sk_buff allocation`,
-        `[LOAD BALANCING] Load balanced across 3 available Endpoint IP targets`,
+          ? `[KUBE-PROXY / IPTABLES] Applied the configured NodePort rules`
+          : `[CILIUM / eBPF] Applied the configured NodePort datapath`,
+        `[LOAD BALANCING] Selected one endpoint from the available targets`,
         `[FINAL ROUTE] Forwarded to ${pickedPod.toUpperCase()} (${podIps[pickedPod]}) on host ${nodeIps[pickedPod]}`,
       ];
     } else if (simServiceType === "loadbalancer") {
@@ -222,16 +226,15 @@ spec:
         `[CLOUD L4 LB] Health-checked forwarding to Worker Node NodePort (192.168.10.102:31244)`,
         `[NODE INGRESS] Packet lands on host network interface eth0`,
         simEngine === "iptables"
-          ? `[IPTABLES DNAT] Selected target Pod via random probability weight (33.3%)`
-          : `[eBPF BPF_MAP] Selected target Endpoint IP with zero-copy eBPF socket redirection`,
+          ? `[IPTABLES OR PROXY] Selected one healthy endpoint for this illustrative request`
+          : `[eBPF DATAPATH] Selected one healthy endpoint for this illustrative request`,
         `[TARGET POD] HTTP 200 OK returned from ${pickedPod.toUpperCase()} (${podIps[pickedPod]})`,
       ];
     } else if (simServiceType === "headless") {
       trace = [
-        `[CLIENT] Querying CoreDNS for headless service 'db-headless.default.svc.cluster.local'`,
-        `[COREDNS] Returned direct Pod A/AAAA Records (No Service ClusterIP assigned!): [10.244.1.14, 10.244.2.88, 10.244.3.42]`,
-        `[DIRECT CLIENT CONN] Client DNS round-robin selected target Pod IP directly: ${podIps[pickedPod]}`,
-        `[NO PROXY OVERHEAD] Bypassed kube-proxy / iptables / VIP translation layer completely`,
+        `[COREDNS] Returned direct Pod A/AAAA records (headless Service has no ClusterIP): [10.244.1.14, 10.244.2.88, 10.244.3.42]`,
+        `[CLIENT] Resolved a Pod address and opened a connection to ${podIps[pickedPod]}`,
+        `[HEADLESS SERVICE] This path normally avoids a Service VIP; client selection and retries are implementation-dependent`,
         `[POD ESTABLISHED] Direct stateful TCP connection opened with ${pickedPod.toUpperCase()}`,
       ];
     } else {
@@ -239,11 +242,10 @@ spec:
       trace = [
         `[CLIENT] HTTPS request to 'https://api.company.com/v1/orders' (Client IP: ${clientIp})`,
         `[L7 INGRESS CONTROLLER] NGINX/Envoy Pod terminated TLS certificate and parsed HTTP Host/Path headers`,
-        `[PATH MATCHING] Path '/v1/orders' matched Service target rule 'order-service:9090'`,
-        `[DIRECT ENDPOINTS] Ingress Controller fetched K8s Endpoints API directly (bypassing ClusterIP NAT)`,
+        `[ENDPOINT SELECTION] Ingress controller selected a backend endpoint for the Service`,
         simEngine === "iptables"
-          ? `[HTTP PROXY PASS] Proxying HTTP request payload to Pod IP ${podIps[pickedPod]}`
-          : `[eBPF FAST PATH] eBPF socket redirection delivered payload to Pod ${pickedPod.toUpperCase()} with 0-copy`,
+          ? `[HTTP PROXY PASS] Proxied the request to Pod IP ${podIps[pickedPod]}`
+          : `[eBPF DATAPATH] Delivered the request using the configured kernel datapath`,
       ];
     }
 
@@ -275,7 +277,7 @@ spec:
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊞</span>
-          21. Cloud-Native & Container Networking
+          18. Cloud-Native & Container Networking
         </h2>
       </div>
 
@@ -293,7 +295,7 @@ spec:
         </div>
 
         <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
-          Kubernetes enforces a mandatory IP-per-Pod flat network model: every Pod gets its own routable IP address and can communicate with all other Pods across nodes without NAT.
+          Kubernetes defines a Pod networking model: each Pod is assigned an IP by the cluster network plugin, and the plugin is expected to provide Pod-to-Pod connectivity without NAT. Exact routing, encapsulation, and policy behavior depend on the CNI implementation.
         </p>
 
         {/* CIDR Tabs */}
@@ -340,7 +342,7 @@ spec:
               </span>
             </div>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-              Real IP addresses assigned directly to container network interfaces (<code className="text-emerald-600 dark:text-emerald-400 font-mono">eth0</code> inside Pod). Allocated dynamically by the CNI plugin when Pods start up. Pod IPs change every time a Pod is recreated or rescheduled.
+              Pods receive IP addresses from the cluster network plugin and expose them on the Pod&apos;s network interface. Addresses are usually ephemeral: recreating or rescheduling a Pod may change its IP, so Services provide stable discovery.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 font-mono text-xs">
               <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
@@ -371,7 +373,7 @@ spec:
               </span>
             </div>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-              Virtual IP (VIP) range assigned to Kubernetes <code className="text-emerald-600 dark:text-emerald-400 font-mono">ClusterIP</code> service objects. Service IPs <strong className="text-slate-900 dark:text-slate-100">never exist on any physical host network interface</strong>! Packets addressed to a Service VIP are intercepted inside the host Linux kernel by iptables rules or eBPF programs and rewritten (DNAT) to point to healthy Pod IPs.
+              A <code className="text-emerald-600 dark:text-emerald-400 font-mono">ClusterIP</code> is normally a virtual service address rather than an address assigned to a node NIC. kube-proxy or another dataplane implementation steers traffic to ready endpoints; the exact mechanism may be DNAT, load balancing, proxying, or eBPF.
             </p>
             <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-mono text-xs">
               <span className="text-amber-600 dark:text-amber-400">Translation Flow:</span> Client Pod (10.244.1.10) ➔ Sends to Service VIP (10.96.45.100:80) ➔ Kernel DNAT ➔ Target Pod IP (10.244.2.88:8080)
@@ -388,7 +390,7 @@ spec:
               </span>
             </div>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-              IP addresses assigned to physical server NICs or Cloud EC2/VM instances. Used for node-to-node cluster communication, etcd quorum state sync, kubelet control plane communication, and external NodePort ingress traffic.
+              Node addresses belong to the host network used for node-to-node traffic, kubelet and control-plane communication, and NodePort exposure. A node may be a physical machine or a virtual machine; the exact interfaces depend on the environment.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
               <div className="p-2.5 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-slate-100">
@@ -631,8 +633,7 @@ spec:
                 <span><strong className="text-slate-900 dark:text-slate-100">Advanced Traffic Controls:</strong> Supports Canary deployment traffic splits (90/10 weighted routing), rate-limiting, CORS injection, and Web Application Firewall (WAF) rule sets.</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-violet-600 dark:text-violet-400 font-bold">✓</span>
-                <span><strong className="text-slate-900 dark:text-slate-100">Direct Pod Bypass:</strong> Modern K8s Ingress Controllers (NGINX/Envoy) watch K8s Endpoints API directly and forward packets straight to target Pod IPs without ClusterIP NAT overhead.</span>
+                <span><strong className="text-slate-900 dark:text-slate-100">Endpoint selection:</strong> An Ingress controller may watch Service endpoints and proxy to Pod addresses; the exact path depends on the controller and Service configuration.</span>
               </li>
             </ul>
           </div>
@@ -711,8 +712,7 @@ spec:
                     : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:text-slate-100"
                 }`}
               >
-                <div>kube-proxy (iptables)</div>
-                <div className="text-[10px] font-normal text-slate-500 dark:text-slate-400 mt-1">$O(N)$ Sequential Rule Check</div>
+                <div className="text-[10px] font-normal text-slate-500 dark:text-slate-400 mt-1">Configured kernel rule datapath</div>
               </button>
               <button
                 onClick={() => setSimEngine("ebpf")}
@@ -722,8 +722,7 @@ spec:
                     : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:text-slate-100"
                 }`}
               >
-                <div>Cilium eBPF (Fast Path)</div>
-                <div className="text-[10px] font-normal text-slate-500 dark:text-slate-400 mt-1">$O(1)$ Direct Socket Map Bypass</div>
+                <div className="text-[10px] font-normal text-slate-500 dark:text-slate-400 mt-1">Configured eBPF datapath</div>
               </button>
             </div>
           </div>

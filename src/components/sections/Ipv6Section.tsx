@@ -26,7 +26,7 @@ export default function Ipv6Section() {
       </div>
 
       <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        IPv6 replaces IPv4&apos;s 32-bit address space with a massive <strong className="text-slate-900 dark:text-slate-100">128-bit address space</strong> ($3.4 \times 10^{38}$ total addresses). Designed to eliminate NAT workarounds, IPv6 provides end-to-end global connectivity, built-in IPsec security, stateless auto-configuration (SLAAC), and simplified router headers.
+        IPv6 replaces IPv4&apos;s 32-bit address space with a <strong className="text-slate-900 dark:text-slate-100">128-bit address space</strong> (about 3.4 × 10 to the 38th power total addresses). Its architecture supports hierarchical routing, SLAAC, and a simplified base header; IPsec is specified for IPv6 implementations, but IPv6 itself does not provide confidentiality or access control.
       </p>
 
       {/* 128-Bit Hexadecimal Format Breakdown */}
@@ -35,7 +35,7 @@ export default function Ipv6Section() {
           IPv6 Address Anatomy: 8 Hextets (128 Bits)
         </h3>
         <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">
-          Written as 8 groups of 4 hexadecimal digits (called hextets), separated by colons. Each hextet represents 16 bits ($8 \times 16 = 128$ bits).
+          Written as 8 groups of 4 hexadecimal digits (called hextets), separated by colons. Each hextet represents 16 bits (8 × 16 = 128 bits).
         </p>
 
         {/* Visual Hextet Breakdown */}
@@ -66,12 +66,12 @@ export default function Ipv6Section() {
               Zero Compression Rules
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              To make long IPv6 addresses human-readable, RFC 5952 establishes two mandatory compression rules.
+              RFC 5952 recommends a canonical text representation for IPv6 addresses. Other valid RFC 4291 representations remain valid input.
             </p>
           </div>
 
           {/* Interactive Step Switcher */}
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2 sm:flex-nowrap">
             <button
               onClick={() => setCompressStep(0)}
               className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-all ${
@@ -113,7 +113,7 @@ export default function Ipv6Section() {
             {compressStep === 2 && "Step 3: Rule 2 — Compress Consecutive Zero Hextets with ::"}
           </div>
 
-          <div className="text-lg sm:text-2xl font-bold transition-all py-2 text-indigo-600 dark:text-indigo-400">
+          <div className="text-lg sm:text-2xl font-bold transition-all py-2 text-indigo-600 dark:text-indigo-400 break-all whitespace-normal">
             {compressStep === 0 && rawAddress}
             {compressStep === 1 && leadingZerosRemoved}
             {compressStep === 2 && fullyCompressed}
@@ -169,8 +169,8 @@ export default function Ipv6Section() {
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
                 <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">Total Address Count</td>
-                <td className="p-3 font-mono text-slate-500 dark:text-slate-400">~4.3 Billion ($4.3 \times 10^9$)</td>
-                <td className="p-3 font-mono text-emerald-600 dark:text-emerald-400">~340 Undecillion ($3.4 \times 10^{38}$)</td>
+                <td className="p-3 font-mono text-slate-500 dark:text-slate-400">~4.3 Billion (4.3 × 10 to the 9th power)</td>
+                <td className="p-3 font-mono text-emerald-600 dark:text-emerald-400">~340 Undecillion (3.4 × 10 to the 38th power)</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
                 <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">Format Notation</td>
@@ -178,49 +178,49 @@ export default function Ipv6Section() {
                 <td className="p-3 font-mono text-indigo-600 dark:text-indigo-400">Hexadecimal Colons (e.g. 2001:db8::1)</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
-                <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">Standard Subnet Mask</td>
-                <td className="p-3 font-mono text-amber-600 dark:text-amber-400">Variable Prefixes (/8 to /32)</td>
-                <td className="p-3 font-mono text-emerald-600 dark:text-emerald-400">Standard /64 Interface Prefix</td>
+                <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">Prefix Length</td>
+                <td className="p-3 font-mono text-amber-600 dark:text-amber-400">Variable prefixes (/0 to /32)</td>
+                <td className="p-3 font-mono text-emerald-600 dark:text-emerald-400">/64 is common for SLAAC subnets; other prefixes exist</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
                 <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">Address Auto-Configuration</td>
-                <td className="p-3">Stateful DHCP required</td>
-                <td className="p-3 text-emerald-600 dark:text-emerald-400">Stateless SLAAC & Stateful DHCPv6</td>
+                <td className="p-3">Static configuration or DHCPv4 are common options</td>
+                <td className="p-3 text-emerald-600 dark:text-emerald-400">SLAAC can configure addresses; DHCPv6 can supply other parameters or addresses</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
-                <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">NAT Requirement</td>
-                <td className="p-3 text-rose-600 dark:text-rose-400">Mandatory (address space exhaustion)</td>
-                <td className="p-3 text-emerald-600 dark:text-emerald-400">Obsolete (Every host receives public IP)</td>
+                <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">NAT Use</td>
+                <td className="p-3 text-rose-600 dark:text-rose-400">Commonly used to conserve public IPv4 space, but not required by IPv4</td>
+                <td className="p-3 text-emerald-600 dark:text-emerald-400">Usually unnecessary for address conservation; filtering is still required</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      {/* /64 Standard Subnets Card */}
+      {/* /64 Common Subnets Card */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <div className="flex items-center gap-2 mb-3">
           <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-bold">
-            /64 Standard Subnet
+            /64 Common Subnet
           </span>
           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            The Universal IPv6 /64 Subnet Prefix
+            Why IPv6 LANs Commonly Use /64
           </h3>
         </div>
         <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-          Unlike IPv4 where subnets vary in size, the standard subnet size in IPv6 is almost universally <strong className="text-emerald-600 dark:text-emerald-400">/64</strong>. This leaves 64 bits for the Interface ID, allowing SLAAC (Stateless Address Autoconfiguration) to automatically generate unique host addresses.
+          Many IPv6 LANs use <strong className="text-emerald-600 dark:text-emerald-400">/64</strong> subnets because SLAAC is designed around a 64-bit interface identifier. Point-to-point links, loopbacks, and infrastructure-specific designs may use other prefix lengths, so /64 is a convention rather than a universal rule.
         </p>
 
         <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 font-mono text-xs space-y-3">
           <div className="flex flex-col sm:flex-row justify-between text-slate-500 dark:text-slate-400">
             <span>IPv6 /64 Subnet Structure:</span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-bold">Total Host Addresses per /64 = 18.4 Quintillion ($2^{64}$)</span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-bold">Total Host Addresses per /64 = 18.4 Quintillion (2 to the 64th power)</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-indigo-300">
-              <div className="text-indigo-600 dark:text-indigo-400 font-bold text-[11px] mb-1">Global Routing Prefix (48 Bits)</div>
-              <div className="text-slate-500 dark:text-slate-400">Assigned by ISP / RIR</div>
+              <div className="text-indigo-600 dark:text-indigo-400 font-bold text-[11px] mb-1">Documentation Prefix (48 Bits)</div>
+              <div className="text-slate-500 dark:text-slate-400">Reserved for examples (RFC 3849)</div>
               <div className="text-slate-900 dark:text-slate-100 font-bold mt-1">2001:0db8:85a3</div>
             </div>
 
@@ -232,7 +232,7 @@ export default function Ipv6Section() {
 
             <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-emerald-400/40">
               <div className="text-emerald-600 dark:text-emerald-400 font-bold text-[11px] mb-1">Interface ID (64 Bits)</div>
-              <div className="text-slate-500 dark:text-slate-400">Host Address (SLAAC / EUI-64)</div>
+              <div className="text-slate-500 dark:text-slate-400">Host address (SLAAC, stable, or temporary)</div>
               <div className="text-slate-900 dark:text-slate-100 font-bold mt-1">:0000:0000:0000:0001</div>
             </div>
           </div>

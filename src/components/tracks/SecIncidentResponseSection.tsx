@@ -121,7 +121,8 @@ export default function SecIncidentResponseSection() {
         </span>
         <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">Seeded alert investigation</h3>
         <p className="mt-1 max-w-3xl text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Practice a repeatable incident lifecycle against safe, synthetic alerts. Classify the signal, preserve evidence, contain affected assets, and score response readiness with the shared evaluator.
+          Practice a repeatable incident lifecycle against safe, synthetic alerts. Classify the signal, preserve evidence,
+          contain affected assets, and compare local readiness scoring with severity-based response priority.
         </p>
       </div>
 
@@ -205,9 +206,9 @@ export default function SecIncidentResponseSection() {
           </fieldset>
 
           {result ? (
-            <div role="status" aria-live="polite" className="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-700 dark:bg-amber-900/30">
-              <div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-[10px] font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-300">Evaluator-backed response result</p><p className="mt-1 text-2xl font-bold text-slate-900 dark:text-slate-100">{result.score}<span className="text-sm font-medium text-slate-500 dark:text-slate-400"> / 100</span></p></div><span className="rounded-full bg-amber-600 px-3 py-1.5 text-sm font-bold text-white">{result.priority}</span></div>
-              <dl className="mt-4 space-y-2 text-xs"><div><dt className="font-semibold text-slate-700 dark:text-slate-300">Priority</dt><dd className="mt-0.5 text-slate-600 dark:text-slate-300">{result.priority} response priority based on severity, containment, evidence, scope, and lifecycle progress.</dd></div><div><dt className="font-semibold text-slate-700 dark:text-slate-300">Next action</dt><dd className="mt-0.5 leading-relaxed text-slate-600 dark:text-slate-300">{result.nextAction}</dd></div></dl>
+              <div role="status" aria-live="polite" className="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-700 dark:bg-amber-900/30">
+                <div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-[10px] font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-300">Local readiness result</p><p className="mt-1 text-2xl font-bold text-slate-900 dark:text-slate-100">{result.score}<span className="text-sm font-medium text-slate-500 dark:text-slate-400"> / 100</span></p></div><span className="rounded-full bg-amber-600 px-3 py-1.5 text-sm font-bold text-white">{result.priority}</span></div>
+                <dl className="mt-4 space-y-2 text-xs"><div><dt className="font-semibold text-slate-700 dark:text-slate-300">Priority</dt><dd className="mt-0.5 text-slate-600 dark:text-slate-300">{result.priority} response priority based primarily on severity and containment; the score is a local teaching heuristic.</dd></div><div><dt className="font-semibold text-slate-700 dark:text-slate-300">Next action</dt><dd className="mt-0.5 leading-relaxed text-slate-600 dark:text-slate-300">{result.nextAction}</dd></div></dl>
             </div>
           ) : (
             <p className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-4 text-xs text-slate-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-400">Complete the controls, then score the response to see priority and the evaluator&rsquo;s next action.</p>

@@ -99,8 +99,9 @@ export default function SecThreatModelSection() {
         </span>
         <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">Threat model canvas</h3>
         <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Select an architecture asset, apply mitigations, and compare the remaining STRIDE risk.
-          Findings are deterministic so each control change is easy to inspect.
+          Select an architecture asset, apply mitigations, and compare the remaining STRIDE findings.
+          The severity weights and residual-risk bands are a deterministic teaching heuristic, not a
+          formal risk assessment or a guarantee that a control removes every threat.
         </p>
       </div>
 

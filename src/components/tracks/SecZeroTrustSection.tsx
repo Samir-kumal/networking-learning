@@ -93,7 +93,7 @@ export default function SecZeroTrustSection() {
 
   const handleEvaluate = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setEvaluation(evaluateZeroTrustRequest({ identityVerified, deviceCompliant, sourceZone, destination, mfa }));
+    setEvaluation(evaluateZeroTrustRequest({ identityVerified, deviceCompliant, sourceZone, destination, mfa, action }));
   };
 
   const sourceLabel = SOURCE_OPTIONS.find((option) => option.value === sourceZone)?.label;

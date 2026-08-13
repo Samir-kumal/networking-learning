@@ -53,7 +53,7 @@ const CONTROL_DEFINITIONS: ControlDefinition[] = [
   {
     key: "resourceLimits",
     label: "Set CPU and memory limits",
-    description: "The workload has resource requests or limits to prevent noisy neighbors.",
+    description: "The workload declares CPU and memory limits to bound resource consumption.",
   },
 ];
 
@@ -94,8 +94,9 @@ export default function SecContainerSecuritySection() {
         </span>
         <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">Container admission simulator</h3>
         <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Toggle workload controls to model a Kubernetes admission decision. The shared evaluator
-          rejects unsafe privileges, host access, unsigned images, and unconstrained resources.
+          Toggle workload controls to model a custom strict admission policy. This is not the built-in
+          Kubernetes Pod Security Standards profile: image signatures and resource limits require separate
+          policy tooling.
         </p>
       </div>
 

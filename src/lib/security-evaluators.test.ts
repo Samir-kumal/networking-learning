@@ -59,6 +59,19 @@ describe('security evaluators', () => {
       reason: 'MFA step-up is required for sensitive data access.',
     });
   });
+  test('evaluates the requested Zero Trust action instead of ignoring it', () => {
+    expect(evaluateZeroTrustRequest({
+      identityVerified: true,
+      deviceCompliant: true,
+      destination: 'application',
+      sourceZone: 'workforce',
+      mfa: true,
+      action: 'administer',
+    })).toEqual({
+      decision: 'DENY',
+      reason: 'Administrative actions must target an approved management resource.',
+    });
+  });
 
   test('denies unverified Zero Trust identity', () => {
     expect(evaluateZeroTrustRequest({ identityVerified: false, deviceCompliant: true, destination: 'application', sourceZone: 'workforce', mfa: true }).decision).toBe('DENY');

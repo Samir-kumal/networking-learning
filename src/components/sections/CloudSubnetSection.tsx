@@ -19,8 +19,8 @@ export default function CloudSubnetSection() {
       name: "AWS VPC (Virtual Private Cloud)",
       color: "border-[#ff9900]/50 text-[#ff9900]",
       badgeBg: "bg-[#ff9900]/10 text-[#ff9900] border-[#ff9900]/30",
-      scope: "Subnets are strictly bound to a single Availability Zone (AZ).",
-      reservedIps: "5 Reserved IPs per subnet (.0 network, .1 VPC router, .2 AWS DNS, .3 reserved, .255 broadcast).",
+      scope: "Each IPv4 subnet is associated with exactly one Availability Zone (AZ). A VPC spans the Region.",
+      reservedIps: "AWS reserves 5 IPv4 addresses per subnet: .0 network, .1 VPC router, .2 AWS DNS, .3 future use, and the last address (.255 in a /24).",
       codeSnippet: `# AWS VPC & Subnet Terraform Example
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
@@ -36,8 +36,8 @@ resource "aws_subnet" "public_az1" {
       name: "Azure VNet (Virtual Network)",
       color: "border-[#0089d6]/50 text-[#0089d6]",
       badgeBg: "bg-[#0089d6]/10 text-[#0089d6] border-[#0089d6]/30",
-      scope: "VNets span an entire Azure Region; subnets can span Availability Zones.",
-      reservedIps: "5 Reserved IPs per subnet (.0 network, .1 default gateway, .2 & .3 Azure DNS, .255 broadcast).",
+      scope: "A VNet is regional; its subnets can host resources in supported Availability Zones.",
+      reservedIps: "Azure reserves the first four and last IPv4 address in each subnet: .0 network, .1 default gateway, .2 and .3 Azure DNS, and the last address.",
       codeSnippet: `# Azure VNet & Gateway Subnet Example
 resource "azurerm_virtual_network" "vnet" {
   name          = "enterprise-vnet"
@@ -54,8 +54,8 @@ resource "azurerm_subnet" "app" {
       name: "GCP VPC (Google Cloud Platform)",
       color: "border-[#4285f4]/50 text-[#4285f4]",
       badgeBg: "bg-[#4285f4]/10 text-[#4285f4] border-[#4285f4]/30",
-      scope: "VPCs are Global resources; subnets are Regional resources.",
-      reservedIps: "4 Reserved IPs per subnet (.0 network, .1 gateway, .2 second-to-last reserved, .255 broadcast).",
+      scope: "A VPC network is global; each subnet is regional and can span that region's zones.",
+      reservedIps: "Google Cloud reserves 4 IPv4 addresses per subnet: first (network), second (default gateway), second-to-last, and last address.",
       codeSnippet: `# GCP Custom Mode VPC Subnet Example
 resource "google_compute_network" "custom_vpc" {
   name                    = "global-vpc"
@@ -73,24 +73,24 @@ resource "google_compute_subnetwork" "us_central_subnet" {
 
   const tips = [
     {
-      title: "Plan for Future Scale & Non-overlapping Address Space",
-      desc: "Always select large VPC CIDR blocks (/16) even when starting small. Never overlap VPC ranges with on-premise IP networks (10.x.x.x or 172.16.x.x) to enable seamless VPN/DirectConnect hybrid routing.",
+      title: "Plan for growth and non-overlap",
+      desc: "Choose an address range that leaves room for growth and does not overlap networks you must connect over VPN or Direct Connect. The required size depends on the design; /16 is not a universal default.",
     },
     {
-      title: "Enforce Strict Public vs. Private Subnet Separation",
-      desc: "Place internet-facing load balancers in Public Subnets (attached to Internet Gateways) and application/database workloads in Private Subnets (routed via NAT Gateways for outbound access only).",
+      title: "Treat public/private as a routing design",
+      desc: "A common pattern places internet-facing resources in public subnets and application or database workloads in private subnets. Route tables, gateways, load balancers, and policy determine the actual exposure.",
     },
     {
-      title: "Account for Cloud IP Reservations in Sizing Calculations",
-      desc: "Remember AWS and Azure reserve 5 IP addresses per subnet (.0, .1, .2, .3, .255). A small /29 subnet provides only 3 usable host IPs instead of 6.",
+      title: "Check provider address reservations",
+      desc: "Account for each provider's reservations when sizing IPv4 subnets. For example, AWS and Azure reserve five addresses in each subnet; in a /28, that leaves 11 addresses available for provider resources. Minimum prefix lengths and other limits vary by provider.",
     },
     {
-      title: "Deploy Multi-AZ Redundancy Across Availability Zones",
-      desc: "Provision identical subnets across at least 2 or 3 Availability Zones (e.g. us-east-1a, us-east-1b) to ensure multi-AZ fault tolerance for enterprise workloads.",
+      title: "Design for the availability model",
+      desc: "Use separate subnets in multiple zones when the workload and provider support zone redundancy; the number of zones is an availability decision, not a universal requirement.",
     },
     {
-      title: "Isolate High-Security Subnets with Network ACLs (NACLs)",
-      desc: "Combine Cloud Security Groups (stateful) with Network ACLs (stateless at the subnet boundary) to enforce explicit packet filtering between database and web subnets.",
+      title: "Verify the platform's controls",
+      desc: "Use the controls provided by the platform: security groups are commonly stateful, while network ACLs are commonly stateless and evaluated at a subnet boundary. Verify the provider's rule direction and default behavior before relying on a policy.",
     },
   ];
 
@@ -199,6 +199,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
               <input
                 type="checkbox"
                 checked={!!checkedTips[idx]}
+                aria-label={`Mark ${tip.title} as complete`}
                 onChange={() => toggleTip(idx)}
                 className="mt-1 rounded border-slate-200 dark:border-slate-700 text-emerald-600 dark:text-emerald-400 focus:ring-0 bg-white dark:bg-slate-800 cursor-pointer"
               />

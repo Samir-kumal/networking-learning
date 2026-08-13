@@ -32,10 +32,10 @@ export default function AppSecSection() {
               Application Security &amp; Vulnerability Management
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-3xl">
-              Master SAST/DAST container scanning, OWASP Top 10 remediation, secrets management,
-              WAF and TLS hardening, threat modeling, IAM least privilege, API security, Zero Trust,
-              incident response, SIEM detection, SBOM supply chains, container security, cloud posture,
-              and privacy compliance.
+              Work through fourteen deterministic, browser-only labs covering SAST/DAST, OWASP Top 10:2025,
+              secrets management, WAF and TLS hardening, threat modeling, IAM least privilege, API security,
+              Zero Trust, incident response, SIEM detection, SBOM supply chains, container security, cloud
+              posture, and privacy controls.
             </p>
           </div>
         </div>

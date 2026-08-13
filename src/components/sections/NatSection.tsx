@@ -63,7 +63,7 @@ export default function NatSection() {
       </div>
 
       <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        IP addresses are split into globally routable <strong className="text-indigo-600 dark:text-indigo-400">Public IPs</strong> and localized <strong className="text-emerald-600 dark:text-emerald-400">Private IPs</strong>. Because IPv4 addresses are scarce, <strong className="text-amber-600 dark:text-amber-400">Network Address Translation (NAT)</strong> allows hundreds of devices on a private LAN to share a single public IP address when communicating over the internet.
+        IPv4 addresses may be publicly routable or drawn from private-use ranges. Because public IPv4 space is limited, Network Address Translation (NAT), especially port translation, lets many private hosts share one public address for outbound connections. NAT changes address/port reachability; it is not a replacement for firewall policy.
       </p>
 
       {/* Routability Comparison Cards */}
@@ -81,7 +81,7 @@ export default function NatSection() {
               Internet-Facing Infrastructure
             </h3>
             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-              Globally unique addresses assigned by ICANN/IANA through Regional Internet Registries (ARIN, RIPE, APNIC) and ISPs. Directly accessible over the public internet.
+              Public addresses are allocated through the Internet number registry system and advertised by networks that have routing connectivity. A public address can still be blocked by firewalls or service policy; public does not mean universally reachable.
             </p>
             <div className="space-y-2 text-xs font-mono bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
               <div className="flex justify-between">
@@ -113,7 +113,7 @@ export default function NatSection() {
               Internal LAN & Cloud VPCs
             </h3>
             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-              Reserved for internal use inside homes, offices, and cloud VPC networks. ISP routers automatically drop private IP packets attempting to cross the public internet.
+              RFC 1918 reserves these ranges for private internets. They are not meant to be advertised across inter-enterprise links; whether an upstream router filters them is a policy and implementation matter, not a guaranteed behavior of every ISP.
             </p>
             <div className="space-y-2 text-xs font-mono bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
               <div className="flex justify-between">

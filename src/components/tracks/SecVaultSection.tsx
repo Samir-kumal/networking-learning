@@ -16,14 +16,14 @@ export default function SecVaultSection() {
   const handleFetchSecret = () => {
     if (secretProvider === "vault") {
       setSecretLog(
-        `$ vault read secret/data/production/db_credentials\nKey                 Value\n---                 -----\ncreated_time        2026-08-08T10:15:00Z\nlease_id            database/creds/readonly/s.v6X991a...\nlease_duration      1h\nlease_renewable     true\nusername            v-app-user-9481\npassword            ${
-          isSecretMasked ? "••••••••••••••••" : "VaultP@ss_x89$21!qZ"
+        `$ vault read ${secretPath}\nKey                 Value\n---                 -----\ncreated_time        2026-08-08T10:15:00Z\nlease_id            database/creds/readonly/demo-lease\nlease_duration      1h\nlease_renewable     true\nusername            v-app-user-demo\npassword            ${
+          isSecretMasked ? "••••••••••••••••" : "<demo-secret-not-real>"
         }`
       );
     } else {
       setSecretLog(
-        `$ aws secretsmanager get-secret-value --secret-id prod/db/credentials\n{\n  "ARN": "arn:aws:secretsmanager:us-east-1:123456789012:secret:prod/db/credentials-a8X",\n  "Name": "prod/db/credentials",\n  "VersionId": "b48f912c-9011-411a",\n  "SecretString": "{\"user\":\"admin\",\"password\":\"${
-          isSecretMasked ? "••••••••••••••••" : "AWS_KMS_Rotated_Secret#99!"
+        `$ aws secretsmanager get-secret-value --secret-id ${secretPath}\n{\n  "ARN": "arn:aws:secretsmanager:us-east-1:123456789012:secret:demo",\n  "Name": "${secretPath}",\n  "VersionId": "demo-version",\n  "SecretString": "{\"user\":\"demo-user\",\"password\":\"${
+          isSecretMasked ? "••••••••••••••••" : "<demo-secret-not-real>"
         }\"}",\n  "CreatedDate": "2026-08-08T09:00:00Z"\n}`
       );
     }
@@ -32,7 +32,9 @@ export default function SecVaultSection() {
   const handleRotateSecret = () => {
     setRotationTimer(3600);
     setSecretLog(
-      `🔄 ROTATION TRIGGERED (${secretProvider.toUpperCase()})\n[1] Generated new random 32-byte high-entropy password.\n[2] Executed ALTER USER in PostgreSQL database instance.\n[3] Re-encrypted secret payload using KMS Key ID (arn:aws:kms:us-east-1:key/a1b2c3d4).\n[4] Staged new secret VersionId: v-${Date.now()}.\n[5] Invalidated old lease tokens. Rotation Complete!`
+      secretProvider === "vault"
+        ? `LOCAL SIMULATION — VAULT ROTATION\n[1] Requested a new dynamic database credential for ${secretPath}.\n[2] The configured database role would create a short-lived credential.\n[3] The new lease would be returned to the authorized client.\n[4] The old lease would be revoked when expired or explicitly revoked.`
+        : `LOCAL SIMULATION — AWS SECRETS MANAGER ROTATION\n[1] Staged an AWSPENDING secret version for ${secretPath}.\n[2] A configured managed rotation workflow or Lambda would update the target service.\n[3] The pending credential would be tested before promotion.\n[4] The service would move the version to AWSCURRENT after a successful rotation.`
     );
   };
 
@@ -49,7 +51,7 @@ export default function SecVaultSection() {
           3. Secret Management Workflow (HashiCorp Vault vs AWS Secrets Manager)
         </h3>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Compare enterprise secret engine architecture, dynamic credential generation, token TTL leases, and automated rotation.
+          Compare provider-specific secret storage, dynamic credential leases, access policy, and rotation workflows. The controls below are a local simulation.
         </p>
       </div>
 
@@ -72,19 +74,19 @@ export default function SecVaultSection() {
             <li className="flex items-start gap-2">
               <span className="text-violet-500 dark:text-violet-400">•</span>
               <span>
-                <strong>Encryption:</strong> Shamir Secret Sharing, Transit Secrets Engine (EaaS).
+                <strong>Key protection:</strong> Shamir shares can protect Vault unseal operations; the Transit engine is a separate encryption service.
               </span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-violet-500 dark:text-violet-400">•</span>
               <span>
-                <strong>Dynamic Secrets:</strong> Generates short-lived DB credentials (e.g. 1h TTL) on-demand.
+                <strong>Dynamic secrets:</strong> A configured database role can issue short-lived credentials, such as a one-hour example lease.
               </span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-violet-500 dark:text-violet-400">•</span>
               <span>
-                <strong>Auth Methods:</strong> AppRole, Kubernetes ServiceAccount JWT, TLS Certificates.
+                <strong>Authentication:</strong> AppRole, Kubernetes, TLS, and other methods are available depending on the enabled auth configuration.
               </span>
             </li>
           </ul>
@@ -107,19 +109,19 @@ export default function SecVaultSection() {
             <li className="flex items-start gap-2">
               <span className="text-amber-500 dark:text-amber-400">•</span>
               <span>
-                <strong>Encryption:</strong> Envelope Encryption integrated with AWS KMS keys.
+                <strong>Encryption:</strong> Secrets Manager uses envelope encryption with a 256-bit AES data key protected by AWS KMS.
               </span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-amber-500 dark:text-amber-400">•</span>
               <span>
-                <strong>Automated Rotation:</strong> Native AWS Lambda rotation templates for RDS, Redshift, DocumentDB.
+                <strong>Rotation:</strong> Managed rotation or a configured Lambda workflow updates both the secret and its target service.
               </span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-amber-500 dark:text-amber-400">•</span>
               <span>
-                <strong>Auth Methods:</strong> IAM Policies, STS Temporary Credentials, VPC Endpoints.
+                <strong>Access:</strong> IAM policies authorize API calls; a VPC endpoint can constrain the network path but is not an authentication method.
               </span>
             </li>
           </ul>
@@ -156,22 +158,22 @@ export default function SecVaultSection() {
         <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
           {secretLifecycleStep === 1 && (
             <p>
-              <strong>Storage &amp; KMS Encryption:</strong> Secrets are encrypted using AES-256-GCM. In Vault, master keys are unsealed via Shamir threshold key shares. In AWS, KMS Envelope Encryption wraps data keys.
+              <strong>Storage &amp; key protection:</strong> Encryption details depend on the configured Vault seal/storage and AWS KMS settings. Shamir shares protect an unseal workflow; AWS Secrets Manager uses KMS envelope encryption.
             </p>
           )}
           {secretLifecycleStep === 2 && (
             <p>
-              <strong>Authentication &amp; Token Binding:</strong> Applications authenticate via IAM Roles (AWS) or Kubernetes ServiceAccount Tokens (Vault). Tokens carry strict ACL policies and automatically expire.
+              <strong>Authentication &amp; policy:</strong> The application authenticates using a configured Vault auth method or AWS IAM credentials. Policies limit access; expiry and renewal depend on the issued token or lease.
             </p>
           )}
           {secretLifecycleStep === 3 && (
             <p>
-              <strong>Dynamic Credential Leasing:</strong> Instead of static passwords, Vault dynamically creates temporary DB users (<code>v-app-user-x89</code>) valid for 1 hour. Lease renewal is required to maintain access.
+              <strong>Dynamic credential leasing:</strong> Vault database roles can create temporary users with configured TTLs. Lease renewal and revocation behavior depends on the role and database plugin configuration.
             </p>
           )}
           {secretLifecycleStep === 4 && (
             <p>
-              <strong>Automated Rotation &amp; SIEM Audit:</strong> Lambda rotators update DB user passwords on a 30-day schedule without application downtime. Every fetch/rotation is logged to AWS CloudTrail / Vault Audit Logs.
+              <strong>Rotation &amp; audit:</strong> Rotation schedules are configuration-specific. AWS records service activity in CloudTrail, and Vault audit devices record requests when enabled; neither guarantees that a downstream credential update succeeds without testing.
             </p>
           )}
         </div>
@@ -214,31 +216,29 @@ export default function SecVaultSection() {
         </div>
 
         <div className="flex flex-wrap items-center gap-3 pt-1">
-          {/* Fix Issue 3: text-white (not text-slate-900) on bg-indigo-600 */}
           <button
             onClick={handleFetchSecret}
             className="px-4 py-2 rounded-lg bg-indigo-600 text-white font-semibold text-xs hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all"
           >
-            Fetch Secret Payload
+            Show simulated secret payload
           </button>
 
-          {/* Fix Issue 4: use semantic amber action color */}
           <button
             onClick={handleRotateSecret}
             className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 dark:hover:bg-amber-500 text-white font-semibold text-xs transition-all"
           >
-            Trigger Immediate Rotation
+            Simulate rotation workflow
           </button>
 
           <button
             onClick={() => setIsSecretMasked(!isSecretMasked)}
             className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-xs hover:text-slate-900 dark:hover:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600 transition-all"
           >
-            {isSecretMasked ? "👁️ Unmask Tokens" : "🙈 Mask Tokens"}
+            {isSecretMasked ? "👁️ Show demo placeholder" : "🙈 Mask demo placeholder"}
           </button>
 
           <div className="ml-auto text-xs font-mono text-emerald-600 dark:text-emerald-400">
-            Lease TTL: {rotationTimer}s remaining
+            Illustrative lease TTL: {rotationTimer}s
           </div>
         </div>
 

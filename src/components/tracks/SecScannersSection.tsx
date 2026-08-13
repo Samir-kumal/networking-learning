@@ -10,14 +10,14 @@ export type SeverityLevel = "CRITICAL" | "HIGH" | "MEDIUM" | "LOW";
 
 export interface ScanResult {
   id: string;
-  cve: string;
+  findingId: string;
   tool: "Trivy" | "Snyk Code" | "OWASP ZAP";
   title: string;
   severity: SeverityLevel;
   component: string;
   installedVersion: string;
   fixedVersion: string;
-  cvssScore: number;
+  cvssScore: number | null;
   description: string;
   remediation: string;
 }
@@ -29,123 +29,123 @@ export interface ScanResult {
 const INITIAL_SCAN_RESULTS: ScanResult[] = [
   {
     id: "vuln-1",
-    cve: "CVE-2024-21626",
+    findingId: "CVE-2024-21626",
     tool: "Trivy",
-    title: "Leaky Vessels Container Breakout in runc",
-    severity: "CRITICAL",
+    title: "Leaky Vessels container breakout in runc",
+    severity: "HIGH",
     component: "runc",
-    installedVersion: "v1.1.11",
-    fixedVersion: "v1.1.12",
-    cvssScore: 10.0,
+    installedVersion: "1.1.11",
+    fixedVersion: "1.1.12",
+    cvssScore: 8.6,
     description:
-      "File descriptor leak in runc allows container process to access host filesystem and escape container boundary.",
+      "In runc 1.1.11 and earlier, a file-descriptor leak can give a container process access to the host filesystem in affected attack paths.",
     remediation:
-      "Upgrade base container image OS packages or update runc to >= 1.1.12 via Dockerfile / k8s node image.",
+      "Upgrade runc or the vendor-provided container runtime to a patched release; verify the node and image supply chain.",
   },
   {
     id: "vuln-2",
-    cve: "CVE-2023-44487",
+    findingId: "CVE-2023-44487",
     tool: "Trivy",
-    title: "HTTP/2 Rapid Reset Denial of Service",
+    title: "HTTP/2 Rapid Reset denial of service",
     severity: "HIGH",
-    component: "nghttp2 / envoy",
+    component: "nghttp2 / Envoy",
     installedVersion: "1.52.0",
-    fixedVersion: "1.57.0",
+    fixedVersion: "Vendor patch (for example, nghttp2 1.57.0)",
     cvssScore: 7.5,
     description:
-      "HTTP/2 stream cancellation flood causes excessive server memory & CPU consumption, leading to service outage.",
+      "Rapid cancellation of HTTP/2 streams can consume server resources and cause denial of service in affected implementations.",
     remediation:
-      "Apply HTTP/2 concurrent stream limit parameters or upgrade web proxy / ingress controller.",
+      "Apply the relevant vendor or upstream patch and configure request, stream, and connection protections at the edge.",
   },
   {
     id: "vuln-3",
-    cve: "SNYK-JS-EXPRESS-594238",
+    findingId: "DEMO-SAST-001",
     tool: "Snyk Code",
-    title: "Unsanitized User Input in SQL Query String",
+    title: "Unsanitized user input in SQL query",
     severity: "HIGH",
     component: "src/api/auth.ts:42",
-    installedVersion: "express@4.17.1",
-    fixedVersion: "Parameterized Query",
-    cvssScore: 8.6,
+    installedVersion: "Illustrative fixture",
+    fixedVersion: "Parameterized query",
+    cvssScore: null,
     description:
-      "Concatenating req.body.username directly into raw SQL string allows authentication bypass via SQL Injection.",
+      "Concatenating a request value into SQL can enable injection; this is an illustrative SAST finding, not a published CVE record.",
     remediation:
-      "Replace template literal with parameterized query: db.query('SELECT * FROM users WHERE user = ?', [user]).",
+      "Use the database driver's parameterized-query API, validate input for its business purpose, and test authorization separately.",
   },
   {
     id: "vuln-4",
-    cve: "CVE-2024-3094",
+    findingId: "CVE-2024-3094",
     tool: "Trivy",
-    title: "xz-utils Malicious Backdoor Injection",
+    title: "Malicious xz-utils release and liblzma injection",
     severity: "CRITICAL",
-    component: "liblzma5",
+    component: "xz / liblzma",
     installedVersion: "5.6.0-1",
-    fixedVersion: "5.4.5",
+    fixedVersion: "5.4.5 or vendor-patched build",
     cvssScore: 10.0,
     description:
-      "Obfuscated payload in xz-utils build script intercepts SSH authentication functions in sshd.",
+      "Malicious code in xz 5.6.0 and 5.6.1 can modify liblzma during the build and affect software linked against the library.",
     remediation:
-      "Downgrade xz-utils / liblzma5 to stable version 5.4.x immediately across container base images.",
+      "Follow the affected distribution's advisory: remove 5.6.x builds, restore a trusted package, rotate exposed credentials, and verify host integrity.",
   },
   {
     id: "vuln-5",
-    cve: "ZAP-2026-001",
+    findingId: "DEMO-DAST-001",
     tool: "OWASP ZAP",
-    title: "Missing HTTP Strict Transport Security (HSTS) Header",
+    title: "Missing HTTP Strict Transport Security (HSTS) header",
     severity: "MEDIUM",
-    component: "HTTPS Response Header",
-    installedVersion: "None",
+    component: "HTTPS response header",
+    installedVersion: "Not observed in fixture",
     fixedVersion: "Strict-Transport-Security: max-age=31536000",
-    cvssScore: 5.3,
+    cvssScore: null,
     description:
-      "Server allows HTTP connections without enforcing HTTPS upgrade, exposing session tokens to MITM interception.",
+      "Without an HSTS policy, a browser may make an initial HTTP request before it has learned to require HTTPS; HSTS does not secure the current HTTP response.",
     remediation:
-      "Add header: Strict-Transport-Security: max-age=31536000; includeSubDomains; preload to NGINX / Cloudflare.",
+      "Serve the header over HTTPS after validating every covered host and subdomain; use an HTTPS redirect and treat preload as a separate, irreversible deployment decision.",
   },
   {
     id: "vuln-6",
-    cve: "SNYK-JS-LODASH-567746",
+    findingId: "DEMO-SAST-002",
     tool: "Snyk Code",
-    title: "Prototype Pollution in lodash.defaultsDeep",
+    title: "Prototype-pollution pattern in dependency usage",
     severity: "MEDIUM",
     component: "lodash",
-    installedVersion: "4.17.15",
-    fixedVersion: "4.17.21",
-    cvssScore: 6.5,
+    installedVersion: "4.17.15 (fixture)",
+    fixedVersion: "4.17.21 or vendor-advised version",
+    cvssScore: null,
     description:
-      "Unsanitized key parameter passed to defaultsDeep allows modification of Object.prototype properties.",
+      "An unsafe merge of attacker-controlled keys can mutate inherited object properties; this fixture intentionally does not assert a particular CVE.",
     remediation:
-      "Run `npm install lodash@^4.17.21` or freeze Object.prototype in entrypoint.",
+      "Upgrade according to the dependency advisory, reject dangerous keys at the application boundary, and avoid merging untrusted objects into configuration.",
   },
   {
     id: "vuln-7",
-    cve: "CVE-2023-38545",
+    findingId: "CVE-2023-38545",
     tool: "Trivy",
-    title: "curl SOCKS5 Heap Buffer Overflow",
-    severity: "HIGH",
-    component: "libcurl4",
+    title: "curl SOCKS5 heap buffer overflow",
+    severity: "CRITICAL",
+    component: "libcurl",
     installedVersion: "8.2.1",
     fixedVersion: "8.4.0",
-    cvssScore: 8.1,
+    cvssScore: 9.8,
     description:
-      "Hostname too long during SOCKS5 proxy handshake overflows heap buffer in libcurl.",
+      "Affected libcurl versions can overflow a heap buffer during a SOCKS5 handshake when a long hostname and the vulnerable resolution path are used.",
     remediation:
-      "Upgrade libcurl package inside Alpine / Debian base images to version >= 8.4.0.",
+      "Upgrade libcurl to 8.4.0 or a vendor backport; if patching is not immediately possible, avoid SOCKS5 hostname-resolution mode.",
   },
   {
     id: "vuln-8",
-    cve: "ZAP-2026-002",
+    findingId: "DEMO-DAST-002",
     tool: "OWASP ZAP",
-    title: "Reflected Cross-Site Scripting (XSS) in Search Query",
+    title: "Reflected cross-site scripting in search query",
     severity: "LOW",
     component: "/search?q=",
-    installedVersion: "Unescaped HTML",
-    fixedVersion: "HTML Entity Encoding",
-    cvssScore: 3.8,
+    installedVersion: "Unescaped HTML (fixture)",
+    fixedVersion: "Context-appropriate output encoding",
+    cvssScore: null,
     description:
-      "Search parameter reflected back in page DOM without escaping <script> tags.",
+      "Reflecting a search value into HTML without context-appropriate encoding can create XSS; this is a synthetic DAST finding.",
     remediation:
-      "Use React JSX string rendering or encode output using DOMPurify / sanitize-html.",
+      "Keep untrusted data in React text nodes where possible and apply context-specific output encoding; do not treat a generic sanitizer as a substitute for correct context handling.",
   },
 ];
 
@@ -175,8 +175,8 @@ export default function SecScannersSection() {
       setScanLogs((prev) => [
         ...prev,
         `[INFO] Target: ${scanTarget}`,
-        `[INFO] Downloading vulnerability database feed v2026.08.08...`,
-        `[ANALYSIS] Inspecting layers, lockfiles, and dependencies...`,
+        `[INFO] Using a static teaching fixture; no scanner or network request is executed.`,
+        `[ANALYSIS] Inspecting illustrative layers, lockfiles, and dependencies...`,
       ]);
     }, 600);
 
@@ -184,8 +184,8 @@ export default function SecScannersSection() {
       setScanProgress(80);
       setScanLogs((prev) => [
         ...prev,
-        `[WARN] Critical CVE match found in image base layer!`,
-        `[ANALYSIS] Cross-referencing CVSS scores & remediated versions...`,
+        `[WARN] Finding match reported in the teaching fixture.`,
+        `[ANALYSIS] Comparing published CVSS v3.1 scores where a CVE is present...`,
       ]);
     }, 1200);
 
@@ -194,7 +194,7 @@ export default function SecScannersSection() {
       setIsScanning(false);
       setScanLogs((prev) => [
         ...prev,
-        `[SUCCESS] Scan complete in 1.84s. Found ${INITIAL_SCAN_RESULTS.length} vulnerabilities.`,
+        `[SUCCESS] Local simulation complete in 1.84s. Found ${INITIAL_SCAN_RESULTS.length} findings.`,
       ]);
     }, 1800);
   };
@@ -217,9 +217,7 @@ export default function SecScannersSection() {
           1. SAST / DAST &amp; Container Vulnerability Scanner
         </h3>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Simulate Trivy container image scans, Snyk SAST code analysis, and OWASP ZAP DAST web
-          inspection. Identify CVEs, misconfigurations, and dependency risks before they reach
-          production.
+          Local fixture: published NVD/CNA CVSS v3.1 base scores are shown for CVEs; demo findings have no CVE score.
         </p>
       </div>
 
@@ -307,40 +305,40 @@ export default function SecScannersSection() {
       {/* Scan Results Summary Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-rose-200 dark:border-rose-700 bg-gradient-to-br from-rose-50 to-transparent card-shadow">
-          <div className="text-xs text-slate-500 dark:text-slate-400">Critical CVEs</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400">Critical findings</div>
           <div className="text-2xl font-extrabold text-rose-600 dark:text-rose-400 mt-1">
             {scanResultsList.filter((r) => r.severity === "CRITICAL").length}
           </div>
           <div className="text-[11px] text-rose-500 dark:text-rose-400 mt-1 font-mono">
-            Immediate Patch Required
+            Triage priority depends on context
           </div>
         </div>
 
         <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-700 bg-gradient-to-br from-amber-50 to-transparent card-shadow">
-          <div className="text-xs text-slate-500 dark:text-slate-400">High Severity</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400">High severity</div>
           <div className="text-2xl font-extrabold text-amber-600 dark:text-amber-400 mt-1">
             {scanResultsList.filter((r) => r.severity === "HIGH").length}
           </div>
-          <div className="text-[11px] text-amber-500 dark:text-amber-400 mt-1 font-mono">Fix within 7 days</div>
+          <div className="text-[11px] text-amber-500 dark:text-amber-400 mt-1 font-mono">Prioritize by exposure and exploitability</div>
         </div>
 
         <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 bg-gradient-to-br from-violet-50 to-transparent card-shadow">
-          <div className="text-xs text-slate-500 dark:text-slate-400">Medium Severity</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400">Medium severity</div>
           <div className="text-2xl font-extrabold text-violet-600 dark:text-violet-400 mt-1">
             {scanResultsList.filter((r) => r.severity === "MEDIUM").length}
           </div>
           <div className="text-[11px] text-violet-500 dark:text-violet-400 mt-1 font-mono">
-            Scheduled Maintenance
+            Review affected path and compensating controls
           </div>
         </div>
 
         <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-indigo-200 dark:border-indigo-700 bg-gradient-to-br from-indigo-50 to-transparent card-shadow">
-          <div className="text-xs text-slate-500 dark:text-slate-400">Low / Info</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400">Low severity</div>
           <div className="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-1">
             {scanResultsList.filter((r) => r.severity === "LOW").length}
           </div>
           <div className="text-[11px] text-indigo-500 dark:text-indigo-400 mt-1 font-mono">
-            Best practice hardening
+            Schedule according to risk
           </div>
         </div>
       </div>
@@ -351,7 +349,7 @@ export default function SecScannersSection() {
         <div className="lg:col-span-2 p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-              Detected Vulnerabilities ({filteredScanResults.length})
+              Detected findings ({filteredScanResults.length})
             </h4>
 
             {/* Filter Selector */}
@@ -376,11 +374,11 @@ export default function SecScannersSection() {
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-mono border-b border-slate-200 dark:border-slate-700">
                 <tr>
-                  <th className="py-2.5 px-3">CVE / ID</th>
+                  <th className="py-2.5 px-3">Finding ID</th>
                   <th className="py-2.5 px-3">Severity</th>
                   <th className="py-2.5 px-3">Scanner</th>
                   <th className="py-2.5 px-3">Component</th>
-                  <th className="py-2.5 px-3">CVSS</th>
+                  <th className="py-2.5 px-3">CVSS v3.1</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-700 font-mono">
@@ -405,7 +403,7 @@ export default function SecScannersSection() {
                       }`}
                     >
                       <td className="py-2.5 px-3 font-semibold text-indigo-600 dark:text-indigo-400">
-                        {item.cve}
+                        {item.findingId}
                       </td>
                       <td className="py-2.5 px-3">
                         <span
@@ -417,7 +415,7 @@ export default function SecScannersSection() {
                       <td className="py-2.5 px-3 text-slate-500 dark:text-slate-400">{item.tool}</td>
                       <td className="py-2.5 px-3 text-slate-900 dark:text-slate-100">{item.component}</td>
                       <td className="py-2.5 px-3 font-bold text-slate-900 dark:text-slate-100">
-                        {item.cvssScore.toFixed(1)}
+                        {item.cvssScore?.toFixed(1) ?? "—"}
                       </td>
                     </tr>
                   );
@@ -430,14 +428,14 @@ export default function SecScannersSection() {
         {/* Vulnerability Inspector Drawer */}
         <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
           <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-            <span>🔬</span> Vulnerability Details &amp; Fix
+            <span>🔬</span> Finding Details &amp; Fix
           </h4>
 
           {selectedScanResult ? (
             <div className="space-y-4 text-xs">
               <div>
                 <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                  {selectedScanResult.cve} ({selectedScanResult.tool})
+                  {selectedScanResult.findingId} ({selectedScanResult.tool})
                 </span>
                 <h5 className="text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5">
                   {selectedScanResult.title}
@@ -470,7 +468,7 @@ export default function SecScannersSection() {
 
               <div>
                 <label className="block text-emerald-700 dark:text-emerald-300 mb-1 font-semibold flex items-center gap-1">
-                  <span>🛠️</span> Remediation Fix Snippet:
+                  <span>🛠️</span> Remediation guidance:
                 </label>
                 <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300 font-mono text-[11px] break-all">
                   {selectedScanResult.remediation}
@@ -479,7 +477,7 @@ export default function SecScannersSection() {
             </div>
           ) : (
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Select a vulnerability from the table to inspect details and remediation
+              Select a finding from the table to inspect details and remediation
               instructions.
             </p>
           )}

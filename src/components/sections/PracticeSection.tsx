@@ -343,7 +343,7 @@ export default function PracticeSection() {
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>
-          14. Practice Problems
+          21. Practice Problems
         </h2>
         </div>
 
@@ -351,13 +351,13 @@ export default function PracticeSection() {
         <div className="flex items-center gap-2">
           <button
             onClick={expandAll}
-            className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all"
+            className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all"
           >
             Expand All
           </button>
           <button
             onClick={collapseAll}
-            className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 hover:bg-[#30363d] transition-all"
+            className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all"
           >
             Collapse All
           </button>
@@ -409,10 +409,11 @@ export default function PracticeSection() {
                 {/* Reveal Answer Toggle Button */}
                 <button
                   onClick={() => toggleProblem(prob.id)}
+                  aria-expanded={isOpen}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                     isOpen
                       ? "bg-indigo-100 text-indigo-600 dark:text-indigo-400 border border-indigo-300"
-                      : "bg-[#21262d] text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 hover:bg-[#30363d]"
+                      : "bg-[#21262d] text-white dark:text-slate-100 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 hover:bg-[#30363d]"
                   }`}
                 >
                   <span>{isOpen ? "Hide Answer" : "Reveal Answer"}</span>

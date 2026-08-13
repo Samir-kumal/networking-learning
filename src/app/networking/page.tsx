@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
 export default function NetworkingPage() {
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12 overflow-x-hidden">
       {/* Page Header */}
       <header className="border-b border-slate-200 dark:border-slate-700 pb-6">
         <div className="flex items-center gap-3 mb-3">
@@ -58,48 +58,49 @@ export default function NetworkingPage() {
           id="foundations"
           label="01 · Foundations"
           title="Networking Foundations"
-          description="Build a reliable mental model for addresses, prefixes, segmentation, and protocol boundaries."
+          description="Start with how hosts, bits, prefixes, and subnet boundaries work; then calculate and design IPv4 address space before moving on."
           moduleCount={7}
         >
           <BasicsSection />
           <BinarySection />
           <CidrSection />
+          <SubnetCalculator />
+          <CreateSubnetSection />
           <VlsmSection />
-          <VlanSection />
-          <Ipv6Section />
-          <NatSection />
+          <SupernetSection />
         </NetworkingSubsection>
 
         <NetworkingSubsection
           id="tools"
-          label="02 · Tools"
-          title="Design & Operations Tools"
-          description="Turn subnetting theory into repeatable design, allocation, policy, and troubleshooting workflows."
+          label="02 · Applied"
+          title="Connect & Operate Networks"
+          description="Apply the addressing model to VLANs, DHCP, IPv6, NAT, cloud subnets, and wireless access."
           moduleCount={6}
         >
-          <SubnetCalculator />
-          <CreateSubnetSection />
-          <SupernetSection />
+          <VlanSection />
+          <DhcpSection />
+          <Ipv6Section />
+          <NatSection />
           <CloudSubnetSection />
-          <FirewallSection />
-          <TroubleshootingSection />
+          <WirelessSection />
         </NetworkingSubsection>
 
         <NetworkingSubsection
           id="advanced"
-          label="03 · Advanced"
-          title="Advanced Networking"
-          description="Apply routing, security, services, packet analysis, containers, diagnostics, and wireless concepts."
+          label="03 · Operations"
+          title="Understand, Forward & Diagnose Traffic"
+          description="Read packet structure first, then learn forwarding, filtering, encrypted overlays, diagnostics, and container-networking tradeoffs."
           moduleCount={7}
         >
-          <RoutingSection />
-          <SecuritySection />
-          <DhcpSection />
           <PacketSection />
-          <ContainerSection />
+          <RoutingSection />
+          <FirewallSection />
+          <SecuritySection />
           <DiagnosticsSection />
-          <WirelessSection />
+          <TroubleshootingSection />
+          <ContainerSection />
         </NetworkingSubsection>
+
 
         <NetworkingSubsection
           id="evaluation"

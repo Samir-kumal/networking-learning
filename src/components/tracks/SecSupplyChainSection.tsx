@@ -55,7 +55,7 @@ const DEPENDENCIES: Dependency[] = [
   },
 ];
 
-const LICENSE_OPTIONS = ["MIT", "Apache-2.0", "BSD-3-Clause", "ISC"] as const;
+const LICENSE_OPTIONS = ["MIT", "Apache-2.0", "BSD-3-Clause", "ISC", "GPL-3.0"] as const;
 const ALL_LICENSES = Array.from(new Set(DEPENDENCIES.map((dependency) => dependency.license)));
 
 const SEVERITY_CLASSES: Record<Severity | "none", string> = {
@@ -97,8 +97,9 @@ export default function SecSupplyChainSection() {
         </span>
         <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">Dependency and SBOM analyzer</h3>
         <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Inspect package provenance, vulnerability severity, immutable versions, signatures, and
-          license policy before an artifact enters the release pipeline.
+          Inspect a synthetic package inventory for vulnerability flags, immutable versions, fixture provenance,
+          and license policy before an artifact enters a release pipeline. Real signing and license decisions are
+          tool-, package-, and organization-specific.
         </p>
       </div>
 
@@ -124,7 +125,7 @@ export default function SecSupplyChainSection() {
                   <th scope="col" className="px-3 py-2 font-semibold">Package</th>
                   <th scope="col" className="px-3 py-2 font-semibold">Version</th>
                   <th scope="col" className="px-3 py-2 font-semibold">Severity</th>
-                  <th scope="col" className="px-3 py-2 font-semibold">Provenance</th>
+                  <th scope="col" className="px-3 py-2 font-semibold">Fixture attestation</th>
                   <th scope="col" className="px-3 py-2 font-semibold">License</th>
                 </tr>
               </thead>
@@ -160,7 +161,7 @@ export default function SecSupplyChainSection() {
           <fieldset>
             <legend className="text-sm font-bold text-slate-900 dark:text-slate-100">License allowlist</legend>
             <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-              Only selected SPDX licenses may ship. Toggle a license to re-run the SBOM policy.
+              Only selected SPDX identifiers may ship in this local policy. Toggle a license to re-run the fixture evaluation.
             </p>
             <div className="mt-3 space-y-2">
               {LICENSE_OPTIONS.map((license) => (

@@ -238,7 +238,7 @@ export default function SecuritySection() {
     const traceLogs: string[] = [];
 
     if (inspectorMode === "nacl") {
-      // NACL: Numbered order, top-to-bottom evaluation. First match wins!
+      // AWS-style NACL: numbered rules are evaluated lowest to highest; first match wins.
       const sortedRules = [...activeRules].sort((a, b) => (a.ruleNum || 0) - (b.ruleNum || 0));
 
       for (const rule of sortedRules) {
@@ -272,10 +272,10 @@ export default function SecuritySection() {
         allowed: false,
         matchedRule: null,
         trace: traceLogs,
-        reason: "No explicit rule matched. Blocked by implicit default deny (*).",
+        reason: "No explicit rule matched in this simulator. Blocked by its implicit default-deny fallback.",
       };
     } else {
-      // Security Group: Stateful, Allow-only rules. Evaluate all rules.
+      // AWS-style security group: stateful, allow-only rules; matching allows are aggregated.
       let matchingAllowRule: SecurityRule | null = null;
 
       for (const rule of activeRules) {
@@ -302,7 +302,7 @@ export default function SecuritySection() {
           allowed: true,
           matchedRule: matchingAllowRule,
           trace: traceLogs,
-          reason: `Permitted by Security Group Rule: ${matchingAllowRule.description}. Return traffic is statefully tracked and permitted automatically.`,
+          reason: `Permitted by the simulator's security-group rule: ${matchingAllowRule.description}. Return traffic is statefully tracked and permitted automatically.`,
         };
       }
 
@@ -311,7 +311,7 @@ export default function SecuritySection() {
         matchedRule: null,
         trace: traceLogs,
         reason:
-          "Denied: Security Groups operate on an implicit Default Deny model. No matching ALLOW rule was found.",
+          "Denied by the simulator's implicit default-deny fallback: no matching ALLOW rule was found.",
       };
     }
   };
@@ -376,12 +376,12 @@ export default function SecuritySection() {
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◉</span>
-          18. Network Security & Access Control
+          15. Network Security & Access Control
         </h2>
       </div>
 
       <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Modern cloud and enterprise networks enforce defense-in-depth through multi-layered access control mechanisms. From <strong className="text-amber-600 dark:text-amber-400">Stateless Subnet NACLs</strong> and <strong className="text-emerald-600 dark:text-emerald-400">Stateful Instance Security Groups</strong> to <strong className="text-indigo-600 dark:text-indigo-400">Encapsulated Overlay Tunnels (VPN & VXLAN)</strong> and <strong className="text-violet-600 dark:text-violet-400">Network Address Translation (NAT)</strong>, secure network architectures protect workloads at every hop.
+        Defense in depth combines routing, filtering, identity, encryption, and monitoring. The NACL and security-group comparison below uses AWS-style semantics as a concrete example; other providers and appliances expose different boundaries and defaults.
       </p>
 
       {/* ========================================================================= */}
@@ -399,7 +399,7 @@ export default function SecuritySection() {
               </h3>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Comparing subnet-level stateless packet filters against hypervisor/ENI stateful firewalls.
+              Concrete AWS-style comparison: subnet-level stateless filters versus instance or interface-level stateful rules.
             </p>
           </div>
 
@@ -451,7 +451,7 @@ export default function SecuritySection() {
                     Stateless
                   </span>
                   <p className="font-sans text-[11px] text-slate-500 dark:text-slate-400 mt-1">
-                    Return traffic MUST be explicitly allowed in Outbound rules.
+                    In this AWS-style NACL model, return traffic must match an outbound rule because the filter is stateless.
                   </p>
                 </td>
                 <td className="py-3 px-4">
@@ -459,27 +459,27 @@ export default function SecuritySection() {
                     Stateful
                   </span>
                   <p className="font-sans text-[11px] text-slate-500 dark:text-slate-400 mt-1">
-                    Return traffic automatically allowed regardless of outbound rules.
+                    In this AWS-style security-group model, response traffic for an allowed flow is tracked automatically.
                   </p>
                 </td>
               </tr>
               <tr className="hover:bg-slate-50/40 dark:bg-slate-700/40">
                 <td className="py-3 px-4 text-slate-500 dark:text-slate-400 font-sans font-medium">Rule Actions Supported</td>
-                <td className="py-3 px-4">ALLOW and DENY rules</td>
-                <td className="py-3 px-4 text-emerald-600 dark:text-emerald-400">ALLOW rules only (Implicit Default Deny)</td>
+                <td className="py-3 px-4">ALLOW and DENY rules (AWS network ACL)</td>
+                <td className="py-3 px-4 text-emerald-600 dark:text-emerald-400">ALLOW rules only in AWS security groups (implicit deny)</td>
               </tr>
               <tr className="hover:bg-slate-50/40 dark:bg-slate-700/40">
                 <td className="py-3 px-4 text-slate-500 dark:text-slate-400 font-sans font-medium">Evaluation Order</td>
-                <td className="py-3 px-4">Sequential by Rule Number (Lowest number evaluated first)</td>
-                <td className="py-3 px-4">All rules evaluated simultaneously before decision</td>
+                <td className="py-3 px-4">Sequential by rule number; lowest matching number wins</td>
+                <td className="py-3 px-4">Rules are aggregated; there is no user-visible order</td>
               </tr>
               <tr className="hover:bg-slate-50/40 dark:bg-slate-700/40">
                 <td className="py-3 px-4 text-slate-500 dark:text-slate-400 font-sans font-medium">Ephemeral Return Ports</td>
                 <td className="py-3 px-4 text-rose-600 dark:text-rose-400">
-                  Must open ports 1024-65535 outbound for response traffic!
+                  Must allow the matching return traffic in the outbound direction; a broad ephemeral range is only one possible policy.
                 </td>
                 <td className="py-3 px-4 text-emerald-600 dark:text-emerald-400">
-                  Automatically tracked by connection state table
+                  AWS tracks response traffic for an allowed flow
                 </td>
               </tr>
             </tbody>
@@ -572,11 +572,11 @@ export default function SecuritySection() {
                 >
                   {logicMode === "nacl" ? (
                     <div>
-                      <strong>⚠️ Stateless Engine:</strong> Network ACLs do NOT track connection state! Once packet passes inbound, the router completely forgets about this request. Outbound response must be evaluated from scratch.
+                      <strong>Stateless filter:</strong> This AWS-style network ACL does not track the flow; the response must be evaluated against outbound rules.
                     </div>
                   ) : (
                     <div>
-                      <strong>✓ Stateful Engine:</strong> Connection table records entry: <code>[203.0.113.50:52134 ↔ 10.0.1.10:80]</code>. Any reply packet matching this flow will bypass outbound rules automatically!
+                      <strong>Stateful filter:</strong> This AWS-style security group tracks the allowed flow, so matching response traffic is permitted automatically.
                     </div>
                   )}
                 </div>
@@ -601,11 +601,11 @@ export default function SecuritySection() {
                 >
                   {logicMode === "nacl" ? (
                     <div>
-                      <strong>NACL Outbound Evaluation:</strong> Requires Outbound Rule allowing TCP destination ports 1024-65535 to 0.0.0.0/0. Without this ephemeral port rule, response packets are <span className="text-rose-600 dark:text-rose-400 font-bold">DROPPED</span>!
+                      <strong>NACL outbound evaluation:</strong> The response must match an outbound rule for the actual return tuple. A broad 1024-65535 example is one possible rule; narrower policy may be appropriate.
                     </div>
                   ) : (
                     <div>
-                      <strong>SG Outbound Evaluation:</strong> Automatic pass! Because the request was allowed inbound, the stateful firewall permits the return packet on port 52134 even if outbound rules block port 52134.
+                      <strong>SG outbound evaluation:</strong> In this AWS-style model, an inbound-allowed flow permits matching response traffic even without a separate return-port rule.
                     </div>
                   )}
                 </div>
@@ -660,7 +660,7 @@ export default function SecuritySection() {
                     WireGuard — Modern Lightweight Crypto Tunnel
                   </h4>
                   <p className="text-slate-500 dark:text-slate-400 leading-relaxed">
-                    Designed as a fast, simple replacement for IPsec and OpenVPN. Operates in Linux kernel space with minimal overhead (~4,000 lines of code).
+                    Designed as a small, simple encrypted tunnel; it can run in the Linux kernel and also has user-space implementations. Performance and overhead depend on platform and configuration.
                   </p>
                 </div>
 
@@ -675,15 +675,15 @@ export default function SecuritySection() {
                   </div>
                   <div className="flex justify-between p-2 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
                     <span>Transport Layer:</span>
-                    <span className="text-amber-600 dark:text-amber-400">UDP Port 51820</span>
+                    <span className="text-amber-600 dark:text-amber-400">UDP Port 51820 (common default)</span>
                   </div>
                   <div className="flex justify-between p-2 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
                     <span>Key Exchange:</span>
                     <span className="text-indigo-600 dark:text-indigo-400">Static Public Keys (Cryptokey Routing)</span>
                   </div>
                   <div className="flex justify-between p-2 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
-                    <span>Roaming Ability:</span>
-                    <span className="text-emerald-600 dark:text-emerald-400">Seamless IP Roaming across Wi-Fi/Cellular</span>
+                    <span>Roaming:</span>
+                    <span className="text-emerald-600 dark:text-emerald-400">Endpoint roaming across changing networks</span>
                   </div>
                 </div>
               </div>
@@ -694,14 +694,14 @@ export default function SecuritySection() {
                     IPsec — Enterprise Standard Security Suite
                   </h4>
                   <p className="text-slate-500 dark:text-slate-400 leading-relaxed">
-                    Robust Layer 3 security suite widely used in corporate Site-to-Site VPNs. Complex multi-phase negotiation with high configurability (~100,000+ lines of code).
+                    Robust Layer 3 security suite widely used in corporate Site-to-Site VPNs. Its negotiation, algorithms, and implementation complexity vary by deployment.
                   </p>
                 </div>
 
                 <div className="space-y-2 text-xs font-mono text-slate-500 dark:text-slate-400">
                   <div className="flex justify-between p-2 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
                     <span>Key Negotiation:</span>
-                    <span className="text-violet-600 dark:text-violet-400">IKEv2 / ISAKMP (Phase 1 & Phase 2)</span>
+                    <span className="text-violet-600 dark:text-violet-400">IKEv2 exchanges (or IKEv1 Phase 1 & Phase 2)</span>
                   </div>
                   <div className="flex justify-between p-2 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
                     <span>Encapsulation Headers:</span>
@@ -709,15 +709,15 @@ export default function SecuritySection() {
                   </div>
                   <div className="flex justify-between p-2 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
                     <span>NAT Traversal:</span>
-                    <span className="text-amber-600 dark:text-amber-400">UDP Port 4500 (Encap ESP in UDP)</span>
+                    <span className="text-amber-600 dark:text-amber-400">UDP Port 4500 (ESP in UDP)</span>
                   </div>
                   <div className="flex justify-between p-2 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
                     <span>Cipher Support:</span>
-                    <span className="text-indigo-600 dark:text-indigo-400">AES-256-GCM, SHA-384, DH Groups 14-21</span>
+                    <span className="text-indigo-600 dark:text-indigo-400">Example suites: AES-256-GCM, SHA-384, DH Groups 14-21</span>
                   </div>
                   <div className="flex justify-between p-2 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
                     <span>Use Case:</span>
-                    <span className="text-emerald-600 dark:text-emerald-400">AWS DirectConnect VPN, Cisco/Fortinet Tunnels</span>
+                    <span className="text-emerald-600 dark:text-emerald-400">AWS Site-to-Site VPN and enterprise tunnels</span>
                   </div>
                 </div>
               </div>
@@ -735,13 +735,12 @@ export default function SecuritySection() {
                 </span>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">VXLAN Encapsulation</h3>
               </div>
-              <span className="text-xs font-mono text-amber-600 dark:text-amber-400">UDP 4789</span>
+              <span className="text-xs font-mono text-amber-600 dark:text-amber-400">UDP 4789 (common default)</span>
             </div>
 
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-              <strong className="text-emerald-600 dark:text-emerald-400">Virtual Extensible LAN (VXLAN)</strong> encapsulates Layer 2 Ethernet frames inside Layer 4 UDP packets. Used in data center spine-leaf topologies and Kubernetes CNI overlays (Flannel/Calico) to expand past the 4,096 VLAN limit up to <strong className="text-indigo-600 dark:text-indigo-400">16.7 Million VNI segments</strong>.
+              <strong className="text-emerald-600 dark:text-emerald-400">Virtual Extensible LAN (VXLAN)</strong> encapsulates Layer 2 Ethernet frames inside UDP packets. It is used in data-center overlays and some Kubernetes CNI implementations to expand beyond the 4,096 VLAN-ID space up to <strong className="text-indigo-600 dark:text-indigo-400">16.7 million VNI values</strong>.
             </p>
-
             {/* Interactive VXLAN Header Inspection */}
             <div className="space-y-3">
               <div className="text-xs font-semibold text-slate-900 dark:text-slate-100">
@@ -1010,6 +1009,7 @@ export default function SecuritySection() {
               Source IP Address / Subnet:
             </label>
             <input
+              aria-label="Source IP address or subnet"
               type="text"
               value={sourceIpInput}
               onChange={(e) => setSourceIpInput(e.target.value)}
@@ -1044,6 +1044,7 @@ export default function SecuritySection() {
               Destination Port Number:
             </label>
             <input
+              aria-label="Destination port number"
               type="number"
               value={destPortInput}
               onChange={(e) => setDestPortInput(parseInt(e.target.value, 10) || 0)}
@@ -1083,6 +1084,7 @@ export default function SecuritySection() {
               Transport Protocol:
             </label>
             <select
+              aria-label="Transport protocol"
               value={protocolInput}
               onChange={(e) =>
                 setProtocolInput(e.target.value as "TCP" | "UDP" | "ICMP")
@@ -1174,6 +1176,7 @@ export default function SecuritySection() {
                   >
                     <td className="py-2 px-3">
                       <input
+                        aria-label={`Enable security rule ${rule.ruleNum}: ${rule.description}`}
                         type="checkbox"
                         checked={rule.enabled}
                         onChange={() => toggleRuleEnabled(rule.id)}
@@ -1227,6 +1230,7 @@ export default function SecuritySection() {
                   Rule Number:
                 </label>
                 <input
+                aria-label="New security rule number"
                   type="number"
                   value={newRuleNum}
                   onChange={(e) => setNewRuleNum(parseInt(e.target.value, 10) || 100)}
@@ -1240,6 +1244,7 @@ export default function SecuritySection() {
                 Port / Range:
               </label>
               <input
+                aria-label="New security rule port or range"
                 type="text"
                 value={newPort}
                 onChange={(e) => setNewPort(e.target.value)}
@@ -1253,6 +1258,7 @@ export default function SecuritySection() {
                 Source CIDR:
               </label>
               <input
+                aria-label="New security rule source CIDR"
                 type="text"
                 value={newCidr}
                 onChange={(e) => setNewCidr(e.target.value)}
@@ -1267,6 +1273,7 @@ export default function SecuritySection() {
                   Action:
                 </label>
                 <select
+                  aria-label="New security rule action"
                   value={newAction}
                   onChange={(e) =>
                     setNewAction(e.target.value as "ALLOW" | "DENY")
@@ -1284,6 +1291,7 @@ export default function SecuritySection() {
                 Description:
               </label>
               <input
+                aria-label="New security rule description"
                 type="text"
                 value={newDesc}
                 onChange={(e) => setNewDesc(e.target.value)}

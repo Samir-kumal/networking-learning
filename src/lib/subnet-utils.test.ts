@@ -70,6 +70,42 @@ describe('subnet-utils', () => {
         expect(res.usableHosts).toBe('16,777,214');
       }
     });
+    test('returns two usable hosts for a /30 point-to-point subnet', () => {
+      const res = calculateSubnet('192.168.1.114', 30);
+      expect(res).not.toBeNull();
+      if (res) {
+        expect(res.networkAddress).toBe('192.168.1.112/30');
+        expect(res.broadcastAddress).toBe('192.168.1.115');
+        expect(res.firstUsable).toBe('192.168.1.113');
+        expect(res.lastUsable).toBe('192.168.1.114');
+        expect(res.usableHosts).toBe('2');
+      }
+    });
+
+    test('uses both addresses in an RFC 3021 /31 link', () => {
+      const res = calculateSubnet('198.51.100.1', 31);
+      expect(res).not.toBeNull();
+      if (res) {
+        expect(res.networkAddress).toBe('198.51.100.0/31');
+        expect(res.broadcastAddress).toBe('—');
+        expect(res.firstUsable).toBe('198.51.100.0');
+        expect(res.lastUsable).toBe('198.51.100.1');
+        expect(res.usableHosts).toBe('2');
+      }
+    });
+
+    test('uses one address for a /32 host route', () => {
+      const res = calculateSubnet('203.0.113.9', 32);
+      expect(res).not.toBeNull();
+      if (res) {
+        expect(res.networkAddress).toBe('203.0.113.9/32');
+        expect(res.broadcastAddress).toBe('—');
+        expect(res.firstUsable).toBe('203.0.113.9');
+        expect(res.lastUsable).toBe('203.0.113.9');
+        expect(res.usableHosts).toBe('1');
+      }
+    });
+
 
     test('returns null for invalid inputs', () => {
       expect(calculateSubnet('invalid.ip', 24)).toBeNull();

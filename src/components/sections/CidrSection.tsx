@@ -18,11 +18,14 @@ export default function CidrSection() {
   const usableHosts = cidr >= 31 ? (cidr === 31 ? 2 : 1) : Math.max(0, totalAddresses - 2);
 
   const presets = [
-    { label: "/8", value: 8, tag: "Class A" },
-    { label: "/16", value: 16, tag: "Class B" },
-    { label: "/24", value: 24, tag: "Class C" },
+    { label: "/0", value: 0, tag: "Default Route" },
+    { label: "/8", value: 8, tag: "Historic class boundary" },
+    { label: "/16", value: 16, tag: "Historic class boundary" },
+    { label: "/24", value: 24, tag: "Common LAN example" },
     { label: "/27", value: 27, tag: "30 Hosts" },
-    { label: "/30", value: 30, tag: "P2P Link" },
+    { label: "/30", value: 30, tag: "Traditional P2P" },
+    { label: "/31", value: 31, tag: "RFC 3021 P2P" },
+    { label: "/32", value: 32, tag: "Host Route" },
   ];
 
   return (
@@ -79,14 +82,15 @@ export default function CidrSection() {
         {/* Range Slider */}
         <div className="space-y-2 mb-8">
           <div className="flex justify-between text-xs font-mono text-slate-500 dark:text-slate-400">
-            <span>/1 (Half the Internet)</span>
+            <span>/0 (Default Route)</span>
             <span className="text-indigo-600 dark:text-indigo-400 font-bold text-sm">/{cidr} Prefix</span>
-            <span>/30 (2 Usable Hosts)</span>
+            <span>/32 (1 Host Route)</span>
           </div>
           <input
             type="range"
-            min={1}
-            max={30}
+            aria-label="CIDR prefix length"
+            min={0}
+            max={32}
             value={cidr}
             onChange={(e) => setCidr(parseInt(e.target.value, 10))}
             className="w-full h-2.5 bg-white dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-[#58a6ff] border border-slate-200 dark:border-slate-700"
@@ -159,7 +163,7 @@ export default function CidrSection() {
             {totalAddresses.toLocaleString()}
           </div>
           <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2 font-mono">
-            $2^{"{32 - " + cidr + "}"} = 2^{"{ " + hostBits + " }"}$
+            2<sup>{hostBits}</sup> addresses (32 minus {cidr} network bits)
           </div>
         </div>
 
@@ -172,7 +176,11 @@ export default function CidrSection() {
             {usableHosts.toLocaleString()}
           </div>
           <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-            Excludes Network & Broadcast
+            {cidr === 31
+              ? "Both addresses usable under RFC 3021"
+              : cidr === 32
+                ? "One address usable as a host route"
+                : "Excludes network and broadcast addresses"}
           </div>
         </div>
 
@@ -185,37 +193,57 @@ export default function CidrSection() {
             {wildcardMaskStr}
           </div>
           <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-            Inverted subnet mask ($255 - \text{"{Mask}"}$)
+            Inverted subnet mask (255 minus each mask octet)
           </div>
         </div>
       </div>
+      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
 
       {/* Usable Hosts Formula Card */}
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3">
-          Usable Hosts Calculation Formula: $2^h - 2$
+          {cidr === 31
+            ? "Usable Hosts: both addresses are usable on an RFC 3021 point-to-point link"
+            : cidr === 32
+              ? "Usable Hosts: one address is usable for a host route"
+              : <>Usable Hosts Calculation Formula: 2<sup>h</sup> - 2</>}
         </h3>
         <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-          To calculate the number of hosts that can be assigned to devices on a IPv4 subnet, use the formula <code className="text-emerald-600 dark:text-emerald-400">Usable Hosts = 2^h - 2</code>, where <code className="text-indigo-600 dark:text-indigo-400">h = 32 - CIDR</code> is the number of remaining host bits.
+          {cidr === 31
+            ? <>An RFC 3021 <code className="text-emerald-600 dark:text-emerald-400">/31</code> point-to-point link has exactly two addresses, and both are usable. No network or broadcast address is reserved.</>
+            : cidr === 32
+              ? <>A <code className="text-emerald-600 dark:text-emerald-400">/32</code> is a host route containing one address, which is usable directly. No network or broadcast address is reserved.</>
+              : <>For an IPv4 subnet, use <code className="text-emerald-600 dark:text-emerald-400">Usable Hosts = 2<sup>h</sup> - 2</code>, where <code className="text-indigo-600 dark:text-indigo-400">h = 32 - CIDR</code> is the number of host bits.</>}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Reason for Subtracting 2 */}
-          <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3">
-            <div className="text-xs font-mono text-amber-600 dark:text-amber-400 font-bold uppercase">
-              Why subtract 2 addresses?
-            </div>
-            <div className="space-y-2 text-xs text-slate-500 dark:text-slate-400">
-              <div className="p-2.5 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
-                <strong className="text-indigo-600 dark:text-indigo-400 block mb-0.5">1. Network Address (All Host Bits = 0)</strong>
-                The first IP address in the range identifies the subnet block itself in routing tables and cannot be assigned to an interface.
+          {cidr >= 31 ? (
+            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3">
+              <div className="text-xs font-mono text-amber-600 dark:text-amber-400 font-bold uppercase">
+                Special prefix semantics
               </div>
-              <div className="p-2.5 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
-                <strong className="text-rose-600 dark:text-rose-400 block mb-0.5">2. Broadcast Address (All Host Bits = 1)</strong>
-                The last IP address in the range is used to broadcast frames to all active devices on the subnet simultaneously.
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                {cidr === 31
+                  ? "RFC 3021 reserves neither endpoint on a point-to-point link, so both addresses are usable."
+                  : "A /32 identifies one host route. Its single address is usable directly, with no network or broadcast reservation."}
+              </p>
+            </div>
+          ) : (
+            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3">
+              <div className="text-xs font-mono text-amber-600 dark:text-amber-400 font-bold uppercase">
+                Why subtract 2 addresses?
+              </div>
+              <div className="space-y-2 text-xs text-slate-500 dark:text-slate-400">
+                <div className="p-2.5 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+                  <strong className="text-indigo-600 dark:text-indigo-400 block mb-0.5">1. Network Address (All Host Bits = 0)</strong>
+                  The first IP address in the range identifies the subnet block itself in routing tables and cannot be assigned to an interface.
+                </div>
+                <div className="p-2.5 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+                  <strong className="text-rose-600 dark:text-rose-400 block mb-0.5">2. Directed Broadcast (All Host Bits = 1)</strong>
+                  The last address in a conventional IPv4 subnet is the directed-broadcast address. Hosts and routers may filter directed broadcasts, so it is not a universal guarantee of delivery.
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Current Calculation Step-by-Step */}
           <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3 font-mono text-xs">
@@ -223,12 +251,20 @@ export default function CidrSection() {
               Step-by-Step for /{cidr}:
             </div>
             <div className="space-y-1.5 text-slate-500 dark:text-slate-400">
-              <div>1. Host bits $h = 32 - {cidr} = \mathbf{"{ " + hostBits + " }"}$</div>
-              <div>2. Total addresses $2^{"{ " + hostBits + " }"} = \mathbf{"{ " + totalAddresses.toLocaleString() + " }"}$</div>
-              <div>3. Subtract Network & Broadcast:</div>
-              <div className="p-2 rounded bg-slate-50 dark:bg-slate-700 border border-emerald-400/40 text-emerald-600 dark:text-emerald-400 font-bold text-sm text-center mt-2">
-                {totalAddresses} - 2 = {usableHosts.toLocaleString()} Usable Hosts
-              </div>
+              <div>1. Host bits = 32 - {cidr} = {hostBits}</div>
+              <div>2. Total addresses = 2<sup>{hostBits}</sup> = {totalAddresses.toLocaleString()}</div>
+              {cidr >= 31 ? (
+                <div className="p-2 rounded bg-slate-50 dark:bg-slate-700 border border-emerald-400/40 text-emerald-600 dark:text-emerald-400 font-bold text-sm text-center mt-2">
+                  {cidr === 31 ? "2 addresses = 2 usable point-to-point endpoints" : "1 address = 1 usable host-route endpoint"}
+                </div>
+              ) : (
+                <>
+                  <div>3. Reserve the network and broadcast addresses:</div>
+                  <div className="p-2 rounded bg-slate-50 dark:bg-slate-700 border border-emerald-400/40 text-emerald-600 dark:text-emerald-400 font-bold text-sm text-center mt-2">
+                    {totalAddresses} - 2 = {usableHosts.toLocaleString()} usable hosts
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

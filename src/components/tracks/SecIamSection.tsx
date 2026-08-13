@@ -145,7 +145,8 @@ export default function SecIamSection() {
         <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">IAM policy evaluator</h3>
         <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
           Build an access request and evaluate it against a local policy set. Explicit Deny rules,
-          wildcard matching, and MFA conditions are handled by the shared evaluator.
+          wildcard matching, and MFA conditions are handled by the shared evaluator. The source field
+          is contextual only in this fixture; production policies may add network or device conditions.
         </p>
       </div>
 

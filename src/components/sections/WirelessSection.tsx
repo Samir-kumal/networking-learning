@@ -92,14 +92,14 @@ export default function WirelessSection() {
       name: "IoT-Sensors",
       vlanId: 30,
       subnet: "172.16.30.0/24",
-      auth: "WPA3-SAE / MUP (Pre-Shared Key)",
+      auth: "WPA3-SAE (PMF required)",
       priority: "Best Effort",
       color: "text-emerald-600 dark:text-emerald-400",
       bgBadge: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700",
       border: "border-emerald-400",
       acl: "MQTT Broker & CoAP Gateway Only",
       gateway: "172.16.30.1",
-      desc: "Dedicated segment for smart lights, thermostats, and industrial sensors with zero peer-to-peer communication allowed.",
+      desc: "Dedicated segment for smart lights, thermostats, and industrial sensors. Peer-to-peer access is a policy choice enforced by the WLAN and network controls.",
     },
     voice: {
       id: "voice",
@@ -107,13 +107,13 @@ export default function WirelessSection() {
       vlanId: 40,
       subnet: "10.40.0.0/24",
       auth: "WPA2-Enterprise (PEAP-MSCHAPv2)",
-      priority: "Voice (WMM / 802.11r Fast BSS)",
+      priority: "Voice (WMM / optional 802.11r)",
       color: "text-violet-600 dark:text-violet-400",
       bgBadge: "bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 border-violet-200 dark:border-violet-700",
       border: "border-violet-400",
       acl: "SIP PBX & Telephony Servers",
       gateway: "10.40.0.1",
-      desc: "Optimized for wireless IP phones and Wi-Fi calling with 802.11r seamless roaming (<50ms handoff delay).",
+      desc: "Can support wireless IP phones and Wi-Fi calling with QoS and, where supported, 802.11r fast transition; handoff time depends on the client and WLAN design.",
     },
   };
 
@@ -123,45 +123,45 @@ export default function WirelessSection() {
   const bandData: Record<"2.4ghz" | "5ghz" | "6ghz", BandInfo> = {
     "2.4ghz": {
       name: "2.4 GHz Band (Legacy & IoT)",
-      spectrum: "2.412 - 2.484 GHz (~83.5 MHz)",
-      channels: "3 Non-overlapping (1, 6, 11 @ 20MHz)",
-      maxWidth: "20 MHz (40 MHz not recommended)",
-      range: "Long (~100 meters outdoors / 35m indoor)",
-      penetration: "Excellent (Passes through concrete & drywall easily)",
-      maxPhy: "Up to 286 - 1,148 Mbps (Wi-Fi 6 4x4)",
-      interference: "Extremely High (Microwaves, Bluetooth, Zigbee, Baby monitors)",
-      keyTech: "DSSS / CCK (802.11b), OFDM (802.11g/n), OFDMA (802.11ax)",
-      useCase: "Smart home devices, IoT sensors, legacy hardware, long-range outdoor coverage.",
-      pros: ["Maximum signal range and wall penetration", "Compatible with 100% of Wi-Fi hardware"],
-      cons: ["Only 3 non-overlapping channels (Heavy congestion)", "Severe Bluetooth & Microwave interference"],
+      spectrum: "2.400 - 2.4835 GHz (regulatory-domain dependent channel use)",
+      channels: "Channels 1, 6, and 11 are a common non-overlapping 20 MHz plan in North America",
+      maxWidth: "20 MHz is common; 40 MHz may be available but is often avoided in dense deployments",
+      range: "Often longer reach than higher bands; distance depends on power, antennas, and the environment",
+      penetration: "Often less attenuated than higher frequencies, but building materials vary",
+      maxPhy: "PHY rate depends on Wi-Fi generation, channel width, streams, and modulation",
+      interference: "Unlicensed users, microwaves, Bluetooth, Zigbee, and neighboring WLANs",
+      keyTech: "DSSS / CCK (802.11b), OFDM (802.11g), OFDM/OFDMA (802.11n/ax)",
+      useCase: "Broad-compatibility devices, IoT, and coverage where capacity demands are modest.",
+      pros: ["Often better reach through typical indoor obstacles", "Broad client compatibility"],
+      cons: ["Fewer clean 20 MHz planning choices", "Often congested in homes and dense deployments"],
     },
     "5ghz": {
       name: "5 GHz Band (Enterprise Workhorse)",
-      spectrum: "5.150 - 5.850 GHz (~500+ MHz)",
-      channels: "Up to 25 Non-overlapping 20MHz channels",
-      maxWidth: "20 / 40 / 80 / 160 MHz",
-      range: "Medium (~35 meters indoor / line of sight)",
-      penetration: "Moderate (Attenuated by concrete and brick walls)",
-      maxPhy: "Up to 4.8 - 9.6 Gbps (Wi-Fi 6 8x8)",
-      interference: "Low to Moderate (Radar / DFS channels in UNII-2)",
-      keyTech: "802.11a/n/ac/ax, DFS, MU-MIMO, Explicit Beamforming",
-      useCase: "High-density office laptops, corporate smartphones, 4K streaming, low-latency applications.",
-      pros: ["Abundant non-overlapping spectrum", "High throughput with 40MHz / 80MHz channel bonding"],
-      cons: ["DFS channels require radar evacuation checks", "Higher signal loss through solid walls vs 2.4GHz"],
+      spectrum: "5 GHz channels and permitted power vary by regulatory domain",
+      channels: "More 20 MHz planning choices than 2.4 GHz; exact count depends on the region and DFS rules",
+      maxWidth: "20 / 40 / 80 / 160 MHz where permitted by the AP, client, and regulatory domain",
+      range: "Often shorter reach than 2.4 GHz at the same conditions; environment and power dominate",
+      penetration: "Often more attenuated by walls than 2.4 GHz",
+      maxPhy: "PHY rate depends on Wi-Fi generation, channel width, streams, and modulation",
+      interference: "Neighboring WLANs and, on DFS channels, radar-detection requirements",
+      keyTech: "802.11a/n/ac/ax, DFS, MU-MIMO, and beamforming",
+      useCase: "Higher-capacity client access when the site supports suitable channel reuse.",
+      pros: ["More spectrum for channel reuse", "Supports wider channels where appropriate"],
+      cons: ["DFS behavior can require channel changes", "Higher wall attenuation than 2.4 GHz is common"],
     },
     "6ghz": {
-      name: "6 GHz Band (Wi-Fi 6E & Wi-Fi 7 Next-Gen)",
-      spectrum: "5.925 - 7.125 GHz (~1,200 MHz spectrum!)",
-      channels: "Up to 59 Non-overlapping 20MHz (or 7x 160MHz / 3x 320MHz)",
-      maxWidth: "20 / 40 / 80 / 160 / 320 MHz (Wi-Fi 7 Ultra-wide)",
-      range: "Short to Medium (~15 - 25 meters indoor)",
-      penetration: "Low (Requires dense Access Point placement)",
-      maxPhy: "Up to 46.1 Gbps (Wi-Fi 7 320MHz 4096-QAM MLO)",
-      interference: "Zero Legacy Interference (No 802.11b/a/g/n/ac devices allowed)",
-      keyTech: "Wi-Fi 6E / Wi-Fi 7 (802.11be), Multi-Link Operation (MLO), AFC (Automated Frequency Coordination), 4096-QAM",
-      useCase: "AR/VR headsets, ultra-low-latency financial trading, uncompressed 8K video, high-density auditoriums.",
-      pros: ["Massive 1.2 GHz clean spectrum pool", "Zero legacy slow devices allowed on 6GHz radio", "Supports 320 MHz channels & MLO"],
-      cons: ["Shortest physical propagation distance", "Requires Wi-Fi 6E/7 client support"],
+      name: "6 GHz Band (Wi-Fi 6E & Wi-Fi 7)",
+      spectrum: "5.925 - 7.125 GHz where the regulatory domain permits the full band",
+      channels: "Channel count and power rules vary by country; 20/160/320 MHz availability is regulatory- and device-dependent",
+      maxWidth: "20 / 40 / 80 / 160 / 320 MHz where supported",
+      range: "Often shorter reach than 5 GHz at the same conditions; design depends on power and environment",
+      penetration: "Higher free-space and material loss than lower bands is common",
+      maxPhy: "Wi-Fi 7 can advertise multi-gigabit theoretical PHY rates; actual throughput is lower and configuration-dependent",
+      interference: "No legacy 2.4/5 GHz clients on the band, but neighboring 6 GHz WLANs and incumbent users still matter",
+      keyTech: "Wi-Fi 6E / Wi-Fi 7, Multi-Link Operation, AFC where required, and 4096-QAM",
+      useCase: "Newer clients needing additional capacity and wider channels.",
+      pros: ["Additional spectrum in supported regions", "No legacy 2.4/5 GHz clients competing on the band"],
+      cons: ["Requires compatible clients and APs", "Shorter reach and regulatory limits can constrain coverage"],
     },
   };
 
@@ -174,30 +174,45 @@ export default function WirelessSection() {
       return {
         type: "Co-Channel Interference (CCI)",
         badge: "bg-[#ffa657]/20 text-amber-600 dark:text-amber-400 border-amber-400/40",
-        desc: "Both APs share the exact same radio channel. APs use CSMA/CA to coordinate airtime. Throughput drops by ~50%, but data packets remain uncorrupted.",
-        severity: "Moderate Interference",
+        desc: "Both APs use the same channel and therefore share airtime through CSMA/CA. Capacity depends on load and contention; there is no fixed percentage loss and frames may still be retransmitted.",
+        severity: "Shared Airtime",
       };
     } else if (diff < 5) {
       return {
-        type: "Adjacent Channel Interference (ACI)",
+        type: "Possible Adjacent-Channel Overlap",
         badge: "bg-[#ff7b72]/20 text-rose-600 dark:text-rose-400 border-rose-400/40",
-        desc: "CRITICAL: Spectral sidebands overlap directly! Transmissions distort each other's preambles, causing severe frame corruption, high CRC errors, and massive packet retries.",
-        severity: "Severe Interference (Avoid!)",
+        desc: "This simplified 20 MHz channel-number heuristic flags nearby channels that may overlap. Actual interference depends on channel width, regulatory plan, radio filters, and local RF energy.",
+        severity: "Review Channel Plan",
       };
     } else {
       return {
-        type: "Clean / Zero Overlap",
+        type: "Separated in This Simplified Model",
         badge: "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-400/40",
-        desc: "Channels are separated by at least 25 MHz (5 channel numbers). Zero spectral overlap. Optimal cellular AP deployment!",
-        severity: "Optimal",
+        desc: "The selected channels are separated by at least five channel numbers in this 20 MHz model. Validate the result against the actual regulatory channel plan and width.",
+        severity: "Lower Overlap Risk",
       };
     }
   };
+  // This is an educational channel-number heuristic, not an RF propagation model.
+  const simChDiff = Math.abs(simAp1Ch - simAp2Ch);
+  let overlapStatus = "Separated in simplified model";
+  let overlapBadge = "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400";
+
+  if (simChDiff === 0) {
+    overlapStatus = "Co-channel airtime sharing";
+    overlapBadge = "bg-[#ffa657]/20 text-amber-600 dark:text-amber-400";
+  } else if (simBand === "2.4" && simChDiff < 5) {
+    overlapStatus = "Possible adjacent-channel overlap";
+    overlapBadge = "bg-[#ff7b72]/20 text-rose-600 dark:text-rose-400";
+  } else if ((simBand === "5" || simBand === "6") && simChDiff < 4) {
+    overlapStatus = "Possible channel-width overlap";
+    overlapBadge = "bg-[#ff7b72]/20 text-rose-600 dark:text-rose-400";
+  }
 
   const chInterference = calculate24GhzInterference(ap1Channel, ap2Channel);
 
   // --- Part 4 Logic: Path Loss & SNR Calculator ---
-  // Free Space Path Loss: FSPL = 20*log10(d) + 20*log10(f_GHz) + 32.44
+  // Free-space path-loss estimate with a configurable illustrative obstacle penalty.
   const fGHz = simBand === "2.4" ? 2.437 : simBand === "5" ? 5.24 : 6.175;
   const pathLoss = Math.round(
     20 * Math.log10(Math.max(1, distance)) + 20 * Math.log10(fGHz) + 32.44 + obstacleLoss
@@ -210,7 +225,7 @@ export default function WirelessSection() {
   let qamModulation = "BPSK";
   let phySpeed = 0;
   let linkQuality = "Disconnected / No Link";
-  let linkColor = "text-rose-600 dark:text-rose-400";
+  let linkColor = "text-slate-500 dark:text-slate-400";
 
   if (snr >= 35) {
     mcsIndex = "MCS 11 (Wi-Fi 6)";
@@ -244,21 +259,6 @@ export default function WirelessSection() {
     linkColor = "text-rose-600 dark:text-rose-400";
   }
 
-  // Calculate AP1 vs AP2 Channel Overlap in visualizer
-  const simChDiff = Math.abs(simAp1Ch - simAp2Ch);
-  let overlapStatus = "No Overlap";
-  let overlapBadge = "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400";
-
-  if (simChDiff === 0) {
-    overlapStatus = "Co-Channel Interference (100% Channel Collision)";
-    overlapBadge = "bg-[#ffa657]/20 text-amber-600 dark:text-amber-400";
-  } else if (simBand === "2.4" && simChDiff < 5) {
-    overlapStatus = `Adjacent Channel Collision (${(5 - simChDiff) * 20}% Spectral Overlap)`;
-    overlapBadge = "bg-[#ff7b72]/20 text-rose-600 dark:text-rose-400";
-  } else if ((simBand === "5" || simBand === "6") && simChDiff < 4) {
-    overlapStatus = "Bonded Channel Segment Overlap";
-    overlapBadge = "bg-[#ff7b72]/20 text-rose-600 dark:text-rose-400";
-  }
 
   return (
     <section
@@ -272,12 +272,12 @@ export default function WirelessSection() {
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>
-          23. Wireless & WLAN Integration
+          20. Wireless & WLAN Integration
         </h2>
       </div>
 
       <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Modern Enterprise Wireless LANs (WLANs) seamlessly bridge unguided RF radio signals to wired Ethernet infrastructures. This section explores <strong className="text-indigo-600 dark:text-indigo-400">SSID-to-VLAN mapping</strong>, <strong className="text-emerald-600 dark:text-emerald-400">Wireless LAN Controller (WLC) topologies</strong>, <strong className="text-amber-600 dark:text-amber-400">RF spectrum frequency bands (2.4GHz, 5GHz, 6GHz)</strong>, <strong className="text-violet-600 dark:text-violet-400">Channel Bonding</strong>, and real-time <strong className="text-rose-600 dark:text-rose-400">Signal Propagation & Interference dynamics</strong>.
+        Modern enterprise wireless LANs bridge 802.11 radio networks to wired Ethernet through access points and, in many designs, a wireless LAN controller. This section explores <strong className="text-indigo-600 dark:text-indigo-400">SSID-to-VLAN mapping</strong>, <strong className="text-emerald-600 dark:text-emerald-400">WLC topologies</strong>, <strong className="text-amber-600 dark:text-amber-400">2.4GHz, 5GHz, and 6GHz bands</strong>, <strong className="text-violet-600 dark:text-violet-400">RF planning</strong>, and <strong className="text-rose-600 dark:text-rose-400">Wi-Fi 6/6E/7 behavior</strong>.
       </p>
 
       {/* ========================================================================= */}
@@ -451,7 +451,7 @@ export default function WirelessSection() {
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-100 text-indigo-600 dark:text-indigo-400">CAPWAP Tunnel</span>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              AP handles real-time 802.11 beaconing and frame acknowledgments (Local MAC). All user data packets are encapsulated in <strong>CAPWAP tunnels (UDP 5247)</strong> and sent to the WLC. WLC performs centralized 802.1X authentication, L2 VLAN tagging, and firewall policy enforcement.
+              The AP handles time-sensitive 802.11 radio work. In a centralized forwarding design, user traffic commonly travels in CAPWAP data (UDP 5247) to the WLC, while authentication and policy placement depend on the controller design.
             </p>
           </div>
 
@@ -461,7 +461,7 @@ export default function WirelessSection() {
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">Branch & Remote APs</span>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Designed for branch offices over WAN. Management and control traffic (CAPWAP Control UDP 5246) goes to the central WLC, but user payload traffic is <strong>switched locally onto the local switch VLANs</strong>. If WAN disconnects, branch APs remain operational locally.
+              In local-switching designs, CAPWAP control traffic (UDP 5246) reaches the WLC while user payload is switched onto local VLANs. Continued branch service during a WAN outage depends on the AP, authentication, and site configuration.
             </p>
           </div>
         </div>
@@ -591,45 +591,45 @@ export default function WirelessSection() {
             <tbody className="divide-y divide-[#30363d] text-slate-500 dark:text-slate-400">
               <tr>
                 <td className="p-3 font-bold text-slate-900 dark:text-slate-100">Frequency Range</td>
-                <td className="p-3">2.412 - 2.484 GHz</td>
-                <td className="p-3">5.150 - 5.850 GHz</td>
-                <td className="p-3">5.925 - 7.125 GHz</td>
+                <td className="p-3">2.400 - 2.4835 GHz (region-dependent use)</td>
+                <td className="p-3">5 GHz ranges vary by regulatory domain</td>
+                <td className="p-3">5.925 - 7.125 GHz where the region permits the full band</td>
               </tr>
               <tr className="bg-white/50 dark:bg-slate-800/50">
-                <td className="p-3 font-bold text-slate-900 dark:text-slate-100">Total Spectrum Pool</td>
-                <td className="p-3 text-amber-600 dark:text-amber-400">~83.5 MHz</td>
-                <td className="p-3 text-indigo-600 dark:text-indigo-400">~500 MHz</td>
-                <td className="p-3 text-violet-600 dark:text-violet-400 font-bold">~1,200 MHz (Massive)</td>
+                <td className="p-3 font-bold text-slate-900 dark:text-slate-100">Available Spectrum</td>
+                <td className="p-3 text-amber-600 dark:text-amber-400">About 83.5 MHz of band space</td>
+                <td className="p-3 text-indigo-600 dark:text-indigo-400">Varies by region and permitted channels</td>
+                <td className="p-3 text-violet-600 dark:text-violet-400 font-bold">Up to about 1,200 MHz in regions with the full allocation</td>
               </tr>
               <tr>
-                <td className="p-3 font-bold text-slate-900 dark:text-slate-100">20MHz Non-Overlapping Ch.</td>
-                <td className="p-3">3 Channels (1, 6, 11)</td>
-                <td className="p-3">Up to 25 Channels</td>
-                <td className="p-3 font-bold text-emerald-600 dark:text-emerald-400">Up to 59 Channels</td>
+                <td className="p-3 font-bold text-slate-900 dark:text-slate-100">20 MHz Planning Choices</td>
+                <td className="p-3">1, 6, and 11 are a common North American plan</td>
+                <td className="p-3">Count varies by region, DFS, and channel availability</td>
+                <td className="p-3 font-bold text-emerald-600 dark:text-emerald-400">Count varies by region and power class</td>
               </tr>
               <tr className="bg-white/50 dark:bg-slate-800/50">
-                <td className="p-3 font-bold text-slate-900 dark:text-slate-100">Max Supported Channel Width</td>
-                <td className="p-3">20 MHz (40MHz unsafe)</td>
-                <td className="p-3">20 / 40 / 80 / 160 MHz</td>
-                <td className="p-3 font-bold text-violet-600 dark:text-violet-400">Up to 320 MHz (Wi-Fi 7)</td>
+                <td className="p-3 font-bold text-slate-900 dark:text-slate-100">Channel Width</td>
+                <td className="p-3">20 MHz common; 40 MHz may be supported</td>
+                <td className="p-3">20 / 40 / 80 / 160 MHz where permitted</td>
+                <td className="p-3 font-bold text-violet-600 dark:text-violet-400">Up to 320 MHz with supported Wi-Fi 7 devices and rules</td>
               </tr>
               <tr>
-                <td className="p-3 font-bold text-slate-900 dark:text-slate-100">Indoor Coverage Distance</td>
-                <td className="p-3 text-emerald-600 dark:text-emerald-400">~35m (High penetration)</td>
-                <td className="p-3 text-indigo-600 dark:text-indigo-400">~25m (Moderate penetration)</td>
-                <td className="p-3 text-rose-600 dark:text-rose-400">~15m (Line-of-sight preferred)</td>
+                <td className="p-3 font-bold text-slate-900 dark:text-slate-100">Coverage</td>
+                <td className="p-3 text-emerald-600 dark:text-emerald-400">Often longer reach in the same environment</td>
+                <td className="p-3 text-indigo-600 dark:text-indigo-400">Often shorter reach than 2.4 GHz at the same conditions</td>
+                <td className="p-3 text-rose-600 dark:text-rose-400">Often shorter reach than 5 GHz at the same conditions</td>
               </tr>
               <tr className="bg-white/50 dark:bg-slate-800/50">
                 <td className="p-3 font-bold text-slate-900 dark:text-slate-100">Interference Sources</td>
-                <td className="p-3 text-rose-600 dark:text-rose-400">Microwaves, Bluetooth, Zigbee</td>
-                <td className="p-3 text-amber-600 dark:text-amber-400">DFS Weather Radars</td>
-                <td className="p-3 text-emerald-600 dark:text-emerald-400 font-bold">Zero Legacy Devices (Clean)</td>
+                <td className="p-3 text-rose-600 dark:text-rose-400">Neighboring WLANs, microwaves, Bluetooth, and Zigbee</td>
+                <td className="p-3 text-amber-600 dark:text-amber-400">Neighboring WLANs and radar rules on DFS channels</td>
+                <td className="p-3 text-emerald-600 dark:text-emerald-400 font-bold">No legacy 2.4/5 GHz clients; other 6 GHz users still contend</td>
               </tr>
               <tr>
-                <td className="p-3 font-bold text-slate-900 dark:text-slate-100">Max Theoretical PHY Speed</td>
-                <td className="p-3">1.1 Gbps (Wi-Fi 6)</td>
-                <td className="p-3">9.6 Gbps (Wi-Fi 6)</td>
-                <td className="p-3 text-violet-600 dark:text-violet-400 font-bold">46.1 Gbps (Wi-Fi 7 MLO)</td>
+                <td className="p-3 font-bold text-slate-900 dark:text-slate-100">Theoretical PHY Rate</td>
+                <td className="p-3">Depends on Wi-Fi generation, width, streams, and modulation</td>
+                <td className="p-3">Depends on Wi-Fi generation, width, streams, and modulation</td>
+                <td className="p-3 text-violet-600 dark:text-violet-400 font-bold">Wi-Fi 7 advertises multi-gigabit rates; actual throughput varies</td>
               </tr>
             </tbody>
           </table>
@@ -665,6 +665,7 @@ export default function WirelessSection() {
               </label>
               <input
                 type="range"
+                aria-label="Access Point 1 channel"
                 min="1"
                 max="11"
                 value={ap1Channel}
@@ -684,6 +685,7 @@ export default function WirelessSection() {
               </label>
               <input
                 type="range"
+                aria-label="Access Point 2 channel"
                 min="1"
                 max="11"
                 value={ap2Channel}
@@ -857,7 +859,7 @@ export default function WirelessSection() {
             {(bondingWidth === 320) && (
               <div className="p-3 rounded-lg bg-[#bc8cff]/20 border border-violet-300 text-xs text-slate-900 dark:text-slate-100">
                 <div className="font-bold text-violet-600 dark:text-violet-400 mb-1">Wi-Fi 7 (802.11be) 320 MHz Channel (6 GHz Only)</div>
-                Bonding 16x contiguous 20MHz channels into a single 320 MHz pipe delivers up to 4.8 Gbps per single spatial stream! Requires pristine SNR and line of sight.
+                A 320 MHz channel combines sixteen contiguous 20 MHz channels. It can support multi-gigabit PHY rates with favorable modulation and coding; actual throughput depends on signal quality, client capability, and airtime sharing.
               </div>
             )}
           </div>
@@ -929,6 +931,7 @@ export default function WirelessSection() {
               </div>
               <input
                 type="range"
+                aria-label="Transmit power"
                 min="5"
                 max="30"
                 value={txPower}
@@ -945,6 +948,7 @@ export default function WirelessSection() {
               </div>
               <input
                 type="range"
+                aria-label="Wireless signal distance"
                 min="1"
                 max="60"
                 value={distance}
@@ -957,6 +961,7 @@ export default function WirelessSection() {
             <div>
               <label className="block text-xs font-mono text-slate-500 dark:text-slate-400 mb-1">Obstacles / Walls:</label>
               <select
+                aria-label="Obstacles and walls"
                 value={obstacleLoss}
                 onChange={(e) => setObstacleLoss(parseInt(e.target.value))}
                 className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
@@ -978,6 +983,7 @@ export default function WirelessSection() {
             <div>
               <label className="block text-xs font-mono text-slate-500 dark:text-slate-400 mb-1">RF Noise Floor Preset:</label>
               <select
+                aria-label="RF noise floor preset"
                 value={noiseFloor}
                 onChange={(e) => setNoiseFloor(parseInt(e.target.value))}
                 className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
@@ -993,6 +999,7 @@ export default function WirelessSection() {
             <div>
               <label className="block text-xs font-mono text-indigo-600 dark:text-indigo-400 mb-1">AP 1 Primary Channel:</label>
               <select
+                aria-label="Access point 1 primary channel"
                 value={simAp1Ch}
                 onChange={(e) => setSimAp1Ch(parseInt(e.target.value))}
                 className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
@@ -1011,6 +1018,7 @@ export default function WirelessSection() {
             <div>
               <label className="block text-xs font-mono text-amber-600 dark:text-amber-400 mb-1">AP 2 Co-Located Channel:</label>
               <select
+                aria-label="Access point 2 co-located channel"
                 value={simAp2Ch}
                 onChange={(e) => setSimAp2Ch(parseInt(e.target.value))}
                 className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
@@ -1033,7 +1041,7 @@ export default function WirelessSection() {
 
               <div className="space-y-2">
                 <div className="flex justify-between p-2 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
-                  <span className="text-slate-500 dark:text-slate-400">Path Loss (FSPL):</span>
+                  <span className="text-slate-500 dark:text-slate-400">Free-space + obstacle estimate:</span>
                   <span className="text-rose-600 dark:text-rose-400 font-bold">-{pathLoss} dB</span>
                 </div>
 
@@ -1057,7 +1065,7 @@ export default function WirelessSection() {
                 </div>
 
                 <div className="flex justify-between p-2 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
-                  <span className="text-slate-500 dark:text-slate-400">Max PHY Throughput:</span>
+                  <span className="text-slate-500 dark:text-slate-400">Illustrative PHY Estimate:</span>
                   <span className="text-emerald-600 dark:text-emerald-400 font-bold">{phySpeed} Mbps</span>
                 </div>
               </div>

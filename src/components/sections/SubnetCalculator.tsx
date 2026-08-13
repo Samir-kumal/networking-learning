@@ -23,6 +23,9 @@ export default function SubnetCalculator() {
       setResult(res);
     }
   };
+  const resultCidr = result ? Number(result.networkAddress.split("/")[1]) : cidrInput;
+  const resultIsRfc3021 = resultCidr === 31;
+  const resultIsHostRoute = resultCidr === 32;
 
   const quickReference = [
     { cidr: "/16", mask: "255.255.0.0", hosts: "65,534", use: "Large Enterprise / Cloud VPC" },
@@ -32,6 +35,8 @@ export default function SubnetCalculator() {
     { cidr: "/27", mask: "255.255.255.224", hosts: "30", use: "Branch Office / Small Workgroup" },
     { cidr: "/28", mask: "255.255.255.240", hosts: "14", use: "Management Network / DMZ Subnet" },
     { cidr: "/30", mask: "255.255.255.252", hosts: "2", use: "Point-to-Point Router Link" },
+    { cidr: "/31", mask: "255.255.255.254", hosts: "2", use: "RFC 3021 Point-to-Point Link (both endpoints usable)" },
+    { cidr: "/32", mask: "255.255.255.255", hosts: "1", use: "Host Route (one endpoint)" },
   ];
 
   return (
@@ -51,7 +56,7 @@ export default function SubnetCalculator() {
       </div>
 
       <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Enter an IPv4 address and select a CIDR prefix length to calculate network boundaries, broadcast addresses, usable host ranges, and subnet masks in real time.
+        Enter an IPv4 address and select a CIDR prefix length to calculate subnet or route boundaries, usable address ranges, and subnet masks in real time.
       </p>
 
       {/* Input Form */}
@@ -81,7 +86,7 @@ export default function SubnetCalculator() {
               onChange={(e) => setCidrInput(Number(e.target.value))}
               className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 font-mono text-sm focus:outline-none focus:border-indigo-400 transition-colors cursor-pointer"
             >
-              {Array.from({ length: 30 }, (_, i) => i + 1).map((c) => (
+              {Array.from({ length: 32 }, (_, i) => i + 1).map((c) => (
                 <option key={c} value={c}>
                   /{c}
                 </option>
@@ -112,53 +117,71 @@ export default function SubnetCalculator() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
           <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
             <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-              Network Address
+              {resultIsRfc3021 || resultIsHostRoute ? "Route Prefix" : "Network Address"}
             </div>
             <div className="text-xl font-bold font-mono text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
               {result.networkAddress}
               <CopyButton text={result.networkAddress} label="" className="!px-1.5 !py-0.5" />
             </div>
             <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-              Subnet identifier (All host bits = 0)
+              {resultIsHostRoute
+                ? "Single host route address (all host bits = 0)"
+                : resultIsRfc3021
+                  ? "Point-to-point prefix base address"
+                  : "Subnet identifier (all host bits = 0)"}
             </div>
           </div>
 
           <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
             <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-              Broadcast Address
+              {resultIsRfc3021 || resultIsHostRoute ? "No Broadcast Address" : "Broadcast Address"}
             </div>
             <div className="text-xl font-bold font-mono text-rose-600 dark:text-rose-400 flex items-center gap-1.5">
               {result.broadcastAddress}
-              <CopyButton text={result.broadcastAddress} label="" className="!px-1.5 !py-0.5" />
+              {!resultIsRfc3021 && !resultIsHostRoute && (
+                <CopyButton text={result.broadcastAddress} label="" className="!px-1.5 !py-0.5" />
+              )}
             </div>
             <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-              Subnet broadcast target (All host bits = 1)
+              {resultIsRfc3021
+                ? "Both addresses are usable endpoints under RFC 3021; no broadcast address"
+                : resultIsHostRoute
+                  ? "Host routes have no broadcast address"
+                  : "Subnet broadcast target (all host bits = 1)"}
             </div>
           </div>
 
           <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
             <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-              First Usable Host
+              {resultIsRfc3021 ? "First Usable Endpoint" : resultIsHostRoute ? "Host Route Address" : "First Usable Host"}
             </div>
             <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
               {result.firstUsable}
               <CopyButton text={result.firstUsable} label="" className="!px-1.5 !py-0.5" />
             </div>
             <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-              First assignable host IP in range
+              {resultIsRfc3021
+                ? "Lower point-to-point endpoint"
+                : resultIsHostRoute
+                  ? "Single assignable route endpoint"
+                  : "First assignable host IP in range"}
             </div>
           </div>
 
           <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
             <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-              Last Usable Host
+              {resultIsRfc3021 ? "Last Usable Endpoint" : resultIsHostRoute ? "Host Route Address" : "Last Usable Host"}
             </div>
             <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
               {result.lastUsable}
               <CopyButton text={result.lastUsable} label="" className="!px-1.5 !py-0.5" />
             </div>
             <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-              Last assignable host IP in range
+              {resultIsRfc3021
+                ? "Upper point-to-point endpoint"
+                : resultIsHostRoute
+                  ? "Single assignable route endpoint"
+                  : "Last assignable host IP in range"}
             </div>
           </div>
 
@@ -183,7 +206,11 @@ export default function SubnetCalculator() {
               {result.usableHosts}
             </div>
             <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-              Total assignable host IP addresses
+              {resultIsRfc3021
+                ? "Two assignable point-to-point endpoint addresses"
+                : resultIsHostRoute
+                  ? "One assignable host-route address"
+                  : "Total assignable host IP addresses"}
             </div>
           </div>
         </div>

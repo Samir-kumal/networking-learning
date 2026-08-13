@@ -100,8 +100,8 @@ const OSI_LAYERS: OsiLayer[] = [
     pdu: "Packet",
     protocols: ["IPv4", "IPv6", "ICMP", "IPsec", "IGMP"],
     addressing: "IP Addresses (e.g. 192.168.1.50 -> 93.184.216.34)",
-    headerAdded: "Network IP Header (Src/Dst IP, TTL, Protocol, ID, Checksum)",
-    description: "Determines optimal routing paths across logically separate networks and handles logical IP addressing.",
+    headerAdded: "IPv4 header (Src/Dst IP, TTL, Protocol, ID, Checksum); IPv6 uses a different base header",
+    description: "Determines forwarding across logically separate networks and carries logical IP addressing.",
     color: "#ff7b72",
   },
   {
@@ -146,7 +146,7 @@ const ETHERNET_HEADER: HeaderField[] = [
     offsetBytes: "06-11 (6 Bytes)",
     sampleHex: "00 1A 2B 3C 4D 5E",
     sampleDec: "00:1a:2b:3c:4d:5e (Client Host MAC)",
-    purpose: "Hardware burned-in MAC address of the local transmitting device NIC.",
+    purpose: "Identifies the source interface on the local link; it may be hardware-assigned or locally administered.",
     color: "#7ee787",
   },
   {
@@ -166,7 +166,7 @@ const ETHERNET_HEADER: HeaderField[] = [
     offsetBytes: "14-1513 (46-1500 Bytes)",
     sampleHex: "45 00 00 3C 1C 46 40 00 40 06...",
     sampleDec: "Encapsulated IPv4 Packet",
-    purpose: "The higher layer PDU payload (IP packet). Must be at least 46 bytes (padded if necessary) up to maximum MTU (1500 bytes).",
+    purpose: "Carries the IP packet; Ethernet pads a payload below 46 bytes, and a typical Ethernet MTU permits up to 1500 bytes of IP payload.",
     color: "#bc8cff",
   },
   {
@@ -312,7 +312,7 @@ const TCP_HEADER: HeaderField[] = [
     offsetBytes: "04-07 (4 Bytes)",
     sampleHex: "3A 9F 12 00",
     sampleDec: "983503360 (Initial Seq Num ISN)",
-    purpose: "Tracks byte offset sequence position of data sent. Guarantees in-order reassembly and duplicate packet elimination.",
+    purpose: "Tracks the byte sequence position of data so TCP can support ordered delivery and duplicate suppression.",
     color: "#ffa657",
   },
   {
@@ -784,7 +784,7 @@ export default function PacketSection() {
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>
-          20. Packet Encapsulation & Analysis
+          17. Packet Encapsulation & Analysis
         </h2>
       </div>
 
@@ -1339,6 +1339,7 @@ export default function PacketSection() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="e.g. 192.168.1.50, SYN, HTTP GET..."
+              aria-label="Wireshark display filter"
               className="flex-1 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded px-3 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-indigo-400"
             />
             {searchQuery && (

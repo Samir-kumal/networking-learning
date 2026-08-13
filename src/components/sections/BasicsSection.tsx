@@ -20,9 +20,7 @@ export default function BasicsSection() {
       </div>
 
       <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        A <strong className="text-slate-900 dark:text-slate-100">Subnet (Subnetwork)</strong> is a logical subdivision of an IP network. 
-        By partitioning a large network into smaller, isolated sub-networks, organization network administrators 
-        minimize broadcast noise, enhance security isolation, and optimize Layer 3 routing efficiency across local and cloud environments.
+        A <strong className="text-slate-900 dark:text-slate-100">subnet (subnetwork)</strong> is a logical subdivision of an IP network. A prefix and mask define which addresses are on the local IP network and which destinations require a router. In common designs, each subnet is mapped to a VLAN or other Layer 2 segment, while routing and policy controls determine whether subnets can communicate.
       </p>
 
       {/* 3 Benefit Cards */}
@@ -37,12 +35,12 @@ export default function BasicsSection() {
               Performance & Traffic Control
             </h3>
             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-              Subnetting constrains Layer 2 broadcast domains. Without subnets, broadcast frames (ARP, DHCP) flood every host on the switch, causing broadcast storms and high network latency.
+              Switches and VLANs define the Layer 2 broadcast domain. Subnet boundaries give hosts an IP-level on-link scope, so ARP and DHCP broadcasts normally stay within the associated segment.
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs font-mono text-indigo-600 dark:text-indigo-400">
             <span>Broadcast Scope</span>
-            <span>Local Only</span>
+            <span>Normally Local</span>
           </div>
         </div>
 
@@ -56,7 +54,7 @@ export default function BasicsSection() {
               Enhanced Security Isolation
             </h3>
             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-              Enforces Zero-Trust boundary controls between host groups. Isolates sensitive infrastructure (Database, Payment Gateways, Admin) from public-facing web servers and Guest Wi-Fi.
+              Subnetting provides an addressing boundary; it does not enforce security by itself. Firewalls, ACLs, routing policy, and identity controls must explicitly restrict access between sensitive and less-trusted networks.
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs font-mono text-emerald-600 dark:text-emerald-400">
@@ -75,7 +73,7 @@ export default function BasicsSection() {
               Logical Addressing & Scale
             </h3>
             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-              Enables structured IP Address Management (IPAM). Facilitates route summarization, simplified troubleshooting, and scalable allocation across physical buildings or cloud Availability Zones.
+              A deliberate addressing hierarchy supports IPAM, route summarization, and predictable growth across buildings, sites, or cloud regions.
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs font-mono text-violet-600 dark:text-violet-400">
@@ -93,7 +91,7 @@ export default function BasicsSection() {
               Network Topology Example: 192.168.1.0/24 Subnet Partitioning
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              A single Class C block divided into 3 distinct functional subnets with a central Layer 3 Gateway Router.
+              A single private /24 CIDR block divided into 3 functional subnets with a central Layer 3 gateway router.
             </p>
           </div>
           <span className="px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-xs font-mono text-emerald-600 dark:text-emerald-400 whitespace-nowrap self-start sm:self-auto">
@@ -103,17 +101,34 @@ export default function BasicsSection() {
 
         <div className="flex justify-center mb-8">
           <div className="relative group px-6 py-3 rounded-xl bg-white dark:bg-slate-800 border-2 border-indigo-400 text-center shadow-lg shadow-[#58a6ff]/10">
-            <div className="text-xs font-mono text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
+            <div className="text-xs font-mono text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">
               Core Gateway Router
             </div>
-            <div className="flex items-center justify-center gap-2">
-              <div className="text-sm font-mono font-bold text-slate-900 dark:text-slate-100">
-                192.168.1.1 / 24
+            <div className="space-y-1.5 text-left text-xs font-mono">
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-slate-500 dark:text-slate-400">VLAN 10 gateway</span>
+                <span className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-slate-100">
+                  192.168.1.1/26
+                  <CopyButton text="192.168.1.1/26" label="" className="!px-1.5 !py-0.5" />
+                </span>
               </div>
-              <CopyButton text="192.168.1.1/24" label="" className="!px-1.5 !py-0.5" />
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-slate-500 dark:text-slate-400">VLAN 20 gateway</span>
+                <span className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-slate-100">
+                  192.168.1.65/26
+                  <CopyButton text="192.168.1.65/26" label="" className="!px-1.5 !py-0.5" />
+                </span>
+              </div>
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-slate-500 dark:text-slate-400">VLAN 30 gateway</span>
+                <span className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-slate-100">
+                  192.168.1.129/25
+                  <CopyButton text="192.168.1.129/25" label="" className="!px-1.5 !py-0.5" />
+                </span>
+              </div>
             </div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
-              Inter-Subnet Layer 3 Routing & NAT
+            <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
+              One routed gateway interface per VLAN
             </div>
           </div>
         </div>

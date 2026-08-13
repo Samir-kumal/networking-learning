@@ -1,13 +1,16 @@
 "use client";
 
 import { useLayoutEffect, useState } from "react";
-import Sidebar from "@/components/Sidebar";
+import Sidebar, { TRACKS } from "@/components/Sidebar";
 import BackToTop from "@/components/BackToTop";
 import ThemeToggle from "@/components/ThemeToggle";
 import { usePathname } from "next/navigation";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const activeTrack = TRACKS.find((track) =>
+    pathname === track.path || (track.path !== "/" && pathname.startsWith(`${track.path}/`))
+  ) ?? TRACKS[0];
 
   useLayoutEffect(() => {
     if (!window.location.hash) {
@@ -36,7 +39,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-2 text-[12px] text-slate-500 dark:text-slate-400">
             <span className="font-semibold text-slate-700 dark:text-slate-200">DevOps Hub</span>
             <span className="text-slate-300 dark:text-slate-600">/</span>
-            <span>Docker</span>
+            <span>{activeTrack.name}</span>
           </div>
           <div className="flex items-center gap-2 text-[11px]">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-soft-pulse" />
@@ -62,7 +65,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <span className="font-medium text-slate-600 dark:text-slate-300">TypeScript</span> &amp;{" "}
               <span className="font-medium text-slate-600 dark:text-slate-300">Tailwind CSS</span>.
             </span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-semibold">41 interactive engineering modules</span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-semibold">71 interactive engineering modules</span>
           </div>
         </footer>
       </div>

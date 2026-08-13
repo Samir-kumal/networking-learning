@@ -40,23 +40,23 @@ export const MODULE_ITEMS_BY_TRACK: Record<string, NavItem[]> = {
     { id: "basics",          num: "01", label: "Subnet Basics",       category: "Foundations",  icon: "⬡" },
     { id: "binary",          num: "02", label: "IP & Binary",         category: "Foundations",  icon: "⊞" },
     { id: "cidr",            num: "03", label: "CIDR Visualizer",     category: "Foundations",  icon: "◈" },
-    { id: "vlsm",            num: "04", label: "VLSM Design",         category: "Foundations",  icon: "◐" },
-    { id: "vlans",           num: "05", label: "VLANs & Subnets",     category: "Foundations",  icon: "⬡" },
-    { id: "ipv6",            num: "06", label: "IPv6 Next-Gen",       category: "Foundations",  icon: "⑂" },
-    { id: "ips",             num: "07", label: "NAT & IP Types",      category: "Foundations",  icon: "⊕" },
-    { id: "calculator",      num: "08", label: "Subnet Calculator",   category: "Tools",        icon: "◈" },
-    { id: "create",          num: "09", label: "Local Creation",      category: "Tools",        icon: "⊞" },
-    { id: "supernetting",    num: "10", label: "Supernetting",        category: "Tools",        icon: "⬡" },
-    { id: "cloud",           num: "11", label: "Cloud VPCs",          category: "Tools",        icon: "◉" },
-    { id: "firewall",        num: "12", label: "Firewall ACLs",       category: "Tools",        icon: "◐" },
-    { id: "troubleshooting", num: "13", label: "Troubleshooting",     category: "Tools",        icon: "⊘" },
-    { id: "routing",         num: "14", label: "Routing & Gateways",  category: "Advanced",     icon: "⑂" },
-    { id: "security",        num: "15", label: "Security Control",    category: "Advanced",     icon: "◉" },
-    { id: "dhcp",            num: "16", label: "DHCP & IPAM",         category: "Advanced",     icon: "⬡" },
-    { id: "packets",         num: "17", label: "Packets & Wireshark", category: "Advanced",     icon: "◈" },
-    { id: "containers",      num: "18", label: "Containers & K8s",    category: "Advanced",     icon: "⊞" },
-    { id: "diagnostics",     num: "19", label: "CLI Diagnostics",     category: "Advanced",     icon: "◐" },
-    { id: "wireless",        num: "20", label: "Wireless WLAN",       category: "Advanced",     icon: "⬡" },
+    { id: "calculator",      num: "04", label: "Subnet Calculator",   category: "Foundations",  icon: "◈" },
+    { id: "vlsm",            num: "05", label: "VLSM Design",         category: "Foundations",  icon: "◐" },
+    { id: "vlans",           num: "06", label: "VLANs & Subnets",     category: "Foundations",  icon: "⬡" },
+    { id: "ipv6",            num: "07", label: "IPv6 Next-Gen",       category: "Foundations",  icon: "⑂" },
+    { id: "create",          num: "08", label: "Local Creation",      category: "Applied",      icon: "⊞" },
+    { id: "supernetting",    num: "09", label: "Supernetting",        category: "Applied",      icon: "⬡" },
+    { id: "cloud",           num: "10", label: "Cloud VPCs",          category: "Applied",      icon: "◉" },
+    { id: "dhcp",            num: "11", label: "DHCP & IPAM",         category: "Applied",      icon: "⬡" },
+    { id: "ips",             num: "12", label: "NAT & IP Types",      category: "Applied",      icon: "⊕" },
+    { id: "wireless",        num: "13", label: "Wireless WLAN",       category: "Applied",      icon: "⬡" },
+    { id: "routing",         num: "14", label: "Routing & Gateways",  category: "Operations",   icon: "⑂" },
+    { id: "firewall",        num: "15", label: "Firewall ACLs",       category: "Operations",   icon: "◐" },
+    { id: "security",        num: "16", label: "Security Control",    category: "Operations",   icon: "◉" },
+    { id: "packets",         num: "17", label: "Packets & Wireshark", category: "Operations",   icon: "◈" },
+    { id: "diagnostics",     num: "18", label: "CLI Diagnostics",     category: "Operations",   icon: "◐" },
+    { id: "troubleshooting", num: "19", label: "Troubleshooting",     category: "Operations",   icon: "⊘" },
+    { id: "containers",      num: "20", label: "Containers & K8s",    category: "Operations",   icon: "⊞" },
     { id: "practice",        num: "21", label: "Practice Drills",     category: "Evaluation",   icon: "◈" },
     { id: "cheatsheet",      num: "22", label: "Cheat Sheet",         category: "Evaluation",   icon: "⊞" },
     { id: "quiz",            num: "23", label: "Knowledge Quiz",      category: "Evaluation",   icon: "◉" },
@@ -273,6 +273,7 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
             <input
               type="text"
               placeholder="Search modules…"
+              aria-label="Search modules"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-8 pr-3 py-1.5 text-[12px] bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-400 focus:border-indigo-400 transition"
@@ -344,7 +345,7 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
         {!isCollapsed ? (
           <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-soft-pulse flex-shrink-0" />
-            <span>Docker · Port <strong className="text-slate-700 dark:text-slate-300">3008</strong></span>
+            <span>{currentTrack.name}</span>
           </div>
         ) : (
           <div className="flex justify-center">

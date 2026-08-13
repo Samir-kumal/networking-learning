@@ -6,10 +6,14 @@ export default function CreateSubnetSection() {
   const [activeOsTab, setActiveOsTab] = useState<"windows" | "linux">("windows");
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
-  const handleCopy = (code: string, index: number) => {
-    navigator.clipboard.writeText(code);
-    setCopiedIndex(index);
-    setTimeout(() => setCopiedIndex(null), 2000);
+  const handleCopy = async (code: string, index: number) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopiedIndex(index);
+      setTimeout(() => setCopiedIndex(null), 2000);
+    } catch {
+      // Clipboard access may be unavailable or denied; do not report a false success.
+    }
   };
 
   const ciscoCode = `! Step 2: Configure Router Sub-Interfaces (Router-on-a-Stick)
@@ -106,7 +110,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </div>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400">
-            💡 Always reserve <code className="text-slate-900 dark:text-slate-100">.0</code> (Network), <code className="text-slate-900 dark:text-slate-100">.1</code> (Default Gateway), and <code className="text-slate-900 dark:text-slate-100">.255</code> (Broadcast).
+            💡 In this example, .0 is the network address, .1 is chosen as a gateway convention, and .255 is the directed-broadcast address for a /24. Actual gateway selection and address reservations depend on the platform and design.
           </div>
         </div>
 
@@ -134,7 +138,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
               </pre>
               <button
                 onClick={() => handleCopy(ciscoCode, 2)}
-                className="absolute top-2 right-2 px-2 py-1 bg-[#21262d] hover:bg-[#30363d] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
+                className="absolute top-2 right-2 px-2 py-1 bg-[#21262d] hover:bg-[#30363d] text-white dark:text-slate-100 hover:text-white rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
               >
                 {copiedIndex === 2 ? "Copied!" : "Copy"}
               </button>
@@ -185,7 +189,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
               </pre>
               <button
                 onClick={() => handleCopy(activeOsTab === "windows" ? windowsCode : linuxCode, 3)}
-                className="absolute top-2 right-2 px-2 py-1 bg-[#21262d] hover:bg-[#30363d] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
+                className="absolute top-2 right-2 px-2 py-1 bg-[#21262d] hover:bg-[#30363d] text-white dark:text-slate-100 hover:text-white rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
               >
                 {copiedIndex === 3 ? "Copied!" : "Copy"}
               </button>
@@ -217,7 +221,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
               </pre>
               <button
                 onClick={() => handleCopy(testCode, 4)}
-                className="absolute top-2 right-2 px-2 py-1 bg-[#21262d] hover:bg-[#30363d] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
+                className="absolute top-2 right-2 px-2 py-1 bg-[#21262d] hover:bg-[#30363d] text-white dark:text-slate-100 hover:text-white rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
               >
                 {copiedIndex === 4 ? "Copied!" : "Copy"}
               </button>

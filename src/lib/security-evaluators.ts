@@ -157,16 +157,25 @@ export function evaluateZeroTrustRequest(input: {
   destination: 'public' | 'application' | 'data' | 'management' | 'third-party';
   sourceZone: 'internet' | 'workforce' | 'workload' | 'partner';
   mfa: boolean;
+  action?: 'read' | 'write' | 'export' | 'administer';
 }): { decision: Decision; reason: string } {
   if (!input.identityVerified) return { decision: 'DENY', reason: 'Verified identity is required before access.' };
   if (!input.deviceCompliant) return { decision: 'DENY', reason: 'Only compliant devices may access protected resources.' };
   if ((input.destination === 'data' || input.destination === 'management') && input.sourceZone === 'internet') {
     return { decision: 'DENY', reason: 'Internet-originated requests cannot directly reach sensitive resources.' };
   }
-  if ((input.destination === 'data' || input.destination === 'management' || input.destination === 'third-party') && !input.mfa) {
-    return { decision: 'STEP_UP', reason: 'MFA step-up is required for sensitive data access.' };
+  if (input.action === 'administer' && input.destination !== 'management') {
+    return { decision: 'DENY', reason: 'Administrative actions must target an approved management resource.' };
   }
-  return { decision: 'ALLOW', reason: 'Identity, device, source-zone, and destination checks are satisfied.' };
+  if ((input.destination === 'data' || input.destination === 'management' || input.destination === 'third-party' || input.action === 'export' || input.action === 'administer') && !input.mfa) {
+    return {
+      decision: 'STEP_UP',
+      reason: input.action === undefined
+        ? 'MFA step-up is required for sensitive data access.'
+        : 'MFA step-up is required for this sensitive action or destination.',
+    };
+  }
+  return { decision: 'ALLOW', reason: 'Identity, device, source-zone, destination, and action checks are satisfied.' };
 }
 
 export function scoreIncidentResponse(input: {
@@ -189,7 +198,13 @@ export function scoreIncidentResponse(input: {
   score -= requiredSteps.filter((step) => !completed.has(step)).length * 6;
   score = Number.isFinite(score) ? Math.max(0, Math.min(100, score)) : 0;
 
-  const priority = score >= 85 ? 'P1' : score >= 65 ? 'P2' : score >= 40 ? 'P3' : 'P4';
+  const priority = input.severity === 'critical'
+    ? 'P1'
+    : input.severity === 'high'
+      ? (input.contained ? 'P2' : 'P1')
+      : input.severity === 'medium'
+        ? (input.contained ? 'P3' : 'P2')
+        : (input.contained ? 'P4' : 'P3');
   let nextAction = 'Conduct post-incident review.';
   if (!input.contained) nextAction = 'Contain affected assets.';
   else if (!input.evidencePreserved) nextAction = 'Preserve forensic evidence.';
@@ -263,7 +278,7 @@ export function scoreCloudPosture(findings: Array<{ id: string; severity: Severi
 export function controlsForDataClass(classification: 'public' | 'internal' | 'confidential' | 'restricted'): { encryption: string; access: string; retention: string; audit: string; masking: string } {
   const controls: Record<typeof classification, { encryption: string; access: string; retention: string; audit: string; masking: string }> = {
     public: {
-      encryption: 'Encryption at rest optional; use TLS in transit.',
+      encryption: 'May be optional under a documented policy; use TLS in transit.',
       access: 'Public read access may be permitted; restrict writes.',
       retention: 'Short, documented retention period.',
       audit: 'Basic access logging.',
@@ -284,7 +299,7 @@ export function controlsForDataClass(classification: 'public' | 'internal' | 'co
       masking: 'Default masking or tokenization outside production.',
     },
     restricted: {
-      encryption: 'Customer-managed encryption keys with envelope encryption.',
+      encryption: 'This local policy expects customer-managed encryption keys with envelope encryption.',
       access: 'Explicit allowlist with MFA and just-in-time access.',
       retention: 'Shortest necessary retention with deletion proof.',
       audit: 'Continuous immutable audit logging with alerting.',

@@ -126,11 +126,11 @@ nc -zv 192.168.20.10 5432`,
       className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex flex-wrap items-center gap-3 mb-4">
         <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
           #troubleshooting
         </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
+        <h2 className="min-w-0 flex-1 text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
           <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊘</span>
           13. Troubleshooting Subnet Issues
         </h2>
@@ -218,6 +218,7 @@ nc -zv 192.168.20.10 5432`,
               <input
                 type="checkbox"
                 checked={!!completedSteps[idx]}
+                aria-label={`Mark ${item.title} as complete`}
                 onChange={() => toggleStep(idx)}
                 className="mt-1 rounded border-slate-200 dark:border-slate-700 text-emerald-600 dark:text-emerald-400 focus:ring-0 bg-white dark:bg-slate-800 cursor-pointer"
               />

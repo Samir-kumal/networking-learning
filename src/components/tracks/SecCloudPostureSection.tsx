@@ -47,8 +47,8 @@ const INITIAL_FINDINGS: CloudPostureFinding[] = [
     title: "Production subnet flow logs are disabled",
     severity: "medium",
     resource: "vpc-0f42a1e9 / subnet-07b3c4d1",
-    evidence: "No accepted or rejected traffic records are delivered to the centralized log bucket.",
-    remediation: "Enable VPC Flow Logs for all production subnets and deliver them to an access-controlled log destination.",
+    evidence: "No accepted or rejected traffic records are delivered to the centralized log destination.",
+    remediation: "Enable VPC Flow Logs for the required production interfaces or subnets and deliver them to an access-controlled log destination.",
     publicExposure: false,
     fixed: false,
   },
@@ -58,19 +58,19 @@ const INITIAL_FINDINGS: CloudPostureFinding[] = [
     title: "Trail is not multi-region or organization-wide",
     severity: "high",
     resource: "arn:aws:cloudtrail:us-east-1:000000000000:trail/example-audit",
-    evidence: "Trail covers us-east-1 only and does not log global service events from other regions.",
-    remediation: "Use an organization trail with multi-region logging, log validation, and a dedicated immutable archive.",
+    evidence: "The sample trail covers us-east-1 only and is not configured as an organization-wide multi-Region trail.",
+    remediation: "Choose a multi-Region or organization trail when the operating model requires it; enable log validation and a dedicated access-controlled archive.",
     publicExposure: false,
     fixed: false,
   },
   {
     id: "kms-rotation",
     control: "KMS",
-    title: "Customer-managed key rotation is disabled",
+    title: "Customer-managed KMS key rotation is disabled",
     severity: "medium",
     resource: "key/7e6d0d5c-4dcb-4ae5-9a19-prod-data",
-    evidence: "EnableKeyRotation is false for the key encrypting production records.",
-    remediation: "Enable annual automatic rotation and review key policy principals for least privilege.",
+    evidence: "EnableKeyRotation is false for the sample key encrypting production records.",
+    remediation: "For supported customer-managed symmetric keys, enable the configured automatic rotation schedule and review key-policy principals for least privilege.",
     publicExposure: false,
     fixed: false,
   },
@@ -80,8 +80,8 @@ const INITIAL_FINDINGS: CloudPostureFinding[] = [
     title: "Database security group allows unrestricted ingress",
     severity: "critical",
     resource: "sg-0a8d66bd / prod-postgres",
-    evidence: "TCP/5432 is open from 0.0.0.0/0 on an internet-facing security group.",
-    remediation: "Remove the unrestricted rule and allow database traffic only from the application security group.",
+    evidence: "TCP/5432 is open from 0.0.0.0/0 on a security group attached to an internet-reachable workload.",
+    remediation: "Remove the unrestricted rule and allow database traffic only from the application security group or another documented narrow source.",
     publicExposure: true,
     fixed: false,
   },
@@ -141,7 +141,8 @@ export default function SecCloudPostureSection() {
         <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100">13. Cloud Security Posture Scanner</h3>
         <p className="mt-1 max-w-3xl text-sm text-slate-500 dark:text-slate-400">
           Review a local AWS account snapshot across identity, storage, network, logging, key management,
-          and firewall controls. Findings are educational examples, not a live cloud scan.
+          and firewall controls. Findings are educational examples, not a live cloud scan, and the
+          aggregate grade is a project-specific heuristic rather than an AWS service score.
         </p>
       </div>
 

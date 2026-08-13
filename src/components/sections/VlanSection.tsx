@@ -94,7 +94,7 @@ export default function VlanSection() {
               Industry Standard: 1:1 Mapping & Inter-VLAN Routing
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Best practice dictates mapping exactly one IP Subnet to one VLAN. Communication between VLANs requires a Layer 3 Router or L3 Switch.
+              Best practice commonly maps one IP subnet to one VLAN. Communication between VLANs requires a Layer 3 router or Layer 3 switch.
             </p>
           </div>
           <span className="px-3 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-indigo-600 dark:text-indigo-400">

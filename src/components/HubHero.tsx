@@ -26,7 +26,7 @@ const QUICK_TOOLS: QuickTool[] = [
 ];
 
 const STATS = [
-  { value: "61",  label: "Interactive Modules", accent: "text-indigo-600 dark:text-indigo-400" },
+  { value: "71",  label: "Interactive Modules", accent: "text-indigo-600 dark:text-indigo-400" },
   { value: "5",   label: "Learning Tracks",     accent: "text-emerald-600 dark:text-emerald-400"},
   { value: "23",  label: "Networking Labs",      accent: "text-amber-600 dark:text-amber-400"  },
   { value: "100%",label: "Browser-Native",       accent: "text-sky-600 dark:text-sky-400"    },
@@ -55,7 +55,7 @@ export default function HubHero() {
         {/* ── Badge ── */}
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 text-xs font-semibold">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-soft-pulse" />
-          Live · All 61 modules running on Docker
+          Live · All 71 modules available in the browser
         </div>
 
         {/* ── Headline ── */}
@@ -80,6 +80,7 @@ export default function HubHero() {
             <input
               type="text"
               placeholder="Search modules, tools, labs…"
+              aria-label="Search modules, tools, and labs"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="flex-1 bg-transparent text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none"

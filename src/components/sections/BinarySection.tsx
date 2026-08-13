@@ -38,7 +38,7 @@ export default function BinarySection() {
 
       <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
         Every IPv4 address is a 32-bit binary number represented in 4 decimal octets separated by dots. 
-        Understanding bit values, positional binary weights ($128, 64, 32, 16, 8, 4, 2, 1$), and bitwise operations is fundamental to networking.
+        Understanding bit values, positional binary weights (128, 64, 32, 16, 8, 4, 2, 1), and bitwise operations is fundamental to networking.
       </p>
 
       {/* Interactive Live 4-Octet Converter */}
@@ -61,16 +61,18 @@ export default function BinarySection() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
           {octets.map((oct, idx) => (
             <div key={idx} className="space-y-1.5">
-              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 flex justify-between">
+              <label className="text-xs font-mono text-slate-500 dark:text-slate-400 flex justify-between" htmlFor={`binary-octet-${idx}`}>
                 <span>Octet {idx + 1}</span>
                 <span className="text-indigo-600 dark:text-indigo-400">8 bits</span>
               </label>
               <input
+                id={`binary-octet-${idx}`}
                 type="number"
                 min={0}
                 max={255}
                 value={oct}
                 onChange={(e) => handleOctetChange(idx, e.target.value)}
+                aria-label={`IPv4 octet ${idx + 1}, value from 0 to 255`}
                 className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:border-indigo-400 focus:outline-none text-slate-900 dark:text-slate-100 font-mono text-center font-bold px-3 py-2 rounded-lg text-lg transition-colors"
               />
             </div>
@@ -124,7 +126,7 @@ export default function BinarySection() {
           IPv4 Address Anatomy: Network ID vs Host ID
         </h3>
         <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
-          Every IP address is divided into two logical sections by its subnet mask: the <strong className="text-indigo-600 dark:text-indigo-400">Network Portion (Prefix)</strong> which identifies the specific network, and the <strong className="text-emerald-600 dark:text-emerald-400">Host Portion (Suffix)</strong> which identifies the unique device interface on that network.
+          A subnet mask divides an IPv4 address into a network prefix and host portion. Hosts use this relationship to decide whether a destination is on-link; routers use destination prefixes during route lookup to choose a next hop.
         </p>
 
         {/* Code block style diagram */}
@@ -153,7 +155,7 @@ export default function BinarySection() {
 
             <div className="flex justify-between text-xs pt-1 px-1">
               <span className="text-indigo-600 dark:text-indigo-400 font-bold">24 Network Bits (e.g. /24 Subnet)</span>
-              <span className="text-emerald-600 dark:text-emerald-400 font-bold">8 Host Bits ($2^8 - 2 = 254$ Hosts)</span>
+              <span className="text-emerald-600 dark:text-emerald-400 font-bold">8 Host Bits (2 to the 8th power minus 2 equals 254 hosts)</span>
             </div>
           </div>
         </div>
@@ -161,11 +163,11 @@ export default function BinarySection() {
 
       {/* RFC 1918 Private Ranges Table */}
       <div className="mb-10">
-        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
-          RFC 1918 Private IP Address Ranges
+        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+          RFC 1918 Private IPv4 Ranges
         </h3>
         <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-          RFC 1918 designates three IP address ranges reserved exclusively for private internal networks. These IPs are non-routable on the public internet.
+          RFC 1918 designates three IPv4 blocks for private internets. The addresses may be reused by different organizations, and routing information for them should not cross inter-enterprise links.
         </p>
 
         <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-700">
@@ -181,25 +183,25 @@ export default function BinarySection() {
             </thead>
             <tbody className="divide-y divide-[#30363d] text-slate-900 dark:text-slate-100">
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
-                <td className="p-3 font-bold text-indigo-600 dark:text-indigo-400">Class A</td>
+                <td className="p-3 font-bold text-indigo-600 dark:text-indigo-400">10/8 block</td>
                 <td className="p-3 text-emerald-600 dark:text-emerald-400">10.0.0.0 / 8</td>
                 <td className="p-3">10.0.0.0 — 10.255.255.255</td>
                 <td className="p-3">16,777,216</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">Enterprise corporate networks, cloud VPCs</td>
+                <td className="p-3 text-slate-500 dark:text-slate-400">Enterprise networks and cloud VPCs</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
-                <td className="p-3 font-bold text-violet-600 dark:text-violet-400">Class B</td>
+                <td className="p-3 font-bold text-violet-600 dark:text-violet-400">172.16/12 block</td>
                 <td className="p-3 text-emerald-600 dark:text-emerald-400">172.16.0.0 / 12</td>
                 <td className="p-3">172.16.0.0 — 172.31.255.255</td>
                 <td className="p-3">1,048,576</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">Medium corporate LANs, Docker internal bridges</td>
+                <td className="p-3 text-slate-500 dark:text-slate-400">Enterprise networks and container bridges</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
-                <td className="p-3 font-bold text-amber-600 dark:text-amber-400">Class C</td>
+                <td className="p-3 font-bold text-amber-600 dark:text-amber-400">192.168/16 block</td>
                 <td className="p-3 text-emerald-600 dark:text-emerald-400">192.168.0.0 / 16</td>
                 <td className="p-3">192.168.0.0 — 192.168.255.255</td>
                 <td className="p-3">65,536</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">Home routers, SOHO local networks, Wi-Fi hotspots</td>
+                <td className="p-3 text-slate-500 dark:text-slate-400">Home, SOHO, and local networks</td>
               </tr>
             </tbody>
           </table>
@@ -220,36 +222,36 @@ export default function BinarySection() {
             <thead>
               <tr className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700 font-mono">
                 <th className="p-3">Feature</th>
-                <th className="p-3">Legacy Classful (RFC 791)</th>
+                <th className="p-3">Legacy Classful Routing (Historical)</th>
                 <th className="p-3">Modern CIDR (RFC 1519)</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#30363d] text-slate-900 dark:text-slate-100">
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
                 <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">Mask Allocation</td>
-                <td className="p-3 text-rose-600 dark:text-rose-400">Fixed octet boundaries (/8, /16, /24)</td>
-                <td className="p-3 text-emerald-600 dark:text-emerald-400">Arbitrary bit boundaries (/1 to /32)</td>
+                <td className="p-3 text-rose-600 dark:text-rose-400">Fixed class boundaries (/8, /16, /24)</td>
+                <td className="p-3 text-emerald-600 dark:text-emerald-400">Any prefix from /0 to /32</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
                 <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">Routing Protocol Support</td>
-                <td className="p-3">RIPv1, IGRP (No subnet mask sent in updates)</td>
-                <td className="p-3 text-indigo-600 dark:text-indigo-400">OSPF, BGP4, RIPv2, IS-IS (Subnet mask explicitly sent)</td>
+                <td className="p-3">RIPv1 and IGRP used classful updates (historical)</td>
+                <td className="p-3 text-indigo-600 dark:text-indigo-400">OSPF, BGP4, RIPv2, and IS-IS carry prefix information</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
                 <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">IP Utilization Efficiency</td>
-                <td className="p-3 text-rose-600 dark:text-rose-400">Very Poor (Extreme address wastage)</td>
-                <td className="p-3 text-emerald-600 dark:text-emerald-400">High (Optimal subnet sizing via VLSM)</td>
+                <td className="p-3 text-rose-600 dark:text-rose-400">Often wasteful for networks smaller than a class boundary</td>
+                <td className="p-3 text-emerald-600 dark:text-emerald-400">VLSM enables subnet sizing to match requirements</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
                 <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">Route Table Aggregation</td>
-                <td className="p-3">Impossible (Unaggregated full routing tables)</td>
-                <td className="p-3 text-violet-600 dark:text-violet-400">Supernetting & BGP Prefix Aggregation enabled</td>
+                <td className="p-3">Limited to classful boundaries</td>
+                <td className="p-3 text-violet-600 dark:text-violet-400">Supports arbitrary aligned CIDR summaries</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-
+      
       {/* Special Addresses Cards (Loopback & APIPA) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
@@ -260,7 +262,7 @@ export default function BinarySection() {
             <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">Loopback Address Space</h4>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
-            Reserved for host-internal network stack testing (<code className="text-violet-600 dark:text-violet-400">127.0.0.1</code> / localhost). Traffic sent to loopback never hits physical network interfaces or switch ports.
+            Reserved for host-internal network stack testing (<code className="text-violet-600 dark:text-violet-400">127.0.0.1</code> / localhost). Traffic sent to loopback is handled by the host and does not reach a physical interface or switch port.
           </p>
           <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 p-2 rounded border border-slate-200 dark:border-slate-700">
             ping 127.0.0.1 → Tests local TCP/IP protocol stack functionality
@@ -272,24 +274,24 @@ export default function BinarySection() {
             <span className="px-2 py-0.5 rounded bg-[#ffa657]/20 text-amber-600 dark:text-amber-400 text-xs font-mono font-bold">
               169.254.0.0 / 16
             </span>
-            <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">APIPA (Link-Local)</h4>
+            <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">IPv4 Link-Local (APIPA)</h4>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
-            Automatic Private IP Addressing (RFC 3927). Self-assigned by operating systems when a DHCP server fails to respond. Non-routable across routers.
+            A host may self-configure an IPv4 link-local address when no routable configuration is available. RFC 3927 limits communication to the same physical or logical link; it is not an Internet-routable fallback.
           </p>
           <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 p-2 rounded border border-slate-200 dark:border-slate-700">
-            IP range: 169.254.0.1 — 169.254.255.254 (Used for direct peer connection)
+            Usable selection space: 169.254.1.0 — 169.254.254.255 (excluding the first and last /24 portions)
           </div>
         </div>
       </div>
-
+      
       {/* Bitwise AND Visual Block */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
           Bitwise AND Operation: Calculating Network Address
         </h3>
         <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
-          When a router evaluates an incoming packet, it performs a bitwise <code className="text-indigo-600 dark:text-indigo-400">AND</code> operation between the Destination IP Address and the Subnet Mask to determine the target Network Address.
+          A bitwise <code className="text-indigo-600 dark:text-indigo-400">AND</code> between an IPv4 address and its subnet mask produces the address of the containing subnet. Hosts and routing software use this calculation when determining local scope and route matches.
         </p>
 
         {/* Calculation Visual */}
