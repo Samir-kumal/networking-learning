@@ -156,12 +156,12 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-1">
-                Interconnected Curriculum
+                Curriculum Map
               </p>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Knowledge Graph</h2>
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Learning Path Graph</h2>
             </div>
             <p className="text-[13px] text-slate-400 dark:text-slate-500">
-              Hover or tap a node to expand its branch
+              Follow the recommended path from code to production
             </p>
           </div>
 

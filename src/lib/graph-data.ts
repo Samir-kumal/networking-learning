@@ -3,6 +3,11 @@ export type Leaf = {
   label: string;
 };
 
+export type GraphPosition = {
+  x: number;
+  y: number;
+};
+
 export type Branch = {
   id: string;
   label: string;
@@ -10,7 +15,15 @@ export type Branch = {
   hue: string;
   modules: number;
   summary: string;
+  href: string;
+  position: GraphPosition;
   leaves: Leaf[];
+};
+
+export type BranchRelationship = {
+  from: string;
+  to: string;
+  label: string;
 };
 
 export const CENTER = {
@@ -26,6 +39,8 @@ export const BRANCHES: Branch[] = [
     modules: 23,
     summary:
       "IP binary math, CIDR subnetting, VLSM design, VLAN trunking, IPv6, NAT, and Wireshark PCAP packet analysis across 23 hands-on labs.",
+    href: "/networking",
+    position: { x: 500, y: 90 },
     leaves: [
       { id: "ipv4-ipv6", label: "IPv4/IPv6" },
       { id: "cidr", label: "CIDR" },
@@ -43,6 +58,8 @@ export const BRANCHES: Branch[] = [
     modules: 15,
     summary:
       "Production VPC subnets, IAM least-privilege policies, S3 bucket security, ECS/EKS container clusters, and Lambda serverless flows.",
+    href: "/aws",
+    position: { x: 800, y: 275 },
     leaves: [
       { id: "vpc", label: "VPC" },
       { id: "iam-aws", label: "IAM" },
@@ -59,6 +76,8 @@ export const BRANCHES: Branch[] = [
     modules: 14,
     summary:
       "SAST/DAST, OWASP Top 10, secrets management, WAF and TLS hardening, threat modeling, Zero Trust, incident response, SIEM, and supply chains.",
+    href: "/security",
+    position: { x: 680, y: 580 },
     leaves: [
       { id: "owasp", label: "OWASP" },
       { id: "waf", label: "WAF" },
@@ -75,6 +94,8 @@ export const BRANCHES: Branch[] = [
     modules: 4,
     summary:
       "Git branching strategies, GitHub Actions pipelines, SemVer releases, and Blue/Green and Canary deployments.",
+    href: "/git-ops",
+    position: { x: 245, y: 580 },
     leaves: [
       { id: "gitflow", label: "GitFlow" },
       { id: "actions", label: "GH Actions" },
@@ -90,6 +111,8 @@ export const BRANCHES: Branch[] = [
     modules: 15,
     summary:
       "Multi-stage Dockerfiles, Compose stacks, K8s Pods, Services, and Ingress routing, and ArgoCD GitOps sync state.",
+    href: "/docker-k8s",
+    position: { x: 200, y: 275 },
     leaves: [
       { id: "docker", label: "Docker" },
       { id: "compose", label: "Compose" },
@@ -98,4 +121,11 @@ export const BRANCHES: Branch[] = [
       { id: "argocd", label: "ArgoCD" },
     ],
   },
+];
+
+export const BRANCH_RELATIONSHIPS: BranchRelationship[] = [
+  { from: "git-ops", to: "security", label: "secure the change" },
+  { from: "security", to: "docker-k8s", label: "package and deploy" },
+  { from: "docker-k8s", to: "aws", label: "orchestrate in cloud" },
+  { from: "aws", to: "networking", label: "connect production systems" },
 ];
