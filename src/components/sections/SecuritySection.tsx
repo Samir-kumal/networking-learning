@@ -626,8 +626,8 @@ export default function SecuritySection() {
       {/* ========================================================================= */}
       {/* 2. VPN TUNNELS & VXLAN ENCAPSULATION OVERLAY CARDS */}
       {/* ========================================================================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
         <NetworkingPanel className="space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
         {/* CARD A: VPN Tunnels (WireGuard vs IPsec) */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
           <div>
@@ -793,8 +793,8 @@ export default function SecuritySection() {
             </div>
           </div>
         </div>
-        </NetworkingPanel>
       </div>
+        </NetworkingPanel>
 
       {/* ========================================================================= */}
       {/* 3. NAT VARIANTS BREAKDOWN (SNAT, DNAT, PAT) */}

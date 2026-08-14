@@ -77,8 +77,8 @@ interface GigabitEthernet0/0.10
       <div className="module-content networking-module-content">
 
       {/* 3 Security Action Cards (Block, Allow, Log) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         <NetworkingPanel variant="muted" className="mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         {/* CARD 1: BLOCK */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-rose-300 transition-all flex flex-col justify-between">
           <div>
@@ -135,8 +135,8 @@ interface GigabitEthernet0/0.10
             <span>Traffic Analytics</span>
           </div>
         </div>
-        </NetworkingPanel>
       </div>
+        </NetworkingPanel>
 
       {/* Cisco ACL Code Block Section */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
