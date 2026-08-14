@@ -1,6 +1,8 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
 import { useState } from "react";
 
 interface Question {
@@ -130,9 +132,9 @@ export default function QuizSection() {
           const isCorrectChoice = selectedOpt === q.correctIndex;
 
           return (
-            <div
+            <NetworkingPanel
               key={q.id}
-              className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5 sm:p-6 transition-all space-y-4"
+              className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 sm:p-6 transition-all space-y-4"
             >
               <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100">
                 Q{q.id} — {q.question}
@@ -174,7 +176,7 @@ export default function QuizSection() {
 
               {/* Explanation Block */}
               {isAnswered && (
-                <div className="mt-4 p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow text-sm space-y-1.5 animate-fadeIn">
+                <NetworkingPanel className="mt-4 text-sm space-y-1.5 animate-fadeIn" variant="muted">
                   <div className="font-semibold text-sm flex items-center gap-2">
                     {isCorrectChoice ? (
                       <span className="text-emerald-600 dark:text-emerald-400">✓ Correct!</span>
@@ -191,18 +193,17 @@ export default function QuizSection() {
                     )}
                   </div>
                   <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{q.explanation}</p>
-                </div>
+                </NetworkingPanel>
               )}
-            </div>
+            </NetworkingPanel>
           );
         })}
       </div>
 
       {/* Score Counter Card */}
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 text-center max-w-md mx-auto space-y-4 shadow-lg">
-        <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Your Score</h3>
-        <div id="quizScore" className="text-4xl sm:text-5xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono tracking-tight">
-          {score} / {QUESTIONS.length}
+      <NetworkingPanel className="text-center max-w-md mx-auto space-y-4 shadow-lg">
+        <div id="quizScore">
+          <NetworkingMetric label="Your Score" value={`${score} / ${QUESTIONS.length}`} tone="lime" />
         </div>
         <p className="text-sm text-slate-500 dark:text-slate-400">
           {score === QUESTIONS.length
@@ -217,7 +218,7 @@ export default function QuizSection() {
         >
           Reset Quiz
         </button>
-      </div>
+      </NetworkingPanel>
       </div>
     </section>
   );

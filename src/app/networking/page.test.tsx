@@ -80,6 +80,9 @@ describe("NetworkingPage subsections", () => {
     const html = renderToStaticMarkup(<NetworkingPage />);
 
     expect(html.match(/data-networking-header="true"/g)).toHaveLength(23);
+    expect(html).toContain('data-networking-example="true"');
+    expect(html).toContain('data-networking-metric="true"');
+    expect(html).toContain('class="networking-table"');
     expect(html.match(/class="networking-module[^"]*"/g)).toHaveLength(23);
   });
   it("renders the operations-console orientation and stage map", () => {

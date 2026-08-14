@@ -1,6 +1,9 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 import { useState } from "react";
 
 interface PrefixRow {
@@ -423,9 +426,9 @@ export default function CheatSheetSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {coreFormulas.map((item) => (
-            <div
+            <NetworkingPanel
               key={item.id}
-              className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5 hover:border-indigo-300 transition-all flex flex-col justify-between"
+              className="rounded-xl border bg-white dark:bg-slate-800 p-5 hover:border-indigo-300 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
@@ -451,7 +454,7 @@ export default function CheatSheetSection() {
                 <span className="text-slate-500 dark:text-slate-400">Ex: </span>
                 <span>{item.example}</span>
               </div>
-            </div>
+            </NetworkingPanel>
           ))}
         </div>
       </div>
@@ -517,39 +520,27 @@ export default function CheatSheetSection() {
 
         {/* Special RFC Note Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-700 border border-indigo-200 dark:border-indigo-700 flex items-start gap-3">
-            <span className="text-xl">⚡</span>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400">/31 Prefix Note</span>
-                <span className="px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-600 dark:text-indigo-400 text-[10px] font-mono">
-                  RFC 3021
-                </span>
-              </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">
-                RFC 3021 enables <strong className="text-slate-900 dark:text-slate-100">2 usable IP addresses</strong> on point-to-point links with zero overhead (no reserved network or broadcast addresses), doubling IPv4 address efficiency on WAN links compared to traditional /30.
-              </p>
-            </div>
-          </div>
+          <NetworkingExample
+            title={<>⚡ /31 Prefix Note <span className="text-xs font-mono font-normal">RFC 3021</span></>}
+            tone="cyan"
+          >
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              RFC 3021 enables <strong className="text-slate-900 dark:text-slate-100">2 usable IP addresses</strong> on point-to-point links with zero overhead (no reserved network or broadcast addresses), doubling IPv4 address efficiency on WAN links compared to traditional /30.
+            </p>
+          </NetworkingExample>
 
-          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-700 border border-[#d2a8ff]/30 flex items-start gap-3">
-            <span className="text-xl">📌</span>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-bold text-[#d2a8ff]">/32 Prefix Note</span>
-                <span className="px-1.5 py-0.5 rounded bg-[#d2a8ff]/20 text-[#d2a8ff] text-[10px] font-mono">
-                  Single Host Route
-                </span>
-              </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">
-                A /32 prefix represents a <strong className="text-slate-900 dark:text-slate-100">single host route (255.255.255.255)</strong>. Used for router loopback interfaces (Router IDs in OSPF/BGP) and explicit single-IP host firewall rules.
-              </p>
-            </div>
-          </div>
+          <NetworkingExample
+            title={<>📌 /32 Prefix Note <span className="text-xs font-mono font-normal">Single Host Route</span></>}
+            tone="violet"
+          >
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              A /32 prefix represents a <strong className="text-slate-900 dark:text-slate-100">single host route (255.255.255.255)</strong>. Used for router loopback interfaces (Router IDs in OSPF/BGP) and explicit single-IP host firewall rules.
+            </p>
+          </NetworkingExample>
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
+        <NetworkingTable className="rounded-xl border border-slate-200 dark:border-slate-700">
           <table className="w-full text-left text-xs font-mono">
             <thead className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
               <tr>
@@ -588,7 +579,7 @@ export default function CheatSheetSection() {
               ))}
             </tbody>
           </table>
-        </div>
+        </NetworkingTable>
       </div>
 
       {/* SECTION 3: MENTAL MATH TRICKS GRID */}
@@ -600,9 +591,9 @@ export default function CheatSheetSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {mentalMathTricks.map((trick, idx) => (
-            <div
+            <NetworkingPanel
               key={idx}
-              className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between"
+              className="rounded-xl bg-white dark:bg-slate-800 p-6 hover:border-indigo-300 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between gap-3 mb-3">
@@ -634,7 +625,7 @@ export default function CheatSheetSection() {
                 <strong className="text-slate-900 dark:text-slate-100">Example: </strong>
                 <span>{trick.example}</span>
               </div>
-            </div>
+            </NetworkingPanel>
           ))}
         </div>
       </div>
