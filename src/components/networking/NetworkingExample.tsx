@@ -1,3 +1,4 @@
+import { useId } from "react";
 import type { NetworkingTone } from "./NetworkingTypes";
 
 interface NetworkingExampleProps {
@@ -19,22 +20,30 @@ const TONE_STYLES: Record<NetworkingTone, string> = {
 export default function NetworkingExample({
   title,
   description,
-  tone = "cyan",
+  tone,
   footer,
   className = "",
   children,
 }: NetworkingExampleProps) {
+  const headingId = useId();
+  const toneStyles = tone ? TONE_STYLES[tone] : "";
+  const classes = [
+    "networking-surface overflow-hidden rounded-2xl border p-5 card-shadow sm:p-6",
+    toneStyles,
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <section
-      data-networking-example="true"
-      data-tone={tone}
-      className={`networking-surface overflow-hidden rounded-2xl border p-5 card-shadow dark:bg-slate-950/30 sm:p-6 ${TONE_STYLES[tone]} ${className}`}
-    >
+    <section data-networking-example="true" data-tone={tone} aria-labelledby={headingId} className={classes}>
       <div className="mb-4 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--networking-tone)]">
         <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--networking-tone)]" aria-hidden="true" />
         SIGNAL / WORKED EXAMPLE
       </div>
-      <h3 className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100">{title}</h3>
+      <h3 id={headingId} className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100">
+        {title}
+      </h3>
       {description && (
         <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">{description}</p>
       )}

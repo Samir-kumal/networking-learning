@@ -213,52 +213,78 @@
 
 
 /* Networking primitive tokens and safe table overflow */
-.networking-surface[data-tone="cyan"] {
+[data-tone="cyan"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+[data-networking-example][data-tone="cyan"],
+[data-networking-metric][data-tone="cyan"] {
   --networking-tone: #0891b2;
   --networking-tone-border: #a5f3fc;
   --networking-tone-surface: #ecfeff;
 }
 
-.networking-surface[data-tone="amber"] {
+[data-tone="amber"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+[data-networking-example][data-tone="amber"],
+[data-networking-metric][data-tone="amber"] {
   --networking-tone: #d97706;
   --networking-tone-border: #fde68a;
   --networking-tone-surface: #fffbeb;
 }
 
-.networking-surface[data-tone="violet"] {
+[data-tone="violet"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+[data-networking-example][data-tone="violet"],
+[data-networking-metric][data-tone="violet"] {
   --networking-tone: #7c3aed;
   --networking-tone-border: #ddd6fe;
   --networking-tone-surface: #f5f3ff;
 }
 
-.networking-surface[data-tone="lime"] {
+[data-tone="lime"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+[data-networking-example][data-tone="lime"],
+[data-networking-metric][data-tone="lime"] {
   --networking-tone: #65a30d;
   --networking-tone-border: #d9f99d;
   --networking-tone-surface: #f7fee7;
 }
 
-.dark .networking-surface[data-tone="cyan"] {
+.dark [data-tone="cyan"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+.dark [data-networking-example][data-tone="cyan"],
+.dark [data-networking-metric][data-tone="cyan"] {
   --networking-tone: #67e8f9;
   --networking-tone-border: #164e63;
   --networking-tone-surface: rgb(8 47 73 / 0.45);
 }
 
-.dark .networking-surface[data-tone="amber"] {
+.dark [data-tone="amber"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+.dark [data-networking-example][data-tone="amber"],
+.dark [data-networking-metric][data-tone="amber"] {
   --networking-tone: #fcd34d;
   --networking-tone-border: #78350f;
   --networking-tone-surface: rgb(69 26 3 / 0.45);
 }
 
-.dark .networking-surface[data-tone="violet"] {
+.dark [data-tone="violet"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+.dark [data-networking-example][data-tone="violet"],
+.dark [data-networking-metric][data-tone="violet"] {
   --networking-tone: #c4b5fd;
   --networking-tone-border: #4c1d95;
   --networking-tone-surface: rgb(46 16 101 / 0.45);
 }
 
-.dark .networking-surface[data-tone="lime"] {
+.dark [data-tone="lime"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+.dark [data-networking-example][data-tone="lime"],
+.dark [data-networking-metric][data-tone="lime"] {
   --networking-tone: #bef264;
   --networking-tone-border: #365314;
   --networking-tone-surface: rgb(26 46 5 / 0.45);
+}
+
+.networking-header-marker {
+  border-color: var(--networking-tone-border, #a5f3fc);
+  background-color: var(--networking-tone-surface, #ecfeff);
+  color: var(--networking-tone, #0891b2);
+}
+
+.networking-header-accent {
+  color: var(--networking-tone, #0891b2);
 }
 
 .networking-table {

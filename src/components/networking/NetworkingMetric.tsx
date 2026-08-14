@@ -19,15 +19,20 @@ export default function NetworkingMetric({
   label,
   value,
   detail,
-  tone = "cyan",
+  tone,
   className = "",
 }: NetworkingMetricProps) {
+  const toneStyles = tone ? TONE_STYLES[tone] : "";
+  const classes = [
+    "networking-surface rounded-xl border p-4",
+    toneStyles,
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <article
-      data-networking-metric="true"
-      data-tone={tone}
-      className={`networking-surface rounded-xl border p-4 ${TONE_STYLES[tone]} ${className}`}
-    >
+    <article data-networking-metric="true" data-tone={tone} className={classes}>
       <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
         {label}
       </div>

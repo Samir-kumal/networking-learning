@@ -31,6 +31,28 @@ describe("networking presentational primitives", () => {
     expect(html).toContain("Worked Example");
     expect(html).toContain("Example body");
     expect(html).toContain("Check the result");
+    const headingId = html.match(/<h3 id="([^"]+)"/)?.[1];
+    expect(headingId).toBeDefined();
+    expect(html).toContain(`aria-labelledby="${headingId}"`);
+  });
+
+  it("inherits a non-cyan stage tone when no local tone override is supplied", () => {
+    const html = renderToStaticMarkup(
+      <div data-tone="amber">
+        <NetworkingModuleHeader
+          anchor="02 / OPERATIONS"
+          icon={<span aria-hidden="true">⌁</span>}
+          title="Operations"
+          description="Trace the packet path."
+        />
+        <NetworkingExample title="Worked Example">Example body</NetworkingExample>
+        <NetworkingMetric label="Usable hosts" value="254" />
+      </div>,
+    );
+
+    expect(html).toContain('data-tone="amber"');
+    expect(html).not.toContain('data-tone="cyan"');
+    expect(html.match(/data-tone=/g)).toHaveLength(1);
   });
 
   it("renders metric labels, values, and interpretation", () => {
