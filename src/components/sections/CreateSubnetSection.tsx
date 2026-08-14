@@ -1,5 +1,6 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState } from "react";
 
 export default function CreateSubnetSection() {
@@ -57,22 +58,16 @@ traceroute 192.168.20.50 # Linux / macOS`;
   return (
     <section
       id="create"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #create
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊞</span>
-          5. Creating Subnets on Your Local Network
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Building custom subnets on a local area network requires methodical planning and accurate configuration across your gateway router, managed switches, and endpoint operating systems. Follow this 4-step workflow to partition and verify your subnets.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#create"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊞</span>}
+        title={<>5. Creating Subnets on Your Local Network</>}
+        description={<>Building custom subnets on a local area network requires methodical planning and accurate configuration across your gateway router, managed switches, and endpoint operating systems. Follow this 4-step workflow to partition and verify your subnets.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* 4 Numbered Step Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -228,6 +223,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

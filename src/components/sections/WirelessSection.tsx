@@ -1,5 +1,6 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState } from "react";
 
 // --- Types & Interfaces ---
@@ -263,22 +264,16 @@ export default function WirelessSection() {
   return (
     <section
       id="wireless"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* --- Section Header --- */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #wireless
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>
-          13. Wireless & WLAN Integration
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Modern enterprise wireless LANs bridge 802.11 radio networks to wired Ethernet through access points and, in many designs, a wireless LAN controller. This section explores <strong className="text-indigo-600 dark:text-indigo-400">SSID-to-VLAN mapping</strong>, <strong className="text-emerald-600 dark:text-emerald-400">WLC topologies</strong>, <strong className="text-amber-600 dark:text-amber-400">2.4GHz, 5GHz, and 6GHz bands</strong>, <strong className="text-violet-600 dark:text-violet-400">RF planning</strong>, and <strong className="text-rose-600 dark:text-rose-400">Wi-Fi 6/6E/7 behavior</strong>.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#wireless"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>}
+        title={<>13. Wireless & WLAN Integration</>}
+        description={<>Modern enterprise wireless LANs bridge 802.11 radio networks to wired Ethernet through access points and, in many designs, a wireless LAN controller. This section explores <strong className="text-indigo-600 dark:text-indigo-400">SSID-to-VLAN mapping</strong>, <strong className="text-emerald-600 dark:text-emerald-400">WLC topologies</strong>, <strong className="text-amber-600 dark:text-amber-400">2.4GHz, 5GHz, and 6GHz bands</strong>, <strong className="text-violet-600 dark:text-violet-400">RF planning</strong>, and <strong className="text-rose-600 dark:text-rose-400">Wi-Fi 6/6E/7 behavior</strong>.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* ========================================================================= */}
       {/* PART 1: SSID-to-VLAN Mapping & Enterprise WLC Topology */}
@@ -1163,6 +1158,7 @@ export default function WirelessSection() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

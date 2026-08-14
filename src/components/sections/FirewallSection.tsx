@@ -1,5 +1,6 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState } from "react";
 
 export default function FirewallSection() {
@@ -62,22 +63,16 @@ interface GigabitEthernet0/0.10
   return (
     <section
       id="firewall"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #firewall
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◐</span>
-          16. Firewall Rules Between Subnets
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Subnets define addressing and broadcast boundaries, but inter-subnet communication also depends on routing. A router or Layer 3 switch may forward traffic when a route exists; firewalls and ACLs then apply the platform&apos;s configured policy to permit, deny, or log packets.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#firewall"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◐</span>}
+        title={<>16. Firewall Rules Between Subnets</>}
+        description={<>Subnets define addressing and broadcast boundaries, but inter-subnet communication also depends on routing. A router or Layer 3 switch may forward traffic when a route exists; firewalls and ACLs then apply the platform&apos;s configured policy to permit, deny, or log packets.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* 3 Security Action Cards (Block, Allow, Log) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
@@ -200,6 +195,7 @@ interface GigabitEthernet0/0.10
             </div>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );

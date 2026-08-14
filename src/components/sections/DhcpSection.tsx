@@ -1,5 +1,6 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState } from "react";
 
 interface DoraStep {
@@ -335,25 +336,17 @@ interface GigabitEthernet0/0.10
   return (
     <section
       id="dhcp"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow space-y-10"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow space-y-10"
     >
       {/* Section Header */}
-      <div>
-        <div className="flex items-center gap-3 mb-3">
-          <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-            #dhcp-ipam
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>
-          9. DHCP & IP Address Management (IPAM)
-        </h2>
-        </div>
-        <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed max-w-4xl">
-          Dynamic Host Configuration Protocol (DHCP) automates IPv4/IPv6 allocation across local networks.
-          Explore the step-by-step DORA handshake, Layer 3 relay agent forwarding across subnets, core DHCP options, and enterprise IPAM pool sizing.
-        </p>
-      </div>
-
+      <NetworkingModuleHeader
+        anchor="#dhcp-ipam"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>}
+        title={<>9. DHCP & IP Address Management (IPAM)</>}
+        description={<>Dynamic Host Configuration Protocol (DHCP) automates IPv4/IPv6 allocation across local networks.
+          Explore the step-by-step DORA handshake, Layer 3 relay agent forwarding across subnets, core DHCP options, and enterprise IPAM pool sizing.</>}
+      />
+      <div className="module-content networking-module-content">
       {/* -------------------------------------------------------------------- */}
       {/* 1. DORA HANDSHAKE FLOW */}
       {/* -------------------------------------------------------------------- */}
@@ -850,6 +843,7 @@ interface GigabitEthernet0/0.10
             <strong>Best Practice Tip:</strong> For guest Wi-Fi networks with high turnover, set lease duration to <strong className="text-slate-900 dark:text-slate-100">2 to 4 hours</strong>. For enterprise office desktops, set lease duration to <strong className="text-slate-900 dark:text-slate-100">8 days</strong>.
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

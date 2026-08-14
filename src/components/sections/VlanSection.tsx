@@ -1,23 +1,18 @@
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 export default function VlanSection() {
   return (
     <section
       id="vlans"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #vlans
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>
-          8. VLANs & Subnets — How They Connect
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        While both <strong className="text-indigo-600 dark:text-indigo-400">VLANs (Virtual LANs)</strong> and <strong className="text-emerald-600 dark:text-emerald-400">Subnets</strong> isolate network traffic, they operate at different layers of the OSI model. Understanding how Layer 2 physical switch isolation pairs with Layer 3 IP addressing is essential for modern enterprise network design.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#vlans"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>}
+        title={<>8. VLANs & Subnets — How They Connect</>}
+        description={<>While both <strong className="text-indigo-600 dark:text-indigo-400">VLANs (Virtual LANs)</strong> and <strong className="text-emerald-600 dark:text-emerald-400">Subnets</strong> isolate network traffic, they operate at different layers of the OSI model. Understanding how Layer 2 physical switch isolation pairs with Layer 3 IP addressing is essential for modern enterprise network design.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* Layer 2 vs Layer 3 Comparison Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
@@ -188,6 +183,7 @@ export default function VlanSection() {
             Switch ports configured as <strong className="text-emerald-600 dark:text-emerald-400">Trunk Ports</strong> multiplex traffic from multiple VLANs over a single physical link by appending a 4-byte 802.1Q VLAN ID tag to each Ethernet frame header.
           </p>
         </div>
+      </div>
       </div>
     </section>
   );

@@ -76,6 +76,12 @@ describe("NetworkingPage subsections", () => {
     expect(positions.every((position) => position >= 0)).toBe(true);
     expect(positions).toEqual([...positions].sort((a, b) => a - b));
   });
+  it("renders every module root with a networking header", () => {
+    const html = renderToStaticMarkup(<NetworkingPage />);
+
+    expect(html.match(/data-networking-header="true"/g)).toHaveLength(23);
+    expect(html.match(/class="networking-module[^"]*"/g)).toHaveLength(23);
+  });
   it("renders the operations-console orientation and stage map", () => {
     const html = renderToStaticMarkup(<NetworkingPage />);
 

@@ -1,5 +1,6 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState } from "react";
 
 interface Problem {
@@ -333,21 +334,15 @@ export default function PracticeSection() {
   return (
     <section
       id="practice"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
-      {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-        <div className="flex items-center gap-3">
-          <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-            #practice
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>
-          21. Practice Problems
-        </h2>
-        </div>
-
-        {/* Global Expand/Collapse Buttons */}
+      <NetworkingModuleHeader
+        anchor="#practice"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>}
+        title={<>21. Practice Problems</>}
+        description={<>Master subnetting with real-world scenarios and certification-style drill questions. Test your calculations for network boundaries, host ranges, broadcast addresses, and VLSM allocations, then toggle answers to verify your steps.</>}
+      />
+      <div className="module-content networking-module-content">
         <div className="flex items-center gap-2">
           <button
             onClick={expandAll}
@@ -362,7 +357,6 @@ export default function PracticeSection() {
             Collapse All
           </button>
         </div>
-      </div>
 
       <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
         Master subnetting with real-world scenarios and certification-style drill questions. Test your calculations for network boundaries, host ranges, broadcast addresses, and VLSM allocations, then toggle answers to verify your steps.
@@ -588,6 +582,7 @@ export default function PracticeSection() {
             </div>
           );
         })}
+      </div>
       </div>
     </section>
   );

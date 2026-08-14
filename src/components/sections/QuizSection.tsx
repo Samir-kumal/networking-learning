@@ -1,5 +1,6 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState } from "react";
 
 interface Question {
@@ -110,22 +111,16 @@ export default function QuizSection() {
   return (
     <section
       id="quiz"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #quiz
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◉</span>
-          23. Test Your Knowledge
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Click an answer to check it. Your score is tracked at the bottom.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#quiz"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◉</span>}
+        title={<>23. Test Your Knowledge</>}
+        description={<>Click an answer to check it. Your score is tracked at the bottom.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* Quiz Questions List */}
       <div className="space-y-6 mb-10">
@@ -222,6 +217,7 @@ export default function QuizSection() {
         >
           Reset Quiz
         </button>
+      </div>
       </div>
     </section>
   );

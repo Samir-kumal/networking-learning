@@ -1,5 +1,6 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState } from "react";
 import CopyButton from "@/components/CopyButton";
 import { calculateSubnet, SubnetResult } from "@/lib/subnet-utils";
@@ -42,22 +43,16 @@ export default function SubnetCalculator() {
   return (
     <section
       id="calculator"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #calculator
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>
-          4. Subnet Calculator
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Enter an IPv4 address and select a CIDR prefix length to calculate subnet or route boundaries, usable address ranges, and subnet masks in real time.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#calculator"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>}
+        title={<>4. Subnet Calculator</>}
+        description={<>Enter an IPv4 address and select a CIDR prefix length to calculate subnet or route boundaries, usable address ranges, and subnet masks in real time.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* Input Form */}
       <form onSubmit={handleCalculate} className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-8">
@@ -255,6 +250,7 @@ export default function SubnetCalculator() {
             </tbody>
           </table>
         </div>
+      </div>
       </div>
     </section>
   );

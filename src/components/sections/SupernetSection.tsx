@@ -1,5 +1,6 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState } from "react";
 
 export default function SupernetSection() {
@@ -15,22 +16,16 @@ export default function SupernetSection() {
   return (
     <section
       id="supernetting"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #supernetting
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>
-          7. Supernetting & CIDR Aggregation
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        <strong className="text-slate-900 dark:text-slate-100">Supernetting</strong> (also called <strong className="text-indigo-600 dark:text-indigo-400">CIDR Route Aggregation</strong> or <strong className="text-emerald-600 dark:text-emerald-400">Route Summarization</strong>) is the process of combining multiple contiguous smaller networks into a single, shorter-prefix network route. This dramatically reduces core routing table sizes and conserves memory on enterprise network backbones.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#supernetting"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>}
+        title={<>7. Supernetting & CIDR Aggregation</>}
+        description={<><strong className="text-slate-900 dark:text-slate-100">Supernetting</strong> (also called <strong className="text-indigo-600 dark:text-indigo-400">CIDR Route Aggregation</strong> or <strong className="text-emerald-600 dark:text-emerald-400">Route Summarization</strong>) is the process of combining multiple contiguous smaller networks into a single, shorter-prefix network route. This dramatically reduces core routing table sizes and conserves memory on enterprise network backbones.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* Navigation Tabs */}
       <div className="flex flex-wrap gap-2 mb-8 border-b border-slate-200 dark:border-slate-700 pb-4">
@@ -228,6 +223,7 @@ export default function SupernetSection() {
           </div>
         </div>
       )}
+      </div>
     </section>
   );
 }

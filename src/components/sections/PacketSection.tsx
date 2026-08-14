@@ -1,5 +1,6 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState, useMemo } from "react";
 
 // --- TYPES ---
@@ -775,22 +776,16 @@ export default function PacketSection() {
   return (
     <section
       id="packets"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* SECTION HEADER */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #packets
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>
-          14. Packet Encapsulation & Analysis
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Every interaction on the internet depends on <strong className="text-indigo-600 dark:text-indigo-400">Packet Encapsulation</strong>—the process where raw application data is wrapped layer-by-layer with Transport headers, IP headers, and Ethernet frames before physical transmission over the wire. Understanding header bit fields, stateful TCP handshakes, and PCAP analysis tools like <strong className="text-emerald-600 dark:text-emerald-400">Wireshark</strong> is essential for network engineering and security analysis.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#packets"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>}
+        title={<>14. Packet Encapsulation & Analysis</>}
+        description={<>Every interaction on the internet depends on <strong className="text-indigo-600 dark:text-indigo-400">Packet Encapsulation</strong>—the process where raw application data is wrapped layer-by-layer with Transport headers, IP headers, and Ethernet frames before physical transmission over the wire. Understanding header bit fields, stateful TCP handshakes, and PCAP analysis tools like <strong className="text-emerald-600 dark:text-emerald-400">Wireshark</strong> is essential for network engineering and security analysis.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* ==================================================================== */}
       {/* 1. INTERACTIVE OSI vs TCP/IP LAYER STACK VISUAL INSPECTOR */}
@@ -1485,6 +1480,7 @@ export default function PacketSection() {
             <span className="text-emerald-600 dark:text-emerald-400">Profile: Default Wireshark Decoders Active</span>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

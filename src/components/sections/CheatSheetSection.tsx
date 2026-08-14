@@ -1,5 +1,6 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState } from "react";
 
 interface PrefixRow {
@@ -402,22 +403,16 @@ export default function CheatSheetSection() {
   return (
     <section
       id="cheatsheet"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #cheatsheet
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊞</span>
-          22. Subnetting Cheat Sheet
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Quick-reference hub containing essential subnet formulas, comprehensive CIDR prefix lookup tables (/8 through /32), and mental math shortcuts for rapid network calculations in exams and production deployments.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#cheatsheet"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊞</span>}
+        title={<>22. Subnetting Cheat Sheet</>}
+        description={<>Quick-reference hub containing essential subnet formulas, comprehensive CIDR prefix lookup tables (/8 through /32), and mental math shortcuts for rapid network calculations in exams and production deployments.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* SECTION 1: CORE FORMULAS GRID */}
       <div className="mb-12">
@@ -642,6 +637,7 @@ export default function CheatSheetSection() {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );

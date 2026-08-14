@@ -1,5 +1,6 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState } from "react";
 
 export default function CloudSubnetSection() {
@@ -99,22 +100,16 @@ resource "google_compute_subnetwork" "us_central_subnet" {
   return (
     <section
       id="cloud"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #cloud
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◉</span>
-          12. Subnets in the Cloud
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Cloud hyperscalers (AWS, Azure, GCP) use Software-Defined Networking (SDN) to deliver virtual private clouds. While cloud subnets share traditional CIDR math, cloud vendors enforce vendor-specific IP reservations, availability zone scopes, and routing rules.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#cloud"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◉</span>}
+        title={<>12. Subnets in the Cloud</>}
+        description={<>Cloud hyperscalers (AWS, Azure, GCP) use Software-Defined Networking (SDN) to deliver virtual private clouds. While cloud subnets share traditional CIDR math, cloud vendors enforce vendor-specific IP reservations, availability zone scopes, and routing rules.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* Cloud Provider Tabs */}
       <div className="flex flex-wrap gap-3 mb-6">
@@ -212,6 +207,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );

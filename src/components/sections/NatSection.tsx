@@ -1,5 +1,6 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState } from "react";
 
 export default function NatSection() {
@@ -49,22 +50,16 @@ export default function NatSection() {
   return (
     <section
       id="ips"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #ips
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊕</span>
-          11. Public vs Private IPs & NAT
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        IPv4 addresses may be publicly routable or drawn from private-use ranges. Because public IPv4 space is limited, Network Address Translation (NAT), especially port translation, lets many private hosts share one public address for outbound connections. NAT changes address/port reachability; it is not a replacement for firewall policy.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#ips"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊕</span>}
+        title={<>11. Public vs Private IPs & NAT</>}
+        description={<>IPv4 addresses may be publicly routable or drawn from private-use ranges. Because public IPv4 space is limited, Network Address Translation (NAT), especially port translation, lets many private hosts share one public address for outbound connections. NAT changes address/port reachability; it is not a replacement for firewall policy.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* Routability Comparison Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
@@ -270,6 +265,7 @@ export default function NatSection() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

@@ -1,27 +1,22 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import CopyButton from "@/components/CopyButton";
 
 export default function BasicsSection() {
   return (
     <section
       id="basics"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #basics
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>
-          1. What is a Subnet?
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        A <strong className="text-slate-900 dark:text-slate-100">subnet (subnetwork)</strong> is a logical subdivision of an IP network. A prefix and mask define which addresses are on the local IP network and which destinations require a router. In common designs, each subnet is mapped to a VLAN or other Layer 2 segment, while routing and policy controls determine whether subnets can communicate.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#basics"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>}
+        title={<>1. What is a Subnet?</>}
+        description={<>A <strong className="text-slate-900 dark:text-slate-100">subnet (subnetwork)</strong> is a logical subdivision of an IP network. A prefix and mask define which addresses are on the local IP network and which destinations require a router. In common designs, each subnet is mapped to a VLAN or other Layer 2 segment, while routing and policy controls determine whether subnets can communicate.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* 3 Benefit Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
@@ -281,6 +276,7 @@ export default function BasicsSection() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState } from "react";
 import { maskFromCIDR } from "@/lib/subnet-utils";
 
@@ -31,22 +32,16 @@ export default function CidrSection() {
   return (
     <section
       id="cidr"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #cidr
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>
-          3. CIDR & Subnet Masks — Interactive
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        <strong className="text-slate-900 dark:text-slate-100">CIDR (Classless Inter-Domain Routing)</strong> specifies how many leading bits in an IP address represent the network prefix. Adjust the slider or click any bit box below to interactively observe how changing prefix length affects subnet mask, bit allocation, total addresses, and usable host count.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#cidr"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>}
+        title={<>3. CIDR & Subnet Masks — Interactive</>}
+        description={<><strong className="text-slate-900 dark:text-slate-100">CIDR (Classless Inter-Domain Routing)</strong> specifies how many leading bits in an IP address represent the network prefix. Adjust the slider or click any bit box below to interactively observe how changing prefix length affects subnet mask, bit allocation, total addresses, and usable host count.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* Interactive Controls & 32-Bit Visual Bar */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
@@ -268,6 +263,7 @@ export default function CidrSection() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

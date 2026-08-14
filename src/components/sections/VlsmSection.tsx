@@ -1,23 +1,18 @@
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 export default function VlsmSection() {
   return (
     <section
       id="vlsm"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #vlsm
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◐</span>
-          6. VLSM — Variable Length Subnet Masking
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        <strong className="text-slate-900 dark:text-slate-100">Variable Length Subnet Masking (VLSM)</strong> allows network engineers to subdivide an address block into non-uniform subnets sized for different host requirements. Longer prefixes such as <code className="text-indigo-600 dark:text-indigo-400">/27</code> and <code className="text-indigo-600 dark:text-indigo-400">/30</code> create smaller subnets; allocating the smallest suitable block avoids wasting addresses.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#vlsm"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◐</span>}
+        title={<>6. VLSM — Variable Length Subnet Masking</>}
+        description={<><strong className="text-slate-900 dark:text-slate-100">Variable Length Subnet Masking (VLSM)</strong> allows network engineers to subdivide an address block into non-uniform subnets sized for different host requirements. Longer prefixes such as <code className="text-indigo-600 dark:text-indigo-400">/27</code> and <code className="text-indigo-600 dark:text-indigo-400">/30</code> create smaller subnets; allocating the smallest suitable block avoids wasting addresses.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* Prefix Cards (/30, /27, /24) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
@@ -225,6 +220,7 @@ export default function VlsmSection() {
             </div>
           </div>
         </div>
+      </div>
     </section>
   );
 }
