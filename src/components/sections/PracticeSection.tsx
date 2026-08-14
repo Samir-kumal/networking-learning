@@ -341,26 +341,25 @@ export default function PracticeSection() {
         icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>}
         title={<>21. Practice Problems</>}
         description={<>Master subnetting with real-world scenarios and certification-style drill questions. Test your calculations for network boundaries, host ranges, broadcast addresses, and VLSM allocations, then toggle answers to verify your steps.</>}
+        meta={
+          <div className="flex items-center gap-2">
+            <button
+              onClick={expandAll}
+              className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all"
+            >
+              Expand All
+            </button>
+            <button
+              onClick={collapseAll}
+              className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all"
+            >
+              Collapse All
+            </button>
+          </div>
+        }
       />
       <div className="module-content networking-module-content">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={expandAll}
-            className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all"
-          >
-            Expand All
-          </button>
-          <button
-            onClick={collapseAll}
-            className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all"
-          >
-            Collapse All
-          </button>
-        </div>
 
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Master subnetting with real-world scenarios and certification-style drill questions. Test your calculations for network boundaries, host ranges, broadcast addresses, and VLSM allocations, then toggle answers to verify your steps.
-      </p>
 
       {/* Cards Container */}
       <div className="space-y-6">
