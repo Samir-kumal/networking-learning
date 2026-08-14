@@ -1,6 +1,8 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 import { useState } from "react";
 
 function toBinaryString(num: number): string {
@@ -35,6 +37,7 @@ export default function BinarySection() {
         Understanding bit values, positional binary weights (128, 64, 32, 16, 8, 4, 2, 1), and bitwise operations is fundamental to networking.</>}
       />
       <div className="module-content networking-module-content">
+      <NetworkingPanel className="mb-10">
 
       {/* Interactive Live 4-Octet Converter */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
@@ -114,6 +117,8 @@ export default function BinarySection() {
           </span>
         </div>
       </div>
+      </NetworkingPanel>
+      <NetworkingPanel className="mb-10">
 
       {/* Address Structure & Network vs Host Breakdown */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
@@ -155,6 +160,7 @@ export default function BinarySection() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* RFC 1918 Private Ranges Table */}
       <div className="mb-10">
@@ -166,6 +172,7 @@ export default function BinarySection() {
         </p>
 
         <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-700">
+          <NetworkingTable>
           <table className="w-full text-left border-collapse text-xs font-mono">
             <thead>
               <tr className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
@@ -200,6 +207,7 @@ export default function BinarySection() {
               </tr>
             </tbody>
           </table>
+          </NetworkingTable>
         </div>
       </div>
 
@@ -213,6 +221,7 @@ export default function BinarySection() {
         </p>
 
         <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-700">
+          <NetworkingTable>
           <table className="w-full text-left border-collapse text-xs">
             <thead>
               <tr className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700 font-mono">
@@ -244,6 +253,7 @@ export default function BinarySection() {
               </tr>
             </tbody>
           </table>
+          </NetworkingTable>
         </div>
       </div>
       
@@ -279,6 +289,7 @@ export default function BinarySection() {
           </div>
         </div>
       </div>
+      <NetworkingPanel>
       
       {/* Bitwise AND Visual Block */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
@@ -321,6 +332,7 @@ export default function BinarySection() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
       </div>
     </section>
   );

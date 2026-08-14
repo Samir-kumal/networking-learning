@@ -1,6 +1,9 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 import { useState } from "react";
 
 interface DoraStep {
@@ -350,6 +353,7 @@ interface GigabitEthernet0/0.10
       {/* -------------------------------------------------------------------- */}
       {/* 1. DORA HANDSHAKE FLOW */}
       {/* -------------------------------------------------------------------- */}
+      <NetworkingExample title="DHCP DORA handshake" description="Interactive four-step DHCP discovery, offer, request, and acknowledgement flow." tone="cyan">
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
@@ -506,10 +510,12 @@ interface GigabitEthernet0/0.10
           </button>
         </div>
       </div>
+      </NetworkingExample>
 
       {/* -------------------------------------------------------------------- */}
       {/* 2. DHCP RELAY AGENT (`ip helper-address`) */}
       {/* -------------------------------------------------------------------- */}
+      <NetworkingExample title="DHCP relay forwarding" description="A relay agent forwards client broadcasts across routed subnets." tone="amber">
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
@@ -614,10 +620,12 @@ interface GigabitEthernet0/0.10
           </pre>
         </div>
       </div>
+      </NetworkingExample>
 
       {/* -------------------------------------------------------------------- */}
       {/* 3. ESSENTIAL DHCP OPTIONS */}
       {/* -------------------------------------------------------------------- */}
+      <NetworkingPanel className="space-y-6">
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
@@ -682,10 +690,12 @@ interface GigabitEthernet0/0.10
           ))}
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* -------------------------------------------------------------------- */}
       {/* 4. ENTERPRISE IPAM & POOL EXHAUSTION CALCULATOR */}
       {/* -------------------------------------------------------------------- */}
+      <NetworkingPanel className="space-y-6">
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
@@ -810,27 +820,9 @@ interface GigabitEthernet0/0.10
 
         {/* Calculated Metrics Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-          <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Total Usable Pool Size</div>
-            <div className="text-2xl font-bold text-slate-900 dark:text-slate-100 font-mono">{usablePoolSize} IPs</div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400">
-              Excluding network & broadcast address
-            </div>
-          </div>
-
-          <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Available Free Pool</div>
-            <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 font-mono">{freeIps} IPs</div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400">Unallocated available leases</div>
-          </div>
-
-          <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Est. Time to Pool Exhaustion</div>
-            <div className="text-2xl font-bold text-violet-600 dark:text-violet-400 font-mono">
-              {freeIps > 0 ? `${hoursUntilExhaustion} Hours` : "Exhausted"}
-            </div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400">Based on daily device churn rate</div>
-          </div>
+          <NetworkingMetric label="Total Usable Pool Size" value={`${usablePoolSize} IPs`} detail="Excluding network & broadcast address" tone="cyan" />
+          <NetworkingMetric label="Available Free Pool" value={`${freeIps} IPs`} detail="Unallocated available leases" tone="lime" />
+          <NetworkingMetric label="Est. Time to Pool Exhaustion" value={freeIps > 0 ? `${hoursUntilExhaustion} Hours` : "Exhausted"} detail="Based on daily device churn rate" tone="violet" />
         </div>
 
         {/* IPAM Recommendation Box */}
@@ -844,6 +836,7 @@ interface GigabitEthernet0/0.10
           </div>
         </div>
       </div>
+      </NetworkingPanel>
       </div>
     </section>
   );

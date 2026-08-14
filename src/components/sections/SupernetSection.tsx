@@ -1,6 +1,8 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 import { useState } from "react";
 
 export default function SupernetSection() {
@@ -64,6 +66,7 @@ export default function SupernetSection() {
       {/* TAB 1: BEFORE VS AFTER ROUTE AGGREGATION */}
       {activeTab === "overview" && (
         <div className="space-y-6">
+          <NetworkingPanel className="h-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Unsummarized Routes */}
             <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
@@ -122,11 +125,13 @@ export default function SupernetSection() {
               </div>
             </div>
           </div>
+          </NetworkingPanel>
         </div>
       )}
 
       {/* TAB 2: BINARY ANALYSIS */}
       {activeTab === "binary" && (
+        <NetworkingExample title="Worked Aggregation Example" description="Compare four adjacent /24 routes with their /22 summary." tone="cyan">
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow space-y-6">
           <div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
@@ -163,10 +168,12 @@ export default function SupernetSection() {
             </p>
           </div>
         </div>
+        </NetworkingExample>
       )}
 
       {/* TAB 3: THREE RULES OF SUPERNETTING */}
       {activeTab === "rules" && (
+        <NetworkingPanel>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* RULE 1 */}
           <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
@@ -222,6 +229,7 @@ export default function SupernetSection() {
             </div>
           </div>
         </div>
+        </NetworkingPanel>
       )}
       </div>
     </section>

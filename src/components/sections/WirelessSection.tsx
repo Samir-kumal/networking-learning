@@ -1,6 +1,7 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
 import { useState } from "react";
 
 // --- Types & Interfaces ---
@@ -274,6 +275,7 @@ export default function WirelessSection() {
         description={<>Modern enterprise wireless LANs bridge 802.11 radio networks to wired Ethernet through access points and, in many designs, a wireless LAN controller. This section explores <strong className="text-indigo-600 dark:text-indigo-400">SSID-to-VLAN mapping</strong>, <strong className="text-emerald-600 dark:text-emerald-400">WLC topologies</strong>, <strong className="text-amber-600 dark:text-amber-400">2.4GHz, 5GHz, and 6GHz bands</strong>, <strong className="text-violet-600 dark:text-violet-400">RF planning</strong>, and <strong className="text-rose-600 dark:text-rose-400">Wi-Fi 6/6E/7 behavior</strong>.</>}
       />
       <div className="module-content networking-module-content">
+      <NetworkingPanel className="space-y-10">
 
       {/* ========================================================================= */}
       {/* PART 1: SSID-to-VLAN Mapping & Enterprise WLC Topology */}
@@ -1159,6 +1161,7 @@ export default function WirelessSection() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
       </div>
     </section>
   );

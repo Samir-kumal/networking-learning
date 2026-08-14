@@ -1,6 +1,9 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 import { useState } from "react";
 import CopyButton from "@/components/CopyButton";
 import { calculateSubnet, SubnetResult } from "@/lib/subnet-utils";
@@ -53,6 +56,7 @@ export default function SubnetCalculator() {
         description={<>Enter an IPv4 address and select a CIDR prefix length to calculate subnet or route boundaries, usable address ranges, and subnet masks in real time.</>}
       />
       <div className="module-content networking-module-content">
+      <NetworkingPanel className="mb-8">
 
       {/* Input Form */}
       <form onSubmit={handleCalculate} className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-8">
@@ -99,6 +103,7 @@ export default function SubnetCalculator() {
           </div>
         </div>
       </form>
+      </NetworkingPanel>
 
       {/* Validation Banner */}
       {hasError && (
@@ -106,108 +111,39 @@ export default function SubnetCalculator() {
           <span>⚠️ Invalid IP address — use format like 192.168.1.130</span>
         </div>
       )}
-
-      {/* Result Stat Grid */}
       {result && !hasError && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-              {resultIsRfc3021 || resultIsHostRoute ? "Route Prefix" : "Network Address"}
-            </div>
-            <div className="text-xl font-bold font-mono text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
-              {result.networkAddress}
-              <CopyButton text={result.networkAddress} label="" className="!px-1.5 !py-0.5" />
-            </div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-              {resultIsHostRoute
-                ? "Single host route address (all host bits = 0)"
-                : resultIsRfc3021
-                  ? "Point-to-point prefix base address"
-                  : "Subnet identifier (all host bits = 0)"}
-            </div>
-          </div>
-
-          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-              {resultIsRfc3021 || resultIsHostRoute ? "No Broadcast Address" : "Broadcast Address"}
-            </div>
-            <div className="text-xl font-bold font-mono text-rose-600 dark:text-rose-400 flex items-center gap-1.5">
-              {result.broadcastAddress}
-              {!resultIsRfc3021 && !resultIsHostRoute && (
-                <CopyButton text={result.broadcastAddress} label="" className="!px-1.5 !py-0.5" />
-              )}
-            </div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-              {resultIsRfc3021
-                ? "Both addresses are usable endpoints under RFC 3021; no broadcast address"
-                : resultIsHostRoute
-                  ? "Host routes have no broadcast address"
-                  : "Subnet broadcast target (all host bits = 1)"}
-            </div>
-          </div>
-
-          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-              {resultIsRfc3021 ? "First Usable Endpoint" : resultIsHostRoute ? "Host Route Address" : "First Usable Host"}
-            </div>
-            <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
-              {result.firstUsable}
-              <CopyButton text={result.firstUsable} label="" className="!px-1.5 !py-0.5" />
-            </div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-              {resultIsRfc3021
-                ? "Lower point-to-point endpoint"
-                : resultIsHostRoute
-                  ? "Single assignable route endpoint"
-                  : "First assignable host IP in range"}
-            </div>
-          </div>
-
-          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-              {resultIsRfc3021 ? "Last Usable Endpoint" : resultIsHostRoute ? "Host Route Address" : "Last Usable Host"}
-            </div>
-            <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
-              {result.lastUsable}
-              <CopyButton text={result.lastUsable} label="" className="!px-1.5 !py-0.5" />
-            </div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-              {resultIsRfc3021
-                ? "Upper point-to-point endpoint"
-                : resultIsHostRoute
-                  ? "Single assignable route endpoint"
-                  : "Last assignable host IP in range"}
-            </div>
-          </div>
-
-          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-              Subnet Mask
-            </div>
-            <div className="text-xl font-bold font-mono text-violet-600 dark:text-violet-400 flex items-center gap-1.5">
-              {result.subnetMask}
-              <CopyButton text={result.subnetMask} label="" className="!px-1.5 !py-0.5" />
-            </div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-              Subnet mask in dotted-decimal format
-            </div>
-          </div>
-
-          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-              Usable Hosts
-            </div>
-            <div className="text-xl font-bold font-mono text-amber-600 dark:text-amber-400">
-              {result.usableHosts}
-            </div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-              {resultIsRfc3021
-                ? "Two assignable point-to-point endpoint addresses"
-                : resultIsHostRoute
-                  ? "One assignable host-route address"
-                  : "Total assignable host IP addresses"}
-            </div>
-          </div>
+          <NetworkingMetric
+            label={resultIsRfc3021 || resultIsHostRoute ? "Route Prefix" : "Network Address"}
+            value={<span className="flex items-center gap-1.5">{result.networkAddress}<CopyButton text={result.networkAddress} label="" className="!px-1.5 !py-0.5" /></span>}
+            detail={resultIsHostRoute ? "Single host route address (all host bits = 0)" : resultIsRfc3021 ? "Point-to-point prefix base address" : "Subnet identifier (all host bits = 0)"}
+            tone="cyan"
+          />
+          <NetworkingMetric
+            label={resultIsRfc3021 || resultIsHostRoute ? "No Broadcast Address" : "Broadcast Address"}
+            value={<span className="flex items-center gap-1.5">{result.broadcastAddress}{!resultIsRfc3021 && !resultIsHostRoute && <CopyButton text={result.broadcastAddress} label="" className="!px-1.5 !py-0.5" />}</span>}
+            detail={resultIsRfc3021 ? "Both addresses are usable endpoints under RFC 3021; no broadcast address" : resultIsHostRoute ? "Host routes have no broadcast address" : "Subnet broadcast target (all host bits = 1)"}
+            tone="amber"
+          />
+          <NetworkingMetric
+            label={resultIsRfc3021 ? "First Usable Endpoint" : resultIsHostRoute ? "Host Route Address" : "First Usable Host"}
+            value={<span className="flex items-center gap-1.5">{result.firstUsable}<CopyButton text={result.firstUsable} label="" className="!px-1.5 !py-0.5" /></span>}
+            detail={resultIsRfc3021 ? "Lower point-to-point endpoint" : resultIsHostRoute ? "Single assignable route endpoint" : "First assignable host IP in range"}
+            tone="lime"
+          />
+          <NetworkingMetric
+            label={resultIsRfc3021 ? "Last Usable Endpoint" : resultIsHostRoute ? "Host Route Address" : "Last Usable Host"}
+            value={<span className="flex items-center gap-1.5">{result.lastUsable}<CopyButton text={result.lastUsable} label="" className="!px-1.5 !py-0.5" /></span>}
+            detail={resultIsRfc3021 ? "Upper point-to-point endpoint" : resultIsHostRoute ? "Single assignable route endpoint" : "Last assignable host IP in range"}
+            tone="lime"
+          />
+          <NetworkingMetric
+            label="Subnet Mask"
+            value={<span className="flex items-center gap-1.5">{result.subnetMask}<CopyButton text={result.subnetMask} label="" className="!px-1.5 !py-0.5" /></span>}
+            detail="Subnet mask in dotted-decimal format"
+            tone="violet"
+          />
+          <NetworkingMetric label="Usable Hosts" value={result.usableHosts} detail={resultIsRfc3021 ? "Two assignable point-to-point endpoint addresses" : resultIsHostRoute ? "One assignable host-route address" : "Total assignable host IP addresses"} tone="amber" />
         </div>
       )}
 
@@ -217,6 +153,7 @@ export default function SubnetCalculator() {
           Common Subnet Quick Reference
         </h3>
         <div className="overflow-x-auto">
+          <NetworkingTable>
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-500 dark:text-slate-400 uppercase">
@@ -249,6 +186,7 @@ export default function SubnetCalculator() {
               ))}
             </tbody>
           </table>
+          </NetworkingTable>
         </div>
       </div>
       </div>

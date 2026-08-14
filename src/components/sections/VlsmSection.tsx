@@ -1,4 +1,6 @@
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 export default function VlsmSection() {
   return (
     <section
@@ -15,6 +17,7 @@ export default function VlsmSection() {
       <div className="module-content networking-module-content">
 
       {/* Prefix Cards (/30, /27, /24) */}
+        <NetworkingPanel>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         {/* /30 Card */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-amber-300 transition-all flex flex-col justify-between">
@@ -82,6 +85,8 @@ export default function VlsmSection() {
           </div>
         </div>
       </div>
+        </NetworkingPanel>
+      <NetworkingExample title="Worked VLSM Example" description="Allocate subnets from a 192.168.1.0/24 block using largest requirements first." tone="cyan">
 
       {/* Worked Example Table */}
       <div className="mb-10">
@@ -170,6 +175,7 @@ export default function VlsmSection() {
             </tbody>
           </table>
         </div>
+          <NetworkingPanel variant="console" className="p-0">
 
         {/* Tree Allocation Visual Code Block */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
@@ -185,7 +191,9 @@ export default function VlsmSection() {
 ├── 192.168.1.116/30 [Router Link 2: 2 hosts required, 2 usable (.117-.118)]
 └── 192.168.1.120/29 + 192.168.1.128/25 [Reserved Future Allocation Pool: 136 raw addresses (.120-.127 and .128-.255)]`}</pre>
         </div>
+          </NetworkingPanel>
       </div>
+      </NetworkingExample>
 
       {/* RFC 3021 /31 Point-to-Point Explanation Card */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">

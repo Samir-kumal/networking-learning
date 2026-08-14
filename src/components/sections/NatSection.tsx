@@ -1,6 +1,8 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 import { useState } from "react";
 
 export default function NatSection() {
@@ -62,6 +64,7 @@ export default function NatSection() {
       <div className="module-content networking-module-content">
 
       {/* Routability Comparison Cards */}
+      <NetworkingPanel className="mb-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         {/* Public IP Card */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
@@ -127,8 +130,10 @@ export default function NatSection() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* NAT Packet Translation Visual Diagram */}
+      <NetworkingExample title="Interactive NAT / PAT translation flow" description="Step-by-step walkthrough showing how a NAT gateway translates private sockets to public sockets." tone="amber">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
@@ -266,6 +271,7 @@ export default function NatSection() {
           </div>
         </div>
       </div>
+      </NetworkingExample>
       </div>
     </section>
   );

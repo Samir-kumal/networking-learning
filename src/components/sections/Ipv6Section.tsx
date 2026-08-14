@@ -1,6 +1,10 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
+import NetworkingExample from "@/components/networking/NetworkingExample";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 import { useState } from "react";
 
 export default function Ipv6Section() {
@@ -25,6 +29,7 @@ export default function Ipv6Section() {
       <div className="module-content networking-module-content">
 
       {/* 128-Bit Hexadecimal Format Breakdown */}
+      <NetworkingPanel className="mb-10">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
           IPv6 Address Anatomy: 8 Hextets (128 Bits)
@@ -52,8 +57,10 @@ export default function Ipv6Section() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* Interactive Zero Compression Rules */}
+      <NetworkingPanel className="mb-10">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
@@ -137,6 +144,7 @@ export default function Ipv6Section() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* IPv4 vs IPv6 Comparison Table */}
       <div className="mb-10">
@@ -148,6 +156,7 @@ export default function Ipv6Section() {
         </p>
 
         <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-700">
+          <NetworkingTable>
           <table className="w-full text-left border-collapse text-xs">
             <thead>
               <tr className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700 font-mono">
@@ -189,10 +198,12 @@ export default function Ipv6Section() {
               </tr>
             </tbody>
           </table>
+          </NetworkingTable>
         </div>
       </div>
 
       {/* /64 Common Subnets Card */}
+      <NetworkingExample title="/64 IPv6 subnet structure" description="A /64 convention divides the address into a 48-bit prefix, 16-bit subnet ID, and 64-bit interface ID." tone="lime">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <div className="flex items-center gap-2 mb-3">
           <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-bold">
@@ -206,6 +217,7 @@ export default function Ipv6Section() {
           Many IPv6 LANs use <strong className="text-emerald-600 dark:text-emerald-400">/64</strong> subnets because SLAAC is designed around a 64-bit interface identifier. Point-to-point links, loopbacks, and infrastructure-specific designs may use other prefix lengths, so /64 is a convention rather than a universal rule.
         </p>
 
+        <NetworkingMetric label="Addresses per /64" value="2⁶⁴" detail="18.4 quintillion host addresses" tone="lime" className="mb-4" />
         <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 font-mono text-xs space-y-3">
           <div className="flex flex-col sm:flex-row justify-between text-slate-500 dark:text-slate-400">
             <span>IPv6 /64 Subnet Structure:</span>
@@ -233,6 +245,7 @@ export default function Ipv6Section() {
           </div>
         </div>
       </div>
+      </NetworkingExample>
       </div>
     </section>
   );

@@ -1,6 +1,8 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 import CopyButton from "@/components/CopyButton";
 
 export default function BasicsSection() {
@@ -19,6 +21,7 @@ export default function BasicsSection() {
       <div className="module-content networking-module-content">
 
       {/* 3 Benefit Cards */}
+      <NetworkingPanel className="mb-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         {/* Card 1: Performance */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
@@ -77,8 +80,10 @@ export default function BasicsSection() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* Visual Home/Office Network 3-Subnet Diagram */}
+      <NetworkingExample title="192.168.1.0/24 subnet topology" description="A single private /24 CIDR block divided into 3 functional subnets with a central Layer 3 gateway router." tone="cyan">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
@@ -277,6 +282,7 @@ export default function BasicsSection() {
           </div>
         </div>
       </div>
+      </NetworkingExample>
       </div>
     </section>
   );

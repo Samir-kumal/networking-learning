@@ -1,4 +1,6 @@
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 export default function VlanSection() {
   return (
     <section
@@ -15,6 +17,7 @@ export default function VlanSection() {
       <div className="module-content networking-module-content">
 
       {/* Layer 2 vs Layer 3 Comparison Cards */}
+      <NetworkingPanel className="mb-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         {/* Layer 2 VLAN Card */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
@@ -80,8 +83,10 @@ export default function VlanSection() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* 1:1 Mapping & Inter-VLAN Routing Diagram */}
+      <NetworkingExample title="1:1 VLAN and subnet mapping" description="One IP subnet commonly maps to one VLAN; Layer 3 routing connects them." tone="cyan">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
@@ -163,8 +168,10 @@ export default function VlanSection() {
           </div>
         </div>
       </div>
+      </NetworkingExample>
 
       {/* Access Ports vs Trunk Ports Rule Card */}
+        <NetworkingPanel>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
           <h4 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-2">
@@ -184,6 +191,7 @@ export default function VlanSection() {
           </p>
         </div>
       </div>
+        </NetworkingPanel>
       </div>
     </section>
   );

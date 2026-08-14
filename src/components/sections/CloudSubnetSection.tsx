@@ -1,6 +1,8 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
 import { useState } from "react";
 
 export default function CloudSubnetSection() {
@@ -145,6 +147,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
         </button>
       </div>
 
+      <NetworkingPanel className="mb-10">
       {/* Selected Provider Card */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
@@ -155,14 +158,8 @@ resource "google_compute_subnetwork" "us_central_subnet" {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-4 rounded-lg">
-            <span className="text-xs font-mono text-indigo-600 dark:text-indigo-400 block mb-1">Subnet Scope & Availability</span>
-            <p className="text-sm text-slate-900 dark:text-slate-100">{currentCloud.scope}</p>
-          </div>
-          <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-4 rounded-lg">
-            <span className="text-xs font-mono text-amber-600 dark:text-amber-400 block mb-1">Reserved Addresses</span>
-            <p className="text-sm text-slate-900 dark:text-slate-100">{currentCloud.reservedIps}</p>
-          </div>
+          <NetworkingMetric label="Subnet Scope & Availability" value={activeCloud.toUpperCase()} detail={currentCloud.scope} tone="cyan" />
+          <NetworkingMetric label="Reserved Addresses" value="Provider-specific" detail={currentCloud.reservedIps} tone="amber" />
         </div>
 
         {/* Code Snippet */}
@@ -173,8 +170,10 @@ resource "google_compute_subnetwork" "us_central_subnet" {
           </pre>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* Cloud Subnetting Tips Checklist */}
+      <NetworkingPanel>
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <span>📋</span> Cloud Subnetting Architecture Checklist & Tips
@@ -208,6 +207,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
           ))}
         </div>
       </div>
+      </NetworkingPanel>
       </div>
     </section>
   );

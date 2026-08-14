@@ -1,6 +1,9 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 import { useState } from "react";
 import { maskFromCIDR } from "@/lib/subnet-utils";
 
@@ -44,6 +47,7 @@ export default function CidrSection() {
       <div className="module-content networking-module-content">
 
       {/* Interactive Controls & 32-Bit Visual Bar */}
+      <NetworkingPanel variant="muted" className="mb-10">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
         {/* Preset Selector */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
@@ -133,65 +137,21 @@ export default function CidrSection() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* Stat Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-        {/* Subnet Mask */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-            Subnet Mask
-          </div>
-          <div className="text-xl font-bold font-mono text-indigo-600 dark:text-indigo-400">
-            {subnetMaskStr}
-          </div>
-          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-            Equivalent to /{cidr} CIDR prefix
-          </div>
-        </div>
-
-        {/* Total Addresses */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-            Total IP Addresses
-          </div>
-          <div className="text-xl font-bold font-mono text-slate-900 dark:text-slate-100">
-            {totalAddresses.toLocaleString()}
-          </div>
-          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2 font-mono">
-            2<sup>{hostBits}</sup> addresses (32 minus {cidr} network bits)
-          </div>
-        </div>
-
-        {/* Usable Hosts */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-            Usable Host IPs
-          </div>
-          <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400">
-            {usableHosts.toLocaleString()}
-          </div>
-          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-            {cidr === 31
-              ? "Both addresses usable under RFC 3021"
-              : cidr === 32
-                ? "One address usable as a host route"
-                : "Excludes network and broadcast addresses"}
-          </div>
-        </div>
-
-        {/* Wildcard Mask */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-            Wildcard Mask (ACL)
-          </div>
-          <div className="text-xl font-bold font-mono text-violet-600 dark:text-violet-400">
-            {wildcardMaskStr}
-          </div>
-          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-            Inverted subnet mask (255 minus each mask octet)
-          </div>
-        </div>
+        <NetworkingMetric label="Subnet Mask" value={subnetMaskStr} detail={`Equivalent to /${cidr} CIDR prefix`} tone="cyan" />
+        <NetworkingMetric label="Total IP Addresses" value={totalAddresses.toLocaleString()} detail={<>2<sup>{hostBits}</sup> addresses (32 minus {cidr} network bits)</>} tone="violet" />
+        <NetworkingMetric
+          label="Usable Host IPs"
+          value={usableHosts.toLocaleString()}
+          detail={cidr === 31 ? "Both addresses usable under RFC 3021" : cidr === 32 ? "One address usable as a host route" : "Excludes network and broadcast addresses"}
+          tone="lime"
+        />
+        <NetworkingMetric label="Wildcard Mask (ACL)" value={wildcardMaskStr} detail="Inverted subnet mask (255 minus each mask octet)" tone="amber" />
       </div>
+      <NetworkingExample title="Usable Hosts Calculation Formula" description="Calculate assignable addresses from the number of host bits." tone="amber">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
 
       {/* Usable Hosts Formula Card */}
@@ -264,6 +224,7 @@ export default function CidrSection() {
           </div>
         </div>
       </div>
+      </NetworkingExample>
       </div>
     </section>
   );

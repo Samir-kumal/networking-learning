@@ -1,6 +1,7 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
 import { useState } from "react";
 
 export default function CreateSubnetSection() {
@@ -71,6 +72,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
 
       {/* 4 Numbered Step Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <NetworkingPanel>
         {/* STEP 1 */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow flex flex-col justify-between hover:border-indigo-300 transition-all">
           <div>
@@ -108,7 +110,9 @@ traceroute 192.168.20.50 # Linux / macOS`;
             💡 In this example, .0 is the network address, .1 is chosen as a gateway convention, and .255 is the directed-broadcast address for a /24. Actual gateway selection and address reservations depend on the platform and design.
           </div>
         </div>
+        </NetworkingPanel>
 
+        <NetworkingPanel>
         {/* STEP 2 */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow flex flex-col justify-between hover:border-indigo-300 transition-all">
           <div>
@@ -128,9 +132,11 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </p>
 
             <div className="relative">
+              <NetworkingPanel variant="console" className="p-0">
               <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
                 {ciscoCode}
               </pre>
+              </NetworkingPanel>
               <button
                 onClick={() => handleCopy(ciscoCode, 2)}
                 className="absolute top-2 right-2 px-2 py-1 bg-[#21262d] hover:bg-[#30363d] text-white dark:text-slate-100 hover:text-white rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
@@ -140,7 +146,9 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </div>
           </div>
         </div>
+        </NetworkingPanel>
 
+        <NetworkingPanel>
         {/* STEP 3 */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow flex flex-col justify-between hover:border-indigo-300 transition-all">
           <div>
@@ -179,9 +187,11 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </p>
 
             <div className="relative">
+              <NetworkingPanel variant="console" className="p-0">
               <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
                 {activeOsTab === "windows" ? windowsCode : linuxCode}
               </pre>
+              </NetworkingPanel>
               <button
                 onClick={() => handleCopy(activeOsTab === "windows" ? windowsCode : linuxCode, 3)}
                 className="absolute top-2 right-2 px-2 py-1 bg-[#21262d] hover:bg-[#30363d] text-white dark:text-slate-100 hover:text-white rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
@@ -191,7 +201,9 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </div>
           </div>
         </div>
+        </NetworkingPanel>
 
+        <NetworkingPanel>
         {/* STEP 4 */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow flex flex-col justify-between hover:border-indigo-300 transition-all">
           <div>
@@ -211,9 +223,11 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </p>
 
             <div className="relative">
+              <NetworkingPanel variant="console" className="p-0">
               <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
                 {testCode}
               </pre>
+              </NetworkingPanel>
               <button
                 onClick={() => handleCopy(testCode, 4)}
                 className="absolute top-2 right-2 px-2 py-1 bg-[#21262d] hover:bg-[#30363d] text-white dark:text-slate-100 hover:text-white rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
@@ -223,6 +237,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </div>
           </div>
         </div>
+        </NetworkingPanel>
       </div>
       </div>
     </section>
