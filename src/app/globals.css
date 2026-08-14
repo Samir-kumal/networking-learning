@@ -213,17 +213,11 @@
 
 
 /* Networking-only surface tokens, tables, and motion */
-.networking-module {
-  --networking-tone: #0891b2;
-  --networking-tone-border: #a5f3fc;
-  --networking-tone-surface: #ecfeff;
-}
-
 .networking-module-content {
   min-width: 0;
 }
 
-.networking-module [data-tone="cyan"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+[data-tone="cyan"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
 .networking-module [data-networking-example][data-tone="cyan"],
 .networking-module [data-networking-metric][data-tone="cyan"] {
   --networking-tone: #0891b2;
@@ -231,7 +225,7 @@
   --networking-tone-surface: #ecfeff;
 }
 
-.networking-module [data-tone="amber"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+[data-tone="amber"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
 .networking-module [data-networking-example][data-tone="amber"],
 .networking-module [data-networking-metric][data-tone="amber"] {
   --networking-tone: #d97706;
@@ -239,7 +233,7 @@
   --networking-tone-surface: #fffbeb;
 }
 
-.networking-module [data-tone="violet"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+[data-tone="violet"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
 .networking-module [data-networking-example][data-tone="violet"],
 .networking-module [data-networking-metric][data-tone="violet"] {
   --networking-tone: #7c3aed;
@@ -247,7 +241,7 @@
   --networking-tone-surface: #f5f3ff;
 }
 
-.networking-module [data-tone="lime"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+[data-tone="lime"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
 .networking-module [data-networking-example][data-tone="lime"],
 .networking-module [data-networking-metric][data-tone="lime"] {
   --networking-tone: #65a30d;
@@ -255,7 +249,7 @@
   --networking-tone-surface: #f7fee7;
 }
 
-.dark .networking-module [data-tone="cyan"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+.dark [data-tone="cyan"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
 .dark .networking-module [data-networking-example][data-tone="cyan"],
 .dark .networking-module [data-networking-metric][data-tone="cyan"] {
   --networking-tone: #67e8f9;
@@ -263,7 +257,7 @@
   --networking-tone-surface: rgb(8 47 73 / 0.45);
 }
 
-.dark .networking-module [data-tone="amber"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+.dark [data-tone="amber"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
 .dark .networking-module [data-networking-example][data-tone="amber"],
 .dark .networking-module [data-networking-metric][data-tone="amber"] {
   --networking-tone: #fcd34d;
@@ -271,7 +265,7 @@
   --networking-tone-surface: rgb(69 26 3 / 0.45);
 }
 
-.dark .networking-module [data-tone="violet"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+.dark [data-tone="violet"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
 .dark .networking-module [data-networking-example][data-tone="violet"],
 .dark .networking-module [data-networking-metric][data-tone="violet"] {
   --networking-tone: #c4b5fd;
@@ -279,7 +273,7 @@
   --networking-tone-surface: rgb(46 16 101 / 0.45);
 }
 
-.dark .networking-module [data-tone="lime"]:has([data-networking-header], [data-networking-example], [data-networking-metric]),
+.dark [data-tone="lime"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
 .dark .networking-module [data-networking-example][data-tone="lime"],
 .dark .networking-module [data-networking-metric][data-tone="lime"] {
   --networking-tone: #bef264;

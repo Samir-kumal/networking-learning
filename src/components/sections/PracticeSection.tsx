@@ -373,7 +373,7 @@ export default function PracticeSection() {
           return (
             <NetworkingPanel
               key={prob.id}
-              className={`rounded-xl border transition-all ${
+              className={`!p-0 rounded-xl border transition-all ${
                 isOpen
                   ? "bg-slate-50 dark:bg-slate-700 border-indigo-300 shadow-lg shadow-[#58a6ff]/5"
                   : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-200/80"
@@ -479,7 +479,7 @@ export default function PracticeSection() {
                       <h4 className="text-xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400 mb-3">
                         Subnet Allocation Breakdown
                       </h4>
-                      <NetworkingTable>
+                      <NetworkingTable className="rounded-lg border border-slate-200 dark:border-slate-700">
                         <table className="w-full text-left text-xs font-mono">
                           <thead className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                             <tr>
