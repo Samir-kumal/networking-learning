@@ -131,16 +131,8 @@ export default function SupernetSection() {
 
       {/* TAB 2: BINARY ANALYSIS */}
       {activeTab === "binary" && (
-        <NetworkingExample title="Worked Aggregation Example" description="Compare four adjacent /24 routes with their /22 summary." tone="cyan">
+        <NetworkingExample title="Binary Matching: Finding the Common Prefix Length" description="To aggregate subnets, line up their network addresses in binary. The number of leading identical bits from left to right becomes the new supernet prefix length." tone="cyan">
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow space-y-6">
-          <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
-              Binary Matching: Finding the Common Prefix Length
-            </h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              To aggregate subnets, line up their network addresses in binary. The number of leading identical bits from left to right becomes the new supernet prefix length.
-            </p>
-          </div>
 
           <div className="space-y-3 font-mono text-xs sm:text-sm">
             {subnets.map((sub, idx) => (

@@ -133,17 +133,9 @@ export default function NatSection() {
       </NetworkingPanel>
 
       {/* NAT Packet Translation Visual Diagram */}
-      <NetworkingExample title="Interactive NAT / PAT translation flow" description="Step-by-step walkthrough showing how a NAT gateway translates private sockets to public sockets." tone="amber">
+      <NetworkingExample title="Interactive NAT / PAT (Port Address Translation) Flow" description="Step-by-step walkthrough showing how a NAT Gateway translates private sockets to public sockets." tone="amber">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
-          <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Interactive NAT / PAT (Port Address Translation) Flow
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Step-by-step walkthrough showing how a NAT Gateway translates private sockets to public sockets.
-            </p>
-          </div>
 
           {/* Controls */}
           <div className="flex gap-2">

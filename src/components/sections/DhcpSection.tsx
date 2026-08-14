@@ -353,14 +353,11 @@ interface GigabitEthernet0/0.10
       {/* -------------------------------------------------------------------- */}
       {/* 1. DORA HANDSHAKE FLOW */}
       {/* -------------------------------------------------------------------- */}
-      <NetworkingExample title="DHCP DORA handshake" description="Interactive four-step DHCP discovery, offer, request, and acknowledgement flow." tone="cyan">
+      <NetworkingExample title="The 4-Step DORA Handshake" tone="cyan">
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
             <span className="text-xs uppercase font-mono tracking-wider text-indigo-600 dark:text-indigo-400">Interactive Protocol Flow</span>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-              <span>The 4-Step DORA Handshake</span>
-            </h3>
           </div>
           <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
             UDP Ports: Server <span className="text-emerald-600 dark:text-emerald-400">67</span> | Client <span className="text-indigo-600 dark:text-indigo-400">68</span>
@@ -515,14 +512,11 @@ interface GigabitEthernet0/0.10
       {/* -------------------------------------------------------------------- */}
       {/* 2. DHCP RELAY AGENT (`ip helper-address`) */}
       {/* -------------------------------------------------------------------- */}
-      <NetworkingExample title="DHCP relay forwarding" description="A relay agent forwards client broadcasts across routed subnets." tone="amber">
+      <NetworkingExample title={<>DHCP Relay Agent (<code className="text-emerald-600 dark:text-emerald-400">ip helper-address</code>)</>} tone="amber">
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
             <span className="text-xs uppercase font-mono tracking-wider text-emerald-600 dark:text-emerald-400">Cross-Subnet Forwarding</span>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-              DHCP Relay Agent (<code className="text-emerald-600 dark:text-emerald-400">ip helper-address</code>)
-            </h3>
           </div>
           {/* Mode Switcher */}
           <div className="flex items-center p-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">

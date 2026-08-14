@@ -203,19 +203,13 @@ export default function Ipv6Section() {
       </div>
 
       {/* /64 Common Subnets Card */}
-      <NetworkingExample title="/64 IPv6 subnet structure" description="A /64 convention divides the address into a 48-bit prefix, 16-bit subnet ID, and 64-bit interface ID." tone="lime">
+      <NetworkingExample title="Why IPv6 LANs Commonly Use /64" description={<>Many IPv6 LANs use <strong className="text-emerald-600 dark:text-emerald-400">/64</strong> subnets because SLAAC is designed around a 64-bit interface identifier. Point-to-point links, loopbacks, and infrastructure-specific designs may use other prefix lengths, so /64 is a convention rather than a universal rule.</>} tone="lime">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <div className="flex items-center gap-2 mb-3">
           <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-bold">
             /64 Common Subnet
           </span>
-          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Why IPv6 LANs Commonly Use /64
-          </h3>
         </div>
-        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-          Many IPv6 LANs use <strong className="text-emerald-600 dark:text-emerald-400">/64</strong> subnets because SLAAC is designed around a 64-bit interface identifier. Point-to-point links, loopbacks, and infrastructure-specific designs may use other prefix lengths, so /64 is a convention rather than a universal rule.
-        </p>
 
         <NetworkingMetric label="Addresses per /64" value="2⁶⁴" detail="18.4 quintillion host addresses" tone="lime" className="mb-4" />
         <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 font-mono text-xs space-y-3">

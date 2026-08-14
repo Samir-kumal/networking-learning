@@ -83,21 +83,8 @@ export default function BasicsSection() {
       </NetworkingPanel>
 
       {/* Visual Home/Office Network 3-Subnet Diagram */}
-      <NetworkingExample title="192.168.1.0/24 subnet topology" description="A single private /24 CIDR block divided into 3 functional subnets with a central Layer 3 gateway router." tone="cyan">
+      <NetworkingExample title="Network Topology Example: 192.168.1.0/24 Subnet Partitioning" description="A single private /24 CIDR block divided into 3 functional subnets with a central Layer 3 gateway router." footer="Total IPs: 256" tone="cyan">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
-          <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Network Topology Example: 192.168.1.0/24 Subnet Partitioning
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              A single private /24 CIDR block divided into 3 functional subnets with a central Layer 3 gateway router.
-            </p>
-          </div>
-          <span className="px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-xs font-mono text-emerald-600 dark:text-emerald-400 whitespace-nowrap self-start sm:self-auto">
-            Total IPs: 256
-          </span>
-        </div>
 
         <div className="flex justify-center mb-8">
           <div className="relative group px-6 py-3 rounded-xl bg-white dark:bg-slate-800 border-2 border-indigo-400 text-center shadow-lg shadow-[#58a6ff]/10">

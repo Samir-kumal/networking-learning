@@ -86,23 +86,10 @@ export default function VlsmSection() {
         </div>
       </div>
         </NetworkingPanel>
-      <NetworkingExample title="Worked VLSM Example" description="Allocate subnets from a 192.168.1.0/24 block using largest requirements first." tone="cyan">
+      <NetworkingExample title="Worked VLSM Example: Subnetting a 192.168.1.0/24 Block" description="Requirement: Allocate subnets for Engineering (50 hosts), Sales (25 hosts), Executive (10 hosts), and 2 Router Links." footer="Heuristic: allocate largest requirements first to simplify alignment" tone="cyan">
 
       {/* Worked Example Table */}
       <div className="mb-10">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-          <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Worked VLSM Example: Subnetting a 192.168.1.0/24 Block
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Requirement: Allocate subnets for Engineering (50 hosts), Sales (25 hosts), Executive (10 hosts), and 2 Router Links.
-            </p>
-          </div>
-          <span className="px-2.5 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-indigo-600 dark:text-indigo-400">
-            Heuristic: allocate largest requirements first to simplify alignment
-          </span>
-        </div>
 
         <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-700 mb-6">
           <table className="w-full text-left border-collapse text-xs font-mono">
@@ -178,11 +165,11 @@ export default function VlsmSection() {
           <NetworkingPanel variant="console" className="p-0">
 
         {/* Tree Allocation Visual Code Block */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
+        <div className="rounded-xl bg-transparent border border-slate-200 dark:border-slate-700 card-shadow p-5">
           <div className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2 uppercase">
             Address Space Allocation Tree (192.168.1.0/24)
           </div>
-          <pre className="font-mono text-xs text-emerald-600 dark:text-emerald-400 bg-white dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto">
+          <pre className="font-mono text-xs text-emerald-600 dark:text-emerald-400 bg-transparent p-4 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto">
 {`192.168.1.0/24 (256 Total IPs)
 ├── 192.168.1.0/26   [Engineering: 50 hosts required, 62 usable (.1-.62)]
 ├── 192.168.1.64/27  [Sales:       25 hosts required, 30 usable (.65-.94)]
@@ -195,7 +182,6 @@ export default function VlsmSection() {
       </div>
       </NetworkingExample>
 
-      {/* RFC 3021 /31 Point-to-Point Explanation Card */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <div className="flex items-center gap-2 mb-3">
           <span className="px-2.5 py-1 rounded bg-[#bc8cff]/20 text-violet-600 dark:text-violet-400 text-xs font-mono font-bold">

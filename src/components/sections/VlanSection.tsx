@@ -86,21 +86,8 @@ export default function VlanSection() {
       </NetworkingPanel>
 
       {/* 1:1 Mapping & Inter-VLAN Routing Diagram */}
-      <NetworkingExample title="1:1 VLAN and subnet mapping" description="One IP subnet commonly maps to one VLAN; Layer 3 routing connects them." tone="cyan">
+      <NetworkingExample title="Industry Standard: 1:1 Mapping & Inter-VLAN Routing" description="Best practice commonly maps one IP subnet to one VLAN. Communication between VLANs requires a Layer 3 router or Layer 3 switch." footer="802.1Q Trunking" tone="cyan">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
-          <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Industry Standard: 1:1 Mapping & Inter-VLAN Routing
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Best practice commonly maps one IP subnet to one VLAN. Communication between VLANs requires a Layer 3 router or Layer 3 switch.
-            </p>
-          </div>
-          <span className="px-3 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-indigo-600 dark:text-indigo-400">
-            802.1Q Trunking
-          </span>
-        </div>
 
         {/* Router Gateway Central */}
         <div className="flex justify-center mb-8">

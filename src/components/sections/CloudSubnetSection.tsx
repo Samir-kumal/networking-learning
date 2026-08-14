@@ -113,6 +113,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
       />
       <div className="module-content networking-module-content">
 
+      <NetworkingPanel className="space-y-6">
       {/* Cloud Provider Tabs */}
       <div className="flex flex-wrap gap-3 mb-6">
         <button
@@ -158,8 +159,8 @@ resource "google_compute_subnetwork" "us_central_subnet" {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <NetworkingMetric label="Subnet Scope & Availability" value={activeCloud.toUpperCase()} detail={currentCloud.scope} tone="cyan" />
-          <NetworkingMetric label="Reserved Addresses" value="Provider-specific" detail={currentCloud.reservedIps} tone="amber" />
+          <NetworkingMetric label="Subnet Scope & Availability" value={currentCloud.scope} detail="Provider subnet scope and availability model" tone="cyan" />
+          <NetworkingMetric label="Reserved Addresses" value={currentCloud.reservedIps} detail="Provider-specific reserved addresses" tone="amber" />
         </div>
 
         {/* Code Snippet */}
@@ -207,6 +208,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
           ))}
         </div>
       </div>
+      </NetworkingPanel>
       </NetworkingPanel>
       </div>
     </section>

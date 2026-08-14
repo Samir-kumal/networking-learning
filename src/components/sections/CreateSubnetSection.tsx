@@ -133,7 +133,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
 
             <div className="relative">
               <NetworkingPanel variant="console" className="p-0">
-              <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
+              <pre className="bg-transparent border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
                 {ciscoCode}
               </pre>
               </NetworkingPanel>
@@ -188,7 +188,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
 
             <div className="relative">
               <NetworkingPanel variant="console" className="p-0">
-              <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
+              <pre className="bg-transparent border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
                 {activeOsTab === "windows" ? windowsCode : linuxCode}
               </pre>
               </NetworkingPanel>
@@ -224,7 +224,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
 
             <div className="relative">
               <NetworkingPanel variant="console" className="p-0">
-              <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
+              <pre className="bg-transparent border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
                 {testCode}
               </pre>
               </NetworkingPanel>

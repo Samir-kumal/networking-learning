@@ -151,24 +151,14 @@ export default function CidrSection() {
         />
         <NetworkingMetric label="Wildcard Mask (ACL)" value={wildcardMaskStr} detail="Inverted subnet mask (255 minus each mask octet)" tone="amber" />
       </div>
-      <NetworkingExample title="Usable Hosts Calculation Formula" description="Calculate assignable addresses from the number of host bits." tone="amber">
+      <NetworkingExample
+        title={cidr === 31 ? "Usable Hosts: both addresses are usable on an RFC 3021 point-to-point link" : cidr === 32 ? "Usable Hosts: one address is usable for a host route" : <>Usable Hosts Calculation Formula: 2<sup>h</sup> - 2</>}
+        description={cidr === 31 ? <>An RFC 3021 <code className="text-emerald-600 dark:text-emerald-400">/31</code> point-to-point link has exactly two addresses, and both are usable. No network or broadcast address is reserved.</> : cidr === 32 ? <>A <code className="text-emerald-600 dark:text-emerald-400">/32</code> is a host route containing one address, which is usable directly. No network or broadcast address is reserved.</> : <>For an IPv4 subnet, use <code className="text-emerald-600 dark:text-emerald-400">Usable Hosts = 2<sup>h</sup> - 2</code>, where <code className="text-indigo-600 dark:text-indigo-400">h = 32 - CIDR</code> is the number of host bits.</>}
+        tone="amber"
+      >
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
 
       {/* Usable Hosts Formula Card */}
-        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3">
-          {cidr === 31
-            ? "Usable Hosts: both addresses are usable on an RFC 3021 point-to-point link"
-            : cidr === 32
-              ? "Usable Hosts: one address is usable for a host route"
-              : <>Usable Hosts Calculation Formula: 2<sup>h</sup> - 2</>}
-        </h3>
-        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-          {cidr === 31
-            ? <>An RFC 3021 <code className="text-emerald-600 dark:text-emerald-400">/31</code> point-to-point link has exactly two addresses, and both are usable. No network or broadcast address is reserved.</>
-            : cidr === 32
-              ? <>A <code className="text-emerald-600 dark:text-emerald-400">/32</code> is a host route containing one address, which is usable directly. No network or broadcast address is reserved.</>
-              : <>For an IPv4 subnet, use <code className="text-emerald-600 dark:text-emerald-400">Usable Hosts = 2<sup>h</sup> - 2</code>, where <code className="text-indigo-600 dark:text-indigo-400">h = 32 - CIDR</code> is the number of host bits.</>}
-        </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {cidr >= 31 ? (

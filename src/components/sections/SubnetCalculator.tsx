@@ -103,7 +103,6 @@ export default function SubnetCalculator() {
           </div>
         </div>
       </form>
-      </NetworkingPanel>
 
       {/* Validation Banner */}
       {hasError && (
@@ -146,6 +145,7 @@ export default function SubnetCalculator() {
           <NetworkingMetric label="Usable Hosts" value={result.usableHosts} detail={resultIsRfc3021 ? "Two assignable point-to-point endpoint addresses" : resultIsHostRoute ? "One assignable host-route address" : "Total assignable host IP addresses"} tone="amber" />
         </div>
       )}
+      </NetworkingPanel>
 
       {/* Quick Reference Table */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
