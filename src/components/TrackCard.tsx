@@ -31,43 +31,38 @@ export default function TrackCard({
   accentClass = "bg-indigo-600",
 }: TrackCardProps) {
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow transition-all duration-200 card-shadow hover:card-shadow-hover hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-slate-600 overflow-hidden">
+    <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-white p-5 card-shadow transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:card-shadow-hover dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600">
+      <div className={`absolute inset-y-0 left-0 w-1 ${accentClass} opacity-80`} />
 
-      {/* Thin top accent line — changes per track via accentClass */}
-      <div className={`absolute top-0 left-0 right-0 h-0.5 ${accentClass} opacity-80`} />
-
-      <div className="space-y-5">
-        {/* Icon + badges row */}
+      <div className="space-y-5 pl-1">
         <div className="flex items-start justify-between gap-4">
-          <div className="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 flex items-center justify-center text-xl flex-shrink-0 group-hover:bg-slate-200 dark:group-hover:bg-slate-600 transition-colors">
+          <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-slate-100 text-xl transition-colors group-hover:bg-slate-200 dark:border-slate-600 dark:bg-slate-700 dark:group-hover:bg-slate-600">
             {icon}
           </div>
-          <div className="flex items-center gap-2 flex-wrap justify-end">
-            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${difficultyStyle(difficulty)}`}>
+          <div className="flex flex-wrap items-center justify-end gap-1.5">
+            <span className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold ${difficultyStyle(difficulty)}`}>
               {difficulty}
             </span>
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full border bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-600">
+            <span className="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-semibold text-slate-600 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300">
               {moduleCount} Modules
             </span>
           </div>
         </div>
 
-        {/* Title */}
         <div>
-          <h3 className="text-[15px] font-semibold text-slate-900 dark:text-slate-100 leading-snug group-hover:text-indigo-700 dark:group-hover:text-indigo-400 transition-colors">
+          <h3 className="text-[15px] font-semibold leading-snug text-slate-900 transition-colors group-hover:text-indigo-700 dark:text-slate-100 dark:group-hover:text-indigo-400">
             {name}
           </h3>
-          <p className="mt-1.5 text-[13px] text-slate-500 dark:text-slate-400 leading-relaxed">
+          <p className="mt-1.5 text-[13px] leading-relaxed text-slate-500 dark:text-slate-400">
             {description}
           </p>
         </div>
 
-        {/* Tech stack chips */}
         <div className="flex flex-wrap gap-1.5">
           {techStack.map((tech) => (
             <span
               key={tech}
-              className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-600"
+              className="rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-600 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300"
             >
               {tech}
             </span>
@@ -75,24 +70,24 @@ export default function TrackCard({
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+      <div className="mt-6 flex items-center justify-between border-t border-slate-100 pl-1 pt-4 dark:border-slate-700">
         <div className="flex items-center gap-1.5 text-[11px] text-slate-400 dark:text-slate-500">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          Ready
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          Ready to run
         </div>
         <Link
           href={href}
-          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors group/btn"
+          className="group/btn inline-flex items-center gap-1.5 text-[13px] font-semibold text-indigo-600 transition-colors hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
         >
-          Open Track
+          Open track
           <svg
-            className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform"
+            className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m9 5 7 7-7 7" />
           </svg>
         </Link>
       </div>

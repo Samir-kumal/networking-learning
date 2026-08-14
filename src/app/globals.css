@@ -122,6 +122,21 @@
     background-image: radial-gradient(circle, #334155 1px, transparent 1px);
   }
 
+  /* Dark telemetry grid used by the homepage briefing panel */
+  .bg-signal-grid {
+    background-image:
+      linear-gradient(rgb(103 232 249 / 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(103 232 249 / 0.08) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .dark .bg-signal-grid {
+    background-image:
+      linear-gradient(rgb(103 232 249 / 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(103 232 249 / 0.1) 1px, transparent 1px);
+  }
+
+
   /* Card elevation levels */
   .card-shadow {
     box-shadow:
@@ -188,9 +203,10 @@
 .kg-rise {
   animation: kg-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .kg-rise {
+  .kg-rise,
+  .animate-fade-up,
+  .animate-soft-pulse {
     animation: none;
   }
 }

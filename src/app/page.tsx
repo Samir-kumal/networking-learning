@@ -125,82 +125,81 @@ const PHASES = [
 
 export default function Home() {
   return (
-    <div className="pb-24 space-y-12">
+    <div className="space-y-16 pb-24">
       <HubHero />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
-
-        {/* ── Track Grid ── */}
-        <section id="tracks">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+      <div className="mx-auto max-w-7xl space-y-16 px-4 sm:px-6 lg:px-8">
+        <section id="tracks" className="scroll-mt-24">
+          <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-1">
-                Engineering Disciplines
+              <p className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-400">
+                Curriculum lanes
               </p>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Learning Tracks</h2>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Choose your lane</h2>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                Start with the system you want to understand, then follow the connected path into production.
+              </p>
             </div>
-            <p className="text-[13px] text-slate-400 dark:text-slate-500">
-              5 tracks · 71 modules · browser-native
-            </p>
+            <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-slate-400 dark:text-slate-500">
+              05 lanes / 71 modules
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
             {TRACKS.map((t) => (
               <TrackCard key={t.id} {...t} />
             ))}
           </div>
         </section>
 
-        {/* ── Knowledge Graph ── */}
-        <section id="knowledge-graph">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+        <section id="knowledge-graph" className="scroll-mt-24">
+          <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-1">
-                Curriculum Map
+              <p className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-400">
+                Curriculum map
               </p>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Learning Path Graph</h2>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Trace the learning path</h2>
             </div>
-            <p className="text-[13px] text-slate-400 dark:text-slate-500">
-              Follow the recommended path from code to production
+            <p className="max-w-sm text-sm leading-relaxed text-slate-400 dark:text-slate-500 sm:text-right">
+              Follow the recommended progression from code to production networking.
             </p>
           </div>
 
           <KnowledgeGraphSection />
         </section>
 
-        {/* ── Production Pipeline Architecture ── */}
-        <section id="architecture">
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 card-shadow overflow-hidden">
-            <div className="border-b border-slate-100 dark:border-slate-700 px-6 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <section id="architecture" className="scroll-mt-24">
+          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white card-shadow dark:border-slate-700 dark:bg-slate-800">
+            <div className="flex flex-col gap-3 border-b border-slate-100 px-6 py-5 sm:flex-row sm:items-center sm:justify-between dark:border-slate-700">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-1">
-                  Ecosystem Map
+                <p className="mb-1 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
+                  Reference route
                 </p>
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
-                  End-to-End Production Pipeline
+                  End-to-end production path
                 </h3>
               </div>
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                Reference Architecture
+              <span className="inline-flex items-center gap-1.5 self-start rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-medium text-emerald-700 dark:border-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 sm:self-auto">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                Reference architecture
               </span>
             </div>
 
-            <div className="px-6 py-5 space-y-5">
-              <p className="text-[13px] text-slate-500 dark:text-slate-400 leading-relaxed max-w-3xl">
+            <div className="space-y-5 px-6 py-5">
+              <p className="max-w-3xl text-[13px] leading-relaxed text-slate-500 dark:text-slate-400">
                 Modern cloud software moves through a synchronized sequence — from developer commits through security gates, container packaging, cloud orchestration, and finally across production network subnets.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
                 {PHASES.map((p) => (
                   <div
                     key={p.step}
-                    className={`rounded-xl border p-4 space-y-2 ${p.color}`}
+                    className={`space-y-2 rounded-xl border p-4 ${p.color}`}
                   >
-                    <div className={`text-[10px] font-bold uppercase tracking-wider ${p.badge}`}>
+                    <div className={`font-mono text-[10px] font-bold uppercase tracking-[0.16em] ${p.badge}`}>
                       Phase {p.step}
                     </div>
-                    <div className="text-[13px] font-semibold text-slate-800 dark:text-slate-200 leading-snug">
+                    <div className="text-[13px] font-semibold leading-snug text-slate-800 dark:text-slate-200">
                       {p.phase}
                     </div>
                     <div className={`text-[11px] font-medium ${p.badge}`}>{p.detail}</div>
@@ -211,7 +210,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
       </div>
     </div>
   );
