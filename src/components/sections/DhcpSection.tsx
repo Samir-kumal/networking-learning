@@ -353,7 +353,7 @@ interface GigabitEthernet0/0.10
       {/* -------------------------------------------------------------------- */}
       {/* 1. DORA HANDSHAKE FLOW */}
       {/* -------------------------------------------------------------------- */}
-      <NetworkingExample title="The 4-Step DORA Handshake" tone="cyan">
+      <NetworkingExample title="The 4-Step DORA Handshake" description="Interactive four-step DHCP discovery, offer, request, and acknowledgement flow." tone="cyan">
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
@@ -512,7 +512,7 @@ interface GigabitEthernet0/0.10
       {/* -------------------------------------------------------------------- */}
       {/* 2. DHCP RELAY AGENT (`ip helper-address`) */}
       {/* -------------------------------------------------------------------- */}
-      <NetworkingExample title={<>DHCP Relay Agent (<code className="text-emerald-600 dark:text-emerald-400">ip helper-address</code>)</>} tone="amber">
+      <NetworkingExample title={<>DHCP Relay Agent (<code className="text-emerald-600 dark:text-emerald-400">ip helper-address</code>)</>} description="A relay agent forwards client broadcasts across routed subnets." tone="amber">
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
