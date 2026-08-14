@@ -1,6 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import {
+  analyzeCommitBump,
+  evaluateSemverRange,
+  generateWorkflowYaml,
+  GITOPS_HASH_BY_TAB,
+  GITOPS_TAB_BY_HASH,
+  type GitOpsTab,
+} from "@/lib/gitops";
 
 // ==========================================
 // TYPES & INTERFACES
@@ -43,20 +51,14 @@ const INITIAL_GITFLOW_COMMITS: CommitNode[] = [
   { id: "g3", hash: "f103e3f", branch: "develop", message: "feat: user profile schema", type: "commit", timestamp: "09:20:00" },
 ];
 
-const TAB_BY_HASH = {
-  "git-branching": "git",
-  "git-actions": "actions",
-  "git-semver": "semver",
-  "git-deploy": "deploy",
-} as const;
 
 export default function GitOpsSection() {
   // Navigation / Active Module
-  const [activeTab, setActiveTab] = useState<"git" | "actions" | "semver" | "deploy">("git");
+  const [activeTab, setActiveTab] = useState<GitOpsTab>("git");
 
   useEffect(() => {
     const syncTabToHash = () => {
-      const tab = TAB_BY_HASH[window.location.hash.slice(1) as keyof typeof TAB_BY_HASH];
+      const tab = GITOPS_TAB_BY_HASH[window.location.hash.slice(1)];
       if (tab) setActiveTab(tab);
     };
 
@@ -66,11 +68,20 @@ export default function GitOpsSection() {
   }, []);
 
   useEffect(() => {
-    const targetId = window.location.hash.slice(1);
-    if (TAB_BY_HASH[targetId as keyof typeof TAB_BY_HASH] === activeTab) {
+    const targetId = GITOPS_HASH_BY_TAB[activeTab];
+    if (window.location.hash === `#${targetId}`) {
       document.getElementById(targetId)?.scrollIntoView({ block: "start" });
     }
   }, [activeTab]);
+
+  const handleTabChange = (tab: GitOpsTab) => {
+    const hash = `#${GITOPS_HASH_BY_TAB[tab]}`;
+    if (window.location.hash !== hash) {
+      window.history.pushState(null, "", `${window.location.pathname}${window.location.search}${hash}`);
+      window.dispatchEvent(new Event("hashchange"));
+    }
+    setActiveTab(tab);
+  };
 
   // ==========================================
   // 1. GIT BRANCHING SIMULATOR STATE
@@ -259,6 +270,7 @@ export default function GitOpsSection() {
       return;
     }
     const hashMain = Math.random().toString(36).substring(2, 9);
+    const hashDev = Math.random().toString(36).substring(2, 9);
     const tag = "v1.0.1";
     const mainMerge: CommitNode = {
       id: Date.now().toString(),
@@ -269,8 +281,16 @@ export default function GitOpsSection() {
       tag,
       timestamp: new Date().toLocaleTimeString(),
     };
-    setGitflowCommits((prev) => [...prev, mainMerge]);
-    addGitLog(`🔥 Merged ${activeHotfixBranch} into main (Tagged ${tag}) & updated develop.`);
+    const devMerge: CommitNode = {
+      id: (Date.now() + 1).toString(),
+      hash: hashDev,
+      branch: "develop",
+      message: `Merge hotfix '${activeHotfixBranch}' back into develop`,
+      type: "merge",
+      timestamp: new Date().toLocaleTimeString(),
+    };
+    setGitflowCommits((prev) => [...prev, mainMerge, devMerge]);
+    addGitLog(`🔥 Merged ${activeHotfixBranch} into main (Tagged ${tag}) & back into develop.`);
     setActiveHotfixBranch(null);
   };
 
@@ -306,53 +326,13 @@ export default function GitOpsSection() {
   const [copySuccess, setCopySuccess] = useState<boolean>(false);
 
   // Generate GitHub Actions YAML Code
-  const generateYamlCode = (): string => {
-    const triggerLines: string[] = [];
-    if (pipelineTriggers.pushMain) triggerLines.push("  push:\n    branches: [ main ]");
-    if (pipelineTriggers.pullRequest) triggerLines.push("  pull_request:\n    branches: [ main ]");
-    if (pipelineTriggers.workflowDispatch) triggerLines.push("  workflow_dispatch:");
-    if (pipelineTriggers.cronSchedule) triggerLines.push("  schedule:\n    - cron: '0 0 * * *'");
-
-    const stepsYaml: string[] = [];
-    if (enabledSteps.checkout) {
-      stepsYaml.push(`      - name: Checkout Repository\n        uses: actions/checkout@v4`);
-    }
-    if (enabledSteps.setupNode) {
-      stepsYaml.push(`      - name: Setup Node.js ${nodeVersion}\n        uses: actions/setup-node@v4\n        with:\n          node-version: '${nodeVersion}'\n          cache: 'npm'`);
-    }
-    if (enabledSteps.npmInstall) {
-      stepsYaml.push(`      - name: Install Dependencies\n        run: npm ci`);
-    }
-    if (enabledSteps.lint) {
-      stepsYaml.push(`      - name: Run Linter & Static Analysis\n        run: npm run lint`);
-    }
-    if (enabledSteps.test) {
-      stepsYaml.push(`      - name: Execute Unit & Integration Tests\n        run: npm test -- --coverage`);
-    }
-    if (enabledSteps.securityScan) {
-      stepsYaml.push(`      - name: Security Vulnerability Scan\n        uses: aquasecurity/trivy-action@master\n        with:\n          scan-type: 'fs'\n          severity: 'HIGH,CRITICAL'`);
-    }
-    if (enabledSteps.dockerBuild) {
-      stepsYaml.push(`      - name: Build & Push Docker Container\n        uses: docker/build-push-action@v5\n        with:\n          push: true\n          tags: ghcr.io/org/app:\${{ github.sha }}`);
-    }
-    if (enabledSteps.deployK8s) {
-      stepsYaml.push(`      - name: Deploy to Kubernetes Cluster\n        uses: azure/k8s-deploy@v4\n        with:\n          manifests: | \n            k8s/deployment.yaml\n          images: ghcr.io/org/app:\${{ github.sha }}`);
-    }
-    if (enabledSteps.slackNotify) {
-      stepsYaml.push(`      - name: Slack Notification on Failure\n        if: failure()\n        uses: 8398a7/action-slack@v3\n        with:\n          status: \${{ job.status }}\n          fields: repo,message,commit,author,action,eventName,ref,workflow`);
-    }
-
-    return `name: ${pipelineName}
-
-on:
-${triggerLines.join("\n")}
-
-jobs:
-  build-and-test:
-    runs-on: ${runnerOs}
-    steps:
-${stepsYaml.join("\n\n")}`;
-  };
+  const generateYamlCode = () => generateWorkflowYaml({
+    pipelineName,
+    pipelineTriggers,
+    runnerOs,
+    nodeVersion,
+    enabledSteps,
+  });
 
   const handleCopyYaml = () => {
     navigator.clipboard.writeText(generateYamlCode());
@@ -377,7 +357,7 @@ ${stepsYaml.join("\n\n")}`;
       if (stepIdx >= activeStepsList.length) {
         clearInterval(interval);
         setIsSimulatingCi(false);
-        setCiTerminalLogs((prev) => [...prev, "🎉 Pipeline Execution Completed Successfully! All jobs passed."]);
+        setCiTerminalLogs((prev) => [...prev, "🎉 Simulation completed. No GitHub Actions jobs were executed."]);
         return;
       }
 
@@ -388,31 +368,31 @@ ${stepsYaml.join("\n\n")}`;
       let logMsg = "";
       switch (stepName) {
         case "checkout":
-          logMsg = "📥 [checkout@v4] Syncing git repository HEAD ref...";
+          logMsg = "📥 [checkout] Simulated repository checkout.";
           break;
         case "setupNode":
-          logMsg = `🟢 [setup-node@v4] Configuring Node.js runtime environment (${nodeVersion})...`;
+          logMsg = `🟢 [setup-node] Simulated Node.js ${nodeVersion} setup on ${runnerOs}.`;
           break;
         case "npmInstall":
-          logMsg = "📦 [npm ci] Installed 1,142 dependencies from package-lock.json (3.1s)";
+          logMsg = "📦 [npm ci] Simulated lockfile-based dependency installation.";
           break;
         case "lint":
-          logMsg = "🔍 [npm run lint] Checking 48 files... 0 errors, 0 warnings found.";
+          logMsg = "🔍 [npm run lint] Simulated lint command. Run the repository workflow for current diagnostics.";
           break;
         case "test":
-          logMsg = "🧪 [npm test] Vitest v4.1: 24 tests passed across 5 test suites (1.8s)";
+          logMsg = "🧪 [npm test] Simulated test command. Run the repository workflow for current test results.";
           break;
         case "securityScan":
-          logMsg = "🛡️ [trivy-action] Scanned 1,142 packages: 0 CRITICAL, 0 HIGH vulnerabilities.";
+          logMsg = "🛡️ [trivy-action] Simulated filesystem scan configured for HIGH and CRITICAL findings.";
           break;
         case "dockerBuild":
-          logMsg = "🐳 [docker-build] Building image ghcr.io/org/app:a1b2c3d... Pushed!";
+          logMsg = "🐳 [docker-build] Simulated image build and push using the generated GHCR workflow.";
           break;
         case "deployK8s":
-          logMsg = "☸️ [k8s-deploy] Updated deployment.apps/web-service in namespace prod.";
+          logMsg = "☸️ [k8s-deploy] Simulated manifest deployment; cluster context is required for a real run.";
           break;
         case "slackNotify":
-          logMsg = "🔔 [slack-notify] Skipped (Job status: SUCCESS)";
+          logMsg = "🔔 [slack-notify] Simulated failure notification step.";
           break;
       }
 
@@ -459,77 +439,8 @@ ${stepsYaml.join("\n\n")}`;
       setSemverPrerelease("");
     }
   };
-
-  // Analyze Conventional Commit
-  const analyzeCommitBump = (msg: string): { type: "MAJOR" | "MINOR" | "PATCH" | "NONE"; explanation: string } => {
-    if (msg.includes("!") || msg.toUpperCase().includes("BREAKING CHANGE")) {
-      return {
-        type: "MAJOR",
-        explanation: "Breaking API change detected (exclamation mark or BREAKING CHANGE footer) -> Bumps MAJOR version.",
-      };
-    }
-    if (msg.startsWith("feat")) {
-      return {
-        type: "MINOR",
-        explanation: "New backward-compatible feature added (`feat`) -> Bumps MINOR version.",
-      };
-    }
-    if (msg.startsWith("fix")) {
-      return {
-        type: "PATCH",
-        explanation: "Backward-compatible bug fix applied (`fix`) -> Bumps PATCH version.",
-      };
-    }
-    return {
-      type: "NONE",
-      explanation: "Chore, docs, style, or refactor commit -> Does NOT trigger a version bump.",
-    };
-  };
-
   const commitAnalysis = analyzeCommitBump(commitMessageInput);
 
-  // Evaluate Semver Range
-  const evaluateSemverRange = (range: string, targetVer: string): { isMatch: boolean; reason: string } => {
-    const cleanTarget = targetVer.trim().replace(/^v/, "");
-    const parts = cleanTarget.split(".").map(Number);
-    if (parts.length < 3 || parts.some(isNaN)) {
-      return { isMatch: false, reason: "Invalid target version format. Expected X.Y.Z" };
-    }
-    const [tMaj, tMin, tPat] = parts;
-
-    const cleanRange = range.trim().replace(/^v/, "");
-
-    if (cleanRange.startsWith("^")) {
-      const baseVer = cleanRange.slice(1).split(".").map(Number);
-      const [bMaj, bMin, bPat] = baseVer;
-      // Caret (^) allows changes that do not modify the left-most non-zero digit
-      if (tMaj !== bMaj) return { isMatch: false, reason: `Caret ^ allows versions within Major ${bMaj}. Target Major is ${tMaj}.` };
-      if (tMin < bMin || (tMin === bMin && tPat < bPat)) return { isMatch: false, reason: `Target ${cleanTarget} is lower than base ${cleanRange.slice(1)}.` };
-      return { isMatch: true, reason: `^${bMaj}.${bMin}.${bPat} permits any version >= ${bMaj}.${bMin}.${bPat} and < ${bMaj + 1}.0.0` };
-    }
-
-    if (cleanRange.startsWith("~")) {
-      const baseVer = cleanRange.slice(1).split(".").map(Number);
-      const [bMaj, bMin, bPat] = baseVer;
-      // Tilde (~) allows patch-level changes
-      if (tMaj !== bMaj || tMin !== bMin) return { isMatch: false, reason: `Tilde ~ locks Major & Minor to ${bMaj}.${bMin}. Target is ${tMaj}.${tMin}.` };
-      if (tPat < bPat) return { isMatch: false, reason: `Target patch ${tPat} is lower than base patch ${bPat}.` };
-      return { isMatch: true, reason: `~${bMaj}.${bMin}.${bPat} permits patch updates >= ${bMaj}.${bMin}.${bPat} and < ${bMaj}.${bMin + 1}.0` };
-    }
-
-    if (cleanRange.startsWith(">=")) {
-      const baseStr = cleanRange.slice(2).trim();
-      const [bMaj, bMin, bPat] = baseStr.split(".").map(Number);
-      const match = tMaj > bMaj || (tMaj === bMaj && tMin > bMin) || (tMaj === bMaj && tMin === bMin && tPat >= bPat);
-      return { isMatch: match, reason: match ? `Target ${cleanTarget} satisfies >= ${baseStr}` : `Target ${cleanTarget} is lower than ${baseStr}` };
-    }
-
-    if (cleanRange === cleanTarget || cleanRange === "*") {
-      return { isMatch: true, reason: "Exact version match or wildcard (*)." };
-    }
-
-    return { isMatch: false, reason: `Evaluating range rule '${cleanRange}' against ${cleanTarget}.` };
-  };
 
   const rangeEvaluation = evaluateSemverRange(semverRangeInput, testVersionInput);
 
@@ -540,6 +451,39 @@ ${stepsYaml.join("\n\n")}`;
   const [deployStep, setDeployStep] = useState<number>(0); // 0 to 4
   const [isSimulatingDeploy, setIsSimulatingDeploy] = useState<boolean>(false);
   const [simulateError, setSimulateError] = useState<boolean>(false);
+  const [deploymentAssumptions, setDeploymentAssumptions] = useState({
+    readinessProbes: true,
+    trafficRouting: true,
+    dataCompatible: true,
+    observability: true,
+  });
+  const deploymentModelReady = Object.values(deploymentAssumptions).every(Boolean);
+  const deploymentAssumptionItems: Array<{
+    key: keyof typeof deploymentAssumptions;
+    label: string;
+    description: string;
+  }> = [
+    {
+      key: "readinessProbes",
+      label: "Readiness probes",
+      description: "New Pods report ready before traffic moves.",
+    },
+    {
+      key: "trafficRouting",
+      label: "Traffic routing",
+      description: "A Service, gateway, or load balancer can shift traffic.",
+    },
+    {
+      key: "dataCompatible",
+      label: "Data/API compatibility",
+      description: "The old and new versions can coexist during rollout.",
+    },
+    {
+      key: "observability",
+      label: "Rollback observability",
+      description: "Health signals are available before progressing or reversing.",
+    },
+  ];
 
   // Pods visualizer generator
   const getPodsForState = (): PodInstance[] => {
@@ -668,7 +612,7 @@ ${stepsYaml.join("\n\n")}`;
               </h1>
             </div>
             <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 max-w-3xl">
-              Master modern GitOps practices: Trunk-based vs GitFlow branching, GitHub Actions YAML pipeline creation & automated execution, Semantic Versioning calculation, and zero-downtime deployment strategies.
+              Practice Git branching, GitHub Actions workflows, Semantic Versioning, and deployment strategies with explicit simulator assumptions.
             </p>
           </div>
           <div className="flex flex-wrap gap-2 sm:self-start">
@@ -690,7 +634,7 @@ ${stepsYaml.join("\n\n")}`;
         {/* NAVIGATION TABS */}
         <div className="mt-8 flex flex-wrap gap-2 border-t border-slate-200 dark:border-slate-700 pt-4">
           <button
-            onClick={() => setActiveTab("git")}
+            onClick={() => handleTabChange("git")}
             className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 flex items-center space-x-2 ${
               activeTab === "git"
                 ? "bg-indigo-600 text-white shadow-lg shadow-[#58a6ff]/20 font-semibold"
@@ -701,7 +645,7 @@ ${stepsYaml.join("\n\n")}`;
             <span>1. Git Branching Lab</span>
           </button>
           <button
-            onClick={() => setActiveTab("actions")}
+            onClick={() => handleTabChange("actions")}
             className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 flex items-center space-x-2 ${
               activeTab === "actions"
                 ? "bg-indigo-600 text-white shadow-lg shadow-[#58a6ff]/20 font-semibold"
@@ -712,7 +656,7 @@ ${stepsYaml.join("\n\n")}`;
             <span>2. GitHub Actions CI/CD</span>
           </button>
           <button
-            onClick={() => setActiveTab("semver")}
+            onClick={() => handleTabChange("semver")}
             className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 flex items-center space-x-2 ${
               activeTab === "semver"
                 ? "bg-indigo-600 text-white shadow-lg shadow-[#58a6ff]/20 font-semibold"
@@ -723,7 +667,7 @@ ${stepsYaml.join("\n\n")}`;
             <span>3. SemVer Calculator</span>
           </button>
           <button
-            onClick={() => setActiveTab("deploy")}
+            onClick={() => handleTabChange("deploy")}
             className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 flex items-center space-x-2 ${
               activeTab === "deploy"
                 ? "bg-indigo-600 text-white shadow-lg shadow-[#58a6ff]/20 font-semibold"
@@ -789,34 +733,34 @@ ${stepsYaml.join("\n\n")}`;
               <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-2">
                 <div className="text-xs text-slate-500 dark:text-slate-400">Target Environment</div>
                 <div className="text-base font-bold text-indigo-600 dark:text-indigo-400">
-                  {gitStrategy === "trunk" ? "Continuous Integration (CI/CD)" : "Scheduled Enterprise Releases"}
+                  {gitStrategy === "trunk" ? "Continuous Integration (CI/CD)" : "Versioned Releases"}
                 </div>
                 <div className="text-xs text-gray-400 dark:text-gray-300">
                   {gitStrategy === "trunk"
-                    ? "Single main branch with short-lived feature branches (< 1 day)."
-                    : "Multiple long-lived branches (main, develop, release, feature)."}
+                    ? "Single main branch with short-lived change branches, commonly a few days or less."
+                    : "Multiple branches can support versioned releases; teams choose the trade-offs."}
                 </div>
               </div>
               <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-2">
                 <div className="text-xs text-slate-500 dark:text-slate-400">Merge Conflict Risk</div>
                 <div className="text-base font-bold text-emerald-600 dark:text-emerald-400">
-                  {gitStrategy === "trunk" ? "Very Low (Frequent Small Merges)" : "High (Merge Hell on Release)"}
+                  {gitStrategy === "trunk" ? "Reduced Drift" : "Longer Integration Paths"}
                 </div>
                 <div className="text-xs text-gray-400 dark:text-gray-300">
                   {gitStrategy === "trunk"
-                    ? "Devs rebase & merge to trunk multiple times a day."
-                    : "Feature branches linger for weeks before merging into develop."}
+                    ? "Frequent integration can reduce divergence, but conflicts still depend on team and change shape."
+                    : "Long-lived branches can increase divergence and integration work."}
                 </div>
               </div>
               <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-2">
-                <div className="text-xs text-slate-500 dark:text-slate-400">Feature Flags Requirement</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400">Feature Flags</div>
                 <div className="text-base font-bold text-amber-600 dark:text-amber-400">
-                  {gitStrategy === "trunk" ? "Mandatory (Decouples Deploy from Release)" : "Optional"}
+                  {gitStrategy === "trunk" ? "Commonly Used" : "Optional"}
                 </div>
                 <div className="text-xs text-gray-400 dark:text-gray-300">
                   {gitStrategy === "trunk"
-                    ? "Incomplete code is merged behind feature flags."
-                    : "Features isolated in branches until ready."}
+                    ? "Flags can separate deployment from user-visible release when incomplete work is integrated."
+                    : "Features may remain isolated in branches until ready."}
                 </div>
               </div>
             </div>
@@ -1035,7 +979,7 @@ ${stepsYaml.join("\n\n")}`;
                   <span>GitHub Actions CI/CD Pipeline Builder</span>
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  Configure workflow triggers, matrix environments, and build steps to generate valid `.github/workflows/main.yml`.
+                  Configure triggers and steps to generate an illustrative workflow; review permissions, registries, cluster context, and secrets before use.
                 </p>
               </div>
 
@@ -1144,14 +1088,14 @@ ${stepsYaml.join("\n\n")}`;
                   </h3>
                   <div className="space-y-2 text-xs">
                     {[
-                      { id: "checkout", label: "Checkout Code (actions/checkout@v4)" },
+                      { id: "checkout", label: "Checkout Code (actions/checkout@v7)" },
                       { id: "setupNode", label: `Setup Node.js Environment (${nodeVersion})` },
                       { id: "npmInstall", label: "Install Dependencies (npm ci)" },
                       { id: "lint", label: "Run Linter (npm run lint)" },
-                      { id: "test", label: "Execute Tests & Code Coverage (Vitest)" },
-                      { id: "securityScan", label: "Security Vulnerability Audit (Trivy Scan)" },
-                      { id: "dockerBuild", label: "Docker Build & Push (ghcr.io)" },
-                      { id: "deployK8s", label: "Kubernetes Cluster Deployment" },
+                      { id: "test", label: "Execute Tests (npm test)" },
+                      { id: "securityScan", label: "Failing Filesystem Scan (Trivy)" },
+                      { id: "dockerBuild", label: "Build & Publish on main (GHCR)" },
+                      { id: "deployK8s", label: "Kubernetes Deploy (configured context)" },
                       { id: "slackNotify", label: "Slack Notification on Failure" },
                     ].map((step) => (
                       <label
@@ -1340,13 +1284,13 @@ ${stepsYaml.join("\n\n")}`;
                 </div>
               </div>
 
-              {/* Right Column: NPM SemVer Range Resolution */}
+              {/* Right Column: npm node-semver Range Resolution */}
               <div className="bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-700 p-5 space-y-4">
                 <h3 className="text-sm font-semibold text-white flex items-center space-x-2">
-                  <span>NPM Range Resolver (&apos;^&apos; vs &apos;~&apos; vs &apos;&gt;=&apos;)</span>
+                  <span>npm node-semver Range Resolver</span>
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Test if a target dependency version satisfies a semver constraint range.
+                  Evaluate npm&apos;s full range grammar, including comparator sets, unions, wildcards, hyphen ranges, and prerelease rules.
                 </p>
 
                 <div className="grid grid-cols-2 gap-3">
@@ -1404,7 +1348,7 @@ ${stepsYaml.join("\n\n")}`;
                   <span>Deployment Strategy Comparison & Simulator</span>
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  Visualize Recreate, Rolling Update, Blue/Green, and Canary deployments in action.
+                  An illustrative eight-pod model; real availability and rollback depend on probes, routing, capacity, data compatibility, and configuration.
                 </p>
               </div>
 
@@ -1427,6 +1371,45 @@ ${stepsYaml.join("\n\n")}`;
                   </button>
                 ))}
               </div>
+            </div>
+            <div className="rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 p-4 space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h3 className="text-sm font-semibold text-white">Simulation assumptions</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    These are explicit teaching inputs, not live cluster health signals.
+                  </p>
+                </div>
+                <span className={`text-xs font-semibold ${deploymentModelReady ? "text-emerald-400" : "text-amber-300"}`}>
+                  Model conditions: {deploymentModelReady ? "all checked" : "incomplete"}
+                </span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {deploymentAssumptionItems.map((assumption) => (
+                  <label key={assumption.key} className="flex items-start gap-2 text-xs text-slate-300">
+                    <input
+                      type="checkbox"
+                      checked={deploymentAssumptions[assumption.key]}
+                      onChange={(event) =>
+                        setDeploymentAssumptions((previous) => ({
+                          ...previous,
+                          [assumption.key]: event.target.checked,
+                        }))
+                      }
+                      className="mt-0.5 accent-indigo-500"
+                    />
+                    <span>
+                      <span className="block font-semibold text-white">{assumption.label}</span>
+                      <span className="block text-slate-500 dark:text-slate-400">{assumption.description}</span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+              {!deploymentModelReady && (
+                <p className="rounded-lg border border-amber-400/40 bg-amber-500/10 px-3 py-2 text-xs text-amber-200">
+                  One or more prerequisites is unchecked. Traffic percentages remain illustrative and must not be read as a zero-downtime guarantee.
+                </p>
+              )}
             </div>
 
             {/* CONTROLS BAR */}
@@ -1506,10 +1489,10 @@ ${stepsYaml.join("\n\n")}`;
               {/* PODS GRID VISUALIZER */}
               <div className="space-y-3">
                 <div className="text-xs font-bold text-white flex items-center justify-between">
-                  <span>Cluster Pod Instances (Total: 8 Pods)</span>
+                  <span>Illustrative Cluster Pod Instances (Total: 8 Pods)</span>
                   {traffic.downtime && (
                     <span className="px-2 py-0.5 rounded bg-red-500/20 text-red-400 dark:text-red-300 border border-red-500/40 text-[10px] font-bold animate-pulse">
-                      🚨 100% SERVICE DOWNTIME (Recreate Strategy)
+                      🚨 Modelled service interruption for Recreate
                     </span>
                   )}
                 </div>
@@ -1554,40 +1537,40 @@ ${stepsYaml.join("\n\n")}`;
                   <thead>
                     <tr className="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
                       <th className="p-3">Strategy</th>
-                      <th className="p-3">Downtime</th>
-                      <th className="p-3">Resource Overhead</th>
-                      <th className="p-3">Rollback Speed</th>
-                      <th className="p-3">Risk Level</th>
+                      <th className="p-3">Typical Availability</th>
+                      <th className="p-3">Capacity Model</th>
+                      <th className="p-3">Rollback Model</th>
+                      <th className="p-3">Primary Trade-off</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#30363d] text-gray-300">
                     <tr className={deployStrategy === "recreate" ? "bg-indigo-50 dark:bg-indigo-900/30 font-semibold" : ""}>
                       <td className="p-3 text-white font-bold">Recreate</td>
-                      <td className="p-3 text-red-400 dark:text-red-300">High (Service down during switch)</td>
-                      <td className="p-3">1.0x (No extra nodes required)</td>
-                      <td className="p-3">Slow (Re-deploy V1)</td>
-                      <td className="p-3 text-red-400 dark:text-red-300">High</td>
+                      <td className="p-3 text-amber-400 dark:text-amber-300">Interruption expected</td>
+                      <td className="p-3">One environment</td>
+                      <td className="p-3">Redeploy previous version</td>
+                      <td className="p-3 text-red-400 dark:text-red-300">Availability during replacement</td>
                     </tr>
                     <tr className={deployStrategy === "rolling" ? "bg-indigo-50 dark:bg-indigo-900/30 font-semibold" : ""}>
                       <td className="p-3 text-white font-bold">Rolling Update</td>
-                      <td className="p-3 text-green-400 dark:text-green-300">Zero Downtime</td>
-                      <td className="p-3">1.25x (MaxSurge / MaxUnavailable)</td>
-                      <td className="p-3">Moderate</td>
-                      <td className="p-3 text-amber-400 dark:text-amber-300">Medium</td>
+                      <td className="p-3 text-amber-400 dark:text-amber-300">Can preserve availability with healthy probes</td>
+                      <td className="p-3">Surge/unavailable settings apply</td>
+                      <td className="p-3">Reverse rollout if configured</td>
+                      <td className="p-3 text-amber-400 dark:text-amber-300">Capacity and rollout tuning</td>
                     </tr>
                     <tr className={deployStrategy === "bluegreen" ? "bg-indigo-50 dark:bg-indigo-900/30 font-semibold" : ""}>
                       <td className="p-3 text-white font-bold">Blue / Green</td>
-                      <td className="p-3 text-green-400 dark:text-green-300">Zero Downtime</td>
-                      <td className="p-3 text-amber-400 dark:text-amber-300">2.0x (Full duplicated cluster)</td>
-                      <td className="p-3 text-green-400 dark:text-green-300">Instant (Router switch)</td>
-                      <td className="p-3 text-green-400 dark:text-green-300">Low</td>
+                      <td className="p-3 text-amber-400 dark:text-amber-300">Can preserve availability with routing</td>
+                      <td className="p-3">Two environments during cutover</td>
+                      <td className="p-3">Switch traffic back if compatible</td>
+                      <td className="p-3 text-amber-400 dark:text-amber-300">Duplicated capacity and data compatibility</td>
                     </tr>
                     <tr className={deployStrategy === "canary" ? "bg-indigo-50 dark:bg-indigo-900/30 font-semibold" : ""}>
                       <td className="p-3 text-white font-bold">Canary</td>
-                      <td className="p-3 text-green-400 dark:text-green-300">Zero Downtime</td>
-                      <td className="p-3">1.1x - 1.5x</td>
-                      <td className="p-3 text-green-400 dark:text-green-300">Instant (Shift traffic back)</td>
-                      <td className="p-3 text-green-400 dark:text-green-300">Lowest (Progressive risk)</td>
+                      <td className="p-3 text-amber-400 dark:text-amber-300">Can preserve availability with progressive routing</td>
+                      <td className="p-3">Subset plus baseline capacity</td>
+                      <td className="p-3">Shift traffic back if compatible</td>
+                      <td className="p-3 text-amber-400 dark:text-amber-300">Observability and routing controls</td>
                     </tr>
                   </tbody>
                 </table>
