@@ -76,5 +76,17 @@ describe("NetworkingPage subsections", () => {
     expect(positions.every((position) => position >= 0)).toBe(true);
     expect(positions).toEqual([...positions].sort((a, b) => a - b));
   });
+  it("renders the operations-console orientation and stage map", () => {
+    const html = renderToStaticMarkup(<NetworkingPage />);
+
+    const headline = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1]?.replace(/<[^>]+>/g, "");
+
+    expect(headline).toBe("Read the path a packet takes.");
+    expect(html).toContain('aria-label="Networking curriculum"');
+
+    for (const id of GROUP_IDS) {
+      expect(html).toContain(`href="#${id}"`);
+    }
+  });
 
 });
