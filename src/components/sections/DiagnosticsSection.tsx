@@ -4,7 +4,9 @@ import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHead
 import { useState, useRef, useEffect } from "react";
 import { parseCommandTarget } from "@/lib/diagnostics-parser";
 import CopyButton from "@/components/CopyButton";
-
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 interface TerminalLine {
   id: string;
   type: "input" | "output" | "error" | "info" | "success" | "system";
@@ -615,6 +617,7 @@ export default function DiagnosticsSection() {
       <div className="module-content networking-module-content">
 
       {/* Interactive CLI Terminal Sandbox Container */}
+      <NetworkingPanel variant="console" className="p-0 mb-10">
       <div className="mb-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow overflow-hidden shadow-2xl">
         {/* Terminal Header Bar */}
         <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-3 border-b border-slate-200 dark:border-slate-700">
@@ -711,8 +714,10 @@ export default function DiagnosticsSection() {
           </button>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* Preset Command Buttons Bar */}
+      <NetworkingPanel variant="muted" className="space-y-10 mb-10">
       <div className="mb-10">
         <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
           Instant Execution Presets (Click to Run):
@@ -782,8 +787,10 @@ export default function DiagnosticsSection() {
           ))}
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* Command Cheat Sheet Section */}
+      <NetworkingExample title="Network Diagnostics Command Cheat Sheet" description="Filterable command syntax and practical examples, with one-click execution in the sandbox terminal." tone="cyan">
       <div>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
           <div>
@@ -814,6 +821,7 @@ export default function DiagnosticsSection() {
         </div>
 
         {/* Cheat Sheet Cards Grid */}
+        <NetworkingTable>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {filteredCheatSheet.map((item) => (
             <div
@@ -889,7 +897,9 @@ export default function DiagnosticsSection() {
             </div>
           ))}
         </div>
+        </NetworkingTable>
       </div>
+      </NetworkingExample>
       </div>
     </section>
   );

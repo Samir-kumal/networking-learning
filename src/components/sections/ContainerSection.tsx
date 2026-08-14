@@ -1,6 +1,9 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
 import { useState } from "react";
 
 export default function ContainerSection() {
@@ -282,6 +285,7 @@ spec:
 
       {/* SUBSECTION 1: Kubernetes Networking Architecture */}
       <div className="mb-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+        <NetworkingPanel className="space-y-6">
         <div className="flex items-center gap-2 mb-4">
           <span className="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
@@ -464,10 +468,12 @@ spec:
             </div>
           </div>
         </div>
+        </NetworkingPanel>
       </div>
 
       {/* SUBSECTION 2: Docker Networking Modes */}
       <div className="mb-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+        <NetworkingPanel variant="muted" className="space-y-6">
         <div className="flex items-center gap-2 mb-4">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
@@ -554,10 +560,12 @@ spec:
             </div>
           </div>
         </div>
+        </NetworkingPanel>
       </div>
 
       {/* SUBSECTION 3: L4 vs L7 Load Balancing & Ingress Architecture */}
       <div className="mb-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+        <NetworkingPanel className="space-y-6">
         <div className="flex items-center gap-2 mb-4">
           <span className="w-2.5 h-2.5 rounded-full bg-[#ffa657]"></span>
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
@@ -636,6 +644,7 @@ spec:
 
         {/* Kubernetes Ingress Manifest Example */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5">
+          <NetworkingExample title="Kubernetes Ingress Routing Example" description="Layer 7 host and path routing sends requests to the selected Service backend." tone="violet">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-mono font-semibold text-violet-600 dark:text-violet-400">Kubernetes Ingress Manifest (networking.k8s.io/v1)</span>
             <button
@@ -648,11 +657,14 @@ spec:
           <div className="rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-4 font-mono text-xs overflow-x-auto text-emerald-600 dark:text-emerald-400">
             <pre>{ingressYaml}</pre>
           </div>
+          </NetworkingExample>
         </div>
+        </NetworkingPanel>
       </div>
 
       {/* SUBSECTION 4: Interactive K8s Service IP Routing Simulator */}
       <div className="rounded-xl bg-slate-50 dark:bg-slate-700 border border-indigo-300 p-6">
+        <NetworkingPanel variant="muted" className="space-y-6">
         <div className="flex items-center justify-between flex-wrap gap-2 mb-4">
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-indigo-600 animate-pulse"></span>
@@ -668,6 +680,11 @@ spec:
         <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
           Test how incoming client packets travel through Kubernetes abstractions (<code className="text-emerald-600 dark:text-emerald-400 font-mono">ClusterIP</code>, <code className="text-emerald-600 dark:text-emerald-400 font-mono">NodePort</code>, <code className="text-emerald-600 dark:text-emerald-400 font-mono">LoadBalancer</code>, <code className="text-emerald-600 dark:text-emerald-400 font-mono">Headless</code>, and <code className="text-emerald-600 dark:text-emerald-400 font-mono">Ingress</code>) using either legacy <strong className="text-amber-600 dark:text-amber-400">iptables</strong> or high-performance <strong className="text-emerald-600 dark:text-emerald-400">eBPF</strong> data paths!
         </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <NetworkingMetric label="Service Type" value={simServiceType} detail="Current Kubernetes virtual endpoint" tone="cyan" />
+          <NetworkingMetric label="Data Path" value={simEngine === "iptables" ? "iptables" : "eBPF"} detail="Selected kernel forwarding engine" tone="amber" />
+          <NetworkingMetric label="Requests Sent" value={totalRequests} detail="Live simulator request count" tone="lime" />
+        </div>
 
         {/* Controls Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
@@ -820,6 +837,7 @@ spec:
             </div>
           )}
         </div>
+        </NetworkingPanel>
       </div>
       </div>
     </section>

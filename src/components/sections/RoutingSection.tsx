@@ -1,6 +1,10 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 import React, { useState, useMemo } from "react";
 
 // --- Types & Data Structures ---
@@ -482,6 +486,7 @@ export default function RoutingSection() {
         title={<>15. Routing & Gateway Protocols</>}
         description={<>Routers build forwarding decisions by evaluating destination addresses against local <strong className="text-indigo-600 dark:text-indigo-400">routing tables</strong>. Explore dynamic <strong className="text-emerald-600 dark:text-emerald-400">IGP & EGP protocols</strong>, configured first-hop redundancy with <strong className="text-amber-600 dark:text-amber-400">HSRP/VRRP</strong>, policy-controlled <strong className="text-violet-600 dark:text-violet-400">BGP aggregation</strong>, and <strong className="text-rose-600 dark:text-rose-400">longest-prefix matching</strong>.</>}
       />
+        <NetworkingPanel className="space-y-6">
       <div className="module-content networking-module-content">
       {/* ITEM 1: Static vs Dynamic Routing Comparison */}
       <div className="mb-12">
@@ -548,6 +553,7 @@ export default function RoutingSection() {
                 </span>
               </div>
             </div>
+          <NetworkingMetric label="Administrative Distance" value={currentProto.ad} detail={`${currentProto.name} trust value; lower values win`} tone="cyan" />
           </div>
 
           <p className="text-sm text-slate-900 dark:text-slate-100 leading-relaxed mb-6 bg-white/60 dark:bg-slate-800/60 p-4 rounded-lg border border-slate-200/40">
@@ -662,6 +668,7 @@ export default function RoutingSection() {
             </button>
           </div>
         </div>
+        <NetworkingPanel className="space-y-6">
 
         {/* FHRP Interactive Topology & Failover Visualizer */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-6">
@@ -841,7 +848,9 @@ export default function RoutingSection() {
             </div>
           </div>
         </div>
+        </NetworkingPanel>
       </div>
+        <NetworkingExample title="BGP Route Aggregation Example" description="Interactive route summarization shows how contiguous prefixes share a common network bit prefix before advertisement." tone="violet">
 
       {/* ITEM 3: BGP Summarization / Aggregation Overview */}
       <div className="mb-12">
@@ -979,6 +988,7 @@ export default function RoutingSection() {
           </div>
         </div>
       </div>
+        </NetworkingExample>
 
       {/* ITEM 4: Interactive Routing Table Lookup Simulator */}
       <div>
@@ -998,6 +1008,7 @@ export default function RoutingSection() {
             Reset Table to Defaults
           </button>
         </div>
+        <NetworkingPanel className="space-y-6">
 
         {/* Input Controls */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-6">
@@ -1088,6 +1099,7 @@ export default function RoutingSection() {
           </div>
 
           <div className="overflow-x-auto">
+            <NetworkingTable>
             <table className="w-full text-left font-mono text-xs border-collapse">
               <thead>
                 <tr className="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
@@ -1153,6 +1165,7 @@ export default function RoutingSection() {
                 })}
               </tbody>
             </table>
+            </NetworkingTable>
           </div>
         </div>
 
@@ -1232,8 +1245,10 @@ export default function RoutingSection() {
             <div className="mt-3 text-xs font-mono text-rose-600 dark:text-rose-400">{addError}</div>
           )}
         </div>
+        </NetworkingPanel>
       </div>
       </div>
+        </NetworkingPanel>
     </section>
   );
 }

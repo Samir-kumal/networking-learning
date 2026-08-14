@@ -1,6 +1,9 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 import { useState, useMemo } from "react";
 
 // --- TYPES ---
@@ -791,6 +794,7 @@ export default function PacketSection() {
       {/* 1. INTERACTIVE OSI vs TCP/IP LAYER STACK VISUAL INSPECTOR */}
       {/* ==================================================================== */}
       <div className="mb-12">
+        <NetworkingPanel variant="muted" className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
@@ -984,12 +988,14 @@ export default function PacketSection() {
             </div>
           </div>
         </div>
+        </NetworkingPanel>
       </div>
 
       {/* ==================================================================== */}
       {/* 2. FRAME / PACKET / SEGMENT HEADER ANATOMY */}
       {/* ==================================================================== */}
       <div className="mb-12">
+        <NetworkingPanel className="space-y-6">
         <div className="mb-6">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span className="text-indigo-600 dark:text-indigo-400">2.</span> Frame, Packet & Segment Header Anatomy
@@ -1113,12 +1119,14 @@ export default function PacketSection() {
             </div>
           </div>
         </div>
+        </NetworkingPanel>
       </div>
 
       {/* ==================================================================== */}
       {/* 3. TCP 3-WAY HANDSHAKE SEQUENCE DIAGRAM */}
       {/* ==================================================================== */}
       <div className="mb-12">
+        <NetworkingExample title="TCP Connection and Teardown Protocol Example" description="Interactive sequence numbers, control flags, and socket-state transitions for a TCP exchange." tone="cyan">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
@@ -1277,6 +1285,7 @@ export default function PacketSection() {
             </p>
           </div>
         </div>
+        </NetworkingExample>
       </div>
 
       {/* ==================================================================== */}
@@ -1294,6 +1303,7 @@ export default function PacketSection() {
 
         {/* Wireshark Window Container */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow shadow-2xl overflow-hidden">
+          <NetworkingPanel variant="console" className="p-0">
           {/* Top Wireshark Titlebar & Filter Controls */}
           <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             {/* Window Dots & Title */}
@@ -1349,6 +1359,7 @@ export default function PacketSection() {
 
           {/* PANE 1: PACKET LIST TABLE */}
           <div className="max-h-56 overflow-y-auto border-b border-slate-200 dark:border-slate-700">
+            <NetworkingTable>
             <table className="w-full text-left font-mono text-xs border-collapse">
               <thead className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 sticky top-0 border-b border-slate-200 dark:border-slate-700">
                 <tr>
@@ -1389,6 +1400,7 @@ export default function PacketSection() {
                 })}
               </tbody>
             </table>
+            </NetworkingTable>
           </div>
 
           {/* PANE 2 & PANE 3: PACKET DETAILS TREE & HEX DUMP (SPLIT VIEW) */}
@@ -1479,6 +1491,7 @@ export default function PacketSection() {
             <span>Packets: {SAMPLE_PACKETS.length} • Displayed: {filteredPackets.length}</span>
             <span className="text-emerald-600 dark:text-emerald-400">Profile: Default Wireshark Decoders Active</span>
           </div>
+          </NetworkingPanel>
         </div>
       </div>
       </div>

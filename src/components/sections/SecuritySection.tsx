@@ -1,6 +1,10 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 import { useState } from "react";
 
 // --- Types & Interfaces ---
@@ -383,6 +387,12 @@ export default function SecuritySection() {
       {/* 1. STATELESS NACLS VS STATEFUL SECURITY GROUPS */}
       {/* ========================================================================= */}
       <div className="mb-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+        <NetworkingPanel variant="muted" className="space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <NetworkingMetric label="Policy Model" value={logicMode === "nacl" ? "Stateless NACL" : "Stateful SG"} detail="Current control view" tone="amber" />
+          <NetworkingMetric label="Simulation Step" value={`${simStep} / 3`} detail="Return traffic inspection" tone="cyan" />
+          <NetworkingMetric label="Rule Entries" value={(inspectorMode === "nacl" ? naclRules : sgRules).length} detail="Active inspector rules" tone="violet" />
+        </div>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
             <div className="flex items-center gap-2 mb-1">
@@ -425,6 +435,7 @@ export default function SecuritySection() {
 
         {/* Comparison Matrix Table */}
         <div className="overflow-x-auto mb-8">
+          <NetworkingTable>
           <table className="w-full text-left text-xs font-mono border-collapse">
             <thead>
               <tr className="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 bg-slate-50/60 dark:bg-slate-700/60">
@@ -479,6 +490,7 @@ export default function SecuritySection() {
               </tr>
             </tbody>
           </table>
+          </NetworkingTable>
         </div>
 
         {/* Interactive Return Traffic Logic Breakdown */}
@@ -608,12 +620,14 @@ export default function SecuritySection() {
             )}
           </div>
         </div>
+        </NetworkingPanel>
       </div>
 
       {/* ========================================================================= */}
       {/* 2. VPN TUNNELS & VXLAN ENCAPSULATION OVERLAY CARDS */}
       {/* ========================================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+        <NetworkingPanel className="space-y-6">
         {/* CARD A: VPN Tunnels (WireGuard vs IPsec) */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
           <div>
@@ -779,12 +793,14 @@ export default function SecuritySection() {
             </div>
           </div>
         </div>
+        </NetworkingPanel>
       </div>
 
       {/* ========================================================================= */}
       {/* 3. NAT VARIANTS BREAKDOWN (SNAT, DNAT, PAT) */}
       {/* ========================================================================= */}
       <div className="mb-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+        <NetworkingExample title="NAT Variant Inspection Example" description="Compare source NAT, destination NAT, and port address translation as distinct policy outcomes." tone="amber">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
             <div className="flex items-center gap-2 mb-1">
@@ -950,12 +966,14 @@ export default function SecuritySection() {
             </div>
           </div>
         )}
+        </NetworkingExample>
       </div>
 
       {/* ========================================================================= */}
       {/* 4. INTERACTIVE SECURITY RULE INSPECTOR */}
       {/* ========================================================================= */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+        <NetworkingPanel className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
             <div className="flex items-center gap-2 mb-1">
@@ -1145,6 +1163,7 @@ export default function SecuritySection() {
           </h4>
 
           <div className="overflow-x-auto">
+            <NetworkingTable>
             <table className="w-full text-left text-xs font-mono border-collapse">
               <thead>
                 <tr className="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700">
@@ -1206,6 +1225,7 @@ export default function SecuritySection() {
                 ))}
               </tbody>
             </table>
+            </NetworkingTable>
           </div>
         </div>
 
@@ -1303,6 +1323,7 @@ export default function SecuritySection() {
             + Add Rule to {inspectorMode.toUpperCase()}
           </button>
         </form>
+        </NetworkingPanel>
       </div>
       </div>
     </section>

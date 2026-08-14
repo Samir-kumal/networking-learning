@@ -1,6 +1,8 @@
 "use client";
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 import { useState } from "react";
 
 export default function TroubleshootingSection() {
@@ -136,6 +138,7 @@ nc -zv 192.168.20.10 5432`,
       <div className="module-content networking-module-content">
 
       {/* 6 Problem / Solution Cards */}
+        <NetworkingPanel variant="muted" className="space-y-6">
       <div className="mb-10">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4">
           6 Common Subnet Misconfigurations & Solutions
@@ -159,6 +162,7 @@ nc -zv 192.168.20.10 5432`,
         </div>
 
         {/* Active Problem Card */}
+          <NetworkingExample title="Root-Cause Troubleshooting Example" description="Select a subnet failure scenario to compare its observable symptom, resolution strategy, and diagnostic commands." tone="amber">
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <h4 className="text-lg font-bold text-slate-900 dark:text-slate-100">
@@ -186,14 +190,19 @@ nc -zv 192.168.20.10 5432`,
 
           <div className="space-y-2">
             <span className="text-xs font-mono text-indigo-600 dark:text-indigo-400">Diagnostic CLI Commands</span>
+            <NetworkingPanel variant="console" className="p-0">
             <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-4 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
               {problems[activeProblem].cliSnippet}
             </pre>
+            </NetworkingPanel>
           </div>
         </div>
+          </NetworkingExample>
       </div>
+        </NetworkingPanel>
 
       {/* 6-Step Subnet Diagnostic Checklist */}
+        <NetworkingPanel className="space-y-6">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <span>🩺</span> 6-Step Subnet Diagnostic Workflow
@@ -235,6 +244,7 @@ nc -zv 192.168.20.10 5432`,
           ))}
         </div>
       </div>
+        </NetworkingPanel>
       </div>
     </section>
   );
