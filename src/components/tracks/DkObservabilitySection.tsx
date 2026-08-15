@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 
 // ============================================================================
 // TYPES & CONSTANT DATA — Container Observability (Prometheus · Grafana · Tempo)
@@ -630,7 +630,7 @@ export default function DkObservabilitySection() {
     return () => clearInterval(id);
   }, [paused, simSpeed]);
 
-  const currentValue = (k: GaugeKey) => history[k][history[k].length - 1];
+  const currentValue = useCallback((k: GaugeKey) => history[k][history[k].length - 1], [history]);
 
   const gaugePercent = (k: GaugeKey) => {
     const g = GAUGES[k];
@@ -767,7 +767,7 @@ export default function DkObservabilitySection() {
   const alertValue = useMemo(() => {
     const v = currentValue(alertDef.gaugeKey);
     return Math.round(v * 10) / 10;
-  }, [alertDef, history]);
+  }, [alertDef, currentValue]);
 
   const alertBreached = alertOperator === ">" || alertOperator === ">=" ? (alertOperator === ">" ? alertValue > alertThreshold : alertValue >= alertThreshold) : alertOperator === "<" ? alertValue < alertThreshold : alertValue <= alertThreshold;
 
@@ -862,7 +862,7 @@ ${labels}
       burnRate: allowedBad > 0 ? sloBad / allowedBad : 0,
       status: availability >= sloTarget ? "COMPLIANT" : "BREACHED",
     };
-  }, [sloType, sloTarget, sloWindowDays, sloTotal, sloBad, sloLatencyMs, sloLatencyBudgetMs]);
+  }, [sloType, sloTarget, sloTotal, sloBad, sloLatencyMs, sloLatencyBudgetMs]);
 
   return (
     <div className="space-y-8">

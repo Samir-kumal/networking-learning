@@ -417,12 +417,12 @@ export default function DkHpaVpaSection() {
       cpuDeltaPct: Math.round(((vpaWorkload.curCpuM - cpuTarget) / vpaWorkload.curCpuM) * 100),
       memDeltaPct: Math.round(((vpaWorkload.curMemMi - memTarget) / vpaWorkload.curMemMi) * 100),
     };
-  }, [vpaWorkloadId]);
+  }, [vpaWorkload]);
 
   const shownCpu = vpaApplied ? vpaRec.cpu.target : vpaWorkload.curCpuM;
   const shownMem = vpaApplied ? vpaRec.mem.target : vpaWorkload.curMemMi;
 
-  const vpaYaml = useMemo(() => buildVpaYaml(vpaMode, vpaWorkload), [vpaMode, vpaWorkloadId]);
+  const vpaYaml = useMemo(() => buildVpaYaml(vpaMode, vpaWorkload), [vpaMode, vpaWorkload]);
 
   // ---------- Module 5: simulator loop ----------
   const resetSim = () => {

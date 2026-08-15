@@ -383,7 +383,7 @@ volumeBindingMode: ${scClass.volumeBindingMode}
 allowVolumeExpansion: true
 parameters:
 ${paramsBlock}`;
-  }, [selectedSC, reclaimPolicy]);
+  }, [selectedSC, reclaimPolicy, scClassName, scClass.provisioner, scClass.volumeBindingMode]);
 
   const pvcYaml = useMemo(() => {
     const mode = ACCESS_MODES[accessMode];
@@ -401,7 +401,7 @@ spec:
       storage: ${capacityGiB}Gi
 ---
 ${mode.full} (${accessMode}) — ${mode.example}`;
-  }, [accessMode, capacityGiB]);
+  }, [accessMode, capacityGiB, scClassName]);
 
   const snapshotYaml = useMemo(() => {
     const latest = snapshots.find((s) => s.status !== "Deleted");
@@ -433,7 +433,7 @@ spec:
   resources:
     requests:
       storage: ${formatCapacity(latest.sizeGiB)}`;
-  }, [snapshots, selectedSC]);
+  }, [snapshots, selectedSC, scClassName]);
 
   const accessModeSupported = scClass.accessModes.includes(accessMode);
 

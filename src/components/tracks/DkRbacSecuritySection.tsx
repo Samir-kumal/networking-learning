@@ -638,7 +638,10 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
   const [copiedSaYaml, setCopiedSaYaml] = useState(false);
   const [copiedSaPodYaml, setCopiedSaPodYaml] = useState(false);
 
-  const pullSecretList = useImagePullSecrets ? [pullSecretName.trim() !== "" ? pullSecretName.trim() : "registry-creds"] : [];
+  const pullSecretList = useMemo(
+    () => (useImagePullSecrets ? [pullSecretName.trim() !== "" ? pullSecretName.trim() : "registry-creds"] : []),
+    [useImagePullSecrets, pullSecretName]
+  );
 
   const saYaml = useMemo(() => buildSaYaml(saName, saNamespace, automountToken, pullSecretList), [saName, saNamespace, automountToken, pullSecretList]);
   const saPodYaml = useMemo(() => buildSaPodYaml(podName, saNamespace, saName, automountToken, pullSecretList, podImage), [podName, saNamespace, saName, automountToken, pullSecretList, podImage]);

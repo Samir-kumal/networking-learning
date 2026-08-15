@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 
 // ============================================================================
 // TYPES & CONSTANT DATA — CloudWatch & Observability Stack
@@ -702,19 +702,19 @@ export default function AwsCloudWatchSection() {
   const alarmDef = METRICS[alarmMetric];
   const current = lastValue(alarmMetric);
 
-  const evalAlarm = (val: number): boolean => {
+  const evalAlarm = useCallback((val: number): boolean => {
     switch (alarmOperator) {
       case ">": return val > alarmThreshold;
       case ">=": return val >= alarmThreshold;
       case "<": return val < alarmThreshold;
       default: return val <= alarmThreshold;
     }
-  };
+  }, [alarmOperator, alarmThreshold]);
 
   const alarmState: AlarmState = useMemo(() => {
     if (streams[alarmMetric].length < 5) return "INSUFFICIENT_DATA";
     return evalAlarm(current) ? "ALARM" : "OK";
-  }, [streams, alarmMetric, current, alarmOperator, alarmThreshold]);
+  }, [streams, alarmMetric, current, evalAlarm]);
 
   const prevAlarmState = useRef<AlarmState>(alarmState);
 
@@ -730,7 +730,7 @@ export default function AwsCloudWatchSection() {
       ...prev.slice(-24),
       { time: nowClock(), from, to: alarmState, msg: breachMsg },
     ]);
-  }, [alarmState, alarmMetric, alarmOperator, alarmThreshold, alarmSeverity, alarmDef.label, current]);
+  }, [alarmState, alarmMetric, alarmOperator, alarmThreshold, alarmSeverity, alarmDef.label, alarmDef.short, alarmDef.unit, current]);
 
   useEffect(() => {
     const iv = window.setInterval(() => setEvaluations((e) => e + 1), 5200);
@@ -757,7 +757,7 @@ export default function AwsCloudWatchSection() {
   useEffect(() => {
     // Reset viewer when switching groups
     setLogLines(logGroup.templates.slice(0, 6).map((t) => ({ ...t, time: `${nowClock()}` })));
-  }, [logGroupId]);
+  }, [logGroupId, logGroup.templates]);
 
   useEffect(() => {
     if (!liveTail) return;

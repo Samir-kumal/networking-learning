@@ -305,7 +305,7 @@ EXPOSE 3000
 ${useNonRootUser ? "USER nextjs" : "# WARNING: Container executes as root"}
 
 CMD ["node", "dist/index.js"]`;
-  }, [selectedBaseImage, isMultiStage, useCacheOptimization, useNonRootUser, useProdOnlyDeps]);
+  }, [selectedBaseImage, isMultiStage, useCacheOptimization, useNonRootUser, useProdOnlyDeps, useDockerignore]);
 
   const generatedDockerignore = `# Dockerignore Pattern Rule Matches
 node_modules

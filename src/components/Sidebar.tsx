@@ -134,7 +134,7 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
   }, [pathname]);
 
   const currentTrack = TRACKS.find((t) => t.id === currentTrackId)!;
-  const navItems     = MODULE_ITEMS_BY_TRACK[currentTrackId] ?? [];
+  const navItems     = useMemo(() => MODULE_ITEMS_BY_TRACK[currentTrackId] ?? [], [currentTrackId]);
 
   // Group items by category
   const grouped = useMemo(() => {
