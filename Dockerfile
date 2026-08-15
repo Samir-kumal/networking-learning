@@ -1,5 +1,7 @@
-# Base image with Node.js 20 Alpine
-FROM node:20-alpine AS base
+# Base image with Node.js 22 Alpine (better-sqlite3 requires Node >=22;
+# a Node 20 image segfaults the whole process on any DB access — see
+# commit fixing CI's Node pin for the same root cause).
+FROM node:22-alpine AS base
 
 # 1. Install dependencies only when needed
 FROM base AS deps
