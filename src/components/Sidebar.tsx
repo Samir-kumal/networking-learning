@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import MlSidebarNav from "@/components/ml/MlSidebarNav";
 
 export interface NavItem {
   id: string;
@@ -28,6 +29,7 @@ export const TRACKS: TrackItem[] = [
   { id: "security",   name: "Cybersecurity",  path: "/security",  icon: "◉",  badge: "14 Modules" },
   { id: "git-ops",    name: "Git & CI/CD",    path: "/git-ops",   icon: "⑂",  badge: "4 Modules" },
   { id: "docker-k8s", name: "Docker & K8s",   path: "/docker-k8s",icon: "⬡",  badge: "15 Modules" },
+  { id: "ml",         name: "ML Foundations Lab", path: "/ml",    icon: "◑",  badge: "8 Chapters" },
 ];
 
 export const MODULE_ITEMS_BY_TRACK: Record<string, NavItem[]> = {
@@ -122,6 +124,7 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
   const [searchQuery, setSearchQuery]     = useState<string>("");
 
   const currentTrackId = useMemo(() => {
+    if (pathname.startsWith("/ml"))  return "ml";
     if (pathname === "/networking")  return "networking";
     if (pathname === "/aws")         return "aws";
     if (pathname === "/security")    return "security";
@@ -263,82 +266,88 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
         </div>
       </div>
 
-      {/* ── Module Search ── */}
-      {!isCollapsed && (
-        <div className="px-3 pt-3 pb-2">
-          <div className="relative">
-            <svg className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <input
-              type="text"
-              placeholder="Search modules…"
-              aria-label="Search modules"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 text-[12px] bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-400 focus:border-indigo-400 transition"
-            />
-          </div>
-        </div>
-      )}
+      {currentTrackId === "ml" ? (
+        <MlSidebarNav isCollapsed={isCollapsed} />
+      ) : (
+        <>
+          {/* ── Module Search ── */}
+          {!isCollapsed && (
+            <div className="px-3 pt-3 pb-2">
+              <div className="relative">
+                <svg className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input
+                  type="text"
+                  placeholder="Search modules…"
+                  aria-label="Search modules"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-8 pr-3 py-1.5 text-[12px] bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-md text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-400 focus:border-indigo-400 transition"
+                />
+              </div>
+            </div>
+          )}
 
-      {/* ── Module Navigation ── */}
-      <nav className="flex-1 overflow-y-auto px-3 pb-4 space-y-4">
-        {!isCollapsed && (
-          <p className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mt-2 px-1">
-            {currentTrack.name}
-          </p>
-        )}
-        {Object.entries(grouped).map(([category, items]) => (
-          <div key={category}>
+          {/* ── Module Navigation ── */}
+          <nav className="flex-1 overflow-y-auto px-3 pb-4 space-y-4">
             {!isCollapsed && (
-              <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500 px-1 mb-1 mt-3">
-                {category}
+              <p className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mt-2 px-1">
+                {currentTrack.name}
               </p>
             )}
-            <div className="space-y-0.5">
-              {items.map((item) => {
-                const isActive = activeId === item.id;
-                return (
-                  <a
-                    key={item.id}
-                    href={item.path ? item.path : `#${item.id}`}
-                    title={isCollapsed ? `${item.num} · ${item.label}` : undefined}
-                    onClick={() => setActiveId(item.id)}
-                    className={`group flex items-center gap-2.5 rounded-md px-2 py-1.5 text-[13px] transition-all ${
-                      isActive
-                        ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 font-medium"
-                        : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-200"
-                    }`}
-                  >
-                    {/* Active indicator pill */}
-                    <span className={`flex-shrink-0 w-1 h-4 rounded-full transition-all ${
-                      isActive ? "bg-indigo-500" : "bg-transparent group-hover:bg-slate-300 dark:group-hover:bg-slate-600"
-                    }`} />
+            {Object.entries(grouped).map(([category, items]) => (
+              <div key={category}>
+                {!isCollapsed && (
+                  <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500 px-1 mb-1 mt-3">
+                    {category}
+                  </p>
+                )}
+                <div className="space-y-0.5">
+                  {items.map((item) => {
+                    const isActive = activeId === item.id;
+                    return (
+                      <a
+                        key={item.id}
+                        href={item.path ? item.path : `#${item.id}`}
+                        title={isCollapsed ? `${item.num} · ${item.label}` : undefined}
+                        onClick={() => setActiveId(item.id)}
+                        className={`group flex items-center gap-2.5 rounded-md px-2 py-1.5 text-[13px] transition-all ${
+                          isActive
+                            ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 font-medium"
+                            : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-200"
+                        }`}
+                      >
+                        {/* Active indicator pill */}
+                        <span className={`flex-shrink-0 w-1 h-4 rounded-full transition-all ${
+                          isActive ? "bg-indigo-500" : "bg-transparent group-hover:bg-slate-300 dark:group-hover:bg-slate-600"
+                        }`} />
 
-                    {isCollapsed ? (
-                      <span className="text-[11px] font-mono font-semibold text-slate-500 dark:text-slate-400">{item.num}</span>
-                    ) : (
-                      <>
-                        <span className={`font-mono text-[10px] flex-shrink-0 w-5 ${isActive ? "text-indigo-500 dark:text-indigo-400" : "text-slate-400 dark:text-slate-500"}`}>
-                          {item.num}
-                        </span>
-                        <span className="truncate">{item.label}</span>
-                      </>
-                    )}
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+                        {isCollapsed ? (
+                          <span className="text-[11px] font-mono font-semibold text-slate-500 dark:text-slate-400">{item.num}</span>
+                        ) : (
+                          <>
+                            <span className={`font-mono text-[10px] flex-shrink-0 w-5 ${isActive ? "text-indigo-500 dark:text-indigo-400" : "text-slate-400 dark:text-slate-500"}`}>
+                              {item.num}
+                            </span>
+                            <span className="truncate">{item.label}</span>
+                          </>
+                        )}
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
 
-        {searchQuery && Object.keys(grouped).length === 0 && (
-          <div className="py-8 text-center text-[12px] text-slate-400 dark:text-slate-500">
-            No modules match &ldquo;{searchQuery}&rdquo;
-          </div>
-        )}
-      </nav>
+            {searchQuery && Object.keys(grouped).length === 0 && (
+              <div className="py-8 text-center text-[12px] text-slate-400 dark:text-slate-500">
+                No modules match &ldquo;{searchQuery}&rdquo;
+              </div>
+            )}
+          </nav>
+        </>
+      )}
 
       {/* ── Footer: Live Status ── */}
       <div className={`border-t border-slate-200 dark:border-slate-700 p-3 ${isCollapsed ? "px-2" : ""}`}>

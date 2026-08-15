@@ -12,3 +12,36 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+      - ML_DB_DRIVER=${ML_DB_DRIVER:-sqlite}
+      - ML_DATABASE_URL=${ML_DATABASE_URL:-./data/ml.sqlite3}
+      - ML_SESSION_SECRET=${ML_SESSION_SECRET:-dev-only-insecure-secret-change-me}
+      - ML_QUIZ_PASS_THRESHOLD=${ML_QUIZ_PASS_THRESHOLD:-0.7}
+    volumes:
+      - ml_sqlite_data:/app/data
+
+  # Optional Postgres upgrade path for ML Foundations Lab. Not started by a plain
+  # `docker compose up`; opt in with `docker compose --profile postgres up -d`,
+  # then set ML_DB_DRIVER=postgres and ML_DATABASE_URL (see .env.example) for the
+  # `app` service.
+  postgres:
+    image: postgres:16-alpine
+    container_name: networking-learning-ml-postgres
+    restart: unless-stopped
+    profiles: ["postgres"]
+    environment:
+      - POSTGRES_USER=ml
+      - POSTGRES_PASSWORD=ml
+      - POSTGRES_DB=ml_foundations_lab
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - ml_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ml -d ml_foundations_lab"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  ml_sqlite_data:
+  ml_pgdata:

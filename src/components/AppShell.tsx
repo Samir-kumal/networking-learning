@@ -65,7 +65,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <span className="font-medium text-slate-600 dark:text-slate-300">TypeScript</span> &amp;{" "}
               <span className="font-medium text-slate-600 dark:text-slate-300">Tailwind CSS</span>.
             </span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-semibold">71 interactive engineering modules</span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-semibold">98 interactive engineering modules</span>
           </div>
         </footer>
       </div>
