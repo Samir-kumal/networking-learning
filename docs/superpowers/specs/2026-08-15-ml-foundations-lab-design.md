@@ -86,6 +86,13 @@ every other section starts `locked`. `submitQuizAttempt` promotes the *next* sec
 
 ## 5. Playground primitives (`src/components/ml/primitives/`)
 
+shadcn/ui is a copy-paste pattern over Radix UI + Tailwind, not a runtime package —
+this repo has no existing shadcn/Radix component convention to extend, so these
+primitives ARE that pattern applied directly (Radix primitives — `@radix-ui/react-slider`
+etc. — styled with the existing Tailwind slate/indigo/emerald palette and `dark:`
+conventions from `Sidebar.tsx`/`TrackCard.tsx`), rather than installing the shadcn CLI
+scaffold and its separate default theme-token system alongside the repo's existing one.
+
 - `<Katex expr latex? block?>` — wraps `katex` (no `react-katex` dep; render via
   `katex.renderToString` + `dangerouslySetInnerHTML`, memoized on the expression string).
 - `<Slider label value min max step onChange format? />` — shadcn/ui `Slider` wrapper,
@@ -204,12 +211,12 @@ needed").
 
 ## 11. Deliverable checklist (traced to brief)
 
-- [ ] Structured curriculum, 8 chapters, 27 gated sections
-- [ ] Interactive playground per section (primitives §5)
-- [ ] Quiz + retry + explanations + persisted attempts (§4, §7)
-- [ ] Drizzle + SQLite default, docker-compose Postgres opt-in (§4, §9)
-- [ ] Anonymous local-profile auth (§3)
-- [ ] Zod validation on every server action / route handler input
-- [ ] Sidebar lock/unlock/complete states, progress dashboard
-- [ ] README setup steps, seed script, `.env.example`
-- [ ] `npm test`, `npm run typecheck`, `npm run build`, `npm run lint` all clean
+- [x] Structured curriculum, 8 chapters, 27 gated sections
+- [x] Interactive playground per section (primitives §5)
+- [x] Quiz + retry + explanations + persisted attempts (§4, §7)
+- [x] Drizzle + SQLite default, docker-compose Postgres opt-in (§4, §9)
+- [x] Anonymous local-profile auth (§3)
+- [x] Zod validation on every server action / route handler input
+- [x] Sidebar lock/unlock/complete states, progress dashboard
+- [x] README setup steps, seed script, `.env.example`
+- [x] `npm test`, `npm run typecheck`, `npm run build`, `npm run lint` all clean

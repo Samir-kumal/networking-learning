@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { submitQuizAttempt } from "@/app/ml/actions";
 import type { GradeResult } from "@/lib/ml/progress/service";
 
@@ -62,7 +63,13 @@ export function QuizRunner({ quiz, onPassed }: QuizRunnerProps) {
       {order.map((question, index) => {
         const graded = result?.results.find((r) => r.questionId === question.id);
         return (
-          <div key={question.id} className="rounded-lg border border-slate-200 p-3 dark:border-slate-700">
+          <motion.div
+            key={question.id}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, delay: index * 0.04 }}
+            className="rounded-lg border border-slate-200 p-3 dark:border-slate-700"
+          >
             <p className="text-[13px] font-medium text-slate-800 dark:text-slate-200">
               {index + 1}. {question.prompt}
             </p>
@@ -102,50 +109,65 @@ export function QuizRunner({ quiz, onPassed }: QuizRunnerProps) {
                 />
               )}
             </div>
-            {graded && (
-              <p
-                className={`mt-2 text-[12px] ${
-                  graded.correct ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"
-                }`}
-              >
-                {graded.correct ? "Correct — " : "Not quite — "}
-                {graded.explanation}
-              </p>
-            )}
-          </div>
+            <AnimatePresence>
+              {graded && (
+                <motion.p
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.2 }}
+                  className={`mt-2 text-[12px] ${
+                    graded.correct ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"
+                  }`}
+                >
+                  {graded.correct ? "Correct — " : "Not quite — "}
+                  {graded.explanation}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </motion.div>
         );
       })}
 
       {error && <p className="text-[12px] text-rose-600 dark:text-rose-400">{error}</p>}
 
-      {!result ? (
-        <button
-          onClick={handleSubmit}
-          disabled={!allAnswered || submitting}
-          className="rounded-md bg-indigo-600 px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-40"
-        >
-          {submitting ? "Grading…" : "Submit Quiz"}
-        </button>
-      ) : (
-        <div className="flex items-center justify-between rounded-lg border border-slate-200 p-3 dark:border-slate-700">
-          <p className="text-[13px] font-medium text-slate-800 dark:text-slate-200">
-            Score: {Math.round(result.score * 100)}% —{" "}
-            <span
-              className={result.passed ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}
-            >
-              {result.passed ? "Passed" : "Not passed"}
-            </span>
-          </p>
-          {!result.passed && (
-            <button
-              onClick={handleRetry}
-              className="rounded-md border border-slate-200 px-3 py-1.5 text-[12px] font-medium transition hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-700"
-            >
-              Retry
-            </button>
-          )}
-        </div>
-      )}
+      <AnimatePresence mode="wait">
+        {!result ? (
+          <motion.button
+            key="submit"
+            exit={{ opacity: 0, scale: 0.95 }}
+            onClick={handleSubmit}
+            disabled={!allAnswered || submitting}
+            className="rounded-md bg-indigo-600 px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-40"
+          >
+            {submitting ? "Grading…" : "Submit Quiz"}
+          </motion.button>
+        ) : (
+          <motion.div
+            key="result"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.25 }}
+            className="flex items-center justify-between rounded-lg border border-slate-200 p-3 dark:border-slate-700"
+          >
+            <p className="text-[13px] font-medium text-slate-800 dark:text-slate-200">
+              Score: {Math.round(result.score * 100)}% —{" "}
+              <span
+                className={result.passed ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}
+              >
+                {result.passed ? "Passed" : "Not passed"}
+              </span>
+            </p>
+            {!result.passed && (
+              <button
+                onClick={handleRetry}
+                className="rounded-md border border-slate-200 px-3 py-1.5 text-[12px] font-medium transition hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-700"
+              >
+                Retry
+              </button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

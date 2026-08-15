@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { QuizRunner, type QuizRunnerQuestion } from "@/components/ml/primitives/QuizRunner";
 import { useProgressStore } from "@/lib/ml/store/progressStore";
 
@@ -31,17 +32,32 @@ export default function SectionQuizGate({ quiz, sectionId, nextSectionId, nextHr
           setPassed(true);
         }}
       />
-      {passed && nextHref && (
-        <Link
-          href={nextHref}
-          className="inline-block rounded-md bg-emerald-600 px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-emerald-700"
-        >
-          {nextLabel} →
-        </Link>
-      )}
-      {passed && !nextHref && (
-        <p className="text-[13px] font-medium text-emerald-600 dark:text-emerald-400">{nextLabel}</p>
-      )}
+      <AnimatePresence>
+        {passed && nextHref && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <Link
+              href={nextHref}
+              className="inline-block rounded-md bg-emerald-600 px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-emerald-700"
+            >
+              {nextLabel} →
+            </Link>
+          </motion.div>
+        )}
+        {passed && !nextHref && (
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="text-[13px] font-medium text-emerald-600 dark:text-emerald-400"
+          >
+            {nextLabel}
+          </motion.p>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
