@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "DevOps Hub — SubnetLab & Engineering Learning Portal",
   description:
-    "Interactive learning portal for Networking, AWS Cloud, Cybersecurity, GitOps, and Docker & Kubernetes engineering — 71 hands-on modules.",
+    "Interactive learning portal for Networking, AWS Cloud, Cybersecurity, GitOps, Docker & Kubernetes engineering, and ML Foundations — 98 hands-on modules.",
 };
 
 export default function RootLayout({

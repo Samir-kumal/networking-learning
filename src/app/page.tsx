@@ -78,6 +78,18 @@ const TRACKS = [
     techStack: ["Docker", "Compose", "Kubernetes", "Helm", "ArgoCD", "Trivy", "NetworkPolicy", "Ingress", "RBAC", "HPA/VPA", "Prometheus"],
     accentClass: "bg-sky-600",
   },
+  {
+    id: "ml",
+    name: "ML Foundations Lab",
+    description:
+      "Learn machine learning from the math up: functions, linear algebra, derivatives, integration, probability, and core ML/neural-network concepts, each with a live interactive playground and a gated quiz.",
+    icon: "◑",
+    href: "/ml",
+    difficulty: "Beginner → Intermediate",
+    moduleCount: 27,
+    techStack: ["Linear Algebra", "Calculus", "Probability", "Gradient Descent", "Neural Networks", "KaTeX", "D3", "Three.js"],
+    accentClass: "bg-emerald-600",
+  },
 ];
 
 const PHASES = [

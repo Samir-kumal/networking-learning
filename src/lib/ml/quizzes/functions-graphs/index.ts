@@ -1,0 +1,165 @@
+import type { QuizSeed } from "../types";
+
+export const quizzes: QuizSeed[] = [
+  {
+    chapterSlug: "functions-graphs",
+    sectionSlug: "what-is-a-function",
+    questions: [
+      {
+        order: 1,
+        kind: "mcq",
+        prompt: "What defines a function?",
+        options: [
+          "Each input maps to exactly one output",
+          "Each output maps to exactly one input",
+          "Inputs and outputs must both be positive",
+          "The graph must be a straight line",
+        ],
+        correctAnswer: "Each input maps to exactly one output",
+        explanation:
+          "By definition, a function assigns exactly one output to every input in its domain — this is what the graphical 'vertical line test' checks for.",
+      },
+      {
+        order: 2,
+        kind: "mcq",
+        prompt: "Which of these sets of (input, output) pairs is NOT a function?",
+        options: [
+          "{(1,2), (2,4), (3,6)}",
+          "{(1,5), (2,5), (3,5)}",
+          "{(1,2), (1,-2), (2,4)}",
+          "{(0,0), (1,1), (2,4)}",
+        ],
+        correctAnswer: "{(1,2), (1,-2), (2,4)}",
+        explanation:
+          "The input 1 maps to two different outputs (2 and -2), which violates the one-output-per-input rule — the other options are all valid functions (many-to-one mappings are allowed).",
+      },
+      {
+        order: 3,
+        kind: "numeric",
+        prompt: "f(x) = 1/x is undefined at exactly one x-value. What is it?",
+        correctAnswer: 0,
+        tolerance: 0.001,
+        explanation: "Division by zero is undefined, so x = 0 must be excluded from the domain of f(x) = 1/x.",
+      },
+      {
+        order: 4,
+        kind: "numeric",
+        prompt: "What is the smallest value in the domain of f(x) = √x (restricting to real outputs)?",
+        correctAnswer: 0,
+        tolerance: 0.001,
+        explanation: "The square root of a negative number isn't a real number, so the domain is x ≥ 0 — the smallest allowed value is 0.",
+      },
+      {
+        order: 5,
+        kind: "numeric",
+        prompt: "For f(x) = x², what positive value of x gives f(x) = 9?",
+        correctAnswer: 3,
+        tolerance: 0.01,
+        explanation: "3² = 9. (-3 also satisfies x² = 9, but the question asked for the positive value.)",
+      },
+    ],
+  },
+  {
+    chapterSlug: "functions-graphs",
+    sectionSlug: "linear-functions",
+    questions: [
+      {
+        order: 1,
+        kind: "mcq",
+        prompt: "In y = mx + b, what does m represent?",
+        options: [
+          "The slope — the change in y per unit change in x",
+          "The y-intercept",
+          "The x-intercept",
+          "The maximum value of y",
+        ],
+        correctAnswer: "The slope — the change in y per unit change in x",
+        explanation: "m is the rate of change: for every 1-unit increase in x, y changes by m.",
+      },
+      {
+        order: 2,
+        kind: "mcq",
+        prompt: "In y = mx + b, what does b represent?",
+        options: [
+          "The value of y when x = 0",
+          "The value of x when y = 0",
+          "The slope of the line",
+          "The steepness of the curve",
+        ],
+        correctAnswer: "The value of y when x = 0",
+        explanation: "Substituting x = 0 into y = mx + b gives y = b — that's the y-intercept.",
+      },
+      {
+        order: 3,
+        kind: "numeric",
+        prompt: "For y = 3x - 2, what is y when x = 4?",
+        correctAnswer: 10,
+        tolerance: 0.01,
+        explanation: "y = 3(4) - 2 = 12 - 2 = 10.",
+      },
+      {
+        order: 4,
+        kind: "numeric",
+        prompt: "A line passes through (0, 5) with slope -2. What is y when x = 3?",
+        correctAnswer: -1,
+        tolerance: 0.01,
+        explanation: "y = mx + b = -2(3) + 5 = -6 + 5 = -1.",
+      },
+      {
+        order: 5,
+        kind: "numeric",
+        prompt: "What value of m makes y = mx + b a horizontal line?",
+        correctAnswer: 0,
+        tolerance: 0.001,
+        explanation: "When m = 0, y = b for every x — a horizontal line with zero slope.",
+      },
+    ],
+  },
+  {
+    chapterSlug: "functions-graphs",
+    sectionSlug: "polynomials-exponentials-logarithms",
+    questions: [
+      {
+        order: 1,
+        kind: "mcq",
+        prompt: "As x → ∞, which of these three eventually grows fastest?",
+        options: ["x² (polynomial)", "2^x (exponential)", "log(x) (logarithm)", "They all grow at the same rate"],
+        correctAnswer: "2^x (exponential)",
+        explanation:
+          "Exponential functions eventually overtake any polynomial, no matter how large the polynomial's degree, because exponential growth compounds multiplicatively rather than additively.",
+      },
+      {
+        order: 2,
+        kind: "mcq",
+        prompt: "What is the domain of log_b(x) for b > 0, b ≠ 1?",
+        options: ["All real numbers", "x > 0", "x ≥ 0", "x ≠ 0"],
+        correctAnswer: "x > 0",
+        explanation: "Logarithms are only defined for positive arguments — no real power of b produces zero or a negative number.",
+      },
+      {
+        order: 3,
+        kind: "numeric",
+        prompt: "Evaluate 2^5.",
+        correctAnswer: 32,
+        tolerance: 0.01,
+        explanation: "2^5 = 2 × 2 × 2 × 2 × 2 = 32.",
+      },
+      {
+        order: 4,
+        kind: "numeric",
+        prompt: "Evaluate log₂(8) — what power of 2 gives 8?",
+        correctAnswer: 3,
+        tolerance: 0.01,
+        explanation: "2³ = 8, so log₂(8) = 3.",
+      },
+      {
+        order: 5,
+        kind: "numeric",
+        prompt: "For f(x) = x^n (with coefficient a = 1), what value of n makes f(2) = 8?",
+        correctAnswer: 3,
+        tolerance: 0.01,
+        explanation: "2³ = 8, so n = 3.",
+      },
+    ],
+  },
+];

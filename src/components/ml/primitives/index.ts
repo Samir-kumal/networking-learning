@@ -1,0 +1,14 @@
+export { Katex } from "./Katex";
+export { Slider } from "./Slider";
+export { PlaygroundShell } from "./PlaygroundShell";
+export type { PlaygroundPreset } from "./PlaygroundShell";
+export { FunctionPlot } from "./FunctionPlot";
+export type { FunctionPlotScales } from "./FunctionPlot";
+export { VectorCanvas } from "./VectorCanvas";
+export type { VectorSpec } from "./VectorCanvas";
+export { MatrixGrid } from "./MatrixGrid";
+export type { Matrix2x2 } from "./MatrixGrid";
+export { Surface3D } from "./Surface3D";
+export { QuizRunner } from "./QuizRunner";
+export type { QuizRunnerQuestion } from "./QuizRunner";
+export { ConceptCallout } from "./ConceptCallout";
