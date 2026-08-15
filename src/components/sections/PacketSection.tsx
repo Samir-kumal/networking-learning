@@ -1,5 +1,9 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 import { useState, useMemo } from "react";
 
 // --- TYPES ---
@@ -775,27 +779,22 @@ export default function PacketSection() {
   return (
     <section
       id="packets"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* SECTION HEADER */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #packets
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>
-          14. Packet Encapsulation & Analysis
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Every interaction on the internet depends on <strong className="text-indigo-600 dark:text-indigo-400">Packet Encapsulation</strong>—the process where raw application data is wrapped layer-by-layer with Transport headers, IP headers, and Ethernet frames before physical transmission over the wire. Understanding header bit fields, stateful TCP handshakes, and PCAP analysis tools like <strong className="text-emerald-600 dark:text-emerald-400">Wireshark</strong> is essential for network engineering and security analysis.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#packets"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>}
+        title={<>14. Packet Encapsulation & Analysis</>}
+        description={<>Every interaction on the internet depends on <strong className="text-indigo-600 dark:text-indigo-400">Packet Encapsulation</strong>—the process where raw application data is wrapped layer-by-layer with Transport headers, IP headers, and Ethernet frames before physical transmission over the wire. Understanding header bit fields, stateful TCP handshakes, and PCAP analysis tools like <strong className="text-emerald-600 dark:text-emerald-400">Wireshark</strong> is essential for network engineering and security analysis.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* ==================================================================== */}
       {/* 1. INTERACTIVE OSI vs TCP/IP LAYER STACK VISUAL INSPECTOR */}
       {/* ==================================================================== */}
       <div className="mb-12">
+        <NetworkingPanel variant="muted" className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
@@ -989,12 +988,14 @@ export default function PacketSection() {
             </div>
           </div>
         </div>
+        </NetworkingPanel>
       </div>
 
       {/* ==================================================================== */}
       {/* 2. FRAME / PACKET / SEGMENT HEADER ANATOMY */}
       {/* ==================================================================== */}
       <div className="mb-12">
+        <NetworkingPanel className="space-y-6">
         <div className="mb-6">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span className="text-indigo-600 dark:text-indigo-400">2.</span> Frame, Packet & Segment Header Anatomy
@@ -1118,20 +1119,16 @@ export default function PacketSection() {
             </div>
           </div>
         </div>
+        </NetworkingPanel>
       </div>
 
       {/* ==================================================================== */}
       {/* 3. TCP 3-WAY HANDSHAKE SEQUENCE DIAGRAM */}
       {/* ==================================================================== */}
       <div className="mb-12">
+        <NetworkingExample title={<><span className="text-indigo-600 dark:text-indigo-400">3.</span> TCP 3-Way Handshake & Connection Teardown</>} description="Step-by-step TCP sequence number arithmetic, flag bitmask inspection, and TCP socket state transitions." tone="cyan">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-              <span className="text-indigo-600 dark:text-indigo-400">3.</span> TCP 3-Way Handshake & Connection Teardown
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Step-by-step TCP sequence number arithmetic, flag bitmask inspection, and TCP socket state transitions.
-            </p>
           </div>
 
           <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-1.5 rounded-lg">
@@ -1282,6 +1279,7 @@ export default function PacketSection() {
             </p>
           </div>
         </div>
+        </NetworkingExample>
       </div>
 
       {/* ==================================================================== */}
@@ -1299,6 +1297,7 @@ export default function PacketSection() {
 
         {/* Wireshark Window Container */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow shadow-2xl overflow-hidden">
+          <NetworkingPanel variant="console" className="p-0">
           {/* Top Wireshark Titlebar & Filter Controls */}
           <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             {/* Window Dots & Title */}
@@ -1354,6 +1353,7 @@ export default function PacketSection() {
 
           {/* PANE 1: PACKET LIST TABLE */}
           <div className="max-h-56 overflow-y-auto border-b border-slate-200 dark:border-slate-700">
+            <NetworkingTable>
             <table className="w-full text-left font-mono text-xs border-collapse">
               <thead className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 sticky top-0 border-b border-slate-200 dark:border-slate-700">
                 <tr>
@@ -1394,6 +1394,7 @@ export default function PacketSection() {
                 })}
               </tbody>
             </table>
+            </NetworkingTable>
           </div>
 
           {/* PANE 2 & PANE 3: PACKET DETAILS TREE & HEX DUMP (SPLIT VIEW) */}
@@ -1484,7 +1485,9 @@ export default function PacketSection() {
             <span>Packets: {SAMPLE_PACKETS.length} • Displayed: {filteredPackets.length}</span>
             <span className="text-emerald-600 dark:text-emerald-400">Profile: Default Wireshark Decoders Active</span>
           </div>
+          </NetworkingPanel>
         </div>
+      </div>
       </div>
     </section>
   );

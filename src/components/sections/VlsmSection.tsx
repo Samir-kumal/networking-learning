@@ -1,25 +1,23 @@
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 export default function VlsmSection() {
   return (
     <section
       id="vlsm"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #vlsm
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◐</span>
-          6. VLSM — Variable Length Subnet Masking
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        <strong className="text-slate-900 dark:text-slate-100">Variable Length Subnet Masking (VLSM)</strong> allows network engineers to subdivide an address block into non-uniform subnets sized for different host requirements. Longer prefixes such as <code className="text-indigo-600 dark:text-indigo-400">/27</code> and <code className="text-indigo-600 dark:text-indigo-400">/30</code> create smaller subnets; allocating the smallest suitable block avoids wasting addresses.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#vlsm"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◐</span>}
+        title={<>6. VLSM — Variable Length Subnet Masking</>}
+        description={<><strong className="text-slate-900 dark:text-slate-100">Variable Length Subnet Masking (VLSM)</strong> allows network engineers to subdivide an address block into non-uniform subnets sized for different host requirements. Longer prefixes such as <code className="text-indigo-600 dark:text-indigo-400">/27</code> and <code className="text-indigo-600 dark:text-indigo-400">/30</code> create smaller subnets; allocating the smallest suitable block avoids wasting addresses.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* Prefix Cards (/30, /27, /24) */}
+        <NetworkingPanel>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         {/* /30 Card */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-amber-300 transition-all flex flex-col justify-between">
@@ -87,22 +85,11 @@ export default function VlsmSection() {
           </div>
         </div>
       </div>
+        </NetworkingPanel>
+      <NetworkingExample title="Worked VLSM Example: Subnetting a 192.168.1.0/24 Block" description="Requirement: Allocate subnets for Engineering (50 hosts), Sales (25 hosts), Executive (10 hosts), and 2 Router Links." footer="Heuristic: allocate largest requirements first to simplify alignment" tone="cyan">
 
       {/* Worked Example Table */}
       <div className="mb-10">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-          <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Worked VLSM Example: Subnetting a 192.168.1.0/24 Block
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Requirement: Allocate subnets for Engineering (50 hosts), Sales (25 hosts), Executive (10 hosts), and 2 Router Links.
-            </p>
-          </div>
-          <span className="px-2.5 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-indigo-600 dark:text-indigo-400">
-            Heuristic: allocate largest requirements first to simplify alignment
-          </span>
-        </div>
 
         <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-700 mb-6">
           <table className="w-full text-left border-collapse text-xs font-mono">
@@ -175,13 +162,14 @@ export default function VlsmSection() {
             </tbody>
           </table>
         </div>
+          <NetworkingPanel variant="console" className="p-0">
 
         {/* Tree Allocation Visual Code Block */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2 uppercase">
+        <div className="rounded-xl bg-transparent border border-slate-200 dark:border-slate-700 card-shadow p-5">
+          <div className="text-xs font-mono text-slate-100 mb-2 uppercase">
             Address Space Allocation Tree (192.168.1.0/24)
           </div>
-          <pre className="font-mono text-xs text-emerald-600 dark:text-emerald-400 bg-white dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto">
+          <pre className="font-mono text-xs text-emerald-600 dark:text-emerald-400 bg-transparent p-4 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto">
 {`192.168.1.0/24 (256 Total IPs)
 ├── 192.168.1.0/26   [Engineering: 50 hosts required, 62 usable (.1-.62)]
 ├── 192.168.1.64/27  [Sales:       25 hosts required, 30 usable (.65-.94)]
@@ -190,9 +178,10 @@ export default function VlsmSection() {
 ├── 192.168.1.116/30 [Router Link 2: 2 hosts required, 2 usable (.117-.118)]
 └── 192.168.1.120/29 + 192.168.1.128/25 [Reserved Future Allocation Pool: 136 raw addresses (.120-.127 and .128-.255)]`}</pre>
         </div>
+          </NetworkingPanel>
       </div>
+      </NetworkingExample>
 
-      {/* RFC 3021 /31 Point-to-Point Explanation Card */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <div className="flex items-center gap-2 mb-3">
           <span className="px-2.5 py-1 rounded bg-[#bc8cff]/20 text-violet-600 dark:text-violet-400 text-xs font-mono font-bold">
@@ -225,6 +214,7 @@ export default function VlsmSection() {
             </div>
           </div>
         </div>
+      </div>
     </section>
   );
 }

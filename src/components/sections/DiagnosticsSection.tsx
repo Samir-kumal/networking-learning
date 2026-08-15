@@ -1,9 +1,12 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import { useState, useRef, useEffect } from "react";
 import { parseCommandTarget } from "@/lib/diagnostics-parser";
 import CopyButton from "@/components/CopyButton";
-
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 interface TerminalLine {
   id: string;
   type: "input" | "output" | "error" | "info" | "success" | "system";
@@ -602,24 +605,19 @@ export default function DiagnosticsSection() {
   return (
     <section
       id="diagnostics"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #diagnostics
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◐</span>
-          18. Network Diagnostics & CLI Sandbox
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Master essential network troubleshooting CLI utilities (<code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">ping</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">traceroute</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">mtr</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">iperf3</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">dig</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">nmap</code>). Test commands interactively in the simulated bash terminal sandbox, execute instant command presets, and reference the diagnostic cheat sheet.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#diagnostics"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◐</span>}
+        title={<>18. Network Diagnostics & CLI Sandbox</>}
+        description={<>Master essential network troubleshooting CLI utilities (<code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">ping</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">traceroute</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">mtr</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">iperf3</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">dig</code>, <code className="text-emerald-600 dark:text-emerald-400 bg-slate-50 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">nmap</code>). Test commands interactively in the simulated bash terminal sandbox, execute instant command presets, and reference the diagnostic cheat sheet.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* Interactive CLI Terminal Sandbox Container */}
+      <NetworkingPanel variant="console" className="p-0 mb-10">
       <div className="mb-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow overflow-hidden shadow-2xl">
         {/* Terminal Header Bar */}
         <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-3 border-b border-slate-200 dark:border-slate-700">
@@ -716,8 +714,10 @@ export default function DiagnosticsSection() {
           </button>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* Preset Command Buttons Bar */}
+      <NetworkingPanel variant="muted" className="space-y-10 mb-10">
       <div className="mb-10">
         <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
           Instant Execution Presets (Click to Run):
@@ -787,17 +787,13 @@ export default function DiagnosticsSection() {
           ))}
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* Command Cheat Sheet Section */}
+      <NetworkingExample title="Diagnostic Tools Command Cheat Sheet" description="Comprehensive reference of syntax, flags, OSI layers, and practical use-cases." tone="cyan">
       <div>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
           <div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-              Diagnostic Tools Command Cheat Sheet
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Comprehensive reference of syntax, flags, OSI layers, and practical use-cases.
-            </p>
           </div>
 
           {/* Filter Tabs */}
@@ -819,6 +815,7 @@ export default function DiagnosticsSection() {
         </div>
 
         {/* Cheat Sheet Cards Grid */}
+        <NetworkingTable>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {filteredCheatSheet.map((item) => (
             <div
@@ -894,6 +891,9 @@ export default function DiagnosticsSection() {
             </div>
           ))}
         </div>
+        </NetworkingTable>
+      </div>
+      </NetworkingExample>
       </div>
     </section>
   );

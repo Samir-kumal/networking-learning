@@ -1,5 +1,9 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 import { useState } from "react";
 import { maskFromCIDR } from "@/lib/subnet-utils";
 
@@ -31,24 +35,19 @@ export default function CidrSection() {
   return (
     <section
       id="cidr"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #cidr
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>
-          3. CIDR & Subnet Masks — Interactive
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        <strong className="text-slate-900 dark:text-slate-100">CIDR (Classless Inter-Domain Routing)</strong> specifies how many leading bits in an IP address represent the network prefix. Adjust the slider or click any bit box below to interactively observe how changing prefix length affects subnet mask, bit allocation, total addresses, and usable host count.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#cidr"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>}
+        title={<>3. CIDR & Subnet Masks — Interactive</>}
+        description={<><strong className="text-slate-900 dark:text-slate-100">CIDR (Classless Inter-Domain Routing)</strong> specifies how many leading bits in an IP address represent the network prefix. Adjust the slider or click any bit box below to interactively observe how changing prefix length affects subnet mask, bit allocation, total addresses, and usable host count.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* Interactive Controls & 32-Bit Visual Bar */}
+      <NetworkingPanel variant="muted" className="mb-10">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
         {/* Preset Selector */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
@@ -138,82 +137,28 @@ export default function CidrSection() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* Stat Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-        {/* Subnet Mask */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-            Subnet Mask
-          </div>
-          <div className="text-xl font-bold font-mono text-indigo-600 dark:text-indigo-400">
-            {subnetMaskStr}
-          </div>
-          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-            Equivalent to /{cidr} CIDR prefix
-          </div>
-        </div>
-
-        {/* Total Addresses */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-            Total IP Addresses
-          </div>
-          <div className="text-xl font-bold font-mono text-slate-900 dark:text-slate-100">
-            {totalAddresses.toLocaleString()}
-          </div>
-          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2 font-mono">
-            2<sup>{hostBits}</sup> addresses (32 minus {cidr} network bits)
-          </div>
-        </div>
-
-        {/* Usable Hosts */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-            Usable Host IPs
-          </div>
-          <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400">
-            {usableHosts.toLocaleString()}
-          </div>
-          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-            {cidr === 31
-              ? "Both addresses usable under RFC 3021"
-              : cidr === 32
-                ? "One address usable as a host route"
-                : "Excludes network and broadcast addresses"}
-          </div>
-        </div>
-
-        {/* Wildcard Mask */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-1">
-            Wildcard Mask (ACL)
-          </div>
-          <div className="text-xl font-bold font-mono text-violet-600 dark:text-violet-400">
-            {wildcardMaskStr}
-          </div>
-          <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
-            Inverted subnet mask (255 minus each mask octet)
-          </div>
-        </div>
+        <NetworkingMetric label="Subnet Mask" value={subnetMaskStr} detail={`Equivalent to /${cidr} CIDR prefix`} tone="cyan" />
+        <NetworkingMetric label="Total IP Addresses" value={totalAddresses.toLocaleString()} detail={<>2<sup>{hostBits}</sup> addresses (32 minus {cidr} network bits)</>} tone="violet" />
+        <NetworkingMetric
+          label="Usable Host IPs"
+          value={usableHosts.toLocaleString()}
+          detail={cidr === 31 ? "Both addresses usable under RFC 3021" : cidr === 32 ? "One address usable as a host route" : "Excludes network and broadcast addresses"}
+          tone="lime"
+        />
+        <NetworkingMetric label="Wildcard Mask (ACL)" value={wildcardMaskStr} detail="Inverted subnet mask (255 minus each mask octet)" tone="amber" />
       </div>
+      <NetworkingExample
+        title={cidr === 31 ? "Usable Hosts: both addresses are usable on an RFC 3021 point-to-point link" : cidr === 32 ? "Usable Hosts: one address is usable for a host route" : <>Usable Hosts Calculation Formula: 2<sup>h</sup> - 2</>}
+        description={cidr === 31 ? <>An RFC 3021 <code className="text-emerald-600 dark:text-emerald-400">/31</code> point-to-point link has exactly two addresses, and both are usable. No network or broadcast address is reserved.</> : cidr === 32 ? <>A <code className="text-emerald-600 dark:text-emerald-400">/32</code> is a host route containing one address, which is usable directly. No network or broadcast address is reserved.</> : <>For an IPv4 subnet, use <code className="text-emerald-600 dark:text-emerald-400">Usable Hosts = 2<sup>h</sup> - 2</code>, where <code className="text-indigo-600 dark:text-indigo-400">h = 32 - CIDR</code> is the number of host bits.</>}
+        tone="amber"
+      >
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
 
       {/* Usable Hosts Formula Card */}
-        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3">
-          {cidr === 31
-            ? "Usable Hosts: both addresses are usable on an RFC 3021 point-to-point link"
-            : cidr === 32
-              ? "Usable Hosts: one address is usable for a host route"
-              : <>Usable Hosts Calculation Formula: 2<sup>h</sup> - 2</>}
-        </h3>
-        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-          {cidr === 31
-            ? <>An RFC 3021 <code className="text-emerald-600 dark:text-emerald-400">/31</code> point-to-point link has exactly two addresses, and both are usable. No network or broadcast address is reserved.</>
-            : cidr === 32
-              ? <>A <code className="text-emerald-600 dark:text-emerald-400">/32</code> is a host route containing one address, which is usable directly. No network or broadcast address is reserved.</>
-              : <>For an IPv4 subnet, use <code className="text-emerald-600 dark:text-emerald-400">Usable Hosts = 2<sup>h</sup> - 2</code>, where <code className="text-indigo-600 dark:text-indigo-400">h = 32 - CIDR</code> is the number of host bits.</>}
-        </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {cidr >= 31 ? (
@@ -268,6 +213,8 @@ export default function CidrSection() {
             </div>
           </div>
         </div>
+      </div>
+      </NetworkingExample>
       </div>
     </section>
   );

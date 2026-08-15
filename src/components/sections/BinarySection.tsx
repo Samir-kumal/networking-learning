@@ -1,5 +1,8 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 import { useState } from "react";
 
 function toBinaryString(num: number): string {
@@ -23,23 +26,18 @@ export default function BinarySection() {
   return (
     <section
       id="binary"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #binary
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊞</span>
-          2. IP Addresses & Binary
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Every IPv4 address is a 32-bit binary number represented in 4 decimal octets separated by dots. 
-        Understanding bit values, positional binary weights (128, 64, 32, 16, 8, 4, 2, 1), and bitwise operations is fundamental to networking.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#binary"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊞</span>}
+        title={<>2. IP Addresses & Binary</>}
+        description={<>Every IPv4 address is a 32-bit binary number represented in 4 decimal octets separated by dots.
+        Understanding bit values, positional binary weights (128, 64, 32, 16, 8, 4, 2, 1), and bitwise operations is fundamental to networking.</>}
+      />
+      <div className="module-content networking-module-content">
+      <NetworkingPanel className="mb-10">
 
       {/* Interactive Live 4-Octet Converter */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
@@ -119,6 +117,8 @@ export default function BinarySection() {
           </span>
         </div>
       </div>
+      </NetworkingPanel>
+      <NetworkingPanel className="mb-10">
 
       {/* Address Structure & Network vs Host Breakdown */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
@@ -160,6 +160,7 @@ export default function BinarySection() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* RFC 1918 Private Ranges Table */}
       <div className="mb-10">
@@ -171,6 +172,7 @@ export default function BinarySection() {
         </p>
 
         <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-700">
+          <NetworkingTable>
           <table className="w-full text-left border-collapse text-xs font-mono">
             <thead>
               <tr className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
@@ -205,6 +207,7 @@ export default function BinarySection() {
               </tr>
             </tbody>
           </table>
+          </NetworkingTable>
         </div>
       </div>
 
@@ -218,6 +221,7 @@ export default function BinarySection() {
         </p>
 
         <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-700">
+          <NetworkingTable>
           <table className="w-full text-left border-collapse text-xs">
             <thead>
               <tr className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700 font-mono">
@@ -249,6 +253,7 @@ export default function BinarySection() {
               </tr>
             </tbody>
           </table>
+          </NetworkingTable>
         </div>
       </div>
       
@@ -284,6 +289,7 @@ export default function BinarySection() {
           </div>
         </div>
       </div>
+      <NetworkingPanel>
       
       {/* Bitwise AND Visual Block */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
@@ -325,6 +331,8 @@ export default function BinarySection() {
             </span>
           </div>
         </div>
+      </div>
+      </NetworkingPanel>
       </div>
     </section>
   );

@@ -1,5 +1,9 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 import React, { useState, useMemo } from "react";
 
 // --- Types & Data Structures ---
@@ -472,22 +476,17 @@ export default function RoutingSection() {
   return (
     <section
       id="routing"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #routing
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⑂</span>
-          15. Routing & Gateway Protocols
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Routers build forwarding decisions by evaluating destination addresses against local <strong className="text-indigo-600 dark:text-indigo-400">routing tables</strong>. Explore dynamic <strong className="text-emerald-600 dark:text-emerald-400">IGP & EGP protocols</strong>, configured first-hop redundancy with <strong className="text-amber-600 dark:text-amber-400">HSRP/VRRP</strong>, policy-controlled <strong className="text-violet-600 dark:text-violet-400">BGP aggregation</strong>, and <strong className="text-rose-600 dark:text-rose-400">longest-prefix matching</strong>.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#routing"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⑂</span>}
+        title={<>15. Routing & Gateway Protocols</>}
+        description={<>Routers build forwarding decisions by evaluating destination addresses against local <strong className="text-indigo-600 dark:text-indigo-400">routing tables</strong>. Explore dynamic <strong className="text-emerald-600 dark:text-emerald-400">IGP & EGP protocols</strong>, configured first-hop redundancy with <strong className="text-amber-600 dark:text-amber-400">HSRP/VRRP</strong>, policy-controlled <strong className="text-violet-600 dark:text-violet-400">BGP aggregation</strong>, and <strong className="text-rose-600 dark:text-rose-400">longest-prefix matching</strong>.</>}
+      />
+        <NetworkingPanel className="space-y-6">
+      <div className="module-content networking-module-content">
       {/* ITEM 1: Static vs Dynamic Routing Comparison */}
       <div className="mb-12">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
@@ -553,6 +552,7 @@ export default function RoutingSection() {
                 </span>
               </div>
             </div>
+          <NetworkingMetric label="Administrative Distance" value={currentProto.ad} detail={`${currentProto.name} trust value; lower values win`} tone="cyan" />
           </div>
 
           <p className="text-sm text-slate-900 dark:text-slate-100 leading-relaxed mb-6 bg-white/60 dark:bg-slate-800/60 p-4 rounded-lg border border-slate-200/40">
@@ -667,6 +667,7 @@ export default function RoutingSection() {
             </button>
           </div>
         </div>
+        <NetworkingPanel className="space-y-6">
 
         {/* FHRP Interactive Topology & Failover Visualizer */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-6">
@@ -846,7 +847,9 @@ export default function RoutingSection() {
             </div>
           </div>
         </div>
+        </NetworkingPanel>
       </div>
+        <NetworkingPanel variant="muted" className="space-y-6">
 
       {/* ITEM 3: BGP Summarization / Aggregation Overview */}
       <div className="mb-12">
@@ -984,6 +987,7 @@ export default function RoutingSection() {
           </div>
         </div>
       </div>
+        </NetworkingPanel>
 
       {/* ITEM 4: Interactive Routing Table Lookup Simulator */}
       <div>
@@ -1003,6 +1007,7 @@ export default function RoutingSection() {
             Reset Table to Defaults
           </button>
         </div>
+        <NetworkingPanel className="space-y-6">
 
         {/* Input Controls */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-6">
@@ -1093,6 +1098,7 @@ export default function RoutingSection() {
           </div>
 
           <div className="overflow-x-auto">
+            <NetworkingTable>
             <table className="w-full text-left font-mono text-xs border-collapse">
               <thead>
                 <tr className="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
@@ -1158,6 +1164,7 @@ export default function RoutingSection() {
                 })}
               </tbody>
             </table>
+            </NetworkingTable>
           </div>
         </div>
 
@@ -1237,7 +1244,10 @@ export default function RoutingSection() {
             <div className="mt-3 text-xs font-mono text-rose-600 dark:text-rose-400">{addError}</div>
           )}
         </div>
+        </NetworkingPanel>
       </div>
+      </div>
+        </NetworkingPanel>
     </section>
   );
 }

@@ -1,5 +1,8 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 import { useState } from "react";
 
 export default function FirewallSection() {
@@ -62,24 +65,19 @@ interface GigabitEthernet0/0.10
   return (
     <section
       id="firewall"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #firewall
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◐</span>
-          16. Firewall Rules Between Subnets
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Subnets define addressing and broadcast boundaries, but inter-subnet communication also depends on routing. A router or Layer 3 switch may forward traffic when a route exists; firewalls and ACLs then apply the platform&apos;s configured policy to permit, deny, or log packets.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#firewall"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◐</span>}
+        title={<>16. Firewall Rules Between Subnets</>}
+        description={<>Subnets define addressing and broadcast boundaries, but inter-subnet communication also depends on routing. A router or Layer 3 switch may forward traffic when a route exists; firewalls and ACLs then apply the platform&apos;s configured policy to permit, deny, or log packets.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* 3 Security Action Cards (Block, Allow, Log) */}
+        <NetworkingPanel variant="muted" className="mb-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         {/* CARD 1: BLOCK */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-rose-300 transition-all flex flex-col justify-between">
@@ -138,26 +136,23 @@ interface GigabitEthernet0/0.10
           </div>
         </div>
       </div>
+        </NetworkingPanel>
 
       {/* Cisco ACL Code Block Section */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
+        <NetworkingExample title="Cisco IOS Inter-Subnet Access Control List (ACL 100)" description="Extended ACLs filter based on source/destination IPs and TCP/UDP ports. Apply inbound on the router sub-interface closest to the source:" tone="amber">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Cisco IOS Inter-Subnet Access Control List (ACL 100)
-          </h3>
           <span className="text-xs font-mono text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-1 rounded border border-indigo-200 dark:border-indigo-700">
             Extended ACL Logic
           </span>
         </div>
 
-        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-          Extended ACLs filter based on source/destination IPs and TCP/UDP ports. Apply inbound on the router sub-interface closest to the source:
-        </p>
-
         <div className="relative">
+          <NetworkingPanel variant="console" className="p-0">
           <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-4 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
             {ciscoAclCode}
           </pre>
+          </NetworkingPanel>
           <button
             onClick={() => handleCopy(ciscoAclCode, 1)}
             className="absolute top-3 right-3 px-2.5 py-1 bg-[#21262d] hover:bg-[#30363d] text-white dark:text-slate-100 hover:text-white rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
@@ -165,10 +160,12 @@ interface GigabitEthernet0/0.10
             {copiedIndex === 1 ? "Copied!" : "Copy ACL"}
           </button>
         </div>
+        </NetworkingExample>
       </div>
 
       {/* Home Router & Small Business Firewall Tips */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+        <NetworkingPanel className="space-y-6">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <span>🛡️</span> Home & Small Network Firewall Rule Best Practices
         </h3>
@@ -200,6 +197,8 @@ interface GigabitEthernet0/0.10
             </div>
           ))}
         </div>
+        </NetworkingPanel>
+      </div>
       </div>
     </section>
   );

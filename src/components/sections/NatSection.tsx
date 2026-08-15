@@ -1,5 +1,8 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 import { useState } from "react";
 
 export default function NatSection() {
@@ -49,24 +52,19 @@ export default function NatSection() {
   return (
     <section
       id="ips"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #ips
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊕</span>
-          11. Public vs Private IPs & NAT
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        IPv4 addresses may be publicly routable or drawn from private-use ranges. Because public IPv4 space is limited, Network Address Translation (NAT), especially port translation, lets many private hosts share one public address for outbound connections. NAT changes address/port reachability; it is not a replacement for firewall policy.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#ips"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊕</span>}
+        title={<>11. Public vs Private IPs & NAT</>}
+        description={<>IPv4 addresses may be publicly routable or drawn from private-use ranges. Because public IPv4 space is limited, Network Address Translation (NAT), especially port translation, lets many private hosts share one public address for outbound connections. NAT changes address/port reachability; it is not a replacement for firewall policy.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* Routability Comparison Cards */}
+      <NetworkingPanel className="mb-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         {/* Public IP Card */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
@@ -132,18 +130,12 @@ export default function NatSection() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* NAT Packet Translation Visual Diagram */}
+      <NetworkingExample title="Interactive NAT / PAT (Port Address Translation) Flow" description="Step-by-step walkthrough showing how a NAT Gateway translates private sockets to public sockets." tone="amber">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
-          <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Interactive NAT / PAT (Port Address Translation) Flow
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Step-by-step walkthrough showing how a NAT Gateway translates private sockets to public sockets.
-            </p>
-          </div>
 
           {/* Controls */}
           <div className="flex gap-2">
@@ -270,6 +262,8 @@ export default function NatSection() {
             </div>
           </div>
         </div>
+      </div>
+      </NetworkingExample>
       </div>
     </section>
   );

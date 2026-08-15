@@ -1,5 +1,10 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
+import NetworkingExample from "@/components/networking/NetworkingExample";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 import { useState } from "react";
 
 export default function Ipv6Section() {
@@ -12,24 +17,19 @@ export default function Ipv6Section() {
   return (
     <section
       id="ipv6"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #ipv6
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⑂</span>
-          10. IPv6 — The Next Generation
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        IPv6 replaces IPv4&apos;s 32-bit address space with a <strong className="text-slate-900 dark:text-slate-100">128-bit address space</strong> (about 3.4 × 10 to the 38th power total addresses). Its architecture supports hierarchical routing, SLAAC, and a simplified base header; IPsec is specified for IPv6 implementations, but IPv6 itself does not provide confidentiality or access control.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#ipv6"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⑂</span>}
+        title={<>10. IPv6 — The Next Generation</>}
+        description={<>IPv6 replaces IPv4&apos;s 32-bit address space with a <strong className="text-slate-900 dark:text-slate-100">128-bit address space</strong> (about 3.4 × 10 to the 38th power total addresses). Its architecture supports hierarchical routing, SLAAC, and a simplified base header; IPsec is specified for IPv6 implementations, but IPv6 itself does not provide confidentiality or access control.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* 128-Bit Hexadecimal Format Breakdown */}
+      <NetworkingPanel className="mb-10">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
           IPv6 Address Anatomy: 8 Hextets (128 Bits)
@@ -57,8 +57,10 @@ export default function Ipv6Section() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* Interactive Zero Compression Rules */}
+      <NetworkingPanel className="mb-10">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
@@ -142,6 +144,7 @@ export default function Ipv6Section() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* IPv4 vs IPv6 Comparison Table */}
       <div className="mb-10">
@@ -153,6 +156,7 @@ export default function Ipv6Section() {
         </p>
 
         <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-700">
+          <NetworkingTable>
           <table className="w-full text-left border-collapse text-xs">
             <thead>
               <tr className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700 font-mono">
@@ -194,23 +198,20 @@ export default function Ipv6Section() {
               </tr>
             </tbody>
           </table>
+          </NetworkingTable>
         </div>
       </div>
 
       {/* /64 Common Subnets Card */}
+      <NetworkingExample title="Why IPv6 LANs Commonly Use /64" description={<>Many IPv6 LANs use <strong className="text-emerald-600 dark:text-emerald-400">/64</strong> subnets because SLAAC is designed around a 64-bit interface identifier. Point-to-point links, loopbacks, and infrastructure-specific designs may use other prefix lengths, so /64 is a convention rather than a universal rule.</>} tone="lime">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <div className="flex items-center gap-2 mb-3">
           <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-bold">
             /64 Common Subnet
           </span>
-          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Why IPv6 LANs Commonly Use /64
-          </h3>
         </div>
-        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-          Many IPv6 LANs use <strong className="text-emerald-600 dark:text-emerald-400">/64</strong> subnets because SLAAC is designed around a 64-bit interface identifier. Point-to-point links, loopbacks, and infrastructure-specific designs may use other prefix lengths, so /64 is a convention rather than a universal rule.
-        </p>
 
+        <NetworkingMetric label="Addresses per /64" value="2⁶⁴" detail="18.4 quintillion host addresses" tone="lime" className="mb-4" />
         <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 font-mono text-xs space-y-3">
           <div className="flex flex-col sm:flex-row justify-between text-slate-500 dark:text-slate-400">
             <span>IPv6 /64 Subnet Structure:</span>
@@ -237,6 +238,8 @@ export default function Ipv6Section() {
             </div>
           </div>
         </div>
+      </div>
+      </NetworkingExample>
       </div>
     </section>
   );

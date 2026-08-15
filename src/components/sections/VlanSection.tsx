@@ -1,25 +1,23 @@
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 export default function VlanSection() {
   return (
     <section
       id="vlans"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #vlans
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>
-          8. VLANs & Subnets — How They Connect
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        While both <strong className="text-indigo-600 dark:text-indigo-400">VLANs (Virtual LANs)</strong> and <strong className="text-emerald-600 dark:text-emerald-400">Subnets</strong> isolate network traffic, they operate at different layers of the OSI model. Understanding how Layer 2 physical switch isolation pairs with Layer 3 IP addressing is essential for modern enterprise network design.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#vlans"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>}
+        title={<>8. VLANs & Subnets — How They Connect</>}
+        description={<>While both <strong className="text-indigo-600 dark:text-indigo-400">VLANs (Virtual LANs)</strong> and <strong className="text-emerald-600 dark:text-emerald-400">Subnets</strong> isolate network traffic, they operate at different layers of the OSI model. Understanding how Layer 2 physical switch isolation pairs with Layer 3 IP addressing is essential for modern enterprise network design.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* Layer 2 vs Layer 3 Comparison Cards */}
+      <NetworkingPanel className="mb-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         {/* Layer 2 VLAN Card */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
@@ -85,22 +83,11 @@ export default function VlanSection() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* 1:1 Mapping & Inter-VLAN Routing Diagram */}
+      <NetworkingExample title="Industry Standard: 1:1 Mapping & Inter-VLAN Routing" description="Best practice commonly maps one IP subnet to one VLAN. Communication between VLANs requires a Layer 3 router or Layer 3 switch." footer="802.1Q Trunking" tone="cyan">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
-          <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Industry Standard: 1:1 Mapping & Inter-VLAN Routing
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Best practice commonly maps one IP subnet to one VLAN. Communication between VLANs requires a Layer 3 router or Layer 3 switch.
-            </p>
-          </div>
-          <span className="px-3 py-1 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-indigo-600 dark:text-indigo-400">
-            802.1Q Trunking
-          </span>
-        </div>
 
         {/* Router Gateway Central */}
         <div className="flex justify-center mb-8">
@@ -168,8 +155,10 @@ export default function VlanSection() {
           </div>
         </div>
       </div>
+      </NetworkingExample>
 
       {/* Access Ports vs Trunk Ports Rule Card */}
+        <NetworkingPanel>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
           <h4 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-2">
@@ -188,6 +177,8 @@ export default function VlanSection() {
             Switch ports configured as <strong className="text-emerald-600 dark:text-emerald-400">Trunk Ports</strong> multiplex traffic from multiple VLANs over a single physical link by appending a 4-byte 802.1Q VLAN ID tag to each Ethernet frame header.
           </p>
         </div>
+      </div>
+        </NetworkingPanel>
       </div>
     </section>
   );

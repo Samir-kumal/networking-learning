@@ -1,5 +1,10 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 import { useState } from "react";
 
 interface Problem {
@@ -333,40 +338,32 @@ export default function PracticeSection() {
   return (
     <section
       id="practice"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
-      {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-        <div className="flex items-center gap-3">
-          <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-            #practice
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>
-          21. Practice Problems
-        </h2>
-        </div>
+      <NetworkingModuleHeader
+        anchor="#practice"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◈</span>}
+        title={<>21. Practice Problems</>}
+        description={<>Master subnetting with real-world scenarios and certification-style drill questions. Test your calculations for network boundaries, host ranges, broadcast addresses, and VLSM allocations, then toggle answers to verify your steps.</>}
+        meta={
+          <div className="flex items-center gap-2">
+            <button
+              onClick={expandAll}
+              className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all font-sans text-sm normal-case tracking-normal"
+            >
+              Expand All
+            </button>
+            <button
+              onClick={collapseAll}
+              className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all font-sans text-sm normal-case tracking-normal"
+            >
+              Collapse All
+            </button>
+          </div>
+        }
+      />
+      <div className="module-content networking-module-content">
 
-        {/* Global Expand/Collapse Buttons */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={expandAll}
-            className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all"
-          >
-            Expand All
-          </button>
-          <button
-            onClick={collapseAll}
-            className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all"
-          >
-            Collapse All
-          </button>
-        </div>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Master subnetting with real-world scenarios and certification-style drill questions. Test your calculations for network boundaries, host ranges, broadcast addresses, and VLSM allocations, then toggle answers to verify your steps.
-      </p>
 
       {/* Cards Container */}
       <div className="space-y-6">
@@ -374,9 +371,9 @@ export default function PracticeSection() {
           const isOpen = !!openState[prob.id];
 
           return (
-            <div
+            <NetworkingPanel
               key={prob.id}
-              className={`rounded-xl border transition-all ${
+              className={`!p-0 rounded-xl border transition-all ${
                 isOpen
                   ? "bg-slate-50 dark:bg-slate-700 border-indigo-300 shadow-lg shadow-[#58a6ff]/5"
                   : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-200/80"
@@ -440,21 +437,19 @@ export default function PracticeSection() {
                 <div className="border-t border-slate-200 dark:border-slate-700 p-6 bg-slate-50/80 dark:bg-slate-700/80 rounded-b-xl space-y-6">
                   {/* Scenario Banner if applicable */}
                   {prob.scenarioAnalysis && (
-                    <div
-                      className={`p-4 rounded-xl border ${
-                        prob.scenarioAnalysis.pingStatus === "FAIL"
-                          ? "bg-rose-50 dark:bg-rose-900/30 border-rose-200 dark:border-rose-700 text-rose-600 dark:text-rose-400"
-                          : "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700 text-emerald-600 dark:text-emerald-400"
-                      }`}
+                    <NetworkingExample
+                      title={
+                        <>
+                          {prob.scenarioAnalysis.pingStatus === "FAIL" ? "❌" : "✅"}{" "}
+                          {prob.scenarioAnalysis.resultTitle}
+                        </>
+                      }
+                      tone={prob.scenarioAnalysis.pingStatus === "FAIL" ? "amber" : "lime"}
                     >
-                      <div className="flex items-center gap-2 font-bold text-sm mb-1">
-                        <span>{prob.scenarioAnalysis.pingStatus === "FAIL" ? "❌" : "✅"}</span>
-                        <span>{prob.scenarioAnalysis.resultTitle}</span>
-                      </div>
                       <p className="text-xs sm:text-sm text-slate-900/90 dark:text-slate-100/90 leading-relaxed">
                         {prob.scenarioAnalysis.reasoning}
                       </p>
-                    </div>
+                    </NetworkingExample>
                   )}
 
                   {/* Summary Key-Value Cards */}
@@ -463,59 +458,12 @@ export default function PracticeSection() {
                       Key Network Parameters
                     </h4>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-                      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-lg">
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
-                          Network ID
-                        </div>
-                        <div className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 truncate mt-1">
-                          {prob.summary.networkAddress}
-                        </div>
-                      </div>
-
-                      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-lg">
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
-                          Subnet Mask
-                        </div>
-                        <div className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100 truncate mt-1">
-                          {prob.summary.subnetMask}
-                        </div>
-                      </div>
-
-                      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-lg">
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
-                          First Usable
-                        </div>
-                        <div className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 truncate mt-1">
-                          {prob.summary.firstUsable}
-                        </div>
-                      </div>
-
-                      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-lg">
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
-                          Last Usable
-                        </div>
-                        <div className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 truncate mt-1">
-                          {prob.summary.lastUsable}
-                        </div>
-                      </div>
-
-                      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-lg">
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
-                          Broadcast IP
-                        </div>
-                        <div className="text-xs font-mono font-bold text-rose-600 dark:text-rose-400 truncate mt-1">
-                          {prob.summary.broadcastAddress}
-                        </div>
-                      </div>
-
-                      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-lg">
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
-                          Usable Hosts
-                        </div>
-                        <div className="text-xs font-mono font-bold text-[#d2a8ff] truncate mt-1">
-                          {prob.summary.usableHosts}
-                        </div>
-                      </div>
+                      <NetworkingMetric label="Network ID" value={prob.summary.networkAddress} tone="cyan" />
+                      <NetworkingMetric label="Subnet Mask" value={prob.summary.subnetMask} tone="violet" />
+                      <NetworkingMetric label="First Usable" value={prob.summary.firstUsable} tone="lime" />
+                      <NetworkingMetric label="Last Usable" value={prob.summary.lastUsable} tone="lime" />
+                      <NetworkingMetric label="Broadcast IP" value={prob.summary.broadcastAddress} tone="amber" />
+                      <NetworkingMetric label="Usable Hosts" value={prob.summary.usableHosts} tone="violet" />
                     </div>
 
                     {prob.summary.extraNote && (
@@ -531,7 +479,7 @@ export default function PracticeSection() {
                       <h4 className="text-xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400 mb-3">
                         Subnet Allocation Breakdown
                       </h4>
-                      <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
+                      <NetworkingTable className="rounded-lg border border-slate-200 dark:border-slate-700">
                         <table className="w-full text-left text-xs font-mono">
                           <thead className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
                             <tr>
@@ -558,7 +506,7 @@ export default function PracticeSection() {
                             ))}
                           </tbody>
                         </table>
-                      </div>
+                      </NetworkingTable>
                     </div>
                   )}
 
@@ -585,9 +533,10 @@ export default function PracticeSection() {
                   </div>
                 </div>
               )}
-            </div>
+            </NetworkingPanel>
           );
         })}
+      </div>
       </div>
     </section>
   );

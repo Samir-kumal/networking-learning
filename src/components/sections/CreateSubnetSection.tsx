@@ -1,5 +1,7 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
 import { useState } from "react";
 
 export default function CreateSubnetSection() {
@@ -57,25 +59,20 @@ traceroute 192.168.20.50 # Linux / macOS`;
   return (
     <section
       id="create"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #create
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊞</span>
-          5. Creating Subnets on Your Local Network
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Building custom subnets on a local area network requires methodical planning and accurate configuration across your gateway router, managed switches, and endpoint operating systems. Follow this 4-step workflow to partition and verify your subnets.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#create"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⊞</span>}
+        title={<>5. Creating Subnets on Your Local Network</>}
+        description={<>Building custom subnets on a local area network requires methodical planning and accurate configuration across your gateway router, managed switches, and endpoint operating systems. Follow this 4-step workflow to partition and verify your subnets.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* 4 Numbered Step Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <NetworkingPanel>
         {/* STEP 1 */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow flex flex-col justify-between hover:border-indigo-300 transition-all">
           <div>
@@ -113,7 +110,9 @@ traceroute 192.168.20.50 # Linux / macOS`;
             💡 In this example, .0 is the network address, .1 is chosen as a gateway convention, and .255 is the directed-broadcast address for a /24. Actual gateway selection and address reservations depend on the platform and design.
           </div>
         </div>
+        </NetworkingPanel>
 
+        <NetworkingPanel>
         {/* STEP 2 */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow flex flex-col justify-between hover:border-indigo-300 transition-all">
           <div>
@@ -133,9 +132,11 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </p>
 
             <div className="relative">
-              <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
+              <NetworkingPanel variant="console" className="p-0">
+              <pre className="bg-transparent border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-100 overflow-x-auto leading-relaxed">
                 {ciscoCode}
               </pre>
+              </NetworkingPanel>
               <button
                 onClick={() => handleCopy(ciscoCode, 2)}
                 className="absolute top-2 right-2 px-2 py-1 bg-[#21262d] hover:bg-[#30363d] text-white dark:text-slate-100 hover:text-white rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
@@ -145,7 +146,9 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </div>
           </div>
         </div>
+        </NetworkingPanel>
 
+        <NetworkingPanel>
         {/* STEP 3 */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow flex flex-col justify-between hover:border-indigo-300 transition-all">
           <div>
@@ -184,9 +187,11 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </p>
 
             <div className="relative">
-              <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
+              <NetworkingPanel variant="console" className="p-0">
+              <pre className="bg-transparent border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-100 overflow-x-auto leading-relaxed">
                 {activeOsTab === "windows" ? windowsCode : linuxCode}
               </pre>
+              </NetworkingPanel>
               <button
                 onClick={() => handleCopy(activeOsTab === "windows" ? windowsCode : linuxCode, 3)}
                 className="absolute top-2 right-2 px-2 py-1 bg-[#21262d] hover:bg-[#30363d] text-white dark:text-slate-100 hover:text-white rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
@@ -196,7 +201,9 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </div>
           </div>
         </div>
+        </NetworkingPanel>
 
+        <NetworkingPanel>
         {/* STEP 4 */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow flex flex-col justify-between hover:border-indigo-300 transition-all">
           <div>
@@ -216,9 +223,11 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </p>
 
             <div className="relative">
-              <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
+              <NetworkingPanel variant="console" className="p-0">
+              <pre className="bg-transparent border border-slate-200 dark:border-slate-600 rounded-lg p-3 font-mono text-xs text-slate-100 overflow-x-auto leading-relaxed">
                 {testCode}
               </pre>
+              </NetworkingPanel>
               <button
                 onClick={() => handleCopy(testCode, 4)}
                 className="absolute top-2 right-2 px-2 py-1 bg-[#21262d] hover:bg-[#30363d] text-white dark:text-slate-100 hover:text-white rounded text-xs transition-colors border border-slate-200 dark:border-slate-700"
@@ -228,6 +237,8 @@ traceroute 192.168.20.50 # Linux / macOS`;
             </div>
           </div>
         </div>
+        </NetworkingPanel>
+      </div>
       </div>
     </section>
   );

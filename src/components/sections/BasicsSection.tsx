@@ -1,29 +1,27 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 import CopyButton from "@/components/CopyButton";
 
 export default function BasicsSection() {
   return (
     <section
       id="basics"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #basics
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>
-          1. What is a Subnet?
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        A <strong className="text-slate-900 dark:text-slate-100">subnet (subnetwork)</strong> is a logical subdivision of an IP network. A prefix and mask define which addresses are on the local IP network and which destinations require a router. In common designs, each subnet is mapped to a VLAN or other Layer 2 segment, while routing and policy controls determine whether subnets can communicate.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#basics"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>}
+        title={<>1. What is a Subnet?</>}
+        description={<>A <strong className="text-slate-900 dark:text-slate-100">subnet (subnetwork)</strong> is a logical subdivision of an IP network. A prefix and mask define which addresses are on the local IP network and which destinations require a router. In common designs, each subnet is mapped to a VLAN or other Layer 2 segment, while routing and policy controls determine whether subnets can communicate.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* 3 Benefit Cards */}
+      <NetworkingPanel className="mb-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         {/* Card 1: Performance */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
@@ -82,22 +80,11 @@ export default function BasicsSection() {
           </div>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* Visual Home/Office Network 3-Subnet Diagram */}
+      <NetworkingExample title="Network Topology Example: 192.168.1.0/24 Subnet Partitioning" description="A single private /24 CIDR block divided into 3 functional subnets with a central Layer 3 gateway router." footer="Total IPs: 256" tone="cyan">
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
-          <div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              Network Topology Example: 192.168.1.0/24 Subnet Partitioning
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              A single private /24 CIDR block divided into 3 functional subnets with a central Layer 3 gateway router.
-            </p>
-          </div>
-          <span className="px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-xs font-mono text-emerald-600 dark:text-emerald-400 whitespace-nowrap self-start sm:self-auto">
-            Total IPs: 256
-          </span>
-        </div>
 
         <div className="flex justify-center mb-8">
           <div className="relative group px-6 py-3 rounded-xl bg-white dark:bg-slate-800 border-2 border-indigo-400 text-center shadow-lg shadow-[#58a6ff]/10">
@@ -281,6 +268,8 @@ export default function BasicsSection() {
             </div>
           </div>
         </div>
+      </div>
+      </NetworkingExample>
       </div>
     </section>
   );

@@ -1,5 +1,9 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
+import NetworkingExample from "@/components/networking/NetworkingExample";
 import { useState } from "react";
 
 interface DoraStep {
@@ -335,35 +339,25 @@ interface GigabitEthernet0/0.10
   return (
     <section
       id="dhcp"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow space-y-10"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow space-y-10"
     >
       {/* Section Header */}
-      <div>
-        <div className="flex items-center gap-3 mb-3">
-          <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-            #dhcp-ipam
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>
-          9. DHCP & IP Address Management (IPAM)
-        </h2>
-        </div>
-        <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed max-w-4xl">
-          Dynamic Host Configuration Protocol (DHCP) automates IPv4/IPv6 allocation across local networks.
-          Explore the step-by-step DORA handshake, Layer 3 relay agent forwarding across subnets, core DHCP options, and enterprise IPAM pool sizing.
-        </p>
-      </div>
-
+      <NetworkingModuleHeader
+        anchor="#dhcp-ipam"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>}
+        title={<>9. DHCP & IP Address Management (IPAM)</>}
+        description={<>Dynamic Host Configuration Protocol (DHCP) automates IPv4/IPv6 allocation across local networks.
+          Explore the step-by-step DORA handshake, Layer 3 relay agent forwarding across subnets, core DHCP options, and enterprise IPAM pool sizing.</>}
+      />
+      <div className="module-content networking-module-content">
       {/* -------------------------------------------------------------------- */}
       {/* 1. DORA HANDSHAKE FLOW */}
       {/* -------------------------------------------------------------------- */}
+      <NetworkingExample title="The 4-Step DORA Handshake" description="Interactive four-step DHCP discovery, offer, request, and acknowledgement flow." tone="cyan">
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
             <span className="text-xs uppercase font-mono tracking-wider text-indigo-600 dark:text-indigo-400">Interactive Protocol Flow</span>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-              <span>The 4-Step DORA Handshake</span>
-            </h3>
           </div>
           <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
             UDP Ports: Server <span className="text-emerald-600 dark:text-emerald-400">67</span> | Client <span className="text-indigo-600 dark:text-indigo-400">68</span>
@@ -513,17 +507,16 @@ interface GigabitEthernet0/0.10
           </button>
         </div>
       </div>
+      </NetworkingExample>
 
       {/* -------------------------------------------------------------------- */}
       {/* 2. DHCP RELAY AGENT (`ip helper-address`) */}
       {/* -------------------------------------------------------------------- */}
+      <NetworkingExample title={<>DHCP Relay Agent (<code className="text-emerald-600 dark:text-emerald-400">ip helper-address</code>)</>} description="A relay agent forwards client broadcasts across routed subnets." tone="amber">
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
             <span className="text-xs uppercase font-mono tracking-wider text-emerald-600 dark:text-emerald-400">Cross-Subnet Forwarding</span>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-              DHCP Relay Agent (<code className="text-emerald-600 dark:text-emerald-400">ip helper-address</code>)
-            </h3>
           </div>
           {/* Mode Switcher */}
           <div className="flex items-center p-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
@@ -621,10 +614,12 @@ interface GigabitEthernet0/0.10
           </pre>
         </div>
       </div>
+      </NetworkingExample>
 
       {/* -------------------------------------------------------------------- */}
       {/* 3. ESSENTIAL DHCP OPTIONS */}
       {/* -------------------------------------------------------------------- */}
+      <NetworkingPanel className="space-y-6">
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
@@ -689,10 +684,12 @@ interface GigabitEthernet0/0.10
           ))}
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* -------------------------------------------------------------------- */}
       {/* 4. ENTERPRISE IPAM & POOL EXHAUSTION CALCULATOR */}
       {/* -------------------------------------------------------------------- */}
+      <NetworkingPanel className="space-y-6">
       <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
@@ -817,27 +814,9 @@ interface GigabitEthernet0/0.10
 
         {/* Calculated Metrics Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-          <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Total Usable Pool Size</div>
-            <div className="text-2xl font-bold text-slate-900 dark:text-slate-100 font-mono">{usablePoolSize} IPs</div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400">
-              Excluding network & broadcast address
-            </div>
-          </div>
-
-          <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Available Free Pool</div>
-            <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 font-mono">{freeIps} IPs</div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400">Unallocated available leases</div>
-          </div>
-
-          <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-1">
-            <div className="text-xs font-mono text-slate-500 dark:text-slate-400">Est. Time to Pool Exhaustion</div>
-            <div className="text-2xl font-bold text-violet-600 dark:text-violet-400 font-mono">
-              {freeIps > 0 ? `${hoursUntilExhaustion} Hours` : "Exhausted"}
-            </div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400">Based on daily device churn rate</div>
-          </div>
+          <NetworkingMetric label="Total Usable Pool Size" value={`${usablePoolSize} IPs`} detail="Excluding network & broadcast address" tone="cyan" />
+          <NetworkingMetric label="Available Free Pool" value={`${freeIps} IPs`} detail="Unallocated available leases" tone="lime" />
+          <NetworkingMetric label="Est. Time to Pool Exhaustion" value={freeIps > 0 ? `${hoursUntilExhaustion} Hours` : "Exhausted"} detail="Based on daily device churn rate" tone="violet" />
         </div>
 
         {/* IPAM Recommendation Box */}
@@ -850,6 +829,8 @@ interface GigabitEthernet0/0.10
             <strong>Best Practice Tip:</strong> For guest Wi-Fi networks with high turnover, set lease duration to <strong className="text-slate-900 dark:text-slate-100">2 to 4 hours</strong>. For enterprise office desktops, set lease duration to <strong className="text-slate-900 dark:text-slate-100">8 days</strong>.
           </div>
         </div>
+      </div>
+      </NetworkingPanel>
       </div>
     </section>
   );

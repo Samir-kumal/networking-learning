@@ -1,5 +1,8 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
 import { useState } from "react";
 
 export default function CloudSubnetSection() {
@@ -99,23 +102,18 @@ resource "google_compute_subnetwork" "us_central_subnet" {
   return (
     <section
       id="cloud"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #cloud
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◉</span>
-          12. Subnets in the Cloud
-        </h2>
-      </div>
+      <NetworkingModuleHeader
+        anchor="#cloud"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◉</span>}
+        title={<>12. Subnets in the Cloud</>}
+        description={<>Cloud hyperscalers (AWS, Azure, GCP) use Software-Defined Networking (SDN) to deliver virtual private clouds. While cloud subnets share traditional CIDR math, cloud vendors enforce vendor-specific IP reservations, availability zone scopes, and routing rules.</>}
+      />
+      <div className="module-content networking-module-content">
 
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Cloud hyperscalers (AWS, Azure, GCP) use Software-Defined Networking (SDN) to deliver virtual private clouds. While cloud subnets share traditional CIDR math, cloud vendors enforce vendor-specific IP reservations, availability zone scopes, and routing rules.
-      </p>
-
+      <NetworkingPanel className="space-y-6">
       {/* Cloud Provider Tabs */}
       <div className="flex flex-wrap gap-3 mb-6">
         <button
@@ -150,6 +148,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
         </button>
       </div>
 
+      <NetworkingPanel className="mb-10">
       {/* Selected Provider Card */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
@@ -160,14 +159,8 @@ resource "google_compute_subnetwork" "us_central_subnet" {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-4 rounded-lg">
-            <span className="text-xs font-mono text-indigo-600 dark:text-indigo-400 block mb-1">Subnet Scope & Availability</span>
-            <p className="text-sm text-slate-900 dark:text-slate-100">{currentCloud.scope}</p>
-          </div>
-          <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-4 rounded-lg">
-            <span className="text-xs font-mono text-amber-600 dark:text-amber-400 block mb-1">Reserved Addresses</span>
-            <p className="text-sm text-slate-900 dark:text-slate-100">{currentCloud.reservedIps}</p>
-          </div>
+          <NetworkingMetric label="Subnet Scope & Availability" value={currentCloud.scope} detail="Provider subnet scope and availability model" tone="cyan" />
+          <NetworkingMetric label="Reserved Addresses" value={currentCloud.reservedIps} detail="Provider-specific reserved addresses" tone="amber" />
         </div>
 
         {/* Code Snippet */}
@@ -178,8 +171,10 @@ resource "google_compute_subnetwork" "us_central_subnet" {
           </pre>
         </div>
       </div>
+      </NetworkingPanel>
 
       {/* Cloud Subnetting Tips Checklist */}
+      <NetworkingPanel>
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <span>📋</span> Cloud Subnetting Architecture Checklist & Tips
@@ -212,6 +207,9 @@ resource "google_compute_subnetwork" "us_central_subnet" {
             </div>
           ))}
         </div>
+      </div>
+      </NetworkingPanel>
+      </NetworkingPanel>
       </div>
     </section>
   );

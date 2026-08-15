@@ -1,5 +1,10 @@
 "use client";
 
+import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
+import NetworkingPanel from "@/components/networking/NetworkingPanel";
+import NetworkingExample from "@/components/networking/NetworkingExample";
+import NetworkingMetric from "@/components/networking/NetworkingMetric";
+import NetworkingTable from "@/components/networking/NetworkingTable";
 import { useState } from "react";
 
 // --- Types & Interfaces ---
@@ -367,27 +372,27 @@ export default function SecuritySection() {
   return (
     <section
       id="security"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
     >
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-[11px] font-semibold">
-          #security
-        </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-          <span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◉</span>
-          17. Network Security & Access Control
-        </h2>
-      </div>
-
-      <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed mb-8 max-w-4xl">
-        Defense in depth combines routing, filtering, identity, encryption, and monitoring. The NACL and security-group comparison below uses AWS-style semantics as a concrete example; other providers and appliances expose different boundaries and defaults.
-      </p>
+      <NetworkingModuleHeader
+        anchor="#security"
+        icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">◉</span>}
+        title={<>17. Network Security & Access Control</>}
+        description={<>Defense in depth combines routing, filtering, identity, encryption, and monitoring. The NACL and security-group comparison below uses AWS-style semantics as a concrete example; other providers and appliances expose different boundaries and defaults.</>}
+      />
+      <div className="module-content networking-module-content">
 
       {/* ========================================================================= */}
       {/* 1. STATELESS NACLS VS STATEFUL SECURITY GROUPS */}
       {/* ========================================================================= */}
       <div className="mb-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+        <NetworkingPanel variant="muted" className="space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <NetworkingMetric label="Policy Model" value={logicMode === "nacl" ? "Stateless NACL" : "Stateful SG"} detail="Current control view" tone="amber" />
+          <NetworkingMetric label="Simulation Step" value={`${simStep} / 3`} detail="Return traffic inspection" tone="cyan" />
+          <NetworkingMetric label="Rule Entries" value={(inspectorMode === "nacl" ? naclRules : sgRules).length} detail="Active inspector rules" tone="violet" />
+        </div>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
             <div className="flex items-center gap-2 mb-1">
@@ -430,6 +435,7 @@ export default function SecuritySection() {
 
         {/* Comparison Matrix Table */}
         <div className="overflow-x-auto mb-8">
+          <NetworkingTable>
           <table className="w-full text-left text-xs font-mono border-collapse">
             <thead>
               <tr className="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 bg-slate-50/60 dark:bg-slate-700/60">
@@ -484,6 +490,7 @@ export default function SecuritySection() {
               </tr>
             </tbody>
           </table>
+          </NetworkingTable>
         </div>
 
         {/* Interactive Return Traffic Logic Breakdown */}
@@ -613,11 +620,13 @@ export default function SecuritySection() {
             )}
           </div>
         </div>
+        </NetworkingPanel>
       </div>
 
       {/* ========================================================================= */}
       {/* 2. VPN TUNNELS & VXLAN ENCAPSULATION OVERLAY CARDS */}
       {/* ========================================================================= */}
+        <NetworkingPanel className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
         {/* CARD A: VPN Tunnels (WireGuard vs IPsec) */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
@@ -785,24 +794,20 @@ export default function SecuritySection() {
           </div>
         </div>
       </div>
+        </NetworkingPanel>
 
       {/* ========================================================================= */}
       {/* 3. NAT VARIANTS BREAKDOWN (SNAT, DNAT, PAT) */}
       {/* ========================================================================= */}
       <div className="mb-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+        <NetworkingExample title="3. Network Address Translation (NAT) Variants" description="Understanding SNAT, DNAT, and PAT (NAPT) packet header transformations at boundary gateways." tone="amber">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="px-2 py-0.5 rounded bg-[#bc8cff]/20 text-violet-600 dark:text-violet-400 text-xs font-mono font-bold">
                 Address Translation Architecture
               </span>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-                3. Network Address Translation (NAT) Variants
-              </h3>
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Understanding SNAT, DNAT, and PAT (NAPT) packet header transformations at boundary gateways.
-            </p>
           </div>
 
           {/* Type Selector Tabs */}
@@ -955,12 +960,14 @@ export default function SecuritySection() {
             </div>
           </div>
         )}
+        </NetworkingExample>
       </div>
 
       {/* ========================================================================= */}
       {/* 4. INTERACTIVE SECURITY RULE INSPECTOR */}
       {/* ========================================================================= */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+        <NetworkingPanel className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
             <div className="flex items-center gap-2 mb-1">
@@ -1150,6 +1157,7 @@ export default function SecuritySection() {
           </h4>
 
           <div className="overflow-x-auto">
+            <NetworkingTable>
             <table className="w-full text-left text-xs font-mono border-collapse">
               <thead>
                 <tr className="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700">
@@ -1211,6 +1219,7 @@ export default function SecuritySection() {
                 ))}
               </tbody>
             </table>
+            </NetworkingTable>
           </div>
         </div>
 
@@ -1308,6 +1317,8 @@ export default function SecuritySection() {
             + Add Rule to {inspectorMode.toUpperCase()}
           </button>
         </form>
+        </NetworkingPanel>
+      </div>
       </div>
     </section>
   );

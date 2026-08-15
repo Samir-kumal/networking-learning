@@ -1,4 +1,6 @@
-type StageTone = "cyan" | "amber" | "violet" | "lime";
+import type { NetworkingTone } from "@/components/networking/NetworkingTypes";
+
+type StageTone = NetworkingTone;
 
 const TONE_STYLES = {
   cyan: {
@@ -54,7 +56,7 @@ export default function NetworkingSubsection({
   const styles = TONE_STYLES[tone];
 
   return (
-    <section id={id} aria-labelledby={headingId} className="scroll-mt-24 space-y-6">
+    <section id={id} data-tone={tone} aria-labelledby={headingId} className="scroll-mt-24 space-y-6">
       <div className={`relative overflow-hidden rounded-2xl border bg-white p-5 card-shadow dark:bg-slate-900 sm:p-6 ${styles.border}`}>
         <div className={`absolute inset-x-0 top-0 h-1 ${styles.rule}`} />
         <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
