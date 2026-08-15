@@ -2,7 +2,6 @@
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import NetworkingPanel from "@/components/networking/NetworkingPanel";
-import NetworkingExample from "@/components/networking/NetworkingExample";
 import NetworkingMetric from "@/components/networking/NetworkingMetric";
 import NetworkingTable from "@/components/networking/NetworkingTable";
 import React, { useState, useMemo } from "react";
@@ -850,7 +849,7 @@ export default function RoutingSection() {
         </div>
         </NetworkingPanel>
       </div>
-        <NetworkingExample title="BGP Route Aggregation Example" description="Interactive route summarization shows how contiguous prefixes share a common network bit prefix before advertisement." tone="violet">
+        <NetworkingPanel variant="muted" className="space-y-6">
 
       {/* ITEM 3: BGP Summarization / Aggregation Overview */}
       <div className="mb-12">
@@ -988,7 +987,7 @@ export default function RoutingSection() {
           </div>
         </div>
       </div>
-        </NetworkingExample>
+        </NetworkingPanel>
 
       {/* ITEM 4: Interactive Routing Table Lookup Simulator */}
       <div>

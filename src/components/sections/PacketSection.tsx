@@ -1126,15 +1126,9 @@ export default function PacketSection() {
       {/* 3. TCP 3-WAY HANDSHAKE SEQUENCE DIAGRAM */}
       {/* ==================================================================== */}
       <div className="mb-12">
-        <NetworkingExample title="TCP Connection and Teardown Protocol Example" description="Interactive sequence numbers, control flags, and socket-state transitions for a TCP exchange." tone="cyan">
+        <NetworkingExample title={<><span className="text-indigo-600 dark:text-indigo-400">3.</span> TCP 3-Way Handshake & Connection Teardown</>} description="Step-by-step TCP sequence number arithmetic, flag bitmask inspection, and TCP socket state transitions." tone="cyan">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-              <span className="text-indigo-600 dark:text-indigo-400">3.</span> TCP 3-Way Handshake & Connection Teardown
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Step-by-step TCP sequence number arithmetic, flag bitmask inspection, and TCP socket state transitions.
-            </p>
           </div>
 
           <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-1.5 rounded-lg">

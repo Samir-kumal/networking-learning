@@ -2,7 +2,6 @@
 
 import NetworkingModuleHeader from "@/components/networking/NetworkingModuleHeader";
 import NetworkingPanel from "@/components/networking/NetworkingPanel";
-import NetworkingExample from "@/components/networking/NetworkingExample";
 import { useState } from "react";
 
 export default function TroubleshootingSection() {
@@ -162,7 +161,7 @@ nc -zv 192.168.20.10 5432`,
         </div>
 
         {/* Active Problem Card */}
-          <NetworkingExample title="Root-Cause Troubleshooting Example" description="Select a subnet failure scenario to compare its observable symptom, resolution strategy, and diagnostic commands." tone="amber">
+          <NetworkingPanel variant="muted" className="space-y-6">
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <h4 className="text-lg font-bold text-slate-900 dark:text-slate-100">
@@ -197,7 +196,7 @@ nc -zv 192.168.20.10 5432`,
             </NetworkingPanel>
           </div>
         </div>
-          </NetworkingExample>
+          </NetworkingPanel>
       </div>
         </NetworkingPanel>
 

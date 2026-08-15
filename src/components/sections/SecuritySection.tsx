@@ -800,20 +800,14 @@ export default function SecuritySection() {
       {/* 3. NAT VARIANTS BREAKDOWN (SNAT, DNAT, PAT) */}
       {/* ========================================================================= */}
       <div className="mb-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
-        <NetworkingExample title="NAT Variant Inspection Example" description="Compare source NAT, destination NAT, and port address translation as distinct policy outcomes." tone="amber">
+        <NetworkingExample title="3. Network Address Translation (NAT) Variants" description="Understanding SNAT, DNAT, and PAT (NAPT) packet header transformations at boundary gateways." tone="amber">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="px-2 py-0.5 rounded bg-[#bc8cff]/20 text-violet-600 dark:text-violet-400 text-xs font-mono font-bold">
                 Address Translation Architecture
               </span>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-                3. Network Address Translation (NAT) Variants
-              </h3>
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Understanding SNAT, DNAT, and PAT (NAPT) packet header transformations at boundary gateways.
-            </p>
           </div>
 
           {/* Type Selector Tabs */}

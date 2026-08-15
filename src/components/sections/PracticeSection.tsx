@@ -349,13 +349,13 @@ export default function PracticeSection() {
           <div className="flex items-center gap-2">
             <button
               onClick={expandAll}
-              className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all"
+              className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all font-sans text-sm normal-case tracking-normal"
             >
               Expand All
             </button>
             <button
               onClick={collapseAll}
-              className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all"
+              className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all font-sans text-sm normal-case tracking-normal"
             >
               Collapse All
             </button>

@@ -140,19 +140,12 @@ interface GigabitEthernet0/0.10
 
       {/* Cisco ACL Code Block Section */}
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
-        <NetworkingExample title="Worked ACL Decision: Web to Database" description="An extended ACL permits only the required PostgreSQL flow, logs disallowed traffic, and leaves other traffic to the platform's configured policy." tone="amber">
+        <NetworkingExample title="Cisco IOS Inter-Subnet Access Control List (ACL 100)" description="Extended ACLs filter based on source/destination IPs and TCP/UDP ports. Apply inbound on the router sub-interface closest to the source:" tone="amber">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Cisco IOS Inter-Subnet Access Control List (ACL 100)
-          </h3>
           <span className="text-xs font-mono text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-1 rounded border border-indigo-200 dark:border-indigo-700">
             Extended ACL Logic
           </span>
         </div>
-
-        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-          Extended ACLs filter based on source/destination IPs and TCP/UDP ports. Apply inbound on the router sub-interface closest to the source:
-        </p>
 
         <div className="relative">
           <NetworkingPanel variant="console" className="p-0">

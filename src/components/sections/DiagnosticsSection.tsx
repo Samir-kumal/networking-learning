@@ -790,16 +790,10 @@ export default function DiagnosticsSection() {
       </NetworkingPanel>
 
       {/* Command Cheat Sheet Section */}
-      <NetworkingExample title="Network Diagnostics Command Cheat Sheet" description="Filterable command syntax and practical examples, with one-click execution in the sandbox terminal." tone="cyan">
+      <NetworkingExample title="Diagnostic Tools Command Cheat Sheet" description="Comprehensive reference of syntax, flags, OSI layers, and practical use-cases." tone="cyan">
       <div>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
           <div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-              Diagnostic Tools Command Cheat Sheet
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Comprehensive reference of syntax, flags, OSI layers, and practical use-cases.
-            </p>
           </div>
 
           {/* Filter Tabs */}

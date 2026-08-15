@@ -166,7 +166,7 @@ export default function VlsmSection() {
 
         {/* Tree Allocation Visual Code Block */}
         <div className="rounded-xl bg-transparent border border-slate-200 dark:border-slate-700 card-shadow p-5">
-          <div className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2 uppercase">
+          <div className="text-xs font-mono text-slate-100 mb-2 uppercase">
             Address Space Allocation Tree (192.168.1.0/24)
           </div>
           <pre className="font-mono text-xs text-emerald-600 dark:text-emerald-400 bg-transparent p-4 rounded-lg border border-slate-200 dark:border-slate-700 overflow-x-auto">
