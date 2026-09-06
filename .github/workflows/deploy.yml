@@ -27,9 +27,16 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Clean stale node_modules
+        run: rm -rf node_modules
+
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify dependency versions
+        run: |
+          node -e 'console.log("TypeScript:", require("typescript").version)'
+          node -e 'console.log("typescript-eslint:", require("typescript-eslint/package.json").version)'
       - name: Typecheck
         run: npm run typecheck
 
