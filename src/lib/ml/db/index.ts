@@ -4,6 +4,7 @@
 // import the `server-only` sentinel package, which throws unconditionally when
 // required outside Next's webpack alias resolution.
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import Database from "better-sqlite3";
 import { Pool } from "pg";
@@ -21,21 +22,52 @@ export type MlDbDriver = "sqlite" | "postgres";
 // applied migrations in a __drizzle_migrations table and no-ops when there is
 // nothing new, so this is safe to run on every process boot.
 function createSqliteDb() {
-  const url = process.env.ML_DATABASE_URL ?? "./data/ml.sqlite3";
+  const isVercel = Boolean(process.env.VERCEL);
+  const defaultPath = isVercel
+    ? path.join(os.tmpdir(), "ml.sqlite3")
+    : "./data/ml.sqlite3";
+  const url = process.env.ML_DATABASE_URL ?? defaultPath;
   const filePath = url.startsWith("file:") ? url.slice("file:".length) : url;
-  // turbopackIgnore: ML_DATABASE_URL is an operator-controlled env var (a local file
-  // path or "file:" URL), never traced/bundled content — without this, Turbopack's
-  // static analysis can't prove the path is scoped and traces the whole project into
-  // the standalone output.
-  const resolved = path.resolve(/* turbopackIgnore: true */ process.cwd(), filePath);
-  fs.mkdirSync(path.dirname(resolved), { recursive: true });
+  const resolved = path.isAbsolute(filePath)
+    ? filePath
+    : path.resolve(/* turbopackIgnore: true */ process.cwd(), filePath);
+
+  try {
+    fs.mkdirSync(path.dirname(resolved), { recursive: true });
+  } catch {
+    // Ignore directory creation errors on read-only filesystems
+  }
+
   const sqlite = new Database(resolved);
-  sqlite.pragma("journal_mode = WAL");
+  sqlite.pragma(isVercel ? "journal_mode = DELETE" : "journal_mode = WAL");
   sqlite.pragma("foreign_keys = ON");
+
+  // Directly ensure tables exist so serverless environments without migration files never fail
+  sqlite.exec(`
+    CREATE TABLE IF NOT EXISTS chapters (id text PRIMARY KEY NOT NULL, title text NOT NULL, summary text NOT NULL, "order" integer NOT NULL);
+    CREATE TABLE IF NOT EXISTS sections (id text PRIMARY KEY NOT NULL, chapter_id text NOT NULL, title text NOT NULL, "order" integer NOT NULL, FOREIGN KEY (chapter_id) REFERENCES chapters(id));
+    CREATE TABLE IF NOT EXISTS quizzes (id text PRIMARY KEY NOT NULL, section_id text NOT NULL, pass_threshold real DEFAULT 0.7 NOT NULL, FOREIGN KEY (section_id) REFERENCES sections(id));
+    CREATE TABLE IF NOT EXISTS questions (id text PRIMARY KEY NOT NULL, quiz_id text NOT NULL, "order" integer NOT NULL, kind text NOT NULL, prompt text NOT NULL, options text, correct_answer text NOT NULL, tolerance real, explanation text NOT NULL, FOREIGN KEY (quiz_id) REFERENCES quizzes(id));
+    CREATE TABLE IF NOT EXISTS users (id text PRIMARY KEY NOT NULL, display_name text, created_at integer NOT NULL);
+    CREATE TABLE IF NOT EXISTS user_progress (id text PRIMARY KEY NOT NULL, user_id text NOT NULL, section_id text NOT NULL, status text NOT NULL, best_score real, attempt_count integer DEFAULT 0 NOT NULL, updated_at integer NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id), FOREIGN KEY (section_id) REFERENCES sections(id));
+    CREATE TABLE IF NOT EXISTS quiz_attempts (id text PRIMARY KEY NOT NULL, user_id text NOT NULL, quiz_id text NOT NULL, score real NOT NULL, passed integer NOT NULL, answers text NOT NULL, created_at integer NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id), FOREIGN KEY (quiz_id) REFERENCES quizzes(id));
+    CREATE TABLE IF NOT EXISTS playground_state (id text PRIMARY KEY NOT NULL, user_id text NOT NULL, playground_key text NOT NULL, state text NOT NULL, updated_at integer NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id));
+    CREATE UNIQUE INDEX IF NOT EXISTS user_progress_user_section_idx ON user_progress (user_id, section_id);
+    CREATE UNIQUE INDEX IF NOT EXISTS playground_state_user_key_idx ON playground_state (user_id, playground_key);
+    CREATE UNIQUE INDEX IF NOT EXISTS quizzes_section_id_unique ON quizzes (section_id);
+  `);
+
   const client = drizzleSqlite(sqlite, { schema: sqliteSchema });
-  migrateSqlite(client, {
-    migrationsFolder: path.resolve(process.cwd(), "src/lib/ml/db/migrations"),
-  });
+
+  try {
+    const migrationsFolder = path.resolve(process.cwd(), "src/lib/ml/db/migrations");
+    if (fs.existsSync(migrationsFolder)) {
+      migrateSqlite(client, { migrationsFolder });
+    }
+  } catch (error) {
+    console.warn("SQLite migration skipped:", error);
+  }
+
   return client;
 }
 

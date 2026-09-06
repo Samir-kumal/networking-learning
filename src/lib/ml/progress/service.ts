@@ -19,19 +19,24 @@ export type ProgressMap = Record<string, SectionStatus>;
  * needing to pre-insert 27 "locked" rows for every new profile.
  */
 export async function getProgressMap(userId: string, dbClient: DbClient = defaultDb): Promise<ProgressMap> {
-  const rows = await dbClient
-    .select({ sectionId: schema.userProgress.sectionId, status: schema.userProgress.status })
-    .from(schema.userProgress)
-    .where(eq(schema.userProgress.userId, userId));
-
   const map: ProgressMap = {};
-  for (const row of rows) map[row.sectionId] = row.status as SectionStatus;
-
   const [first] = flattenSections();
   if (first) {
     const firstId = `${first.chapter.slug}/${first.section.slug}`;
-    if (!(firstId in map)) map[firstId] = "unlocked";
+    map[firstId] = "unlocked";
   }
+
+  try {
+    const rows = await dbClient
+      .select({ sectionId: schema.userProgress.sectionId, status: schema.userProgress.status })
+      .from(schema.userProgress)
+      .where(eq(schema.userProgress.userId, userId));
+
+    for (const row of rows) map[row.sectionId] = row.status as SectionStatus;
+  } catch (error) {
+    console.error("getProgressMap DB access failed, returning baseline progress map:", error);
+  }
+
   return map;
 }
 

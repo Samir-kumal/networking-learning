@@ -21,7 +21,20 @@ export async function proxy(request: NextRequest) {
 
   const profileId = crypto.randomUUID();
   const token = await signProfileToken(profileId);
-  const response = NextResponse.next();
+
+  const requestHeaders = new Headers(request.headers);
+  const existingCookies = request.headers.get("cookie");
+  requestHeaders.set(
+    "cookie",
+    existingCookies ? `${existingCookies}; ${ML_PROFILE_COOKIE}=${token}` : `${ML_PROFILE_COOKIE}=${token}`,
+  );
+
+  const response = NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
+
   response.cookies.set(ML_PROFILE_COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
