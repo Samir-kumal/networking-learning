@@ -54,7 +54,7 @@ arp -a`,
     {
       title: "4. Assigned Reserved Network or Broadcast IP",
       badge: "Invalid Host IP",
-      symptom: "Host assigned .0 or .255 in a /24 network cannot transmit packets or causes broadcast storms.",
+      symptom: "Host assigned .0 or .255 in a /24 network: many stacks refuse the assignment outright, and where it is accepted the host can still transmit, but unicast delivery to it fails because .0 is the network address and .255 is the directed-broadcast address (RFC 919, RFC 1812 §4.2.3.1).",
       solution: "Re-assign valid usable host address strictly within valid host range (.1 through .254).",
       cliSnippet: `# Linux: Remove invalid network IP & assign valid host IP
 sudo ip addr del 192.168.10.0/24 dev eth0
@@ -63,7 +63,7 @@ sudo ip addr add 192.168.10.15/24 dev eth0`,
     {
       title: "5. VLAN Tagging / 802.1Q Trunking Mismatch",
       badge: "Layer 2 Mismatch",
-      symptom: "Host IP/mask are valid, but switch drops all frames because switchport VLAN ID is wrong or 802.1Q trunk native VLAN differs.",
+      symptom: "Host IP/mask are valid, but frames land in the wrong broadcast domain because the switchport access VLAN ID is wrong, or an 802.1Q trunk native VLAN mismatch leaks untagged traffic into a different VLAN.",
       solution: "Inspect switchport access VLANs and verify 802.1Q trunk tagging.",
       cliSnippet: `! Cisco Switch CLI: Inspect VLAN status & Trunk links
 show interfaces status

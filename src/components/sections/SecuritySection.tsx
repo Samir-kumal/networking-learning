@@ -5,12 +5,14 @@ import NetworkingPanel from "@/components/networking/NetworkingPanel";
 import NetworkingExample from "@/components/networking/NetworkingExample";
 import NetworkingMetric from "@/components/networking/NetworkingMetric";
 import NetworkingTable from "@/components/networking/NetworkingTable";
+import { ipInCidr } from "@/lib/ip-match";
 import { useState } from "react";
 
 // --- Types & Interfaces ---
 interface SecurityRule {
   id: number;
-  ruleNum?: number; // for NACLs
+  ruleNum?: number; // for NACLs; AWS numbers them 1-32766
+  catchAll?: boolean; // the un-numbered "*" NACL rule, evaluated after all numbered rules
   protocol: "TCP" | "UDP" | "ICMP" | "ALL";
   portRange: string; // e.g. "80", "22", "3306", "1024-65535", "ALL"
   sourceCidr: string; // e.g. "0.0.0.0/0", "10.0.1.0/24", "192.168.1.0/24"
@@ -73,12 +75,12 @@ const INITIAL_NACL_RULES: SecurityRule[] = [
   },
   {
     id: 6,
-    ruleNum: 999,
+    catchAll: true,
     protocol: "ALL",
     portRange: "ALL",
     sourceCidr: "0.0.0.0/0",
     action: "DENY",
-    description: "Default Deny All Inbound Traffic",
+    description: "Catch-all '*' rule: denies anything no numbered rule matched",
     enabled: true,
   },
 ];
@@ -122,36 +124,16 @@ const INITIAL_SG_RULES: SecurityRule[] = [
   },
 ];
 
-// Helper IP matching function
+// Helper IP matching function: the wildcards this UI accepts, then generic prefix math.
 function checkIpMatch(ip: string, cidr: string): boolean {
-  if (cidr === "0.0.0.0/0" || cidr.toLowerCase() === "all" || cidr === "*") return true;
-  if (ip === cidr) return true;
+  const target = cidr.trim();
+  if (target === "0.0.0.0/0" || target.toLowerCase() === "all" || target === "*") return true;
+  return ipInCidr(ip, target);
+}
 
-  // Simple CIDR match check for standard prefixes /24 and /16
-  const [targetIp, prefixStr] = cidr.split("/");
-  if (!prefixStr) return ip === targetIp;
-
-  const prefix = parseInt(prefixStr, 10);
-  const ipOctets = ip.split(".").map(Number);
-  const targetOctets = targetIp.split(".").map(Number);
-
-  if (ipOctets.length !== 4 || targetOctets.length !== 4) return false;
-
-  if (prefix === 24) {
-    return (
-      ipOctets[0] === targetOctets[0] &&
-      ipOctets[1] === targetOctets[1] &&
-      ipOctets[2] === targetOctets[2]
-    );
-  } else if (prefix === 16) {
-    return ipOctets[0] === targetOctets[0] && ipOctets[1] === targetOctets[1];
-  } else if (prefix === 8) {
-    return ipOctets[0] === targetOctets[0];
-  } else if (prefix === 32) {
-    return ip === targetIp;
-  }
-
-  return ip === targetIp;
+// AWS NACLs express the catch-all as an un-numbered "*" rule, not as a numbered one.
+function ruleLabel(rule: SecurityRule): string {
+  return rule.catchAll ? "*" : `#${rule.ruleNum}`;
 }
 
 // Helper Port matching function
@@ -220,7 +202,12 @@ export default function SecuritySection() {
         description: newDesc,
         enabled: true,
       };
-      setNaclRules((prev) => [...prev, rule].sort((a, b) => (a.ruleNum || 0) - (b.ruleNum || 0)));
+      setNaclRules((prev) =>
+        [...prev, rule].sort(
+          // The un-numbered "*" catch-all always evaluates after every numbered rule.
+          (a, b) => (a.ruleNum ?? Number.MAX_SAFE_INTEGER) - (b.ruleNum ?? Number.MAX_SAFE_INTEGER)
+        )
+      );
     } else {
       const rule: SecurityRule = {
         id: newId,
@@ -243,8 +230,11 @@ export default function SecuritySection() {
     const traceLogs: string[] = [];
 
     if (inspectorMode === "nacl") {
-      // AWS-style NACL: numbered rules are evaluated lowest to highest; first match wins.
-      const sortedRules = [...activeRules].sort((a, b) => (a.ruleNum || 0) - (b.ruleNum || 0));
+      // AWS-style NACL: numbered rules are evaluated lowest to highest and the
+      // un-numbered "*" catch-all last; first match wins.
+      const sortedRules = [...activeRules].sort(
+        (a, b) => (a.ruleNum ?? Number.MAX_SAFE_INTEGER) - (b.ruleNum ?? Number.MAX_SAFE_INTEGER)
+      );
 
       for (const rule of sortedRules) {
         const ipMatch = checkIpMatch(sourceIpInput, rule.sourceCidr);
@@ -254,17 +244,17 @@ export default function SecuritySection() {
 
         if (ipMatch && portMatch && protoMatch) {
           traceLogs.push(
-            `Rule #${rule.ruleNum} MATCHED: [Protocol: ${rule.protocol}, Port: ${rule.portRange}, Source: ${rule.sourceCidr}] → Action: ${rule.action}`
+            `Rule ${ruleLabel(rule)} MATCHED: [Protocol: ${rule.protocol}, Port: ${rule.portRange}, Source: ${rule.sourceCidr}] → Action: ${rule.action}`
           );
           return {
             allowed: rule.action === "ALLOW",
             matchedRule: rule,
             trace: traceLogs,
-            reason: `Matched explicitly enabled Rule #${rule.ruleNum} (${rule.description}). Evaluation halted (First Match Wins).`,
+            reason: `Matched enabled Rule ${ruleLabel(rule)} (${rule.description}). Evaluation halted (First Match Wins).`,
           };
         } else {
           traceLogs.push(
-            `Rule #${rule.ruleNum} checked: [Source ${sourceIpInput} vs ${rule.sourceCidr}: ${
+            `Rule ${ruleLabel(rule)} checked: [Source ${sourceIpInput} vs ${rule.sourceCidr}: ${
               ipMatch ? "OK" : "NO"
             }, Port ${destPortInput} vs ${rule.portRange}: ${
               portMatch ? "OK" : "NO"
@@ -1184,7 +1174,11 @@ export default function SecuritySection() {
                   >
                     <td className="py-2 px-3">
                       <input
-                        aria-label={`Enable security rule ${rule.ruleNum}: ${rule.description}`}
+                        aria-label={
+                          inspectorMode === "nacl"
+                            ? `Enable security rule ${ruleLabel(rule)}: ${rule.description}`
+                            : `Enable security rule: ${rule.description}`
+                        }
                         type="checkbox"
                         checked={rule.enabled}
                         onChange={() => toggleRuleEnabled(rule.id)}
@@ -1193,7 +1187,7 @@ export default function SecuritySection() {
                     </td>
                     {inspectorMode === "nacl" && (
                       <td className="py-2 px-3 text-amber-600 dark:text-amber-400 font-bold">
-                        #{rule.ruleNum}
+                        {ruleLabel(rule)}
                       </td>
                     )}
                     <td className="py-2 px-3">{rule.protocol}</td>

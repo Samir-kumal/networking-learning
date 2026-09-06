@@ -116,11 +116,15 @@ export default function NatSection() {
             <div className="space-y-2 text-xs font-mono bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
               <div className="flex justify-between">
                 <span>Routability:</span>
-                <span className="text-rose-600 dark:text-rose-400">Non-Routable on Internet</span>
+                <span className="text-rose-600 dark:text-rose-400">Not globally routed</span>
               </div>
               <div className="flex justify-between">
                 <span>Uniqueness:</span>
                 <span className="text-amber-600 dark:text-amber-400">Local Network Only</span>
+              </div>
+              <div className="flex justify-between gap-3">
+                <span>RFC 1918 Blocks:</span>
+                <span className="text-slate-900 dark:text-slate-100 text-right">10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16</span>
               </div>
               <div className="flex justify-between">
                 <span>Examples:</span>
@@ -168,6 +172,11 @@ export default function NatSection() {
           <p className="text-xs text-slate-500 dark:text-slate-400">
             {currentStep.description}
           </p>
+        </div>
+
+        {/* Standards Note */}
+        <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-3 mb-6 text-xs text-slate-500 dark:text-slate-400">
+          This walkthrough illustrates NAPT (RFC 3022) with endpoint-independent mapping; actual mapping and filtering behavior is implementation-defined (RFC 4787 §4.1 / §5), so another NAT may reuse or refuse this state differently.
         </div>
 
         {/* Diagram Architecture Box */}

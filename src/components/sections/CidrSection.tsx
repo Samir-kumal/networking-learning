@@ -20,6 +20,7 @@ export default function CidrSection() {
   const hostBits = 32 - cidr;
   const totalAddresses = Math.pow(2, hostBits);
   const usableHosts = cidr >= 31 ? (cidr === 31 ? 2 : 1) : Math.max(0, totalAddresses - 2);
+  const isDefaultRoute = cidr === 0;
 
   const presets = [
     { label: "/0", value: 0, tag: "Default Route" },
@@ -145,15 +146,15 @@ export default function CidrSection() {
         <NetworkingMetric label="Total IP Addresses" value={totalAddresses.toLocaleString()} detail={<>2<sup>{hostBits}</sup> addresses (32 minus {cidr} network bits)</>} tone="violet" />
         <NetworkingMetric
           label="Usable Host IPs"
-          value={usableHosts.toLocaleString()}
-          detail={cidr === 31 ? "Both addresses usable under RFC 3021" : cidr === 32 ? "One address usable as a host route" : "Excludes network and broadcast addresses"}
+          value={isDefaultRoute ? "Not applicable" : usableHosts.toLocaleString()}
+          detail={isDefaultRoute ? "A /0 is the default route (0.0.0.0/0), not an assignable subnet" : cidr === 31 ? "Both addresses usable under RFC 3021" : cidr === 32 ? "One address usable as a host route" : "Excludes network and broadcast addresses"}
           tone="lime"
         />
         <NetworkingMetric label="Wildcard Mask (ACL)" value={wildcardMaskStr} detail="Inverted subnet mask (255 minus each mask octet)" tone="amber" />
       </div>
       <NetworkingExample
-        title={cidr === 31 ? "Usable Hosts: both addresses are usable on an RFC 3021 point-to-point link" : cidr === 32 ? "Usable Hosts: one address is usable for a host route" : <>Usable Hosts Calculation Formula: 2<sup>h</sup> - 2</>}
-        description={cidr === 31 ? <>An RFC 3021 <code className="text-emerald-600 dark:text-emerald-400">/31</code> point-to-point link has exactly two addresses, and both are usable. No network or broadcast address is reserved.</> : cidr === 32 ? <>A <code className="text-emerald-600 dark:text-emerald-400">/32</code> is a host route containing one address, which is usable directly. No network or broadcast address is reserved.</> : <>For an IPv4 subnet, use <code className="text-emerald-600 dark:text-emerald-400">Usable Hosts = 2<sup>h</sup> - 2</code>, where <code className="text-indigo-600 dark:text-indigo-400">h = 32 - CIDR</code> is the number of host bits.</>}
+        title={isDefaultRoute ? "Usable Hosts: a /0 is the default route, not a host subnet" : cidr === 31 ? "Usable Hosts: both addresses are usable on an RFC 3021 point-to-point link" : cidr === 32 ? "Usable Hosts: one address is usable for a host route" : <>Usable Hosts Calculation Formula: 2<sup>h</sup> - 2</>}
+        description={isDefaultRoute ? <>A zero-length prefix matches every IPv4 destination, so <code className="text-emerald-600 dark:text-emerald-400">0.0.0.0/0</code> is installed as the default route rather than allocated as a subnet. Its 2<sup>32</sup> addresses are the entire IPv4 address space, so there is no usable-host count to compute.</> : cidr === 31 ? <>An RFC 3021 <code className="text-emerald-600 dark:text-emerald-400">/31</code> point-to-point link has exactly two addresses, and both are usable. No network or broadcast address is reserved.</> : cidr === 32 ? <>A <code className="text-emerald-600 dark:text-emerald-400">/32</code> is a host route containing one address, which is usable directly. No network or broadcast address is reserved.</> : <>For an IPv4 subnet, use <code className="text-emerald-600 dark:text-emerald-400">Usable Hosts = 2<sup>h</sup> - 2</code>, where <code className="text-indigo-600 dark:text-indigo-400">h = 32 - CIDR</code> is the number of host bits.</>}
         tone="amber"
       >
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
@@ -161,7 +162,16 @@ export default function CidrSection() {
       {/* Usable Hosts Formula Card */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {cidr >= 31 ? (
+          {isDefaultRoute ? (
+            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3">
+              <div className="text-xs font-mono text-amber-600 dark:text-amber-400 font-bold uppercase">
+                Special prefix semantics
+              </div>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                RFC 4632 Section 3.1 describes a zero-length prefix as matching every destination: 0.0.0.0/0 is the default route used when no more specific entry matches. It covers the whole IPv4 address space instead of describing one subnet, so network, broadcast, and usable-host figures do not apply to it.
+              </p>
+            </div>
+          ) : cidr >= 31 ? (
             <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3">
               <div className="text-xs font-mono text-amber-600 dark:text-amber-400 font-bold uppercase">
                 Special prefix semantics
@@ -198,7 +208,11 @@ export default function CidrSection() {
             <div className="space-y-1.5 text-slate-500 dark:text-slate-400">
               <div>1. Host bits = 32 - {cidr} = {hostBits}</div>
               <div>2. Total addresses = 2<sup>{hostBits}</sup> = {totalAddresses.toLocaleString()}</div>
-              {cidr >= 31 ? (
+              {isDefaultRoute ? (
+                <div className="p-2 rounded bg-slate-50 dark:bg-slate-700 border border-emerald-400/40 text-emerald-600 dark:text-emerald-400 font-bold text-sm text-center mt-2">
+                  {totalAddresses.toLocaleString()} addresses = the entire IPv4 space, matched as the default route 0.0.0.0/0
+                </div>
+              ) : cidr >= 31 ? (
                 <div className="p-2 rounded bg-slate-50 dark:bg-slate-700 border border-emerald-400/40 text-emerald-600 dark:text-emerald-400 font-bold text-sm text-center mt-2">
                   {cidr === 31 ? "2 addresses = 2 usable point-to-point endpoints" : "1 address = 1 usable host-route endpoint"}
                 </div>

@@ -211,7 +211,7 @@ interface GigabitEthernet0/0.10
       hexCode: "0x03",
       length: "4 * n bytes",
       sampleValue: "192.168.10.1",
-      description: "List of IP addresses for routers on the client's subnet. Must be listed in preference order.",
+      description: "List of IP addresses for routers on the client's subnet. Routers should be listed in order of preference.",
       enterpriseUseCase: "Allows hosts to route traffic destined for external networks and the Internet.",
       rfc: "RFC 2132 Section 3.5",
     },
@@ -295,7 +295,6 @@ interface GigabitEthernet0/0.10
   const [reservedCount, setReservedCount] = useState<number>(30);
   const [activeLeases, setActiveLeases] = useState<number>(180);
   const [dailyChurn, setDailyChurn] = useState<number>(45);
-  const [leaseDurationHours, setLeaseDurationHours] = useState<number>(24);
 
   // Calculations
   const totalSubnetIps = Math.pow(2, 32 - cidrPrefix);
@@ -304,7 +303,9 @@ interface GigabitEthernet0/0.10
   const freeIps = Math.max(0, usablePoolSize - activeLeases);
   const utilizationPct = usablePoolSize > 0 ? Math.min(100, (activeLeases / usablePoolSize) * 100) : 100;
 
-  // Exhaustion time estimate (hours until pool depletion if churn continues without leases expiring)
+  // Illustrative exhaustion estimate: free IPs consumed at the churn rate.
+  // The model assumes churn continues and no existing lease is released, so it is a
+  // worst-case bound, not a lease-lifecycle simulation.
   const churnPerHour = dailyChurn / 24;
   const hoursUntilExhaustion =
     churnPerHour > 0 && freeIps > 0 ? Math.round((freeIps / churnPerHour) * 10) / 10 : 0;
@@ -315,7 +316,7 @@ interface GigabitEthernet0/0.10
     color: "#7ee787",
     bg: "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700",
     text: "text-emerald-600 dark:text-emerald-400",
-    message: "Address pool has sufficient headroom. Current lease duration and subnet size are well balanced.",
+    message: "Address pool has sufficient headroom for the current subnet size and reserved-address count.",
   };
 
   if (utilizationPct >= 90 || activeLeases > usablePoolSize) {
@@ -324,7 +325,7 @@ interface GigabitEthernet0/0.10
       color: "#ff7b72",
       bg: "bg-[#ff7b72]/15 border-rose-400/40",
       text: "text-rose-600 dark:text-rose-400",
-      message: "ALERT: Pool is nearly exhausted! New devices will fail DHCP binding (APIPA 169.254.x.x fallback). Immediate mitigation required.",
+      message: "ALERT: Pool is nearly exhausted! Clients fail to bind; some operating systems then self-assign an IPv4 link-local address (169.254.0.0/16). Immediate mitigation required.",
     };
   } else if (utilizationPct >= 75) {
     riskStatus = {
@@ -343,7 +344,7 @@ interface GigabitEthernet0/0.10
     >
       {/* Section Header */}
       <NetworkingModuleHeader
-        anchor="#dhcp-ipam"
+        anchor="#dhcp"
         icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⬡</span>}
         title={<>9. DHCP & IP Address Management (IPAM)</>}
         description={<>Dynamic Host Configuration Protocol (DHCP) automates IPv4/IPv6 allocation across local networks.
@@ -585,14 +586,14 @@ interface GigabitEthernet0/0.10
                 </div>
               ) : (
                 <div className="text-xs font-mono text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800 p-1.5 rounded border border-slate-200 dark:border-slate-700">
-                  Never receives DISCOVER packet
+                  No DISCOVER reaches it in this relay-less topology
                 </div>
               )}
             </div>
           </div>
 
           <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            <strong className="text-slate-900 dark:text-slate-100 font-mono">Why DHCP Relay is Required:</strong> Routers drop Layer 3 broadcast packets (255.255.255.255) by default to prevent broadcast storms. 
+            <strong className="text-slate-900 dark:text-slate-100 font-mono">Why DHCP Relay is Required:</strong> Routers do not forward the limited broadcast 255.255.255.255 beyond the local link, so a DISCOVER stays inside the client&apos;s subnet.
             When clients reside on separate VLANs from the central DHCP server, the router&apos;s interface acts as a <strong className="text-emerald-600 dark:text-emerald-400">DHCP Relay Agent</strong>. 
             It intercepts the local broadcast, sets the <code className="text-indigo-600 dark:text-indigo-400">GIADDR</code> (Gateway IP Address) field to <code className="text-indigo-600 dark:text-indigo-400">192.168.10.1</code>, and forwards a unicast packet across subnets directly to <code className="text-indigo-600 dark:text-indigo-400">10.0.0.100</code>.
           </div>
@@ -816,7 +817,7 @@ interface GigabitEthernet0/0.10
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
           <NetworkingMetric label="Total Usable Pool Size" value={`${usablePoolSize} IPs`} detail="Excluding network & broadcast address" tone="cyan" />
           <NetworkingMetric label="Available Free Pool" value={`${freeIps} IPs`} detail="Unallocated available leases" tone="lime" />
-          <NetworkingMetric label="Est. Time to Pool Exhaustion" value={freeIps > 0 ? `${hoursUntilExhaustion} Hours` : "Exhausted"} detail="Based on daily device churn rate" tone="violet" />
+          <NetworkingMetric label="Est. Time to Pool Exhaustion" value={freeIps > 0 ? `${hoursUntilExhaustion} Hours` : "Exhausted"} detail="Illustrative: free IPs ÷ (daily churn ÷ 24). Assumes churn continues and no lease is released, so lease duration is not modelled here." tone="violet" />
         </div>
 
         {/* IPAM Recommendation Box */}

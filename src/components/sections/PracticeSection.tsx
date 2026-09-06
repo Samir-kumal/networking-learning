@@ -227,7 +227,7 @@ export default function PracticeSection() {
         {
           step: "1. Sort Requirements Largest to Smallest",
           explanation:
-            "1. Finance: 25 hosts | 2. Marketing: 12 hosts | 3. WAN Link: 2 hosts. VLSM mandates allocating largest subnets first.",
+            "1. Finance: 25 hosts | 2. Marketing: 12 hosts | 3. WAN Link: 2 hosts. Allocating the largest subnet first is a design convention rather than a protocol rule: each block then lands naturally aligned on its own boundary, and the space left over stays contiguous instead of fragmenting.",
         },
         {
           step: "2. Allocate Subnet 1 (Finance - 25 hosts)",
@@ -308,14 +308,14 @@ export default function PracticeSection() {
         {
           step: "4. Layer 2 Connectivity Analysis",
           explanation:
-            "Because 10.0.5.100 and 10.0.5.113 belong to distinct broadcast domains, direct L2 ARP resolution will fail for local delivery. Communication requires a router configured between 10.0.5.96/28 and 10.0.5.112/28.",
+            "10.0.5.100/28 and 10.0.5.113 sit in different IP subnets (10.0.5.96/28 vs 10.0.5.112/28), so the server classifies .113 as off-link: it does not ARP for that address, it hands the packet to its own default gateway instead. Reaching 10.0.5.113 therefore depends on routing between 10.0.5.96/28 and 10.0.5.112/28 (or on Proxy ARP, or a secondary address/route on the server).",
         },
       ],
       scenarioAnalysis: {
         pingStatus: "FAIL",
         resultTitle: "DIRECT LAYER 2 PING FAILS — DIFFERENT SUBNET BOUNDARIES",
         reasoning:
-          "The server (10.0.5.100/28) belongs to subnet 10.0.5.96/28 (usable host range .97 to .110). The target gateway address (10.0.5.113) belongs to subnet 10.0.5.112/28 (usable host range .113 to .126). Without inter-subnet routing, direct Layer 2 Ethernet delivery cannot take place.",
+          "The server (10.0.5.100/28) belongs to subnet 10.0.5.96/28 (usable host range .97 to .110). The target gateway address (10.0.5.113) belongs to subnet 10.0.5.112/28 (usable host range .113 to .126). Because the two addresses are in different IP subnets, the server treats .113 as off-link and forwards to its configured default gateway rather than ARPing for it, so there is no direct on-link delivery unless Proxy ARP (RFC 1027) or a secondary address/route is in place.",
       },
     },
   ];

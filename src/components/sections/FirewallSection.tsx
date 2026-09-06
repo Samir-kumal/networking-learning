@@ -39,6 +39,11 @@ access-list 100 permit tcp 192.168.10.0 0.0.0.255 192.168.30.0 0.0.0.255 eq 443
 access-list 100 remark --- Deny other Web to DB packets ---
 access-list 100 deny ip 192.168.10.0 0.0.0.255 192.168.20.0 0.0.0.255 log
 
+! NOTE: Every IOS ACL ends with an implicit 'deny ip any any'. With only the permits
+! above, VLAN 10 loses all other egress (including Internet) once this ACL is applied.
+! A real deployment adds the further permits it needs, or a trailing 'permit ip any any'.
+access-list 100 remark --- Implicit deny ip any any follows: add required permits ---
+
 ! 4. Apply ACL inbound on VLAN 10 Interface
 interface GigabitEthernet0/0.10
  ip access-group 100 in`;

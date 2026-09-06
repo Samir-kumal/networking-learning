@@ -48,7 +48,7 @@ const QUESTIONS: Question[] = [
     ],
     correctIndex: 1,
     explanation:
-      "Allocating larger subnets first ensures naturally aligned boundary offsets, preventing overlapping subnets and fragmentation of available IP space in VLSM.",
+      "Allocating the largest subnets first keeps every block naturally aligned on its own boundary, so the free space left behind stays contiguous. Ordering itself does not make overlap impossible, but starting small fragments and misaligns the remaining space, which is what forces overlapping allocations or wasted blocks later.",
   },
   {
     id: 5,

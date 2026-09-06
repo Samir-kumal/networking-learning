@@ -227,7 +227,7 @@ export default function BinarySection() {
               <tr className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700 font-mono">
                 <th className="p-3">Feature</th>
                 <th className="p-3">Legacy Classful Routing (Historical)</th>
-                <th className="p-3">Modern CIDR (RFC 1519)</th>
+                <th className="p-3">Modern CIDR (RFC 1519, obsoleted by RFC 4632)</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#30363d] text-slate-900 dark:text-slate-100">

@@ -165,7 +165,7 @@ export default function VlanSection() {
             Access Ports (End Devices)
           </h4>
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            Switch ports configured as <strong className="text-indigo-600 dark:text-indigo-400">Access Ports</strong> belong to a single native VLAN. They send and receive standard untagged Ethernet frames directly to workstations, printers, and IP phones.
+            Switch ports configured as <strong className="text-indigo-600 dark:text-indigo-400">Access Ports</strong> belong to a single access VLAN (the port&apos;s PVID). They send and receive standard untagged Ethernet frames directly to workstations, printers, and IP phones. &quot;Native VLAN&quot; is trunk terminology and does not apply to an access port.
           </p>
         </div>
 
@@ -174,7 +174,7 @@ export default function VlanSection() {
             Trunk Ports (IEEE 802.1Q Inter-Switch Links)
           </h4>
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            Switch ports configured as <strong className="text-emerald-600 dark:text-emerald-400">Trunk Ports</strong> multiplex traffic from multiple VLANs over a single physical link by appending a 4-byte 802.1Q VLAN ID tag to each Ethernet frame header.
+            Switch ports configured as <strong className="text-emerald-600 dark:text-emerald-400">Trunk Ports</strong> multiplex traffic from multiple VLANs over a single physical link by appending a 4-byte 802.1Q VLAN ID tag to each Ethernet frame header. The exception is the trunk&apos;s native (untagged) VLAN: frames in that VLAN are forwarded across the trunk without a tag, so both ends must agree on which VLAN it is.
           </p>
         </div>
       </div>

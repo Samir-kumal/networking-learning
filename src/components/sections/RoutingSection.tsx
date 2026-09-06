@@ -25,6 +25,7 @@ interface ProtocolInfo {
   type: string;
   algorithm: string;
   ad: number;
+  adNote: string;
   metric: string;
   convergence: string;
   scope: string;
@@ -41,7 +42,8 @@ const PROTOCOLS: Record<string, ProtocolInfo> = {
     type: "Link-State IGP",
     algorithm: "Dijkstra's Shortest Path First (SPF)",
     ad: 110,
-    metric: "Cost = 100,000,000 / Bandwidth (bps)",
+    metric: "Cisco default: reference bandwidth (100 Mbps) / interface bandwidth (configurable)",
+    adNote: "Cisco IOS default distance for OSPF routes; RFC 2328 does not define administrative distance.",
     convergence: "Can be fast; BFD is optional and timer-dependent",
     scope: "Interior Gateway Protocol (IGP) / Enterprise LAN/WAN",
     multicastIp: "224.0.0.5 (All OSPF) / 224.0.0.6 (DR/BDR)",
@@ -58,7 +60,8 @@ const PROTOCOLS: Record<string, ProtocolInfo> = {
     name: "BGP (Border Gateway Protocol)",
     type: "Path Vector EGP",
     algorithm: "Best Path Selection Algorithm (Attributes)",
-    ad: 20, // eBGP is 20, iBGP is 200
+    ad: 20,
+    adNote: "Cisco IOS default for eBGP routes; iBGP routes use 200.",
     metric: "Path Attributes (Weight, Local Pref, AS-Path, MED)",
     convergence: "Slow (Prioritizes stability over speed)",
     scope: "Exterior Gateway Protocol (EGP) / Global Internet & ISP Peering",
@@ -77,7 +80,8 @@ const PROTOCOLS: Record<string, ProtocolInfo> = {
     name: "EIGRP (Enhanced Interior Gateway Routing Protocol)",
     type: "Advanced Distance Vector / Hybrid IGP",
     algorithm: "DUAL (Diffusing Update Algorithm)",
-    ad: 90, // Internal
+    ad: 90,
+    adNote: "Cisco IOS default for internal EIGRP; external EIGRP is 170 and the EIGRP summary route is 5.",
     metric: "Composite: K-values based on Bandwidth & Delay",
     convergence: "Can fail over quickly when a feasible successor exists; timers and topology matter",
     scope: "Interior Gateway Protocol (IGP) / Cisco Enterprise Networks",
@@ -97,6 +101,7 @@ const PROTOCOLS: Record<string, ProtocolInfo> = {
     type: "Distance Vector IGP",
     algorithm: "Bellman-Ford Algorithm",
     ad: 120,
+    adNote: "Cisco IOS default distance for RIP routes.",
     metric: "Hop Count (Max 15 hops; 16 = Unreachable)",
     convergence: "Slow (Periodic 30-second full table updates)",
     scope: "Interior Gateway Protocol (IGP) / Small legacy networks",
@@ -116,6 +121,7 @@ const PROTOCOLS: Record<string, ProtocolInfo> = {
     type: "Manual Configuration",
     algorithm: "N/A (Administrator Defined)",
     ad: 1,
+    adNote: "Cisco IOS default for static routes; floating statics are configured with a higher distance.",
     metric: "0 (Direct) or specified static cost",
     convergence: "Manual / Dependent on SLA Object Tracking",
     scope: "Stub networks, default Internet gateways, management routes",
@@ -536,7 +542,7 @@ export default function RoutingSection() {
             <div className="flex items-center gap-3 bg-white dark:bg-slate-800 px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700">
               <div className="text-right">
                 <span className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">
-                  Admin Distance (AD)
+                  Admin Distance (Cisco IOS default)
                 </span>
                 <span className="text-xl font-mono font-bold text-emerald-600 dark:text-emerald-400">
                   {currentProto.ad}
@@ -552,7 +558,7 @@ export default function RoutingSection() {
                 </span>
               </div>
             </div>
-          <NetworkingMetric label="Administrative Distance" value={currentProto.ad} detail={`${currentProto.name} trust value; lower values win`} tone="cyan" />
+          <NetworkingMetric label="Administrative Distance (Cisco IOS default)" value={currentProto.ad} detail={currentProto.adNote} tone="cyan" />
           </div>
 
           <p className="text-sm text-slate-900 dark:text-slate-100 leading-relaxed mb-6 bg-white/60 dark:bg-slate-800/60 p-4 rounded-lg border border-slate-200/40">
@@ -594,10 +600,10 @@ export default function RoutingSection() {
           </div>
         </div>
 
-        {/* Administrative Distance Hierarchy Reference Bar */}
+        {/* Cisco IOS Default Administrative Distance Reference Bar */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
           <h4 className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase mb-3 flex items-center justify-between">
-            <span>Administrative Distance (AD) Trust Hierarchy (Lower = Better)</span>
+            <span>Cisco IOS Default Administrative Distance (Lower = Better)</span>
             <span className="text-[11px] text-indigo-600 dark:text-indigo-400">Believability Score (0 - 255)</span>
           </h4>
           <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 text-center text-xs font-mono">
@@ -615,7 +621,7 @@ export default function RoutingSection() {
             </div>
             <div className="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700 p-2.5 rounded-lg text-amber-600 dark:text-amber-400">
               <div className="font-bold text-sm">90</div>
-              <div className="text-[10px] text-slate-500 dark:text-slate-400">EIGRP</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">EIGRP (internal)</div>
             </div>
             <div className="bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-700 p-2.5 rounded-lg text-indigo-600 dark:text-indigo-400">
               <div className="font-bold text-sm">110</div>
@@ -630,6 +636,11 @@ export default function RoutingSection() {
               <div className="text-[10px] text-slate-500 dark:text-slate-400">iBGP</div>
             </div>
           </div>
+          <p className="mt-3 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+            Administrative distance is a Cisco IOS route-selection construct, not a protocol field: these are the
+            platform defaults and every one of them is configurable. External EIGRP is 170 and an EIGRP summary
+            route is 5.
+          </p>
         </div>
       </div>
 
@@ -682,7 +693,7 @@ export default function RoutingSection() {
                 <div className="text-lg font-mono font-bold text-indigo-600 dark:text-indigo-400 flex items-center justify-center gap-2">
                   <span>VIP: 192.168.1.1</span>
                   <span className="text-xs text-slate-500 dark:text-slate-400 font-normal">
-                    (VMAC: {fhrpProtocol === "hsrp" ? "0000.0C07.AC01" : "0000.5E00.0101"})
+                    (VMAC: {fhrpProtocol === "hsrp" ? "0000.0C07.AC01 (HSRPv1; HSRPv2 uses 0000.0C9F.Fxxx)" : "0000.5E00.0101"})
                   </span>
                 </div>
               </div>
@@ -714,7 +725,7 @@ export default function RoutingSection() {
                   <div className="text-xs font-mono text-slate-500 dark:text-slate-400 space-y-1">
                     <div>Phys IP: <span className="text-slate-900 dark:text-slate-100">192.168.1.2</span></div>
                     <div>Priority: <span className="text-indigo-600 dark:text-indigo-400 font-bold">110</span></div>
-                    <div>{fhrpProtocol === "hsrp" ? "Hello: " : "Advertisement: "}<span className="text-emerald-600 dark:text-emerald-400">{fhrpProtocol === "hsrp" ? "Every 3s" : "Every 1s"}</span></div>
+                    <div>{fhrpProtocol === "hsrp" ? "Hello: " : "Advertisement: "}<span className="text-emerald-600 dark:text-emerald-400">{fhrpProtocol === "hsrp" ? "Every 3s (IOS default)" : "Every 1s"}</span></div>
                   </div>
                   {r1Active && (
                     <div className="mt-3 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
@@ -753,7 +764,7 @@ export default function RoutingSection() {
                   <div className="text-xs font-mono text-slate-500 dark:text-slate-400 space-y-1">
                     <div>Phys IP: <span className="text-slate-900 dark:text-slate-100">192.168.1.3</span></div>
                     <div>Priority: <span className="text-amber-600 dark:text-amber-400">100</span></div>
-                    <div>{fhrpProtocol === "hsrp" ? "Hold Timer: " : "Active Down Interval: "}<span className="text-amber-600 dark:text-amber-400">{fhrpProtocol === "hsrp" ? "10s" : "about 3.6s"}</span></div>
+                    <div>{fhrpProtocol === "hsrp" ? "Hold Timer: " : "Active Down Interval: "}<span className="text-amber-600 dark:text-amber-400">{fhrpProtocol === "hsrp" ? "10s (IOS default)" : "about 3.6s"}</span></div>
                   </div>
                   {!r1Active && (
                     <div className="mt-3 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">

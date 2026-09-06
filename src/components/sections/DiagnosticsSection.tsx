@@ -173,14 +173,14 @@ export default function DiagnosticsSection() {
           outputLines = [
             { id: "p1", type: "info", text: `PING ${target} (${target}) 56(84) bytes of data.` },
             { id: "p2", type: "error", text: `From 192.168.1.1 icmp_seq=1 Destination Host Unreachable` },
-            { id: "p3", type: "error", text: `Request timeout for icmp_seq 2` },
-            { id: "p4", type: "error", text: `Request timeout for icmp_seq 3` },
-            { id: "p5", type: "error", text: `Request timeout for icmp_seq 4` },
+            { id: "p3", type: "error", text: `From 192.168.1.1 icmp_seq=2 Destination Host Unreachable` },
+            { id: "p4", type: "error", text: `From 192.168.1.1 icmp_seq=3 Destination Host Unreachable` },
+            { id: "p5", type: "error", text: `From 192.168.1.1 icmp_seq=4 Destination Host Unreachable` },
             { id: "p6", type: "system", text: `--- ${target} ping statistics ---` },
             {
               id: "p7",
               type: "error",
-              text: `4 packets transmitted, 0 received, +1 errors, 100% packet loss, time 3012ms`,
+              text: `4 packets transmitted, 0 received, +4 errors, 100% packet loss, time 3012ms`,
             },
           ];
         } else {
@@ -376,16 +376,41 @@ export default function DiagnosticsSection() {
 
       case "nmap": {
         const target = parseCommandTarget(baseCmd, args) || "192.168.1.1";
+        const knownPorts = [
+          { port: 22, text: `22/tcp   open  ssh        OpenSSH 8.9p1 Ubuntu` },
+          { port: 53, text: `53/tcp   open  domain     dnsmasq 2.86` },
+          { port: 80, text: `80/tcp   open  http       nginx 1.18.0` },
+          { port: 443, text: `443/tcp  open  ssl/https  nginx 1.18.0` },
+        ];
+        // -p restricts the scan to exactly the listed ports, so the simulated
+        // report must only show those and must skip the default-1000 summary line.
+        const portFlagIdx = args.findIndex((a) => a === "-p");
+        const portSpec =
+          portFlagIdx >= 0
+            ? args[portFlagIdx + 1]
+            : args.find((a) => a.startsWith("-p") && a.length > 2)?.slice(2);
+        const portSpecs = portSpec ? portSpec.split(",") : null;
+        const matchesPortSpec = (port: number) =>
+          (portSpecs ?? []).some((spec) => {
+            const [lowRaw, highRaw] = spec.split("-");
+            const low = lowRaw === "" ? 1 : Number.parseInt(lowRaw, 10);
+            const high = spec.includes("-")
+              ? highRaw === undefined || highRaw === ""
+                ? 65535
+                : Number.parseInt(highRaw, 10)
+              : low;
+            return Number.isInteger(low) && Number.isInteger(high) && port >= low && port <= high;
+          });
+        const shownPorts = portSpecs ? knownPorts.filter((p) => matchesPortSpec(p.port)) : knownPorts;
         outputLines = [
           { id: "n1", type: "info", text: `Starting Nmap 7.94 ( https://nmap.org ) at 2026-08-08 14:35 UTC` },
           { id: "n2", type: "output", text: `Nmap scan report for ${target}` },
           { id: "n3", type: "output", text: `Host is up (0.0012s latency).` },
-          { id: "n4", type: "output", text: `Not shown: 996 closed tcp ports (reset)` },
+          ...(portSpecs
+            ? []
+            : [{ id: "n4", type: "output" as const, text: `Not shown: 996 closed tcp ports (reset)` }]),
           { id: "n5", type: "system", text: `PORT     STATE SERVICE    VERSION` },
-          { id: "n6", type: "success", text: `22/tcp   open  ssh        OpenSSH 8.9p1 Ubuntu` },
-          { id: "n7", type: "success", text: `80/tcp   open  http       nginx 1.18.0` },
-          { id: "n8", type: "success", text: `443/tcp  open  ssl/https  nginx 1.18.0` },
-          { id: "n9", type: "success", text: `53/tcp   open  domain     dnsmasq 2.86` },
+          ...shownPorts.map((p) => ({ id: `n-${p.port}`, type: "success" as const, text: p.text })),
           { id: "n10", type: "output", text: `MAC Address: 00:11:32:8A:9B:CC (Synology Inc.)` },
           { id: "n11", type: "info", text: `Nmap done: 1 IP address (1 host up) scanned in 1.42 seconds` },
         ];
@@ -471,7 +496,7 @@ export default function DiagnosticsSection() {
         { flag: "-c <count>", desc: "Stop after sending specified number of ECHO_REQUEST packets." },
         { flag: "-i <interval>", desc: "Wait specified seconds between sending each packet (default: 1s)." },
         { flag: "-s <bytes>", desc: "Specify number of payload data bytes to send (useful for MTU test)." },
-        { flag: "-t <ttl>", desc: "Set IP Time To Live (TTL) hop count limit." },
+        { flag: "-t <ttl>", desc: "Linux/iputils: set IP Time To Live (TTL) hop count limit. Platform-specific: on macOS/BSD -t is a timeout in seconds (-m sets TTL), and on Windows -t pings continuously." },
       ],
       example: "ping -c 4 -s 1472 8.8.8.8",
       useCase: "Quick sanity check for gateway reachability; payload-size tests can help investigate MTU issues, but results depend on fragmentation and filtering.",

@@ -85,9 +85,9 @@ export default function WirelessSection() {
       color: "text-amber-600 dark:text-amber-400",
       bgBadge: "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-700",
       border: "border-amber-400",
-      acl: "Strict Internet Only (Block 10.0.0.0/8 & 172.16.0.0/12)",
+      acl: "Strict Internet Only (Block 10.0.0.0/8, 172.16.0.0/12 & 192.168.0.0/16, except the 192.168.20.0/24 guest subnet itself)",
       gateway: "192.168.20.1",
-      desc: "Isolated guest network routed directly to NAT gateway. Client isolation prevents guests from seeing each other's traffic.",
+      desc: "Isolated guest network routed directly to NAT gateway. When peer-to-peer (client) isolation is enabled on the WLAN, the AP or WLC blocks direct client-to-client forwarding within the BSS.",
     },
     iot: {
       id: "iot",
@@ -196,7 +196,36 @@ export default function WirelessSection() {
     }
   };
   // This is an educational channel-number heuristic, not an RF propagation model.
+
+  // Part 4 channel numbers per band (channel numbers, not frequencies).
+  const simChannels24 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  // FCC U-NII-1 / 2A / 2C / 3 20 MHz channels; 52-64 and 100-104 require DFS.
+  const simChannels5 = [36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 149, 153, 157, 161];
+  const simDfs5 = [52, 56, 60, 64, 100, 104];
+  // 6 GHz (5.925 - 7.125 GHz) numbers its 20 MHz channels 1, 5, 9 ... 233. A
+  // representative U-NII-5 subset (1 - 93) is offered here. 6 GHz has no DFS:
+  // incumbent protection uses AFC for standard power and LPI power limits indoors.
+  const simChannels6 = Array.from({ length: 24 }, (_, i) => 1 + i * 4); // 1, 5, 9 ... 93
+  const simChannelList =
+    simBand === "2.4" ? simChannels24 : simBand === "5" ? simChannels5 : simChannels6;
+  const simChannelLabel = (c: number) => {
+    if (simBand === "2.4") return `Channel ${c} (2412 + ${(c - 1) * 5} MHz)`;
+    if (simBand === "5") {
+      return `Channel ${c} (${5000 + c * 5} MHz)${simDfs5.includes(c) ? " - DFS" : ""}`;
+    }
+    return `Channel ${c} (${5950 + c * 5} MHz - no DFS)`;
+  };
+  // Ordinal placement for the spectrum sketch: markers are spaced by channel index,
+  // because channel numbers are not linear in frequency across U-NII bands.
+  const simChX = (ch: number) => {
+    const idx = Math.max(0, simChannelList.indexOf(ch));
+    return (idx / Math.max(1, simChannelList.length - 1)) * 400 + 50;
+  };
+
   const simChDiff = Math.abs(simAp1Ch - simAp2Ch);
+  // 5/6 GHz channel numbers advance by 4 per 20 MHz, so a bonded channel needs
+  // width / 5 channel numbers of separation: 20 -> 4, 40 -> 8, 80 -> 16, 160 -> 32, 320 -> 64.
+  const minChSeparation = bondingWidth / 5;
   let overlapStatus = "Separated in simplified model";
   let overlapBadge = "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400";
 
@@ -206,9 +235,11 @@ export default function WirelessSection() {
   } else if (simBand === "2.4" && simChDiff < 5) {
     overlapStatus = "Possible adjacent-channel overlap";
     overlapBadge = "bg-[#ff7b72]/20 text-rose-600 dark:text-rose-400";
-  } else if ((simBand === "5" || simBand === "6") && simChDiff < 4) {
-    overlapStatus = "Possible channel-width overlap";
+  } else if (simChDiff < minChSeparation) {
+    overlapStatus = `Overlapping at ${bondingWidth} MHz (gap ${simChDiff}, needs ${minChSeparation})`;
     overlapBadge = "bg-[#ff7b72]/20 text-rose-600 dark:text-rose-400";
+  } else {
+    overlapStatus = `Separated at ${bondingWidth} MHz (gap ${simChDiff} >= ${minChSeparation})`;
   }
 
   const chInterference = calculate24GhzInterference(ap1Channel, ap2Channel);
@@ -729,9 +760,9 @@ export default function WirelessSection() {
             {/* Spectrum Range Bar */}
             <div className="h-6 w-full bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-700 relative overflow-hidden flex items-center px-1">
               {/* Highlight non-overlapping 1, 6, 11 zones */}
-              <div className="absolute left-[0%] width-[20%] h-full bg-emerald-50 dark:bg-emerald-900/30 border-r border-emerald-200 dark:border-emerald-700"></div>
-              <div className="absolute left-[45%] width-[20%] h-full bg-emerald-50 dark:bg-emerald-900/30 border-x border-emerald-200 dark:border-emerald-700"></div>
-              <div className="absolute left-[80%] width-[20%] h-full bg-emerald-50 dark:bg-emerald-900/30 border-l border-emerald-200 dark:border-emerald-700"></div>
+              <div className="absolute left-[0%] w-[20%] h-full bg-emerald-50 dark:bg-emerald-900/30 border-r border-emerald-200 dark:border-emerald-700"></div>
+              <div className="absolute left-[40%] w-[20%] h-full bg-emerald-50 dark:bg-emerald-900/30 border-x border-emerald-200 dark:border-emerald-700"></div>
+              <div className="absolute left-[80%] w-[20%] h-full bg-emerald-50 dark:bg-emerald-900/30 border-l border-emerald-200 dark:border-emerald-700"></div>
 
               {/* AP 1 Marker */}
               <div
@@ -905,9 +936,12 @@ export default function WirelessSection() {
                       if (b === "2.4") {
                         setSimAp1Ch(1);
                         setSimAp2Ch(6);
-                      } else {
+                      } else if (b === "5") {
                         setSimAp1Ch(36);
                         setSimAp2Ch(40);
+                      } else {
+                        setSimAp1Ch(1);
+                        setSimAp2Ch(5);
                       }
                     }}
                     className={`py-1 rounded text-xs font-mono font-semibold transition-all ${
@@ -1001,13 +1035,9 @@ export default function WirelessSection() {
                 onChange={(e) => setSimAp1Ch(parseInt(e.target.value))}
                 className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
               >
-                {simBand === "2.4"
-                  ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((c) => (
-                      <option key={c} value={c}>Channel {c} (2412 + {(c - 1) * 5} MHz)</option>
-                    ))
-                  : [36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 149, 153, 157, 161].map((c) => (
-                      <option key={c} value={c}>Channel {c}</option>
-                    ))}
+                {simChannelList.map((c) => (
+                  <option key={c} value={c}>{simChannelLabel(c)}</option>
+                ))}
               </select>
             </div>
 
@@ -1020,13 +1050,9 @@ export default function WirelessSection() {
                 onChange={(e) => setSimAp2Ch(parseInt(e.target.value))}
                 className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
               >
-                {simBand === "2.4"
-                  ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((c) => (
-                      <option key={c} value={c}>Channel {c} (2412 + {(c - 1) * 5} MHz)</option>
-                    ))
-                  : [36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 149, 153, 157, 161].map((c) => (
-                      <option key={c} value={c}>Channel {c}</option>
-                    ))}
+                {simChannelList.map((c) => (
+                  <option key={c} value={c}>{simChannelLabel(c)}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -1115,7 +1141,7 @@ export default function WirelessSection() {
 
               {/* AP 1 Spectral Curve */}
               {(() => {
-                const ap1X = Math.max(50, Math.min(450, (simAp1Ch / (simBand === "2.4" ? 11 : 161)) * 400 + 40));
+                const ap1X = simChX(simAp1Ch);
                 const ap1H = Math.max(20, Math.min(110, (Math.abs(rssi) < 95 ? (95 - Math.abs(rssi)) * 2 + 20 : 15)));
                 return (
                   <g>
@@ -1134,7 +1160,7 @@ export default function WirelessSection() {
 
               {/* AP 2 Spectral Curve */}
               {(() => {
-                const ap2X = Math.max(50, Math.min(450, (simAp2Ch / (simBand === "2.4" ? 11 : 161)) * 400 + 40));
+                const ap2X = simChX(simAp2Ch);
                 const ap2H = 75; // Baseline AP2 signal
                 return (
                   <g>
@@ -1154,9 +1180,9 @@ export default function WirelessSection() {
 
             {/* Spectrum Axis Footer */}
             <div className="flex justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-200 dark:border-slate-700">
-              <span>Frequency Start</span>
-              <span>Primary Operating Channels</span>
-              <span>Frequency End</span>
+              <span>Lower channel numbers</span>
+              <span>Channel index (ordinal) - not to frequency scale</span>
+              <span>Higher channel numbers</span>
             </div>
           </div>
         </div>

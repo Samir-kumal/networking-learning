@@ -105,8 +105,8 @@ export default function CheatSheetSection() {
       mask: "255.0.0.0",
       totalHosts: "16,777,216",
       usableHosts: "16,777,214",
-      blockSize: "256 (Octet 1)",
-      interestingOctet: "Octet 1",
+      blockSize: "1 (Octet 1) / 256 (Octet 2)",
+      interestingOctet: "Octet 2",
       useCase: "Historic classful /8 boundary; modern networks use CIDR",
       badge: "Historic Class A",
       highlight: true,
@@ -181,7 +181,7 @@ export default function CheatSheetSection() {
       totalHosts: "65,536",
       usableHosts: "65,534",
       blockSize: "1 (Octet 2) / 256 (Octet 3)",
-      interestingOctet: "Octet 2",
+      interestingOctet: "Octet 3",
       useCase: "Historic classful /16 boundary; a /16 can still be chosen by design",
       badge: "Historic Class B",
     },
@@ -254,7 +254,7 @@ export default function CheatSheetSection() {
       totalHosts: "256",
       usableHosts: "254",
       blockSize: "1 (Octet 3) / 256 (Octet 4)",
-      interestingOctet: "Octet 3",
+      interestingOctet: "Octet 4",
       useCase: "Historic classful /24 boundary; common LAN example today",
       badge: "Historic Class C",
     },
@@ -353,9 +353,6 @@ export default function CheatSheetSection() {
     if (filterCategory === "p2p") {
       return ["/30", "/31", "/32"].includes(item.cidr);
     }
-    if (filterCategory === "octet4") {
-      return item.interestingOctet === "Octet 4";
-    }
 
     return true;
   });
@@ -388,7 +385,7 @@ export default function CheatSheetSection() {
       tagline: "Locate the 'Interesting Octet' Instantly",
       description:
         "Quickly map CIDR prefixes to their active working octet without converting binary digits:",
-      formulaSnippet: "/8 to /15 => Octet 2  |  /16 to /23 => Octet 3  |  /24 to /30 => Octet 4",
+      formulaSnippet: "/8 to /15 => Octet 2  |  /16 to /23 => Octet 3  |  /24 to /32 => Octet 4",
       example: "CIDR /20 falls in Octet 3 (255.255.240.0). Octet 1 & 2 are 255, Octet 4 is 0.",
     },
     {
@@ -525,7 +522,7 @@ export default function CheatSheetSection() {
             tone="cyan"
           >
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              RFC 3021 enables <strong className="text-slate-900 dark:text-slate-100">2 usable IP addresses</strong> on point-to-point links with zero overhead (no reserved network or broadcast addresses), doubling IPv4 address efficiency on WAN links compared to traditional /30.
+              RFC 3021 enables <strong className="text-slate-900 dark:text-slate-100">2 usable IP addresses</strong> on point-to-point links with zero overhead (no reserved network or broadcast addresses), doubling IPv4 address efficiency on WAN links compared to traditional /30. RFC 3021 scopes this to point-to-point links only (it does not consider the effects on other interface types), and using a /31 requires platform support for 31-bit prefixes.
             </p>
           </NetworkingExample>
 
@@ -534,7 +531,7 @@ export default function CheatSheetSection() {
             tone="violet"
           >
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              A /32 prefix represents a <strong className="text-slate-900 dark:text-slate-100">single host route (255.255.255.255)</strong>. Used for router loopback interfaces (Router IDs in OSPF/BGP) and explicit single-IP host firewall rules.
+              A /32 prefix represents a <strong className="text-slate-900 dark:text-slate-100">single host route (mask 255.255.255.255)</strong>. Used for router loopback interfaces (Router IDs in OSPF/BGP) and explicit single-IP host firewall rules.
             </p>
           </NetworkingExample>
         </div>

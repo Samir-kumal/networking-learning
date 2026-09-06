@@ -178,6 +178,34 @@ Use primary sources first and add claim-specific sources as the audit progresses
 | WireGuard primitives and handshake | [WireGuard protocol](https://www.wireguard.com/protocol/) |
 | Cloud provider behavior | Official AWS, Azure, and Google Cloud documentation for the specific claim |
 | Wi-Fi behavior | Current IEEE or Wi-Fi Alliance documentation for the specific amendment and regulatory domain |
+| IPv4 broadcast addressing | [RFC 919](https://www.rfc-editor.org/rfc/rfc919) |
+| Router requirements, directed broadcast, and ICMP rate limiting | [RFC 1812](https://www.rfc-editor.org/rfc/rfc1812) |
+| Host requirements, limited broadcast, and off-link forwarding | [RFC 1122](https://www.rfc-editor.org/rfc/rfc1122) |
+| Proxy ARP | [RFC 1027](https://www.rfc-editor.org/rfc/rfc1027) |
+| DHCP protocol, states, and T1/T2 defaults | [RFC 2131](https://www.rfc-editor.org/rfc/rfc2131) |
+| DHCP option codes | [RFC 2132](https://www.rfc-editor.org/rfc/rfc2132) |
+| Traditional NAT and NAPT | [RFC 3022](https://www.rfc-editor.org/rfc/rfc3022) |
+| NAT mapping and filtering behavior requirements | [RFC 4787](https://www.rfc-editor.org/rfc/rfc4787) |
+| IPv4 link-local addressing (APIPA) | [RFC 3927](https://www.rfc-editor.org/rfc/rfc3927) |
+| IPv6 documentation prefix `2001:db8::/32` | [RFC 3849](https://www.rfc-editor.org/rfc/rfc3849) |
+| Reserved IPv6 interface identifiers | [RFC 5453](https://www.rfc-editor.org/rfc/rfc5453) |
+| IPv6 node requirements (IPsec is a SHOULD) | [RFC 8504](https://www.rfc-editor.org/rfc/rfc8504) |
+| TCP header, reserved bits, and control flags | [RFC 9293](https://www.rfc-editor.org/rfc/rfc9293) |
+| ECN experimentation; NS bit reclassified Historic | [RFC 8311](https://www.rfc-editor.org/rfc/rfc8311) |
+| OSPF cost and administrator-assigned metrics | [RFC 2328](https://www.rfc-editor.org/rfc/rfc2328) |
+| IPsec architecture and NAT traversal | [RFC 4301](https://www.rfc-editor.org/rfc/rfc4301); [RFC 3948](https://www.rfc-editor.org/rfc/rfc3948) |
+| Cisco administrative distance defaults | [Cisco AD reference](https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/15986-admin-distance.html) |
+| Cisco extended ACL behavior and implicit deny | [Cisco ACL guide](https://www.cisco.com/c/en/us/support/docs/security/ios-firewall/23602-confaccesslists.html) |
+| AWS network ACL and security-group semantics | [AWS network ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html); [AWS security groups](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html) |
+| Azure subnet reservations | [Azure VNet FAQ](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-faq) |
+| Google Cloud subnet reservations (primary vs secondary ranges) | [Google Cloud subnets](https://cloud.google.com/vpc/docs/subnets) |
+| Azure Terraform resource requirements | [azurerm_subnet](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet) |
+| 6 GHz unlicensed operation | [FCC 6 GHz order](https://www.fcc.gov/document/fcc-opens-6-ghz-band-wi-fi-and-other-unlicensed-uses-0) |
+| Flannel VXLAN backend port defaults | [Flannel backends](https://github.com/flannel-io/flannel/blob/master/Documentation/backends.md) |
+| Docker overlay networks and Swarm address pool | [Docker overlay driver](https://docs.docker.com/engine/network/drivers/overlay/) |
+| kube-proxy modes | [Kubernetes virtual IPs](https://kubernetes.io/docs/reference/networking/virtual-ips/) |
+| Cilium kube-proxy replacement datapath | [Cilium kube-proxy free](https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/) |
+| nmap port specification | [Nmap `-p`](https://nmap.org/book/man-port-specification.html) |
 
 ## Baseline review notes
 
@@ -196,33 +224,33 @@ A future session MUST verify these claims again against the current sources rath
 
 ## Claim audit matrix
 
-This matrix is a tracking baseline, not proof that the current claims are still correct. `Baseline noted; recheck required` means the topic appeared in the baseline review notes but still needs a claim-level source check in the current repository.
+This matrix is a tracking record, not proof that the current claims are still correct. `Rechecked 2026-09-06` means every module in that row was read in full and its significant claims were checked against the listed sources during the 2026-09-06 pass.
 
-| Item | Status | Claim areas to recheck | Primary source or action | Baseline action | Recheck |
+| Item | Status | Claim areas rechecked | Primary source or action | 2026-09-06 action | Recheck |
 |---|---|---|---|---|---|
-| `basics` | Baseline noted; recheck required | Subnet boundaries, VLAN mapping, broadcast scope | RFC 1918; add VLAN-specific source | Qualified | Required |
-| `binary` | Baseline noted; recheck required | IPv4 bits, private, loopback, and link-local semantics | RFC 1918; add RFC 3927 | Qualified | Required |
-| `cidr` | Baseline noted; recheck required | Host formulas, directed broadcast, `/31`, and `/32` semantics | RFC 3021; RFC 4632 | Qualified | Required |
-| `calculator` | Baseline noted; recheck required | Calculated network, host, and broadcast results | Local utility tests; recheck edge cases against RFC 3021 | Preserved | Required |
-| `create` | Baseline noted; recheck required | Gateway conventions and local subnet configuration examples | RFC 1918; provider/vendor documentation | Qualified | Required |
-| `vlsm` | Baseline noted; recheck required | Alignment, capacity, and non-overlapping allocations | RFC 4632; verify examples | Preserved | Required |
-| `supernetting` | Baseline noted; recheck required | Contiguous blocks and CIDR aggregation | RFC 4632 | Qualified | Required |
-| `vlans` | Baseline noted; recheck required | 802.1Q tagging and VLAN/subnet boundaries | IEEE 802.1Q; vendor-specific configuration docs | Qualified | Required |
-| `dhcp` | Baseline noted; recheck required | DORA, relay behavior, options, and defaults | Add RFC 2131 and RFC 2132 | Qualified | Required |
-| `ipv6` | Baseline noted; recheck required | Address architecture, `/64` convention, and NAT rationale | RFC 4291; RFC 7421; RFC 4864 | Qualified | Required |
-| `ips` | Baseline noted; recheck required | Private/public ranges and NAT/PAT behavior | RFC 1918; add RFC 3022 and RFC 4787 | Qualified | Required |
-| `cloud` | Baseline noted; recheck required | Provider reservations, scope, and security defaults | AWS, Azure, and Google Cloud docs for each claim | Qualified | Required |
-| `wireless` | Baseline noted; recheck required | Wi-Fi 7 channel widths, RF behavior, and throughput | Current IEEE/Wi-Fi Alliance source per amendment and regulatory domain | Qualified | Required |
-| `packets` | Baseline noted; recheck required | Header fields, MTU, encapsulation, and protocol examples | Add RFC 791, RFC 8200, and IEEE Ethernet source | Qualified | Required |
-| `routing` | Baseline noted; recheck required | HSRP/VRRP roles, timers, and routing protocol behavior | RFC 9568; Cisco HSRP and protocol-specific sources | Qualified | Required |
-| `firewall` | Baseline noted; recheck required | ACL direction, state, defaults, and logging | Vendor/provider documentation for each implementation | Qualified | Required |
-| `security` | Baseline noted; recheck required | IPsec, WireGuard, VXLAN, and security-control semantics | RFC 7348; WireGuard protocol; add RFC 4301 | Qualified | Required |
-| `diagnostics` | Baseline noted; recheck required | Command syntax, defaults, and simulated output | Platform manuals; label local simulator behavior | Qualified | Required |
-| `troubleshooting` | Baseline noted; recheck required | Failure scenarios and diagnostic conclusions | Platform/vendor docs; separate local assumptions | Qualified | Required |
-| `containers` | Baseline noted; recheck required | Kubernetes, CNI, Docker, and overlay behavior | Official Kubernetes/Docker/CNI docs; RFC 7348 | Qualified | Required |
-| `practice` | Baseline noted; recheck required | Worked subnetting and VLSM answers | Source rows for IPv4/CIDR/VLSM; local tests | Preserved | Required |
-| `cheatsheet` | Baseline noted; recheck required | Formula boundaries and special-prefix exceptions | Source rows for CIDR and `/31`; local tests | Qualified | Required |
-| `quiz` | Baseline noted; recheck required | Answer keys and explanations match reviewed claims | Recheck against preceding module sources | Preserved | Required |
+| `basics` | Rechecked 2026-09-06 | Subnet boundaries, VLAN mapping, broadcast scope | RFC 1918; IEEE 802.1Q | None needed; math and hedging verified | On content change |
+| `binary` | Rechecked 2026-09-06 | IPv4 bits, private, loopback, and link-local semantics | RFC 1918; RFC 3927; RFC 4632 | Corrected stale CIDR citation (RFC 1519 → obsoleted by RFC 4632) | On content change |
+| `cidr` | Rechecked 2026-09-06 | Host formulas, directed broadcast, `/0`, `/31`, `/32` semantics | RFC 3021; RFC 4632 | `/0` now presented as the default route instead of host capacity | On content change |
+| `calculator` | Rechecked 2026-09-06 | Calculated network, host, and broadcast results | `subnet-utils` tests; RFC 3021 | None needed; `/20`, `/30`, `/31`, `/32`, and invalid input verified in-browser | On content change |
+| `create` | Rechecked 2026-09-06 | Gateway conventions and local subnet configuration examples | RFC 1918; vendor documentation | None needed; Cisco/netsh/iproute2 syntax verified | On content change |
+| `vlsm` | Rechecked 2026-09-06 | Alignment, capacity, and non-overlapping allocations | RFC 4632 | None needed; every block re-derived | On content change |
+| `supernetting` | Rechecked 2026-09-06 | Contiguous blocks, CIDR aggregation, common-bit highlighting | RFC 4632 | Fixed binary highlighter: 22 common bits span 24 characters, not 26 | On content change |
+| `vlans` | Rechecked 2026-09-06 | 802.1Q tagging, access vs trunk ports, VLAN/subnet boundaries | IEEE 802.1Q; Cisco VLAN configuration guide | "native VLAN" → "access VLAN (PVID)"; native/untagged trunk exception added | On content change |
+| `dhcp` | Rechecked 2026-09-06 | DORA, relay behavior, options, defaults, IPAM model | RFC 2131; RFC 2132; RFC 1122; RFC 3927 | Header anchor label fixed; dead lease-duration state removed and the exhaustion model labelled illustrative; Option 3 MUST → SHOULD; APIPA and limited-broadcast wording requalified | On content change |
+| `ipv6` | Rechecked 2026-09-06 | Address architecture, `/64` convention, documentation prefix, IPsec status | RFC 4291; RFC 5453; RFC 7421; RFC 8504; RFC 3849 | Documentation-prefix label corrected to `2001:db8::/32`; `/64` boundary and IPsec status requalified | On content change |
+| `ips` | Rechecked 2026-09-06 | Private/public ranges and NAT/PAT behavior | RFC 1918; RFC 3022; RFC 4787 | "Non-Routable on Internet" → "Not globally routed"; NAPT/endpoint-independent mapping noted; all three RFC 1918 blocks listed | On content change |
+| `cloud` | Rechecked 2026-09-06 | Provider reservations, subnet scope, Terraform example | AWS, Azure, and Google Cloud docs | AZ claim widened to Local Zone/Outpost; GCP reservation scoped to the primary range; Azure Terraform snippet made applicable | On content change |
+| `wireless` | Rechecked 2026-09-06 | Channel plans, 6 GHz numbering, bonding overlap, RF math | FCC 6 GHz order; IEEE/Wi-Fi Alliance; Cisco P2P block | 6 GHz channel list separated from 5 GHz; overlap check made bonding-width aware; non-overlapping zones fixed (`width-[20%]` → `w-[20%]`); spectrum axis labelled ordinal; client-isolation and guest-ACL wording corrected | On content change |
+| `packets` | Rechecked 2026-09-06 | Header fields, sample-packet buffers, offsets, TTL behavior | RFC 791; RFC 9293; RFC 8311; RFC 1812 | TCP field relabelled 4b reserved + 8b flags; all six sample packets made byte-consistent (`length` = rawHex bytes = IPv4 Total Length + 14, data offset matches real TCP header); TTL/ICMP wording requalified | On content change |
+| `routing` | Rechecked 2026-09-06 | HSRP/VRRP roles and timers, protocol metrics, administrative distance | RFC 9568; RFC 2328; Cisco AD and FHRP docs | AD table and OSPF cost labelled Cisco IOS defaults; EIGRP 90/BGP 20 scoped; HSRP vMAC marked v1 and timers marked defaults | On content change |
+| `firewall` | Rechecked 2026-09-06 | ACL direction, state, defaults, and logging | Cisco ACL configuration guide | Implicit `deny ip any any` consequence documented | On content change |
+| `security` | Rechecked 2026-09-06 | IPsec, WireGuard, VXLAN, NACL/SG semantics, CIDR matching | RFC 7348; RFC 4301; RFC 3948; WireGuard protocol; AWS NACL/SG docs | CIDR matcher replaced with generic prefix math in `src/lib/ip-match.ts`; NACL catch-all rendered as the un-numbered `*` rule | On content change |
+| `diagnostics` | Rechecked 2026-09-06 | Command syntax, defaults, simulated output | Platform manuals; nmap port-spec docs | Simulated `nmap` now honours `-p`; `ping -t` marked platform-specific; ping failure output made consistently Linux | On content change |
+| `troubleshooting` | Rechecked 2026-09-06 | Failure scenarios and diagnostic conclusions | RFC 919; RFC 1812; IEEE 802.1Q | `.0`/`.255` symptom corrected (no broadcast-storm claim); wrong-access-VLAN symptom corrected (wrong broadcast domain, not dropped frames) | On content change |
+| `containers` | Rechecked 2026-09-06 | Kubernetes, CNI, Docker, and overlay behavior | Kubernetes, Docker, Flannel, and Cilium docs | Flannel VXLAN port corrected to 8472 (4789 on Windows); Swarm pool corrected to `10.0.0.0/8`; TLS-termination and Cilium datapath wording fixed; "legacy iptables" and "live" simulator labels requalified | On content change |
+| `practice` | Rechecked 2026-09-06 | Worked subnetting and VLSM answers | RFC 4632; RFC 1122; RFC 1027 | All five problems re-derived and left intact; VLSM "mandates" and the L2/broadcast-domain conflation reworded | On content change |
+| `cheatsheet` | Rechecked 2026-09-06 | Formula boundaries, prefix table, special-prefix exceptions | RFC 3021; RFC 4632; RFC 919 | `/8` block size corrected to `1 (Octet 1) / 256 (Octet 2)`; interesting-octet convention made consistent with the mnemonic; mnemonic extended to `/32`; `/32` mask parenthetical clarified; dead `octet4` filter removed | On content change |
+| `quiz` | Rechecked 2026-09-06 | Answer keys and explanations match reviewed claims | Preceding module sources | All eight keys re-derived and unchanged; Q4 explanation reworded to alignment/fragmentation | On content change |
 
 ## Review record
 
@@ -261,6 +289,38 @@ Verification date: 2026-08-13. These results were collected after the follow-up 
 - Browser/runtime smoke check: passed for `/networking`; heading, four groups, 23 unique module anchors, visible sidebar order/categories, and displayed module numbers matched the curriculum
 - Lint: passed with no errors
 - Lint warnings: 15 existing React hook dependency warnings
+
+### 2026-09-06 audit and fix pass
+
+Verification date: 2026-09-06. Current working tree, after the fixes, before commit. All 23 modules plus `src/lib/subnet-utils.ts` and `src/lib/diagnostics-parser.ts` were read in full; the audit ran read-only first and fixes were applied only after explicit authorization.
+
+- Scope: Current working tree after the 2026-09-06 fixes
+- Networking page tests: 7 passed in 1 file
+- Full tests: 100 passed in 20 files (was 92 in 19; `src/lib/ip-match.test.ts` adds 8)
+- Typecheck: passed
+- Production build: passed; `/networking` prerendered as static content
+- Lint: passed with 0 errors and 0 warnings (the 15 React hook dependency warnings recorded above were resolved in commit `c4ccf91`)
+- Browser/runtime smoke check: passed for `/networking`. Heading `Read the path a packet takes.`, four group anchors in order, 23 `data-networking-header` elements, 23 `.networking-module` roots, all 23 sidebar anchors present exactly once, and no console errors or page errors.
+- Interactive verification: subnet calculator re-checked for `/20`, `/30`, `/31` (RFC 3021 endpoints, no broadcast), `/32` (host route), and invalid input; the NACL inspector now matches a user-entered `10.0.1.16/28` rule and returns `DENY` for `10.0.1.25` (before the fix every non-`/8`, `/16`, `/24`, `/32` prefix silently failed to match and the packet was reported allowed); the wireless planner shows 6 GHz channels `1, 5, 9, …` at `5955 MHz` with no DFS marking and reports `Overlapping at 80 MHz (gap 4, needs 16)`; the non-overlapping 1/6/11 zones now render at 20% width instead of zero.
+- Source-level invariant check: all six `SAMPLE_PACKETS` entries satisfy `length` = `rawHex` byte count = IPv4 Total Length + 14 (`74/74/66/162/75/68` and `60/60/52/148/61/54`).
+
+#### Working-tree state at 2026-09-06
+
+- Repository commit at verification time: `33a7ea3` (`fix(docker): bump production image to Node 22, fixing better-sqlite3 segfault`)
+- Staged files: 0
+- Unstaged modified files: 20 networking section files plus `package-lock.json` (pre-existing, unrelated)
+- Untracked files: 2 (`src/lib/ip-match.ts`, `src/lib/ip-match.test.ts`)
+- Unchanged by this pass: `src/app/networking/page.tsx`, `src/app/networking/page.test.tsx`, `src/components/Sidebar.tsx`, `src/lib/subnet-utils.ts` — the curriculum inventory, order, and shared subnet math needed no change
+- Generated or ignored artifacts: Next.js build output under `.next/`
+
+#### Follow-up risks
+
+- `RoutingSection.tsx` keeps its local `ipToLong`/`parseCidr` helpers because the longest-prefix-match sort needs the prefix length, network, and broadcast values that `ipInCidr` does not return. Two IPv4 parsers therefore coexist: `src/lib/ip-match.ts` (membership) and the local parser (route lookup).
+- The DHCP pool-exhaustion metric is a worst-case bound that does not model lease release; it is now labelled illustrative with its formula shown.
+- The wireless spectrum chart places APs by channel index, not frequency, and the axis says so.
+- The 6 GHz channel list is a representative U-NII-5 subset (`1`-`93`) of the full `1`-`233` numbering.
+- Throughput, RF, and container-performance figures remain illustrative and hardware/regulatory dependent.
+
 
 ### Working-tree state
 

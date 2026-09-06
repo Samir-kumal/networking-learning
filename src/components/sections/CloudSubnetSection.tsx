@@ -22,7 +22,7 @@ export default function CloudSubnetSection() {
       name: "AWS VPC (Virtual Private Cloud)",
       color: "border-[#ff9900]/50 text-[#ff9900]",
       badgeBg: "bg-[#ff9900]/10 text-[#ff9900] border-[#ff9900]/30",
-      scope: "Each IPv4 subnet is associated with exactly one Availability Zone (AZ). A VPC spans the Region.",
+      scope: "Each IPv4 subnet resides in a single Availability Zone, or in a single Local Zone, Wavelength Zone, or Outpost. A VPC spans the Region.",
       reservedIps: "AWS reserves 5 IPv4 addresses per subnet: .0 network, .1 VPC router, .2 AWS DNS, .3 future use, and the last address (.255 in a /24).",
       codeSnippet: `# AWS VPC & Subnet Terraform Example
 resource "aws_vpc" "main" {
@@ -43,12 +43,15 @@ resource "aws_subnet" "public_az1" {
       reservedIps: "Azure reserves the first four and last IPv4 address in each subnet: .0 network, .1 default gateway, .2 and .3 Azure DNS, and the last address.",
       codeSnippet: `# Azure VNet & Gateway Subnet Example
 resource "azurerm_virtual_network" "vnet" {
-  name          = "enterprise-vnet"
-  address_space = ["172.16.0.0/16"]
+  name                = "enterprise-vnet"
+  resource_group_name = "enterprise-rg"
+  location            = "eastus"
+  address_space       = ["172.16.0.0/16"]
 }
 
 resource "azurerm_subnet" "app" {
   name                 = "app-subnet"
+  resource_group_name  = "enterprise-rg"
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["172.16.1.0/24"]
 }`,
@@ -58,7 +61,7 @@ resource "azurerm_subnet" "app" {
       color: "border-[#4285f4]/50 text-[#4285f4]",
       badgeBg: "bg-[#4285f4]/10 text-[#4285f4] border-[#4285f4]/30",
       scope: "A VPC network is global; each subnet is regional and can span that region's zones.",
-      reservedIps: "Google Cloud reserves 4 IPv4 addresses per subnet: first (network), second (default gateway), second-to-last, and last address.",
+      reservedIps: "Google Cloud reserves 4 IPv4 addresses in each subnet's primary IPv4 range: first (network), second (default gateway), second-to-last, and last address. Every address in a secondary IPv4 range is usable.",
       codeSnippet: `# GCP Custom Mode VPC Subnet Example
 resource "google_compute_network" "custom_vpc" {
   name                    = "global-vpc"

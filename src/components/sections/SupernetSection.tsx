@@ -142,9 +142,9 @@ export default function SupernetSection() {
               >
                 <span className="text-indigo-600 dark:text-indigo-400 font-semibold min-w-[140px]">{sub.name} ({sub.cidr}):</span>
                 <div className="tracking-widest text-slate-900 dark:text-slate-100 overflow-x-auto">
-                  {/* Highlight common 22 bits in Green */}
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">{sub.binary.slice(0, 26)}</span>
-                  <span className="text-rose-600 dark:text-rose-400">{sub.binary.slice(26)}</span>
+                  {/* Highlight the common 22 bits in green: 22 bits span 24 characters (8 + dot + 8 + dot + 6) */}
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">{sub.binary.slice(0, 24)}</span>
+                  <span className="text-rose-600 dark:text-rose-400">{sub.binary.slice(24)}</span>
                 </div>
               </div>
             ))}

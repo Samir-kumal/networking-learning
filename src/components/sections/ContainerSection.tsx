@@ -58,9 +58,11 @@ net-conf.json: |
     "Backend": {
       "Type": "vxlan",
       "VNI": 1,
-      "Port": 4789
+      "Port": 8472
     }
-  }`,
+  }
+# 8472 is Flannel's default VXLAN port on Linux nodes.
+# Windows nodes are the exception: they require the IANA VXLAN port 4789.`,
     },
     calico: {
       name: "Calico CNI",
@@ -138,7 +140,7 @@ spec:
     overlay: {
       name: "Overlay Mode (Swarm / Multi-Host)",
       flag: "docker network create -d overlay",
-      subnet: "10.0.0.0/16 (Multi-Host VXLAN)",
+      subnet: "Swarm default address pool 10.0.0.0/8, carved into /24 networks (the ingress network defaults to 10.0.0.0/24)",
       description: "Connects Docker hosts across physical networks using an overlay datapath such as VXLAN. Swarm mode supplies the control-plane membership and service routing features shown here.",
       pros: ["Multi-host container communication through Docker networking", "Can provide service discovery and ingress routing in Swarm"],
       cons: ["Encapsulation adds overhead", "Requires a compatible multi-host control plane and underlay reachability"],
@@ -244,7 +246,7 @@ spec:
       // Ingress
       trace = [
         `[CLIENT] HTTPS request to 'https://api.company.com/v1/orders' (Client IP: ${clientIp})`,
-        `[L7 INGRESS CONTROLLER] NGINX/Envoy Pod terminated TLS certificate and parsed HTTP Host/Path headers`,
+        `[L7 INGRESS CONTROLLER] NGINX/Envoy Pod terminated the TLS session (decrypting with the server private key) and parsed HTTP Host/Path headers`,
         `[ENDPOINT SELECTION] Ingress controller selected a backend endpoint for the Service`,
         simEngine === "iptables"
           ? `[HTTP PROXY PASS] Proxied the request to Pod IP ${podIps[pickedPod]}`
@@ -614,7 +616,7 @@ spec:
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-amber-600 dark:text-amber-400 font-bold">✓</span>
-                <span><strong className="text-slate-900 dark:text-slate-100">Performance:</strong> Extremely high packet throughput (millions QPS) with ultra-low latency sub-millisecond overhead.</span>
+                <span><strong className="text-slate-900 dark:text-slate-100">Performance:</strong> Typically achieves higher packet throughput and lower per-packet overhead than L7 proxying, because no TLS termination or HTTP parsing happens. Actual figures depend entirely on hardware and implementation.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-amber-600 dark:text-amber-400 font-bold">✓</span>
@@ -628,7 +630,7 @@ spec:
             <ul className="space-y-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4">
               <li className="flex items-start gap-2">
                 <span className="text-violet-600 dark:text-violet-400 font-bold">✓</span>
-                <span><strong className="text-slate-900 dark:text-slate-100">Inspection Depth:</strong> Decrypts TLS certificates (HTTPS Termination), parses HTTP methods, URI paths (<code className="text-emerald-600 dark:text-emerald-400 font-mono">/v1/users</code>), Host headers (<code className="text-emerald-600 dark:text-emerald-400 font-mono">api.domain.com</code>), and cookies.</span>
+                <span><strong className="text-slate-900 dark:text-slate-100">Inspection Depth:</strong> Terminates the TLS session and decrypts the record stream using the server private key, then parses HTTP methods, URI paths (<code className="text-emerald-600 dark:text-emerald-400 font-mono">/v1/users</code>), Host headers (<code className="text-emerald-600 dark:text-emerald-400 font-mono">api.domain.com</code>), and cookies.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-violet-600 dark:text-violet-400 font-bold">✓</span>
@@ -672,12 +674,12 @@ spec:
             </h3>
           </div>
           <span className="px-3 py-1 rounded-full text-xs font-mono bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700">
-            Live Kernel Packet Processing
+            Illustrative Packet Path Simulation
           </span>
         </div>
 
         <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
-          Test how incoming client packets travel through Kubernetes abstractions (<code className="text-emerald-600 dark:text-emerald-400 font-mono">ClusterIP</code>, <code className="text-emerald-600 dark:text-emerald-400 font-mono">NodePort</code>, <code className="text-emerald-600 dark:text-emerald-400 font-mono">LoadBalancer</code>, <code className="text-emerald-600 dark:text-emerald-400 font-mono">Headless</code>, and <code className="text-emerald-600 dark:text-emerald-400 font-mono">Ingress</code>) using either legacy <strong className="text-amber-600 dark:text-amber-400">iptables</strong> or high-performance <strong className="text-emerald-600 dark:text-emerald-400">eBPF</strong> data paths!
+          Test how incoming client packets travel through Kubernetes abstractions (<code className="text-emerald-600 dark:text-emerald-400 font-mono">ClusterIP</code>, <code className="text-emerald-600 dark:text-emerald-400 font-mono">NodePort</code>, <code className="text-emerald-600 dark:text-emerald-400 font-mono">LoadBalancer</code>, <code className="text-emerald-600 dark:text-emerald-400 font-mono">Headless</code>, and <code className="text-emerald-600 dark:text-emerald-400 font-mono">Ingress</code>) using either an <strong className="text-amber-600 dark:text-amber-400">iptables-based</strong> or an <strong className="text-emerald-600 dark:text-emerald-400">eBPF-based</strong> data path!
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           <NetworkingMetric label="Service Type" value={simServiceType} detail="Current Kubernetes virtual endpoint" tone="cyan" />
@@ -812,10 +814,10 @@ spec:
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5 font-mono text-xs">
           <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">
             <span className="text-indigo-600 dark:text-indigo-400 font-bold flex items-center gap-2">
-              <span>📡 Live Packet Translation Trace</span>
+              <span>📡 Simulated Packet Translation Trace (illustrative)</span>
             </span>
             <span className="text-[11px] text-slate-500 dark:text-slate-400">
-              Engine: {simEngine === "iptables" ? "iptables DNAT" : "eBPF bpf_sockmap"}
+              Engine: {simEngine === "iptables" ? "iptables DNAT" : "eBPF socket LB (cgroup/connect)"}
             </span>
           </div>
 

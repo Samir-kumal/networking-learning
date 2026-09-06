@@ -243,7 +243,7 @@ const IPV4_HEADER: HeaderField[] = [
     offsetBytes: "08 (1 Byte)",
     sampleHex: "40",
     sampleDec: "64 Hop Limit",
-    purpose: "Decremented by 1 at each router hop. When TTL reaches 0, the packet is discarded and an ICMP Time Exceeded is returned, preventing routing loops.",
+    purpose: "Decremented by 1 at each router hop. When TTL reaches 0, the packet is discarded and an ICMP Time Exceeded is normally returned (routers may rate-limit or suppress it), which stops packets from circulating forever in routing loops.",
     color: "#d2a8ff",
   },
   {
@@ -331,12 +331,12 @@ const TCP_HEADER: HeaderField[] = [
   },
   {
     id: "tcp-offset-flags",
-    name: "Data Offset (4b) + Flags (9b)",
+    name: "Data Offset (4b) + Reserved (4b) + Flags (8b)",
     sizeBits: 16,
     offsetBytes: "12-13 (2 Bytes)",
     sampleHex: "80 02",
     sampleDec: "Header Len: 32B | Flags: SYN=1",
-    purpose: "Data Offset defines header size in 32-bit words. Control Flags control session state (URG, ACK, PSH, RST, SYN, FIN).",
+    purpose: "Data Offset defines header size in 32-bit words. The next 4 bits are reserved, followed by the 8 control flags defined in RFC 9293: CWR, ECE, URG, ACK, PSH, RST, SYN, FIN (the 9th 'NS' bit from RFC 3540 was reclassified as Historic by RFC 8311).",
     color: "#ff7b72",
   },
   {
@@ -382,7 +382,7 @@ const SAMPLE_PACKETS: WiresharkPacket[] = [
     length: 74,
     info: "54321 → 80 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM=1",
     colorClass: "bg-[#1f293d] border-indigo-300 text-indigo-600 dark:text-indigo-400",
-    rawHex: "703a0e998877001a2b3c4d5e08004500003c1c46400040067c2dc0a801325db8d822d43100503a9f1200000000008002faf0e2a10000020405b40402080a00000000",
+    rawHex: "703a0e998877001a2b3c4d5e08004500003c1c46400040067c2dc0a801325db8d822d43100503a9f120000000000a002faf0e2a10000020405b40402080a000000000000000001030307",
     details: [
       {
         label: "Frame 1: 74 bytes on wire (592 bits), 74 bytes captured",
@@ -431,11 +431,11 @@ const SAMPLE_PACKETS: WiresharkPacket[] = [
           { label: "Destination Port: 80", hexOffsetStart: 36, hexOffsetEnd: 38 },
           { label: "Sequence Number: 0 (raw: 983503360)", hexOffsetStart: 38, hexOffsetEnd: 42 },
           { label: "Acknowledgment Number: 0", hexOffsetStart: 42, hexOffsetEnd: 46 },
-          { label: "1000 .... = Header Length: 32 bytes (8)", hexOffsetStart: 46, hexOffsetEnd: 47 },
+          { label: "1010 .... = Header Length: 40 bytes (10)", hexOffsetStart: 46, hexOffsetEnd: 47 },
           { label: "Flags: 0x002 (SYN)", hexOffsetStart: 47, hexOffsetEnd: 48 },
           { label: "Window: 64240", hexOffsetStart: 48, hexOffsetEnd: 50 },
-          { label: "Checksum: 0xe2a1 [correct]", hexOffsetStart: 50, hexOffsetEnd: 52 },
-          { label: "TCP Options: (12 bytes) MSS=1460, SACK_PERM=1", hexOffsetStart: 54, hexOffsetEnd: 74 },
+          { label: "Checksum: 0xe2a1 [validation disabled]", hexOffsetStart: 50, hexOffsetEnd: 52 },
+          { label: "TCP Options: (20 bytes) MSS=1460, SACK_PERM=1, TSval=0 TSecr=0, WS=128", hexOffsetStart: 54, hexOffsetEnd: 74 },
         ],
       },
     ],
@@ -449,7 +449,7 @@ const SAMPLE_PACKETS: WiresharkPacket[] = [
     length: 74,
     info: "80 → 54321 [SYN, ACK] Seq=0 Ack=1 Win=29200 Len=0 MSS=1460",
     colorClass: "bg-[#1f293d] border-indigo-300 text-indigo-600 dark:text-indigo-400",
-    rawHex: "001a2b3c4d5e703a0e99887708004500003c51a24000340647d15db8d822c0a801320050d43141f2a0003a9f1201801272109bc40000020405b401010402",
+    rawHex: "001a2b3c4d5e703a0e99887708004500003c51a24000340647d15db8d822c0a801320050d43141f2a0003a9f1201a01272109bc40000020405b4010104020101080a1234567800000000",
     details: [
       {
         label: "Frame 2: 74 bytes on wire (592 bits)",
@@ -490,7 +490,7 @@ const SAMPLE_PACKETS: WiresharkPacket[] = [
     length: 66,
     info: "54321 → 80 [ACK] Seq=1 Ack=1 Win=64240 Len=0",
     colorClass: "bg-[#1f293d] border-indigo-300 text-indigo-600 dark:text-indigo-400",
-    rawHex: "703a0e998877001a2b3c4d5e0800450000341c47400040067c34c0a801325db8d822d43100503a9f120141f2a0018010faf0d1e000000101080a00000000",
+    rawHex: "703a0e998877001a2b3c4d5e0800450000341c47400040067c34c0a801325db8d822d43100503a9f120141f2a0018010faf0d1e000000101080a0000000012345678",
     details: [
       {
         label: "Transmission Control Protocol, Src Port: 54321, Dst Port: 80, Seq: 1, Ack: 1, Flags: [ACK]",
@@ -509,19 +509,20 @@ const SAMPLE_PACKETS: WiresharkPacket[] = [
     source: "192.168.1.50",
     destination: "93.184.216.34",
     protocol: "HTTP",
-    length: 144,
+    length: 162,
     info: "GET /index.html HTTP/1.1",
     colorClass: "bg-[#193226] border-emerald-400/40 text-emerald-600 dark:text-emerald-400",
-    rawHex: "703a0e998877001a2b3c4d5e0800450000821c48400040067be5c0a801325db8d822d43100503a9f120141f2a0018018faf0e14a0000474554202f696e6465782e68746d6c20485454502f312e310d0a486f73743a206578616d706c652e636f6d0d0a",
+    rawHex: "703a0e998877001a2b3c4d5e0800450000941c48400040067be5c0a801325db8d822d43100503a9f120141f2a0015018faf0e14a0000474554202f696e6465782e68746d6c20485454502f312e310d0a486f73743a206578616d706c652e636f6d0d0a557365722d4167656e743a204d6f7a696c6c612f352e3020284d6163696e746f73683b20496e74656c204d6163204f5320582031305f31355f37290d0a0d0a",
     details: [
       {
         label: "Hypertext Transfer Protocol",
         hexOffsetStart: 54,
-        hexOffsetEnd: 144,
+        hexOffsetEnd: 162,
         children: [
-          { label: "GET /index.html HTTP/1.1\\r\\n", hexOffsetStart: 54, hexOffsetEnd: 77 },
-          { label: "Host: example.com\\r\\n", hexOffsetStart: 77, hexOffsetEnd: 96 },
-          { label: "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)", hexOffsetStart: 96, hexOffsetEnd: 144 },
+          { label: "GET /index.html HTTP/1.1\\r\\n", hexOffsetStart: 54, hexOffsetEnd: 80 },
+          { label: "Host: example.com\\r\\n", hexOffsetStart: 80, hexOffsetEnd: 99 },
+          { label: "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)\\r\\n", hexOffsetStart: 99, hexOffsetEnd: 160 },
+          { label: "\\r\\n [End of request headers]", hexOffsetStart: 160, hexOffsetEnd: 162 },
         ],
       },
     ],
@@ -532,15 +533,15 @@ const SAMPLE_PACKETS: WiresharkPacket[] = [
     source: "192.168.1.50",
     destination: "1.1.1.1",
     protocol: "DNS",
-    length: 83,
+    length: 75,
     info: "Standard query 0x1a2b A api.example.com",
     colorClass: "bg-[#18303d] border-[#70b8ff]/40 text-[#70b8ff]",
-    rawHex: "703a0e998877001a2b3c4d5e0800450000451c49400040117c20c0a8013201010101d2a1003500311a2b1a2b0100000100000000000003617069076578616d706c6503636f6d0000010001",
+    rawHex: "703a0e998877001a2b3c4d5e08004500003d1c49400040117c20c0a8013201010101d2a1003500291a2b1a2b0100000100000000000003617069076578616d706c6503636f6d0000010001",
     details: [
       {
         label: "Domain Name System (query)",
         hexOffsetStart: 42,
-        hexOffsetEnd: 83,
+        hexOffsetEnd: 75,
         children: [
           { label: "Transaction ID: 0x1a2b" },
           { label: "Flags: 0x0100 Standard query" },
@@ -555,15 +556,15 @@ const SAMPLE_PACKETS: WiresharkPacket[] = [
     source: "192.168.1.50",
     destination: "8.8.8.8",
     protocol: "ICMP",
-    length: 98,
+    length: 68,
     info: "Echo (ping) request id=0x1234, seq=1, ttl=64",
     colorClass: "bg-[#331c2c] border-rose-400/40 text-rose-600 dark:text-rose-400",
-    rawHex: "703a0e998877001a2b3c4d5e0800450000541c4a400040017c10c0a801320808080808008892123400016162636465666768696a6b6c6d6e6f707172737475767778797a",
+    rawHex: "703a0e998877001a2b3c4d5e0800450000361c4a400040017c10c0a801320808080808008892123400016162636465666768696a6b6c6d6e6f707172737475767778797a",
     details: [
       {
         label: "Internet Control Message Protocol",
         hexOffsetStart: 34,
-        hexOffsetEnd: 98,
+        hexOffsetEnd: 68,
         children: [
           { label: "Type: 8 (Echo (ping) request)" },
           { label: "Code: 0" },

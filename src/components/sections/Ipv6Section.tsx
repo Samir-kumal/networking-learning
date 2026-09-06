@@ -24,7 +24,7 @@ export default function Ipv6Section() {
         anchor="#ipv6"
         icon={<span className="text-indigo-500 dark:text-indigo-400" aria-hidden="true">⑂</span>}
         title={<>10. IPv6 — The Next Generation</>}
-        description={<>IPv6 replaces IPv4&apos;s 32-bit address space with a <strong className="text-slate-900 dark:text-slate-100">128-bit address space</strong> (about 3.4 × 10 to the 38th power total addresses). Its architecture supports hierarchical routing, SLAAC, and a simplified base header; IPsec is specified for IPv6 implementations, but IPv6 itself does not provide confidentiality or access control.</>}
+        description={<>IPv6 replaces IPv4&apos;s 32-bit address space with a <strong className="text-slate-900 dark:text-slate-100">128-bit address space</strong> (about 3.4 × 10 to the 38th power total addresses). Its architecture supports hierarchical routing, SLAAC, and a simplified base header; IPsec support is recommended for IPv6 nodes (RFC 8504), but IPv6 itself does not provide confidentiality or access control.</>}
       />
       <div className="module-content networking-module-content">
 
@@ -51,7 +51,7 @@ export default function Ipv6Section() {
               ))}
             </div>
             <div className="flex justify-between text-xs font-mono text-slate-500 dark:text-slate-400 pt-2 px-1 border-t border-slate-200 dark:border-slate-700">
-              <span className="text-indigo-600 dark:text-indigo-400">← First 64 Bits: Network / Subnet Prefix →</span>
+              <span className="text-indigo-600 dark:text-indigo-400">← First 64 Bits (with a /64 prefix): Network / Subnet Prefix →</span>
               <span className="text-emerald-600 dark:text-emerald-400">← Last 64 Bits: Interface ID (Host) →</span>
             </div>
           </div>
@@ -211,17 +211,17 @@ export default function Ipv6Section() {
           </span>
         </div>
 
-        <NetworkingMetric label="Addresses per /64" value="2⁶⁴" detail="18.4 quintillion host addresses" tone="lime" className="mb-4" />
+        <NetworkingMetric label="Addresses per /64" value="2⁶⁴" detail="18.4 quintillion addresses; a few interface identifiers are reserved (Subnet-Router anycast, RFC 4291 Section 2.6.1; reserved IIDs, RFC 5453)" tone="lime" className="mb-4" />
         <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 font-mono text-xs space-y-3">
           <div className="flex flex-col sm:flex-row justify-between text-slate-500 dark:text-slate-400">
             <span>IPv6 /64 Subnet Structure:</span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-bold">Total Host Addresses per /64 = 18.4 Quintillion (2 to the 64th power)</span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-bold">Addresses per /64 = 18.4 Quintillion (2 to the 64th power), minus a few reserved interface IDs</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-indigo-300">
-              <div className="text-indigo-600 dark:text-indigo-400 font-bold text-[11px] mb-1">Documentation Prefix (48 Bits)</div>
-              <div className="text-slate-500 dark:text-slate-400">Reserved for examples (RFC 3849)</div>
+              <div className="text-indigo-600 dark:text-indigo-400 font-bold text-[11px] mb-1">Global Routing Prefix (48 Bits)</div>
+              <div className="text-slate-500 dark:text-slate-400">First 32 bits are the RFC 3849 documentation prefix 2001:db8::/32; the rest is site space</div>
               <div className="text-slate-900 dark:text-slate-100 font-bold mt-1">2001:0db8:85a3</div>
             </div>
 
