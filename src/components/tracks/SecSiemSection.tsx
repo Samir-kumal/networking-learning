@@ -99,7 +99,7 @@ export default function SecSiemSection() {
 
   return (
     <section id="sec-siem" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
         <span className="rounded-full border border-cyan-200 dark:border-cyan-700 bg-cyan-50 dark:bg-cyan-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-cyan-700 dark:text-cyan-300">
           S10 · SIEM Detection &amp; Log Analysis
         </span>
@@ -111,7 +111,7 @@ export default function SecSiemSection() {
       </div>
 
       <form onSubmit={handleDetect} className="space-y-6">
-        <div className="grid grid-cols-1 gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm md:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto] md:items-end">
+        <div className="grid grid-cols-1 gap-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow md:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto] md:items-end">
           <div>
             <label htmlFor="sec-siem-rule" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Detection rule</label>
             <select id="sec-siem-rule" value={rule} onChange={(event) => handleRuleChange(event.target.value as SiemRule)} className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-xs text-slate-900 dark:text-slate-100">
@@ -134,7 +134,7 @@ export default function SecSiemSection() {
           <button type="submit" className="rounded-lg bg-cyan-600 px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-cyan-700 dark:hover:bg-cyan-600">Run detection</button>
         </div>
 
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+        <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
             <div><h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Structured event stream</h4><p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Synthetic events only; source addresses use documentation ranges.</p></div>
             <span className="rounded-full bg-slate-100 dark:bg-slate-700 px-2 py-1 text-[10px] font-mono font-semibold text-slate-600 dark:text-slate-300">{filteredEvents.length} of {EVENTS.length} events</span>

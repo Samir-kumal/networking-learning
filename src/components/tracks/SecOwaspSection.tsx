@@ -319,7 +319,7 @@ export default function SecOwaspSection() {
   return (
     <section id="sec-owasp" className="scroll-mt-20 space-y-6">
       {/* Section Header Card */}
-      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow flex flex-col sm:flex-row sm:items-center gap-3">
+      <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow flex flex-col sm:flex-row sm:items-center gap-3">
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700 text-xs font-mono font-bold shrink-0">
           S2 · OWASP Top 10 Matrix
         </span>
@@ -364,7 +364,7 @@ export default function SecOwaspSection() {
       </div>
 
       {/* Selected OWASP Deep Dive */}
-      <div className="p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-6">
+      <div className="p-6 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
             <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700 text-xs font-mono font-semibold">
@@ -419,7 +419,7 @@ export default function SecOwaspSection() {
         </div>
 
         {/* Key Defenses */}
-        <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-2">
+        <div className="p-4 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] card-shadow space-y-2">
           <h5 className="text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
             <span>🛡️</span> Key Architectural Defenses:
           </h5>
@@ -427,7 +427,7 @@ export default function SecOwaspSection() {
             {activeOwasp.keyDefenses.map((def) => (
               <li
                 key={def}
-                className="p-2 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 flex items-start gap-2"
+                className="p-2 rounded bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-slate-900 dark:text-slate-100 flex items-start gap-2"
               >
                 <span className="text-indigo-600 dark:text-indigo-400 font-bold">•</span>
                 <span>{def}</span>
@@ -437,7 +437,7 @@ export default function SecOwaspSection() {
         </div>
 
         {/* Display-only scenario tester */}
-        <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-4">
+        <div className="p-5 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] space-y-4">
           <h5 className="text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span>🧪</span> Display-only scenario tester
           </h5>

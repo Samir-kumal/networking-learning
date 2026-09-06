@@ -88,7 +88,7 @@ export default function SecContainerSecuritySection() {
 
   return (
     <section id="sec-container-security" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
         <span className="rounded-full border border-cyan-200 dark:border-cyan-700 bg-cyan-50 dark:bg-cyan-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-cyan-700 dark:text-cyan-300">
           S12 · Container Security
         </span>
@@ -101,7 +101,7 @@ export default function SecContainerSecuritySection() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+        <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <fieldset>
             <legend className="text-sm font-bold text-slate-900 dark:text-slate-100">Pod security controls</legend>
             <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
@@ -132,7 +132,7 @@ export default function SecContainerSecuritySection() {
           </fieldset>
         </div>
 
-        <div className="space-y-5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+        <div className="space-y-5 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <div
             role="status"
             aria-live="polite"

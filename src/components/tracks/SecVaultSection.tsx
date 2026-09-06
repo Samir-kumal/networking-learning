@@ -41,7 +41,7 @@ export default function SecVaultSection() {
   return (
     <section id="sec-vault" className="scroll-mt-20 space-y-6">
       {/* Section Header Card */}
-      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
+      <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow">
         <div className="flex items-center gap-2 mb-2">
           <span className="px-2.5 py-0.5 rounded-full bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 border border-violet-300/40 text-xs font-mono font-semibold">
             S3 · Secrets &amp; Vault Flow
@@ -58,7 +58,7 @@ export default function SecVaultSection() {
       {/* Architecture Comparison Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* HashiCorp Vault */}
-        <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 space-y-4 shadow-sm">
+        <div className="p-5 rounded-xl bg-[color:var(--surface-l2)] border border-violet-300 dark:border-violet-800 space-y-4 card-shadow">
           <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-3">
             <div className="flex items-center gap-2">
               <span className="text-xl">🔐</span>
@@ -93,7 +93,7 @@ export default function SecVaultSection() {
         </div>
 
         {/* AWS Secrets Manager */}
-        <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-700 space-y-4 shadow-sm">
+        <div className="p-5 rounded-xl bg-[color:var(--surface-l2)] border border-amber-300 dark:border-amber-800 space-y-4 card-shadow">
           <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-3">
             <div className="flex items-center gap-2">
               <span className="text-xl">☁️</span>
@@ -129,7 +129,7 @@ export default function SecVaultSection() {
       </div>
 
       {/* Interactive Lifecycle Steps */}
-      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+      <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-4">
         <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
           Secret Lifecycle Pipeline
         </h4>
@@ -180,7 +180,7 @@ export default function SecVaultSection() {
       </div>
 
       {/* Interactive Live Secret Simulator */}
-      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+      <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-4">
         <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
           <span>💻</span> Secret Fetch &amp; Rotation Simulator
         </h4>

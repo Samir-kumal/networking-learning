@@ -138,7 +138,7 @@ export default function SecIamSection() {
 
   return (
     <section id="sec-iam" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
         <span className="rounded-full border border-indigo-200 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-indigo-700 dark:text-indigo-300">
           S6 · IAM, RBAC &amp; Least Privilege
         </span>
@@ -151,7 +151,7 @@ export default function SecIamSection() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label htmlFor="sec-iam-principal" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Principal</label>
@@ -245,7 +245,7 @@ export default function SecIamSection() {
           )}
         </form>
 
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+        <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
             <div>
               <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Local policy set</h4>

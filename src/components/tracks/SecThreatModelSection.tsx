@@ -93,7 +93,7 @@ export default function SecThreatModelSection() {
 
   return (
     <section id="sec-threat-model" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
         <span className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-xs font-mono font-semibold text-rose-700 dark:border-rose-700 dark:bg-rose-900/30 dark:text-rose-300">
           S5 · STRIDE Threat Modeling
         </span>
@@ -106,7 +106,7 @@ export default function SecThreatModelSection() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
-        <div className="space-y-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+        <div className="space-y-5 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <div>
             <label htmlFor="sec-threat-asset" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
               Architecture asset
@@ -162,7 +162,7 @@ export default function SecThreatModelSection() {
         </div>
 
         {selectedAsset ? (
-          <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+          <div className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
             <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-200 pb-3 dark:border-slate-700">
               <div>
                 <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">{ASSET_OPTIONS.find((asset) => asset.value === selectedAsset)?.label} findings</h4>
@@ -191,7 +191,7 @@ export default function SecThreatModelSection() {
 
             <div className="grid gap-3">
               {findings.map((finding) => (
-                <article key={finding.threat} className={`rounded-lg border p-4 ${finding.mitigated ? "border-emerald-200 bg-emerald-50/60 dark:border-emerald-700 dark:bg-emerald-900/30" : "border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800"}`}>
+                <article key={finding.threat} className={`rounded-lg border p-4 ${finding.mitigated ? "border-emerald-200 bg-emerald-50/60 dark:border-emerald-700 dark:bg-emerald-900/30" : "border-[color:var(--border-l2)] bg-[color:var(--surface-l2)]"}`}>
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <h5 className="text-sm font-bold text-slate-900 dark:text-slate-100">{finding.threat}</h5>
                     <div className="flex items-center gap-2">

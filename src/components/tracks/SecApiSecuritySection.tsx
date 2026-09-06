@@ -27,7 +27,7 @@ const SAFE_REQUESTS: Record<ApiEndpoint, string> = {
 };
 
 const CONTROL_CLASSES = "rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3";
-const SELECT_CLASSES = "mt-1 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-xs text-slate-900 dark:text-slate-100";
+const SELECT_CLASSES = "mt-1 w-full rounded-lg border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100";
 
 export default function SecApiSecuritySection() {
   const [endpoint, setEndpoint] = useState<ApiEndpoint>("orders");
@@ -71,7 +71,7 @@ export default function SecApiSecuritySection() {
 
   return (
     <section id="sec-api-security" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
         <span className="rounded-full border border-cyan-200 dark:border-cyan-700 bg-cyan-50 dark:bg-cyan-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-cyan-700 dark:text-cyan-300">
           S7 · API SECURITY
         </span>
@@ -83,7 +83,7 @@ export default function SecApiSecuritySection() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <div>
             <label htmlFor="sec-api-endpoint" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
               Endpoint under test
@@ -191,7 +191,7 @@ export default function SecApiSecuritySection() {
           )}
         </form>
 
-        <div className="space-y-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+        <div className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Safe example request</h4>

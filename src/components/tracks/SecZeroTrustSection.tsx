@@ -102,7 +102,7 @@ export default function SecZeroTrustSection() {
 
   return (
     <section id="sec-zero-trust" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
         <span className="rounded-full border border-violet-200 bg-violet-50 px-2.5 py-0.5 text-xs font-mono font-semibold text-violet-700 dark:border-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
           S8 · ZERO TRUST
         </span>
@@ -114,7 +114,7 @@ export default function SecZeroTrustSection() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label htmlFor="sec-zero-trust-source" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Source zone</label>
@@ -225,7 +225,7 @@ export default function SecZeroTrustSection() {
           )}
         </form>
 
-        <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+        <div className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <div>
             <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Request path visualization</h4>
             <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">Static policy stages make the trust boundary explicit before any decision is applied.</p>

@@ -182,7 +182,7 @@ export default function SecWafSection() {
   return (
     <section id="sec-waf" className="scroll-mt-20 space-y-6">
       {/* Section Header Card */}
-      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+      <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow">
         <div className="flex items-center gap-2 mb-2">
           <span className="px-2.5 py-0.5 rounded-full bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-400/20 text-xs font-mono font-semibold">
             S4 · WAF &amp; TLS Hardening
@@ -199,7 +199,7 @@ export default function SecWafSection() {
       {/* WAF Rule Engine & Traffic Simulator */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Active Rules List */}
-        <div className="lg:col-span-2 p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
+        <div className="lg:col-span-2 p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-4">
           <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
             WAF Rule Table ({wafRules.length} configured rules)
           </h4>
@@ -264,7 +264,7 @@ export default function SecWafSection() {
                 value={newRuleName}
                 onChange={(e) => setNewRuleName(e.target.value)}
                 placeholder="Rule Name"
-                className="px-2.5 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100"
+                className="px-2.5 py-1.5 rounded bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] text-slate-900 dark:text-slate-100"
               />
               <select
                 value={newRuleType}
@@ -278,7 +278,7 @@ export default function SecWafSection() {
                       | "Custom"
                   )
                 }
-                className="px-2.5 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100"
+                className="px-2.5 py-1.5 rounded bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] text-slate-900 dark:text-slate-100"
               >
                 <option value="SQLi">SQLi</option>
                 <option value="XSS">XSS</option>
@@ -290,7 +290,7 @@ export default function SecWafSection() {
                 value={newRuleCond}
                 onChange={(e) => setNewRuleCond(e.target.value)}
                 placeholder="Match Condition"
-                className="px-2.5 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100"
+                className="px-2.5 py-1.5 rounded bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] text-slate-900 dark:text-slate-100"
               />
               <select
                 value={newRuleAction}
@@ -299,7 +299,7 @@ export default function SecWafSection() {
                     e.target.value as "BLOCK" | "ALLOW" | "COUNT" | "CAPTCHA"
                   )
                 }
-                className="px-2.5 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100"
+                className="px-2.5 py-1.5 rounded bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] text-slate-900 dark:text-slate-100"
               >
                 <option value="BLOCK">BLOCK</option>
                 <option value="ALLOW">ALLOW</option>
@@ -316,7 +316,7 @@ export default function SecWafSection() {
         </div>
 
         {/* Live Traffic Inspector */}
-        <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
+        <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-4">
           <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span>📡</span> WAF Live Traffic Tester
           </h4>
@@ -357,7 +357,7 @@ export default function SecWafSection() {
       </div>
 
       {/* SSL/TLS Hardening & Security Headers Configurator */}
-      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-6">
+      <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
             <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">
@@ -453,8 +453,7 @@ export default function SecWafSection() {
             </label>
           </div>
         </div>
-
-        <div className="p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-500 dark:text-slate-400">
+        <div className="p-3 rounded-lg bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] text-xs font-mono text-slate-500 dark:text-slate-400">
           <strong>Audit Evaluation Result:</strong>{" "}
           <span className={sslGrade.color}>{sslGrade.reason}</span>
         </div>

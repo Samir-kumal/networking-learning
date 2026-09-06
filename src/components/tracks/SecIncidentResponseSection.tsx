@@ -115,7 +115,7 @@ export default function SecIncidentResponseSection() {
 
   return (
     <section id="sec-incident-response" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
         <span className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-0.5 text-xs font-mono font-semibold text-amber-700 dark:border-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
           S9 · Incident Response &amp; SOC Triage
         </span>
@@ -127,7 +127,7 @@ export default function SecIncidentResponseSection() {
       </div>
 
       <form onSubmit={handleScore} className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
-        <div className="space-y-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+        <div className="space-y-5 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <div>
             <label htmlFor="sec-ir-scenario" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Alert scenario</label>
             <select
@@ -192,7 +192,7 @@ export default function SecIncidentResponseSection() {
           <button type="submit" className="w-full rounded-lg bg-amber-600 px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-amber-700 dark:hover:bg-amber-500">Score response readiness</button>
         </div>
 
-        <div className="space-y-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+        <div className="space-y-5 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <fieldset>
             <legend className="mb-2 text-xs font-semibold text-slate-700 dark:text-slate-300">Incident lifecycle</legend>
             <div className="space-y-2">

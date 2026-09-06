@@ -100,7 +100,7 @@ export default function SecPrivacyComplianceSection() {
 
   return (
     <section id="sec-privacy-compliance" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 card-shadow">
+      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
         <div className="mb-2 flex items-center gap-2">
           <span className="rounded-full border border-violet-400/30 bg-violet-50 dark:bg-violet-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-violet-700 dark:text-violet-300">
             S14 · PRIVACY &amp; DATA CONTROLS
@@ -118,7 +118,7 @@ export default function SecPrivacyComplianceSection() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-5">
-        <div className="space-y-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 card-shadow xl:col-span-3">
+        <div className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow xl:col-span-3">
           <div>
             <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Example data inventory</h4>
             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Choose a field, then classify it according to its sensitivity and use.</p>
@@ -170,8 +170,8 @@ export default function SecPrivacyComplianceSection() {
                   key={classification}
                   className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs font-semibold capitalize transition ${
                     selectedField?.classification === classification
-                      ? "border-violet-500 bg-white dark:bg-slate-800 text-violet-800 dark:text-violet-200 ring-2 ring-violet-200"
-                      : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-violet-300"
+                      ? "border-violet-500 bg-[color:var(--surface-l1)] text-violet-800 dark:text-violet-200 ring-2 ring-violet-200"
+                      : "border-[color:var(--border-l1)] bg-[color:var(--surface-l2)] text-slate-600 dark:text-slate-300 hover:border-violet-400"
                   }`}
                 >
                   <input
@@ -189,7 +189,7 @@ export default function SecPrivacyComplianceSection() {
           </fieldset>
         </div>
 
-        <aside className="space-y-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 card-shadow xl:col-span-2" aria-live="polite">
+        <aside className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow xl:col-span-2" aria-live="polite">
           <div>
             <p className="text-[11px] font-mono font-semibold uppercase tracking-wide text-violet-700 dark:text-violet-300">Evaluator-backed controls</p>
             <h4 className="mt-1 text-base font-bold text-slate-900 dark:text-slate-100">
@@ -208,7 +208,7 @@ export default function SecPrivacyComplianceSection() {
         </aside>
       </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 card-shadow">
+      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
           <div>
             <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Privacy readiness checklist</h4>

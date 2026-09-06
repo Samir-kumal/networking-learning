@@ -91,7 +91,7 @@ export default function SecSupplyChainSection() {
 
   return (
     <section id="sec-supply-chain" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
         <span className="rounded-full border border-violet-200 bg-violet-50 px-2.5 py-0.5 text-xs font-mono font-semibold text-violet-700 dark:border-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
           S11 · Software Supply Chain
         </span>
@@ -104,7 +104,7 @@ export default function SecSupplyChainSection() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)]">
-        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+        <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
             <div>
               <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Package inventory</h4>
@@ -157,7 +157,7 @@ export default function SecSupplyChainSection() {
           </div>
         </div>
 
-        <div className="space-y-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+        <div className="space-y-5 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
           <fieldset>
             <legend className="text-sm font-bold text-slate-900 dark:text-slate-100">License allowlist</legend>
             <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">

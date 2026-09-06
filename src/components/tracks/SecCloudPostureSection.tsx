@@ -132,7 +132,7 @@ export default function SecCloudPostureSection() {
 
   return (
     <section id="sec-cloud-posture" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 card-shadow">
+      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
         <div className="mb-2 flex items-center gap-2">
           <span className="rounded-full border border-cyan-400/30 bg-cyan-50 dark:bg-cyan-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-cyan-700 dark:text-cyan-300">
             S13 · CLOUD SECURITY POSTURE
@@ -176,7 +176,7 @@ export default function SecCloudPostureSection() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="space-y-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 card-shadow lg:col-span-2">
+        <div className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow lg:col-span-2">
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
             <div>
               <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">AWS findings ({visibleFindings.length})</h4>
@@ -242,7 +242,7 @@ export default function SecCloudPostureSection() {
                           className={`rounded-md border px-2 py-1 text-[10px] font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-500 ${
                             finding.fixed
                               ? "border-emerald-200 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300"
-                              : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-cyan-300 dark:hover:border-cyan-600"
+                              : "border-[color:var(--border-l1)] bg-[color:var(--surface-l2)] text-slate-600 dark:text-slate-300 hover:border-cyan-400"
                           }`}
                         >
                           {finding.fixed ? "Fixed" : "Open · mark fixed"}
@@ -256,7 +256,7 @@ export default function SecCloudPostureSection() {
           </div>
         </div>
 
-        <aside className="space-y-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 card-shadow" aria-live="polite">
+        <aside className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow" aria-live="polite">
           <div>
             <p className="text-[11px] font-mono font-semibold uppercase tracking-wide text-cyan-700 dark:text-cyan-300">Resource evidence</p>
             <h4 className="mt-1 text-base font-bold text-slate-900 dark:text-slate-100">{selectedFinding?.title ?? "No finding selected"}</h4>

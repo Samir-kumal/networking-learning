@@ -207,7 +207,7 @@ export default function SecScannersSection() {
   return (
     <section id="sec-scanners" className="scroll-mt-20 space-y-6">
       {/* Section Header Card */}
-      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow">
+      <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow">
         <div className="flex items-center gap-2 mb-2">
           <span className="px-2.5 py-0.5 rounded-full bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-400/20 text-xs font-mono font-semibold">
             S1 · SAST/DAST &amp; Container Scans
@@ -222,7 +222,7 @@ export default function SecScannersSection() {
       </div>
 
       {/* Controls Bar */}
-      <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
+      <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">Scanner Controls</h4>
@@ -304,7 +304,7 @@ export default function SecScannersSection() {
 
       {/* Scan Results Summary Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-rose-200 dark:border-rose-700 bg-gradient-to-br from-rose-50 to-transparent card-shadow">
+        <div className="p-4 rounded-xl bg-[color:var(--surface-l2)] border border-rose-300 dark:border-rose-800 card-shadow">
           <div className="text-xs text-slate-500 dark:text-slate-400">Critical findings</div>
           <div className="text-2xl font-extrabold text-rose-600 dark:text-rose-400 mt-1">
             {scanResultsList.filter((r) => r.severity === "CRITICAL").length}
@@ -314,7 +314,7 @@ export default function SecScannersSection() {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-700 bg-gradient-to-br from-amber-50 to-transparent card-shadow">
+        <div className="p-4 rounded-xl bg-[color:var(--surface-l2)] border border-amber-300 dark:border-amber-800 card-shadow">
           <div className="text-xs text-slate-500 dark:text-slate-400">High severity</div>
           <div className="text-2xl font-extrabold text-amber-600 dark:text-amber-400 mt-1">
             {scanResultsList.filter((r) => r.severity === "HIGH").length}
@@ -322,7 +322,7 @@ export default function SecScannersSection() {
           <div className="text-[11px] text-amber-500 dark:text-amber-400 mt-1 font-mono">Prioritize by exposure and exploitability</div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-violet-200 dark:border-violet-700 bg-gradient-to-br from-violet-50 to-transparent card-shadow">
+        <div className="p-4 rounded-xl bg-[color:var(--surface-l2)] border border-violet-300 dark:border-violet-800 card-shadow">
           <div className="text-xs text-slate-500 dark:text-slate-400">Medium severity</div>
           <div className="text-2xl font-extrabold text-violet-600 dark:text-violet-400 mt-1">
             {scanResultsList.filter((r) => r.severity === "MEDIUM").length}
@@ -332,7 +332,7 @@ export default function SecScannersSection() {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-indigo-200 dark:border-indigo-700 bg-gradient-to-br from-indigo-50 to-transparent card-shadow">
+        <div className="p-4 rounded-xl bg-[color:var(--surface-l2)] border border-cyan-300 dark:border-cyan-800 card-shadow">
           <div className="text-xs text-slate-500 dark:text-slate-400">Low severity</div>
           <div className="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-1">
             {scanResultsList.filter((r) => r.severity === "LOW").length}
@@ -346,7 +346,7 @@ export default function SecScannersSection() {
       {/* Results Table & Details Inspector */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Table */}
-        <div className="lg:col-span-2 p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
+        <div className="lg:col-span-2 p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
               Detected findings ({filteredScanResults.length})
@@ -426,7 +426,7 @@ export default function SecScannersSection() {
         </div>
 
         {/* Vulnerability Inspector Drawer */}
-        <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow space-y-4">
+        <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-4">
           <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span>🔬</span> Finding Details &amp; Fix
           </h4>
