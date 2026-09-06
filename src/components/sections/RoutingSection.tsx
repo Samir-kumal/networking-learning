@@ -681,7 +681,7 @@ export default function RoutingSection() {
         <NetworkingPanel className="space-y-6">
 
         {/* FHRP Interactive Topology & Failover Visualizer */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-6">
+        <div className="mb-6">
           <div className="flex flex-col lg:flex-row gap-6 items-stretch">
             {/* Left Diagram Box */}
             <div className="flex-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 flex flex-col justify-between">
@@ -699,7 +699,7 @@ export default function RoutingSection() {
               </div>
 
               {/* Topology Routers */}
-              <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 {/* Router A */}
                 <div
                   className={`rounded-lg border p-4 transition-all relative ${
