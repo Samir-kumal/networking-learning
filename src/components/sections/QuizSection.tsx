@@ -113,7 +113,7 @@ export default function QuizSection() {
   return (
     <section
       id="quiz"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -134,7 +134,7 @@ export default function QuizSection() {
           return (
             <NetworkingPanel
               key={q.id}
-              className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-5 sm:p-6 transition-all space-y-4"
+              className="rounded-xl border border-[color:var(--border-l1)] p-5 sm:p-6 transition-all space-y-4"
             >
               <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100">
                 Q{q.id} — {q.question}
@@ -143,7 +143,7 @@ export default function QuizSection() {
               <div className="grid grid-cols-1 gap-2.5">
                 {q.options.map((opt, optIdx) => {
                   let buttonStyle =
-                    "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 hover:border-indigo-400 hover:bg-white dark:hover:bg-slate-800";
+                    "bg-[color:var(--surface-l2)] border-[color:var(--border-l2)] text-slate-900 dark:text-slate-100 hover:border-lime-400 hover:bg-[color:var(--surface-l1)]";
                   let icon = null;
 
                   if (isAnswered) {
@@ -157,7 +157,7 @@ export default function QuizSection() {
                       icon = <span className="ml-auto text-rose-600 dark:text-rose-400 font-bold">✕</span>;
                     } else {
                       buttonStyle =
-                        "bg-slate-50/50 dark:bg-slate-700/50 border-slate-200/50 text-slate-500 dark:text-slate-400 opacity-60";
+                        "bg-[color:var(--surface-l2)]/50 border-[color:var(--border-l1)] text-slate-500 dark:text-slate-400 opacity-50";
                     }
                   }
 
@@ -214,7 +214,7 @@ export default function QuizSection() {
         </p>
         <button
           onClick={handleReset}
-          className="px-6 py-2.5 rounded-lg bg-[#238636] hover:bg-[#2ea043] text-white font-semibold text-sm transition-colors cursor-pointer shadow-md"
+          className="px-6 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm font-mono transition-colors cursor-pointer shadow-md shadow-emerald-500/20"
         >
           Reset Quiz
         </button>

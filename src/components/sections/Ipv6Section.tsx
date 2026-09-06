@@ -17,7 +17,7 @@ export default function Ipv6Section() {
   return (
     <section
       id="ipv6"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -30,7 +30,7 @@ export default function Ipv6Section() {
 
       {/* 128-Bit Hexadecimal Format Breakdown */}
       <NetworkingPanel className="mb-10">
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-10">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
           IPv6 Address Anatomy: 8 Hextets (128 Bits)
         </h3>
@@ -39,18 +39,18 @@ export default function Ipv6Section() {
         </p>
 
         {/* Visual Hextet Breakdown */}
-        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 overflow-x-auto">
+        <div className="bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] rounded-xl p-4 overflow-x-auto text-slate-100">
           <div className="flex flex-col gap-3 min-w-[600px]">
             <div className="grid grid-cols-8 gap-2 font-mono text-center">
               {["2001", "0db8", "85a3", "0000", "0000", "8a2e", "0370", "7334"].map((hextet, idx) => (
-                <div key={idx} className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-2.5 rounded-lg">
+                <div key={idx} className="bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-2.5 rounded-lg">
                   <div className="text-[10px] text-slate-500 dark:text-slate-400 mb-1">Hextet {idx + 1}</div>
                   <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400">{hextet}</div>
                   <div className="text-[9px] text-emerald-600 dark:text-emerald-400 mt-1">16 bits</div>
                 </div>
               ))}
             </div>
-            <div className="flex justify-between text-xs font-mono text-slate-500 dark:text-slate-400 pt-2 px-1 border-t border-slate-200 dark:border-slate-700">
+            <div className="flex justify-between text-xs font-mono text-slate-400 pt-2 px-1 border-t border-[color:var(--border-l3)]">
               <span className="text-indigo-600 dark:text-indigo-400">← First 64 Bits (with a /64 prefix): Network / Subnet Prefix →</span>
               <span className="text-emerald-600 dark:text-emerald-400">← Last 64 Bits: Interface ID (Host) →</span>
             </div>
@@ -61,8 +61,8 @@ export default function Ipv6Section() {
 
       {/* Interactive Zero Compression Rules */}
       <NetworkingPanel className="mb-10">
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[color:var(--border-l1)]">
           <div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
               Zero Compression Rules
@@ -76,30 +76,30 @@ export default function Ipv6Section() {
           <div className="flex flex-wrap gap-2 sm:flex-nowrap">
             <button
               onClick={() => setCompressStep(0)}
-              className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-all ${
+              className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-all cursor-pointer ${
                 compressStep === 0
-                  ? "bg-indigo-600 text-slate-900 dark:text-slate-100 font-bold border-indigo-400"
-                  : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
+                  ? "bg-cyan-600 text-white font-bold border-cyan-400 shadow-sm"
+                  : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 border-[color:var(--border-l1)]"
               }`}
             >
               1. Uncompressed
             </button>
             <button
               onClick={() => setCompressStep(1)}
-              className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-all ${
+              className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-all cursor-pointer ${
                 compressStep === 1
-                  ? "bg-[#ffa657] text-slate-900 dark:text-slate-100 font-bold border-amber-400"
-                  : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
+                  ? "bg-amber-500 text-white font-bold border-amber-400 shadow-sm"
+                  : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 border-[color:var(--border-l1)]"
               }`}
             >
               2. Leading Zeros
             </button>
             <button
               onClick={() => setCompressStep(2)}
-              className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-all ${
+              className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-all cursor-pointer ${
                 compressStep === 2
-                  ? "bg-emerald-500 text-slate-900 dark:text-slate-100 font-bold border-emerald-400"
-                  : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
+                  ? "bg-emerald-500 text-white font-bold border-emerald-400 shadow-sm"
+                  : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 border-[color:var(--border-l1)]"
               }`}
             >
               3. Fully Compressed (::)
@@ -108,7 +108,7 @@ export default function Ipv6Section() {
         </div>
 
         {/* Live Compression Box */}
-        <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-5 rounded-xl font-mono text-center mb-6">
+        <div className="bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] p-5 rounded-xl font-mono text-center mb-6">
           <div className="text-xs text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider">
             {compressStep === 0 && "Step 1: Original Uncompressed IPv6 Address"}
             {compressStep === 1 && "Step 2: Rule 1 — Omit Leading Zeros in Each Hextet"}
@@ -124,7 +124,7 @@ export default function Ipv6Section() {
 
         {/* Rule Explanations */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-          <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-xl space-y-2">
+          <div className="bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] p-4 rounded-xl space-y-2">
             <div className="font-bold text-amber-600 dark:text-amber-400 flex items-center gap-2">
               <span>Rule 1: Omit Leading Zeros</span>
             </div>
@@ -133,7 +133,7 @@ export default function Ipv6Section() {
             </p>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-xl space-y-2">
+          <div className="bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] p-4 rounded-xl space-y-2">
             <div className="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
               <span>Rule 2: Double Colon (::) Compression</span>
             </div>
@@ -155,7 +155,7 @@ export default function Ipv6Section() {
           Architectural comparison between legacy IPv4 protocols and modern IPv6 standards.
         </p>
 
-        <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-700">
+        <div className="overflow-x-auto border border-[color:var(--border-l1)] rounded-xl bg-[color:var(--surface-l1)]">
           <NetworkingTable>
           <table className="w-full text-left border-collapse text-xs">
             <thead>
@@ -204,7 +204,7 @@ export default function Ipv6Section() {
 
       {/* /64 Common Subnets Card */}
       <NetworkingExample title="Why IPv6 LANs Commonly Use /64" description={<>Many IPv6 LANs use <strong className="text-emerald-600 dark:text-emerald-400">/64</strong> subnets because SLAAC is designed around a 64-bit interface identifier. Point-to-point links, loopbacks, and infrastructure-specific designs may use other prefix lengths, so /64 is a convention rather than a universal rule.</>} tone="lime">
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow">
         <div className="flex items-center gap-2 mb-3">
           <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-bold">
             /64 Common Subnet
@@ -212,26 +212,26 @@ export default function Ipv6Section() {
         </div>
 
         <NetworkingMetric label="Addresses per /64" value="2⁶⁴" detail="18.4 quintillion addresses; a few interface identifiers are reserved (Subnet-Router anycast, RFC 4291 Section 2.6.1; reserved IIDs, RFC 5453)" tone="lime" className="mb-4" />
-        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 font-mono text-xs space-y-3">
+        <div className="bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] rounded-xl p-4 font-mono text-xs space-y-3 text-slate-100">
           <div className="flex flex-col sm:flex-row justify-between text-slate-500 dark:text-slate-400">
             <span>IPv6 /64 Subnet Structure:</span>
             <span className="text-emerald-600 dark:text-emerald-400 font-bold">Addresses per /64 = 18.4 Quintillion (2 to the 64th power), minus a few reserved interface IDs</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-indigo-300">
+            <div className="p-3 rounded bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)]">
               <div className="text-indigo-600 dark:text-indigo-400 font-bold text-[11px] mb-1">Global Routing Prefix (48 Bits)</div>
               <div className="text-slate-500 dark:text-slate-400">First 32 bits are the RFC 3849 documentation prefix 2001:db8::/32; the rest is site space</div>
               <div className="text-slate-900 dark:text-slate-100 font-bold mt-1">2001:0db8:85a3</div>
             </div>
 
-            <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-amber-400/40">
+            <div className="p-3 rounded bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)]">
               <div className="text-amber-600 dark:text-amber-400 font-bold text-[11px] mb-1">Subnet ID (16 Bits)</div>
               <div className="text-slate-500 dark:text-slate-400">Internal Subnet Allocation</div>
               <div className="text-slate-900 dark:text-slate-100 font-bold mt-1">:0001:</div>
             </div>
 
-            <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-emerald-400/40">
+            <div className="p-3 rounded bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)]">
               <div className="text-emerald-600 dark:text-emerald-400 font-bold text-[11px] mb-1">Interface ID (64 Bits)</div>
               <div className="text-slate-500 dark:text-slate-400">Host address (SLAAC, stable, or temporary)</div>
               <div className="text-slate-900 dark:text-slate-100 font-bold mt-1">:0000:0000:0000:0001</div>

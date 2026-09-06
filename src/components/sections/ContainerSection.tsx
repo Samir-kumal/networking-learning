@@ -273,7 +273,7 @@ spec:
   return (
     <section
       id="containers"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -285,7 +285,7 @@ spec:
       <div className="module-content networking-module-content">
 
       {/* SUBSECTION 1: Kubernetes Networking Architecture */}
-      <div className="mb-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+      <div className="mb-12 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow">
         <NetworkingPanel className="space-y-6">
         <div className="flex items-center gap-2 mb-4">
           <span className="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
@@ -305,7 +305,7 @@ spec:
             className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
               activeCidrTab === "pod"
                 ? "bg-indigo-100 text-indigo-600 dark:text-indigo-400 border border-indigo-300 shadow-sm"
-                : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700"
+                : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 border border-[color:var(--border-l1)]"
             }`}
           >
             Pod CIDR (Virtual Containers)
@@ -315,7 +315,7 @@ spec:
             className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
               activeCidrTab === "service"
                 ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-400/40 shadow-sm"
-                : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700"
+                : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 border border-[color:var(--border-l1)]"
             }`}
           >
             Service CIDR (Virtual VIPs)
@@ -325,7 +325,7 @@ spec:
             className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
               activeCidrTab === "node"
                 ? "bg-[#ffa657]/20 text-amber-600 dark:text-amber-400 border border-amber-400/40 shadow-sm"
-                : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700"
+                : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 border border-[color:var(--border-l1)]"
             }`}
           >
             Node CIDR (Physical / Cloud Subnet)
@@ -334,7 +334,7 @@ spec:
 
         {/* Tab Content Display */}
         {activeCidrTab === "pod" && (
-          <div className="rounded-lg bg-white dark:bg-slate-800 border border-indigo-200 dark:border-indigo-700 p-5">
+          <div className="rounded-lg bg-[color:var(--surface-l1)] border border-cyan-300 dark:border-cyan-800 p-5">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-mono font-bold text-indigo-600 dark:text-indigo-400">Pod CIDR Range: 10.244.0.0/16</span>
               <span className="text-xs px-2.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700 font-mono">
@@ -345,17 +345,17 @@ spec:
               Pods receive IP addresses from the cluster network plugin and expose them on the Pod&apos;s network interface. Addresses are usually ephemeral: recreating or rescheduling a Pod may change its IP, so Services provide stable discovery.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 font-mono text-xs">
-              <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+              <div className="p-3 rounded bg-[color:var(--surface-l3)] text-slate-100 border border-[color:var(--border-l3)]">
                 <div className="text-emerald-600 dark:text-emerald-400 font-bold mb-1">Worker Node 1 Subnet</div>
                 <div className="text-slate-900 dark:text-slate-100">10.244.1.0/24</div>
                 <div className="text-slate-500 dark:text-slate-400 mt-1 text-[11px]">Pods: 10.244.1.2 - 10.244.1.254</div>
               </div>
-              <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+              <div className="p-3 rounded bg-[color:var(--surface-l3)] text-slate-100 border border-[color:var(--border-l3)]">
                 <div className="text-emerald-600 dark:text-emerald-400 font-bold mb-1">Worker Node 2 Subnet</div>
                 <div className="text-slate-900 dark:text-slate-100">10.244.2.0/24</div>
                 <div className="text-slate-500 dark:text-slate-400 mt-1 text-[11px]">Pods: 10.244.2.2 - 10.244.2.254</div>
               </div>
-              <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+              <div className="p-3 rounded bg-[color:var(--surface-l3)] text-slate-100 border border-[color:var(--border-l3)]">
                 <div className="text-emerald-600 dark:text-emerald-400 font-bold mb-1">Worker Node 3 Subnet</div>
                 <div className="text-slate-900 dark:text-slate-100">10.244.3.0/24</div>
                 <div className="text-slate-500 dark:text-slate-400 mt-1 text-[11px]">Pods: 10.244.3.2 - 10.244.3.254</div>
@@ -365,7 +365,7 @@ spec:
         )}
 
         {activeCidrTab === "service" && (
-          <div className="rounded-lg bg-white dark:bg-slate-800 border border-emerald-200 dark:border-emerald-700 p-5">
+          <div className="rounded-lg bg-[color:var(--surface-l1)] border border-emerald-300 dark:border-emerald-800 p-5">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-mono font-bold text-emerald-600 dark:text-emerald-400">Service ClusterIP CIDR: 10.96.0.0/12</span>
               <span className="text-xs px-2.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-400/20 font-mono">
@@ -375,14 +375,14 @@ spec:
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
               A <code className="text-emerald-600 dark:text-emerald-400 font-mono">ClusterIP</code> is normally a virtual service address rather than an address assigned to a node NIC. kube-proxy or another dataplane implementation steers traffic to ready endpoints; the exact mechanism may be DNAT, load balancing, proxying, or eBPF.
             </p>
-            <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-mono text-xs">
+            <div className="p-3 rounded bg-[color:var(--surface-l3)] text-slate-100 border border-[color:var(--border-l3)] font-mono text-xs">
               <span className="text-amber-600 dark:text-amber-400">Translation Flow:</span> Client Pod (10.244.1.10) ➔ Sends to Service VIP (10.96.45.100:80) ➔ Kernel DNAT ➔ Target Pod IP (10.244.2.88:8080)
             </div>
           </div>
         )}
 
         {activeCidrTab === "node" && (
-          <div className="rounded-lg bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-700 p-5">
+          <div className="rounded-lg bg-[color:var(--surface-l1)] border border-amber-300 dark:border-amber-800 p-5">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-mono font-bold text-amber-600 dark:text-amber-400">Node CIDR Range: 192.168.10.0/24</span>
               <span className="text-xs px-2.5 py-0.5 rounded bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-400/20 font-mono">

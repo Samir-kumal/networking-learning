@@ -125,7 +125,7 @@ nc -zv 192.168.20.10 5432`,
   return (
     <section
       id="troubleshooting"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -149,10 +149,10 @@ nc -zv 192.168.20.10 5432`,
             <button
               key={idx}
               onClick={() => setActiveProblem(idx)}
-              className={`p-2.5 rounded-lg text-xs font-mono font-medium transition-all text-center border ${
+              className={`p-2.5 rounded-lg text-xs font-mono font-medium transition-all text-center border cursor-pointer ${
                 activeProblem === idx
-                  ? "bg-indigo-100 text-indigo-600 dark:text-indigo-400 border-indigo-300 font-bold"
-                  : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:text-slate-100"
+                  ? "bg-violet-600 text-white font-bold shadow-sm"
+                  : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 border border-[color:var(--border-l1)] hover:text-slate-900 dark:hover:text-slate-100 hover:border-violet-400"
               }`}
             >
               Scenario 0{idx + 1}
@@ -162,7 +162,7 @@ nc -zv 192.168.20.10 5432`,
 
         {/* Active Problem Card */}
           <NetworkingPanel variant="muted" className="space-y-6">
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <h4 className="text-lg font-bold text-slate-900 dark:text-slate-100">
               {problems[activeProblem].title}
@@ -173,13 +173,13 @@ nc -zv 192.168.20.10 5432`,
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-4 rounded-lg">
+            <div className="bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] p-4 rounded-lg">
               <span className="text-xs font-mono text-rose-600 dark:text-rose-400 block mb-1">⚠️ Symptom / Impact</span>
               <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
                 {problems[activeProblem].symptom}
               </p>
             </div>
-            <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-4 rounded-lg">
+            <div className="bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] p-4 rounded-lg">
               <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 block mb-1">💡 Resolution Strategy</span>
               <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
                 {problems[activeProblem].solution}
@@ -190,7 +190,7 @@ nc -zv 192.168.20.10 5432`,
           <div className="space-y-2">
             <span className="text-xs font-mono text-indigo-600 dark:text-indigo-400">Diagnostic CLI Commands</span>
             <NetworkingPanel variant="console" className="p-0">
-            <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-4 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
+            <pre className="bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] rounded-lg p-4 font-mono text-xs text-slate-100 overflow-x-auto leading-relaxed">
               {problems[activeProblem].cliSnippet}
             </pre>
             </NetworkingPanel>
@@ -202,7 +202,7 @@ nc -zv 192.168.20.10 5432`,
 
       {/* 6-Step Subnet Diagnostic Checklist */}
         <NetworkingPanel className="space-y-6">
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <span>🩺</span> 6-Step Subnet Diagnostic Workflow
         </h3>
@@ -214,8 +214,8 @@ nc -zv 192.168.20.10 5432`,
               onClick={() => toggleStep(idx)}
               className={`cursor-pointer p-4 rounded-lg border transition-all flex items-start gap-3 ${
                 completedSteps[idx]
-                  ? "bg-slate-50 dark:bg-slate-700 border-emerald-400/40 text-slate-900 dark:text-slate-100"
-                  : "bg-slate-50/50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-indigo-300"
+                  ? "bg-[color:var(--surface-l1)] border border-emerald-400/40 text-slate-900 dark:text-slate-100 shadow-sm"
+                  : "bg-[color:var(--surface-l1)]/60 border border-[color:var(--border-l1)] text-slate-500 dark:text-slate-400 hover:border-violet-400"
               }`}
             >
               <input
@@ -223,7 +223,7 @@ nc -zv 192.168.20.10 5432`,
                 checked={!!completedSteps[idx]}
                 aria-label={`Mark ${item.title} as complete`}
                 onChange={() => toggleStep(idx)}
-                className="mt-1 rounded border-slate-200 dark:border-slate-700 text-emerald-600 dark:text-emerald-400 focus:ring-0 bg-white dark:bg-slate-800 cursor-pointer"
+                className="mt-1 rounded border-[color:var(--border-l1)] text-emerald-600 dark:text-emerald-400 focus:ring-0 bg-[color:var(--surface-l1)] cursor-pointer"
               />
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-1">

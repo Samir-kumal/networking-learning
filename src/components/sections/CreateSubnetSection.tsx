@@ -59,7 +59,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
   return (
     <section
       id="create"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -74,7 +74,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <NetworkingPanel>
         {/* STEP 1 */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow flex flex-col justify-between hover:border-indigo-300 transition-all">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow flex flex-col justify-between hover:border-cyan-400 transition-all">
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 dark:text-indigo-400 font-mono font-bold text-sm flex items-center justify-center border border-indigo-200 dark:border-indigo-700">
@@ -91,7 +91,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
               Select a private RFC 1918 base network (e.g. <code className="text-indigo-600 dark:text-indigo-400 bg-slate-50 dark:bg-slate-700 px-1 py-0.5 rounded font-mono text-xs">192.168.0.0/16</code>) and divide it into subnets based on required host capacity and isolation goals.
             </p>
 
-            <div className="space-y-2 text-xs font-mono bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
+            <div className="space-y-2 text-xs font-mono bg-[color:var(--surface-l3)] text-slate-100 p-3 rounded-lg border border-[color:var(--border-l3)]">
               <div className="flex justify-between border-b border-slate-200 dark:border-slate-700 pb-1.5">
                 <span className="text-emerald-600 dark:text-emerald-400">VLAN 10 (Staff):</span>
                 <span>192.168.10.0/24 (254 hosts)</span>
@@ -106,7 +106,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
               </div>
             </div>
           </div>
-          <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400">
+          <div className="mt-4 pt-3 border-t border-[color:var(--border-l1)] text-xs text-slate-500 dark:text-slate-400">
             💡 In this example, .0 is the network address, .1 is chosen as a gateway convention, and .255 is the directed-broadcast address for a /24. Actual gateway selection and address reservations depend on the platform and design.
           </div>
         </div>
@@ -114,7 +114,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
 
         <NetworkingPanel>
         {/* STEP 2 */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow flex flex-col justify-between hover:border-indigo-300 transition-all">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow flex flex-col justify-between hover:border-emerald-400 transition-all">
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-mono font-bold text-sm flex items-center justify-center border border-emerald-200 dark:border-emerald-700">
@@ -150,13 +150,13 @@ traceroute 192.168.20.50 # Linux / macOS`;
 
         <NetworkingPanel>
         {/* STEP 3 */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow flex flex-col justify-between hover:border-indigo-300 transition-all">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow flex flex-col justify-between hover:border-amber-400 transition-all">
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="w-8 h-8 rounded-lg bg-[#ffa657]/20 text-amber-600 dark:text-amber-400 font-mono font-bold text-sm flex items-center justify-center border border-amber-200 dark:border-amber-700">
                 03
               </span>
-              <div className="flex gap-1 bg-slate-50 dark:bg-slate-700 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div className="flex gap-1 bg-[color:var(--surface-l1)] p-1 rounded-lg border border-[color:var(--border-l1)]">
                 <button
                   onClick={() => setActiveOsTab("windows")}
                   className={`px-2.5 py-0.5 rounded text-xs font-mono transition-colors ${
@@ -205,7 +205,7 @@ traceroute 192.168.20.50 # Linux / macOS`;
 
         <NetworkingPanel>
         {/* STEP 4 */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow flex flex-col justify-between hover:border-indigo-300 transition-all">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow flex flex-col justify-between hover:border-violet-400 transition-all">
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="w-8 h-8 rounded-lg bg-[#d2a8ff]/20 text-[#d2a8ff] font-mono font-bold text-sm flex items-center justify-center border border-[#d2a8ff]/30">

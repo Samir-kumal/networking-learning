@@ -97,5 +97,24 @@ describe("NetworkingPage subsections", () => {
       expect(html).toContain(`href="#${id}"`);
     }
   });
+  it("renders stage progress telemetry and semantic tokens", () => {
+    const html = renderToStaticMarkup(<NetworkingPage />);
+
+    // Stage glyphs
+    expect(html).toContain("⬡");
+    expect(html).toContain("◈");
+    expect(html).toContain("⌁");
+    expect(html).toContain("✓");
+
+    // All 23 networking module wrappers use semantic tokenized border styling without hardcoded module hover
+    const moduleWrappers = html.match(/class="networking-module[^"]*"/g) ?? [];
+    expect(moduleWrappers).toHaveLength(23);
+    expect(moduleWrappers.every((wrapper) => !wrapper.includes("hover:border-indigo-300"))).toBe(true);
+    // All 4 stages declare data-tone
+    expect(html).toContain('data-tone="cyan"');
+    expect(html).toContain('data-tone="amber"');
+    expect(html).toContain('data-tone="violet"');
+    expect(html).toContain('data-tone="lime"');
+  });
 
 });

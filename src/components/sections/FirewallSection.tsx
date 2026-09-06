@@ -70,7 +70,7 @@ interface GigabitEthernet0/0.10
   return (
     <section
       id="firewall"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -85,7 +85,7 @@ interface GigabitEthernet0/0.10
         <NetworkingPanel variant="muted" className="mb-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         {/* CARD 1: BLOCK */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-rose-300 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-rose-400 transition-all flex flex-col justify-between">
           <div>
             <div className="w-10 h-10 rounded-lg bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-700 flex items-center justify-center font-bold text-lg mb-4">
               🚫
@@ -97,14 +97,14 @@ interface GigabitEthernet0/0.10
               A default-deny policy drops traffic that does not match an explicit permit rule. The exact default depends on the device and rule direction, so verify it rather than assuming it.
             </p>
           </div>
-          <div className="pt-3 border-t border-slate-200 dark:border-slate-700 text-xs font-mono text-rose-600 dark:text-rose-400 flex justify-between">
+          <div className="pt-3 border-t border-[color:var(--border-l1)] text-xs font-mono text-rose-600 dark:text-rose-400 flex justify-between">
             <span>Action: DROP / REJECT</span>
             <span>Default Guard</span>
           </div>
         </div>
 
         {/* CARD 2: ALLOW */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-emerald-300 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-emerald-400 transition-all flex flex-col justify-between">
           <div>
             <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700 flex items-center justify-center font-bold text-lg mb-4">
               ✅
@@ -116,14 +116,14 @@ interface GigabitEthernet0/0.10
               Allows specific protocol, source CIDR, destination CIDR, and port combinations (e.g. Web Subnet to DB Subnet on TCP 5432).
             </p>
           </div>
-          <div className="pt-3 border-t border-slate-200 dark:border-slate-700 text-xs font-mono text-emerald-600 dark:text-emerald-400 flex justify-between">
+          <div className="pt-3 border-t border-[color:var(--border-l1)] text-xs font-mono text-emerald-600 dark:text-emerald-400 flex justify-between">
             <span>Action: ACCEPT</span>
             <span>Port Specific</span>
           </div>
         </div>
 
         {/* CARD 3: LOG */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-amber-300 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-amber-400 transition-all flex flex-col justify-between">
           <div>
             <div className="w-10 h-10 rounded-lg bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-700 flex items-center justify-center font-bold text-lg mb-4">
               📊
@@ -144,7 +144,7 @@ interface GigabitEthernet0/0.10
         </NetworkingPanel>
 
       {/* Cisco ACL Code Block Section */}
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-10">
         <NetworkingExample title="Cisco IOS Inter-Subnet Access Control List (ACL 100)" description="Extended ACLs filter based on source/destination IPs and TCP/UDP ports. Apply inbound on the router sub-interface closest to the source:" tone="amber">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
           <span className="text-xs font-mono text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-1 rounded border border-indigo-200 dark:border-indigo-700">
@@ -154,7 +154,7 @@ interface GigabitEthernet0/0.10
 
         <div className="relative">
           <NetworkingPanel variant="console" className="p-0">
-          <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-4 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
+          <pre className="bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] rounded-lg p-4 font-mono text-xs text-slate-100 overflow-x-auto leading-relaxed">
             {ciscoAclCode}
           </pre>
           </NetworkingPanel>
@@ -169,7 +169,7 @@ interface GigabitEthernet0/0.10
       </div>
 
       {/* Home Router & Small Business Firewall Tips */}
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow">
         <NetworkingPanel className="space-y-6">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <span>🛡️</span> Home & Small Network Firewall Rule Best Practices
@@ -182,8 +182,8 @@ interface GigabitEthernet0/0.10
               onClick={() => toggleRule(idx)}
               className={`cursor-pointer p-4 rounded-lg border transition-all flex items-start gap-3 ${
                 checkedRules[idx]
-                  ? "bg-slate-50 dark:bg-slate-700 border-emerald-400/40 text-slate-900 dark:text-slate-100"
-                  : "bg-slate-50/50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-indigo-300"
+                  ? "bg-[color:var(--surface-l1)] border border-emerald-400/40 text-slate-900 dark:text-slate-100 shadow-sm"
+                  : "bg-[color:var(--surface-l1)]/60 border border-[color:var(--border-l1)] text-slate-500 dark:text-slate-400 hover:border-violet-400"
               }`}
             >
               <input
@@ -191,7 +191,7 @@ interface GigabitEthernet0/0.10
                 checked={!!checkedRules[idx]}
                 aria-label={`Mark ${tip.title} as complete`}
                 onChange={() => toggleRule(idx)}
-                className="mt-1 rounded border-slate-200 dark:border-slate-700 text-emerald-600 dark:text-emerald-400 focus:ring-0 bg-white dark:bg-slate-800 cursor-pointer"
+                className="mt-1 rounded border-[color:var(--border-l1)] text-emerald-600 dark:text-emerald-400 focus:ring-0 bg-[color:var(--surface-l1)] cursor-pointer"
               />
               <div>
                 <h4 className={`text-sm font-semibold mb-1 ${checkedRules[idx] ? "text-emerald-600 dark:text-emerald-400" : "text-slate-900 dark:text-slate-100"}`}>

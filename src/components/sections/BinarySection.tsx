@@ -26,7 +26,7 @@ export default function BinarySection() {
   return (
     <section
       id="binary"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -40,8 +40,8 @@ export default function BinarySection() {
       <NetworkingPanel className="mb-10">
 
       {/* Interactive Live 4-Octet Converter */}
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-[color:var(--border-l1)]">
           <div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
               Live 4-Octet Decimal to Binary Converter
@@ -50,7 +50,7 @@ export default function BinarySection() {
               Enter values from 0 to 255 for each octet to visualize their 8-bit binary representation in real time.
             </p>
           </div>
-          <div className="font-mono text-sm px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-indigo-600 dark:text-indigo-400 font-bold">
+          <div className="font-mono text-sm px-3 py-1.5 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-cyan-600 dark:text-cyan-400 font-bold">
             {octets.join(".")}
           </div>
         </div>
@@ -71,7 +71,7 @@ export default function BinarySection() {
                 value={oct}
                 onChange={(e) => handleOctetChange(idx, e.target.value)}
                 aria-label={`IPv4 octet ${idx + 1}, value from 0 to 255`}
-                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:border-indigo-400 focus:outline-none text-slate-900 dark:text-slate-100 font-mono text-center font-bold px-3 py-2 rounded-lg text-lg transition-colors"
+                className="w-full bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] focus:border-cyan-400 focus:outline-none text-slate-900 dark:text-slate-100 font-mono text-center font-bold px-3 py-2 rounded-lg text-lg transition-colors"
               />
             </div>
           ))}
@@ -80,8 +80,8 @@ export default function BinarySection() {
         {/* Live Binary Display Grid with Weights */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {binaryStrings.map((binStr, oIdx) => (
-            <div key={oIdx} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-3">
-              <div className="text-xs font-mono text-slate-500 dark:text-slate-400 text-center mb-2 pb-1 border-b border-slate-200 dark:border-slate-700">
+            <div key={oIdx} className="bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] rounded-lg p-3">
+              <div className="text-xs font-mono text-slate-500 dark:text-slate-400 text-center mb-2 pb-1 border-b border-[color:var(--border-l1)]">
                 Octet {oIdx + 1}: <span className="text-slate-900 dark:text-slate-100 font-bold">{octets[oIdx]}</span>
               </div>
               
@@ -95,8 +95,8 @@ export default function BinarySection() {
                       <div
                         className={`w-full py-1.5 rounded text-xs font-bold transition-all ${
                           isOne
-                            ? "bg-indigo-600 text-slate-900 dark:text-slate-100 shadow-sm shadow-[#58a6ff]/30"
-                            : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700"
+                            ? "bg-cyan-600 text-white font-bold shadow-sm shadow-cyan-500/30"
+                            : "bg-[color:var(--surface-l2)] text-slate-500 dark:text-slate-400 border border-[color:var(--border-l2)]"
                         }`}
                       >
                         {binStr[bIdx]}
@@ -112,7 +112,7 @@ export default function BinarySection() {
         {/* Combined 32-Bit String */}
         <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">
           <span className="text-slate-500 dark:text-slate-400">Full 32-Bit Binary Representation:</span>
-          <span className="px-4 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-emerald-600 dark:text-emerald-400 font-bold tracking-wider text-center sm:text-left">
+          <span className="px-4 py-2 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-emerald-600 dark:text-emerald-400 font-bold tracking-wider text-center sm:text-left">
             {binaryStrings.join(" . ")}
           </span>
         </div>
@@ -121,7 +121,7 @@ export default function BinarySection() {
       <NetworkingPanel className="mb-10">
 
       {/* Address Structure & Network vs Host Breakdown */}
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-10">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3">
           IPv4 Address Anatomy: Network ID vs Host ID
         </h3>
@@ -130,7 +130,7 @@ export default function BinarySection() {
         </p>
 
         {/* Code block style diagram */}
-        <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl p-4 overflow-x-auto font-mono text-xs text-slate-900 dark:text-slate-100">
+        <div className="bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] rounded-xl p-4 overflow-x-auto font-mono text-xs text-slate-100">
           <div className="flex flex-col gap-2 min-w-[550px]">
             <div className="flex justify-between text-slate-500 dark:text-slate-400 px-1">
               <span>Bit 1</span>
@@ -140,7 +140,7 @@ export default function BinarySection() {
             </div>
 
             {/* 32-bit bar representation for /24 */}
-            <div className="grid grid-cols-32 gap-0.5 h-8 rounded bg-white dark:bg-slate-800 p-1 border border-slate-200 dark:border-slate-700">
+            <div className="grid grid-cols-32 gap-0.5 h-8 rounded bg-[color:var(--surface-l1)] p-1 border border-[color:var(--border-l1)]">
               {Array.from({ length: 24 }).map((_, i) => (
                 <div key={i} className="bg-indigo-600 rounded-sm flex items-center justify-center text-[9px] text-slate-900 dark:text-slate-100 font-bold" title={`Network bit ${i + 1}`}>
                   1
@@ -171,7 +171,7 @@ export default function BinarySection() {
           RFC 1918 designates three IPv4 blocks for private internets. The addresses may be reused by different organizations, and routing information for them should not cross inter-enterprise links.
         </p>
 
-        <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-700">
+        <div className="overflow-x-auto border border-[color:var(--border-l1)] rounded-xl bg-[color:var(--surface-l1)]">
           <NetworkingTable>
           <table className="w-full text-left border-collapse text-xs font-mono">
             <thead>
@@ -259,7 +259,7 @@ export default function BinarySection() {
       
       {/* Special Addresses Cards (Loopback & APIPA) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] card-shadow p-5">
           <div className="flex items-center gap-2 mb-2">
             <span className="px-2 py-0.5 rounded bg-[#bc8cff]/20 text-violet-600 dark:text-violet-400 text-xs font-mono font-bold">
               127.0.0.0 / 8
@@ -269,12 +269,12 @@ export default function BinarySection() {
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
             Reserved for host-internal network stack testing (<code className="text-violet-600 dark:text-violet-400">127.0.0.1</code> / localhost). Traffic sent to loopback is handled by the host and does not reach a physical interface or switch port.
           </p>
-          <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 p-2 rounded border border-slate-200 dark:border-slate-700">
+          <div className="text-[11px] font-mono text-slate-300 bg-[color:var(--surface-l3)] p-2 rounded border border-[color:var(--border-l3)]">
             ping 127.0.0.1 → Tests local TCP/IP protocol stack functionality
           </div>
         </div>
 
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] card-shadow p-5">
           <div className="flex items-center gap-2 mb-2">
             <span className="px-2 py-0.5 rounded bg-[#ffa657]/20 text-amber-600 dark:text-amber-400 text-xs font-mono font-bold">
               169.254.0.0 / 16
@@ -284,7 +284,7 @@ export default function BinarySection() {
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
             A host may self-configure an IPv4 link-local address when no routable configuration is available. RFC 3927 limits communication to the same physical or logical link; it is not an Internet-routable fallback.
           </p>
-          <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-700 p-2 rounded border border-slate-200 dark:border-slate-700">
+          <div className="text-[11px] font-mono text-slate-300 bg-[color:var(--surface-l3)] p-2 rounded border border-[color:var(--border-l3)]">
             Usable selection space: 169.254.1.0 — 169.254.254.255 (excluding the first and last /24 portions)
           </div>
         </div>
@@ -292,7 +292,7 @@ export default function BinarySection() {
       <NetworkingPanel>
       
       {/* Bitwise AND Visual Block */}
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
           Bitwise AND Operation: Calculating Network Address
         </h3>
@@ -301,11 +301,10 @@ export default function BinarySection() {
         </p>
 
         {/* Calculation Visual */}
-        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 font-mono text-xs space-y-4">
-          {/* IP Row */}
+        <div className="bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] rounded-xl p-5 font-mono text-xs space-y-4 text-slate-100">
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center">
             <span className="sm:col-span-3 text-slate-500 dark:text-slate-400">Host IP (192.168.1.100):</span>
-            <span className="sm:col-span-9 text-indigo-600 dark:text-indigo-400 font-bold bg-slate-50 dark:bg-slate-700 p-2 rounded border border-slate-200 dark:border-slate-700 tracking-wider">
+            <span className="sm:col-span-9 text-cyan-400 font-bold bg-[color:var(--surface-l2)] p-2 rounded border border-[color:var(--border-l2)] tracking-wider">
               11000000 . 10101000 . 00000001 . 01100100
             </span>
           </div>
@@ -313,7 +312,7 @@ export default function BinarySection() {
           {/* Mask Row */}
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center">
             <span className="sm:col-span-3 text-slate-500 dark:text-slate-400">Subnet Mask (255.255.255.0):</span>
-            <span className="sm:col-span-9 text-emerald-600 dark:text-emerald-400 font-bold bg-slate-50 dark:bg-slate-700 p-2 rounded border border-slate-200 dark:border-slate-700 tracking-wider">
+            <span className="sm:col-span-9 text-emerald-400 font-bold bg-[color:var(--surface-l2)] p-2 rounded border border-[color:var(--border-l2)] tracking-wider">
               11111111 . 11111111 . 11111111 . 00000000
             </span>
           </div>
@@ -326,7 +325,7 @@ export default function BinarySection() {
           {/* Result Row */}
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center">
             <span className="sm:col-span-3 text-slate-900 dark:text-slate-100 font-bold">Network ID (192.168.1.0):</span>
-            <span className="sm:col-span-9 text-violet-600 dark:text-violet-400 font-bold bg-slate-50 dark:bg-slate-700 p-2 rounded border border-violet-400/40 tracking-wider">
+            <span className="sm:col-span-9 text-violet-400 font-bold bg-[color:var(--surface-l2)] p-2 rounded border border-violet-400/40 tracking-wider">
               11000000 . 10101000 . 00000001 . 00000000
             </span>
           </div>

@@ -22,9 +22,11 @@ export default function NetworkingMetric({
   tone,
   className = "",
 }: NetworkingMetricProps) {
-  const toneStyles = tone ? TONE_STYLES[tone] : "";
+  const toneStyles = tone
+    ? TONE_STYLES[tone]
+    : "border-[color:var(--networking-tone-border,var(--border-l2))] bg-[color:var(--networking-tone-surface,var(--surface-l2))]";
   const classes = [
-    "networking-surface rounded-xl border p-4",
+    "networking-surface rounded-xl border p-4 transition-all",
     toneStyles,
     className,
   ]

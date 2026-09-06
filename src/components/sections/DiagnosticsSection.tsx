@@ -630,7 +630,7 @@ export default function DiagnosticsSection() {
   return (
     <section
       id="diagnostics"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -643,9 +643,9 @@ export default function DiagnosticsSection() {
 
       {/* Interactive CLI Terminal Sandbox Container */}
       <NetworkingPanel variant="console" className="p-0 mb-10">
-      <div className="mb-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow overflow-hidden shadow-2xl">
+      <div className="mb-10 rounded-xl bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] overflow-hidden shadow-2xl text-slate-100">
         {/* Terminal Header Bar */}
-        <div className="flex items-center justify-between bg-white dark:bg-slate-800 px-4 py-3 border-b border-slate-200 dark:border-slate-700">
+        <div className="flex items-center justify-between bg-[color:var(--surface-l2)] px-4 py-3 border-b border-[color:var(--border-l2)]">
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-[#ff7b72] inline-block"></span>
             <span className="w-3 h-3 rounded-full bg-[#ffa657] inline-block"></span>
@@ -717,7 +717,7 @@ export default function DiagnosticsSection() {
         </div>
 
         {/* Terminal Prompt Input Bar */}
-        <div className="flex items-center bg-white dark:bg-slate-800 px-4 py-3 border-t border-slate-200 dark:border-slate-700">
+        <div className="flex items-center bg-[color:var(--surface-l2)] px-4 py-3 border-t border-[color:var(--border-l2)]">
           <span className="text-emerald-600 dark:text-emerald-400 font-mono text-xs sm:text-sm font-bold mr-2 whitespace-nowrap">
             guest@net-sandbox:~$
           </span>
@@ -733,7 +733,7 @@ export default function DiagnosticsSection() {
           />
           <button
             onClick={() => executeCommand(inputVal)}
-            className="ml-2 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-600/80 text-slate-900 dark:text-slate-100 font-semibold text-xs font-mono transition-colors"
+            className="ml-2 px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs font-mono transition-colors"
           >
             Run
           </button>
@@ -751,7 +751,7 @@ export default function DiagnosticsSection() {
           {presetCommands.map((preset, idx) => (
             <div
               key={idx}
-              className="group relative flex flex-col p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 hover:border-indigo-400 transition-all"
+              className="group relative flex flex-col p-2.5 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] hover:border-cyan-400 transition-all cursor-pointer"
             >
               <button
                 onClick={() => handlePresetClick(preset.cmd)}

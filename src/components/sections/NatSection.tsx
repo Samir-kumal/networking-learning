@@ -52,7 +52,7 @@ export default function NatSection() {
   return (
     <section
       id="ips"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -67,7 +67,7 @@ export default function NatSection() {
       <NetworkingPanel className="mb-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         {/* Public IP Card */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-cyan-400 transition-all flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 mb-3">
               <span className="px-2.5 py-1 rounded bg-indigo-100 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold">
@@ -81,7 +81,7 @@ export default function NatSection() {
             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
               Public addresses are allocated through the Internet number registry system and advertised by networks that have routing connectivity. A public address can still be blocked by firewalls or service policy; public does not mean universally reachable.
             </p>
-            <div className="space-y-2 text-xs font-mono bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
+            <div className="space-y-2 text-xs font-mono bg-[color:var(--surface-l3)] text-slate-100 p-3 rounded-lg border border-[color:var(--border-l3)]">
               <div className="flex justify-between">
                 <span>Routability:</span>
                 <span className="text-emerald-600 dark:text-emerald-400">Global Public Internet</span>
@@ -99,7 +99,7 @@ export default function NatSection() {
         </div>
 
         {/* Private IP Card */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-emerald-300 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-amber-400 transition-all flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 mb-3">
               <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-mono text-xs font-bold">
@@ -113,7 +113,7 @@ export default function NatSection() {
             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
               RFC 1918 reserves these ranges for private internets. They are not meant to be advertised across inter-enterprise links; whether an upstream router filters them is a policy and implementation matter, not a guaranteed behavior of every ISP.
             </p>
-            <div className="space-y-2 text-xs font-mono bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
+            <div className="space-y-2 text-xs font-mono bg-[color:var(--surface-l3)] text-slate-100 p-3 rounded-lg border border-[color:var(--border-l3)]">
               <div className="flex justify-between">
                 <span>Routability:</span>
                 <span className="text-rose-600 dark:text-rose-400">Not globally routed</span>
@@ -138,8 +138,8 @@ export default function NatSection() {
 
       {/* NAT Packet Translation Visual Diagram */}
       <NetworkingExample title="Interactive NAT / PAT (Port Address Translation) Flow" description="Step-by-step walkthrough showing how a NAT Gateway translates private sockets to public sockets." tone="amber">
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[color:var(--border-l1)]">
 
           {/* Controls */}
           <div className="flex gap-2">
@@ -149,8 +149,8 @@ export default function NatSection() {
                 onClick={() => setNatStep(stepNum)}
                 className={`w-8 h-8 rounded-lg font-mono text-xs font-bold transition-all ${
                   natStep === stepNum
-                    ? "bg-indigo-600 text-slate-900 dark:text-slate-100 shadow-md shadow-[#58a6ff]/20"
-                    : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:border-indigo-300"
+                    ? "bg-amber-500 text-white shadow-md shadow-amber-500/20"
+                    : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 border border-[color:var(--border-l1)] hover:border-amber-400"
                 }`}
               >
                 {stepNum}
@@ -160,7 +160,7 @@ export default function NatSection() {
         </div>
 
         {/* Step Explanation Banner */}
-        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 mb-6">
+        <div className="bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] rounded-xl p-4 mb-6">
           <div className="flex items-center gap-2 mb-1">
             <span className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold">
               Step {currentStep.step} of 4
@@ -175,7 +175,7 @@ export default function NatSection() {
         </div>
 
         {/* Standards Note */}
-        <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-3 mb-6 text-xs text-slate-500 dark:text-slate-400">
+        <div className="bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] rounded-xl p-3 mb-6 text-xs text-slate-300">
           This walkthrough illustrates NAPT (RFC 3022) with endpoint-independent mapping; actual mapping and filtering behavior is implementation-defined (RFC 4787 §4.1 / §5), so another NAT may reuse or refuse this state differently.
         </div>
 
@@ -184,8 +184,8 @@ export default function NatSection() {
           {/* Node 1: Private LAN Client */}
           <div className={`rounded-xl border p-5 transition-all ${
             currentStep.activeLocation === "lan"
-              ? "bg-white dark:bg-slate-800 border-indigo-400 shadow-lg shadow-[#58a6ff]/10"
-              : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700"
+              ? "bg-[color:var(--surface-l1)] border-cyan-400 shadow-lg shadow-cyan-500/10"
+              : "bg-[color:var(--surface-l1)]/60 border-[color:var(--border-l1)]"
           }`}>
             <div className="text-xs font-mono text-indigo-600 dark:text-indigo-400 uppercase mb-1">
               Private LAN Client
@@ -201,8 +201,8 @@ export default function NatSection() {
           {/* Node 2: NAT Gateway Router */}
           <div className={`rounded-xl border p-5 transition-all ${
             currentStep.activeLocation === "router"
-              ? "bg-white dark:bg-slate-800 border-amber-400 shadow-lg shadow-[#ffa657]/10"
-              : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700"
+              ? "bg-[color:var(--surface-l1)] border-amber-400 shadow-lg shadow-amber-500/10"
+              : "bg-[color:var(--surface-l1)]/60 border-[color:var(--border-l1)]"
           }`}>
             <div className="text-xs font-mono text-amber-600 dark:text-amber-400 uppercase mb-1">
               NAT Gateway Router
@@ -221,8 +221,8 @@ export default function NatSection() {
           {/* Node 3: Public Web Server */}
           <div className={`rounded-xl border p-5 transition-all ${
             currentStep.activeLocation === "wan"
-              ? "bg-white dark:bg-slate-800 border-emerald-400 shadow-lg shadow-[#7ee787]/10"
-              : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700"
+              ? "bg-[color:var(--surface-l1)] border-emerald-400 shadow-lg shadow-emerald-500/10"
+              : "bg-[color:var(--surface-l1)]/60 border-[color:var(--border-l1)]"
           }`}>
             <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase mb-1">
               Public Web Server
@@ -239,11 +239,11 @@ export default function NatSection() {
         {/* Packet Info & NAT Translation Table */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Current Live Packet */}
-          <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 font-mono text-xs">
+          <div className="bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] rounded-xl p-4 font-mono text-xs">
             <div className="text-amber-600 dark:text-amber-400 font-bold uppercase mb-2">
               Active Packet Header State:
             </div>
-            <div className="space-y-1.5 bg-slate-50 dark:bg-slate-700 p-3 rounded border border-slate-200 dark:border-slate-700">
+            <div className="space-y-1.5 bg-[color:var(--surface-l3)] text-slate-100 p-3 rounded border border-[color:var(--border-l3)]">
               <div className="flex justify-between">
                 <span className="text-slate-500 dark:text-slate-400">Source Socket:</span>
                 <span className="text-indigo-600 dark:text-indigo-400 font-bold">{currentStep.src}</span>
@@ -256,11 +256,11 @@ export default function NatSection() {
           </div>
 
           {/* NAT Translation Table */}
-          <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 font-mono text-xs">
+          <div className="bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] rounded-xl p-4 font-mono text-xs">
             <div className="text-violet-600 dark:text-violet-400 font-bold uppercase mb-2">
               Router NAT Translation Table:
             </div>
-            <div className="bg-slate-50 dark:bg-slate-700 p-3 rounded border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100">
+            <div className="bg-[color:var(--surface-l3)] text-slate-100 p-3 rounded border border-[color:var(--border-l3)]">
               <div className="text-slate-500 dark:text-slate-400 text-[10px] flex justify-between border-b border-slate-200 dark:border-slate-700 pb-1 mb-1">
                 <span>Private Socket</span>
                 <span>Public NAT Socket</span>

@@ -105,7 +105,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
   return (
     <section
       id="cloud"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -124,7 +124,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
           className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 border ${
             activeCloud === "aws"
               ? "bg-[#ff9900]/10 text-[#ff9900] border-[#ff9900]/50 font-bold"
-              : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:text-slate-100"
+              : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 border border-[color:var(--border-l1)] hover:text-slate-900 dark:hover:text-slate-100"
           }`}
         >
           <span>☁️</span> AWS VPC
@@ -134,7 +134,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
           className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 border ${
             activeCloud === "azure"
               ? "bg-[#0089d6]/10 text-[#0089d6] border-[#0089d6]/50 font-bold"
-              : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:text-slate-100"
+              : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 border border-[color:var(--border-l1)] hover:text-slate-900 dark:hover:text-slate-100"
           }`}
         >
           <span>🔷</span> Azure VNet
@@ -144,7 +144,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
           className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 border ${
             activeCloud === "gcp"
               ? "bg-[#4285f4]/10 text-[#4285f4] border-[#4285f4]/50 font-bold"
-              : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:text-slate-100"
+              : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 border border-[color:var(--border-l1)] hover:text-slate-900 dark:hover:text-slate-100"
           }`}
         >
           <span>🌐</span> GCP VPC
@@ -153,7 +153,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
 
       <NetworkingPanel className="mb-10">
       {/* Selected Provider Card */}
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">{currentCloud.name}</h3>
           <span className={`px-3 py-1 rounded-full text-xs font-mono border ${currentCloud.badgeBg}`}>
@@ -169,7 +169,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
         {/* Code Snippet */}
         <div className="space-y-2">
           <span className="text-xs font-mono text-slate-500 dark:text-slate-400">Infrastructure-as-Code Configuration (Terraform)</span>
-          <pre className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-4 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto leading-relaxed">
+          <pre className="bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] rounded-lg p-4 font-mono text-xs text-slate-100 overflow-x-auto leading-relaxed">
             {currentCloud.codeSnippet}
           </pre>
         </div>
@@ -178,7 +178,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
 
       {/* Cloud Subnetting Tips Checklist */}
       <NetworkingPanel>
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
           <span>📋</span> Cloud Subnetting Architecture Checklist & Tips
         </h3>
@@ -190,8 +190,8 @@ resource "google_compute_subnetwork" "us_central_subnet" {
               onClick={() => toggleTip(idx)}
               className={`cursor-pointer p-4 rounded-lg border transition-all flex items-start gap-3 ${
                 checkedTips[idx]
-                  ? "bg-slate-50 dark:bg-slate-700 border-emerald-400/40 text-slate-900 dark:text-slate-100"
-                  : "bg-slate-50/50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-indigo-300"
+                  ? "bg-[color:var(--surface-l1)] border border-emerald-400/40 text-slate-900 dark:text-slate-100 shadow-sm"
+                  : "bg-[color:var(--surface-l1)]/60 border border-[color:var(--border-l1)] text-slate-500 dark:text-slate-400 hover:border-amber-400"
               }`}
             >
               <input
@@ -199,7 +199,7 @@ resource "google_compute_subnetwork" "us_central_subnet" {
                 checked={!!checkedTips[idx]}
                 aria-label={`Mark ${tip.title} as complete`}
                 onChange={() => toggleTip(idx)}
-                className="mt-1 rounded border-slate-200 dark:border-slate-700 text-emerald-600 dark:text-emerald-400 focus:ring-0 bg-white dark:bg-slate-800 cursor-pointer"
+                className="mt-1 rounded border-[color:var(--border-l1)] text-emerald-600 dark:text-emerald-400 focus:ring-0 bg-[color:var(--surface-l1)] cursor-pointer"
               />
               <div>
                 <h4 className={`text-sm font-semibold mb-1 ${checkedTips[idx] ? "text-emerald-600 dark:text-emerald-400" : "text-slate-900 dark:text-slate-100"}`}>

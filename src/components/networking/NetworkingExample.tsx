@@ -26,7 +26,9 @@ export default function NetworkingExample({
   children,
 }: NetworkingExampleProps) {
   const headingId = useId();
-  const toneStyles = tone ? TONE_STYLES[tone] : "";
+  const toneStyles = tone
+    ? TONE_STYLES[tone]
+    : "border-[color:var(--networking-tone-border,var(--border-l2))] bg-[color:var(--networking-tone-surface,var(--surface-l2))]";
   const classes = [
     "networking-surface overflow-hidden rounded-2xl border p-5 card-shadow sm:p-6",
     toneStyles,
@@ -49,7 +51,7 @@ export default function NetworkingExample({
       )}
       <div className="mt-5">{children}</div>
       {footer && (
-        <div className="mt-5 border-t border-slate-200/80 pt-4 text-sm text-slate-600 dark:border-slate-700 dark:text-slate-300">
+        <div className="mt-5 border-t border-[color:var(--border-l1)] pt-4 text-sm text-slate-600 dark:border-[color:var(--border-l1)] dark:text-slate-300">
           {footer}
         </div>
       )}

@@ -338,7 +338,7 @@ export default function PracticeSection() {
   return (
     <section
       id="practice"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       <NetworkingModuleHeader
         anchor="#practice"
@@ -349,13 +349,13 @@ export default function PracticeSection() {
           <div className="flex items-center gap-2">
             <button
               onClick={expandAll}
-              className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all font-sans text-sm normal-case tracking-normal"
+              className="px-3 py-1.5 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-slate-900 dark:text-slate-100 hover:border-lime-400 transition-all font-mono text-xs cursor-pointer"
             >
               Expand All
             </button>
             <button
               onClick={collapseAll}
-              className="px-3 py-1.5 rounded-lg bg-[#21262d] border border-slate-200 dark:border-slate-700 text-white dark:text-slate-100 hover:border-indigo-300 hover:bg-[#30363d] transition-all font-sans text-sm normal-case tracking-normal"
+              className="px-3 py-1.5 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-slate-900 dark:text-slate-100 hover:border-lime-400 transition-all font-mono text-xs cursor-pointer"
             >
               Collapse All
             </button>
@@ -375,8 +375,8 @@ export default function PracticeSection() {
               key={prob.id}
               className={`!p-0 rounded-xl border transition-all ${
                 isOpen
-                  ? "bg-slate-50 dark:bg-slate-700 border-indigo-300 shadow-lg shadow-[#58a6ff]/5"
-                  : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-200/80"
+                  ? "bg-[color:var(--surface-l2)] border-lime-400/70 shadow-lg shadow-lime-500/10"
+                  : "bg-[color:var(--surface-l1)] border-[color:var(--border-l1)] hover:border-lime-400/40"
               }`}
             >
               {/* Question Header */}
@@ -410,7 +410,7 @@ export default function PracticeSection() {
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                     isOpen
                       ? "bg-indigo-100 text-indigo-600 dark:text-indigo-400 border border-indigo-300"
-                      : "bg-[#21262d] text-white dark:text-slate-100 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 hover:bg-[#30363d]"
+                      : "bg-[#21262d] text-white dark:text-slate-100 border border-slate-200 dark:border-slate-700 hover:border-lime-400 hover:bg-[#30363d]"
                   }`}
                 >
                   <span>{isOpen ? "Hide Answer" : "Reveal Answer"}</span>

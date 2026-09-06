@@ -362,7 +362,7 @@ export default function SecuritySection() {
   return (
     <section
       id="security"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -376,7 +376,7 @@ export default function SecuritySection() {
       {/* ========================================================================= */}
       {/* 1. STATELESS NACLS VS STATEFUL SECURITY GROUPS */}
       {/* ========================================================================= */}
-      <div className="mb-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+      <div className="mb-12 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow">
         <NetworkingPanel variant="muted" className="space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <NetworkingMetric label="Policy Model" value={logicMode === "nacl" ? "Stateless NACL" : "Stateful SG"} detail="Current control view" tone="amber" />
@@ -399,7 +399,7 @@ export default function SecuritySection() {
           </div>
 
           {/* Toggle Button */}
-          <div className="flex rounded-lg bg-slate-50 dark:bg-slate-700 p-1 border border-slate-200 dark:border-slate-700 self-start sm:self-auto">
+          <div className="flex rounded-lg bg-[color:var(--surface-l1)] p-1 border border-[color:var(--border-l1)] self-start sm:self-auto">
             <button
               onClick={() => setLogicMode("nacl")}
               className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
@@ -619,7 +619,7 @@ export default function SecuritySection() {
         <NetworkingPanel className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
         {/* CARD A: VPN Tunnels (WireGuard vs IPsec) */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-violet-400 transition-all flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-2">
@@ -725,7 +725,7 @@ export default function SecuritySection() {
         </div>
 
         {/* CARD B: VXLAN Overlay (L2 over L3 Encapsulation) */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-emerald-400/40 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-violet-400 transition-all flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-2">
@@ -974,7 +974,7 @@ export default function SecuritySection() {
           </div>
 
           {/* Mode Switcher */}
-          <div className="flex rounded-lg bg-slate-50 dark:bg-slate-700 p-1 border border-slate-200 dark:border-slate-700 self-start sm:self-auto">
+          <div className="flex rounded-lg bg-[color:var(--surface-l1)] p-1 border border-[color:var(--border-l1)] self-start sm:self-auto">
             <button
               onClick={() => setInspectorMode("nacl")}
               className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
@@ -999,7 +999,7 @@ export default function SecuritySection() {
         </div>
 
         {/* Input Form & Quick Presets */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 p-4 rounded-lg bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)]">
           {/* Source IP Input */}
           <div>
             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
@@ -1010,25 +1010,24 @@ export default function SecuritySection() {
               type="text"
               value={sourceIpInput}
               onChange={(e) => setSourceIpInput(e.target.value)}
-              className="w-full px-3 py-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-indigo-400"
+              className="w-full px-3 py-1.5 rounded bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-cyan-400"
               placeholder="e.g. 203.0.113.50"
             />
             <div className="flex flex-wrap gap-1 mt-2">
               <button
                 onClick={() => setSourceIpInput("203.0.113.50")}
-                className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-mono text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100"
+                className="px-2 py-0.5 rounded bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-[10px] font-mono text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
               >
                 WAN (203.0.113.50)
               </button>
               <button
-                onClick={() => setSourceIpInput("192.168.1.50")}
-                className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-mono text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100"
+                className="px-2 py-0.5 rounded bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-[10px] font-mono text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
               >
                 Admin (192.168.1.50)
               </button>
               <button
                 onClick={() => setSourceIpInput("10.0.1.25")}
-                className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-mono text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100"
+                className="px-2 py-0.5 rounded bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-[10px] font-mono text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
               >
                 Web Subnet (10.0.1.25)
               </button>

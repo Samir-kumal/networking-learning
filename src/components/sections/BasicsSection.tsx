@@ -9,7 +9,7 @@ export default function BasicsSection() {
   return (
     <section
       id="basics"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Header */}
       <NetworkingModuleHeader
@@ -24,7 +24,7 @@ export default function BasicsSection() {
       <NetworkingPanel className="mb-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         {/* Card 1: Performance */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-cyan-400 transition-all flex flex-col justify-between">
           <div>
             <div className="w-10 h-10 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-700 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-lg mb-4">
               ⚡
@@ -36,14 +36,14 @@ export default function BasicsSection() {
               Switches and VLANs define the Layer 2 broadcast domain. Subnet boundaries give hosts an IP-level on-link scope, so ARP and DHCP broadcasts normally stay within the associated segment.
             </p>
           </div>
-          <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs font-mono text-indigo-600 dark:text-indigo-400">
+          <div className="mt-4 pt-3 border-t border-[color:var(--border-l1)] flex items-center justify-between text-xs font-mono text-cyan-600 dark:text-cyan-400">
             <span>Broadcast Scope</span>
             <span>Normally Local</span>
           </div>
         </div>
 
         {/* Card 2: Security */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-emerald-300 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-emerald-400 transition-all flex flex-col justify-between">
           <div>
             <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold text-lg mb-4">
               🛡️
@@ -55,14 +55,14 @@ export default function BasicsSection() {
               Subnetting provides an addressing boundary; it does not enforce security by itself. Firewalls, ACLs, routing policy, and identity controls must explicitly restrict access between sensitive and less-trusted networks.
             </p>
           </div>
-          <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs font-mono text-emerald-600 dark:text-emerald-400">
+          <div className="mt-4 pt-3 border-t border-[color:var(--border-l1)] flex items-center justify-between text-xs font-mono text-emerald-600 dark:text-emerald-400">
             <span>Access Control</span>
             <span>L3 ACL / Firewall</span>
           </div>
         </div>
 
         {/* Card 3: Organization */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-violet-300 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-violet-400 transition-all flex flex-col justify-between">
           <div>
             <div className="w-10 h-10 rounded-lg bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-700 flex items-center justify-center text-violet-600 dark:text-violet-400 font-bold text-lg mb-4">
               📐
@@ -74,7 +74,7 @@ export default function BasicsSection() {
               A deliberate addressing hierarchy supports IPAM, route summarization, and predictable growth across buildings, sites, or cloud regions.
             </p>
           </div>
-          <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs font-mono text-violet-600 dark:text-violet-400">
+          <div className="mt-4 pt-3 border-t border-[color:var(--border-l1)] flex items-center justify-between text-xs font-mono text-violet-600 dark:text-violet-400">
             <span>IP Architecture</span>
             <span>Structured Hierarchy</span>
           </div>
@@ -87,8 +87,8 @@ export default function BasicsSection() {
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
 
         <div className="flex justify-center mb-8">
-          <div className="relative group px-6 py-3 rounded-xl bg-white dark:bg-slate-800 border-2 border-indigo-400 text-center shadow-lg shadow-[#58a6ff]/10">
-            <div className="text-xs font-mono text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">
+          <div className="relative group px-6 py-3 rounded-xl bg-[color:var(--surface-l2)] border-2 border-cyan-400 text-center shadow-lg shadow-cyan-500/10">
+            <div className="text-xs font-mono text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-2 font-bold">
               Core Gateway Router
             </div>
             <div className="space-y-1.5 text-left text-xs font-mono">
@@ -125,8 +125,8 @@ export default function BasicsSection() {
           {/* Connection Lines styling representation */}
           
           {/* Subnet A */}
-          <div className="rounded-xl bg-white dark:bg-slate-800 border border-indigo-300 p-5 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-indigo-600" />
+          <div className="rounded-xl bg-[color:var(--surface-l2)] border border-cyan-300 dark:border-cyan-800 p-5 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-cyan-500" />
             <div className="flex items-center justify-between mb-3">
               <span className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-600 dark:text-indigo-400 text-xs font-mono font-semibold">
                 Subnet A
@@ -141,7 +141,7 @@ export default function BasicsSection() {
               <CopyButton text="192.168.1.0/26" label="" className="!px-1.5 !py-0.5" />
             </div>
             
-            <div className="space-y-2 text-xs font-mono bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-slate-200 dark:border-slate-700 mb-4">
+            <div className="space-y-2 text-xs font-mono bg-[color:var(--surface-l3)] text-slate-100 p-3 rounded-lg border border-[color:var(--border-l3)] mb-4">
               <div className="flex justify-between text-slate-500 dark:text-slate-400">
                 <span>Mask:</span>
                 <span className="text-slate-900 dark:text-slate-100">255.255.255.192</span>
@@ -173,7 +173,7 @@ export default function BasicsSection() {
           </div>
 
           {/* Subnet B */}
-          <div className="rounded-xl bg-white dark:bg-slate-800 border border-emerald-400/40 p-5 relative overflow-hidden">
+          <div className="rounded-xl bg-[color:var(--surface-l2)] border border-emerald-300 dark:border-emerald-800 p-5 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500" />
             <div className="flex items-center justify-between mb-3">
               <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-semibold">
@@ -189,7 +189,7 @@ export default function BasicsSection() {
               <CopyButton text="192.168.1.64/26" label="" className="!px-1.5 !py-0.5" />
             </div>
             
-            <div className="space-y-2 text-xs font-mono bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-slate-200 dark:border-slate-700 mb-4">
+            <div className="space-y-2 text-xs font-mono bg-[color:var(--surface-l3)] text-slate-100 p-3 rounded-lg border border-[color:var(--border-l3)] mb-4">
               <div className="flex justify-between text-slate-500 dark:text-slate-400">
                 <span>Mask:</span>
                 <span className="text-slate-900 dark:text-slate-100">255.255.255.192</span>
@@ -221,8 +221,8 @@ export default function BasicsSection() {
           </div>
 
           {/* Subnet C */}
-          <div className="rounded-xl bg-white dark:bg-slate-800 border border-amber-400/40 p-5 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-[#ffa657]" />
+          <div className="rounded-xl bg-[color:var(--surface-l2)] border border-amber-300 dark:border-amber-800 p-5 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-amber-500" />
             <div className="flex items-center justify-between mb-3">
               <span className="px-2 py-0.5 rounded bg-[#ffa657]/20 text-amber-600 dark:text-amber-400 text-xs font-mono font-semibold">
                 Subnet C
@@ -237,7 +237,7 @@ export default function BasicsSection() {
               <CopyButton text="192.168.1.128/25" label="" className="!px-1.5 !py-0.5" />
             </div>
             
-            <div className="space-y-2 text-xs font-mono bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-slate-200 dark:border-slate-700 mb-4">
+            <div className="space-y-2 text-xs font-mono bg-[color:var(--surface-l3)] text-slate-100 p-3 rounded-lg border border-[color:var(--border-l3)] mb-4">
               <div className="flex justify-between text-slate-500 dark:text-slate-400">
                 <span>Mask:</span>
                 <span className="text-slate-900 dark:text-slate-100">255.255.255.128</span>

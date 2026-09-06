@@ -296,7 +296,7 @@ export default function WirelessSection() {
   return (
     <section
       id="wireless"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* --- Section Header --- */}
       <NetworkingModuleHeader
@@ -311,8 +311,8 @@ export default function WirelessSection() {
       {/* ========================================================================= */}
       {/* PART 1: SSID-to-VLAN Mapping & Enterprise WLC Topology */}
       {/* ========================================================================= */}
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-10">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-[color:var(--border-l1)]">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold">
@@ -363,7 +363,7 @@ export default function WirelessSection() {
                 className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between ${
                   selectedSsid === s.id
                     ? `${s.bgBadge} ${s.border} ring-1 ring-current`
-                    : "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-indigo-300"
+                    : "bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-slate-500 dark:text-slate-400 hover:border-amber-400"
                 }`}
               >
                 <div>
@@ -498,8 +498,8 @@ export default function WirelessSection() {
       {/* ========================================================================= */}
       {/* PART 2: Spectrum & Frequency Bands (2.4GHz, 5GHz, 6GHz Wi-Fi 6E/7) */}
       {/* ========================================================================= */}
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-10">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-[color:var(--border-l1)]">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-mono text-xs font-bold">
@@ -667,7 +667,7 @@ export default function WirelessSection() {
       {/* ========================================================================= */}
       {/* PART 3: Non-Overlapping Channel Planner & Channel Bonding */}
       {/* ========================================================================= */}
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-10">
         <div className="flex items-center gap-2 mb-1">
           <span className="px-2 py-0.5 rounded bg-[#ffa657]/20 text-amber-600 dark:text-amber-400 font-mono text-xs font-bold">
             Part 3 Channel Planning
@@ -679,7 +679,7 @@ export default function WirelessSection() {
         </h3>
 
         {/* 2.4 GHz Interactive Channel Planner */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5 mb-8">
+        <div className="rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow p-5 mb-8">
           <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center justify-between">
             <span>2.4 GHz Channel Overlap Calculator (Channels 1 to 11)</span>
             <span className="text-xs font-mono text-slate-500 dark:text-slate-400">20 MHz Width / 5 MHz Spacing</span>
@@ -907,7 +907,7 @@ export default function WirelessSection() {
       {/* ========================================================================= */}
       {/* PART 4: Interactive Wi-Fi Signal & Channel Overlap Visualizer */}
       {/* ========================================================================= */}
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow">
         <div className="flex items-center gap-2 mb-1">
           <span className="px-2 py-0.5 rounded bg-[#ff7b72]/20 text-rose-600 dark:text-rose-400 font-mono text-xs font-bold">
             Part 4 Simulator
@@ -921,7 +921,7 @@ export default function WirelessSection() {
         {/* Visualizer Controls Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {/* Column 1: Radio & Environment Parameters */}
-          <div className="space-y-4 bg-slate-50 dark:bg-slate-700 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+          <div className="space-y-4 bg-[color:var(--surface-l1)] p-4 rounded-xl border border-[color:var(--border-l1)]">
             <h4 className="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 uppercase">1. Transmitter & Environment</h4>
 
             {/* Band Select */}

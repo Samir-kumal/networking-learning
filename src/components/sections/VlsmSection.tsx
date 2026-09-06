@@ -5,7 +5,7 @@ export default function VlsmSection() {
   return (
     <section
       id="vlsm"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -20,7 +20,7 @@ export default function VlsmSection() {
         <NetworkingPanel>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         {/* /30 Card */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-amber-300 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-amber-400 transition-all flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="px-2.5 py-1 rounded bg-[#ffa657]/20 text-amber-600 dark:text-amber-400 font-mono text-xs font-bold">
@@ -35,14 +35,14 @@ export default function VlsmSection() {
               Provides exactly 4 total IPv4 addresses (2<sup>2</sup>), yielding <strong className="text-emerald-600 dark:text-emerald-400">2 conventional host addresses</strong>. It is common for two-endpoint links, while RFC 3021 <code>/31</code> can use both addresses on supported point-to-point interfaces.
             </p>
           </div>
-          <div className="pt-3 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center text-xs font-mono">
+          <div className="pt-3 border-t border-[color:var(--border-l1)] flex justify-between items-center text-xs font-mono">
             <span className="text-slate-500 dark:text-slate-400">Usable Efficiency:</span>
             <span className="text-amber-600 dark:text-amber-400 font-bold">50% (2 of 4)</span>
           </div>
         </div>
 
         {/* /27 Card */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-cyan-400 transition-all flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="px-2.5 py-1 rounded bg-indigo-100 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold">
@@ -57,14 +57,14 @@ export default function VlsmSection() {
               Provides 32 total IP addresses (2<sup>5</sup>), yielding <strong className="text-emerald-600 dark:text-emerald-400">30 usable hosts</strong>. Perfect for small department teams, remote office locations, or server racks.
             </p>
           </div>
-          <div className="pt-3 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center text-xs font-mono">
+          <div className="pt-3 border-t border-[color:var(--border-l1)] flex justify-between items-center text-xs font-mono">
             <span className="text-slate-500 dark:text-slate-400">Usable Efficiency:</span>
             <span className="text-indigo-600 dark:text-indigo-400 font-bold">93.75% (30 of 32)</span>
           </div>
         </div>
 
         {/* /24 Card */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-emerald-300 transition-all flex flex-col justify-between">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-emerald-400 transition-all flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-mono text-xs font-bold">
@@ -79,7 +79,7 @@ export default function VlsmSection() {
               Provides 256 total IPv4 addresses (2<sup>8</sup>), yielding <strong className="text-emerald-600 dark:text-emerald-400">254 conventional host addresses</strong>. It is a common LAN example, not a universal allocation size.
             </p>
           </div>
-          <div className="pt-3 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center text-xs font-mono">
+          <div className="pt-3 border-t border-[color:var(--border-l1)] flex justify-between items-center text-xs font-mono">
             <span className="text-slate-500 dark:text-slate-400">Usable Efficiency:</span>
             <span className="text-emerald-600 dark:text-emerald-400 font-bold">99.2% (254 of 256)</span>
           </div>
@@ -91,10 +91,10 @@ export default function VlsmSection() {
       {/* Worked Example Table */}
       <div className="mb-10">
 
-        <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-700 mb-6">
+        <div className="overflow-x-auto border border-[color:var(--border-l1)] rounded-xl bg-[color:var(--surface-l1)] mb-6">
           <table className="w-full text-left border-collapse text-xs font-mono">
             <thead>
-              <tr className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
+              <tr className="bg-[color:var(--surface-l2)] text-slate-500 dark:text-slate-400 border-b border-[color:var(--border-l1)]">
                 <th className="p-3">Department</th>
                 <th className="p-3">Needed Hosts</th>
                 <th className="p-3">Allocated CIDR</th>
@@ -182,7 +182,7 @@ export default function VlsmSection() {
       </div>
       </NetworkingExample>
 
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow">
         <div className="flex items-center gap-2 mb-3">
           <span className="px-2.5 py-1 rounded bg-[#bc8cff]/20 text-violet-600 dark:text-violet-400 text-xs font-mono font-bold">
             RFC 3021 Standard
@@ -196,7 +196,7 @@ export default function VlsmSection() {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
-          <div className="bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
+          <div className="bg-[color:var(--surface-l3)] text-slate-100 p-3 rounded-lg border border-[color:var(--border-l3)]">
             <div className="text-rose-600 dark:text-rose-400 font-bold mb-1">Standard /30 Link (4 IPs):</div>
             <div className="text-slate-500 dark:text-slate-400">.0 (Network ID - Unusable)</div>
             <div className="text-emerald-600 dark:text-emerald-400">.1 (Router A Interface)</div>
@@ -204,7 +204,7 @@ export default function VlsmSection() {
             <div className="text-slate-500 dark:text-slate-400">.3 (Broadcast - Unusable)</div>
           </div>
 
-            <div className="bg-slate-50 dark:bg-slate-700 p-3 rounded-lg border border-emerald-400/40">
+            <div className="bg-[color:var(--surface-l3)] text-slate-100 p-3 rounded-lg border border-emerald-400/40">
               <div className="text-emerald-600 dark:text-emerald-400 font-bold mb-1">RFC 3021 /31 Link (2 IPs - 100% Efficient):</div>
               <div className="text-emerald-600 dark:text-emerald-400">.0 (Router A Interface)</div>
               <div className="text-emerald-600 dark:text-emerald-400">.1 (Router B Interface)</div>

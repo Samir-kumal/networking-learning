@@ -18,7 +18,7 @@ export default function SupernetSection() {
   return (
     <section
       id="supernetting"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -30,33 +30,33 @@ export default function SupernetSection() {
       <div className="module-content networking-module-content">
 
       {/* Navigation Tabs */}
-      <div className="flex flex-wrap gap-2 mb-8 border-b border-slate-200 dark:border-slate-700 pb-4">
+      <div className="flex flex-wrap gap-2 mb-8 border-b border-[color:var(--border-l1)] pb-4">
         <button
           onClick={() => setActiveTab("overview")}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
             activeTab === "overview"
-              ? "bg-indigo-100 text-indigo-600 dark:text-indigo-400 border border-indigo-300 font-semibold"
-              : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700"
+              ? "bg-cyan-50 dark:bg-cyan-950/50 text-cyan-600 dark:text-cyan-400 border border-cyan-300 dark:border-cyan-800 font-semibold shadow-sm"
+              : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 border border-[color:var(--border-l1)]"
           }`}
         >
           Before vs. After Summarization
         </button>
         <button
           onClick={() => setActiveTab("binary")}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
             activeTab === "binary"
-              ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-400/40 font-semibold"
-              : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700"
+              ? "bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800 font-semibold shadow-sm"
+              : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 border border-[color:var(--border-l1)]"
           }`}
         >
           Binary Bitwise Analysis
         </button>
         <button
           onClick={() => setActiveTab("rules")}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
             activeTab === "rules"
-              ? "bg-[#ffa657]/20 text-amber-600 dark:text-amber-400 border border-amber-400/40 font-semibold"
-              : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700"
+              ? "bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 border border-amber-300 dark:border-amber-800 font-semibold shadow-sm"
+              : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 border border-[color:var(--border-l1)]"
           }`}
         >
           3 Rules of Supernetting
@@ -69,7 +69,7 @@ export default function SupernetSection() {
           <NetworkingPanel className="h-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Unsummarized Routes */}
-            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+            <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-base font-bold text-rose-600 dark:text-rose-400 flex items-center gap-2">
                   <span>❌</span> Before Aggregation (4 Individual Routes)
@@ -81,17 +81,17 @@ export default function SupernetSection() {
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
                 Routers must store, query, and advertise four separate routing table entries for adjacent subnets:
               </p>
-              <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-4 font-mono text-xs text-slate-900 dark:text-slate-100 space-y-2">
-                <div className="flex justify-between border-b border-slate-200 dark:border-slate-700 pb-1.5">
+              <div className="bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] rounded-lg p-4 font-mono text-xs text-slate-100 space-y-2">
+                <div className="flex justify-between border-b border-[color:var(--border-l3)] pb-1.5">
                   <span className="text-slate-500 dark:text-slate-400">S 192.168.0.0/24</span>
                   <span className="text-indigo-600 dark:text-indigo-400">via 10.1.1.1</span>
                 </div>
-                <div className="flex justify-between border-b border-slate-200 dark:border-slate-700 pb-1.5 pt-0.5">
-                  <span className="text-slate-500 dark:text-slate-400">S 192.168.1.0/24</span>
+                <div className="flex justify-between border-b border-[color:var(--border-l3)] pb-1.5 pt-0.5">
+                  <span className="text-slate-400">S 192.168.1.0/24</span>
                   <span className="text-indigo-600 dark:text-indigo-400">via 10.1.1.1</span>
                 </div>
-                <div className="flex justify-between border-b border-slate-200 dark:border-slate-700 pb-1.5 pt-0.5">
-                  <span className="text-slate-500 dark:text-slate-400">S 192.168.2.0/24</span>
+                <div className="flex justify-between border-b border-[color:var(--border-l3)] pb-1.5 pt-0.5">
+                  <span className="text-slate-400">S 192.168.2.0/24</span>
                   <span className="text-indigo-600 dark:text-indigo-400">via 10.1.1.1</span>
                 </div>
                 <div className="flex justify-between pt-0.5">
@@ -102,7 +102,7 @@ export default function SupernetSection() {
             </div>
 
             {/* Aggregated Supernet Route */}
-            <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-emerald-300 transition-all">
+            <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-emerald-400 transition-all">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-base font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
                   <span>✅</span> After Aggregation (1 Supernet Route)
@@ -114,8 +114,8 @@ export default function SupernetSection() {
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
                 All 4 subnets are consolidated into a single summary prefix with a shorter network mask:
               </p>
-              <div className="bg-slate-50 dark:bg-slate-700 border border-emerald-400/40 rounded-lg p-4 font-mono text-xs text-slate-900 dark:text-slate-100 space-y-3">
-                <div className="flex justify-between items-center text-sm font-bold text-emerald-600 dark:text-emerald-400">
+              <div className="bg-[color:var(--surface-l3)] border border-emerald-500/40 rounded-lg p-4 font-mono text-xs text-slate-100 space-y-3">
+                <div className="flex justify-between items-center text-sm font-bold text-emerald-400">
                   <span>S 192.168.0.0/22</span>
                   <span>via 10.1.1.1</span>
                 </div>
@@ -138,9 +138,9 @@ export default function SupernetSection() {
             {subnets.map((sub, idx) => (
               <div
                 key={idx}
-                className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-3 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2"
+                className="bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] p-3 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2"
               >
-                <span className="text-indigo-600 dark:text-indigo-400 font-semibold min-w-[140px]">{sub.name} ({sub.cidr}):</span>
+                <span className="text-cyan-400 font-semibold min-w-[140px]">{sub.name} ({sub.cidr}):</span>
                 <div className="tracking-widest text-slate-900 dark:text-slate-100 overflow-x-auto">
                   {/* Highlight the common 22 bits in green: 22 bits span 24 characters (8 + dot + 8 + dot + 6) */}
                   <span className="text-emerald-600 dark:text-emerald-400 font-bold">{sub.binary.slice(0, 24)}</span>
@@ -150,7 +150,7 @@ export default function SupernetSection() {
             ))}
           </div>
 
-          <div className="bg-slate-50 dark:bg-slate-700 border border-emerald-400/40 p-4 rounded-lg text-xs font-mono space-y-2">
+          <div className="bg-[color:var(--surface-l3)] border border-emerald-400/40 p-4 rounded-lg text-xs font-mono space-y-2">
             <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-bold text-sm">
               <span>Matching Bit Count: 22 bits</span>
               <span>Summarized Network: 192.168.0.0/22</span>
@@ -168,7 +168,7 @@ export default function SupernetSection() {
         <NetworkingPanel>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* RULE 1 */}
-          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:card-shadow-md hover:border-indigo-300 transition-all flex flex-col justify-between">
+          <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-cyan-400 transition-all flex flex-col justify-between">
             <div>
               <div className="w-10 h-10 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-700 flex items-center justify-center font-bold text-lg mb-4">
                 1
@@ -186,7 +186,7 @@ export default function SupernetSection() {
           </div>
 
           {/* RULE 2 */}
-          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-emerald-300 transition-all flex flex-col justify-between">
+          <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-emerald-400 transition-all flex flex-col justify-between">
             <div>
               <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-700 flex items-center justify-center font-bold text-lg mb-4">
                 2
@@ -204,7 +204,7 @@ export default function SupernetSection() {
           </div>
 
           {/* RULE 3 */}
-          <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow hover:border-amber-300 transition-all flex flex-col justify-between">
+          <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow hover:border-amber-400 transition-all flex flex-col justify-between">
             <div>
               <div className="w-10 h-10 rounded-lg bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-700 flex items-center justify-center font-bold text-lg mb-4">
                 3

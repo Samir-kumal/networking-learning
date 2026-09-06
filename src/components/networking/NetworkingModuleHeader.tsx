@@ -14,7 +14,11 @@ export default function NetworkingModuleHeader({
   meta,
 }: NetworkingModuleHeaderProps) {
   return (
-    <header data-networking-header="true" className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 card-shadow dark:border-slate-800 dark:bg-slate-900 sm:p-6">
+    <header
+      data-networking-header="true"
+      className="relative overflow-hidden rounded-2xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow dark:border-[color:var(--border-l1)] dark:bg-[color:var(--surface-l1)] sm:p-6"
+    >
+      <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[color:var(--networking-tone)] to-transparent opacity-60" aria-hidden="true" />
       <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
         <div className="flex min-w-0 gap-4">
           <div className="networking-header-marker flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border">

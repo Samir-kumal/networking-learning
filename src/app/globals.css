@@ -8,6 +8,13 @@
   --color-border: var(--border);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
+  --color-surface-l0: var(--surface-l0);
+  --color-surface-l1: var(--surface-l1);
+  --color-surface-l2: var(--surface-l2);
+  --color-surface-l3: var(--surface-l3);
+  --color-border-l1: var(--border-l1);
+  --color-border-l2: var(--border-l2);
+  --color-border-l3: var(--border-l3);
   --color-grid: var(--grid);
   --color-node-1: var(--node-1);
   --color-node-2: var(--node-2);
@@ -56,6 +63,16 @@
     --node-3: var(--accent-rose);
     --node-4: var(--accent-violet);
     --node-5: var(--accent-sky);
+
+    /* 4-Tier Surface Elevation (Precision Telemetry) */
+    --surface-l0: #f8fafc;
+    --surface-l1: #ffffff;
+    --surface-l2: #f1f5f9;
+    --surface-l3: #0b1329;
+    --border-l1:  #e2e8f0;
+    --border-l2:  #cbd5e1;
+    --border-l3:  #1e293b;
+    --telemetry-glow: 0 0 20px -3px rgba(8, 145, 178, 0.12);
   }
 
   .dark {
@@ -78,6 +95,16 @@
     --primary: #818cf8;
     --surface: #1e293b;
     --surface-2: #334155;
+
+    /* 4-Tier Surface Elevation (Precision Telemetry) - Recessed wells darker than Deck */
+    --surface-l0: #070b14;
+    --surface-l1: #0d1527;
+    --surface-l2: #080d1a;
+    --surface-l3: #030712;
+    --border-l1:  #1e293b;
+    --border-l2:  #152033;
+    --border-l3:  #0f172a;
+    --telemetry-glow: 0 0 24px -2px rgba(56, 189, 248, 0.2);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -217,74 +244,130 @@
   min-width: 0;
 }
 
-[data-tone="cyan"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
-.networking-module [data-networking-example][data-tone="cyan"],
-.networking-module [data-networking-metric][data-tone="cyan"] {
+/* Stage 01 · Foundations (Cyan) */
+[data-tone="cyan"],
+[data-tone="cyan"] .networking-module,
+.networking-module [data-tone="cyan"],
+.networking-module[data-tone="cyan"],
+[data-tone="cyan"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]) {
   --networking-tone: #0891b2;
   --networking-tone-border: #a5f3fc;
   --networking-tone-surface: #ecfeff;
+  --networking-tone-glow: rgb(8 145 178 / 0.12);
 }
 
-[data-tone="amber"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
-.networking-module [data-networking-example][data-tone="amber"],
-.networking-module [data-networking-metric][data-tone="amber"] {
+/* Stage 02 · Applied (Amber) */
+[data-tone="amber"],
+[data-tone="amber"] .networking-module,
+.networking-module [data-tone="amber"],
+.networking-module[data-tone="amber"],
+[data-tone="amber"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]) {
   --networking-tone: #d97706;
   --networking-tone-border: #fde68a;
   --networking-tone-surface: #fffbeb;
+  --networking-tone-glow: rgb(217 119 6 / 0.12);
 }
 
-[data-tone="violet"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
-.networking-module [data-networking-example][data-tone="violet"],
-.networking-module [data-networking-metric][data-tone="violet"] {
+/* Stage 03 · Operations (Violet) */
+[data-tone="violet"],
+[data-tone="violet"] .networking-module,
+.networking-module [data-tone="violet"],
+.networking-module[data-tone="violet"],
+[data-tone="violet"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]) {
   --networking-tone: #7c3aed;
   --networking-tone-border: #ddd6fe;
   --networking-tone-surface: #f5f3ff;
+  --networking-tone-glow: rgb(124 58 237 / 0.12);
 }
 
-[data-tone="lime"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
-.networking-module [data-networking-example][data-tone="lime"],
-.networking-module [data-networking-metric][data-tone="lime"] {
+/* Stage 04 · Evaluation (Lime) */
+[data-tone="lime"],
+[data-tone="lime"] .networking-module,
+.networking-module [data-tone="lime"],
+.networking-module[data-tone="lime"],
+[data-tone="lime"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]) {
   --networking-tone: #65a30d;
   --networking-tone-border: #d9f99d;
   --networking-tone-surface: #f7fee7;
+  --networking-tone-glow: rgb(101 163 13 / 0.12);
 }
 
-.dark [data-tone="cyan"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
-.dark .networking-module [data-networking-example][data-tone="cyan"],
-.dark .networking-module [data-networking-metric][data-tone="cyan"] {
-  --networking-tone: #67e8f9;
-  --networking-tone-border: #164e63;
+/* Dark Mode Stage Tones */
+.dark [data-tone="cyan"],
+.dark [data-tone="cyan"] .networking-module,
+.dark .networking-module [data-tone="cyan"],
+.dark .networking-module[data-tone="cyan"],
+.dark [data-tone="cyan"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]) {
+  --networking-tone: #38bdf8;
+  --networking-tone-border: #0e4c68;
   --networking-tone-surface: rgb(8 47 73 / 0.45);
+  --networking-tone-glow: rgb(56 189 248 / 0.16);
 }
 
-.dark [data-tone="amber"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
-.dark .networking-module [data-networking-example][data-tone="amber"],
-.dark .networking-module [data-networking-metric][data-tone="amber"] {
-  --networking-tone: #fcd34d;
+.dark [data-tone="amber"],
+.dark [data-tone="amber"] .networking-module,
+.dark .networking-module [data-tone="amber"],
+.dark .networking-module[data-tone="amber"],
+.dark [data-tone="amber"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]) {
+  --networking-tone: #fbbf24;
   --networking-tone-border: #78350f;
   --networking-tone-surface: rgb(69 26 3 / 0.45);
+  --networking-tone-glow: rgb(251 191 36 / 0.16);
 }
 
-.dark [data-tone="violet"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
-.dark .networking-module [data-networking-example][data-tone="violet"],
-.dark .networking-module [data-networking-metric][data-tone="violet"] {
+.dark [data-tone="violet"],
+.dark [data-tone="violet"] .networking-module,
+.dark .networking-module [data-tone="violet"],
+.dark .networking-module[data-tone="violet"],
+.dark [data-tone="violet"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]) {
   --networking-tone: #c4b5fd;
   --networking-tone-border: #4c1d95;
   --networking-tone-surface: rgb(46 16 101 / 0.45);
+  --networking-tone-glow: rgb(196 181 253 / 0.16);
 }
 
-.dark [data-tone="lime"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]),
-.dark .networking-module [data-networking-example][data-tone="lime"],
-.dark .networking-module [data-networking-metric][data-tone="lime"] {
+.dark [data-tone="lime"],
+.dark [data-tone="lime"] .networking-module,
+.dark .networking-module [data-tone="lime"],
+.dark .networking-module[data-tone="lime"],
+.dark [data-tone="lime"]:has(.networking-module [data-networking-header], .networking-module [data-networking-panel], .networking-module [data-networking-example], .networking-module [data-networking-metric]) {
   --networking-tone: #bef264;
   --networking-tone-border: #365314;
   --networking-tone-surface: rgb(26 46 5 / 0.45);
+  --networking-tone-glow: rgb(190 242 100 / 0.16);
+}
+
+/* Level 1 Module Deck Container */
+.networking-module {
+  background-color: var(--surface-l1);
+  border-color: var(--border-l1);
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 0.04),
+    0 1px 2px -1px rgb(0 0 0 / 0.04);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.dark .networking-module {
+  background-color: var(--surface-l1);
+  border-color: var(--border-l1);
+  box-shadow:
+    0 4px 24px -4px rgb(0 0 0 / 0.45),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.03);
+}
+
+.networking-module:hover {
+  border-color: var(--networking-tone-border, #cbd5e1);
+}
+
+.dark .networking-module:hover {
+  border-color: var(--networking-tone-border, #334155);
 }
 
 .networking-module .networking-header-marker {
   border-color: var(--networking-tone-border, #a5f3fc);
   background-color: var(--networking-tone-surface, #ecfeff);
   color: var(--networking-tone, #0891b2);
+  box-shadow: 0 0 12px -2px var(--networking-tone-glow, transparent);
 }
 
 .networking-module .networking-header-accent {
@@ -294,13 +377,15 @@
 .networking-module [data-networking-panel],
 .networking-module [data-networking-example],
 .networking-module [data-networking-metric] {
-  transition: border-color 180ms ease, background-color 180ms ease;
+  transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
 
+/* Precision Telemetry Table */
 .networking-table {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  border-radius: 0.75rem;
 }
 
 .networking-table > table {
@@ -309,13 +394,34 @@
   border-collapse: collapse;
 }
 
-.networking-table th,
+.networking-table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background-color: var(--surface-l2);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-l1);
+}
+
 .networking-table td {
   padding: 0.75rem 1rem;
   text-align: left;
   vertical-align: top;
+  border-bottom: 1px solid var(--border-l1);
 }
 
+.networking-table tbody tr {
+  transition: background-color 150ms ease;
+}
+
+.networking-table tbody tr:hover {
+  background-color: var(--networking-tone-surface, var(--surface-l2));
+}
 @media (prefers-reduced-motion: reduce) {
   .networking-module [data-networking-panel],
   .networking-module [data-networking-example],

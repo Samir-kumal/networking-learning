@@ -340,7 +340,7 @@ interface GigabitEthernet0/0.10
   return (
     <section
       id="dhcp"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow space-y-10"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors space-y-10"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -355,8 +355,8 @@ interface GigabitEthernet0/0.10
       {/* 1. DORA HANDSHAKE FLOW */}
       {/* -------------------------------------------------------------------- */}
       <NetworkingExample title="The 4-Step DORA Handshake" description="Interactive four-step DHCP discovery, offer, request, and acknowledgement flow." tone="cyan">
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
+      <div className="rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 sm:p-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[color:var(--border-l1)] pb-4">
           <div>
             <span className="text-xs uppercase font-mono tracking-wider text-indigo-600 dark:text-indigo-400">Interactive Protocol Flow</span>
           </div>
@@ -375,8 +375,8 @@ interface GigabitEthernet0/0.10
                 onClick={() => setActiveDoraStep(step.id)}
                 className={`flex flex-col p-3 rounded-lg border text-left transition-all cursor-pointer ${
                   isActive
-                    ? "bg-slate-50 dark:bg-slate-700 border-indigo-400 shadow-md shadow-[#58a6ff]/10 scale-[1.02]"
-                    : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-[#8b949e]/50 opacity-80 hover:opacity-100"
+                    ? "bg-[color:var(--surface-l1)] border-cyan-400 shadow-md shadow-cyan-500/10 scale-[1.02]"
+                    : "bg-[color:var(--surface-l1)] border-[color:var(--border-l1)] hover:border-cyan-300 opacity-80 hover:opacity-100"
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
@@ -398,10 +398,10 @@ interface GigabitEthernet0/0.10
         </div>
 
         {/* Handshake Visual Stage Diagram */}
-        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 sm:p-6 space-y-6">
+        <div className="rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-4 sm:p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center">
             {/* Host */}
-            <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow flex flex-col items-center">
+            <div className="p-4 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] card-shadow flex flex-col items-center">
               <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-700 flex items-center justify-center text-2xl mb-2">
                 💻
               </div>
@@ -417,7 +417,7 @@ interface GigabitEthernet0/0.10
               <div className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-1">
                 Direction: <span className="text-slate-900 dark:text-slate-100 font-semibold">{currentDora.sender} ➔ {currentDora.receiver}</span>
               </div>
-              <div className="w-full flex items-center justify-between text-xs font-mono py-2 px-3 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+              <div className="w-full flex items-center justify-between text-xs font-mono py-2 px-3 rounded bg-[color:var(--surface-l3)] text-slate-100 border border-[color:var(--border-l3)]">
                 <span className="text-indigo-600 dark:text-indigo-400">{currentDora.srcIp}:{currentDora.srcPort}</span>
                 <div className="flex-1 mx-2 flex items-center justify-center">
                   <div className="h-0.5 flex-1 bg-gradient-to-r from-[#58a6ff] via-[#7ee787] to-[#58a6ff] animate-pulse"></div>
@@ -439,7 +439,7 @@ interface GigabitEthernet0/0.10
             </div>
 
             {/* Server */}
-            <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow flex flex-col items-center">
+            <div className="p-4 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] card-shadow flex flex-col items-center">
               <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 flex items-center justify-center text-2xl mb-2">
                 🖥️
               </div>
@@ -461,7 +461,7 @@ interface GigabitEthernet0/0.10
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 {currentDora.details}
               </p>
-              <div className="p-3 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-xs font-mono text-slate-900 dark:text-slate-100">
+              <div className="p-3 rounded bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] text-xs font-mono text-slate-100">
                 <div className="text-[10px] text-slate-500 dark:text-slate-400 uppercase mb-1">Packet Header Payload</div>
                 <div>Source MAC: <span className="text-indigo-600 dark:text-indigo-400">{currentDora.srcMac}</span></div>
                 <div>Dest MAC: <span className="text-amber-600 dark:text-amber-400">{currentDora.dstMac}</span></div>
@@ -476,7 +476,7 @@ interface GigabitEthernet0/0.10
               </h4>
               <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
                 {currentDora.options.map((opt, i) => (
-                  <div key={i} className="p-2.5 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
+                  <div key={i} className="p-2.5 rounded bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
                     <span className="font-mono text-indigo-600 dark:text-indigo-400 font-bold min-w-[90px]">{opt.key}</span>
                     <span className="font-mono text-slate-900 dark:text-slate-100 flex-1">{opt.value}</span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400">{opt.desc}</span>
@@ -514,8 +514,8 @@ interface GigabitEthernet0/0.10
       {/* 2. DHCP RELAY AGENT (`ip helper-address`) */}
       {/* -------------------------------------------------------------------- */}
       <NetworkingExample title={<>DHCP Relay Agent (<code className="text-emerald-600 dark:text-emerald-400">ip helper-address</code>)</>} description="A relay agent forwards client broadcasts across routed subnets." tone="amber">
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
+      <div className="rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 sm:p-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[color:var(--border-l1)] pb-4">
           <div>
             <span className="text-xs uppercase font-mono tracking-wider text-emerald-600 dark:text-emerald-400">Cross-Subnet Forwarding</span>
           </div>
@@ -545,10 +545,10 @@ interface GigabitEthernet0/0.10
         </div>
 
         {/* Diagram Area */}
-        <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 space-y-5">
+        <div className="rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative">
             {/* Client Subnet */}
-            <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow text-center space-y-2">
+            <div className="p-4 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] card-shadow text-center space-y-2">
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400">VLAN 10 Subnet (192.168.10.0/24)</span>
               <div className="text-2xl pt-1">💻</div>
               <div className="text-sm font-bold text-slate-900 dark:text-slate-100">Client Host</div>
@@ -559,7 +559,7 @@ interface GigabitEthernet0/0.10
             </div>
 
             {/* Router / Relay Agent */}
-            <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow text-center space-y-2">
+            <div className="p-4 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] card-shadow text-center space-y-2">
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400">L3 Router (Gateway 192.168.10.1)</span>
               <div className="text-2xl pt-1">🛣️</div>
               <div className="text-sm font-bold text-slate-900 dark:text-slate-100">Interface G0/0.10</div>
@@ -575,7 +575,7 @@ interface GigabitEthernet0/0.10
             </div>
 
             {/* Central DHCP Server */}
-            <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow text-center space-y-2">
+            <div className="p-4 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] card-shadow text-center space-y-2">
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">Central Management Subnet</span>
               <div className="text-2xl pt-1">🖥️</div>
               <div className="text-sm font-bold text-slate-900 dark:text-slate-100">Central DHCP Server</div>
@@ -610,7 +610,7 @@ interface GigabitEthernet0/0.10
               {copiedConfig ? "✓ Copied!" : "Copy Configuration"}
             </button>
           </div>
-          <pre className="p-4 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-emerald-600 dark:text-emerald-400 overflow-x-auto leading-relaxed">
+          <pre className="p-4 rounded-lg bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] text-xs font-mono text-emerald-400 overflow-x-auto leading-relaxed">
             {ciscoRelayConfig}
           </pre>
         </div>
@@ -621,8 +621,8 @@ interface GigabitEthernet0/0.10
       {/* 3. ESSENTIAL DHCP OPTIONS */}
       {/* -------------------------------------------------------------------- */}
       <NetworkingPanel className="space-y-6">
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
+      <div className="rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 sm:p-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[color:var(--border-l1)] pb-4">
           <div>
             <span className="text-xs uppercase font-mono tracking-wider text-amber-600 dark:text-amber-400">Network Configuration Parameters</span>
             <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
@@ -653,7 +653,7 @@ interface GigabitEthernet0/0.10
           {filteredOptions.map((opt) => (
             <div
               key={opt.id}
-              className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-amber-400/40 transition-colors space-y-3"
+              className="p-4 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] hover:border-amber-400/40 transition-colors space-y-3"
             >
               <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2">
                 <div className="flex items-center gap-2">
@@ -669,7 +669,7 @@ interface GigabitEthernet0/0.10
                 {opt.description}
               </p>
 
-              <div className="space-y-1 text-[11px] font-mono bg-slate-50 dark:bg-slate-700 p-2.5 rounded border border-slate-200 dark:border-slate-700">
+              <div className="space-y-1 text-[11px] font-mono bg-[color:var(--surface-l3)] text-slate-100 p-2.5 rounded border border-[color:var(--border-l3)]">
                 <div className="text-emerald-600 dark:text-emerald-400">
                   Sample Payload: <span className="text-slate-900 dark:text-slate-100">{opt.sampleValue}</span>
                 </div>
@@ -691,8 +691,8 @@ interface GigabitEthernet0/0.10
       {/* 4. ENTERPRISE IPAM & POOL EXHAUSTION CALCULATOR */}
       {/* -------------------------------------------------------------------- */}
       <NetworkingPanel className="space-y-6">
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-5 sm:p-6 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
+      <div className="rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 sm:p-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[color:var(--border-l1)] pb-4">
           <div>
             <span className="text-xs uppercase font-mono tracking-wider text-violet-600 dark:text-violet-400">Capacity & Planning</span>
             <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
@@ -715,7 +715,7 @@ interface GigabitEthernet0/0.10
               aria-label="Subnet size CIDR prefix"
               value={cidrPrefix}
               onChange={(e) => setCidrPrefix(Number(e.target.value))}
-              className="w-full p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-indigo-400 outline-none cursor-pointer"
+              className="w-full p-2.5 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-cyan-400 outline-none cursor-pointer"
             >
               <option value={26}>/26 (64 Total IPs / 62 Usable)</option>
               <option value={25}>/25 (128 Total IPs / 126 Usable)</option>
@@ -734,8 +734,7 @@ interface GigabitEthernet0/0.10
               min={0}
               max={usableTotalIps}
               value={reservedCount}
-              onChange={(e) => setReservedCount(Math.max(0, Number(e.target.value)))}
-              className="w-full p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-indigo-400 outline-none"
+              className="w-full p-2.5 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-cyan-400 outline-none"
             />
           </div>
 
@@ -748,8 +747,7 @@ interface GigabitEthernet0/0.10
               min={0}
               max={totalSubnetIps}
               value={activeLeases}
-              onChange={(e) => setActiveLeases(Math.max(0, Number(e.target.value)))}
-              className="w-full p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-indigo-400 outline-none"
+              className="w-full p-2.5 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-cyan-400 outline-none"
             />
           </div>
 
@@ -762,8 +760,7 @@ interface GigabitEthernet0/0.10
               min={0}
               max={500}
               value={dailyChurn}
-              onChange={(e) => setDailyChurn(Math.max(0, Number(e.target.value)))}
-              className="w-full p-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-indigo-400 outline-none"
+              className="w-full p-2.5 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-cyan-400 outline-none"
             />
           </div>
         </div>
@@ -774,8 +771,7 @@ interface GigabitEthernet0/0.10
             <span className="text-slate-500 dark:text-slate-400">Pool Allocation Distribution</span>
             <span className="text-slate-900 dark:text-slate-100 font-bold">{utilizationPct.toFixed(1)}% Utilization</span>
           </div>
-
-          <div className="w-full h-4 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden flex">
+          <div className="w-full h-4 rounded-full bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] overflow-hidden flex">
             {/* Reserved Static */}
             <div
               style={{ width: `${(reservedCount / usableTotalIps) * 100}%` }}

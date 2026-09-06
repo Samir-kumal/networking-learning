@@ -780,7 +780,7 @@ export default function PacketSection() {
   return (
     <section
       id="packets"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* SECTION HEADER */}
       <NetworkingModuleHeader
@@ -1297,10 +1297,10 @@ export default function PacketSection() {
         </div>
 
         {/* Wireshark Window Container */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow shadow-2xl overflow-hidden">
+        <div className="rounded-xl bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] shadow-2xl overflow-hidden">
           <NetworkingPanel variant="console" className="p-0">
           {/* Top Wireshark Titlebar & Filter Controls */}
-          <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div className="bg-[color:var(--surface-l2)] border-b border-[color:var(--border-l2)] p-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             {/* Window Dots & Title */}
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5">
@@ -1319,10 +1319,10 @@ export default function PacketSection() {
                 <button
                   key={proto}
                   onClick={() => setProtocolFilter(proto)}
-                  className={`px-2.5 py-1 rounded text-[11px] font-bold transition ${
+                  className={`px-2.5 py-1 rounded text-[11px] font-bold transition cursor-pointer ${
                     protocolFilter === proto
-                      ? "bg-indigo-600 text-slate-900 dark:text-slate-100"
-                      : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700"
+                      ? "bg-[color:var(--networking-tone)] text-white shadow-sm"
+                      : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 border border-[color:var(--border-l1)]"
                   }`}
                 >
                   {proto}
@@ -1332,7 +1332,7 @@ export default function PacketSection() {
           </div>
 
           {/* Wireshark Display Filter Input Bar */}
-          <div className="bg-slate-50 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700 px-3 py-2 flex items-center gap-2">
+          <div className="bg-[color:var(--surface-l2)] border-b border-[color:var(--border-l2)] px-3 py-2 flex items-center gap-2">
             <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold">Apply a display filter:</span>
             <input
               type="text"
@@ -1340,7 +1340,7 @@ export default function PacketSection() {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="e.g. 192.168.1.50, SYN, HTTP GET..."
               aria-label="Wireshark display filter"
-              className="flex-1 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded px-3 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-indigo-400"
+              className="flex-1 bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] rounded px-3 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-cyan-400"
             />
             {searchQuery && (
               <button

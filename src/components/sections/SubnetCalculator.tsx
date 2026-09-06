@@ -46,7 +46,7 @@ export default function SubnetCalculator() {
   return (
     <section
       id="calculator"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -59,7 +59,7 @@ export default function SubnetCalculator() {
       <NetworkingPanel className="mb-8">
 
       {/* Input Form */}
-      <form onSubmit={handleCalculate} className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-8">
+      <form onSubmit={handleCalculate} className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
           <div className="md:col-span-6 space-y-2">
             <label htmlFor="ip-input" className="block text-xs font-mono font-bold text-slate-500 dark:text-slate-400 uppercase">
@@ -71,7 +71,7 @@ export default function SubnetCalculator() {
               value={ipInput}
               onChange={(e) => setIpInput(e.target.value)}
               placeholder="e.g. 192.168.1.130"
-              className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 font-mono text-sm placeholder-[#484f58] focus:outline-none focus:border-indigo-400 transition-colors"
+              className="w-full px-4 py-2.5 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-slate-900 dark:text-slate-100 font-mono text-sm placeholder-slate-400 focus:outline-none focus:border-cyan-400 transition-colors"
             />
           </div>
 
@@ -83,7 +83,7 @@ export default function SubnetCalculator() {
               id="cidr-select"
               value={cidrInput}
               onChange={(e) => setCidrInput(Number(e.target.value))}
-              className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 font-mono text-sm focus:outline-none focus:border-indigo-400 transition-colors cursor-pointer"
+              className="w-full px-4 py-2.5 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-slate-900 dark:text-slate-100 font-mono text-sm focus:outline-none focus:border-cyan-400 transition-colors cursor-pointer"
             >
               {Array.from({ length: 32 }, (_, i) => i + 1).map((c) => (
                 <option key={c} value={c}>
@@ -96,7 +96,7 @@ export default function SubnetCalculator() {
           <div className="md:col-span-3">
             <button
               type="submit"
-              className="w-full px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-600/90 text-slate-900 dark:text-slate-100 font-bold text-sm font-mono transition-all shadow-md shadow-[#58a6ff]/20 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full px-5 py-2.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-sm font-mono transition-all shadow-md shadow-cyan-500/20 flex items-center justify-center gap-2 cursor-pointer"
             >
               Calculate ⚡
             </button>
@@ -148,7 +148,7 @@ export default function SubnetCalculator() {
       </NetworkingPanel>
 
       {/* Quick Reference Table */}
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow">
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-4">
           Common Subnet Quick Reference
         </h3>
@@ -156,7 +156,7 @@ export default function SubnetCalculator() {
           <NetworkingTable>
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-500 dark:text-slate-400 uppercase">
+              <tr className="border-b border-[color:var(--border-l1)] text-xs font-mono text-slate-500 dark:text-slate-400 uppercase">
                 <th className="py-3 px-4">CIDR</th>
                 <th className="py-3 px-4">Subnet Mask</th>
                 <th className="py-3 px-4">Usable Hosts</th>
@@ -176,9 +176,9 @@ export default function SubnetCalculator() {
                       setHasError(false);
                     }
                   }}
-                  className="hover:bg-white dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                  className="hover:bg-[color:var(--surface-l1)] transition-colors cursor-pointer"
                 >
-                  <td className="py-3.5 px-4 font-bold text-indigo-600 dark:text-indigo-400">{row.cidr}</td>
+                  <td className="py-3.5 px-4 font-bold text-cyan-600 dark:text-cyan-400">{row.cidr}</td>
                   <td className="py-3.5 px-4 text-slate-900 dark:text-slate-100">{row.mask}</td>
                   <td className="py-3.5 px-4 text-emerald-600 dark:text-emerald-400">{row.hosts}</td>
                   <td className="py-3.5 px-4 text-slate-500 dark:text-slate-400 font-sans text-xs">{row.use}</td>

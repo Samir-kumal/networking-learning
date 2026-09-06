@@ -482,7 +482,7 @@ export default function RoutingSection() {
   return (
     <section
       id="routing"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Header */}
       <NetworkingModuleHeader
@@ -512,10 +512,10 @@ export default function RoutingSection() {
                 <button
                   key={pKey}
                   onClick={() => setSelectedProto(pKey)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
                     isSelected
-                      ? "bg-indigo-600 text-slate-900 dark:text-slate-100 shadow-lg shadow-[#58a6ff]/20"
-                      : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:text-slate-100 hover:border-indigo-300"
+                      ? "bg-violet-600 text-white shadow-md shadow-violet-500/20"
+                      : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 border border-[color:var(--border-l1)] hover:text-slate-900 dark:hover:text-slate-100 hover:border-violet-400"
                   }`}
                 >
                   {p.ciscoCode ? `[${p.ciscoCode}] ` : ""}
@@ -527,8 +527,8 @@ export default function RoutingSection() {
         </div>
 
         {/* Selected Protocol Deep Dive Card */}
-        <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-4 border-b border-slate-200/60 dark:border-slate-700/60">
+        <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-4 border-b border-[color:var(--border-l1)]">
             <div>
               <div className="flex items-center gap-3">
                 <span className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold">
@@ -539,7 +539,7 @@ export default function RoutingSection() {
               <h4 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-2">{currentProto.name}</h4>
             </div>
 
-            <div className="flex items-center gap-3 bg-white dark:bg-slate-800 px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700">
+            <div className="flex items-center gap-3 bg-[color:var(--surface-l1)] px-4 py-3 rounded-lg border border-[color:var(--border-l1)]">
               <div className="text-right">
                 <span className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">
                   Admin Distance (Cisco IOS default)

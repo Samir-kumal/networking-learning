@@ -36,7 +36,7 @@ export default function CidrSection() {
   return (
     <section
       id="cidr"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader
@@ -49,9 +49,9 @@ export default function CidrSection() {
 
       {/* Interactive Controls & 32-Bit Visual Bar */}
       <NetworkingPanel variant="muted" className="mb-10">
-      <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow mb-10">
+      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-10">
         {/* Preset Selector */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-[color:var(--border-l1)]">
           <div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
               Subnet Mask Bit Allocator
@@ -68,8 +68,8 @@ export default function CidrSection() {
                 onClick={() => setCidr(p.value)}
                 className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-all flex items-center gap-1.5 ${
                   cidr === p.value
-                    ? "bg-indigo-600 border-indigo-400 text-slate-900 dark:text-slate-100 font-bold shadow-md shadow-[#58a6ff]/20"
-                    : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-indigo-300 hover:text-slate-900 dark:hover:text-slate-100"
+                    ? "bg-cyan-600 border-cyan-400 text-white font-bold shadow-md shadow-cyan-500/20"
+                    : "bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-slate-500 dark:text-slate-400 hover:border-cyan-400 hover:text-slate-900 dark:hover:text-slate-100"
                 }`}
               >
                 <span>{p.label}</span>
@@ -93,7 +93,7 @@ export default function CidrSection() {
             max={32}
             value={cidr}
             onChange={(e) => setCidr(parseInt(e.target.value, 10))}
-            className="w-full h-2.5 bg-white dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-[#58a6ff] border border-slate-200 dark:border-slate-700"
+            className="w-full h-2.5 bg-[color:var(--surface-l1)] rounded-lg appearance-none cursor-pointer accent-cyan-500 border border-[color:var(--border-l1)]"
           />
         </div>
 
@@ -107,7 +107,7 @@ export default function CidrSection() {
           {/* Octet Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
             {[0, 1, 2, 3].map((oIdx) => (
-              <div key={oIdx} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-2.5 rounded-lg space-y-2">
+              <div key={oIdx} className="bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] p-2.5 rounded-lg space-y-2">
                 <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 flex justify-between">
                   <span>Octet {oIdx + 1}</span>
                   <span className="font-bold text-slate-900 dark:text-slate-100">{maskArray[oIdx]}</span>
@@ -124,8 +124,8 @@ export default function CidrSection() {
                         title={`Click to set CIDR to /${globalBitIndex}`}
                         className={`py-2 rounded font-mono text-xs font-bold transition-all ${
                           isNetwork
-                            ? "bg-indigo-600 text-slate-900 dark:text-slate-100 hover:bg-indigo-600/80 shadow-sm"
-                            : "bg-emerald-500/20 border border-emerald-400/40 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/30"
+                            ? "bg-cyan-600 text-white font-bold hover:bg-cyan-500 shadow-sm"
+                            : "bg-emerald-500/20 border border-emerald-400/40 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/30 font-bold"
                         }`}
                       >
                         {isNetwork ? "1" : "0"}
@@ -163,7 +163,7 @@ export default function CidrSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {isDefaultRoute ? (
-            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3">
+            <div className="bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] rounded-xl p-4 space-y-3">
               <div className="text-xs font-mono text-amber-600 dark:text-amber-400 font-bold uppercase">
                 Special prefix semantics
               </div>
@@ -172,7 +172,7 @@ export default function CidrSection() {
               </p>
             </div>
           ) : cidr >= 31 ? (
-            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3">
+            <div className="bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] rounded-xl p-4 space-y-3">
               <div className="text-xs font-mono text-amber-600 dark:text-amber-400 font-bold uppercase">
                 Special prefix semantics
               </div>
@@ -183,17 +183,17 @@ export default function CidrSection() {
               </p>
             </div>
           ) : (
-            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3">
+            <div className="bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] rounded-xl p-4 space-y-3">
               <div className="text-xs font-mono text-amber-600 dark:text-amber-400 font-bold uppercase">
                 Why subtract 2 addresses?
               </div>
               <div className="space-y-2 text-xs text-slate-500 dark:text-slate-400">
-                <div className="p-2.5 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
-                  <strong className="text-indigo-600 dark:text-indigo-400 block mb-0.5">1. Network Address (All Host Bits = 0)</strong>
+                <div className="p-2.5 rounded bg-[color:var(--surface-l3)] text-slate-100 border border-[color:var(--border-l3)]">
+                  <strong className="text-cyan-400 block mb-0.5">1. Network Address (All Host Bits = 0)</strong>
                   The first IP address in the range identifies the subnet block itself in routing tables and cannot be assigned to an interface.
                 </div>
-                <div className="p-2.5 rounded bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
-                  <strong className="text-rose-600 dark:text-rose-400 block mb-0.5">2. Directed Broadcast (All Host Bits = 1)</strong>
+                <div className="p-2.5 rounded bg-[color:var(--surface-l3)] text-slate-100 border border-[color:var(--border-l3)]">
+                  <strong className="text-rose-400 block mb-0.5">2. Directed Broadcast (All Host Bits = 1)</strong>
                   The last address in a conventional IPv4 subnet is the directed-broadcast address. Hosts and routers may filter directed broadcasts, so it is not a universal guarantee of delivery.
                 </div>
               </div>
@@ -201,7 +201,7 @@ export default function CidrSection() {
           )}
 
           {/* Current Calculation Step-by-Step */}
-          <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3 font-mono text-xs">
+          <div className="bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] rounded-xl p-4 space-y-3 font-mono text-xs">
             <div className="text-emerald-600 dark:text-emerald-400 font-bold uppercase">
               Step-by-Step for /{cidr}:
             </div>
@@ -209,17 +209,17 @@ export default function CidrSection() {
               <div>1. Host bits = 32 - {cidr} = {hostBits}</div>
               <div>2. Total addresses = 2<sup>{hostBits}</sup> = {totalAddresses.toLocaleString()}</div>
               {isDefaultRoute ? (
-                <div className="p-2 rounded bg-slate-50 dark:bg-slate-700 border border-emerald-400/40 text-emerald-600 dark:text-emerald-400 font-bold text-sm text-center mt-2">
+                <div className="p-2 rounded bg-[color:var(--surface-l3)] border border-emerald-400/40 text-emerald-400 font-bold text-sm text-center mt-2">
                   {totalAddresses.toLocaleString()} addresses = the entire IPv4 space, matched as the default route 0.0.0.0/0
                 </div>
               ) : cidr >= 31 ? (
-                <div className="p-2 rounded bg-slate-50 dark:bg-slate-700 border border-emerald-400/40 text-emerald-600 dark:text-emerald-400 font-bold text-sm text-center mt-2">
+                <div className="p-2 rounded bg-[color:var(--surface-l3)] border border-emerald-400/40 text-emerald-400 font-bold text-sm text-center mt-2">
                   {cidr === 31 ? "2 addresses = 2 usable point-to-point endpoints" : "1 address = 1 usable host-route endpoint"}
                 </div>
               ) : (
                 <>
                   <div>3. Reserve the network and broadcast addresses:</div>
-                  <div className="p-2 rounded bg-slate-50 dark:bg-slate-700 border border-emerald-400/40 text-emerald-600 dark:text-emerald-400 font-bold text-sm text-center mt-2">
+                  <div className="p-2 rounded bg-[color:var(--surface-l3)] border border-emerald-400/40 text-emerald-400 font-bold text-sm text-center mt-2">
                     {totalAddresses} - 2 = {usableHosts.toLocaleString()} usable hosts
                   </div>
                 </>

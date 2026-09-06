@@ -403,7 +403,7 @@ export default function CheatSheetSection() {
   return (
     <section
       id="cheatsheet"
-      className="networking-module scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 card-shadow transition-colors hover:border-indigo-300 card-shadow"
+      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
     >
       {/* Header */}
       <NetworkingModuleHeader
@@ -425,7 +425,7 @@ export default function CheatSheetSection() {
           {coreFormulas.map((item) => (
             <NetworkingPanel
               key={item.id}
-              className="rounded-xl border bg-white dark:bg-slate-800 p-5 hover:border-indigo-300 transition-all flex flex-col justify-between"
+              className="rounded-xl border border-[color:var(--border-l1)] p-5 hover:border-lime-400 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
@@ -477,36 +477,36 @@ export default function CheatSheetSection() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               aria-label="Search subnetting reference table"
-              className="px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-xs text-slate-900 dark:text-slate-100 placeholder-[#8b949e] focus:outline-none focus:border-indigo-400 font-mono"
+              className="px-3 py-1.5 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-lime-400 font-mono"
             />
 
-            <div className="flex items-center gap-1 bg-slate-50 dark:bg-slate-700 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
+            <div className="flex items-center gap-1 bg-[color:var(--surface-l1)] p-1 rounded-lg border border-[color:var(--border-l1)]">
               <button
                 onClick={() => setFilterCategory("all")}
-                className={`px-2.5 py-1 rounded text-xs font-medium transition-all ${
+                className={`px-2.5 py-1 rounded text-xs font-medium transition-all cursor-pointer ${
                   filterCategory === "all"
-                    ? "bg-indigo-600 text-slate-900 dark:text-slate-100 font-bold"
-                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100"
+                    ? "bg-[color:var(--networking-tone)] text-slate-950 font-bold shadow-sm"
+                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
                 }`}
               >
                 All
               </button>
               <button
                 onClick={() => setFilterCategory("common")}
-                className={`px-2.5 py-1 rounded text-xs font-medium transition-all ${
+                className={`px-2.5 py-1 rounded text-xs font-medium transition-all cursor-pointer ${
                   filterCategory === "common"
-                    ? "bg-indigo-600 text-slate-900 dark:text-slate-100 font-bold"
-                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100"
+                    ? "bg-[color:var(--networking-tone)] text-slate-950 font-bold shadow-sm"
+                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
                 }`}
               >
                 Popular
               </button>
               <button
                 onClick={() => setFilterCategory("p2p")}
-                className={`px-2.5 py-1 rounded text-xs font-medium transition-all ${
+                className={`px-2.5 py-1 rounded text-xs font-medium transition-all cursor-pointer ${
                   filterCategory === "p2p"
-                    ? "bg-indigo-600 text-slate-900 dark:text-slate-100 font-bold"
-                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100"
+                    ? "bg-[color:var(--networking-tone)] text-slate-950 font-bold shadow-sm"
+                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
                 }`}
               >
                 P2P / Host
@@ -590,7 +590,7 @@ export default function CheatSheetSection() {
           {mentalMathTricks.map((trick, idx) => (
             <NetworkingPanel
               key={idx}
-              className="rounded-xl bg-white dark:bg-slate-800 p-6 hover:border-indigo-300 transition-all flex flex-col justify-between"
+              className="rounded-xl border border-[color:var(--border-l1)] p-6 hover:border-lime-400 transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between gap-3 mb-3">
@@ -613,7 +613,7 @@ export default function CheatSheetSection() {
                   {trick.description}
                 </p>
 
-                <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-mono text-xs text-indigo-600 dark:text-indigo-400 mb-4">
+                <div className="p-3 rounded-lg bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] font-mono text-xs text-lime-400 mb-4">
                   {trick.formulaSnippet}
                 </div>
               </div>
