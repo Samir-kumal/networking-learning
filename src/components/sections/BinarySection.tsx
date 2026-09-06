@@ -40,7 +40,7 @@ export default function BinarySection() {
       <NetworkingPanel className="mb-10">
 
       {/* Interactive Live 4-Octet Converter */}
-      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-10">
+      <div>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-[color:var(--border-l1)]">
           <div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
@@ -121,7 +121,7 @@ export default function BinarySection() {
       <NetworkingPanel className="mb-10">
 
       {/* Address Structure & Network vs Host Breakdown */}
-      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow mb-10">
+      <div>
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3">
           IPv4 Address Anatomy: Network ID vs Host ID
         </h3>
@@ -176,34 +176,34 @@ export default function BinarySection() {
           <table className="w-full text-left border-collapse text-xs font-mono">
             <thead>
               <tr className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                <th className="p-3">Class</th>
-                <th className="p-3">CIDR Block</th>
-                <th className="p-3">IP Address Range</th>
-                <th className="p-3">Total Addresses</th>
-                <th className="p-3">Typical Application</th>
+                <th className="p-2 sm:p-3">Class</th>
+                <th className="p-2 sm:p-3">CIDR Block</th>
+                <th className="p-2 sm:p-3">IP Address Range</th>
+                <th className="p-2 sm:p-3">Total Addresses</th>
+                <th className="p-2 sm:p-3">Typical Application</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#30363d] text-slate-900 dark:text-slate-100">
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
-                <td className="p-3 font-bold text-indigo-600 dark:text-indigo-400">10/8 block</td>
-                <td className="p-3 text-emerald-600 dark:text-emerald-400">10.0.0.0 / 8</td>
-                <td className="p-3">10.0.0.0 — 10.255.255.255</td>
-                <td className="p-3">16,777,216</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">Enterprise networks and cloud VPCs</td>
+                <td className="p-2 sm:p-3 font-bold text-indigo-600 dark:text-indigo-400">10/8 block</td>
+                <td className="p-2 sm:p-3 text-emerald-600 dark:text-emerald-400">10.0.0.0 / 8</td>
+                <td className="p-2 sm:p-3">10.0.0.0 — 10.255.255.255</td>
+                <td className="p-2 sm:p-3">16,777,216</td>
+                <td className="p-2 sm:p-3 text-slate-500 dark:text-slate-400">Enterprise networks and cloud VPCs</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
-                <td className="p-3 font-bold text-violet-600 dark:text-violet-400">172.16/12 block</td>
-                <td className="p-3 text-emerald-600 dark:text-emerald-400">172.16.0.0 / 12</td>
-                <td className="p-3">172.16.0.0 — 172.31.255.255</td>
-                <td className="p-3">1,048,576</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">Enterprise networks and container bridges</td>
+                <td className="p-2 sm:p-3 font-bold text-violet-600 dark:text-violet-400">172.16/12 block</td>
+                <td className="p-2 sm:p-3 text-emerald-600 dark:text-emerald-400">172.16.0.0 / 12</td>
+                <td className="p-2 sm:p-3">172.16.0.0 — 172.31.255.255</td>
+                <td className="p-2 sm:p-3">1,048,576</td>
+                <td className="p-2 sm:p-3 text-slate-500 dark:text-slate-400">Enterprise networks and container bridges</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
-                <td className="p-3 font-bold text-amber-600 dark:text-amber-400">192.168/16 block</td>
-                <td className="p-3 text-emerald-600 dark:text-emerald-400">192.168.0.0 / 16</td>
-                <td className="p-3">192.168.0.0 — 192.168.255.255</td>
-                <td className="p-3">65,536</td>
-                <td className="p-3 text-slate-500 dark:text-slate-400">Home, SOHO, and local networks</td>
+                <td className="p-2 sm:p-3 font-bold text-amber-600 dark:text-amber-400">192.168/16 block</td>
+                <td className="p-2 sm:p-3 text-emerald-600 dark:text-emerald-400">192.168.0.0 / 16</td>
+                <td className="p-2 sm:p-3">192.168.0.0 — 192.168.255.255</td>
+                <td className="p-2 sm:p-3">65,536</td>
+                <td className="p-2 sm:p-3 text-slate-500 dark:text-slate-400">Home, SOHO, and local networks</td>
               </tr>
             </tbody>
           </table>
@@ -225,31 +225,31 @@ export default function BinarySection() {
           <table className="w-full text-left border-collapse text-xs">
             <thead>
               <tr className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700 font-mono">
-                <th className="p-3">Feature</th>
-                <th className="p-3">Legacy Classful Routing (Historical)</th>
-                <th className="p-3">Modern CIDR (RFC 1519, obsoleted by RFC 4632)</th>
+                <th className="p-2 sm:p-3">Feature</th>
+                <th className="p-2 sm:p-3">Legacy Classful Routing (Historical)</th>
+                <th className="p-2 sm:p-3">Modern CIDR (RFC 1519, obsoleted by RFC 4632)</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#30363d] text-slate-900 dark:text-slate-100">
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
-                <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">Mask Allocation</td>
-                <td className="p-3 text-rose-600 dark:text-rose-400">Fixed class boundaries (/8, /16, /24)</td>
-                <td className="p-3 text-emerald-600 dark:text-emerald-400">Any prefix from /0 to /32</td>
+                <td className="p-2 sm:p-3 font-semibold text-slate-500 dark:text-slate-400">Mask Allocation</td>
+                <td className="p-2 sm:p-3 text-rose-600 dark:text-rose-400">Fixed class boundaries (/8, /16, /24)</td>
+                <td className="p-2 sm:p-3 text-emerald-600 dark:text-emerald-400">Any prefix from /0 to /32</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
-                <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">Routing Protocol Support</td>
-                <td className="p-3">RIPv1 and IGRP used classful updates (historical)</td>
-                <td className="p-3 text-indigo-600 dark:text-indigo-400">OSPF, BGP4, RIPv2, and IS-IS carry prefix information</td>
+                <td className="p-2 sm:p-3 font-semibold text-slate-500 dark:text-slate-400">Routing Protocol Support</td>
+                <td className="p-2 sm:p-3">RIPv1 and IGRP used classful updates (historical)</td>
+                <td className="p-2 sm:p-3 text-indigo-600 dark:text-indigo-400">OSPF, BGP4, RIPv2, and IS-IS carry prefix information</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
-                <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">IP Utilization Efficiency</td>
-                <td className="p-3 text-rose-600 dark:text-rose-400">Often wasteful for networks smaller than a class boundary</td>
-                <td className="p-3 text-emerald-600 dark:text-emerald-400">VLSM enables subnet sizing to match requirements</td>
+                <td className="p-2 sm:p-3 font-semibold text-slate-500 dark:text-slate-400">IP Utilization Efficiency</td>
+                <td className="p-2 sm:p-3 text-rose-600 dark:text-rose-400">Often wasteful for networks smaller than a class boundary</td>
+                <td className="p-2 sm:p-3 text-emerald-600 dark:text-emerald-400">VLSM enables subnet sizing to match requirements</td>
               </tr>
               <tr className="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
-                <td className="p-3 font-semibold text-slate-500 dark:text-slate-400">Route Table Aggregation</td>
-                <td className="p-3">Limited to classful boundaries</td>
-                <td className="p-3 text-violet-600 dark:text-violet-400">Supports arbitrary aligned CIDR summaries</td>
+                <td className="p-2 sm:p-3 font-semibold text-slate-500 dark:text-slate-400">Route Table Aggregation</td>
+                <td className="p-2 sm:p-3">Limited to classful boundaries</td>
+                <td className="p-2 sm:p-3 text-violet-600 dark:text-violet-400">Supports arbitrary aligned CIDR summaries</td>
               </tr>
             </tbody>
           </table>
@@ -290,9 +290,9 @@ export default function BinarySection() {
         </div>
       </div>
       <NetworkingPanel>
-      
+
       {/* Bitwise AND Visual Block */}
-      <div className="rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] p-6 card-shadow">
+      <div>
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">
           Bitwise AND Operation: Calculating Network Address
         </h3>
