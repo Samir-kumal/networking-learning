@@ -39,20 +39,24 @@ export default function SecVaultSection() {
   };
 
   return (
-    <section id="sec-vault" className="scroll-mt-20 space-y-6">
-      {/* Section Header Card */}
-      <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="px-2.5 py-0.5 rounded-full bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 border border-violet-300/40 text-xs font-mono font-semibold">
-            S3 · Secrets &amp; Vault Flow
-          </span>
+    <section id="sec-vault" className="security-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors space-y-6">
+      {/* Section Header */}
+      <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow sm:p-6">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[color:var(--networking-tone)] to-transparent opacity-60" aria-hidden="true" />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[color:var(--networking-tone)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--networking-tone)]" />
+              #sec-vault · S3
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+              3. Secret Management Workflow (HashiCorp Vault vs AWS Secrets Manager)
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
+              Compare provider-specific secret storage, dynamic credential leases, access policy, and rotation workflows. The controls below are a local simulation.
+            </p>
+          </div>
         </div>
-        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-          3. Secret Management Workflow (HashiCorp Vault vs AWS Secrets Manager)
-        </h3>
-        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Compare provider-specific secret storage, dynamic credential leases, access policy, and rotation workflows. The controls below are a local simulation.
-        </p>
       </div>
 
       {/* Architecture Comparison Cards */}
@@ -129,7 +133,7 @@ export default function SecVaultSection() {
       </div>
 
       {/* Interactive Lifecycle Steps */}
-      <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-4">
+      <div className="p-5 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] card-shadow space-y-4">
         <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
           Secret Lifecycle Pipeline
         </h4>
@@ -146,8 +150,8 @@ export default function SecVaultSection() {
               onClick={() => setSecretLifecycleStep(s.step)}
               className={`p-3 rounded-lg border text-xs font-semibold text-left transition-all ${
                 secretLifecycleStep === s.step
-                  ? "bg-indigo-600 text-white font-bold border-indigo-600 shadow-sm"
-                  : "bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:hover:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600"
+                  ? "bg-violet-600 text-white font-bold shadow-sm"
+                  : "bg-[color:var(--surface-l1)] text-slate-500 dark:text-slate-400 border border-[color:var(--border-l1)] hover:border-violet-400"
               }`}
             >
               {s.label}
@@ -155,7 +159,7 @@ export default function SecVaultSection() {
           ))}
         </div>
 
-        <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+        <div className="p-4 rounded-lg bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] text-xs text-slate-300 leading-relaxed font-mono">
           {secretLifecycleStep === 1 && (
             <p>
               <strong>Storage &amp; key protection:</strong> Encryption details depend on the configured Vault seal/storage and AWS KMS settings. Shamir shares protect an unseal workflow; AWS Secrets Manager uses KMS envelope encryption.
@@ -180,7 +184,7 @@ export default function SecVaultSection() {
       </div>
 
       {/* Interactive Live Secret Simulator */}
-      <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-4">
+      <div className="p-5 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] card-shadow space-y-4">
         <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
           <span>💻</span> Secret Fetch &amp; Rotation Simulator
         </h4>
@@ -195,7 +199,7 @@ export default function SecVaultSection() {
               onChange={(e) =>
                 setSecretProvider(e.target.value as "vault" | "aws")
               }
-              className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 font-mono"
+              className="w-full px-3 py-2 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-violet-500"
             >
               <option value="vault">HashiCorp Vault (AppRole / KV v2)</option>
               <option value="aws">AWS Secrets Manager (KMS)</option>
@@ -210,7 +214,7 @@ export default function SecVaultSection() {
               type="text"
               value={secretPath}
               onChange={(e) => setSecretPath(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 font-mono"
+              className="w-full px-3 py-2 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-violet-500"
             />
           </div>
         </div>

@@ -8,8 +8,10 @@ export const metadata = {
 
 export default function SecurityPage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <AppSecSection />
+    <div className="min-h-screen bg-[color:var(--surface-l0)] text-slate-900 transition-colors duration-300 dark:bg-[color:var(--surface-l0)] dark:text-slate-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <AppSecSection />
+      </div>
     </div>
   );
 }

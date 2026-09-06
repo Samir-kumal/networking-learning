@@ -131,38 +131,42 @@ export default function SecCloudPostureSection() {
   };
 
   return (
-    <section id="sec-cloud-posture" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
-        <div className="mb-2 flex items-center gap-2">
-          <span className="rounded-full border border-cyan-400/30 bg-cyan-50 dark:bg-cyan-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-cyan-700 dark:text-cyan-300">
-            S13 · CLOUD SECURITY POSTURE
-          </span>
+    <section id="sec-cloud-posture" className="security-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors space-y-6">
+      {/* Section Header */}
+      <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow sm:p-6">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[color:var(--networking-tone)] to-transparent opacity-60" aria-hidden="true" />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[color:var(--networking-tone)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--networking-tone)]" />
+              #sec-cloud-posture · S13
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+              13. Cloud Security Posture Management (CSPM) Scanner
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
+              Review a simulated AWS account snapshot across identity, storage, network, logging, and KMS controls.
+            </p>
+          </div>
         </div>
-        <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100">13. Cloud Security Posture Scanner</h3>
-        <p className="mt-1 max-w-3xl text-sm text-slate-500 dark:text-slate-400">
-          Review a local AWS account snapshot across identity, storage, network, logging, key management,
-          and firewall controls. Findings are educational examples, not a live cloud scan, and the
-          aggregate grade is a project-specific heuristic rather than an AWS service score.
-        </p>
       </div>
-
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
-        <div className="rounded-xl border border-cyan-200 dark:border-cyan-700 bg-gradient-to-br from-cyan-50 dark:from-cyan-900/30 to-white dark:to-slate-800 p-4 card-shadow">
+        <div className="rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-4 card-shadow">
           <p className="text-xs text-slate-500 dark:text-slate-400">Posture score</p>
           <p className="mt-1 text-3xl font-extrabold text-cyan-700 dark:text-cyan-300">{posture.score}</p>
           <p className="mt-1 text-xs font-mono text-cyan-700 dark:text-cyan-300">Grade {posture.grade}</p>
         </div>
-        <div className="rounded-xl border border-rose-200 dark:border-rose-700 bg-gradient-to-br from-rose-50 dark:from-rose-900/30 to-white dark:to-slate-800 p-4 card-shadow">
+        <div className="rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-4 card-shadow">
           <p className="text-xs text-slate-500 dark:text-slate-400">Open findings</p>
           <p className="mt-1 text-3xl font-extrabold text-rose-700 dark:text-rose-300">{posture.openFindings}</p>
           <p className="mt-1 text-xs text-rose-700 dark:text-rose-300">Evaluator-calculated risk</p>
         </div>
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-700 bg-gradient-to-br from-emerald-50 dark:from-emerald-900/30 to-white dark:to-slate-800 p-4 card-shadow">
+        <div className="rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-4 card-shadow">
           <p className="text-xs text-slate-500 dark:text-slate-400">Resolved findings</p>
           <p className="mt-1 text-3xl font-extrabold text-emerald-700 dark:text-emerald-300">{findings.length - posture.openFindings}</p>
           <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-300">Marked fixed locally</p>
         </div>
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4 card-shadow">
+        <div className="rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-4 card-shadow">
           <p className="text-xs text-slate-500 dark:text-slate-400">Last recalculation</p>
           <p className="mt-2 text-sm font-bold text-slate-900 dark:text-slate-100">{lastScan ?? "Not run yet"}</p>
           <button
@@ -176,7 +180,7 @@ export default function SecCloudPostureSection() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow lg:col-span-2">
+        <div className="space-y-4 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow lg:col-span-2">
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
             <div>
               <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">AWS findings ({visibleFindings.length})</h4>
@@ -256,7 +260,7 @@ export default function SecCloudPostureSection() {
           </div>
         </div>
 
-        <aside className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow" aria-live="polite">
+        <aside className="space-y-4 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow" aria-live="polite">
           <div>
             <p className="text-[11px] font-mono font-semibold uppercase tracking-wide text-cyan-700 dark:text-cyan-300">Resource evidence</p>
             <h4 className="mt-1 text-base font-bold text-slate-900 dark:text-slate-100">{selectedFinding?.title ?? "No finding selected"}</h4>

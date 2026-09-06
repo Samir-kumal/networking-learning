@@ -98,43 +98,51 @@ export default function SecSiemSection() {
   const selectedRule = RULE_OPTIONS.find((option) => option.value === rule) ?? RULE_OPTIONS[0];
 
   return (
-    <section id="sec-siem" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
-        <span className="rounded-full border border-cyan-200 dark:border-cyan-700 bg-cyan-50 dark:bg-cyan-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-cyan-700 dark:text-cyan-300">
-          S10 · SIEM Detection &amp; Log Analysis
-        </span>
-        <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">Event filtering and detection rules</h3>
-        <p className="mt-1 max-w-3xl text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Query deterministic synthetic authentication, API, WAF, and cloud audit events. Filters narrow analyst scope;
-          the shared evaluator applies local example thresholds, not a universal SIEM detection standard.
-        </p>
+    <section id="sec-siem" className="security-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors space-y-6">
+      {/* Section Header */}
+      <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow sm:p-6">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[color:var(--networking-tone)] to-transparent opacity-60" aria-hidden="true" />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[color:var(--networking-tone)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--networking-tone)]" />
+              #sec-siem · S10
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+              10. SIEM Detection Rules &amp; Log Analysis Lab
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
+              Query synthetic authentication, API, WAF, and cloud audit events with correlation rules.
+            </p>
+          </div>
+        </div>
       </div>
 
       <form onSubmit={handleDetect} className="space-y-6">
-        <div className="grid grid-cols-1 gap-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow md:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto] md:items-end">
+        <div className="grid grid-cols-1 gap-4 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow md:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_auto] md:items-end">
           <div>
             <label htmlFor="sec-siem-rule" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Detection rule</label>
-            <select id="sec-siem-rule" value={rule} onChange={(event) => handleRuleChange(event.target.value as SiemRule)} className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-xs text-slate-900 dark:text-slate-100">
+            <select id="sec-siem-rule" value={rule} onChange={(event) => handleRuleChange(event.target.value as SiemRule)} className="w-full rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-cyan-500">
               {RULE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
             <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">{selectedRule.description}</p>
           </div>
           <div>
             <label htmlFor="sec-siem-source" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Source filter</label>
-            <select id="sec-siem-source" value={sourceFilter} onChange={(event) => handleSourceChange(event.target.value as FilterValue | EventSource)} className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-xs text-slate-900 dark:text-slate-100">
+            <select id="sec-siem-source" value={sourceFilter} onChange={(event) => handleSourceChange(event.target.value as FilterValue | EventSource)} className="w-full rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-cyan-500">
               {SOURCE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
           </div>
           <div>
             <label htmlFor="sec-siem-severity" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Severity filter</label>
-            <select id="sec-siem-severity" value={severityFilter} onChange={(event) => handleSeverityChange(event.target.value as FilterValue)} className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-xs text-slate-900 dark:text-slate-100">
+            <select id="sec-siem-severity" value={severityFilter} onChange={(event) => handleSeverityChange(event.target.value as FilterValue)} className="w-full rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-cyan-500">
               {SEVERITY_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
           </div>
           <button type="submit" className="rounded-lg bg-cyan-600 px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-cyan-700 dark:hover:bg-cyan-600">Run detection</button>
         </div>
 
-        <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <div className="rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
             <div><h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Structured event stream</h4><p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Synthetic events only; source addresses use documentation ranges.</p></div>
             <span className="rounded-full bg-slate-100 dark:bg-slate-700 px-2 py-1 text-[10px] font-mono font-semibold text-slate-600 dark:text-slate-300">{filteredEvents.length} of {EVENTS.length} events</span>
@@ -142,7 +150,7 @@ export default function SecSiemSection() {
           <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
             <table className="w-full min-w-[980px] text-left text-[11px]">
               <caption className="sr-only">Synthetic SIEM events filtered by source and severity</caption>
-              <thead className="bg-slate-50 dark:bg-slate-700 text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400"><tr><th scope="col" className="px-3 py-2 font-semibold">Event ID</th><th scope="col" className="px-3 py-2 font-semibold">Source</th><th scope="col" className="px-3 py-2 font-semibold">Severity</th><th scope="col" className="px-3 py-2 font-semibold">Kind / summary</th><th scope="col" className="px-3 py-2 font-semibold">User</th><th scope="col" className="px-3 py-2 font-semibold">Failed</th><th scope="col" className="px-3 py-2 font-semibold">Privilege</th><th scope="col" className="px-3 py-2 font-semibold">Bytes out</th></tr></thead>
+              <thead className="bg-[color:var(--surface-l3)] text-[10px] uppercase tracking-wide text-slate-300 font-mono border-b border-[color:var(--border-l3)]"><tr><th scope="col" className="px-3 py-2 font-semibold">Event ID</th><th scope="col" className="px-3 py-2 font-semibold">Source</th><th scope="col" className="px-3 py-2 font-semibold">Severity</th><th scope="col" className="px-3 py-2 font-semibold">Kind / summary</th><th scope="col" className="px-3 py-2 font-semibold">User</th><th scope="col" className="px-3 py-2 font-semibold">Failed</th><th scope="col" className="px-3 py-2 font-semibold">Privilege</th><th scope="col" className="px-3 py-2 font-semibold">Bytes out</th></tr></thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
                 {filteredEvents.map((event) => <tr key={event.id} className="text-slate-600 dark:text-slate-300"><td className="px-3 py-2 font-mono font-semibold text-slate-800 dark:text-slate-200">{event.id}</td><td className="px-3 py-2">{event.source}</td><td className="px-3 py-2"><span className="rounded-full bg-slate-100 dark:bg-slate-700 px-2 py-0.5 font-semibold uppercase text-slate-600 dark:text-slate-300">{event.severity}</span></td><td className="max-w-[260px] px-3 py-2"><span className="block font-mono text-slate-700 dark:text-slate-300">{event.kind}</span><span className="mt-0.5 block text-slate-500 dark:text-slate-400">{event.summary}</span></td><td className="px-3 py-2 font-mono">{event.user}</td><td className="px-3 py-2 text-center">{event.failedAttempts || "—"}</td><td className="px-3 py-2 text-center">{event.privilegeChange ? "Yes" : "—"}</td><td className="px-3 py-2 font-mono">{formatBytes(event.bytesOut)}</td></tr>)}
                 {filteredEvents.length === 0 && <tr><td colSpan={8} className="px-3 py-8 text-center text-xs text-slate-500 dark:text-slate-400">No events match the selected filters.</td></tr>}

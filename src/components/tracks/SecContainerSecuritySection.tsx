@@ -87,21 +87,28 @@ export default function SecContainerSecuritySection() {
   };
 
   return (
-    <section id="sec-container-security" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
-        <span className="rounded-full border border-cyan-200 dark:border-cyan-700 bg-cyan-50 dark:bg-cyan-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-cyan-700 dark:text-cyan-300">
-          S12 · Container Security
-        </span>
-        <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">Container admission simulator</h3>
-        <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Toggle workload controls to model a custom strict admission policy. This is not the built-in
-          Kubernetes Pod Security Standards profile: image signatures and resource limits require separate
-          policy tooling.
-        </p>
+    <section id="sec-container-security" className="security-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors space-y-6">
+      {/* Section Header */}
+      <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow sm:p-6">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[color:var(--networking-tone)] to-transparent opacity-60" aria-hidden="true" />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[color:var(--networking-tone)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--networking-tone)]" />
+              #sec-container-security · S12
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+              12. Container Security &amp; Admission Controller Lab
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
+              Model a strict Kubernetes admission policy: non-root users, read-only root filesystems, and dropped Linux capabilities.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <div className="rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <fieldset>
             <legend className="text-sm font-bold text-slate-900 dark:text-slate-100">Pod security controls</legend>
             <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
@@ -113,7 +120,7 @@ export default function SecContainerSecuritySection() {
                 <label
                   key={control.key}
                   htmlFor={`sec-container-${control.key}`}
-                  className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3 text-xs text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600"
+                  className="flex cursor-pointer items-start gap-3 rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-3 text-xs text-slate-700 dark:text-slate-300 hover:border-violet-400"
                 >
                   <input
                     id={`sec-container-${control.key}`}
@@ -132,7 +139,7 @@ export default function SecContainerSecuritySection() {
           </fieldset>
         </div>
 
-        <div className="space-y-5 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <div className="space-y-5 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <div
             role="status"
             aria-live="polite"

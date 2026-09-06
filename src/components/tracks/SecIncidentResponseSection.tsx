@@ -114,33 +114,41 @@ export default function SecIncidentResponseSection() {
   };
 
   return (
-    <section id="sec-incident-response" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
-        <span className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-0.5 text-xs font-mono font-semibold text-amber-700 dark:border-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
-          S9 · Incident Response &amp; SOC Triage
-        </span>
-        <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">Seeded alert investigation</h3>
-        <p className="mt-1 max-w-3xl text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Practice a repeatable incident lifecycle against safe, synthetic alerts. Classify the signal, preserve evidence,
-          contain affected assets, and compare local readiness scoring with severity-based response priority.
-        </p>
+    <section id="sec-incident-response" className="security-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors space-y-6">
+      {/* Section Header */}
+      <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow sm:p-6">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[color:var(--networking-tone)] to-transparent opacity-60" aria-hidden="true" />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[color:var(--networking-tone)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--networking-tone)]" />
+              #sec-incident-response · S9
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+              9. Incident Response Lifecycle &amp; SOC Alert Triage
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
+              Practice a repeatable incident lifecycle against safe, synthetic alerts: signal classification, forensic preservation, and containment.
+            </p>
+          </div>
+        </div>
       </div>
 
       <form onSubmit={handleScore} className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
-        <div className="space-y-5 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <div className="space-y-5 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <div>
             <label htmlFor="sec-ir-scenario" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Alert scenario</label>
             <select
               id="sec-ir-scenario"
               value={scenarioId}
               onChange={(event) => handleScenarioChange(event.target.value)}
-              className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-100"
+              className="w-full rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-cyan-500"
             >
               {ALERT_SCENARIOS.map((item) => <option key={item.id} value={item.id}>{item.title}</option>)}
             </select>
           </div>
 
-          <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-700">
+          <div className="rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">{scenario.title}</h4>
               <span className="rounded-full bg-white px-2 py-1 text-[10px] font-mono font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">{scenario.source}</span>
@@ -179,11 +187,11 @@ export default function SecIncidentResponseSection() {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="sec-ir-contained" className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-300">
+            <label htmlFor="sec-ir-contained" className="flex cursor-pointer items-start gap-3 rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-3 text-xs text-slate-700 dark:text-slate-300">
               <input id="sec-ir-contained" type="checkbox" checked={contained} onChange={(event) => handleContainedChange(event.target.checked)} className="mt-0.5 accent-emerald-600" />
               <span><span className="block font-semibold text-slate-800 dark:text-slate-200">Containment complete</span><span className="mt-0.5 block text-slate-500 dark:text-slate-400">Affected assets are isolated without destroying evidence.</span></span>
             </label>
-            <label htmlFor="sec-ir-evidence" className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-300">
+            <label htmlFor="sec-ir-evidence" className="flex cursor-pointer items-start gap-3 rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-3 text-xs text-slate-700 dark:text-slate-300">
               <input id="sec-ir-evidence" type="checkbox" checked={evidencePreserved} onChange={(event) => handleEvidencePreservedChange(event.target.checked)} className="mt-0.5 accent-emerald-600" />
               <span><span className="block font-semibold text-slate-800 dark:text-slate-200">Forensic evidence preserved</span><span className="mt-0.5 block text-slate-500 dark:text-slate-400">Capture logs, volatile context, and chain-of-custody details before eradication.</span></span>
             </label>
@@ -192,12 +200,12 @@ export default function SecIncidentResponseSection() {
           <button type="submit" className="w-full rounded-lg bg-amber-600 px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-amber-700 dark:hover:bg-amber-500">Score response readiness</button>
         </div>
 
-        <div className="space-y-5 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <div className="space-y-5 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <fieldset>
             <legend className="mb-2 text-xs font-semibold text-slate-700 dark:text-slate-300">Incident lifecycle</legend>
             <div className="space-y-2">
               {LIFECYCLE_STEPS.map((step, index) => (
-                <label key={step.value} className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 p-3 text-xs text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700">
+                <label key={step.value} className="flex cursor-pointer items-start gap-3 rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-3 text-xs text-slate-700 hover:border-cyan-400 dark:text-slate-300">
                   <input type="checkbox" checked={completedSteps.includes(step.value)} onChange={() => toggleLifecycleStep(step.value)} className="mt-0.5 accent-amber-600" />
                   <span className="flex-1"><span className="flex items-center gap-2 font-semibold text-slate-800 dark:text-slate-200"><span className="font-mono text-[10px] text-slate-400 dark:text-slate-500">{String(index + 1).padStart(2, "0")}</span>{step.label}</span><span className="mt-0.5 block text-slate-500 dark:text-slate-400">{step.description}</span></span>
                 </label>

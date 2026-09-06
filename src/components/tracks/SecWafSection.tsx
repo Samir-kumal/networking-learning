@@ -180,33 +180,37 @@ export default function SecWafSection() {
   const sslGrade = computeSslGrade();
 
   return (
-    <section id="sec-waf" className="scroll-mt-20 space-y-6">
-      {/* Section Header Card */}
-      <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="px-2.5 py-0.5 rounded-full bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-400/20 text-xs font-mono font-semibold">
-            S4 · WAF &amp; TLS Hardening
-          </span>
+    <section id="sec-waf" className="security-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors space-y-6">
+      {/* Section Header */}
+      <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow sm:p-6">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[color:var(--networking-tone)] to-transparent opacity-60" aria-hidden="true" />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[color:var(--networking-tone)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--networking-tone)]" />
+              #sec-waf · S4
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+              4. Web Application Firewall (WAF) &amp; TLS Hardening Lab
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
+              Configure illustrative request-filtering rules, compare TLS and HTTP-header settings, and inspect a local heuristic. A WAF is not a substitute for secure application code or dedicated DDoS protection.
+            </p>
+          </div>
         </div>
-        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-          Web Application Firewall (WAF) &amp; TLS Hardening Lab
-        </h3>
-        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Configure illustrative request-filtering rules, compare TLS and HTTP-header settings, and inspect a local heuristic. A WAF is not a substitute for secure application code or dedicated DDoS protection.
-        </p>
       </div>
 
       {/* WAF Rule Engine & Traffic Simulator */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Active Rules List */}
-        <div className="lg:col-span-2 p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-4">
+        <div className="lg:col-span-2 p-5 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] card-shadow space-y-4">
           <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
             WAF Rule Table ({wafRules.length} configured rules)
           </h4>
 
             <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-mono border-b border-slate-200 dark:border-slate-700">
+              <thead className="bg-[color:var(--surface-l3)] text-slate-300 font-mono border-b border-[color:var(--border-l3)]">
                 <tr>
                   <th className="py-2 px-3">State</th>
                   <th className="py-2 px-3">Rule Name</th>
@@ -215,9 +219,9 @@ export default function SecWafSection() {
                   <th className="py-2 px-3">Blocked Hits</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 dark:divide-slate-700 font-mono">
+              <tbody className="divide-y divide-[color:var(--border-l1)] font-mono">
                 {wafRules.map((rule) => (
-                  <tr key={rule.id} className="hover:bg-white dark:hover:bg-slate-800">
+                  <tr key={rule.id} className="hover:bg-[color:var(--surface-l1)]">
                     <td className="py-2 px-3">
                       <input
                         type="checkbox"
@@ -316,7 +320,7 @@ export default function SecWafSection() {
         </div>
 
         {/* Live Traffic Inspector */}
-        <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-4">
+        <div className="p-5 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] card-shadow space-y-4">
           <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <span>📡</span> WAF Live Traffic Tester
           </h4>
@@ -332,7 +336,7 @@ export default function SecWafSection() {
                   e.target.value as "normal" | "sqli" | "xss" | "ddos"
                 )
               }
-              className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 font-mono"
+              className="w-full px-3 py-2 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-rose-500"
             >
               <option value="normal">Normal HTTP GET Traffic</option>
               <option value="sqli">SQL Injection Attack Payload</option>
@@ -349,7 +353,7 @@ export default function SecWafSection() {
           </button>
 
           {wafResult && (
-            <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs font-mono whitespace-pre-wrap text-slate-900 dark:text-slate-100">
+            <div className="p-4 rounded-lg bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] text-xs font-mono whitespace-pre-wrap text-emerald-400">
               {wafResult}
             </div>
           )}
@@ -357,7 +361,7 @@ export default function SecWafSection() {
       </div>
 
       {/* SSL/TLS Hardening & Security Headers Configurator */}
-      <div className="p-5 rounded-xl bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] card-shadow space-y-6">
+      <div className="p-5 rounded-xl bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] card-shadow space-y-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
           <div>
             <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">
@@ -380,7 +384,7 @@ export default function SecWafSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
           {/* TLS Version & Ciphers */}
-          <div className="space-y-3 p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+          <div className="space-y-3 p-4 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)]">
             <h5 className="font-bold text-slate-900 dark:text-slate-100">
               TLS Protocols &amp; Ciphers:
             </h5>
@@ -417,7 +421,7 @@ export default function SecWafSection() {
           </div>
 
           {/* Security Headers */}
-          <div className="space-y-3 p-4 rounded-lg bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700">
+          <div className="space-y-3 p-4 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)]">
             <h5 className="font-bold text-slate-900 dark:text-slate-100">
               HTTP Security Headers:
             </h5>
@@ -453,7 +457,7 @@ export default function SecWafSection() {
             </label>
           </div>
         </div>
-        <div className="p-3 rounded-lg bg-[color:var(--surface-l2)] border border-[color:var(--border-l2)] text-xs font-mono text-slate-500 dark:text-slate-400">
+        <div className="p-3 rounded-lg bg-[color:var(--surface-l3)] border border-[color:var(--border-l3)] text-xs font-mono text-slate-300">
           <strong>Audit Evaluation Result:</strong>{" "}
           <span className={sslGrade.color}>{sslGrade.reason}</span>
         </div>

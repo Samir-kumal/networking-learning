@@ -101,20 +101,28 @@ export default function SecZeroTrustSection() {
   const actionLabel = ACTION_OPTIONS.find((option) => option.value === action)?.label;
 
   return (
-    <section id="sec-zero-trust" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
-        <span className="rounded-full border border-violet-200 bg-violet-50 px-2.5 py-0.5 text-xs font-mono font-semibold text-violet-700 dark:border-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
-          S8 · ZERO TRUST
-        </span>
-        <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">Zero Trust policy path</h3>
-        <p className="mt-1 max-w-3xl text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Model a request using identity, device posture, source zone, destination zone, MFA, and action.
-          The policy engine evaluates every request instead of trusting the network location alone.
-        </p>
+    <section id="sec-zero-trust" className="security-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors space-y-6">
+      {/* Section Header */}
+      <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow sm:p-6">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[color:var(--networking-tone)] to-transparent opacity-60" aria-hidden="true" />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[color:var(--networking-tone)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--networking-tone)]" />
+              #sec-zero-trust · S8
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+              8. Zero Trust Micro-Perimeters &amp; Continuous Policy Engine
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
+              Model requests using identity, device posture, source zone, destination zone, MFA, and action under continuous verification.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label htmlFor="sec-zero-trust-source" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Source zone</label>
@@ -122,7 +130,7 @@ export default function SecZeroTrustSection() {
                 id="sec-zero-trust-source"
                 value={sourceZone}
                 onChange={(event) => handleSourceZoneChange(event.target.value as SourceZone)}
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-100"
+                className="w-full rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500"
               >
                 {SOURCE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
@@ -134,7 +142,7 @@ export default function SecZeroTrustSection() {
                 id="sec-zero-trust-destination"
                 value={destination}
                 onChange={(event) => handleDestinationChange(event.target.value as DestinationZone)}
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-100"
+                className="w-full rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500"
               >
                 {DESTINATION_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
@@ -156,7 +164,7 @@ export default function SecZeroTrustSection() {
 
           <fieldset className="space-y-2">
             <legend className="mb-2 text-xs font-semibold text-slate-700 dark:text-slate-300">Trust signals</legend>
-            <label htmlFor="sec-zero-trust-identity" className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-300">
+            <label htmlFor="sec-zero-trust-identity" className="flex cursor-pointer items-start gap-3 rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-3 text-xs text-slate-700 dark:text-slate-300">
               <input
                 id="sec-zero-trust-identity"
                 type="checkbox"
@@ -169,7 +177,7 @@ export default function SecZeroTrustSection() {
                 <span className="mt-0.5 block text-[11px] text-slate-500 dark:text-slate-400">The principal is authenticated and mapped to a known identity.</span>
               </span>
             </label>
-            <label htmlFor="sec-zero-trust-device" className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-300">
+            <label htmlFor="sec-zero-trust-device" className="flex cursor-pointer items-start gap-3 rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-3 text-xs text-slate-700 dark:text-slate-300">
               <input
                 id="sec-zero-trust-device"
                 type="checkbox"
@@ -182,7 +190,7 @@ export default function SecZeroTrustSection() {
                 <span className="mt-0.5 block text-[11px] text-slate-500 dark:text-slate-400">Posture, patch, and endpoint protection checks are current.</span>
               </span>
             </label>
-            <label htmlFor="sec-zero-trust-mfa" className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-300">
+            <label htmlFor="sec-zero-trust-mfa" className="flex cursor-pointer items-start gap-3 rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-3 text-xs text-slate-700 dark:text-slate-300">
               <input
                 id="sec-zero-trust-mfa"
                 type="checkbox"
@@ -225,7 +233,7 @@ export default function SecZeroTrustSection() {
           )}
         </form>
 
-        <div className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <div className="space-y-4 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <div>
             <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Request path visualization</h4>
             <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">Static policy stages make the trust boundary explicit before any decision is applied.</p>
@@ -233,7 +241,7 @@ export default function SecZeroTrustSection() {
           <div className="grid items-stretch gap-2 md:grid-cols-[1fr_auto_1fr_auto_1fr]">
             {PATH_CARDS.map((card, index) => (
               <div key={card.key} className="contents">
-                <article className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-700">
+                <article className="rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-4">
                   <span className="block text-[10px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{card.title}</span>
                   <strong className="mt-2 block text-sm font-bold text-slate-900 dark:text-slate-100">
                     {card.key === "source" ? sourceLabel : card.key === "destination" ? destinationLabel : evaluation ? decisionLabel(evaluation.decision) : "Evaluate signals"}

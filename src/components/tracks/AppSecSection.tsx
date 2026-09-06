@@ -182,7 +182,7 @@ export default function AppSecSection() {
       </div>
 
       {/* Stage 1: AppSec */}
-      <section id="stage-appsec" className="scroll-mt-24 space-y-6">
+      <section id="stage-appsec" data-tone="rose" className="scroll-mt-24 space-y-6">
         <SecurityStageHeader stage={SECURITY_STAGES[0]} stageIndex={0} />
         <div className="space-y-12">
           <SecScannersSection />
@@ -193,7 +193,7 @@ export default function AppSecSection() {
       </section>
 
       {/* Stage 2: Identity */}
-      <section id="stage-identity" className="scroll-mt-24 space-y-6">
+      <section id="stage-identity" data-tone="amber" className="scroll-mt-24 space-y-6">
         <SecurityStageHeader stage={SECURITY_STAGES[1]} stageIndex={1} />
         <div className="space-y-12">
           <SecThreatModelSection />
@@ -204,7 +204,7 @@ export default function AppSecSection() {
       </section>
 
       {/* Stage 3: Operations */}
-      <section id="stage-operations" className="scroll-mt-24 space-y-6">
+      <section id="stage-operations" data-tone="cyan" className="scroll-mt-24 space-y-6">
         <SecurityStageHeader stage={SECURITY_STAGES[2]} stageIndex={2} />
         <div className="space-y-12">
           <SecIncidentResponseSection />
@@ -214,7 +214,7 @@ export default function AppSecSection() {
       </section>
 
       {/* Stage 4: Posture */}
-      <section id="stage-posture" className="scroll-mt-24 space-y-6">
+      <section id="stage-posture" data-tone="violet" className="scroll-mt-24 space-y-6">
         <SecurityStageHeader stage={SECURITY_STAGES[3]} stageIndex={3} />
         <div className="space-y-12">
           <SecContainerSecuritySection />

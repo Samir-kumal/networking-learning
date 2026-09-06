@@ -137,21 +137,28 @@ export default function SecIamSection() {
   };
 
   return (
-    <section id="sec-iam" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
-        <span className="rounded-full border border-indigo-200 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-indigo-700 dark:text-indigo-300">
-          S6 · IAM, RBAC &amp; Least Privilege
-        </span>
-        <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">IAM policy evaluator</h3>
-        <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Build an access request and evaluate it against a local policy set. Explicit Deny rules,
-          wildcard matching, and MFA conditions are handled by the shared evaluator. The source field
-          is contextual only in this fixture; production policies may add network or device conditions.
-        </p>
+    <section id="sec-iam" className="security-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors space-y-6">
+      {/* Section Header */}
+      <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow sm:p-6">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[color:var(--networking-tone)] to-transparent opacity-60" aria-hidden="true" />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[color:var(--networking-tone)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--networking-tone)]" />
+              #sec-iam · S6
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+              6. IAM, RBAC &amp; Least Privilege Policy Engine
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
+              Build an access request and evaluate it against local role policies, wildcard rules, and MFA condition blocks.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label htmlFor="sec-iam-principal" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">Principal</label>
@@ -159,7 +166,7 @@ export default function SecIamSection() {
                 id="sec-iam-principal"
                 value={principal}
                 onChange={(event) => handlePrincipalChange(event.target.value as Principal)}
-                className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
+                className="w-full rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500"
               >
                 {PRINCIPAL_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
@@ -170,7 +177,7 @@ export default function SecIamSection() {
                 id="sec-iam-action"
                 value={action}
                 onChange={(event) => handleActionChange(event.target.value as Action)}
-                className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
+                className="w-full rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500"
               >
                 {ACTION_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
@@ -181,7 +188,7 @@ export default function SecIamSection() {
                 id="sec-iam-resource"
                 value={resource}
                 onChange={(event) => handleResourceChange(event.target.value as Resource)}
-                className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
+                className="w-full rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500"
               >
                 {RESOURCE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
@@ -192,7 +199,7 @@ export default function SecIamSection() {
                 id="sec-iam-source"
                 value={source}
                 onChange={(event) => handleSourceChange(event.target.value as Source)}
-                className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
+                className="w-full rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500"
               >
                 {SOURCE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
@@ -245,7 +252,7 @@ export default function SecIamSection() {
           )}
         </form>
 
-        <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <div className="rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
             <div>
               <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Local policy set</h4>

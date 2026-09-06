@@ -26,8 +26,8 @@ const SAFE_REQUESTS: Record<ApiEndpoint, string> = {
   upload: "POST /v1/uploads\nAuthorization: Bearer <short-lived-token>\nContent-Type: application/json\n\n{ \"fileId\": \"file_demo_01\" }",
 };
 
-const CONTROL_CLASSES = "rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3";
-const SELECT_CLASSES = "mt-1 w-full rounded-lg border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100";
+const CONTROL_CLASSES = "rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-3";
+const SELECT_CLASSES = "mt-1 w-full rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500";
 
 export default function SecApiSecuritySection() {
   const [endpoint, setEndpoint] = useState<ApiEndpoint>("orders");
@@ -70,20 +70,28 @@ export default function SecApiSecuritySection() {
   const selectedEndpoint = ENDPOINT_OPTIONS.find((option) => option.value === endpoint);
 
   return (
-    <section id="sec-api-security" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
-        <span className="rounded-full border border-cyan-200 dark:border-cyan-700 bg-cyan-50 dark:bg-cyan-900/30 px-2.5 py-0.5 text-xs font-mono font-semibold text-cyan-700 dark:text-cyan-300">
-          S7 · API SECURITY
-        </span>
-        <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">Layered API request lab</h3>
-        <p className="mt-1 max-w-3xl text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Test the controls that protect an API boundary: identity, object ownership, schema validation,
-          and endpoint rate limits. The shared evaluator returns the first control that needs attention.
-        </p>
+    <section id="sec-api-security" className="security-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors space-y-6">
+      {/* Section Header */}
+      <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow sm:p-6">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[color:var(--networking-tone)] to-transparent opacity-60" aria-hidden="true" />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[color:var(--networking-tone)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--networking-tone)]" />
+              #sec-api-security · S7
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+              7. Layered API Request &amp; BOLA/IDOR Defense Lab
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
+              Test controls that protect an API boundary: identity, object ownership (BOLA), schema validation, and rate limits.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <form onSubmit={handleEvaluate} className="space-y-4 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <div>
             <label htmlFor="sec-api-endpoint" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
               Endpoint under test
@@ -191,7 +199,7 @@ export default function SecApiSecuritySection() {
           )}
         </form>
 
-        <div className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <div className="space-y-4 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Safe example request</h4>
@@ -203,19 +211,19 @@ export default function SecApiSecuritySection() {
               DISPLAY ONLY
             </span>
           </div>
-          <pre className="overflow-x-auto rounded-lg bg-slate-950 p-4 text-[11px] leading-relaxed text-cyan-100" aria-label={`Safe example request for ${endpoint} endpoint`}>
+          <pre className="overflow-x-auto rounded-lg bg-[color:var(--surface-l3)] p-4 text-[11px] leading-relaxed text-cyan-100 border border-[color:var(--border-l3)]" aria-label={`Safe example request for ${endpoint} endpoint`}>
             <code>{SAFE_REQUESTS[endpoint]}</code>
           </pre>
           <div className="grid gap-3 sm:grid-cols-3">
-            <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3">
+            <div className="rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-3">
               <span className="block text-[10px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Identity</span>
               <span className={`mt-1 block text-xs font-bold ${authenticated ? "text-emerald-700 dark:text-emerald-300" : "text-rose-700 dark:text-rose-300"}`}>{authenticated ? "Verified" : "Missing"}</span>
             </div>
-            <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3">
+            <div className="rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-3">
               <span className="block text-[10px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Payload</span>
               <span className={`mt-1 block text-xs font-bold ${bodyValid ? "text-emerald-700 dark:text-emerald-300" : "text-rose-700 dark:text-rose-300"}`}>{bodyValid ? "Schema-valid" : "Invalid"}</span>
             </div>
-            <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 p-3">
+            <div className="rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-3">
               <span className="block text-[10px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Traffic</span>
               <span className={`mt-1 block text-xs font-bold ${rateWithinLimit ? "text-emerald-700 dark:text-emerald-300" : "text-rose-700 dark:text-rose-300"}`}>{rateWithinLimit ? "Within limit" : "Throttled"}</span>
             </div>

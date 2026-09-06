@@ -90,21 +90,28 @@ export default function SecSupplyChainSection() {
   };
 
   return (
-    <section id="sec-supply-chain" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
-        <span className="rounded-full border border-violet-200 bg-violet-50 px-2.5 py-0.5 text-xs font-mono font-semibold text-violet-700 dark:border-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
-          S11 · Software Supply Chain
-        </span>
-        <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">Dependency and SBOM analyzer</h3>
-        <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Inspect a synthetic package inventory for vulnerability flags, immutable versions, fixture provenance,
-          and license policy before an artifact enters a release pipeline. Real signing and license decisions are
-          tool-, package-, and organization-specific.
-        </p>
+    <section id="sec-supply-chain" className="security-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors space-y-6">
+      {/* Section Header */}
+      <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow sm:p-6">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[color:var(--networking-tone)] to-transparent opacity-60" aria-hidden="true" />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[color:var(--networking-tone)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--networking-tone)]" />
+              #sec-supply-chain · S11
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+              11. Software Supply Chain &amp; SBOM Policy Analyzer
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
+              Inspect a synthetic package inventory for vulnerability flags, immutable versions, fixture provenance, and license policy before release.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)]">
-        <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <div className="rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
             <div>
               <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Package inventory</h4>
@@ -120,7 +127,7 @@ export default function SecSupplyChainSection() {
           <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
             <table className="w-full min-w-[680px] text-left text-[11px]">
               <caption className="sr-only">Software bill of materials package inventory</caption>
-              <thead className="bg-slate-50 text-[10px] uppercase tracking-wide text-slate-500 dark:bg-slate-700 dark:text-slate-400">
+              <thead className="bg-[color:var(--surface-l3)] text-[10px] uppercase tracking-wide text-slate-300 font-mono border-b border-[color:var(--border-l3)]">
                 <tr>
                   <th scope="col" className="px-3 py-2 font-semibold">Package</th>
                   <th scope="col" className="px-3 py-2 font-semibold">Version</th>
@@ -157,7 +164,7 @@ export default function SecSupplyChainSection() {
           </div>
         </div>
 
-        <div className="space-y-5 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <div className="space-y-5 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <fieldset>
             <legend className="text-sm font-bold text-slate-900 dark:text-slate-100">License allowlist</legend>
             <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
@@ -168,7 +175,7 @@ export default function SecSupplyChainSection() {
                 <label
                   key={license}
                   htmlFor={`sec-supply-license-${license.toLowerCase().replaceAll(".", "-")}`}
-                  className="flex cursor-pointer items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-300 dark:hover:border-slate-600"
+                  className="flex cursor-pointer items-center gap-3 rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-3 text-xs text-slate-700 hover:border-cyan-400 dark:text-slate-300"
                 >
                   <input
                     id={`sec-supply-license-${license.toLowerCase().replaceAll(".", "-")}`}

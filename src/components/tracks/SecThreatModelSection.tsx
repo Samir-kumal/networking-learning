@@ -92,21 +92,28 @@ export default function SecThreatModelSection() {
   };
 
   return (
-    <section id="sec-threat-model" className="scroll-mt-20 space-y-6">
-      <div className="rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
-        <span className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-xs font-mono font-semibold text-rose-700 dark:border-rose-700 dark:bg-rose-900/30 dark:text-rose-300">
-          S5 · STRIDE Threat Modeling
-        </span>
-        <h3 className="mt-2 text-lg font-bold text-slate-900 dark:text-slate-100">Threat model canvas</h3>
-        <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          Select an architecture asset, apply mitigations, and compare the remaining STRIDE findings.
-          The severity weights and residual-risk bands are a deterministic teaching heuristic, not a
-          formal risk assessment or a guarantee that a control removes every threat.
-        </p>
+    <section id="sec-threat-model" className="security-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors space-y-6">
+      {/* Section Header */}
+      <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow sm:p-6">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[color:var(--networking-tone)] to-transparent opacity-60" aria-hidden="true" />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[color:var(--networking-tone)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--networking-tone)]" />
+              #sec-threat-model · S5
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+              5. STRIDE Threat Modeling Canvas &amp; Risk Matrix
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
+              Select an architecture asset, apply mitigations, and compare the remaining STRIDE findings against risk baselines.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
-        <div className="space-y-5 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+        <div className="space-y-5 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
           <div>
             <label htmlFor="sec-threat-asset" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
               Architecture asset
@@ -115,7 +122,7 @@ export default function SecThreatModelSection() {
               id="sec-threat-asset"
               value={selectedAsset}
               onChange={(event) => handleAssetChange(event.target.value as SelectedAsset)}
-              className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 dark:border-slate-700 dark:bg-slate-700 dark:text-slate-100"
+              className="w-full rounded-lg border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] px-3 py-2 text-xs text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500"
             >
               <option value="">No asset selected</option>
               {ASSET_OPTIONS.map((asset) => (
@@ -162,7 +169,7 @@ export default function SecThreatModelSection() {
         </div>
 
         {selectedAsset ? (
-          <div className="space-y-4 rounded-xl border border-[color:var(--border-l1)] bg-[color:var(--surface-l1)] p-5 card-shadow">
+          <div className="space-y-4 rounded-xl border border-[color:var(--border-l2)] bg-[color:var(--surface-l2)] p-5 card-shadow">
             <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-200 pb-3 dark:border-slate-700">
               <div>
                 <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">{ASSET_OPTIONS.find((asset) => asset.value === selectedAsset)?.label} findings</h4>

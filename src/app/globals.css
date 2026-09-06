@@ -243,6 +243,17 @@
 .networking-module-content {
   min-width: 0;
 }
+/* Stage Tone (Rose) */
+[data-tone="rose"],
+[data-tone="rose"] .networking-module,
+[data-tone="rose"] .security-module,
+.security-module [data-tone="rose"],
+.security-module[data-tone="rose"] {
+  --networking-tone: #e11d48;
+  --networking-tone-border: #fecdd3;
+  --networking-tone-surface: #fff1f2;
+  --networking-tone-glow: rgb(225 29 72 / 0.12);
+}
 
 /* Stage 01 · Foundations (Cyan) */
 [data-tone="cyan"],
@@ -291,6 +302,17 @@
   --networking-tone-surface: #f7fee7;
   --networking-tone-glow: rgb(101 163 13 / 0.12);
 }
+/* Dark Mode Stage Tone (Rose) */
+.dark [data-tone="rose"],
+.dark [data-tone="rose"] .networking-module,
+.dark [data-tone="rose"] .security-module,
+.dark .security-module [data-tone="rose"],
+.dark .security-module[data-tone="rose"] {
+  --networking-tone: #fb7185;
+  --networking-tone-border: #881337;
+  --networking-tone-surface: rgb(76 5 25 / 0.45);
+  --networking-tone-glow: rgb(251 113 133 / 0.16);
+}
 
 /* Dark Mode Stage Tones */
 .dark [data-tone="cyan"],
@@ -338,7 +360,8 @@
 }
 
 /* Level 1 Module Deck Container */
-.networking-module {
+.networking-module,
+.security-module {
   background-color: var(--surface-l1);
   border-color: var(--border-l1);
   box-shadow:
@@ -347,7 +370,8 @@
   transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 
-.dark .networking-module {
+.dark .networking-module,
+.dark .security-module {
   background-color: var(--surface-l1);
   border-color: var(--border-l1);
   box-shadow:
@@ -355,11 +379,13 @@
     inset 0 1px 0 0 rgb(255 255 255 / 0.03);
 }
 
-.networking-module:hover {
+.networking-module:hover,
+.security-module:hover {
   border-color: var(--networking-tone-border, #cbd5e1);
 }
 
-.dark .networking-module:hover {
+.dark .networking-module:hover,
+.dark .security-module:hover {
   border-color: var(--networking-tone-border, #334155);
 }
 
