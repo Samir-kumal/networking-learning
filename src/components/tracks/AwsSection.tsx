@@ -572,7 +572,7 @@ export default function AwsSection() {
 
         {/* Infrastructure-as-Code (IaC) Code Output */}
         <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 card-shadow p-5 space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-3">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-700 pb-3">
             <h4 className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">
               Generated Infrastructure as Code (IaC)
             </h4>

@@ -787,7 +787,7 @@ spec:
                     route.enabled ? "bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-700" : "bg-slate-50/50 dark:bg-slate-700/50 border-slate-200/40 dark:border-slate-700/60 opacity-70"
                   }`}
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <input
                       type="checkbox"
                       checked={route.enabled}
@@ -881,7 +881,7 @@ spec:
                   onChange={(e) => setReqPath(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && simulateRequest(reqPath)}
                   placeholder="/api/…"
-                  className="flex-1 px-3 py-2 rounded-lg border border-sky-200 dark:border-sky-700 bg-white dark:bg-slate-800 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-sky-400 focus:outline-none"
+                  className="flex-1 min-w-0 px-3 py-2 rounded-lg border border-sky-200 dark:border-sky-700 bg-white dark:bg-slate-800 font-mono text-sm text-slate-900 dark:text-slate-100 focus:border-sky-400 focus:outline-none"
                 />
                 <button
                   onClick={() => simulateRequest(reqPath)}
@@ -1151,9 +1151,9 @@ spec:
               </div>
 
               {/* GW → frontend */}
-              <div className="flex items-center justify-center gap-4 mb-3">
-                <div className="rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 px-4 py-2.5 text-center min-w-[130px]">
-                  <div className="text-xs font-bold text-slate-800 dark:text-slate-200">istio-ingressgateway</div>
+              <div className="flex items-center justify-center gap-2 sm:gap-4 mb-3">
+                <div className="rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 min-w-0 px-2 py-2.5 text-center sm:min-w-[130px] sm:px-4">
+                  <div className="text-xs font-bold text-slate-800 dark:text-slate-200 break-all">istio-ingressgateway</div>
                   <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">Public :443</div>
                   <div className="mt-1 text-[10px] font-mono text-sky-600 dark:text-sky-400">tls Secret</div>
                 </div>
@@ -1161,21 +1161,21 @@ spec:
                   <span className={`w-2.5 h-2.5 rounded-full ${meshState.edgeIconBg}`} />
                   <span className="text-[10px] font-mono">{meshState.edgeLabel}</span>
                 </div>
-                <div className="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-center min-w-[130px]">
-                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">frontend-svc</div>
+                <div className="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 min-w-0 px-2 py-2.5 text-center sm:min-w-[130px] sm:px-4">
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100 break-all">frontend-svc</div>
                   <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">sa/frontend</div>
                   <div className="mt-1 text-[9px] font-mono text-sky-500 dark:text-sky-400 truncate">SPIFFE://cluster.local/ns/prod/sa/frontend</div>
                 </div>
               </div>
 
               {/* frontend → api */}
-              <div className="flex items-center justify-center gap-4 mb-3 pl-10">
+              <div className="flex items-center justify-center gap-2 sm:gap-4 mb-3 pl-10">
                 <div className={`flex-1 flex items-center gap-2 border-t-2 px-3 ${meshState.edge}`}>
                   <span className={`w-2.5 h-2.5 rounded-full ${meshState.edgeIconBg}`} />
                   <span className="text-[10px] font-mono">{meshState.edgeLabel}</span>
                 </div>
-                <div className="rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 px-4 py-2.5 text-center min-w-[130px]">
-                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">checkout-svc</div>
+                <div className="rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 min-w-0 px-2 py-2.5 text-center sm:min-w-[130px] sm:px-4">
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100 break-all">checkout-svc</div>
                   <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">svc/checkout</div>
                   <div className="mt-1 text-[9px] font-mono text-sky-500 dark:text-sky-400 truncate">SPIFFE://cluster.local/ns/prod/sa/checkout</div>
                 </div>
@@ -1187,8 +1187,8 @@ spec:
                   <span className={`w-2.5 h-2.5 rounded-full ${meshState.edgeIconBg}`} />
                   <span className="text-[10px] font-mono">{meshState.edgeLabel}</span>
                 </div>
-                <div className="rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 px-4 py-2.5 text-center min-w-[130px]">
-                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100">payments-svc</div>
+                <div className="rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 min-w-0 px-2 py-2.5 text-center sm:min-w-[130px] sm:px-4">
+                  <div className="text-xs font-bold text-slate-900 dark:text-slate-100 break-all">payments-svc</div>
                   <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">svc/payments</div>
                   <div className="mt-1 text-[9px] font-mono text-sky-500 dark:text-sky-400 truncate">SPIFFE://cluster.local/ns/prod/sa/payments</div>
                 </div>
@@ -1362,7 +1362,7 @@ spec:
 
           {/* YAML output */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="flex items-center gap-1.5 text-xs font-mono bg-slate-50 dark:bg-slate-700 px-1.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 w-fit">
+            <div className="flex items-center gap-1.5 text-xs font-mono bg-slate-50 dark:bg-slate-700 px-1.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 w-fit max-w-full flex-wrap">
               {(["istio", "destrule", "nginx"] as const).map((tab) => (
                 <button
                   key={tab}
@@ -1497,7 +1497,7 @@ spec:
 
           {/* YAML output */}
           <div className="lg:col-span-7 space-y-3">
-            <div className="flex items-center gap-1.5 text-xs font-mono bg-slate-50 dark:bg-slate-700 px-1.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 w-fit">
+            <div className="flex items-center gap-1.5 text-xs font-mono bg-slate-50 dark:bg-slate-700 px-1.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 w-fit max-w-full flex-wrap">
               {(["istio", "nginx"] as const).map((t) => (
                 <button
                   key={t}

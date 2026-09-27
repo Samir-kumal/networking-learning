@@ -70,7 +70,7 @@ function SliderRow(props: {
         onChange={(e) => onChange(clamp(Number(e.target.value), min, max))}
         className="w-full accent-[#58a6ff]"
       />
-      {hint ? <p className="text-[11px] text-slate-400 dark:text-slate-500">{hint}</p> : null}
+      {hint ? <p className="text-[11px] text-slate-400 dark:text-slate-500 wrap-anywhere">{hint}</p> : null}
     </div>
   );
 }
@@ -817,7 +817,7 @@ export default function DkResourceQuotasSection() {
             </div>
             <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">ResourceQuota Builder</h2>
           </div>
-          <div className="flex items-center gap-2 text-xs font-mono">
+          <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
             <label className="flex items-center gap-2 bg-slate-50 dark:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
               <span>name:</span>
               <input
@@ -857,7 +857,7 @@ export default function DkResourceQuotasSection() {
             </div>
             <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-5">
               <div className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Scope</div>
-              <div className="flex gap-1">
+              <div className="flex flex-wrap gap-1">
                 {(["Default", "BestEffort", "NotBestEffort"] as const).map((s) => (
                   <button
                     key={s}
@@ -919,7 +919,7 @@ export default function DkResourceQuotasSection() {
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 3 • Defaults &amp; Bounds</div>
             <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">LimitRange Configurator</h2>
           </div>
-          <div className="flex items-center gap-1 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg p-1">
+          <div className="flex flex-wrap items-center gap-1 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg p-1">
             <button
               onClick={() => setLrKind("Container")}
               className={`px-3 py-1.5 rounded-md text-xs font-mono transition-all ${
@@ -1000,7 +1000,7 @@ export default function DkResourceQuotasSection() {
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 4 • Pod Priority Tiers</div>
             <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">QoS Class Calculator</h2>
           </div>
-          <div className="flex items-center gap-1 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg p-1">
+          <div className="flex flex-wrap items-center gap-1 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg p-1">
             <button
               onClick={() => applyPreset("guaranteed")}
               className="px-3 py-1.5 rounded-md text-xs font-mono text-slate-500 dark:text-slate-400 hover:text-sky-700 dark:hover:text-sky-300"

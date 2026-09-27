@@ -680,7 +680,7 @@ export default function AwsApiGatewaySection() {
 
         {/* Route Table */}
         <div className="space-y-3">
-          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono flex items-center gap-2">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono flex flex-wrap items-center gap-x-2 gap-y-1">
             <span>🗂️</span> Deployed Routes ({routes.length}) —{" "}
             <span className="text-emerald-600 dark:text-emerald-400">{protectedCount} protected</span> ·{" "}
             <span className="text-sky-600 dark:text-sky-400">{cachedCount} cached</span> ·{" "}
@@ -1118,7 +1118,7 @@ export default function AwsApiGatewaySection() {
                 <div className={`text-lg font-extrabold font-mono mt-1 ${rate < 10000 ? "text-rose-500 dark:text-rose-400" : "text-emerald-600 dark:text-emerald-400"}`}>
                   HTTP 429
                 </div>
-                <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500">TooManyRequestsException</div>
+                <div className="text-[10px] font-mono break-all text-slate-400 dark:text-slate-500">TooManyRequestsException</div>
               </div>
             </div>
             <p className="text-[11px] text-slate-400 dark:text-slate-500 font-mono leading-relaxed">

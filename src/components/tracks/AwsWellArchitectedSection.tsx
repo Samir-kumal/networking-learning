@@ -676,8 +676,8 @@ export default function AwsWellArchitectedSection() {
                 className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-lg transition-shadow p-5 space-y-5"
               >
                 {/* Pillar header */}
-                <div className="flex items-start justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-4">
-                  <div className="flex items-start gap-3">
+                <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-200 dark:border-slate-700 pb-4">
+                  <div className="flex min-w-0 items-start gap-3">
                     <span
                       className="w-10 h-10 rounded-lg flex items-center justify-center text-lg shrink-0"
                       style={{ backgroundColor: `${pillar.color}1a` }}

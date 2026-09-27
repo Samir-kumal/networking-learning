@@ -1091,18 +1091,18 @@ export default function AwsStepFunctionsSection() {
         <div className="lg:col-span-3 space-y-6">
           {/* Palette */}
           <div className="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono flex items-center gap-2">
                 <span>🧱</span> Step Palette
               </h3>
-              <div className="flex items-center gap-2">
+              <div className="flex min-w-0 items-center gap-2">
                 <select
                   value={templateId}
                   onChange={(e) => {
                     setTemplateId(e.target.value);
                     applyTemplate(e.target.value);
                   }}
-                  className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
+                  className="min-w-0 max-w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono text-slate-900 dark:text-slate-100 focus:border-emerald-500 focus:outline-none"
                 >
                   {TEMPLATES.map((t) => (
                     <option key={t.id} value={t.id}>

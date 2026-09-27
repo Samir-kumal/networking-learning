@@ -542,7 +542,7 @@ export default function DkHpaVpaSection() {
           <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">HPA & VPA Autoscaling Control Room</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Configure metrics, tune scale behaviors, then watch replica decisions play out live</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-mono px-2.5 py-1 rounded-lg bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 text-sky-700 dark:text-sky-300">autoscaling/v2</span>
           <span className="text-xs font-mono px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 text-blue-700 dark:text-blue-300">autoscaling.k8s.io/v1</span>
         </div>
@@ -1315,7 +1315,7 @@ export default function DkHpaVpaSection() {
       {/* ======================= BEST PRACTICES ======================= */}
       <div className="p-5 rounded-xl bg-gradient-to-br from-sky-50 via-white to-blue-50/50 border border-sky-200 dark:border-sky-700">
         <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-3 flex items-center gap-2">✅ Autoscaling Best Practices</h3>
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-slate-600 dark:text-slate-300">
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs wrap-anywhere text-slate-600 dark:text-slate-300">
           <li className="flex gap-2"><span className="text-sky-600 dark:text-sky-400">▸</span> Start with <b>CPU utilization</b> (~70–80%), add custom metrics (QPS, queue depth) only once they stabilize.</li>
           <li className="flex gap-2"><span className="text-sky-600 dark:text-sky-400">▸</span> Set <b>minReplicas ≥ 2</b> for HA — the floor keeps serving even at zero load.</li>
           <li className="flex gap-2"><span className="text-sky-600 dark:text-sky-400">▸</span> Scale down gently: <b>stabilizationWindowSeconds ≥ 300s</b> prevents flapping on dips.</li>

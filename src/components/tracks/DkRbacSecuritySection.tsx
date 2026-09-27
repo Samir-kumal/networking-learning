@@ -862,14 +862,14 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                 <input
                   value={roleName}
                   onChange={(e) => setRoleName(e.target.value)}
-                  className="flex-1 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                  className="flex-1 min-w-0 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
                   placeholder="role-name"
                 />
                 {roleKind === "Role" && (
                   <input
                     value={roleNamespace}
                     onChange={(e) => setRoleNamespace(e.target.value)}
-                    className="w-36 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                    className="w-28 sm:w-36 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 text-sm font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-400"
                     placeholder="namespace"
                   />
                 )}
@@ -1405,7 +1405,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 4 • Workload Identity</div>
             <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">ServiceAccount &amp; Pod Association</h2>
           </div>
-          <div className="text-xs font-mono bg-sky-50 dark:bg-sky-900/30 px-3 py-1.5 rounded-lg border border-sky-200 dark:border-sky-700 text-sky-700 dark:text-sky-300">Tokens mount at /var/run/secrets/kubernetes.io/serviceaccount</div>
+          <div className="text-xs font-mono break-all bg-sky-50 dark:bg-sky-900/30 px-3 py-1.5 rounded-lg border border-sky-200 dark:border-sky-700 text-sky-700 dark:text-sky-300">Tokens mount at /var/run/secrets/kubernetes.io/serviceaccount</div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

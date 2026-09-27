@@ -480,7 +480,7 @@ export default function CheatSheetSection() {
               className="px-3 py-1.5 rounded-lg bg-[color:var(--surface-l1)] border border-[color:var(--border-l1)] text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-lime-400 font-mono"
             />
 
-            <div className="flex items-center gap-1 bg-[color:var(--surface-l1)] p-1 rounded-lg border border-[color:var(--border-l1)]">
+            <div className="flex flex-wrap items-center gap-1 bg-[color:var(--surface-l1)] p-1 rounded-lg border border-[color:var(--border-l1)]">
               <button
                 onClick={() => setFilterCategory("all")}
                 className={`px-2.5 py-1 rounded text-xs font-medium transition-all cursor-pointer ${

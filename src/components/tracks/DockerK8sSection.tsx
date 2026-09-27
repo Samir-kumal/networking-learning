@@ -1243,7 +1243,7 @@ spec:
               <p className="text-xs text-slate-500 dark:text-slate-400">Simulate live HTTP ingress packet decapsulation and load balancing</p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               {(["ingress", "loadbalancer", "nodeport", "clusterip"] as const).map((mode) => (
                 <button
                   key={mode}

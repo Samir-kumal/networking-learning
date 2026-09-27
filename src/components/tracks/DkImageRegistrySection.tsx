@@ -1221,11 +1221,11 @@ rules:
           <div className="space-y-1">
             {layerModel.image.layers.map((l) => (
               <div key={l.id + l.label} className="flex items-center gap-3 text-[11px]">
-                <div className="w-40 shrink-0 flex items-center gap-1.5">
+                <div className="w-24 sm:w-40 shrink-0 flex items-center gap-1.5">
                   <span className={`w-2.5 h-2.5 rounded-sm ${LAYER_KIND_COLORS[l.kind]}`} />
                   <span className="font-mono text-slate-500 dark:text-slate-400 truncate">{l.kind}</span>
                 </div>
-                <div className="flex-1 flex items-center gap-2">
+                <div className="flex-1 min-w-0 flex items-center gap-2">
                   <div className="h-4 rounded bg-slate-100 dark:bg-slate-700 overflow-hidden flex-1">
                     <div
                       className={`h-full ${l.sharedWith.length ? "bg-sky-400" : "bg-blue-500"}`}
@@ -1234,11 +1234,11 @@ rules:
                   </div>
                   <span className="font-mono text-slate-600 dark:text-slate-300 w-16 text-right">{fmtGb(l.sizeMb)}</span>
                   {l.sharedWith.length > 0 ? (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 whitespace-nowrap">
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 truncate">
                       shared w/ {l.sharedWith.join(", ")}
                     </span>
                   ) : (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 whitespace-nowrap">
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 truncate">
                       unique
                     </span>
                   )}

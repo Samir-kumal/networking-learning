@@ -356,7 +356,7 @@ export default function SecScannersSection() {
             </h4>
 
             {/* Filter Selector */}
-            <div className="flex items-center gap-1 bg-[color:var(--surface-l1)] p-1 rounded-lg border border-[color:var(--border-l1)]">
+            <div className="flex flex-wrap items-center gap-1 bg-[color:var(--surface-l1)] p-1 rounded-lg border border-[color:var(--border-l1)]">
               {["ALL", "CRITICAL", "HIGH", "MEDIUM", "LOW"].map((sev) => (
                 <button
                   key={sev}

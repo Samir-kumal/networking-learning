@@ -1590,7 +1590,7 @@ export default function AwsSecretsManagerSection() {
             </pre>
             <div className="mt-3 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
               <span className="font-bold text-slate-700 dark:text-slate-300">Attach with:</span>{" "}
-              <span className="font-mono text-emerald-700 dark:text-emerald-300">
+              <span className="font-mono break-all text-emerald-700 dark:text-emerald-300">
                 aws secretsmanager put-resource-policy --secret-id
                 prod/db/credentials --resource-policy &apos;{trustPolicy}&apos;
               </span>
