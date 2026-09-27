@@ -60,11 +60,14 @@ export default function DiagnosticsSection() {
   const [activeTab, setActiveTab] = useState<string>("all");
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
 
-  const terminalEndRef = useRef<HTMLDivElement | null>(null);
+  const terminalOutputRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  // Scroll only the terminal's own output box. scrollIntoView would also
+  // scroll the window, dragging the page down to this module on first load.
   useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const output = terminalOutputRef.current;
+    if (output) output.scrollTop = output.scrollHeight;
   }, [terminalBuffer]);
 
   // Execute CLI Command Logic
@@ -670,7 +673,7 @@ export default function DiagnosticsSection() {
         </div>
 
         {/* Terminal Buffer Output Window */}
-        <div className="p-4 sm:p-6 font-mono text-xs sm:text-sm h-80 sm:h-96 overflow-y-auto space-y-1.5 bg-[#0a0d12] text-slate-900 dark:text-slate-100">
+        <div ref={terminalOutputRef} className="p-4 sm:p-6 font-mono text-xs sm:text-sm h-80 sm:h-96 overflow-y-auto space-y-1.5 bg-[#0a0d12] text-slate-900 dark:text-slate-100">
           {terminalBuffer.map((line) => {
             if (line.type === "input") {
               return (
@@ -713,7 +716,6 @@ export default function DiagnosticsSection() {
               </div>
             );
           })}
-          <div ref={terminalEndRef} />
         </div>
 
         {/* Terminal Prompt Input Bar */}

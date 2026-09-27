@@ -213,7 +213,7 @@ export default function PracticeSection() {
       difficulty: "Hard",
       targetIp: "192.168.1.0/24",
       question:
-        "Given the single base network block 192.168.1.0/24, design a Variable Length Subnet Masking (VLSM) allocation for three subnets: Finance (25 hosts needed), Marketing (12 hosts needed), and WAN Link (2 hosts needed). Order from largest to smallest requirement to avoid address overlap.",
+        "Given the single base network block 192.168.1.0/24, design a Variable Length Subnet Masking (VLSM) allocation for three subnets: Finance (25 hosts needed), Marketing (12 hosts needed), and WAN Link (2 hosts needed). Allocate from the largest requirement to the smallest so each block stays aligned on its own boundary and the remaining space stays contiguous.",
       summary: {
         networkAddress: "192.168.1.0/24 Base Block",
         subnetMask: "Varied (/27, /28, /30)",
@@ -279,7 +279,7 @@ export default function PracticeSection() {
       difficulty: "Real-World",
       targetIp: "10.0.5.100/28",
       question:
-        "A database server is assigned IP 10.0.5.100/28. A system administrator attempts to ping a default gateway at 10.0.5.113. Will this ping succeed directly on the local Layer 2 broadcast domain without passing through a router? Determine the exact subnet boundary for 10.0.5.100/28.",
+        "A database server is configured with IP 10.0.5.100/28 and default gateway 10.0.5.113. The server cannot reach anything outside its own subnet. Determine the exact subnet boundary for 10.0.5.100/28 and decide whether 10.0.5.113 can act as this server's default gateway.",
       summary: {
         networkAddress: "Server Subnet: 10.0.5.96/28",
         subnetMask: "255.255.255.240",
@@ -287,7 +287,7 @@ export default function PracticeSection() {
         lastUsable: "10.0.5.110",
         broadcastAddress: "10.0.5.111",
         usableHosts: "14 usable per block",
-        extraNote: "Gateway IP 10.0.5.113 resides in next subnet block (10.0.5.112/28).",
+        extraNote: "Gateway IP 10.0.5.113 resides in the next subnet block (10.0.5.112/28), so it is not on-link for this server.",
       },
       steps: [
         {
@@ -306,16 +306,16 @@ export default function PracticeSection() {
             "The gateway IP 10.0.5.113 falls in the NEXT subnet block 10.0.5.112/28 (Network: 10.0.5.112, Usable: 10.0.5.113 to 10.0.5.126).",
         },
         {
-          step: "4. Layer 2 Connectivity Analysis",
+          step: "4. Default Gateway Validity",
           explanation:
-            "10.0.5.100/28 and 10.0.5.113 sit in different IP subnets (10.0.5.96/28 vs 10.0.5.112/28), so the server classifies .113 as off-link: it does not ARP for that address, it hands the packet to its own default gateway instead. Reaching 10.0.5.113 therefore depends on routing between 10.0.5.96/28 and 10.0.5.112/28 (or on Proxy ARP, or a secondary address/route on the server).",
+            "A default gateway must be on-link: the server sends off-subnet traffic by ARPing for the gateway's MAC address on its own segment. 10.0.5.113 sits in 10.0.5.112/28, not the server's 10.0.5.96/28, so the server has no connected route to it and cannot use it as a next hop. The gateway cannot be reached through itself, so this is a misconfiguration rather than a routing problem. Fix it by using a gateway inside 10.0.5.96/28 (for example 10.0.5.97) or by correcting the server's prefix.",
         },
       ],
       scenarioAnalysis: {
         pingStatus: "FAIL",
-        resultTitle: "DIRECT LAYER 2 PING FAILS — DIFFERENT SUBNET BOUNDARIES",
+        resultTitle: "MISCONFIGURED GATEWAY — 10.0.5.113 IS OUTSIDE THE SERVER'S SUBNET",
         reasoning:
-          "The server (10.0.5.100/28) belongs to subnet 10.0.5.96/28 (usable host range .97 to .110). The target gateway address (10.0.5.113) belongs to subnet 10.0.5.112/28 (usable host range .113 to .126). Because the two addresses are in different IP subnets, the server treats .113 as off-link and forwards to its configured default gateway rather than ARPing for it, so there is no direct on-link delivery unless Proxy ARP (RFC 1027) or a secondary address/route is in place.",
+          "The server (10.0.5.100/28) belongs to subnet 10.0.5.96/28 (usable host range .97 to .110). The configured gateway (10.0.5.113) belongs to subnet 10.0.5.112/28 (usable host range .113 to .126). Because the gateway is off-link, the server has no valid next hop for off-subnet traffic. Linux, for example, rejects the command ip route add default via 10.0.5.113 with the error \"Nexthop has invalid gateway\"; some operating systems accept an off-subnet gateway and ARP for it anyway, which only works if something on the same segment answers (for example via Proxy ARP, RFC 1027). Move the gateway into 10.0.5.96/28 or correct the server's prefix.",
       },
     },
   ];
