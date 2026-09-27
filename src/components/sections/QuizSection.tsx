@@ -17,7 +17,7 @@ const QUESTIONS: Question[] = [
   {
     id: 1,
     question: "How many usable hosts does a /26 subnet have?",
-    options: ["64", "62 (2⁶ − 2)", "126"],
+    options: ["64", "62", "126"],
     correctIndex: 1,
     explanation:
       "A /26 prefix leaves 6 host bits (32 - 26 = 6). Total IP addresses = 2⁶ = 64. Subtracting 2 for Network ID and Broadcast ID leaves 62 usable host IPs.",
@@ -40,15 +40,15 @@ const QUESTIONS: Question[] = [
   },
   {
     id: 4,
-    question: "In VLSM, why should you allocate subnets from largest to smallest?",
+    question: "In VLSM, why is it conventional to allocate subnets from largest to smallest?",
     options: [
-      "It's faster to configure",
-      "To avoid address overlap",
-      "Smaller subnets have lower latency",
+      "Routers require larger prefixes to be configured first",
+      "Each block stays aligned and leftover space stays contiguous",
+      "Smaller subnets have lower latency when placed last",
     ],
     correctIndex: 1,
     explanation:
-      "Allocating the largest subnets first keeps every block naturally aligned on its own boundary, so the free space left behind stays contiguous. Ordering itself does not make overlap impossible, but starting small fragments and misaligns the remaining space, which is what forces overlapping allocations or wasted blocks later.",
+      "Allocating the largest subnets first keeps every block naturally aligned on its own boundary, so the free space left behind stays contiguous. It is a design convention, not a protocol rule: routers do not care about allocation order. Starting small tends to fragment the remaining space, so a later large block may no longer fit cleanly, leading to wasted space or, if done carelessly, overlapping allocations.",
   },
   {
     id: 5,
@@ -65,7 +65,7 @@ const QUESTIONS: Question[] = [
   {
     id: 6,
     question: "How many subnets do you get by borrowing 3 bits from a /24?",
-    options: ["3", "8 (2³)", "6"],
+    options: ["3", "8", "6"],
     correctIndex: 1,
     explanation:
       "Borrowing 3 bits creates 2³ = 8 subnets (moving from a /24 to a /27 network prefix).",
