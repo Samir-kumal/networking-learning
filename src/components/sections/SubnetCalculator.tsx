@@ -115,7 +115,7 @@ export default function SubnetCalculator() {
           <NetworkingMetric
             label={resultIsRfc3021 || resultIsHostRoute ? "Route Prefix" : "Network Address"}
             value={<span className="flex items-center gap-1.5">{result.networkAddress}<CopyButton text={result.networkAddress} label="" className="!px-1.5 !py-0.5" /></span>}
-            detail={resultIsHostRoute ? "Single host route address (all host bits = 0)" : resultIsRfc3021 ? "Point-to-point prefix base address" : "Subnet identifier (all host bits = 0)"}
+            detail={resultIsHostRoute ? "Single host route address (all 32 bits are prefix; no host bits)" : resultIsRfc3021 ? "Point-to-point prefix base address" : "Subnet identifier (all host bits = 0)"}
             tone="cyan"
           />
           <NetworkingMetric
