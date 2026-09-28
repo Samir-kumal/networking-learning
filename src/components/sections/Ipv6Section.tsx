@@ -17,7 +17,7 @@ export default function Ipv6Section() {
   return (
     <section
       id="ipv6"
-      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
+      className="networking-module scroll-mt-24 rounded-2xl border p-4 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader

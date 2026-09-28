@@ -30,7 +30,7 @@ export default function NetworkingExample({
     ? TONE_STYLES[tone]
     : "border-[color:var(--networking-tone-border,var(--border-l2))] bg-[color:var(--networking-tone-surface,var(--surface-l2))]";
   const classes = [
-    "networking-surface overflow-hidden rounded-2xl border p-5 card-shadow sm:p-6",
+    "networking-surface overflow-hidden rounded-2xl border p-4 card-shadow sm:p-6",
     toneStyles,
     className,
   ]

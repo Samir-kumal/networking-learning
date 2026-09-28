@@ -9,7 +9,7 @@ export default function BasicsSection() {
   return (
     <section
       id="basics"
-      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
+      className="networking-module scroll-mt-24 rounded-2xl border p-4 sm:p-8 transition-colors"
     >
       {/* Header */}
       <NetworkingModuleHeader
@@ -87,7 +87,7 @@ export default function BasicsSection() {
       <div className="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow">
 
         <div className="flex justify-center mb-8">
-          <div className="relative group px-6 py-3 rounded-xl bg-[color:var(--surface-l2)] border-2 border-cyan-400 text-center shadow-lg shadow-cyan-500/10">
+          <div className="relative group min-w-0 max-w-full px-6 py-3 rounded-xl bg-[color:var(--surface-l2)] border-2 border-cyan-400 text-center shadow-lg shadow-cyan-500/10">
             <div className="text-xs font-mono text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-2 font-bold">
               Core Gateway Router
             </div>

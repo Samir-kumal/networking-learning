@@ -482,7 +482,7 @@ export default function RoutingSection() {
   return (
     <section
       id="routing"
-      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
+      className="networking-module scroll-mt-24 rounded-2xl border p-4 sm:p-8 transition-colors"
     >
       {/* Header */}
       <NetworkingModuleHeader

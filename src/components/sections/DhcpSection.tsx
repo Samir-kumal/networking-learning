@@ -340,7 +340,7 @@ interface GigabitEthernet0/0.10
   return (
     <section
       id="dhcp"
-      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors space-y-10"
+      className="networking-module scroll-mt-24 rounded-2xl border p-4 sm:p-8 transition-colors space-y-10"
     >
       {/* Section Header */}
       <NetworkingModuleHeader

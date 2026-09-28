@@ -125,7 +125,7 @@ nc -zv 192.168.20.10 5432`,
   return (
     <section
       id="troubleshooting"
-      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
+      className="networking-module scroll-mt-24 rounded-2xl border p-4 sm:p-8 transition-colors"
     >
       {/* Section Header */}
       <NetworkingModuleHeader

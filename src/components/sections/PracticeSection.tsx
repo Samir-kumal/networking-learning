@@ -338,7 +338,7 @@ export default function PracticeSection() {
   return (
     <section
       id="practice"
-      className="networking-module scroll-mt-24 rounded-2xl border p-6 sm:p-8 transition-colors"
+      className="networking-module scroll-mt-24 rounded-2xl border p-4 sm:p-8 transition-colors"
     >
       <NetworkingModuleHeader
         anchor="#practice"

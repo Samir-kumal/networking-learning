@@ -243,6 +243,49 @@
 .networking-module-content {
   min-width: 0;
 }
+
+/*
+ * Mobile padding step-down for nested networking cards.
+ * Each module nests panels -> cards -> sub-cards -> detail boxes, and each
+ * layer carries desktop-sized padding (p-4..p-8). Below `sm` that compounds
+ * into ~120px of horizontal inset per side, squeezing the innermost content.
+ * Keep every border/background (so the hierarchy still reads) but taper the
+ * padding by depth: top-level cards 16px, nested cards 12px, deeper 10px.
+ * Only the default (unprefixed) utilities are touched; `sm:` and up are
+ * unaffected.
+ */
+@media (max-width: 639.98px) {
+  .networking-module-content :is(.p-5, .p-6, .p-8) {
+    padding: 1rem;
+  }
+  .networking-module-content :is(.px-5, .px-6, .px-8) {
+    padding-inline: 1rem;
+  }
+
+  .networking-module-content
+    :is([data-networking-panel], [data-networking-example], .p-4, .p-5, .p-6, .p-8)
+    :is(.p-4, .p-5, .p-6, .p-8) {
+    padding: 0.75rem;
+  }
+  .networking-module-content
+    :is([data-networking-panel], [data-networking-example], .p-4, .p-5, .p-6, .p-8)
+    :is(.px-4, .px-5, .px-6, .px-8) {
+    padding-inline: 0.75rem;
+  }
+
+  .networking-module-content
+    :is([data-networking-panel], [data-networking-example], .p-4, .p-5, .p-6, .p-8)
+    :is(.p-4, .p-5, .p-6, .p-8)
+    :is(.p-3, .p-4, .p-5, .p-6, .p-8) {
+    padding: 0.625rem;
+  }
+  .networking-module-content
+    :is([data-networking-panel], [data-networking-example], .p-4, .p-5, .p-6, .p-8)
+    :is(.p-4, .p-5, .p-6, .p-8)
+    :is(.px-4, .px-5, .px-6, .px-8) {
+    padding-inline: 0.625rem;
+  }
+}
 /* Stage Tone (Rose) */
 [data-tone="rose"],
 [data-tone="rose"] .networking-module,
