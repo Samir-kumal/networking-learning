@@ -90,7 +90,9 @@ const seedMetric = (def: MetricDef): number[] => {
   const points: number[] = [];
   let v = def.base;
   for (let i = 0; i < POINT_COUNT; i++) {
-    v = Math.max(def.min, Math.min(def.max, v + (Math.random() - 0.48) * def.variance + def.drift));
+    // Deterministic seed history so server and client render the same first frame (hydration).
+    const jitter = Math.sin(i * 2.3 + def.base) * 0.5;
+    v = Math.max(def.min, Math.min(def.max, v + jitter * def.variance + def.drift));
     points.push(Math.round(v * 10) / 10);
   }
   return points;
@@ -745,7 +747,11 @@ export default function AwsCloudWatchSection() {
 
   // ---------- MODULE 3: LOG GROUPS ----------
   const [logGroupId, setLogGroupId] = useState<string>(LOG_GROUPS[0].id);
-  const [logLines, setLogLines] = useState<LogLine[]>(() => LOG_GROUPS[0].templates.slice(0, 7).map((t, i) => ({ ...t, time: `${nowClock()}` })));
+  // Timestamps are stamped after mount: the clock differs between server and client.
+  const [logLines, setLogLines] = useState<LogLine[]>(() => LOG_GROUPS[0].templates.slice(0, 7).map((t) => ({ ...t, time: "--:--:--" })));
+  useEffect(() => {
+    setLogLines((prev) => prev.map((l) => ({ ...l, time: nowClock() })));
+  }, []);
   const [logFilter, setLogFilter] = useState<string>("");
   const [logLevels, setLogLevels] = useState<Array<LogLine["level"]>>(["INFO", "WARN", "ERROR", "DEBUG"]);
   const [liveTail, setLiveTail] = useState<boolean>(true);
@@ -935,7 +941,7 @@ export default function AwsCloudWatchSection() {
       {/* ========================================================================= */}
       {/* MODULE 1: Metrics & Metric Stream Simulator */}
       {/* ========================================================================= */}
-      <section id="metrics" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
+      <section id="metrics" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
@@ -1071,7 +1077,7 @@ export default function AwsCloudWatchSection() {
       {/* ========================================================================= */}
       {/* MODULE 2: Alarm Threshold Configuration & Severity */}
       {/* ========================================================================= */}
-      <section id="alarms" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-rose-200 transition-colors">
+      <section id="alarms" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-rose-200 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-rose-500 dark:text-rose-400 uppercase tracking-wider mb-1">
@@ -1287,7 +1293,7 @@ export default function AwsCloudWatchSection() {
       {/* ========================================================================= */}
       {/* MODULE 3: Log Group Viewer */}
       {/* ========================================================================= */}
-      <section id="logs" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
+      <section id="logs" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-1">
@@ -1418,7 +1424,7 @@ export default function AwsCloudWatchSection() {
       {/* ========================================================================= */}
       {/* MODULE 4: X-Ray Distributed Tracing */}
       {/* ========================================================================= */}
-      <section id="xray" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-violet-300 transition-colors">
+      <section id="xray" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-violet-300 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
@@ -1585,7 +1591,7 @@ export default function AwsCloudWatchSection() {
       {/* ========================================================================= */}
       {/* MODULE 5: Dashboard Widget Layout Builder */}
       {/* ========================================================================= */}
-      <section id="dashboards" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
+      <section id="dashboards" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">

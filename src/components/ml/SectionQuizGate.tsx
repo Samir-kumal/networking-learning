@@ -5,6 +5,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { QuizRunner, type QuizRunnerQuestion } from "@/components/ml/primitives/QuizRunner";
 import { useProgressStore } from "@/lib/ml/store/progressStore";
+import { Button } from "@/components/ui/button";
 
 export interface SectionQuizGateProps {
   quiz: { id: string; questions: QuizRunnerQuestion[] };
@@ -22,8 +23,10 @@ export default function SectionQuizGate({ quiz, sectionId, nextSectionId, nextHr
   const setStatus = useProgressStore((state) => state.setStatus);
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-[15px] font-semibold text-slate-900 dark:text-slate-100">Section Quiz</h2>
+    <section className="space-y-4" aria-labelledby="section-quiz-heading">
+      <h2 id="section-quiz-heading" className="text-base font-semibold tracking-tight text-foreground">
+        Section quiz
+      </h2>
       <QuizRunner
         quiz={quiz}
         onPassed={() => {
@@ -39,12 +42,9 @@ export default function SectionQuizGate({ quiz, sectionId, nextSectionId, nextHr
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <Link
-              href={nextHref}
-              className="inline-block rounded-md bg-emerald-600 px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-emerald-700"
-            >
-              {nextLabel} →
-            </Link>
+            <Button asChild>
+              <Link href={nextHref}>{nextLabel}</Link>
+            </Button>
           </motion.div>
         )}
         {passed && !nextHref && (
@@ -52,12 +52,13 @@ export default function SectionQuizGate({ quiz, sectionId, nextSectionId, nextHr
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="text-[13px] font-medium text-emerald-600 dark:text-emerald-400"
+            role="status"
+            className="text-sm font-medium text-emerald-700 dark:text-emerald-400"
           >
             {nextLabel}
           </motion.p>
         )}
       </AnimatePresence>
-    </div>
+    </section>
   );
 }

@@ -183,7 +183,8 @@ export default function AwsApiGatewaySection() {
   const [cacheInput, setCacheInput] = useState<boolean>(false);
   const [validateInput, setValidateInput] = useState<boolean>(true);
   const [pathError, setPathError] = useState<string | null>(null);
-  const [apiId] = useState<string>(() => "a" + Math.random().toString(36).slice(2, 11));
+  // Fixed simulated API id: rendered as text, so it must match on server and client (hydration).
+  const apiId = "a7k2m9x4q1";
   const [apiName, setApiName] = useState<string>("PetStore");
 
   // ---------- Module 3: Authorizer Configuration State ----------
@@ -425,7 +426,7 @@ export default function AwsApiGatewaySection() {
       {/* ================================================================ */}
       <section
         id="rest-vs-http"
-        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-8 shadow-xl hover:border-violet-400/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-8 shadow-xl hover:border-violet-400/40 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
@@ -574,7 +575,7 @@ export default function AwsApiGatewaySection() {
       {/* ================================================================ */}
       <section
         id="route-builder"
-        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-8 shadow-xl hover:border-violet-400/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-8 shadow-xl hover:border-violet-400/40 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
@@ -763,7 +764,7 @@ export default function AwsApiGatewaySection() {
       {/* ================================================================ */}
       <section
         id="authorizers"
-        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-8 shadow-xl hover:border-violet-400/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-8 shadow-xl hover:border-violet-400/40 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
@@ -1052,7 +1053,7 @@ export default function AwsApiGatewaySection() {
       {/* ================================================================ */}
       <section
         id="throttling-caching"
-        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-8 shadow-xl hover:border-violet-400/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-8 shadow-xl hover:border-violet-400/40 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
@@ -1235,7 +1236,7 @@ export default function AwsApiGatewaySection() {
       {/* ================================================================ */}
       <section
         id="openapi"
-        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-8 shadow-xl hover:border-violet-400/40 transition-colors"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 space-y-8 shadow-xl hover:border-violet-400/40 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
@@ -1332,7 +1333,7 @@ export default function AwsApiGatewaySection() {
       {/* ================================================================ */}
       <section
         id="posture"
-        className="scroll-mt-24 rounded-2xl bg-gradient-to-br from-violet-50 via-white to-purple-50 border border-violet-200 dark:border-violet-700 p-6 sm:p-8 shadow-xl"
+        className="scroll-mt-24 rounded-2xl bg-gradient-to-br from-violet-50 via-white to-purple-50 border border-violet-200 dark:border-violet-700 p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent"
       >
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-3">

@@ -460,7 +460,7 @@ spec:
       </div>
 
       {/* ===================== MODULE 1 — LIFECYCLE ===================== */}
-      <section className="rounded-2xl border border-sky-200 dark:border-sky-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8">
+      <section className="rounded-2xl border border-sky-200 dark:border-sky-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8 max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col gap-4 border-b border-sky-200 dark:border-sky-700 pb-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="mb-1 text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400">
@@ -599,7 +599,7 @@ spec:
       </section>
 
       {/* ===================== MODULE 2 — STORAGECLASS ===================== */}
-      <section className="rounded-2xl border border-blue-200 dark:border-blue-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8">
+      <section className="rounded-2xl border border-blue-200 dark:border-blue-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8 max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="border-b border-blue-200 dark:border-blue-700 pb-5">
           <div className="mb-1 text-xs font-mono uppercase tracking-wider text-blue-600 dark:text-blue-400">
             Module 2 • StorageClass Provisioner Selector
@@ -683,7 +683,7 @@ spec:
       </section>
 
       {/* ===================== MODULE 3 — ACCESS MODES ===================== */}
-      <section className="rounded-2xl border border-sky-200 dark:border-sky-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8">
+      <section className="rounded-2xl border border-sky-200 dark:border-sky-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8 max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="border-b border-sky-200 dark:border-sky-700 pb-5">
           <div className="mb-1 text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400">
             Module 3 • Access Mode Calculator
@@ -820,7 +820,7 @@ spec:
       </section>
 
       {/* ===================== MODULE 4 — RECLAIM POLICY ===================== */}
-      <section className="rounded-2xl border border-indigo-200 dark:border-indigo-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8">
+      <section className="rounded-2xl border border-indigo-200 dark:border-indigo-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8 max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="border-b border-indigo-200 dark:border-indigo-700 pb-5">
           <div className="mb-1 text-xs font-mono uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
             Module 4 • Reclaim Policy Selector
@@ -879,7 +879,7 @@ spec:
       </section>
 
       {/* ===================== MODULE 5 — CAPACITY PLANNER ===================== */}
-      <section className="rounded-2xl border border-blue-200 dark:border-blue-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8">
+      <section className="rounded-2xl border border-blue-200 dark:border-blue-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8 max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="border-b border-blue-200 dark:border-blue-700 pb-5">
           <div className="mb-1 text-xs font-mono uppercase tracking-wider text-blue-600 dark:text-blue-400">Module 5 • Capacity Planner</div>
           <h2 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">Right-size the cluster storage budget</h2>
@@ -1004,7 +1004,7 @@ spec:
       </section>
 
       {/* ===================== MODULE 6 — SNAPSHOT SIMULATOR ===================== */}
-      <section className="rounded-2xl border border-cyan-200 dark:border-cyan-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8">
+      <section className="rounded-2xl border border-cyan-200 dark:border-cyan-700 bg-white dark:bg-slate-800 p-6 shadow-xl sm:p-8 max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col gap-4 border-b border-cyan-200 dark:border-cyan-700 pb-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="mb-1 text-xs font-mono uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
@@ -1087,49 +1087,51 @@ spec:
                   No snapshots yet — press 📸 Take Snapshot (an EBS snapshot is saved to S3 within ~1 s for this sized volume).
                 </div>
               ) : (
-                <table className="w-full text-left text-xs">
-                  <thead>
-                    <tr className="bg-slate-50 dark:bg-slate-700 font-mono text-[10px] uppercase text-slate-500 dark:text-slate-400">
-                      <th className="px-3 py-2">Name</th>
-                      <th className="px-3 py-2">Size</th>
-                      <th className="px-3 py-2">Created</th>
-                      <th className="px-3 py-2">Status</th>
-                      <th className="px-3 py-2">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {snapshots.map((s) => (
-                      <tr key={s.id} className={`border-t border-slate-100 dark:border-slate-700 ${s.status === "Deleted" ? "opacity-40" : ""}`}>
-                        <td className="px-3 py-2 font-mono text-slate-800 dark:text-slate-200">{s.name}</td>
-                        <td className="px-3 py-2 font-mono text-slate-500 dark:text-slate-400">{formatCapacity(s.sizeGiB)}</td>
-                        <td className="px-3 py-2 font-mono text-slate-500 dark:text-slate-400">{s.createdAt}</td>
-                        <td className="px-3 py-2">
-                          <span
-                            className={`rounded border px-2 py-0.5 font-mono text-[10px] ${
-                              s.status === "Completed"
-                                ? "border-emerald-200 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400"
-                                : s.status === "Creating"
-                                  ? "border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"
-                                  : "border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
-                            }`}
-                          >
-                            {s.status}
-                          </span>
-                        </td>
-                        <td className="px-3 py-2">
-                          {s.status === "Completed" && (
-                            <button
-                              onClick={() => handleDeleteSnapshot(s.id)}
-                              className="font-mono text-[10px] text-rose-500 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300"
-                            >
-                              delete
-                            </button>
-                          )}
-                        </td>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="bg-slate-50 dark:bg-slate-700 font-mono text-[10px] uppercase text-slate-500 dark:text-slate-400">
+                        <th className="px-3 py-2">Name</th>
+                        <th className="px-3 py-2">Size</th>
+                        <th className="px-3 py-2">Created</th>
+                        <th className="px-3 py-2">Status</th>
+                        <th className="px-3 py-2">Action</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {snapshots.map((s) => (
+                        <tr key={s.id} className={`border-t border-slate-100 dark:border-slate-700 ${s.status === "Deleted" ? "opacity-40" : ""}`}>
+                          <td className="px-3 py-2 font-mono text-slate-800 dark:text-slate-200">{s.name}</td>
+                          <td className="px-3 py-2 font-mono text-slate-500 dark:text-slate-400">{formatCapacity(s.sizeGiB)}</td>
+                          <td className="px-3 py-2 font-mono text-slate-500 dark:text-slate-400">{s.createdAt}</td>
+                          <td className="px-3 py-2">
+                            <span
+                              className={`rounded border px-2 py-0.5 font-mono text-[10px] ${
+                                s.status === "Completed"
+                                  ? "border-emerald-200 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400"
+                                  : s.status === "Creating"
+                                    ? "border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400"
+                                    : "border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
+                              }`}
+                            >
+                              {s.status}
+                            </span>
+                          </td>
+                          <td className="px-3 py-2">
+                            {s.status === "Completed" && (
+                              <button
+                                onClick={() => handleDeleteSnapshot(s.id)}
+                                className="font-mono text-[10px] text-rose-500 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300"
+                              >
+                                delete
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               )}
             </div>
 

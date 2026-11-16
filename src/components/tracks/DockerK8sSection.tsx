@@ -664,7 +664,7 @@ spec:
       {/* ========================================================================= */}
       {/* MODULE 1: Interactive Multi-Stage Dockerfile Builder & Inspector */}
       {/* ========================================================================= */}
-      <section id="k8s-dockerfile" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section id="k8s-dockerfile" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-1">
@@ -915,7 +915,7 @@ spec:
       {/* ========================================================================= */}
       {/* MODULE 2: Docker Compose Service Stack Generator & Network Topology */}
       {/* ========================================================================= */}
-      <section id="k8s-compose" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section id="k8s-compose" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
@@ -1104,7 +1104,7 @@ spec:
       {/* ========================================================================= */}
       {/* MODULE 3: Kubernetes Architecture Inspector & Traffic Flow */}
       {/* ========================================================================= */}
-      <section id="k8s-cluster" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section id="k8s-cluster" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
@@ -1302,7 +1302,7 @@ spec:
       {/* ========================================================================= */}
       {/* MODULE 4: Helm Charts & ArgoCD GitOps Sync State Visualizer */}
       {/* ========================================================================= */}
-      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">

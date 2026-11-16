@@ -1018,7 +1018,7 @@ export default function AwsStepFunctionsSection() {
   return (
     <section
       id="step-functions"
-      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 space-y-8 shadow-xl hover:border-emerald-400/40 transition-colors"
+      className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 card-shadow sm:p-8 space-y-8 shadow-xl hover:border-emerald-400/40 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent"
     >
       {/* ---------------------------------------------------------------- */}
       {/* HEADER */}

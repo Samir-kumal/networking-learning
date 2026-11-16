@@ -6,6 +6,8 @@ import { getProgressMap } from "@/lib/ml/progress/service";
 import { loadPublicQuiz } from "@/lib/ml/progress/quiz-loader";
 import { getSectionComponent } from "@/components/ml/section-registry";
 import SectionQuizGate from "@/components/ml/SectionQuizGate";
+import { PageHeader } from "@/components/page-header";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 export default async function SectionPage({
   params,
@@ -32,21 +34,34 @@ export default async function SectionPage({
   const nextLabel = next ? `Next: ${next.section.title}` : "You've completed ML Foundations Lab! \u{1F389}";
 
   return (
-    <div className="mx-auto max-w-3xl space-y-8 px-6 py-10">
-      <div>
-        <Link
-          href={`/ml/${chapterSlug}`}
-          className="text-[12px] text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400"
-        >
-          ← {found.chapter.title}
-        </Link>
-        <h1 className="mt-2 text-2xl font-bold text-slate-900 dark:text-slate-100">{found.section.title}</h1>
+    <div className="mx-auto max-w-3xl space-y-8 px-4 py-8 sm:px-6 sm:py-10">
+      <div className="space-y-6">
+        <Breadcrumb>
+          <BreadcrumbList className="text-sm">
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/ml">ML Foundations</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href={`/ml/${chapterSlug}`}>{found.chapter.title}</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem className="min-w-0">
+              <BreadcrumbPage className="truncate">{found.section.title}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+        <PageHeader eyebrow={`Section ${found.section.order}`} title={found.section.title} />
       </div>
 
       {Content ? (
         <Content />
       ) : (
-        <p className="text-[13px] text-rose-600 dark:text-rose-400">
+        <p role="alert" className="text-sm text-destructive">
           This section&rsquo;s content module isn&rsquo;t registered in section-registry.ts — this is a bug.
         </p>
       )}
@@ -68,7 +83,7 @@ export default async function SectionPage({
           nextLabel={nextLabel}
         />
       ) : (
-        <p className="text-[13px] text-rose-600 dark:text-rose-400">
+        <p role="alert" className="text-sm text-destructive">
           This section&rsquo;s quiz isn&rsquo;t seeded yet — run `npm run db:seed`.
         </p>
       )}

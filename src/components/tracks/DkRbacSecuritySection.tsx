@@ -823,7 +823,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
       {/* ===================================================================== */}
       {/* MODULE 1: Role / ClusterRole Builder */}
       {/* ===================================================================== */}
-      <section id="dk-rbac-roles" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section id="dk-rbac-roles" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 1 • Authorization Primitives</div>
@@ -1022,7 +1022,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
       {/* ===================================================================== */}
       {/* MODULE 2: RoleBinding / ClusterRoleBinding Configurator */}
       {/* ===================================================================== */}
-      <section id="dk-rbac-bindings" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section id="dk-rbac-bindings" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 2 • Subject Binding</div>
@@ -1159,7 +1159,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
       {/* ===================================================================== */}
       {/* MODULE 3: Permission Evaluator */}
       {/* ===================================================================== */}
-      <section id="dk-rbac-evaluator" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section id="dk-rbac-evaluator" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 3 • Live Authorization Engine</div>
@@ -1365,30 +1365,32 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
                 {evaluate.matrix.length === 0 ? (
                   <div className="text-xs text-slate-400 dark:text-slate-500 font-mono">No effective permissions — subject has zero grants in this scope.</div>
                 ) : (
-                  <table className="w-full text-[11px] font-mono">
-                    <thead>
-                      <tr className="text-left text-slate-400 dark:text-slate-500 uppercase">
-                        <th className="pb-2">API Group</th>
-                        <th className="pb-2">Resource</th>
-                        <th className="pb-2">Verbs</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {evaluate.matrix.map((m) => (
-                        <tr key={m.key} className="border-t border-slate-100 dark:border-slate-700">
-                          <td className="py-1.5 pr-2 text-sky-700 dark:text-sky-300">{m.apiGroup === '""' ? "core/v1" : m.apiGroup.replace(/"/g, "")}</td>
-                          <td className="py-1.5 pr-2 text-slate-700 dark:text-slate-200">{m.resource}</td>
-                          <td className="py-1.5">
-                            <div className="flex flex-wrap gap-1">
-                              {m.verbs.map((v) => (
-                                <span key={v} className="px-1.5 py-0.5 rounded bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 text-sky-700 dark:text-sky-300">{v}</span>
-                              ))}
-                            </div>
-                          </td>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-[11px] font-mono">
+                      <thead>
+                        <tr className="text-left text-slate-400 dark:text-slate-500 uppercase">
+                          <th className="pb-2">API Group</th>
+                          <th className="pb-2">Resource</th>
+                          <th className="pb-2">Verbs</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {evaluate.matrix.map((m) => (
+                          <tr key={m.key} className="border-t border-slate-100 dark:border-slate-700">
+                            <td className="py-1.5 pr-2 text-sky-700 dark:text-sky-300">{m.apiGroup === '""' ? "core/v1" : m.apiGroup.replace(/"/g, "")}</td>
+                            <td className="py-1.5 pr-2 text-slate-700 dark:text-slate-200">{m.resource}</td>
+                            <td className="py-1.5">
+                              <div className="flex flex-wrap gap-1">
+                                {m.verbs.map((v) => (
+                                  <span key={v} className="px-1.5 py-0.5 rounded bg-sky-50 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-700 text-sky-700 dark:text-sky-300">{v}</span>
+                                ))}
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 )}
               </div>
             </div>
@@ -1399,7 +1401,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
       {/* ===================================================================== */}
       {/* MODULE 4: ServiceAccount & Pod Association */}
       {/* ===================================================================== */}
-      <section id="dk-rbac-serviceaccounts" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section id="dk-rbac-serviceaccounts" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 4 • Workload Identity</div>
@@ -1503,7 +1505,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
       {/* ===================================================================== */}
       {/* MODULE 5: Pod Security Standards */}
       {/* ===================================================================== */}
-      <section id="dk-rbac-pss" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section id="dk-rbac-pss" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 5 • Admission Control</div>
@@ -1608,41 +1610,43 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
             {/* Controls matrix */}
             <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
               <div className="px-4 py-2.5 bg-slate-100 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-700 dark:text-slate-200">Controls enforced by each stance</div>
-              <table className="w-full text-[11px]">
-                <thead>
-                  <tr className="text-left text-slate-400 dark:text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
-                    <th className="py-2 px-3">Control</th>
-                    <th className="py-2 px-2 text-center">Privileged</th>
-                    <th className="py-2 px-2 text-center">Baseline</th>
-                    <th className="py-2 px-2 text-center">Restricted</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {PSS_CONTROLS.map((c) => (
-                    <tr key={c.id} className="border-b border-slate-100 dark:border-slate-700 last:border-0">
-                      <td className="py-2 px-3">
-                        <div className="font-bold text-slate-800 dark:text-slate-200">{c.label}</div>
-                        <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">{c.detail}</div>
-                      </td>
-                      {PSS_STANCE_ORDER.map((s) => (
-                        <td key={s} className="py-2 px-2 text-center">
-                          <span
-                            className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-mono border ${
-                              c.levels[s] === "allowed"
-                                ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700"
-                                : c.levels[s] === "limited"
-                                ? "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-700"
-                                : "bg-rose-50 dark:bg-rose-900/30 text-rose-500 dark:text-rose-400 border-rose-200 dark:border-rose-700"
-                            }`}
-                          >
-                            {c.levels[s] === "allowed" ? "✓" : c.levels[s] === "limited" ? "◐" : "✗"}
-                          </span>
-                        </td>
-                      ))}
+              <div className="overflow-x-auto">
+                <table className="w-full text-[11px]">
+                  <thead>
+                    <tr className="text-left text-slate-400 dark:text-slate-500 uppercase border-b border-slate-200 dark:border-slate-700">
+                      <th className="py-2 px-3">Control</th>
+                      <th className="py-2 px-2 text-center">Privileged</th>
+                      <th className="py-2 px-2 text-center">Baseline</th>
+                      <th className="py-2 px-2 text-center">Restricted</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {PSS_CONTROLS.map((c) => (
+                      <tr key={c.id} className="border-b border-slate-100 dark:border-slate-700 last:border-0">
+                        <td className="py-2 px-3">
+                          <div className="font-bold text-slate-800 dark:text-slate-200">{c.label}</div>
+                          <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">{c.detail}</div>
+                        </td>
+                        {PSS_STANCE_ORDER.map((s) => (
+                          <td key={s} className="py-2 px-2 text-center">
+                            <span
+                              className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-mono border ${
+                                c.levels[s] === "allowed"
+                                  ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700"
+                                  : c.levels[s] === "limited"
+                                  ? "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-700"
+                                  : "bg-rose-50 dark:bg-rose-900/30 text-rose-500 dark:text-rose-400 border-rose-200 dark:border-rose-700"
+                              }`}
+                            >
+                              {c.levels[s] === "allowed" ? "✓" : c.levels[s] === "limited" ? "◐" : "✗"}
+                            </span>
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             {/* YAML */}
@@ -1660,7 +1664,7 @@ const key = `${r.apiGroup}|${r.resources.join("+")}`;
       {/* ===================================================================== */}
       {/* MODULE 6: Security Context Configurator */}
       {/* ===================================================================== */}
-      <section id="dk-rbac-security-context" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section id="dk-rbac-security-context" className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 6 • Runtime Hardening</div>

@@ -69,34 +69,36 @@ export default async function ProgressDashboardPage() {
       {data.recentAttempts.length > 0 && (
         <div>
           <h2 className="mb-3 text-[15px] font-semibold text-slate-900 dark:text-slate-100">Recent quiz attempts</h2>
-          <table className="w-full text-[13px]">
-            <thead>
-              <tr className="text-left text-[11px] uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                <th className="pb-2 font-medium">Section</th>
-                <th className="pb-2 font-medium">Score</th>
-                <th className="pb-2 font-medium">Result</th>
-                <th className="pb-2 font-medium">When</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.recentAttempts.map((attempt, index) => (
-                <tr key={index} className="border-t border-slate-100 dark:border-slate-800">
-                  <td className="py-1.5 text-slate-700 dark:text-slate-300">{attempt.sectionTitle}</td>
-                  <td className="py-1.5 font-mono">{Math.round(attempt.score * 100)}%</td>
-                  <td
-                    className={`py-1.5 font-medium ${
-                      attempt.passed ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"
-                    }`}
-                  >
-                    {attempt.passed ? "Passed" : "Failed"}
-                  </td>
-                  <td className="py-1.5 text-slate-400 dark:text-slate-500">
-                    {attempt.createdAt.toLocaleDateString()}
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-[13px]">
+              <thead>
+                <tr className="text-left text-[11px] uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                  <th className="pb-2 font-medium">Section</th>
+                  <th className="pb-2 font-medium">Score</th>
+                  <th className="pb-2 font-medium">Result</th>
+                  <th className="pb-2 font-medium">When</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {data.recentAttempts.map((attempt, index) => (
+                  <tr key={index} className="border-t border-slate-100 dark:border-slate-800">
+                    <td className="py-1.5 text-slate-700 dark:text-slate-300">{attempt.sectionTitle}</td>
+                    <td className="py-1.5 font-mono">{Math.round(attempt.score * 100)}%</td>
+                    <td
+                      className={`py-1.5 font-medium ${
+                        attempt.passed ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"
+                      }`}
+                    >
+                      {attempt.passed ? "Passed" : "Failed"}
+                    </td>
+                    <td className="py-1.5 text-slate-400 dark:text-slate-500">
+                      {attempt.createdAt.toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>

@@ -700,7 +700,7 @@ export default function DkResourceQuotasSection() {
       {/* ===================================================================== */}
       {/* MODULE 1 — Requests & Limits Calculator */}
       {/* ===================================================================== */}
-      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
@@ -809,7 +809,7 @@ export default function DkResourceQuotasSection() {
       {/* ===================================================================== */}
       {/* MODULE 2 — ResourceQuota Builder */}
       {/* ===================================================================== */}
-      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
@@ -913,7 +913,7 @@ export default function DkResourceQuotasSection() {
       {/* ===================================================================== */}
       {/* MODULE 3 — LimitRange Configurator */}
       {/* ===================================================================== */}
-      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 3 • Defaults &amp; Bounds</div>
@@ -994,7 +994,7 @@ export default function DkResourceQuotasSection() {
       {/* ===================================================================== */}
       {/* MODULE 4 — QoS Class Calculator */}
       {/* ===================================================================== */}
-      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 4 • Pod Priority Tiers</div>
@@ -1080,7 +1080,7 @@ export default function DkResourceQuotasSection() {
       {/* ===================================================================== */}
       {/* MODULE 5 — Resource Efficiency Metrics */}
       {/* ===================================================================== */}
-      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <section className="space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 5 • Cost &amp; Capacity</div>

@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { and, eq } from "drizzle-orm";
-import { db as defaultDb, schema } from "@/lib/ml/db";
+import { db as defaultDb, schema, type MlDbClient } from "@/lib/ml/db";
 import { ensureUserRow } from "@/lib/ml/auth/session";
 import { flattenSections, nextSection } from "@/lib/ml/curriculum";
 import { gradeAnswers, type GradeResult } from "./grading";
@@ -8,7 +8,7 @@ import { gradeAnswers, type GradeResult } from "./grading";
 export type { GradeResult } from "./grading";
 
 export type SectionStatus = "locked" | "unlocked" | "completed";
-type DbClient = typeof defaultDb;
+type DbClient = MlDbClient;
 
 /** "<chapterSlug>/<sectionSlug>" -> that section's status for one user. */
 export type ProgressMap = Record<string, SectionStatus>;

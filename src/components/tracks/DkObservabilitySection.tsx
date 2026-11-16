@@ -595,7 +595,9 @@ export default function DkObservabilitySection() {
       const g = GAUGES[k];
       for (let i = 0; i < POINTS; i++) {
         const wave = Math.sin(i / 4 + k.length) * g.volatility * 0.5;
-        seed[k].push(Math.min(g.max, Math.max(g.min, g.base + wave + (Math.random() - 0.5) * g.volatility)));
+        // Deterministic initial history (same on server and client); live ticks below stay random.
+        const jitter = Math.sin(i * 2.9 + k.length * 1.7) * 0.5;
+        seed[k].push(Math.min(g.max, Math.max(g.min, g.base + wave + jitter * g.volatility)));
       }
     });
     return seed;
@@ -897,7 +899,7 @@ ${labels}
       </div>
 
       {/* ========================================================================= */}
-      <section id="metrics" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
+      <section id="metrics" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">Module 1 • Prometheus Metrics</div>
@@ -1028,7 +1030,7 @@ ${labels}
       </section>
 
       {/* ========================================================================= */}
-      <section id="dashboard" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-blue-300 transition-colors">
+      <section id="dashboard" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-blue-300 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">Module 2 • Grafana</div>
@@ -1186,7 +1188,7 @@ ${labels}
       </section>
 
       {/* ========================================================================= */}
-      <section id="tracing" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-cyan-300 transition-colors">
+      <section id="tracing" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-cyan-300 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-1">Module 3 • Distributed Tracing</div>
@@ -1352,7 +1354,7 @@ ${labels}
       </section>
 
       {/* ========================================================================= */}
-      <section id="logs" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors">
+      <section id="logs" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-sky-300 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-1">Module 4 • Structured Logging</div>
@@ -1442,7 +1444,7 @@ ${labels}
       </section>
 
       {/* ========================================================================= */}
-      <section id="alerts" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-amber-300 transition-colors">
+      <section id="alerts" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-amber-300 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">Module 5 • Alert Rules</div>
@@ -1662,7 +1664,7 @@ ${labels}
       </section>
 
       {/* ========================================================================= */}
-      <section id="slo" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-emerald-300 transition-colors">
+      <section id="slo" className="scroll-mt-24 space-y-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl hover:border-emerald-300 transition-colors max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-5">
           <div>
             <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">Module 6 • SLI / SLO</div>

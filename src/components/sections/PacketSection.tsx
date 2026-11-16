@@ -1355,46 +1355,48 @@ export default function PacketSection() {
           {/* PANE 1: PACKET LIST TABLE */}
           <div className="max-h-56 overflow-y-auto border-b border-slate-200 dark:border-slate-700">
             <NetworkingTable>
-            <table className="w-full text-left font-mono text-xs border-collapse">
-              <thead className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 sticky top-0 border-b border-slate-200 dark:border-slate-700">
-                <tr>
-                  <th className="py-2 px-3 w-12 text-center">No.</th>
-                  <th className="py-2 px-3 w-24">Time (s)</th>
-                  <th className="py-2 px-3 w-32">Source</th>
-                  <th className="py-2 px-3 w-32">Destination</th>
-                  <th className="py-2 px-3 w-20">Protocol</th>
-                  <th className="py-2 px-3 w-16 text-right">Length</th>
-                  <th className="py-2 px-3">Info</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredPackets.map((packet) => {
-                  const isSelected = packet.no === selectedPacketNo;
-                  return (
-                    <tr
-                      key={packet.no}
-                      onClick={() => {
-                        setSelectedPacketNo(packet.no);
-                        setSelectedHexOffset(null);
-                      }}
-                      className={`cursor-pointer border-b border-slate-200/40 dark:border-slate-700/40 transition ${
-                        isSelected
-                          ? "bg-indigo-100 text-slate-900 dark:text-slate-100 font-bold"
-                          : `${packet.colorClass} hover:brightness-125`
-                      }`}
-                    >
-                      <td className="py-1.5 px-3 text-center">{packet.no}</td>
-                      <td className="py-1.5 px-3">{packet.time}</td>
-                      <td className="py-1.5 px-3">{packet.source}</td>
-                      <td className="py-1.5 px-3">{packet.destination}</td>
-                      <td className="py-1.5 px-3 font-bold">{packet.protocol}</td>
-                      <td className="py-1.5 px-3 text-right">{packet.length}</td>
-                      <td className="py-1.5 px-3 truncate max-w-xs">{packet.info}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left font-mono text-xs border-collapse">
+                <thead className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 sticky top-0 border-b border-slate-200 dark:border-slate-700">
+                  <tr>
+                    <th className="py-2 px-3 w-12 text-center">No.</th>
+                    <th className="py-2 px-3 w-24">Time (s)</th>
+                    <th className="py-2 px-3 w-32">Source</th>
+                    <th className="py-2 px-3 w-32">Destination</th>
+                    <th className="py-2 px-3 w-20">Protocol</th>
+                    <th className="py-2 px-3 w-16 text-right">Length</th>
+                    <th className="py-2 px-3">Info</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredPackets.map((packet) => {
+                    const isSelected = packet.no === selectedPacketNo;
+                    return (
+                      <tr
+                        key={packet.no}
+                        onClick={() => {
+                          setSelectedPacketNo(packet.no);
+                          setSelectedHexOffset(null);
+                        }}
+                        className={`cursor-pointer border-b border-slate-200/40 dark:border-slate-700/40 transition ${
+                          isSelected
+                            ? "bg-indigo-100 text-slate-900 dark:text-slate-100 font-bold"
+                            : `${packet.colorClass} hover:brightness-125`
+                        }`}
+                      >
+                        <td className="py-1.5 px-3 text-center">{packet.no}</td>
+                        <td className="py-1.5 px-3">{packet.time}</td>
+                        <td className="py-1.5 px-3">{packet.source}</td>
+                        <td className="py-1.5 px-3">{packet.destination}</td>
+                        <td className="py-1.5 px-3 font-bold">{packet.protocol}</td>
+                        <td className="py-1.5 px-3 text-right">{packet.length}</td>
+                        <td className="py-1.5 px-3 truncate max-w-xs">{packet.info}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
             </NetworkingTable>
           </div>
 
