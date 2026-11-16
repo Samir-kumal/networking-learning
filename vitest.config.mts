@@ -8,6 +8,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(rootDir, "src"),
+      // Production imports the Workers-only D1 binding module; tests substitute a stub.
+      "cloudflare:workers": path.resolve(rootDir, "src/lib/ml/db/cloudflare-workers.test-stub.ts"),
     },
   },
   test: {

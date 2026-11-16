@@ -5,6 +5,15 @@ import Sidebar, { TRACKS } from "@/components/Sidebar";
 import BackToTop from "@/components/BackToTop";
 import ThemeToggle from "@/components/ThemeToggle";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -35,15 +44,23 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         }`}
       >
         {/* Slim top bar */}
-        <header className="sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 px-6 py-2.5 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-[12px] text-slate-500 dark:text-slate-400">
-            <span className="font-semibold text-slate-700 dark:text-slate-200">DevOps Hub</span>
-            <span className="text-slate-300 dark:text-slate-600">/</span>
-            <span>{activeTrack.name}</span>
-          </div>
-          <div className="flex items-center gap-2 text-[11px]">
+        <header className="sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 pl-14 pr-4 sm:px-6 py-2.5 flex items-center justify-between">
+          <Breadcrumb className="min-w-0">
+            <BreadcrumbList className="flex-nowrap text-[12px] sm:gap-2">
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/" className="font-semibold text-foreground">DevOps Hub</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem className="min-w-0">
+                <BreadcrumbPage className="truncate">{activeTrack.name}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          <div className="flex shrink-0 items-center gap-2 text-[11px]">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-soft-pulse" />
-            <span className="text-slate-500 dark:text-slate-400">All systems operational</span>
+            <span className="hidden text-slate-500 dark:text-slate-400 sm:inline">All systems operational</span>
             <ThemeToggle />
           </div>
         </header>
@@ -57,7 +74,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
         {/* Footer */}
         <footer className="border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 py-5 px-6">
-          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] text-slate-400 dark:text-slate-500">
+          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] text-slate-500 dark:text-slate-400">
             <span>
               DevOps Hub &amp; SubnetLab — built with{" "}
               <span className="font-medium text-slate-600 dark:text-slate-300">Next.js 16.3</span>,{" "}

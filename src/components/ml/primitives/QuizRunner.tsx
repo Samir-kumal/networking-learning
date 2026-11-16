@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { submitQuizAttempt } from "@/app/ml/actions";
 import type { GradeResult } from "@/lib/ml/progress/service";
@@ -29,7 +30,12 @@ function shuffled<T>(items: T[]): T[] {
 
 /** Renders a quiz (mcq/numeric/slider-match), grades it server-side, and shows per-question explanations. */
 export function QuizRunner({ quiz, onPassed }: QuizRunnerProps) {
-  const [order, setOrder] = useState(() => shuffled(quiz.questions));
+  // Start in authored order so server and client render identically (hydration),
+  // then shuffle once after mount.
+  const [order, setOrder] = useState(quiz.questions);
+  useEffect(() => {
+    setOrder(shuffled(quiz.questions));
+  }, [quiz.questions]);
   const [answers, setAnswers] = useState<Record<string, string | number>>({});
   const [result, setResult] = useState<GradeResult | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -75,7 +81,8 @@ export function QuizRunner({ quiz, onPassed }: QuizRunnerProps) {
             </p>
             <div className="mt-2">
               {question.kind === "mcq" && (
-                <div className="space-y-1.5">
+                <fieldset className="min-w-0 space-y-1.5">
+                  <legend className="sr-only">{question.prompt}</legend>
                   {question.options?.map((option) => (
                     <label
                       key={option}
@@ -91,7 +98,7 @@ export function QuizRunner({ quiz, onPassed }: QuizRunnerProps) {
                       {option}
                     </label>
                   ))}
-                </div>
+                </fieldset>
               )}
               {(question.kind === "numeric" || question.kind === "slider-match") && (
                 <input
@@ -128,42 +135,37 @@ export function QuizRunner({ quiz, onPassed }: QuizRunnerProps) {
         );
       })}
 
-      {error && <p className="text-[12px] text-rose-600 dark:text-rose-400">{error}</p>}
+      {error && (
+        <p role="alert" className="text-sm text-destructive">
+          {error}
+        </p>
+      )}
 
       <AnimatePresence mode="wait">
         {!result ? (
-          <motion.button
-            key="submit"
-            exit={{ opacity: 0, scale: 0.95 }}
-            onClick={handleSubmit}
-            disabled={!allAnswered || submitting}
-            className="rounded-md bg-indigo-600 px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-40"
-          >
-            {submitting ? "Grading…" : "Submit Quiz"}
-          </motion.button>
+          <motion.div key="submit" exit={{ opacity: 0, scale: 0.95 }} className="inline-block">
+            <Button onClick={handleSubmit} disabled={!allAnswered || submitting}>
+              {submitting ? "Grading…" : "Submit quiz"}
+            </Button>
+          </motion.div>
         ) : (
           <motion.div
             key="result"
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.25 }}
-            className="flex items-center justify-between rounded-lg border border-slate-200 p-3 dark:border-slate-700"
+            className="flex items-center justify-between gap-3 rounded-lg border border-border p-3"
           >
-            <p className="text-[13px] font-medium text-slate-800 dark:text-slate-200">
+            <p className="text-sm font-medium text-foreground">
               Score: {Math.round(result.score * 100)}% —{" "}
-              <span
-                className={result.passed ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}
-              >
+              <span className={result.passed ? "text-emerald-700 dark:text-emerald-400" : "text-destructive"}>
                 {result.passed ? "Passed" : "Not passed"}
               </span>
             </p>
             {!result.passed && (
-              <button
-                onClick={handleRetry}
-                className="rounded-md border border-slate-200 px-3 py-1.5 text-[12px] font-medium transition hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-700"
-              >
+              <Button variant="outline" size="sm" onClick={handleRetry}>
                 Retry
-              </button>
+              </Button>
             )}
           </motion.div>
         )}

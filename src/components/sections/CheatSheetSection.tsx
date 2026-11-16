@@ -538,44 +538,46 @@ export default function CheatSheetSection() {
 
         {/* Table */}
         <NetworkingTable className="rounded-xl border border-slate-200 dark:border-slate-700">
-          <table className="w-full text-left text-xs font-mono">
-            <thead className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-              <tr>
-                <th className="p-3">CIDR</th>
-                <th className="p-3">Subnet Mask</th>
-                <th className="p-3">Total IPs</th>
-                <th className="p-3">Usable Hosts</th>
-                <th className="p-3">Block Size (Increment)</th>
-                <th className="p-3">Primary RFC / Production Use Case</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#30363d] bg-slate-50 dark:bg-slate-700">
-              {filteredPrefixes.map((row) => (
-                <tr
-                  key={row.cidr}
-                  className={`hover:bg-slate-50/80 dark:bg-slate-700/80 transition-colors ${
-                    row.highlight ? "bg-white/70 dark:bg-slate-800/70 font-semibold" : ""
-                  }`}
-                >
-                  <td className="p-3">
-                    <div className="flex items-center gap-2">
-                      <span className="text-indigo-600 dark:text-indigo-400 font-bold text-sm">{row.cidr}</span>
-                      {row.badge && (
-                        <span className="px-1.5 py-0.5 rounded bg-indigo-600/15 text-indigo-600 dark:text-indigo-400 text-[10px]">
-                          {row.badge}
-                        </span>
-                      )}
-                    </div>
-                  </td>
-                  <td className="p-3 text-slate-900 dark:text-slate-100">{row.mask}</td>
-                  <td className="p-3 text-slate-500 dark:text-slate-400">{row.totalHosts}</td>
-                  <td className="p-3 text-emerald-600 dark:text-emerald-400 font-bold">{row.usableHosts}</td>
-                  <td className="p-3 text-[#f0883e]">{row.blockSize}</td>
-                  <td className="p-3 text-slate-500 dark:text-slate-400 max-w-xs truncate">{row.useCase}</td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs font-mono">
+              <thead className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
+                <tr>
+                  <th className="p-3">CIDR</th>
+                  <th className="p-3">Subnet Mask</th>
+                  <th className="p-3">Total IPs</th>
+                  <th className="p-3">Usable Hosts</th>
+                  <th className="p-3">Block Size (Increment)</th>
+                  <th className="p-3">Primary RFC / Production Use Case</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-[#30363d] bg-slate-50 dark:bg-slate-700">
+                {filteredPrefixes.map((row) => (
+                  <tr
+                    key={row.cidr}
+                    className={`hover:bg-slate-50/80 dark:bg-slate-700/80 transition-colors ${
+                      row.highlight ? "bg-white/70 dark:bg-slate-800/70 font-semibold" : ""
+                    }`}
+                  >
+                    <td className="p-3">
+                      <div className="flex items-center gap-2">
+                        <span className="text-indigo-600 dark:text-indigo-400 font-bold text-sm">{row.cidr}</span>
+                        {row.badge && (
+                          <span className="px-1.5 py-0.5 rounded bg-indigo-600/15 text-indigo-600 dark:text-indigo-400 text-[10px]">
+                            {row.badge}
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="p-3 text-slate-900 dark:text-slate-100">{row.mask}</td>
+                    <td className="p-3 text-slate-500 dark:text-slate-400">{row.totalHosts}</td>
+                    <td className="p-3 text-emerald-600 dark:text-emerald-400 font-bold">{row.usableHosts}</td>
+                    <td className="p-3 text-[#f0883e]">{row.blockSize}</td>
+                    <td className="p-3 text-slate-500 dark:text-slate-400 max-w-xs truncate">{row.useCase}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </NetworkingTable>
       </div>
 

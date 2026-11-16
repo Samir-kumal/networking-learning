@@ -3,7 +3,7 @@ import nextConfig from "eslint-config-next";
 const eslintConfig = [
   ...nextConfig,
   {
-    ignores: [".next/**", "node_modules/**", ".worktrees/**"],
+    ignores: [".next/**", "node_modules/**", ".worktrees/**", "cloudflare-env.d.ts"],
   },
   {
     rules: {

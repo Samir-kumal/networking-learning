@@ -532,7 +532,7 @@ export default function DkHpaVpaSection() {
   }, [samples, effectiveMax]);
 
   return (
-    <section id="hpa-vpa" className="scroll-mt-24 space-y-8 bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 rounded-2xl p-6 sm:p-8 card-shadow">
+    <section id="hpa-vpa" className="scroll-mt-24 space-y-8 bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-700 rounded-2xl p-6 sm:p-8 card-shadow max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent">
       {/* ======================= HEADER ======================= */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-sky-100 dark:border-sky-700 pb-5">
         <div>

@@ -341,9 +341,13 @@ export default function AwsAutoScalingSection() {
     { id: "i-0b3c4d5e", az: "us-east-1b", status: "InService" },
     { id: "i-0c5e6f7a", az: "us-east-1c", status: "InService" },
   ]);
+  // The clock differs between server and client, so the first entry is stamped after mount.
   const [activity, setActivity] = useState<ActivityEntry[]>([
-    { id: 1, time: fmtTime(), message: "Auto Scaling group initialized: desired 3 · min 2 · max 8", kind: "info" },
+    { id: 1, time: "--:--:--", message: "Auto Scaling group initialized: desired 3 · min 2 · max 8", kind: "info" },
   ]);
+  useEffect(() => {
+    setActivity((prev) => prev.map((a) => ({ ...a, time: fmtTime() })));
+  }, []);
   const [cooldownTicks, setCooldownTicks] = useState(0);
   const capacityIntervalRef = useRef<number | null>(null);
   const capacityTickRef = useRef<() => void>(() => {});
@@ -536,7 +540,7 @@ export default function AwsAutoScalingSection() {
       {/* ================================================================ */}
       <section
         id="alb-routing"
-        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8 max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
@@ -731,7 +735,7 @@ export default function AwsAutoScalingSection() {
       {/* ================================================================ */}
       <section
         id="lb-comparison"
-        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8 max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
@@ -847,7 +851,7 @@ export default function AwsAutoScalingSection() {
       {/* ================================================================ */}
       <section
         id="health-checks"
-        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8 max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
@@ -1055,43 +1059,45 @@ export default function AwsAutoScalingSection() {
             <div className="bg-slate-50 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700 px-3 py-2 text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Check Timeline (last {healthHistory.length} intervals)
             </div>
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="text-[11px] font-mono text-slate-400 dark:text-slate-500 border-b border-slate-200 dark:border-slate-700">
-                  <th className="p-2 pl-3">Instance</th>
-                  {healthHistory.map((_, t) => (
-                    <th key={t} className="p-2 text-center">
-                      T{healthTick - healthHistory.length + t + 1}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#30363d]">
-                {healthInstances.map((inst) => (
-                  <tr key={inst.id} className="text-xs font-mono text-slate-500 dark:text-slate-400">
-                    <td className="p-2 pl-3 font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">{inst.id}</td>
-                    {healthHistory.map((tick, t) => {
-                      const res = tick.find((r) => r.instanceId === inst.id);
-                      return (
-                        <td key={t} className="p-1.5 text-center">
-                          {res ? (
-                            <span
-                              className={`inline-flex items-center justify-center w-6 h-6 rounded text-[11px] font-bold text-white ${
-                                res.ok ? "bg-emerald-500" : "bg-rose-500"
-                              }`}
-                            >
-                              {res.ok ? "✓" : "✗"}
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center justify-center w-6 h-6 rounded bg-slate-100 dark:bg-slate-700" />
-                          )}
-                        </td>
-                      );
-                    })}
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="text-[11px] font-mono text-slate-400 dark:text-slate-500 border-b border-slate-200 dark:border-slate-700">
+                    <th className="p-2 pl-3">Instance</th>
+                    {healthHistory.map((_, t) => (
+                      <th key={t} className="p-2 text-center">
+                        T{healthTick - healthHistory.length + t + 1}
+                      </th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-[#30363d]">
+                  {healthInstances.map((inst) => (
+                    <tr key={inst.id} className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                      <td className="p-2 pl-3 font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">{inst.id}</td>
+                      {healthHistory.map((tick, t) => {
+                        const res = tick.find((r) => r.instanceId === inst.id);
+                        return (
+                          <td key={t} className="p-1.5 text-center">
+                            {res ? (
+                              <span
+                                className={`inline-flex items-center justify-center w-6 h-6 rounded text-[11px] font-bold text-white ${
+                                  res.ok ? "bg-emerald-500" : "bg-rose-500"
+                                }`}
+                              >
+                                {res.ok ? "✓" : "✗"}
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center justify-center w-6 h-6 rounded bg-slate-100 dark:bg-slate-700" />
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
 
@@ -1127,7 +1133,7 @@ export default function AwsAutoScalingSection() {
       {/* ================================================================ */}
       <section
         id="scaling-policy"
-        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8 max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>
@@ -1316,45 +1322,47 @@ export default function AwsAutoScalingSection() {
                   <span>Step Adjustments</span>
                   <span>{stepRules.length} rules</span>
                 </div>
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="text-[11px] font-mono text-slate-400 dark:text-slate-500 border-b border-slate-200 dark:border-slate-700">
-                      <th className="p-2.5 pl-4">Direction</th>
-                      <th className="p-2.5">When metric…</th>
-                      <th className="p-2.5">Adjust by</th>
-                      <th className="p-2.5"></th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#30363d] text-xs font-mono text-slate-900 dark:text-slate-100">
-                    {stepRules.map((s) => (
-                      <tr key={s.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/50 transition-colors">
-                        <td className="p-2.5 pl-4">
-                          {s.kind === "out" ? (
-                            <span className="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700 font-bold">Scale out</span>
-                          ) : (
-                            <span className="px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-700 font-bold">Scale in</span>
-                          )}
-                        </td>
-                        <td className="p-2.5 text-slate-600 dark:text-slate-300">
-                          {s.kind === "out" ? "≥ " : "≤ "}
-                          {s.threshold}%
-                        </td>
-                        <td className="p-2.5 font-bold text-slate-900 dark:text-slate-100">
-                          {s.kind === "out" ? "+" : "−"}
-                          {s.adjustment}
-                        </td>
-                        <td className="p-2.5 text-right">
-                          <button
-                            onClick={() => removeStep(s.id)}
-                            className="text-[11px] font-mono text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 px-2 py-1 rounded transition-colors"
-                          >
-                            Remove
-                          </button>
-                        </td>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="text-[11px] font-mono text-slate-400 dark:text-slate-500 border-b border-slate-200 dark:border-slate-700">
+                        <th className="p-2.5 pl-4">Direction</th>
+                        <th className="p-2.5">When metric…</th>
+                        <th className="p-2.5">Adjust by</th>
+                        <th className="p-2.5"></th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-[#30363d] text-xs font-mono text-slate-900 dark:text-slate-100">
+                      {stepRules.map((s) => (
+                        <tr key={s.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/50 transition-colors">
+                          <td className="p-2.5 pl-4">
+                            {s.kind === "out" ? (
+                              <span className="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700 font-bold">Scale out</span>
+                            ) : (
+                              <span className="px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-700 font-bold">Scale in</span>
+                            )}
+                          </td>
+                          <td className="p-2.5 text-slate-600 dark:text-slate-300">
+                            {s.kind === "out" ? "≥ " : "≤ "}
+                            {s.threshold}%
+                          </td>
+                          <td className="p-2.5 font-bold text-slate-900 dark:text-slate-100">
+                            {s.kind === "out" ? "+" : "−"}
+                            {s.adjustment}
+                          </td>
+                          <td className="p-2.5 text-right">
+                            <button
+                              onClick={() => removeStep(s.id)}
+                              className="text-[11px] font-mono text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 px-2 py-1 rounded transition-colors"
+                            >
+                              Remove
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
               <div className="bg-slate-50 dark:bg-slate-700 p-4 rounded-xl border border-slate-200 dark:border-slate-700 grid grid-cols-1 sm:grid-cols-[auto_1fr_1fr_auto] gap-3 items-end">
@@ -1632,7 +1640,7 @@ export default function AwsAutoScalingSection() {
       {/* ================================================================ */}
       <section
         id="live-capacity"
-        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8"
+        className="scroll-mt-24 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 sm:p-8 card-shadow shadow-xl hover:border-emerald-400/40 transition-colors space-y-8 max-sm:rounded-none max-sm:border-transparent max-sm:bg-transparent max-sm:shadow-none max-sm:p-0 max-sm:dark:bg-transparent max-sm:dark:border-transparent"
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
           <div>

@@ -1,6 +1,6 @@
 "use client";
 
-import * as SliderPrimitive from "@radix-ui/react-slider";
+import { Slider as UiSlider } from "@/components/ui/slider";
 
 export interface SliderProps {
   label: string;
@@ -21,26 +21,19 @@ export function Slider({ label, value, min, max, step, onChange, format, disable
         <span className="font-medium text-slate-600 dark:text-slate-300">{label}</span>
         <span className="font-mono text-slate-500 dark:text-slate-400">{format ? format(value) : value}</span>
       </div>
-      <SliderPrimitive.Root
-        className="relative flex h-4 w-full touch-none select-none items-center"
+      <UiSlider
+        className="h-4"
         min={min}
         max={max}
         step={step}
         value={[value]}
         disabled={disabled}
+        thumbLabel={label}
         onValueChange={(next) => {
           const [nextValue] = next;
           if (nextValue !== undefined) onChange(nextValue);
         }}
-      >
-        <SliderPrimitive.Track className="relative h-1.5 w-full grow rounded-full bg-slate-200 dark:bg-slate-700">
-          <SliderPrimitive.Range className="absolute h-full rounded-full bg-indigo-500" />
-        </SliderPrimitive.Track>
-        <SliderPrimitive.Thumb
-          className="block h-4 w-4 rounded-full border-2 border-indigo-500 bg-white shadow transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 disabled:opacity-40 dark:bg-slate-900"
-          aria-label={label}
-        />
-      </SliderPrimitive.Root>
+      />
     </div>
   );
 }

@@ -159,28 +159,30 @@ export default function WhyNonlinearityMattersSection() {
               ))
             }
           />
-          <table className="w-full text-left text-[12px]">
-            <thead>
-              <tr className="text-slate-500 dark:text-slate-400">
-                <th className="py-1 pr-2 font-medium">input</th>
-                <th className="py-1 pr-2 font-medium">target</th>
-                <th className="py-1 pr-2 font-medium">P(y=1)</th>
-                <th className="py-1 font-medium">result</th>
-              </tr>
-            </thead>
-            <tbody>
-              {linearPredictions.map((p, i) => (
-                <tr key={i} className="border-t border-slate-100 dark:border-slate-700">
-                  <td className="py-1 pr-2 font-mono">({p.x1}, {p.x2})</td>
-                  <td className="py-1 pr-2 font-mono">{p.label}</td>
-                  <td className="py-1 pr-2 font-mono">{p.prob.toFixed(3)}</td>
-                  <td className={`py-1 font-medium ${p.correct ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}>
-                    {p.correct ? "correct" : "wrong"}
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-[12px]">
+              <thead>
+                <tr className="text-slate-500 dark:text-slate-400">
+                  <th className="py-1 pr-2 font-medium">input</th>
+                  <th className="py-1 pr-2 font-medium">target</th>
+                  <th className="py-1 pr-2 font-medium">P(y=1)</th>
+                  <th className="py-1 font-medium">result</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {linearPredictions.map((p, i) => (
+                  <tr key={i} className="border-t border-slate-100 dark:border-slate-700">
+                    <td className="py-1 pr-2 font-mono">({p.x1}, {p.x2})</td>
+                    <td className="py-1 pr-2 font-mono">{p.label}</td>
+                    <td className="py-1 pr-2 font-mono">{p.prob.toFixed(3)}</td>
+                    <td className={`py-1 font-medium ${p.correct ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}>
+                      {p.correct ? "correct" : "wrong"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </PlaygroundShell>
 
@@ -215,28 +217,30 @@ export default function WhyNonlinearityMattersSection() {
         }
       >
         <div className="space-y-3">
-          <table className="w-full text-left text-[12px]">
-            <thead>
-              <tr className="text-slate-500 dark:text-slate-400">
-                <th className="py-1 pr-2 font-medium">input</th>
-                <th className="py-1 pr-2 font-medium">target</th>
-                <th className="py-1 pr-2 font-medium">predicted</th>
-                <th className="py-1 font-medium">result</th>
-              </tr>
-            </thead>
-            <tbody>
-              {networkPredictions.map((p, i) => (
-                <tr key={i} className="border-t border-slate-100 dark:border-slate-700">
-                  <td className="py-1 pr-2 font-mono">({p.x1}, {p.x2})</td>
-                  <td className="py-1 pr-2 font-mono">{p.label}</td>
-                  <td className="py-1 pr-2 font-mono">{p.prob.toFixed(3)}</td>
-                  <td className={`py-1 font-medium ${p.correct ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}>
-                    {p.correct ? "correct" : "wrong"}
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-[12px]">
+              <thead>
+                <tr className="text-slate-500 dark:text-slate-400">
+                  <th className="py-1 pr-2 font-medium">input</th>
+                  <th className="py-1 pr-2 font-medium">target</th>
+                  <th className="py-1 pr-2 font-medium">predicted</th>
+                  <th className="py-1 font-medium">result</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {networkPredictions.map((p, i) => (
+                  <tr key={i} className="border-t border-slate-100 dark:border-slate-700">
+                    <td className="py-1 pr-2 font-mono">({p.x1}, {p.x2})</td>
+                    <td className="py-1 pr-2 font-mono">{p.label}</td>
+                    <td className="py-1 pr-2 font-mono">{p.prob.toFixed(3)}</td>
+                    <td className={`py-1 font-medium ${p.correct ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}>
+                      {p.correct ? "correct" : "wrong"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <p className="text-[12px] text-slate-500 dark:text-slate-400">
             Click &ldquo;Train&rdquo; and watch accuracy climb to 4/4 as epochs increase (capped at {MAX_EPOCHS}{" "}
             epochs). With only 1 hidden neuron the network is still equivalent to a linear boundary and gets stuck,

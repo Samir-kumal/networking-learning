@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import MlSidebarNav from "@/components/ml/MlSidebarNav";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 export interface NavItem {
   id: string;
@@ -122,6 +123,16 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
   const [activeId, setActiveId]           = useState<string>("basics");
   const [isMobileOpen, setIsMobileOpen]   = useState<boolean>(false);
   const [searchQuery, setSearchQuery]     = useState<string>("");
+
+  // Close the mobile drawer when the route changes or a #module anchor is followed.
+  useEffect(() => {
+    setIsMobileOpen(false);
+  }, [pathname]);
+  useEffect(() => {
+    const close = () => setIsMobileOpen(false);
+    window.addEventListener("hashchange", close);
+    return () => window.removeEventListener("hashchange", close);
+  }, []);
 
   const currentTrackId = useMemo(() => {
     if (pathname.startsWith("/ml"))  return "ml";
@@ -367,29 +378,25 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
 
   return (
     <>
-      {/* Mobile overlay */}
-      {isMobileOpen && (
-        <div
-          className="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-40 lg:hidden"
-          onClick={() => setIsMobileOpen(false)}
-        />
-      )}
-
-      {/* Mobile hamburger */}
-      <button
-        className="fixed top-3 left-3 z-50 lg:hidden p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition"
-        onClick={() => setIsMobileOpen(true)}
-        aria-label="Open sidebar"
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-
-      {/* Mobile drawer */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 shadow-xl transform transition-transform duration-200 lg:hidden ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
-        <SidebarContent />
-      </aside>
+      {/* Mobile drawer: a Radix dialog (focus trap, Escape, focus return, modal semantics) */}
+      <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
+        <SheetTrigger asChild>
+          <button
+            type="button"
+            className="fixed top-3 left-3 z-50 lg:hidden p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition"
+            aria-label="Open sidebar"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </SheetTrigger>
+        <SheetContent side="left" className="w-64 gap-0 p-0 lg:hidden">
+          <SheetTitle className="sr-only">Module navigation</SheetTitle>
+          <SheetDescription className="sr-only">Pick a track or module to open.</SheetDescription>
+          <SidebarContent />
+        </SheetContent>
+      </Sheet>
 
       {/* Desktop sidebar */}
       <aside className={`hidden lg:flex flex-col fixed inset-y-0 left-0 z-30 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 transition-all duration-200 ${isCollapsed ? "w-16" : "w-64"}`}>

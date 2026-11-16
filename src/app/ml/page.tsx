@@ -1,83 +1,100 @@
 import Link from "next/link";
+import { CheckCircle2, Circle, Lock } from "lucide-react";
 import { CURRICULUM } from "@/lib/ml/curriculum";
 import { requireProfile } from "@/lib/ml/auth/session";
 import { getProgressMap, type SectionStatus } from "@/lib/ml/progress/service";
+import { PageHeader } from "@/components/page-header";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
-const STATUS_ICON: Record<SectionStatus, string> = { locked: "\u{1F512}", unlocked: "\u25B7", completed: "\u2705" };
+const STATUS_LABEL: Record<SectionStatus, string> = { locked: "Locked", unlocked: "Open", completed: "Passed" };
+
+function StatusIcon({ status }: { status: SectionStatus }) {
+  const className = "size-4 shrink-0";
+  if (status === "completed") return <CheckCircle2 aria-hidden="true" className={`${className} text-emerald-600 dark:text-emerald-400`} />;
+  if (status === "locked") return <Lock aria-hidden="true" className={`${className} text-muted-foreground`} />;
+  return <Circle aria-hidden="true" className={`${className} text-primary`} />;
+}
 
 export default async function MlHubPage() {
   const profile = await requireProfile();
   const map = await getProgressMap(profile.id);
+  const totalSections = CURRICULUM.reduce((n, c) => n + c.sections.length, 0);
 
   return (
-    <div className="mx-auto max-w-5xl space-y-8 px-6 py-10">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">ML Foundations Lab</h1>
-        <p className="mt-2 max-w-2xl text-[14px] text-slate-500 dark:text-slate-400">
-          Machine learning from the math up — 8 chapters, {CURRICULUM.reduce((n, c) => n + c.sections.length, 0)}{" "}
-          interactive sections. Pass each section&rsquo;s quiz to unlock the next.
-        </p>
-        <Link
-          href="/ml/progress"
-          className="mt-3 inline-block text-[13px] font-medium text-indigo-600 hover:underline dark:text-indigo-400"
-        >
-          View progress dashboard →
-        </Link>
-      </div>
+    <div className="mx-auto max-w-5xl space-y-8 px-4 py-8 sm:px-6 sm:py-10">
+      <PageHeader
+        eyebrow="ML Foundations"
+        title="Machine learning from the math up"
+        description={`${CURRICULUM.length} chapters and ${totalSections} interactive sections. Pass each section's quiz to unlock the next.`}
+        actions={
+          <Button asChild variant="outline">
+            <Link href="/ml/progress">Progress dashboard</Link>
+          </Button>
+        }
+      />
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {CURRICULUM.map((chapter) => {
           const statuses = chapter.sections.map((s) => map[`${chapter.slug}/${s.slug}`] ?? "locked");
           const completedCount = statuses.filter((s) => s === "completed").length;
           const firstAccessibleIndex = statuses.findIndex((s) => s !== "locked");
           const continueHref =
             firstAccessibleIndex === -1 ? null : `/ml/${chapter.slug}/${chapter.sections[firstAccessibleIndex].slug}`;
+          const done = completedCount === chapter.sections.length;
 
           return (
-            <div
-              key={chapter.slug}
-              className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
-            >
-              <div className="flex items-center justify-between">
-                <h2 className="text-[15px] font-semibold text-slate-900 dark:text-slate-100">
+            <Card key={chapter.slug} className="gap-4 py-5">
+              <CardHeader>
+                <CardTitle className="text-base">
                   {chapter.order}. {chapter.title}
-                </h2>
-                <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">
-                  {completedCount}/{chapter.sections.length}
-                </span>
-              </div>
-              <p className="mt-1.5 text-[13px] text-slate-500 dark:text-slate-400">{chapter.summary}</p>
-              <ul className="mt-3 space-y-1">
-                {chapter.sections.map((section, index) => {
-                  const status = statuses[index];
-                  const sectionHref = `/ml/${chapter.slug}/${section.slug}`;
-                  return (
-                    <li key={section.slug} className="text-[13px]">
-                      {status === "locked" ? (
-                        <span className="text-slate-400 dark:text-slate-600">
-                          {STATUS_ICON[status]} {section.title}
-                        </span>
-                      ) : (
-                        <Link
-                          href={sectionHref}
-                          className="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400"
-                        >
-                          {STATUS_ICON[status]} {section.title}
-                        </Link>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
+                </CardTitle>
+                <CardDescription>{chapter.summary}</CardDescription>
+                <CardAction>
+                  <Badge variant={done ? "secondary" : "outline"} className="font-mono tabular-nums">
+                    {completedCount}/{chapter.sections.length}
+                  </Badge>
+                </CardAction>
+              </CardHeader>
+
+              <CardContent>
+                <ul className="divide-y divide-border rounded-md border border-border">
+                  {chapter.sections.map((section, index) => {
+                    const status = statuses[index];
+                    const label = (
+                      <>
+                        <StatusIcon status={status} />
+                        <span className="min-w-0 flex-1 truncate text-sm">{section.title}</span>
+                        <span className="sr-only">({STATUS_LABEL[status]})</span>
+                      </>
+                    );
+                    return (
+                      <li key={section.slug}>
+                        {status === "locked" ? (
+                          <div className="flex items-center gap-2.5 px-3 py-2 text-muted-foreground">{label}</div>
+                        ) : (
+                          <Link
+                            href={`/ml/${chapter.slug}/${section.slug}`}
+                            className="flex items-center gap-2.5 px-3 py-2 text-foreground transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none"
+                          >
+                            {label}
+                          </Link>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </CardContent>
+
               {continueHref && (
-                <Link
-                  href={continueHref}
-                  className="mt-4 inline-block text-[12px] font-semibold text-indigo-600 hover:underline dark:text-indigo-400"
-                >
-                  {completedCount === chapter.sections.length ? "Review chapter →" : "Continue →"}
-                </Link>
+                <CardFooter>
+                  <Button asChild size="sm" variant={done ? "outline" : "default"}>
+                    <Link href={continueHref}>{done ? "Review chapter" : "Continue"}</Link>
+                  </Button>
+                </CardFooter>
               )}
-            </div>
+            </Card>
           );
         })}
       </div>

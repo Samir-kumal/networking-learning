@@ -480,32 +480,34 @@ export default function PracticeSection() {
                         Subnet Allocation Breakdown
                       </h4>
                       <NetworkingTable className="rounded-lg border border-slate-200 dark:border-slate-700">
-                        <table className="w-full text-left text-xs font-mono">
-                          <thead className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
-                            <tr>
-                              <th className="p-3">Subnet / Name</th>
-                              <th className="p-3">Network Address</th>
-                              <th className="p-3">Subnet Mask</th>
-                              <th className="p-3">Usable Range</th>
-                              <th className="p-3">Broadcast</th>
-                              <th className="p-3">Hosts</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-[#30363d] bg-slate-50 dark:bg-slate-700">
-                            {prob.subnetsTable.map((sub, idx) => (
-                              <tr key={idx} className="hover:bg-white/50 dark:hover:bg-slate-800/50">
-                                <td className="p-3 font-bold text-slate-900 dark:text-slate-100">
-                                  {sub.name}
-                                </td>
-                                <td className="p-3 text-indigo-600 dark:text-indigo-400">{sub.network}</td>
-                                <td className="p-3 text-slate-500 dark:text-slate-400">{sub.mask}</td>
-                                <td className="p-3 text-emerald-600 dark:text-emerald-400">{sub.range}</td>
-                                <td className="p-3 text-rose-600 dark:text-rose-400">{sub.broadcast}</td>
-                                <td className="p-3 text-[#d2a8ff]">{sub.hosts}</td>
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-left text-xs font-mono">
+                            <thead className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
+                              <tr>
+                                <th className="p-3">Subnet / Name</th>
+                                <th className="p-3">Network Address</th>
+                                <th className="p-3">Subnet Mask</th>
+                                <th className="p-3">Usable Range</th>
+                                <th className="p-3">Broadcast</th>
+                                <th className="p-3">Hosts</th>
                               </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                            </thead>
+                            <tbody className="divide-y divide-[#30363d] bg-slate-50 dark:bg-slate-700">
+                              {prob.subnetsTable.map((sub, idx) => (
+                                <tr key={idx} className="hover:bg-white/50 dark:hover:bg-slate-800/50">
+                                  <td className="p-3 font-bold text-slate-900 dark:text-slate-100">
+                                    {sub.name}
+                                  </td>
+                                  <td className="p-3 text-indigo-600 dark:text-indigo-400">{sub.network}</td>
+                                  <td className="p-3 text-slate-500 dark:text-slate-400">{sub.mask}</td>
+                                  <td className="p-3 text-emerald-600 dark:text-emerald-400">{sub.range}</td>
+                                  <td className="p-3 text-rose-600 dark:text-rose-400">{sub.broadcast}</td>
+                                  <td className="p-3 text-[#d2a8ff]">{sub.hosts}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
                       </NetworkingTable>
                     </div>
                   )}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 interface CopyButtonProps {
   text: string;
@@ -23,10 +24,12 @@ export default function CopyButton({ text, className = "", label = "Copy" }: Cop
   };
 
   return (
-    <button
+    <Button
       type="button"
+      variant="outline"
+      size="sm"
       onClick={handleCopy}
-      className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium border transition-all ${
+      className={`h-auto gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-all ${
         copied
           ? "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-700 text-emerald-600 dark:text-emerald-400"
           : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-600 text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-300 dark:hover:border-indigo-600"
@@ -48,6 +51,6 @@ export default function CopyButton({ text, className = "", label = "Copy" }: Cop
           {visibleLabel}
         </>
       )}
-    </button>
+    </Button>
   );
 }

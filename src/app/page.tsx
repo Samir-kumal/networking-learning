@@ -92,46 +92,42 @@ const TRACKS = [
   },
 ];
 
+// `rule` is the thin top border that marks each phase; the text stays neutral.
 const PHASES = [
   {
     step: "01",
     phase: "Code & CI/CD",
     detail: "Git → GitHub Actions",
     sub: "Trunk-based commits & automated test workflows",
-    color: "border-violet-200 bg-violet-50 dark:border-violet-700 dark:bg-violet-900/30",
-    badge: "text-violet-700 dark:text-violet-300",
+    rule: "border-violet-500 dark:border-violet-400",
   },
   {
     step: "02",
     phase: "AppSec Scan",
     detail: "Trivy & Snyk SAST",
     sub: "Vulnerability gates & secrets ingestion",
-    color: "border-rose-200 bg-rose-50 dark:border-rose-700 dark:bg-rose-900/30",
-    badge: "text-rose-700 dark:text-rose-300",
+    rule: "border-rose-500 dark:border-rose-400",
   },
   {
     step: "03",
     phase: "Package",
     detail: "Docker & Helm",
     sub: "Multi-stage build & OCI container registry",
-    color: "border-emerald-200 bg-emerald-50 dark:border-emerald-700 dark:bg-emerald-900/30",
-    badge: "text-emerald-700 dark:text-emerald-300",
+    rule: "border-emerald-500 dark:border-emerald-400",
   },
   {
     step: "04",
     phase: "Cloud Orchestrate",
     detail: "AWS EKS & ArgoCD",
     sub: "Declarative GitOps sync & pod autoscaling",
-    color: "border-amber-200 bg-amber-50 dark:border-amber-700 dark:bg-amber-900/30",
-    badge: "text-amber-700 dark:text-amber-300",
+    rule: "border-amber-500 dark:border-amber-400",
   },
   {
     step: "05",
     phase: "Networking",
     detail: "VPC & Subnets",
     sub: "Layer 3 routing, Ingress WAF & NAT gateway",
-    color: "border-indigo-200 bg-indigo-50 dark:border-indigo-700 dark:bg-indigo-900/30",
-    badge: "text-indigo-700 dark:text-indigo-300",
+    rule: "border-indigo-500 dark:border-indigo-400",
   },
 ];
 
@@ -181,46 +177,34 @@ export default function Home() {
         </section>
 
         <section id="architecture" className="scroll-mt-24">
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white card-shadow dark:border-slate-700 dark:bg-slate-800">
-            <div className="flex flex-col gap-3 border-b border-slate-100 px-6 py-5 sm:flex-row sm:items-center sm:justify-between dark:border-slate-700">
-              <div>
-                <p className="mb-1 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
-                  Reference route
-                </p>
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
-                  End-to-end production path
-                </h3>
-              </div>
-              <span className="inline-flex items-center gap-1.5 self-start rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-medium text-emerald-700 dark:border-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 sm:self-auto">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                Reference architecture
-              </span>
-            </div>
-
-            <div className="space-y-5 px-6 py-5">
-              <p className="max-w-3xl text-[13px] leading-relaxed text-slate-500 dark:text-slate-400">
-                Modern cloud software moves through a synchronized sequence — from developer commits through security gates, container packaging, cloud orchestration, and finally across production network subnets.
+          <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-400">
+                Reference route
               </p>
-
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
-                {PHASES.map((p) => (
-                  <div
-                    key={p.step}
-                    className={`space-y-2 rounded-xl border p-4 ${p.color}`}
-                  >
-                    <div className={`font-mono text-[10px] font-bold uppercase tracking-[0.16em] ${p.badge}`}>
-                      Phase {p.step}
-                    </div>
-                    <div className="text-[13px] font-semibold leading-snug text-slate-800 dark:text-slate-200">
-                      {p.phase}
-                    </div>
-                    <div className={`text-[11px] font-medium ${p.badge}`}>{p.detail}</div>
-                    <div className="text-[11px] text-slate-500 dark:text-slate-400">{p.sub}</div>
-                  </div>
-                ))}
-              </div>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">End-to-end production path</h2>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                Modern cloud software moves through a synchronized sequence: developer commits, security gates, container
+                packaging, cloud orchestration, and finally production network subnets.
+              </p>
+            </div>
+            <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-slate-400 dark:text-slate-500">
+              5 phases
             </div>
           </div>
+
+          <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+            {PHASES.map((p) => (
+              <li key={p.step} className={`border-t-2 pt-4 ${p.rule}`}>
+                <p className="font-mono text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                  Phase {p.step}
+                </p>
+                <h3 className="mt-1 text-base font-semibold text-slate-900 dark:text-slate-100">{p.phase}</h3>
+                <p className="mt-1 text-sm text-slate-700 dark:text-slate-300">{p.detail}</p>
+                <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-slate-400">{p.sub}</p>
+              </li>
+            ))}
+          </ol>
         </section>
       </div>
     </div>
